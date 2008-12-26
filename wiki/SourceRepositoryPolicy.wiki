@@ -2,7 +2,7 @@
 
 The developers who participate Hackathon can use the source code repository in this project. The policy how to use this repository is described here.
 
-= Structure of directories =
+== Directory srtucture ==
 
 The developers who use this repository must make a directory in /trunk according to below.
 
