@@ -6,6 +6,8 @@ The developers who participate Hackathon can use the source code repository in t
 
 The developers who use this repository must make a directory in /trunk according to below.
 
-  * Must make the directory which named by API and date under /trunk. This directory is called Hackathon directory. For example, /trunk/OpenSocial20081218.
+  * Must make the directory which named by API and date under /trunk. This directory is called Hackathon directory.
+    * For example, /trunk/OpenSocial20081218.
 
-  * Must make the sub directory which named by application or group under Hackathon directory. For example, /trunk/OpenSocial20081218/News (for News application).
+  * Must make the sub directory which named by application or group under Hackathon directory.
+    * For example, /trunk/OpenSocial20081218/News (for News application).
