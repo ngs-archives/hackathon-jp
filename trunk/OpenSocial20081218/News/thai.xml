@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="News">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html" view="profile"><![CDATA[ ddd ]]></Content>
+  <Content type="html" view="canvas"><![CDATA[
+
+<script type="text/javascript">
+function init() {
+ var url = "http://thai.news-agency.jp/feed.rdf";
+ var params = {};
+ params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+ params[gadgets.io.RequestParameters.NUM_ENTRIES] = 999;
+ gadgets.io.makeRequest(url, onLoad, params);
+}
+
+function onLoad(res){
+ var feed_area = document.getElementById("feed");
+ if (res == null || typeof(res.data) != "object") {
+   feed_area.innerHTML = "フィードの取得に失敗しました。";
+   return;
+ }
+ // var items= res.data.items;
+ var items= res.data.Entry;
+ if (!items) {
+    feed_area.innerHTML = "データはありませんでした。";
+    return;
+ }
+ var html = [];
+ for (var i = 0, n = items.length; i < n; i ++) {
+   // var item = items[i];
+   var item = items[i];
+   html.push('<div>');
+   html.push('<a href="'+item["Link"]+'" target="_blank">');
+   html.push(item["Title"]);
+   html.push('</a>&nbsp;');
+   html.push('<a href="#" target="_blank" onclick="return( submitActivity(\'' + item["Title"] +'\', \'' + item["Link"] + '\') )">');
+   html.push('[追加]');
+   html.push('</a><br>'); 
+   html.push(item["Summary"]);
+   html.push('</div>');
+ }
+ feed_area.innerHTML = html.join("");
+}
+gadgets.util.registerOnLoadHandler(init);
+
+
+
+function submitActivity(title,link) {
+ // (1) アクティビティオブジェクトを作成
+ var params = {};
+ params[opensocial.Activity.Field.TITLE] = '<a href="' + link + '">' + title + '</a>&nbsp;' + prompt('コメントを入力してください');
+// params[opensocial.Activity.Field.TITLE_ID] = 'Template_1';
+// params[opensocial.Activity.Field.TEMPLATE_PARAMS] = {
+//   'subject': '<a href="' + link + '">' + title + '</a>'
+// , 'comment': prompt('コメントを入力してください')
+// };
+
+ var activity = opensocial.newActivity(params);
+ // (2) アクティビティを送信
+ opensocial.requestCreateActivity(
+   activity,
+   opensocial.CreateActivityPriority.HIGH,
+   onResponse);
+
+return(false);
+}
+
+// (3) アクティビティ送信の結果を取得
+function onResponse(response) {
+ if (response.hadError()) {
+   alert(response.getErrorCode()); //+ ":" + response.getErrorMessage());
+ } else {
+   alert("Success!");
+ }
+}
+
+</script>
+<div id="feed"></div>
+
+  ]]></Content>
+</Module>
