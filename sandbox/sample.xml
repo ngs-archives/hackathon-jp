@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Module>
+  <ModulePrefs title="Sample" author_email="yoichiro@eisbahn.jp">
+    <Require feature="opensocial-0.8" />
+  </ModulePrefs>
+  <Content type="html"><![CDATA[
+
+<div>Hello, OpenSocial!</div>
+
+  ]]></Content>
+</Module>
