@@ -6,7 +6,7 @@
 
 ==!MySpace==
 
-!MySpaceでは、!OpenSocialアプリケーションの開発作業や技術情報の提供などを行うための「MySpace Developer Platform（MDP）」サイトを提供しています。このMDPを使うことで、!OpenSocialアプリケーション開発に関係する全ての作業を行うことが可能です。
+!MySpaceでは、!OpenSocialアプリケーションの開発作業や技術情報の提供などを行うための「!MySpace Developer Platform（MDP）」サイトを提供しています。このMDPを使うことで、!OpenSocialアプリケーション開発に関係する全ての作業を行うことが可能です。
 
 http://developer.myspace.com/
 
@@ -18,7 +18,7 @@ MDPを利用するためには、予め開発者アカウントを登録して�
     http://www.myspace.com/
 (3) MDPを表示する。
     http://developer.myspace.com/
-(4) [My Apps]リンクをクリックし、表示されるフォームに必要情報を入力した後、[submit]ボタンを押下する。
+(4) "My Apps"リンクをクリックし、表示されるフォームに必要情報を入力した後、"submit"ボタンを押下する。
 
 上記作業により、約24時間以内に登録完了のメールが、フォームに入力したメールアドレス宛に届きます。この通知を受け取った後に、MDPにて!OpenSocialアプリケーションを開発することが可能となります。
 
@@ -41,7 +41,7 @@ Orkut Sandboxを利用するためには、予め利用登録を行っておく�
     http://www.orkut.com/
 (2) Orkut Sandboxの利用登録ページを表示する。
     http://sandbox.orkut.com/SandboxSignup.aspx
-(3) 必要事項を入力し、[登録]ボタンを押下する。
+(3) 必要事項を入力し、"登録"ボタンを押下する。
 (4) Orkut Sandboxにログインする。
     http://sandbox.orkut.com/
 
@@ -59,7 +59,7 @@ http://code.google.com/p/partuza/
 
 (1) Partuza Live Demoサイトにアクセスする。
     http://www.partuza.nl/
-(2) [register]リンクをクリックし、必要事項を入力後、[Register]ボタンを押下する。
-(3) e-mailおよびpasswordを入力し、[Go]ボタンを押下してログインする。
+(2) "register"リンクをクリックし、必要事項を入力後、"Register"ボタンを押下する。
+(3) e-mailおよびpasswordを入力し、"Go"ボタンを押下してログインする。
 
-他の会員と友達関係を結ぶには、他の会員を検索し、[Add as friend]リンクを押下して申請を行ってください。
+他の会員と友達関係を結ぶには、他の会員を検索し、"Add as friend"リンクを押下して申請を行ってください。
