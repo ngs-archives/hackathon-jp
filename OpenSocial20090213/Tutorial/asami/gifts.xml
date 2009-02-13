@@ -36,7 +36,9 @@
 	  var viewer = data.get('viewer').getData();
 	  var viewerFriends = data.get('viewerFriends').getData();
 	  var giftData = data.get('data').getData();
-	　　var viewerFriendData = data.get('viewerFriendData').getData();
+	  if(data.get('viewerFriendData') != null) {
+	　　	var viewerFriendData = data.get('viewerFriendData').getData();
+	  }
 	
 	  html = new Array();
 	  html.push('<select id="person">');
@@ -110,6 +112,36 @@
 	  }
 	  html.push('</ul>');
 	  document.getElementById('given').innerHTML = html.join('');
+	}
+	
+	function updateReceivedList(viewer, data, friends) {
+	  var viewerId = viewer.getId();
+
+	  var html = new Array();
+	  html.push('You have received:<ul>');
+	  friends.each(function(person) {
+	    if (data[person.getId()]) {
+	      var json = data[person.getId()]['gifts'];
+
+	      var gifts = {}
+	      if (!json) {
+	        gifts = {};
+	      }
+	      try {
+	        gifts = gadgets.json.parse(gadgets.util.unescapeString(json));
+	      } catch (e) {
+	        gifts = {};
+	      }
+
+	      for (i in gifts) {
+	        if (i.hasOwnProperty && i == viewerId) {
+	          html.push('<li>', globalGiftList[gifts[i]], ' from ', person.getDisplayName(), '</li>');
+	        }
+	      }
+	    }
+	  });
+	  html.push('</ul>');
+	  document.getElementById('received').innerHTML = html.join('');
 	}
 	
 </script>
