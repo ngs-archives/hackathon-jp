@@ -26,12 +26,12 @@ function show(oj){
 		       + "ASIN: " + asin		
 		       + "<br />"
 		       );
-	    $('<input type="radio">want</input>').attr("name",asin).appendTo($div)
-		.click(function(){
-			postActivity("This is a sample activity, created at " + new Date().toString());
-		    });
-	    $('<input type="radio">reading</input>').attr("name",asin).appendTo($div);
-	    $('<input type="radio">have read</input>').attr("name",asin).appendTo($div);
+
+	    $.each(["not","want","reading","have read"],function(){
+		    var kw = this;
+		    $('<input type="radio">' + kw + '</input>').attr("name",asin).appendTo($div)
+			.click(function(){ postActivity(kw)   });
+		});
 	    $base.append($div);
 	});
 }
