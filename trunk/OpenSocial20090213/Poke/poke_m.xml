@@ -82,9 +82,24 @@ debug("getMyAttrs");
               var obj = data[viewer.getId()];
               var pokes = obj["pokes"];
               debug(pokes);
-          }
+          });
       }
       function poke() {
+          var owner_id;
+          var get_req = opensocial.newDataRequest();
+          req.add(req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+          req.send(function(data) {
+              owner_id = data.get("owner").getData().getId();
+          });
+
+
+          var data = { owner_id:[{ item2: -10}] }
+          var json = gadgets.json.stringify(data);
+          debug(json);
+
+          var req = opensocial.newDataRequest();
+          req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'pokes', json));
+          req.send();
       }
       $(function(){
         debug("init");
