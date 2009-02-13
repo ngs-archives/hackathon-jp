@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-	<ModulePrefs title="Gifts part 8 - Views">
+	<ModulePrefs title="Practice">
     	<Require feature="opensocial-0.8"/>
 	</ModulePrefs>
   	<Content type="html">
@@ -26,7 +26,7 @@
 			var viewer = data.get('viewer').getData();
 			var viewerFriends = data.get('viewerFriends').getData();
 			
-			html = new Array();
+			var html = new Array();
 			html.push('<select id="person">');
 			viewerFriends.each(function(person) {
 				if (person.getId()) {
@@ -34,7 +34,7 @@
 				}
 			});
 			html.push('</select>');
-			document.getElementById('friends').innerHTML = html.join('');
+			document.getElementById('main').innerHTML = html.join('');
           
           	globalFriends = viewerFriends;
         }
