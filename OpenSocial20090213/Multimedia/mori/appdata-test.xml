@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 3 - Showing Gifts">
+  <ModulePrefs title="AppData Test">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
@@ -65,7 +65,6 @@ AppData.prototype = {
             var req = opensocial.newDataRequest();
             var key     = 'profile';
             var value   = '私の名前は' + viewer.getDisplayName() + 'ですよ';
-    console.log(req);
             req.add(req.newUpdatePersonAppDataRequest(self.ViewerSelfIdSpec,key, value));
             req.add(req.newFetchPersonRequest(self.ViewerSelfIdSpec), 'people');
             req.send();
@@ -76,16 +75,7 @@ AppData.prototype = {
         var self = this;
         self.readPeopleData(self.ViewerSelfIdSpec, function (viewer) {
             self.readPeopleData(self.OwnerSelfIdSpec, function (owner) {
- //               self.createActivity(viewer, owner);
-
-function post_activity() {
-var params = {};
-params[opensocial.Activity.Field.TITLE] = "This is new Activity!";
-var activity = opensocial.newActivity(params);
-opensocial.requestCreateActivity(activity,
-opensocial.CreateActivityPriority.LOW);
-}
-post_activity();
+               self.createActivity(viewer, owner);
             });
         });
     },
@@ -97,10 +87,7 @@ post_activity();
         var activity = opensocial.newActivity(msg);
         activity.setField(opensocial.Activity.Field.STREAM_FAVICON_URL, 'http://images.hi5.com/images/icons/_/update_widget.png');
         var priority = opensocial.CreateActivityPriority['HIGH'];
-console.log(viewer_name);
-console.log(activity);
         opensocial.requestCreateActivity(activity, priority, function (res) {
-console.log(res);
             if (res.hadError()) {
                 // エラー処理
                 opt_callback();
