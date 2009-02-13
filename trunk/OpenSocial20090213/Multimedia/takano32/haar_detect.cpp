@@ -22,6 +22,8 @@ main (int argc, char **argv)
 	// (1)画像を読み込む
 	if (argc < 2 || (src_img = cvLoadImage (argv[1], CV_LOAD_IMAGE_COLOR)) == 0)
 		return -1;
+	if (argc = 3 && strcmp("--no-gui", argv[2]) == 0 )
+		gui = false;
 	
 	src_gray = cvCreateImage (cvGetSize (src_img), IPL_DEPTH_8U, 1);
 
@@ -75,9 +77,11 @@ main (int argc, char **argv)
 
 
 	// (6)画像を表示，キーが押されたときに終了
-	// cvNamedWindow ("Face Detection", CV_WINDOW_AUTOSIZE);
-	// cvShowImage ("Face Detection", src_img);
-	// cvWaitKey (0);
+	if (gui) {
+		cvNamedWindow ("Face Detection", CV_WINDOW_AUTOSIZE);
+		cvShowImage ("Face Detection", src_img);
+		cvWaitKey (0);
+	}
 
 	cvDestroyWindow ("Face Detection");
 	cvReleaseImage (&src_img);
