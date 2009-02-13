@@ -94,7 +94,6 @@
       if (!globalGivenGifts[friend]) {
         globalGivenGifts[friend] = new Array();
       }
-      globalGivenGifts[friend] = new Array();
       globalGivenGifts[friend].push(nut);
       var json = gadgets.json.stringify(globalGivenGifts);
 
