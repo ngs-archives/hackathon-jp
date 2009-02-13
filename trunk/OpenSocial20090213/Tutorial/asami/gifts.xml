@@ -29,9 +29,13 @@
 	}
 </script>
 	<div id='main'>
-	        Your friends:
-	        <div id='friends'></div>
+	        <div id='give'>
+	          <form id='gift_form'>
+	            Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
+	          </form>
+	        </div>
 	      </div>
+	
 	
     ]]>
   </Content>
