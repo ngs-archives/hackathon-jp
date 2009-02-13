@@ -18,7 +18,7 @@ function show(oj){
 //        html.push("<blockquote>" + txt(this,"description") + "</blockquote>");
 //    });
 //    document.getElementById('friends').innerHTML += html.join('');
-    alert(getOwnerId());
+    getOwnerId();
 }
 
 var params = {};
@@ -71,7 +71,7 @@ function getOwnerId(){
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
     req.send(function(data) {
         var owner = data.get('owner').getData();
-        return owner.getId();
+        console.dir(owner);
     });
 }
 
