@@ -50,7 +50,7 @@ socialquest.Player.prototype = {
 socialquest.CharacterMaker = function (){};
 socialquest.CharacterMaker.prototype = {
     make: function (p) {
-        var md5 = MD5Main(p.getId());
+        var md5 = MD5_hashhex(p.getId());
         alert(md5);
     }
 };
