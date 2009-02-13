@@ -30,6 +30,8 @@ var params = {};
 params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
 
-gadgets.io.makeRequest("http://booklog.jp/users/sawamur/feed/RSS1", show, params );
+function init(){
+    gadgets.io.makeRequest("http://booklog.jp/users/sawamur/feed/RSS1", show, params );
+}
 
 
