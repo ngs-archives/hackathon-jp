@@ -20,11 +20,11 @@
 
 		  html = new Array();
 		  html.push('<ul>');
-		  for(i = 0 ; i < defaultItemList.size ; i++) {
+		  for(i = 0 ; i < defaultItemList.length ; i++) {
 		  	html.push('<li>' + defaultItemList[i] + "</li>");
 		  };
 		  html.push('</ul>');
-		alert(html);
+		alert(defaultItemList.length);
 		  document.getElementById('items').innerHTML = html.join('');
 		}
 		
