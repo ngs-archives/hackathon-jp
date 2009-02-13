@@ -10,14 +10,26 @@
        * Request the OWNER and OWNER's friends.
        */
 	function init(){
+
+		// Friend List(People)
 		var params = {};
+
+		// whos Friend?
 		params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+
+		// social query?
 		params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+
+		// distance for firend?
 		params[opensocial.IdSpec.Field.NECTWORK_DISTANCE] = 1;
+
+/* ------------------------------------------------------------ */
 
 		var idSpec = opensocial.newIdSpec(params);
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPeopleRequest(idSpec),"friends");
+
+/* ------------------------------------------------------------ */
 
 		req.send(function(data){
 			if(data.hadError()){
@@ -33,6 +45,7 @@
 					var friends = item.getData();
 					var target = document.getElementById("target");
 					friends.each(function(friend){
+						/*    */
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
 						var userName = friend.getDisplayName();
 						target.innerHTML += "<div><input type='checkbox' value=''><img src='" + thumbnailUrl + "'></img>"+ userName +"</div><br />";
@@ -43,6 +56,7 @@
 	}
 	gadgets.util.registerOnLoadHandler(init);
 	</script>
+	<div id="teamname"></div>
 	<div id="target"></div>
   ]]>  </Content>
 </Module>
