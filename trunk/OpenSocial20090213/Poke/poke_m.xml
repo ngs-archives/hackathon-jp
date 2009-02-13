@@ -87,8 +87,8 @@ debug("getMyAttrs");
       function poke() {
           var owner_id;
           var get_req = opensocial.newDataRequest();
-          req.add(req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
-          req.send(function(data) {
+          get_req.add(req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+          get_req.send(function(data) {
               owner_id = data.get("owner").getData().getId();
           });
 
