@@ -54,8 +54,11 @@
 		  var item_b = document.getElementById('item_select_b').value;
 		
 		  var mix_item = mixItemList[item_a][item_b];
-		  document.getElementById('mix_item').innerHTML = mix_item;
-		
+		  if(mix_item == '') {
+			document.getElementById('mix_item').innerHTML = "失敗しました！";
+		  } else {
+		  	document.getElementById('mix_item').innerHTML = mix_item;
+		  }
 		}
 	</script>
 	
