@@ -3,7 +3,7 @@ gadgets.util.registerOnLoadHandler(init);
 
 
 function txt(dom,tag){
-    retrun dom.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
+    return dom.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
 }
 
     
