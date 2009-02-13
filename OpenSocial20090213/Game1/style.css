@@ -17,7 +17,7 @@
 
 .main h1{
 	font-size:20px;
-}
+}	
 
 .main ul{
 	font-size:20px;
@@ -46,24 +46,44 @@
 }
 
 .members{
-	background-image:url("./images/hensei.jpg");
-	background-repeat:no-repeat;
 	width:800px;
-	height:320px;
+	height:100%;
 	padding:30px;
 	color:#333333;
+	white-space: nowrap;
+	background:#CCCCCC;
 }
 
-.members li{
-	float:left;
-	width:200;
-	height:320;
+.members h1{
+	font-size:15px;
 }
 
-.members li{
+.friendsPhoto{
+	width:64px;
+	height:48px;
+	background:#cccccc;
+	margin:3px;
 	float:left;
-	width:200;
-	height:300;
 }
+
+div.members ul{
+	clear:both;
+	
+
+
+}
+
+li.member{
+	overflow:hidden;
+	float:left;
+	white-space: nowrap;
+	width:200;
+	height:200;
+	list-style:none;
+	border: medium dashed #CCCCCC;
+	margin:15px;
+	background:#ffffff;
+}
+
 
 
