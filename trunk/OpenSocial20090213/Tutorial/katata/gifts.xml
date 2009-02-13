@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 5 - Crossing the Streams">
+  <ModulePrefs title="Gifts part 6 - Giving Multiple Gifts">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
-      <script type="text/javascript">
+      <script>
         var globalGivenGifts = {};
         var globalFriends = {};
         var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
@@ -39,7 +39,11 @@
 
               for (i in gifts) {
                 if (i.hasOwnProperty && i == viewerId) {
-                  html.push('<li>', globalGiftList[gifts[i]], ' from ', person.getDisplayName(), '</li>');
+                  for (j in gifts[i]) {
+                    if (j.hasOwnProperty) {
+                      html.push('<li>', globalGiftList[gifts[i][j]], ' from ', person.getDisplayName(), '</li>');
+                    }
+                  }
                 }
               }
             }
@@ -55,20 +59,24 @@
           }
 
           if (!json) {
-            givenGifts = {};
+            globalGivenGifts = {};
           }
           try {
-            givenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
+            globalGivenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
           } catch (e) {
-            givenGifts = {};
+            globalGivenGifts = {};
           }
 
           var html = new Array();
           html.push('You have given:');
           html.push('<ul>');
-          for (i in givenGifts) {
+          for (i in globalGivenGifts) {
             if (i.hasOwnProperty) {
-              html.push('<li>', friends.getById(i).getDisplayName(), ' received ', globalGiftList[givenGifts[i]], '</li>');
+              for (j in globalGivenGifts[i]) {
+                if (j.hasOwnProperty) {
+                  html.push('<li>', friends.getById(i).getDisplayName(), ' received ', globalGiftList[globalGivenGifts[i][j]], '</li>');
+                }
+              }
             }
           }
           html.push('</ul>');
@@ -79,7 +87,13 @@
           var nut = document.getElementById('nut').value;
           var friend = document.getElementById('person').value;
 
-          globalGivenGifts[friend] = nut;
+          if (!globalGivenGifts) {
+            globalGivenGifts = {};
+          }
+          if (!globalGivenGifts[friend]) {
+            globalGivenGifts[friend] = new Array();
+          }
+          globalGivenGifts[friend].push(nut);
           var json = gadgets.json.stringify(globalGivenGifts);
 
           var req = opensocial.newDataRequest();
@@ -152,7 +166,7 @@
           loadFriends();
           makeOptionsMenu();
         }
-
+        
         gadgets.util.registerOnLoadHandler(init);
       </script>
       <div id='main'>
