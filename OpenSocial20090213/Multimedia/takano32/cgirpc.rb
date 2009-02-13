@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'cgi'
 cgi = CGI.new
 url = cgi.params['image'][0]
