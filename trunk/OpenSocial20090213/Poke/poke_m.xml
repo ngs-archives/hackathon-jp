@@ -28,6 +28,7 @@ debug("initMyAttrs");
 
           var req = opensocial.newDataRequest();
           req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'attrs', json));
+          req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'latestAttrs', json));
           req.send();
       }
 
@@ -68,9 +69,88 @@ debug("getMyAttrs");
                html.push('</dl>');
 
                $("#" + divId).html(html.join(''));
+               // Save json to Global
+               myAttrs = json;
           });
       }
 
+      var testFriedsData = {
+        2: [
+          { item1: -3 },
+          { item2: 3 }
+        ],
+        3: [
+          { item1: -2 },
+          { item3: 5 }
+        ]
+      };
+
+      function updateLatest() {
+        debug( testFriedsData );
+        updateLatestCallback( testFriedsData );
+      }
+
+      function updateLatestCallback(data) {
+        var newAttrs = {};
+        var itemId;
+        // Copy initAttrs to new Attrs
+        for ( itemId in myAttrs ) {
+          newAttrs[itemId] = myAttrs[itemId];
+        }
+
+        debug( newAttrs );
+
+        for ( friendId in data ) {
+          var pokes = data[friendId];
+          for ( i in pokes ) {
+            for ( itemId in pokes[i] )
+              newAttrs[itemId] += pokes[i][itemId];
+          }
+        }
+        debug("new attrs");
+        debug( newAttrs );
+
+        var json = gadgets.json.stringify(newAttrs);
+        var req = opensocial.newDataRequest();
+        req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'latestAttrs', json));
+        req.send();
+      }
+
+      function getOwnerAttrs(divId) {
+console.log("getOwnerAttrs");
+          var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.OWNER});
+
+          var req = opensocial.newDataRequest();
+
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+          req.add(req.newFetchPersonAppDataRequest(idSpec, 'latestAttrs'), "data");
+          req.send(function(data) {
+console.log("getOwnerAttrs : cb");
+               var attrs = data.get("data").getData();
+               var owner = data.get("owner").getData();
+
+
+               if (!attrs[owner.getId()] ) {
+                 $("#" + divId).html('no data');
+                 return;
+               }
+               var jsonStr = attrs[owner.getId()]['latestAttrs'];
+console.log("getOwnerAttrs : jsonStr : " + jsonStr);
+
+               var json = gadgets.json.parse(gadgets.util.unescapeString(jsonStr));
+console.log("getOwnerAttrs : json : " + json);
+
+               var html = ['<dl>'];
+               for ( itemkey in json ) {
+                 html.push('<dt>' + masterAttrs[itemkey] + '</dt>');
+                 html.push('<dd>' + json[itemkey] + '</dd>');
+                 }
+               html.push('</dl>');
+
+               $("#" + divId).html(html.join(''));
+          });
+
+      }
       function getPokes() {
           var req = opensocial.newDataRequest();
           req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
@@ -102,6 +182,7 @@ debug("getMyAttrs");
           req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'pokes', json));
           req.send();
       }
+
       $(function(){
         debug("init");
         getMyAttrs('main');
@@ -109,9 +190,15 @@ debug("getMyAttrs");
     </script>
     <button type="button" onclick="initMyAttrs();">Init!</button>
     <button type="button" onclick="getMyAttrs('main');">Refresh!</button>
+    <button type="button" onclick="updateLatest();">Update Friends Data</button>
+    <button type="button" onclick="getOwnerAttrs('ownerAttrs')">Show this user(owner)'s latest attrs</button>
     <button type="button" onclick="getPokes();">getPoke</button>
     <button type="button" onclick="poke();">Poke</button>
+
     <div id="main">あいうえお</div>
+
+    <div id="ownerAttrs">このユーザの最新のデータ</div>
+
     ]]>
   </Content>
   <!--
