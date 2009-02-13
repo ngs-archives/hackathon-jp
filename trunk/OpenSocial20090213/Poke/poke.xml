@@ -69,11 +69,51 @@ debug("getMyAttrs");
                html.push('</dl>');
 
                $("#" + divId).html(html.join(''));
+               // Save json to Global
+               myAttrs = json;
           });
       }
 
-      function updateLatest(divId) {
-        
+      var testFriedsData = {
+        2: [
+          { item1: -3 },
+          { item2: 3 }
+        ],
+        3: [
+          { item1: -2 },
+          { item3: 5 }
+        ]
+      };
+
+      function updateLatest() {
+        debug( testFriedsData );
+        updateLatestCallback( testFriedsData );
+      }
+
+      function updateLatestCallback(data) {
+        var newAttrs = {};
+        var itemId;
+        // Copy initAttrs to new Attrs
+        for ( itemId in myAttrs ) {
+          newAttrs[itemId] = myAttrs[itemId];
+        }
+
+        debug( newAttrs );
+
+        for ( friendId in data ) {
+          var pokes = data[friendId];
+          for ( i in pokes ) {
+            for ( itemId in pokes[i] )
+              newAttrs[itemId] += pokes[i][itemId];
+          }
+        }
+        debug("new attrs");
+        debug( newAttrs );
+
+        var json = gadgets.json.stringify(newAttrs);
+        var req = opensocial.newDataRequest();
+        req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'latestAttrs', json));
+        req.send();
       }
 
       function getOwnerAttrs(divId) {
@@ -119,12 +159,10 @@ console.log("getOwnerAttrs : json : " + json);
     </script>
     <button type="button" onclick="initMyAttrs();">Init!</button>
     <button type="button" onclick="getMyAttrs('main');">Refresh!</button>
-    <button type="button" onclick="updateLatest('latest')">Lastest!</button>
+    <button type="button" onclick="updateLatest();">Update Friends Data</button>
     <button type="button" onclick="getOwnerAttrs('ownerAttrs')">Show this user(owner)'s latest attrs</button>
 
     <div id="main">あいうえお</div>
-
-    <div id="latest">最新状態</div>
 
     <div id="ownerAttrs">このユーザの最新のデータ</div>
 
