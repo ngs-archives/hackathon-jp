@@ -9,6 +9,9 @@
 
 	gadgets.util.registerOnLoadHandler(init);
 
+	var givenGifts = {};
+	var globalGiftList = ['ああああ', 'いいいい', 'a hazelnut', 'a red pistachio nut'];
+	
 	function init() {
 	  loadFriends();
 	　　makeOptionsMenu();
@@ -47,9 +50,6 @@
 	  updateGiftList(viewer, giftData, viewerFriends);
 	}
 	
-	var givenGifts = {};
-	var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
-
 	function makeOptionsMenu() {
 	  var html = new Array();
 	  html.push('<select id="nut">');
