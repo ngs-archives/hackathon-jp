@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 0 - Boilerplate">
+  <ModulePrefs title="BookRingr">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
@@ -11,7 +11,7 @@
 
 
 <div id='main'>
-  Your friends:
+  from booklog
   <div id='friends'></div>
 </div>
 
