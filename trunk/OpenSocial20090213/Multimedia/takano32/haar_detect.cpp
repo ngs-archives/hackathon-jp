@@ -54,7 +54,7 @@ main (int argc, char **argv)
 		printf("	\"x\":%d,\n", r->x);
 		printf("	\"y\":%d,\n", r->y);
 		printf("	\"w\":%d,\n", r->width);
-		printf("	\"h\":%d\n", r-height);
+		printf("	\"h\":%d\n", r->height);
 		puts("}]");
 		if (i != faces->total - 1) {
 			puts(",");
