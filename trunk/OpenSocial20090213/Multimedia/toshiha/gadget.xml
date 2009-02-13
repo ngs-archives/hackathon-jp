@@ -23,6 +23,7 @@
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/jQuery.opensocial_simple/jquery.opensocial_simple.js"></script>
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/sisso/sisso.js"></script>
 <script type=" text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/toshiha/canvas.js"></script>
+<script type=" text/javascript" src="http://miya2000.up.seesaa.net/marquee/marquee.js"></script>
 <div class="container">
 <marquee id="bigFontText"></marquee>
 <div id="textFrontBg" class="bgpng"></div>
