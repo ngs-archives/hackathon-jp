@@ -9,6 +9,10 @@
  	<script>
 		
 		var defaultItemList = ['ごはん', 'しお', 'ミソ', '小麦粉'];
+		var mixItemList = [['', 'おにぎり', '焼きおにぎり', ''],
+		                   ['おにぎり', '', '', ''],
+		                   ['焼きおにぎり', '', '', ''],
+		                   ['', '', '', ''] ];
 		
 		gadgets.util.registerOnLoadHandler(init);
 
@@ -31,12 +35,21 @@
 		  document.getElementById('items_b').innerHTML = html.join('');
 		}
 		
+		function mix() {
+		  var item_a = document.getElementById('items_a').value;
+		  var item_b = document.getElementById('items_b').value;
 		
+		  var mix_item = mixItemList[item_a][item_b];
+		  document.getElementById('mix_item').innerHTML = mix_item;
+		
+		}
 	</script>
 	
 	<div id='main'>
-	   items:
-	   <span id='items_a'></span> + <span id='items_b'></span> =
+	   items:<br/>
+	   <span id='items_a'></span> + 
+	   <span id='items_b'></span> = 
+	   <a id='mix_item' href='javascript:void(0);' onclick='mix();'>?</a>
 	</div>
     ]]>
   </Content>
