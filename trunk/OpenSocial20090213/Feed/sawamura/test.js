@@ -50,5 +50,5 @@ function onLoadFriends(data) {
 	    }
 	});
     html.push('</ul>');
-    document.getElementById('friends').innerHTML = html.join('');
+    //document.getElementById('friends').innerHTML = html.join('');
 }
