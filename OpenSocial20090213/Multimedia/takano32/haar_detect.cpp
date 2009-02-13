@@ -6,6 +6,7 @@ int
 main (int argc, char **argv)
 {
 	int i;
+	int gui = true;
 	IplImage *src_img = 0, *src_gray = 0;
 	const char *cascade_name = "/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml";
 	CvHaarClassifierCascade *cascade = 0;
@@ -21,6 +22,7 @@ main (int argc, char **argv)
 	// (1)画像を読み込む
 	if (argc < 2 || (src_img = cvLoadImage (argv[1], CV_LOAD_IMAGE_COLOR)) == 0)
 		return -1;
+	
 	src_gray = cvCreateImage (cvGetSize (src_img), IPL_DEPTH_8U, 1);
 
 	// (2)ブーストされた分類器のカスケードを読み込む
