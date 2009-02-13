@@ -20,11 +20,11 @@
 		  onLoadItems();
 		}
 		
-		function onLoadItems() {
+		function onLoadItemsA() {
 
 		  html = new Array();
 		  html.push('</ul>');
-		  html.push('<select id="item_select">');
+		  html.push('<select id="item_select_a">');
 		  
 		  for(i = 0 ; i < defaultItemList.length ; i++) {
 			html.push('<option value="', i, '">', defaultItemList[i], '</option>');
@@ -32,12 +32,25 @@
           html.push('</select>');
 
 		  document.getElementById('items_a').innerHTML = html.join('');
+		}
+		
+		function onLoadItemsB() {
+
+		  html = new Array();
+		  html.push('</ul>');
+		  html.push('<select id="item_select_b">');
+		  
+		  for(i = 0 ; i < defaultItemList.length ; i++) {
+			html.push('<option value="', i, '">', defaultItemList[i], '</option>');
+		  }
+          html.push('</select>');
+
 		  document.getElementById('items_b').innerHTML = html.join('');
 		}
 		
 		function mix() {
-		  var item_a = document.getElementById('items_a').value;
-		  var item_b = document.getElementById('items_b').value;
+		  var item_a = document.getElementById('item_select_a').value;
+		  var item_b = document.getElementById('item_select_b').value;
 		
 		  var mix_item = mixItemList[item_a][item_b];
 		  document.getElementById('mix_item').innerHTML = mix_item;
