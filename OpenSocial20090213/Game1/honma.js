@@ -102,10 +102,10 @@ socialquest.recievedViewerData = function (data){
 //    alert(p.job);
 };
 
-function goFight{
+socialquest.goFight = function () {
     $('#social-top').hide();
     $('#social-ready').show();
-}
+};
 
 })();
 // ============================================================================
