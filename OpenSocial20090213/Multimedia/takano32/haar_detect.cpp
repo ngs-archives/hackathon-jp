@@ -59,7 +59,7 @@ main (int argc, char **argv)
 		center.y = cvRound (r->y + r->height * 0.5);
 		radius = cvRound ((r->width + r->height) * 0.25);
 		cvCircle (src_img, center, radius, colors[i % 8], 3, 8, 0);
-		puts("  </face>");
+		// puts("  </face>");
 	}
 	// puts("</faces>");
 	puts("}]");
