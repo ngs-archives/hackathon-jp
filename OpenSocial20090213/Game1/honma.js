@@ -7,7 +7,7 @@ socialquest.Player = function (name, hp, sp){
     this.hp   = hp;
     this.sp   = sp;
 };
-Player.prototype = {
+socialquest.Player.prototype = {
 };
 
 socialquest.CharacterMaker = function (){};
