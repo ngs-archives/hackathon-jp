@@ -7,6 +7,7 @@ function show(feed){
     var html = new Array();
     html.push("<h1>");
     html.push( feed.Title );
+    html.push("-");
     html.push("</h1>");
     document.getElementById('friends').innerHTML += html.join('');
 }
