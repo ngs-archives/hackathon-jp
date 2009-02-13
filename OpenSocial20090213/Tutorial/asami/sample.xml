@@ -23,7 +23,7 @@
 		}
 		
 		function onLoadItemsA() {
-		  defaultItemList.push(load_mix_tem());
+		  defaultItemList.push(load_mix_item());
 		
 		  html = new Array();
 		  html.push('</ul>');
@@ -52,10 +52,10 @@
 		}
 		
 		function onLoadMixItem(data) {
-			return data.get('data').getData();
+			alert(data.get('data').getData());
 		}
 		
-		function load_mix_tem() {
+		function load_mix_item() {
 		  var req = opensocial.newDataRequest();
 		  
 		  var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
