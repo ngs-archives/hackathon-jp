@@ -60,7 +60,7 @@
 		  	document.getElementById('mix_item').innerHTML = mix_item;
 		  }
 		  document.getElementById('mix_key').style.display = "none";
-		  document.getElementById('mix_tem').style.display = "block";
+		  document.getElementById('mix_item').style.display = "block";
 		}
 	</script>
 	
