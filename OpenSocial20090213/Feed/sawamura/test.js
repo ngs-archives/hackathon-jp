@@ -2,12 +2,16 @@
 gadgets.util.registerOnLoadHandler(init);
 
 
+function txt(dom,tag){
+    retrun dom.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
+}
+
     
 function show(oj){ 
     var html = new Array();
     html.push("<h1>");
     var dom = oj.data;
-    html.push( dom.getElementsByTagName("title")[0].childNodes[0].nodeValue );
+    html.push( txt(title) );
     html.push("</h1>");
     document.getElementById('friends').innerHTML += html.join('');
 }
