@@ -151,6 +151,14 @@
 	  document.getElementById('received').innerHTML = html.join('');
 	}
 	
+	function postActivity(nut, friend) {
+	  var title = 'gave ' + globalFriends.getById(friend).getDisplayName() + ' ' + globalGiftList[nut];
+	  var params = {};
+	  params[opensocial.Activity.Field.TITLE] = title;
+	  var activity = opensocial.newActivity(params)
+	  opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function() {});
+	}
+	
 </script>
 	<div id='main'>
 	        <div id='give'>
