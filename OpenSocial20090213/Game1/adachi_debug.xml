@@ -20,7 +20,7 @@
 
 		var idSpec = opensocial.newIdSpec(params);
 		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPeopleRequest(idSpec),"friends");
+		req.add(req.newFetchPeopleRequest(idSpec,socialquest.parsonSearchParams),"friends");
 
 		req.send(function(data){
 			if(data.hadError()){
