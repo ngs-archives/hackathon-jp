@@ -73,7 +73,7 @@ debug("getMyAttrs");
 
       function getPokes() {
           var req = opensocial.newDataRequest();
-          req.add(req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
           var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.VIEWER});
           req.add(req.newFetchPersonAppDataRequest(idSpec, ["pokes"]), "pokes");
           req.send(function(data) {
@@ -87,10 +87,11 @@ debug("getMyAttrs");
       function poke() {
           var owner_id;
           var get_req = opensocial.newDataRequest();
-          get_req.add(get_req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+          get_req.add(get_req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
           get_req.send(function(data) {
               owner_id = data.get("owner").getData().getId();
           });
+          debug(owner_id);
 
           var data = { owner_id:[{ item2: -10}] }
           var json = gadgets.json.stringify(data);
