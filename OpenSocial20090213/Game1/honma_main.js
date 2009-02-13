@@ -1,5 +1,6 @@
 gadgets.util.registerOnLoadHandler(
     function () {
+        $('#top').show();
         var req = opensocial.newDataRequest();
         req.add(
             req.newFetchPersonRequest(
