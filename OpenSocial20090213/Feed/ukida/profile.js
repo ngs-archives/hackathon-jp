@@ -41,24 +41,20 @@ var isOwner;
 
 function init(){
     var req = opensocial.newDataRequest();
-    var params = {};
-    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
-    params[opensocial.IdSpec.Field.GROUP_ID] = "SELF";    
     var idSpec = opensocial.newIdSpec(params);
     
-    //	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
-    req.add(req.newFetchPersonRequest(idSpec), "person");
+    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
     
     req.send(function(response){
         //        var owner = response.get("owner").getData();
-        var person = response.get("person").getData();
+        var viewer = response.get("viewer").getData();
         
-        if (person) {
+        if (viewer) {
         
-            alert("isOwner:" + person.isOwner() + " ,isViewer:" + person.isViewer());
+            alert("isOwner:" + viewer.isOwner() + " ,isViewer:" + viewer.isViewer());
         }
         else {
-            console.log("person is null");
+            console.log("viewer is null");
         }
         
         /*
