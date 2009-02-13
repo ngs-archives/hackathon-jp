@@ -44,7 +44,6 @@
         gadgets.util.registerOnLoadHandler(init);
       </script>
       <div id='main'>
-	  	friends:
       </div>
     ]]>
   </Content>
