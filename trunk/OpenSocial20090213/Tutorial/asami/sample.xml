@@ -57,8 +57,9 @@
 			var json = null;
 			
 			console.info(data[viewer.getId()]);
+			console.info(data);
 		    if (data) {
-				json = data['items'];
+				json = data;
 				console.info(json);
 		    }
 		
