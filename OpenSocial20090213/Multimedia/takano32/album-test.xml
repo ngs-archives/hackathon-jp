@@ -110,7 +110,7 @@
         function addToPhotoGrid(photo) {
             document.getElementById('photoGrid').innerHTML +=
 	    photo.getThumbnailUrl() +
-            '<img src="' + photo.getThumbnailUrl()+'"/>';
+		'<img src="' + photo.getThumbnailUrl()+'"/> <br />';
         };
 
         // Execute fetchAlbums function when gadget loads
