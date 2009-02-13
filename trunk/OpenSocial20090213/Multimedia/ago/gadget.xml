@@ -4,7 +4,8 @@
             title="big fonts!"
             author="multimedia2"
             author_email="ago@kayac.com"
-            description="big fonts!">
+            description="big fonts!"
+            category="ƒlƒ^Œn">
         <Require feature="opensocial-0.8" />
     </ModulePrefs>
     <Content type="html" view="canvas"><![CDATA[
