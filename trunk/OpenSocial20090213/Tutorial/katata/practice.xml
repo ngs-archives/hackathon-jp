@@ -35,6 +35,7 @@
 			html.push('<select id="owner">');
 			ownerFriends.each(function(person) {
 				if (person.getId()) {
+					alert("koko");
 					html.push('<option value="', person.getId(), '">', person.getField(opensocial.Person.Field.ABOUT_ME), '</option>');
 				}
 			});
