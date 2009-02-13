@@ -269,9 +269,9 @@ console.log(poke);
       <input type="text" name="pokeValue" id="pokeValueInput" />
     </div>
 
-    <div id="main">あいうえお</div>
+    初期データ：<div id="main">あいうえお</div>
 
-    <div id="ownerAttrs">このユーザの最新のデータ</div>
+    最新データ：<div id="ownerAttrs">このユーザの最新のデータ</div>
 
     ]]>
   </Content>
