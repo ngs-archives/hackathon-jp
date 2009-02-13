@@ -44,7 +44,7 @@ function init(){
     var params = {};
     var idSpec = opensocial.newIdSpec(params);
 	
-	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+//	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
 	
     req.send(function(response){
