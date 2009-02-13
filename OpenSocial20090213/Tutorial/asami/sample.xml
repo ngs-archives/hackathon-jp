@@ -51,7 +51,8 @@
 		}
 		
 		function onLoadMixItem(data) {
-			var viewer = data.get('data').getData();
+			var viewer = data.get('viewer').getData();
+			var mixitem = data.get('data').getData();
 			var json = null;
 		      if (data[viewer.getId()]) {
 		        json = data[viewer.getId()]['items'];
