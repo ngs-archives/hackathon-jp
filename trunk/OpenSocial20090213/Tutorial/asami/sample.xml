@@ -83,7 +83,7 @@
 		        //      html.push('<li> items ', globalItemList[globalItemList[i][j]], '</li>');
 		        //    }
 		        //  }
-		        }
+		        //}
 		      }
 		      html.push('</ul>');
 		      document.getElementById('mixs').innerHTML = html.join('');
