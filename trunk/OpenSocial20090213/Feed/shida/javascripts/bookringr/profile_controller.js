@@ -24,13 +24,19 @@ bookRingr.ProfileController.prototype = {
 	req.send(this.onLoadAppData);
     },
     onLoadAppData: function(data) {
-	var owner  = data.get('owner').getData();
-	var stored = data.get('stored').getData();
-	var obj = stored[owner.getId()];
-	if (obj) {
-	    this.appData = obj['bookringr'];
+	if (data.hadError()) {
+	    console.log(data.getErrorMessage());
 	}
-	bookRingr.controller.loadXML();
+	else {
+	    var owner  = data.get('owner').getData();
+	    var stored = data.get('stored').getData();
+	    var obj = stored[owner.getId()];
+	    if (obj) {
+		this.appData = obj['bookringr'];
+		console.log(this.appData);
+	    }
+	    bookRingr.controller.loadXML();
+	}
     },
     loadXML: function() {
 	var params = {};
@@ -61,14 +67,19 @@ bookRingr.ProfileController.prototype = {
     updateAppData: function() {
 	var req = opensocial.newDataRequest();
 	req.add(req.newUpdatePersonAppDataRequest(
-	          opensocial.IdSpec.PersonId.OWNER, 
+	          opensocial.IdSpec.PersonId.VIEWER, 
 	          'bookringr', 
 	          this.books),
 		"response")
 	req.send(this.onUpdateAppData)
     },
-    onUpdateAppData: function() {
-	
+    onUpdateAppData: function(data) {
+	if (data.hadError()) {
+	    console.log(data);
+	}
+	else {
+	    console.log('no error!');
+	}
     },
     getNodeValueByTagName: function(xml, tag){
 	return xml.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
