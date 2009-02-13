@@ -63,7 +63,7 @@ function storeBookData(dom) {
     req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'books', books(dom)));
     req.send(function(data) {
         // 何かする?
-        console(books(dom));
+        console.dir(books(dom));
         alert(data.get('books'));
         console.dir(data);
     });
