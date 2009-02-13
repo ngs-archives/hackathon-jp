@@ -7,23 +7,34 @@
   <Content type="html">
     <![CDATA[
  	<script>
+		
+		var defaultItemList = ['ごはん', 'しお', 'ミソ', '小麦粉'];
+		
+		gadgets.util.registerOnLoadHandler(init);
 
+		function init() {
+		  loadItems();
+		}
+		
+		function onLoadItems(data) {
+		  var viewer = data.get('viewer').getData();
+
+		  html = new Array();
+		  html.push('<ul>');
+		  defaultItemList.each(function(item) {
+		  	html.push('<li>' + item + "</li>");
+		  });
+		  html.push('</ul>');
+		  document.getElementById('items').innerHTML = html.join('');
+		}
+		
+		
 	</script>
+	
 	<div id='main'>
-	        <div id='give' style='display: none;'>
-	          <form id='gift_form'>
-	            Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
-	          </form>
-	        </div>
-	        <div id='given'></div>
-	　　　　　　　　<div id='received'></div>
-			<div id='more' style='display: none;'>
-			          <a href='javascript:void(0);' onclick='navigateToCanvas();'>More</a>
-			        </div>
-			
-	      </div>
-	
-	
+	        items:
+			<div id='items'></div>
+	</div>
     ]]>
   </Content>
 </Module>
