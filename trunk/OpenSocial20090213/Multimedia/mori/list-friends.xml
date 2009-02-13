@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+ <ModulePrefs title="List Friends Example" title_url="" directory_title="" description="example" author="mainya" author_email="mainya@gmail.com" author_location="Japan" height="400" scrolling="1" render_inline="optional">
+   <Require feature="opensocial-0.7"/>
+   <Require feature="dynamic-height"/>
+   <Require feature="views"/>
+   <Require feature="locked-domain"/>
+ </ModulePrefs>
+ <Content type="html" quirks="false">
+
+ <![CDATA[
+
+ <script type="text/javascript">
+var j = function(){document.body.appendChild(document.createElement('script')).src='http://www.billyreisinger.com/jash/source/latest/Jash.js';};
+ /**
+  * Request for friend information.
+  */
+  function getData() {    
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER), 'viewer');
+    req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.VIEWER_FRIENDS), 'viewerFriends');
+    req.send(onLoadFriends);
+  };
+
+ /**
+  * Parses the response to the friend information request and generates
+  * html to list the friends along with their display name.
+  *
+  * @param {Object} dataResponse Friend information that was requested.
+  */
+  function onLoadFriends(dataResponse) {
+    var viewer = dataResponse.get('viewer').getData();
+    var nickname = document.getElementById('nickname');
+    nickname.innerHTML = viewer.getDisplayName();
+
+    var viewerFriends = dataResponse.get('viewerFriends').getData();
+    var list = document.getElementById('friends');
+console.log(viewerFriends);
+
+    viewerFriends.each(function (person) {
+        var li = document.createElement('LI');
+        list.appendChild(li);
+
+        var a = document.createElement('A');
+        li.appendChild(a);
+        a.setAttribute('href', person.getField(opensocial.Person.Field.PROFILE_URL));
+        a.setAttribute('target', '_blank');
+
+        var img = document.createElement('img');
+        img.setAttribute('src', person.getField(opensocial.Person.Field.THUMBNAIL_URL));
+        a.appendChild(img);
+
+        a.appendChild(document.createTextNode(person.getDisplayName()));
+    }); 
+    gadgets.window.adjustHeight();
+    //_IG_AdjustIFrameHeight();
+  };
+
+  gadgets.util.registerOnLoadHandler(getData);
+//console.info(gadgets.views.getSupportedViews());
+  </script>
+  <p>Hello OpenSocial</p>
+  <h3><a href="" id="profurl"><span id="nickname"></span></a>'s friends</h3>
+  <button onclick="getData();">get</button>
+  <button onclick="gadgets.views.requestNavigateTo(gadgets.views.getSupportedViews()['home'], 'id=3&a=2');">move to home</button>
+  <button onclick="gadgets.views.requestNavigateTo(gadgets.views.getSupportedViews()['canvas'], 'id=3&a=2');">move to canvas</button>
+  <button onclick="j();gadgets.window.adjustHeight(800);">jash</button>
+  <div id="friends"> </div>
+  ]]>
+  </Content>
+</Module>
