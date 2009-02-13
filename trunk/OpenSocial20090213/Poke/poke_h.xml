@@ -161,21 +161,17 @@ console.log("getOwnerAttrs : json : " + json);
           param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
           param[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
           param[opensocial.IdSpec.Field.NETWORK_DISTANCE] = 1;
-          //var idSpec = opensocial.newIdSpec(param);
-          var idSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
-          req.add(req.newFetchPeopleRequest(idSpec), "ownerFriends");
+          var idSpec = opensocial.newIdSpec(param);
+         // var idSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+          req.add(req.newFetchPersonAppDataRequest(idSpec,["pokes"]), "ownerFriends");
+
+
           req.send(function(data){
-               var owner = data.get("owner").getData();
-               var ownerFriends = data.get("ownerFriends").getData();
-console.log("ownerFriends---");
-console.log(ownerFriends);
-               ownerFriends.each(function(friend){
-
-console.log("friend---");
-console.log(friend);
-
+               var pokes = data.get("pokes").getData();
+               pokes.each(function(poke){
+console.log("poke---");
+console.log(poke);
                });
-               
           });
 
       }
