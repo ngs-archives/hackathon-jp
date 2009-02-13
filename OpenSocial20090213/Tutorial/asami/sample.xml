@@ -55,10 +55,35 @@
 			var viewer = data.get('viewer').getData();
 			var mixitem = data.get('data').getData();
 			var json = null;
-			alert(data[viewer.getId()]);
+			
 		    if (data[viewer.getId()]) {
 		        json = data[viewer.getId()]['items'];
+		    }
+		
+			if (!json) {
+		        globalItemList = {};
 		      }
+		      try {
+		        globalItemList = gadgets.json.parse(gadgets.util.unescapeString(json));
+		      } catch (e) {
+		        globalItemList = {};
+		      }
+
+		      var html = new Array();
+		      html.push('You have mixs:');
+		      html.push('<ul>');
+		      for (i in globalItemList) {
+		        if (i.hasOwnProperty) {
+		          for (j in globalItemList[i]) {
+		            if (j.hasOwnProperty) {
+		              html.push('<li> items ', globalItemList[globalItemList[i][j]], '</li>');
+		            }
+		          }
+		        }
+		      }
+		      html.push('</ul>');
+		      document.getElementById('mixs').innerHTML = html.join('');
+			}
 		}
 		
 		function loadMixItem() {
