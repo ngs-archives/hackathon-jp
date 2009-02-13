@@ -28,6 +28,11 @@
 	  document.getElementById('friends').innerHTML = html.join('');
 	}
 </script>
+	<div id='main'>
+	        Your friends:
+	        <div id='friends'></div>
+	      </div>
+	
     ]]>
   </Content>
 </Module>
