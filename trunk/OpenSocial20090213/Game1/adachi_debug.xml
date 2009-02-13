@@ -12,7 +12,6 @@
        * Request the OWNER and OWNER's friends.
        */
 	function init(){
-		alert("init");
 		var params = {};
 		params[opensocail.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
 		params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
