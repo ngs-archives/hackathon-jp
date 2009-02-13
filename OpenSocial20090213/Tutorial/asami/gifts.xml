@@ -13,7 +13,7 @@
 	var globalGiftList = ['ああああ', 'いいいい', 'a hazelnut', 'a red pistachio nut'];
 	
 	function init() {
-	  requestGiftList("http://example.com/gifts.json");
+	  requestGiftList("http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Tutorial/asami/gifts.json");
 	}
 	
 	function loadFriends() {
