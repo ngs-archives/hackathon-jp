@@ -19,21 +19,24 @@
 		function onLoadItems() {
 
 		  html = new Array();
-		  html.push('<ul>');
-		  for(i = 0 ; i < defaultItemList.length ; i++) {
-		  	html.push('<li>' + defaultItemList[i] + "</li>");
-		  };
 		  html.push('</ul>');
-		alert(defaultItemList.length);
-		  document.getElementById('items').innerHTML = html.join('');
+		  html.push('<select id="item_select">');
+		  
+		  for(i = 0 ; i < defaultItemList.length ; i++) {
+			html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
+		  }
+          html.push('</select>');
+
+		  document.getElementById('items_a').innerHTML = html.join('');
+		  document.getElementById('items_b').innerHTML = html.join('');
 		}
 		
 		
 	</script>
 	
 	<div id='main'>
-	        items:
-			<div id='items'></div>
+	   items:
+	   <div id='items_a'></div> + <div id='items_b'></div> =
 	</div>
     ]]>
   </Content>
