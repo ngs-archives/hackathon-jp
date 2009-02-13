@@ -31,7 +31,15 @@ a {
 	color:#FFFFFF;
 }
 
-a.hover {
-	color:#000000;
-	background:#FFFFFF;
+a:link { 
+	color: white; 
+}
+a:visited { 
+	color: white; 
+}
+a:hover { 
+	color: black;background:white;
+}
+a:active {
+	color: yellow;
 }
