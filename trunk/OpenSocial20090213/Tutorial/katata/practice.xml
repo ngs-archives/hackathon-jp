@@ -6,7 +6,8 @@
   	<Content type="html">
     <![CDATA[
       <script>
-        function loadFriends() {
+	  var owner;
+	  function loadFriends() {
           var req = opensocial.newDataRequest();
 		  var opt_params = {};
 		  opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
@@ -25,7 +26,7 @@
         }
         
         function onLoadFriends(data) {			
-			var owner = data.get('owner').getData();
+			owner = data.get('owner').getData();
 			var ownerFriends = data.get('ownerFriends').getData();
 		
 			var viewer = data.get('viewer').getData();
@@ -71,7 +72,7 @@
 		function test(data){
 			var arr = [data];
 			var message = opensocial.newMessage();
-			message.setField(opensocial.Message.Field.TITLE, "タイトル");
+			message.setField(opensocial.Message.Field.TITLE, owner.getDisplayName() + "と同一の友人です");
 			message.setField(opensocial.Message.Field.BODY, "本文");
 			opensocial.requestSendMessage(arr, message);
 		}
