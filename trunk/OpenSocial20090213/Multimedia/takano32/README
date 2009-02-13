@@ -1,5 +1,3 @@
-
-
 == OpenCVを用いた顔認識とAPI
 haar_detect.cpp
 OpenCVを使った顔認識を行い、JSONでデータを返します。
