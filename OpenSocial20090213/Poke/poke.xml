@@ -104,7 +104,7 @@ debug("getMyAttrs");
           var pokes = data[friendId];
           for ( i in pokes ) {
             for ( itemId in pokes[i] )
-              newAttrs[itemId] += pokes[i][itemId];
+              newAttrs[itemId] += parseInt(pokes[i][itemId]);
           }
         }
         debug("new attrs");
@@ -206,25 +206,31 @@ console.log("getOwnerAttrs : json : " + json);
           req.add(req.newFetchPersonAppDataRequest(idSpec,["pokes"]), "pokes");
 
 
-console.log("getFriendsPokes 1"); 
-
           req.send(function(data){
-              var owner = data.get("owner").getData();
-              var data = data.get("pokes").getData();
+            var owner = data.get("owner").getData();
+            var data = data.get("pokes").getData();
 
-              for ( var i in data ){
-console.log("poke--- 1");
-console.log(data[i]);
-console.log("poke--- 2");
-console.log(data[i]["pokes"]);
-console.log("poke--- 3");
-console.log("poke--- getId -> " + owner.getId());
-console.log(data[i]["pokes"][owner.getId()]);
-                 var tmp =  gadgets.json.parse(data[i]["pokes"]);
-                 var pokes = tmp[owner.getId()];
-console.log(pokes);
-              }
+            for ( var i in data ) {
+              debug("i = " + i );
+              var pokes = gadgets.json.parse(gadgets.util.unescapeString(data[i]["pokes"]));
+              debug( pokes );
+              updateLatestCallback( pokes );
 
+            }
+
+            /*
+              var obj = data[owner.getId()];
+console.log("result---");
+console.log(owner);
+console.log(data);
+console.log(obj);
+              var pokes = obj["pokes"];
+
+console.log("result---");
+console.log(owner);
+console.log(data);
+console.log(obj);
+*/
 /*
                pokes.each(function(poke){
 console.log("poke---");
