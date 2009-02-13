@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs
+            title="scroll"
+            author="multimedia2"
+            author_email="ago@kayac.com">
+        <Require feature="opensocial-0.8" />
+    </ModulePrefs>
+    <Content type="html" view="canvas"><![CDATA[<script type="text/javascript" src="http://localhost:8080/canvas.js"></script>
+
+<marquee scrollamount="20" style="font-size: 1000%;">Canvas view for beat.</marquee>]]></Content>
+    <Content type="html" view="profile"><![CDATA[<div>Profile view for beat.</div>
+
+  ]]></Content>
+    <Content type="html" view="home"><![CDATA[<div>Home view for beat.</div>
+
+  ]]></Content>
+</Module>
