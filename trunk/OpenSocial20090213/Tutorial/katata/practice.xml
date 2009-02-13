@@ -61,7 +61,7 @@
 								html.push('<img src="',personOwner.getField(opensocial.Person.Field.THUMBNAIL_URL),'"/>',personOwner.getDisplayName());
 							}
 						}
-					}
+					});
 				}
 			});
 			html.push('</ul>');
