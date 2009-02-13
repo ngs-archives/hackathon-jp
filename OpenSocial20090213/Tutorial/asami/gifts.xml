@@ -72,8 +72,14 @@
 	  var nut = document.getElementById('nut').value;
 	  var friend = document.getElementById('person').value;
 
-	  givenGifts[friend] = nut;
-	  var json = gadgets.json.stringify(givenGifts);
+	  if (!globalGivenGifts) {
+	    globalGivenGifts = {};
+	  }
+	  if (!globalGivenGifts[friend]) {
+	    globalGivenGifts[friend] = new Array();
+	  }
+	  globalGivenGifts[friend].push(nut);
+	  var json = gadgets.json.stringify(globalGivenGifts);
 
 	  var req = opensocial.newDataRequest();
 	  req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'gifts', json));
@@ -142,7 +148,11 @@
 
 	      for (i in gifts) {
 	        if (i.hasOwnProperty && i == viewerId) {
-	          html.push('<li>', globalGiftList[gifts[i]], ' from ', person.getDisplayName(), '</li>');
+			  for (j in gifts[i]) {
+			     if (j.hasOwnProperty) {
+			     	html.push('<li>', globalGiftList[gifts[i][j]], ' from ', person.getDisplayName(), '</li>');
+			     }
+			  }
 	        }
 	      }
 	    }
@@ -158,6 +168,7 @@
 	  var activity = opensocial.newActivity(params)
 	  opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function() {});
 	}
+	
 	
 </script>
 	<div id='main'>
