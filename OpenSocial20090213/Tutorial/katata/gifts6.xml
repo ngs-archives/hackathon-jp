@@ -14,8 +14,7 @@
         var globalView = gadgets.views.getCurrentView().getName();
         
         function postActivity(nut, friend) {
-var opt_params = {};
-          var title = 'gave ' + globalFriends.getById(friend).getDisplayName() + ' ' + globalGiftList[nut] + "*************" + opensocial.getField(HAIR_COLOR,opt_params);
+          var title = 'gave ' + globalFriends.getById(friend).getDisplayName() + ' ' + globalGiftList[nut];
           var params = {};
           params[opensocial.Activity.Field.TITLE] = title;
           var activity = opensocial.newActivity(params)
