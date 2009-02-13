@@ -84,7 +84,7 @@ socialquest.recievedViewerData = function (data){
     var maker = new socialquest.CharacterMaker();
     var p = maker.make(viewer);
 
-    var thumb = p.getField( opensocial.Person.Field.THUMBNAIL_URL;
+    var thumb = p.getField( opensocial.Person.Field.THUMBNAIL_URL );
     $("#hp"  ).html(p.hp);
     $("#job" ).html(p.job);
     $("#name").html(p.getDisplayName());
