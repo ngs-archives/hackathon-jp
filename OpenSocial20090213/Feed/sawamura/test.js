@@ -12,20 +12,22 @@ function show(oj){
     html.push( txt(dom,"title") );
     html.push("</h1>");
     var items = dom.getElementsByTagName("item");
+    var $base = $("friends");
     $.each(items,function(){
-	    html.push("<div style='margin:5px 0 0 5px;display:inline-block'>");
-	    html.push("<div>" + txt(this,"title") + "</div>");
+	    var $div = $("<div style='margin:5px 0 0 5px;display:inline-block'></div>");
+
 	    var cdata = txt(this,"description");
 	    cdata.match(/img src="(.+?)"/);
 	    var img = RegExp.$1;
 	    cdata.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
-	    //html.push("<blockquote>" + cdata + "</blockquote>");
-	    html.push("<img src='" + img + "' width='80' />");
-	    html.push("ASIN: " + asin );
-	    html.push("</div>");
+	    $div.html( txt(this,"title")
+		       +
+		       "<img src='" + img + "' width='80' />"
+		       + "ASIN: " + asin		
+		       );
+	    $base.append($div);
 	});
-    document.getElementById('friends').innerHTML += html.join('');
 }
 
 
