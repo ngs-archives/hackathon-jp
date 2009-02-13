@@ -13,6 +13,10 @@ function show(oj){
     var dom = oj.data;
     html.push( txt(dom,"title") );
     html.push("</h1>");
+    var items = dom.getElementsByTagName("item");
+    $.each(items,function(){
+	    html.push("<p>" + txt(this,"title") + "</p>");
+	});
     document.getElementById('friends').innerHTML += html.join('');
 }
 
