@@ -56,6 +56,9 @@ main (int argc, char **argv)
 		printf("	\"w\":%d,\n", 0);
 		printf("	\"h\":%d\n", 0);
 		puts("}]");
+		if (i == faces->total - 1) {
+			puts(",");
+		}
 		center.x = cvRound (r->x + r->width * 0.5);
 		center.y = cvRound (r->y + r->height * 0.5);
 		radius = cvRound ((r->width + r->height) * 0.25);
