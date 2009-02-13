@@ -29,9 +29,11 @@ def faceDetect(imgfile):
 
   # 検出された全ての顔位置に枠を描画する
   for c, i in enumerate(faces):
-    pt1 = cvPoint(int(i.x), int(i.y))
-    pt2 = cvPoint(int(i.x + i.width), int(i.y + i.height))
-    cvRectangle(src_img, pt1, pt2, CV_RGB(255,0,0), 3, 8, 0);
+    center.x = cvRound(i.x + i.width * 0.5)
+    center.y = cvRound(i.y + i.height * 0.5)
+    radius = cvRound((i.width + i.height) * 0.25)
+    r, g, b = colors[c%8]
+    cvCircle(src_img, center, radius, CV_RGB(r, g, b), 3, 8, 0)
 
   return src_img
 
