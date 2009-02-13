@@ -15,7 +15,22 @@
                src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/md5.js">
       </script>
       TEST FOR HONMA
-      <div id="main"></a>
+
+      <div id="main">
+      	<div id="photo">
+	</div>
+	<h1>なまえ：<span id="name"></span></h1>
+	<ul>
+		<li>HP <span id="hp"></span></li>
+		<li>しょくぎょう <span id="job"></span></li>
+	</ul>
+	<ul>
+		<li><a href="#" onclick="onfight();" >たたかう</li>
+		<li><a href="#" onclick="" >せんれき</li>
+		<li><a href="#" onclick="" >アイテム</li>
+	</ul>
+      </div>
+
  ]]>
  </Content>
 </Module>
