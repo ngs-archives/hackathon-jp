@@ -18,16 +18,18 @@ bookRingr.ProfileController.prototype = {
 	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'owner')
 	var keys = ['bookringr'];
 	var idSpecParams = {};
-	idSpecParams[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersionId.OWNER;
+	idSpecParams[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
 	var idSpec = opensocial.newIdSpec(idSpecParams);
 	req.add(req.newFetchPersonAppDataRequest(idSpec, keys), 'stored');
-	req.send(bookRingr.controller.onLoad);
+	req.send(this.onLoadAppData);
     },
     onLoadAppData: function(data) {
 	var owner  = data.get('owner').getData();
 	var stored = data.get('stored').getData();
 	var obj = stored[owner.getId()];
-	this.appData = obj['bookringr'];
+	if (obj) {
+	    this.appData = obj['bookringr'];
+	}
 	bookRingr.controller.loadXML();
     },
     loadXML: function() {
@@ -36,14 +38,13 @@ bookRingr.ProfileController.prototype = {
 	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
 	
 	gadgets.io.makeRequest('http://booklog.jp/users/yshida/feed/RSS1', 
-			       bookRingr.controller.onLoadXML,
+			       this.onLoadXML,
 			       params);
     },
     onLoadXML: function(obj) {
 	var xml = obj.data;
-	bookRingr.controller.updateAppData(xml);
 
-	this.books = new Array();
+	bookRingr.controller.books = new Array();
 	var items = xml.getElementsByTagName('item');
 	$.each(items, function(){
 	    var title       = bookRingr.controller.getNodeValueByTagName(this, 'title');
@@ -53,14 +54,17 @@ bookRingr.ProfileController.prototype = {
 	    description.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
 	    book = new bookRingr.Book(title, imgUrl, asin);
-	    this.books.push(book);
+	    bookRingr.controller.books.push(book);
 	});
-	this.updateAppData();
-    }
+	bookRingr.controller.updateAppData();
+    },
     updateAppData: function() {
-	req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 
-						  'bookringr', 
-						  this.books))
+	var req = opensocial.newDataRequest();
+	req.add(req.newUpdatePersonAppDataRequest(
+	          opensocial.IdSpec.PersonId.OWNER, 
+	          'bookringr', 
+	          this.books),
+		"response")
 	req.send(this.onUpdateAppData)
     },
     onUpdateAppData: function() {
