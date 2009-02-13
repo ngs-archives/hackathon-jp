@@ -11,7 +11,7 @@ function show(oj){
     var html = new Array();
     html.push("<h1>");
     var dom = oj.data;
-    html.push( txt("title") );
+    html.push( txt(dom,"title") );
     html.push("</h1>");
     document.getElementById('friends').innerHTML += html.join('');
 }
