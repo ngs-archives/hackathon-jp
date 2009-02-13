@@ -4,11 +4,7 @@ function txt(dom,tag){
 }
     
 function show(oj){ 
-    var html = new Array();
-    html.push("<h1>");
     var dom = oj.data;
-    html.push( txt(dom,"title") );
-    html.push("</h1>");
     var items = dom.getElementsByTagName("item");
     var $base = $("#photolist");
     $.each(items,function(){
@@ -16,12 +12,10 @@ function show(oj){
 	    var cdata = txt(this,"description");
 	    cdata.match(/img src="(.+?)"/);
 	    var img = RegExp.$1;
-	    $div.html( '<div>'
-		       + "<img src='" + img + "'>"
-		       + '</div>'
-		       + '<div>'
-		       +  txt(this,"title") + '<br />'
+	    $div.html( 
+		       "<img src='" + img + "'>"
 		       + '<br />'
+		       +  txt(this,"title")
 		       + '</div>'
 		       );
 	    $base.append($div);

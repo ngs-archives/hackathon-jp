@@ -8,14 +8,14 @@
 <style type="text/css">
 .bkrg {
   margin: 5px 3px;
-  border-bottom: solid 1px #ccc ;
+  display:inline-block;
+  marign: 0 3px 3px 0;
 }
 .bkrg img {
-  width: 75px;
+  width: 120px;
 }
 .bkrg div{
   vertical-align: top;
-  display:inline-block;
 }
 </style>
 
