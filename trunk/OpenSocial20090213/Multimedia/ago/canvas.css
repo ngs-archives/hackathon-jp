@@ -21,4 +21,4 @@ select, input, textarea {font:100% Arial, Helvetica, sans-serif;}
 body { background:#000;}
 div.container { width:100%; overflow:hidden;}
 #bigFontText { white-space: nowrap; font-size:200px; color:#F30; position:absolute; top:0px; left:0px; line-height:1.1;}
-#textFrontBg { background:url(img/dotbg.png); position:absolute; width:100%; height:200px; z-index:10;}
+#textFrontBg { background:url(http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/dotbg.png); position:absolute; width:100%; height:200px; z-index:10;}
