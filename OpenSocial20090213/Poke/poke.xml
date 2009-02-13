@@ -3,7 +3,7 @@
   <ModulePrefs title="poke">
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
-  <Content view="home" type="html" >
+  <Content type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
     <script type="text/javascript">
@@ -39,7 +39,6 @@ console.debug("getMyAttrs");
                    }
                    console.debug(myAttrs);
                    $("#" + divId).html(myAttrs);
-                   $("#" + divId).appendTo($("<div>hoge</div>");
               });
           }
           getMyAttrs(initMyAttrs, "main");
@@ -48,6 +47,7 @@ console.debug("getMyAttrs");
     <div id="main">あいうえお</div>
     ]]>
   </Content>
+  <!--
   <Content view="profile" type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
@@ -81,4 +81,5 @@ console.debug("getMyAttrs");
     </script>
     ]]>
   </Content>
+  -->
 </Module>
