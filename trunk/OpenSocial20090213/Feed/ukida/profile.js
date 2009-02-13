@@ -41,10 +41,18 @@ var isOwner;
 
 function init(){
     var req = opensocial.newDataRequest();
+    var params = {};
+    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+	params[opensocial.IdSpec.Field.NETWORK_DISTANCE] = 1;
+	
+    
+    var idSpec = opensocial.newIdSpec(params);
+    
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
     
     req.send(function(response){
-        //        var owner = response.get("owner").getData();
+    
         var viewer = response.get("viewer").getData();
         
         if (viewer) {
@@ -67,33 +75,56 @@ function init(){
     
     
     // if owner
-    
+
     // if viewer
+
+
+    /*
     
+     req = opensocial.newDataRequest();
     
-	/*
-    req = opensocial.newDataRequest();
-    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
+     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
     
-    params = {};
-    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
-    idSpec = opensocial.newIdSpec(params);
+     
     
-    req.add(req.newFetchPersonAppDataRequest(idSpec, "value"), "data");
-    req.send(function(response){
-        var viewer = response.get("viewer").getData();
-        if (viewer) {
-            var data = response.get("data").getData()[viewer.getId()];
-            value = 0;
-            if (data && data["value"]) {
-                value = Number(data["value"]);
-            }
-        }
-        else {
-            //alert("no install");
-        }
-    });
-    */
+     params = {};
+    
+     params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    
+     idSpec = opensocial.newIdSpec(params);
+    
+     
+    
+     req.add(req.newFetchPersonAppDataRequest(idSpec, "value"), "data");
+    
+     req.send(function(response){
+    
+     var viewer = response.get("viewer").getData();
+    
+     if (viewer) {
+    
+     var data = response.get("data").getData()[viewer.getId()];
+    
+     value = 0;
+    
+     if (data && data["value"]) {
+    
+     value = Number(data["value"]);
+    
+     }
+    
+     }
+    
+     else {
+    
+     //alert("no install");
+    
+     }
+    
+     });
+    
+     */
+    
 }
 
 function onClickSave(){
