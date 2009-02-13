@@ -4,4 +4,34 @@
 	width:800px;
 	height:300px;
 	padding:30px;
+	color:#ffffff;
+}
+
+#photo{
+	margin:20px;
+	width:130px;
+	height:160px;
+	background:#ffffff;
+	float:left;
+}
+
+h1{
+	font-size:20px;
+}
+
+ul{
+	font-size:20px;
+	float:left;
+	border: medium solid #ffffff;
+	margin-left:15px;
+	padding:20px;
+}
+
+a {
+	color:#FFFFFF;
+}
+
+a.hover {
+	color:#000000;
+	background:#FFFFFF;
 }
