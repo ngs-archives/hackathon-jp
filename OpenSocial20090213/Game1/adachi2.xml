@@ -42,6 +42,7 @@
 			}
 		});
 	}
+	document.getElementById("target").innerHTML = "sssss";
 	gadgets.util.registerOnLoadHandler(init);
 	</script>
 	<div id="target"></div>
