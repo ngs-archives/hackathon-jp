@@ -37,7 +37,7 @@
 					var target = document.getElementById("target");
 					friends.each(function(friend){
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.LANGUAGES_SPOKEN);
-						target.innerHTML += "<img src='" + thumbnailUrl + "' />" + friends.getDisplayName();
+						target.innerHTML += "<img src='" + thumbnailUrl + "' />" + friend.getDisplayName();
 					});
 				}
 			}
