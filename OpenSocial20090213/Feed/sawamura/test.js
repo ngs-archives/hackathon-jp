@@ -47,7 +47,7 @@ function init(){
     params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
     gadgets.io.makeRequest("http://booklog.jp/users/sawamur/feed/RSS1", show, params );
-    postActivity("ok!");
+    //postActivity("ok!");
 }
 
 function postActivity(text) {  
