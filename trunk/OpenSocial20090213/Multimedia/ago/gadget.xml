@@ -13,6 +13,6 @@
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/jQuery.opensocial_simple/jquery.opensocial_simple.js"></script>
 <script type=" text/javascript" src="http://miya2000.up.seesaa.net/marquee/marquee.js"></script>
 <script type=" text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/canvas.js"></script>
-<div id="wrap"><div id="marquee"></div></div>
+<div id="wrap"><div id="scroll"></div></div>
     ]]></Content>
 </Module>
