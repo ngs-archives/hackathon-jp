@@ -42,7 +42,7 @@ socialquest.parsonSearchParams[
 
 function clone(obj) {
     var Class = new Function();
-    f.prototype = obj;
+    Class.prototype = obj;
     return new Class();
 }
 
