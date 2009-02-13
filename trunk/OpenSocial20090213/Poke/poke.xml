@@ -7,71 +7,70 @@
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
     <script type="text/javascript">
+      myAttrs = {};
+
+      masterAttrs = { item1: "善", item2: "悩", item3: "愛", item4: "H" };
+      // TODO 今見てるのがオーナーでかつ最初なら、初期化データ作成
+      function initMyAttrs() {
+console.debug("initMyAttrs");
+          for (i in masterAttrs) {
+              myAttrs[i] = Math.floor(Math.random() * 30);
+          }
+          var json = gadgets.json.stringify(myAttrs);
+          console.debug(json);
+
+          var req = opensocial.newDataRequest();
+          req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'attrs', json));
+          req.send();
+      }
+
+      function getMyAttrs(divId) {
+console.debug("getMyAttrs");
+          var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.OWNER});
+
+          var req = opensocial.newDataRequest();
+
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+          req.add(req.newFetchPersonAppDataRequest(idSpec, 'attrs'), "data");
+          req.send(function(data) {
+               console.debug("callback");
+               var attrs = data.get("data").getData();
+               var owner = data.get("owner").getData();
+               console.debug( myAttrs );
+
+               console.debug("owner_id" + owner.getId());
+
+               if (!attrs[owner.getId()] ) {
+                 $("#" + divId).html('no data');
+                 return;
+               }
+               var jsonStr = attrs[owner.getId()]['attrs'];
+               console.debug("jsonStr");
+               console.debug(jsonStr);
+
+               var json = gadgets.json.parse(gadgets.util.unescapeString(jsonStr));
+               console.debug("json");
+               console.debug(json);
+
+
+               var html = ['<dl>'];
+               for ( itemkey in json ) {
+                 html.push('<dt>' + masterAttrs[itemkey] + '</dt>');
+                 html.push('<dd>' + json[itemkey] + '</dd>');
+                 }
+               html.push('</dl>');
+
+               $("#" + divId).html(html.join(''));
+          });
+      }
+
       $(function(){
 console.debug("init");
-          myAttrs = {};
-
-          masterAttrs = { item1: "善", item2: "悩", item3: "愛", item4: "H" };
-
-          // TODO 今見てるのがオーナーでかつ最初なら、初期化データ作成
-          function initMyAttrs() {
-console.debug("initMyAttrs");
-              for (i in masterAttrs) {
-                  myAttrs[i] = Math.floor(Math.random() * 30);
-              }
-              var json = gadgets.json.stringify(myAttrs);
-              console.debug(json);
-
-              var req = opensocial.newDataRequest();
-              req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'attrs', json));
-              req.send(getMyAttrs( function() {}, "main"));
-          }
-
-          //initMyAttrs();
-
-          function getMyAttrs(initCallback, divId) {
-console.debug("getMyAttrs");
-              var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.OWNER});
-
-              var req = opensocial.newDataRequest();
-
-              req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
-              req.add(req.newFetchPersonAppDataRequest(idSpec, 'attrs'), "data");
-              req.send(function(data) {
-                   console.debug("callback");
-                   var attrs = data.get("data").getData();
-                   var owner = data.get("owner").getData();
-                   console.debug( myAttrs );
-
-                   console.debug("owner_id" + owner.getId());
-
-                   if (!attrs[owner.getId()] ) {
-                     console.debug("call init");
-                     initMyAttrs();
-                     return;
-                   }
-                   var jsonStr = attrs[owner.getId()]['attrs'];
-                   console.debug("jsonStr");
-                   console.debug(jsonStr);
-
-                   var json = gadgets.json.parse(gadgets.util.unescapeString(jsonStr));
-                   console.debug("json");
-                   console.debug(json);
-
-
-                   var html = ['<dl>'];
-                   for ( itemkey in json ) {
-                     html.push('<dt>' + masterAttrs[itemkey] + '</dt>');
-                     html.push('<dd>' + json[itemkey] + '</dd>');
-                     }
-                   html.push('</dl>');
-
-                   $("#" + divId).html(html.join(''));
-              });
-          }
-          getMyAttrs(initMyAttrs, "main");
+        getMyAttrs('main');
       });
     </script>
+    <button type="button" onclick="initMyAttrs();">Init!</button>
+    <button type="button" onclick="getMyAttrs('main');">Refresh!</button>
     <div id="main">あいうえお</div>
     ]]>
   </Content>
