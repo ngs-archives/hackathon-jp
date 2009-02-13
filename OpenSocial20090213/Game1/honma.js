@@ -1,6 +1,8 @@
 var socialquest = new Object();
 
 // ============================================================================
+( function(){
+
 socialquest.parsonSearchParams = new Object();
 socialquest.parsonSearchParams[
 	opensocial.DataRequest.PeopleRequestFields
@@ -38,20 +40,18 @@ socialquest.parsonSearchParams[
 ];
 
 
-( function(){
-socialquest.Player = function (name, hp, sp){
-    this.name = name;
-    this.hp   = hp;
-    this.sp   = sp;
-};
-socialquest.Player.prototype = {
-};
+function clone(obj) {
+    var Class = new Function();
+    f.prototype = obj;
+    return new Class();
+}
 
 socialquest.CharacterMaker = function (){};
 socialquest.CharacterMaker.prototype = {
     make: function (p) {
-        var md5 = MD5_hexhash(p.getId());
-        alert(md5);
+        var person = clone(p);
+        person.md5 = MD5_hexhash(p.getId());
+        return person;
     }
 };
 
@@ -60,11 +60,12 @@ socialquest.recievedViewerData = function (data){
         // 例外送出
         throw data.getErrorMessage();
     }
-    var p = data.get("viewer").getData();
+    var viewer = data.get("viewer").getData();
+    var maker = new socialquest.CharacterMaker();
+    var p = maker.make(viewer);
     alert(p.getId() + p.getDisplayName());
     alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
-    var maker = new socialquest.CharacterMaker();
-    maker.make(p);
+    alert(p.md5);
 };
 
 })();
@@ -81,4 +82,3 @@ gadgets.util.registerOnLoadHandler(
         req.send(socialquest.recievedViewerData);
     }
 );
-
