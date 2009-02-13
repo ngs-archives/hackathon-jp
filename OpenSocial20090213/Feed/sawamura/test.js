@@ -4,9 +4,11 @@ gadgets.util.registerOnLoadHandler(init);
 function show(feed){ 
     var html= "";
     //Access the fields in the feed
+    var html = new Array();
     html.push("<h1>");
     html.push( feed.Title );
     html.push("</h1>");
+    document.getElementById('friends').innerHTML += html.join('');
 }
 
 gadgets.io.makeRequest("http://opensocialapis.blogspot.com/atom.xml",
