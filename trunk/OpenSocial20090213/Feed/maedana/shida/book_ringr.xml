@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="BookRingr">
+    <Require feature="opensocial-0.8" />
+    <Optional feature="content-rewrite">
+      <Param name="include-urls"></Param>
+      <Param name="exclude-urls">.*</Param>
+      <Param name="include-tags"></Param>
+    </Optional>
+  </ModulePrefs>
+  <UserPref name="booklog_user_id" display_name="ブクログのユーザーID" datatype="string" />
+  <Content type="html">
+    <![CDATA[
+      <script type="text/javascript" src="./javascripts/jquery-1.3.js"></script>
+      <script type="text/javascript" src="./javascripts/bookringr/profile_controller.js"></script>
+      <script type="text/javascript" src="./javascripts/bookringr/book.js"></script>
+      <div id="profile"></div>
+    ]]>
+  </Content>
+</Module>
