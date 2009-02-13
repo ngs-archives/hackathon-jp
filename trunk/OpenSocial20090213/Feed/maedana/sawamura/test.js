@@ -63,7 +63,7 @@ function storeBookData(dom) {
     req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'books', books(dom)));
     req.send(function(data) {
         // 何かする?
-        console.dir(data.get('books'));
+        alert(data.get('books'));
     });
 }
 
@@ -76,7 +76,7 @@ function storeBookData(dom) {
 //}
 
 function books(entryDom) {
-    {foo: 'foo'}
+    return {foo: 'foo'}
 }
 
 //function bookMap(entriesDom) {
