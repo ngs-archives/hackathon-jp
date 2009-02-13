@@ -69,7 +69,7 @@ bookRingr.ProfileController.prototype = {
 	    description.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
 	    book = new bookRingr.Book(title, imgUrl, asin);
-	    bookRingr.controller.books.push(book);
+	    bookRingr.controller.books.push({asin: book});
 	});
 	bookRingr.controller.updateAppData();
     },
@@ -103,8 +103,8 @@ bookRingr.ProfileController.prototype = {
 	var status = $(this).val();
 
 	for(var count = 0;count < bookRingr.controller.books.length; ++count) {
-	    if (bookRingr.controller.books[count].asin == asin) {
-		bookRingr.controller.books[count].status = status;
+	    if (bookRingr.controller.books[count][asin] != null) {
+		bookRingr.controller.books[count][asin].status = status;
 		bookRingr.controller.updateAppData();
 	    }
 	}
