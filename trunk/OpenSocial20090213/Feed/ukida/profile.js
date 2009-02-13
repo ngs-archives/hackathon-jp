@@ -42,23 +42,25 @@ var isOwner;
 function init(){
     var req = opensocial.newDataRequest();
     var params = {};
-    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
-    params[opensocial.IdSpec.Field.GROUP_ID] = "SELF";
-    
     var idSpec = opensocial.newIdSpec(params);
+	
+	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
+	
     req.send(function(response){
-        var viewer = response.get("viewer").getData();
+        var owner = response.get("owner").getData();
+		var viewer = response.get("viewer").getData();
 		
 		alert("isOwner:" + viewer.isOwner() + " ,isViewer:"+viewer.isViewer());
 		
+		/*
         if (viewer) {
             isOwner = viewer.isOwner();
-            
         }
         else {
             alert("error");
         }
+        */
     });
     
     
