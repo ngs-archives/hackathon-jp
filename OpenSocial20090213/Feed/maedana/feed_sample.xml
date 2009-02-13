@@ -20,11 +20,17 @@
 <style type="text/css">
 </style>
 <ul id="books">
-  books
 </ul>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+<script type="text/javascript">
 var init = function(){
-  alert('init');
+  var url = 'http://booklog.jp/users/ikue/feed/RSS1'
+  var params = {};
+  params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+  gadgets.io.makeRequest(url, function(response) {
+    var feed = response.data;
+    $('books').html(feed.Title);
+  }
 }
 gadgets.util.registerOnLoadHandler(init);
 $(function(){
@@ -37,6 +43,7 @@ $(function(){
 </style>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+<script type="text/javascript">
 $(function(){
 });
 </script>
