@@ -43,9 +43,7 @@ function init(){
     var req = opensocial.newDataRequest();
     var params = {};
     params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
-    params[opensocial.IdSpec.Field.GROUP_ID] = "SELF";
-    
-    
+    params[opensocial.IdSpec.Field.GROUP_ID] = "SELF";    
     var idSpec = opensocial.newIdSpec(params);
     
     //	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
@@ -60,7 +58,7 @@ function init(){
             alert("isOwner:" + person.isOwner() + " ,isViewer:" + person.isViewer());
         }
         else {
-            consol.log("isOwner:" + person.isOwner() + " ,isViewer:" + person.isViewer());
+            console.log("person is null");
         }
         
         /*
