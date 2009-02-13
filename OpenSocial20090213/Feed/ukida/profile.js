@@ -42,13 +42,15 @@ var isOwner;
 function init(){
     var req = opensocial.newDataRequest();
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
+    
     
     req.send(function(response){
     
         var owner = response.get("owner").getData();
+        var viewer = response.get("viewer").getData();
         
         if (owner) {
-        
             alert("isOwner:" + owner.isOwner() + " ,isViewer:" + owner.isViewer());
         }
         else {
@@ -73,47 +75,179 @@ function init(){
 
     /*
     
+     
+    
+     
+    
+     
+    
      req = opensocial.newDataRequest();
+    
+     
+    
+     
+    
+     
     
      req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
     
      
     
+     
+    
+     
+    
+     
+    
+     
+    
+     
+    
+     
+    
      params = {};
     
+     
+    
+     
+    
+     
+    
      params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    
+     
+    
+     
+    
+     
     
      idSpec = opensocial.newIdSpec(params);
     
      
     
+     
+    
+     
+    
+     
+    
+     
+    
+     
+    
+     
+    
      req.add(req.newFetchPersonAppDataRequest(idSpec, "value"), "data");
+    
+     
+    
+     
+    
+     
     
      req.send(function(response){
     
+     
+    
+     
+    
+     
+    
      var viewer = response.get("viewer").getData();
+    
+     
+    
+     
+    
+     
     
      if (viewer) {
     
+     
+    
+     
+    
+     
+    
      var data = response.get("data").getData()[viewer.getId()];
+    
+     
+    
+     
+    
+     
     
      value = 0;
     
+     
+    
+     
+    
+     
+    
      if (data && data["value"]) {
+    
+     
+    
+     
+    
+     
     
      value = Number(data["value"]);
     
-     }
+     
+    
+     
+    
+     
     
      }
+    
+     
+    
+     
+    
+     
+    
+     }
+    
+     
+    
+     
+    
+     
     
      else {
     
+     
+    
+     
+    
+     
+    
      //alert("no install");
+    
+     
+    
+     
+    
+     
     
      }
     
+     
+    
+     
+    
+     
+    
      });
+    
+     
+    
+     
+    
+     
     
      */
     
