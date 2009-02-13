@@ -11,7 +11,8 @@
     var globalGivenGifts = {};
     var globalFriends = {};
     var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistaschio nut'];
-
+	var globalView = gadgets.views.getCurrentView().getName();
+	
     function postActivity(nut, friend) {
       var title = 'gave ' + globalFriends.getById(friend).getDisplayName() + ' ' + globalGiftList[nut];
       var params = {};
