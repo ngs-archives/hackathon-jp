@@ -211,12 +211,15 @@ console.log("getFriendsPokes 1");
           req.send(function(data){
 console.log("getFriendsPokes 2"); 
               var owner = data.get("owner").getData();
+console.log("owner -"); 
 console.log(owner);
+              var pokes = owner["pokes"];
+console.log("pokes -"); 
+console.log(pokes);
               var data = data.get("pokes").getData();
 console.log(data);
               var obj = data[owner.getId()];
 console.log(obj);
-              var pokes = obj["pokes"];
 
 /*
                pokes.each(function(poke){
