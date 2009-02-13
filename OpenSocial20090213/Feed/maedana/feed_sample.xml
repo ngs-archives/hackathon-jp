@@ -29,7 +29,7 @@ var init = function(){
   params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
   gadgets.io.makeRequest(url, function(response) {
     var feed = response.data;
-    $('books').html(feed.Title);
+    $('#books').html(feed.Title);
   }
 }
 gadgets.util.registerOnLoadHandler(init);
