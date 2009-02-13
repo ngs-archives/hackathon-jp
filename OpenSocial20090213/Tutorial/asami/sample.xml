@@ -13,11 +13,10 @@
 		gadgets.util.registerOnLoadHandler(init);
 
 		function init() {
-		  loadItems();
+		  onLoadItems();
 		}
 		
-		function onLoadItems(data) {
-		  var viewer = data.get('viewer').getData();
+		function onLoadItems() {
 
 		  html = new Array();
 		  html.push('<ul>');
