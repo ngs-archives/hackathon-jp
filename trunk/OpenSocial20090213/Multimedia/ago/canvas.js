@@ -2,6 +2,7 @@
  * big fonts!
  * This JavaScript file is for Canvas view.
  */
+$('body').css('')
 var $os = $.opensocial_simple;
 $os.getPerson(function (person) {
 	$os.get('http://profile.myspace.com/index.cfm', {
@@ -13,9 +14,8 @@ $os.getPerson(function (person) {
 			text += $(this).html();
 		});
 		$('#bigFontText').css({
-			'font-size' : '1000%',
-			'color' : '#FBEB8C'
+			'font-size' : '300px',
+			'color' : '#F30'
 		}).html(text);
-		new Marquee('bigFontText');
 	});
 });
