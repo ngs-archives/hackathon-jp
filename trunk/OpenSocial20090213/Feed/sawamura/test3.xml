@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="BookRingr">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+<style type="text/css">
+.bkrg {
+  margin: 5px 3px;
+  border-bottom: solid 1px #ccc ;
+}
+.bkrg img {
+  width: 75px;
+}
+.bkrg div{
+  vertical-align: top;
+  display:inline-block;
+}
+</style>
+
+<script type="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript" src="./test3.js"></script>
+
+
+
+<div id='main'>
+  <div id='photolist'></div>
+</div>
+
+    ]]>
+  </Content>
+</Module>
