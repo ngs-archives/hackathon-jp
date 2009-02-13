@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="poke">
+    <Require feature="opensocial-0.8" />
+  </ModulePrefs>
+  <Content type="html" >
+    <![CDATA[
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+    <script type="text/javascript">
+      $(function(){
+console.debug("init");
+          myAttrs = {};
+
+          function initMyAttrs() {
+console.debug("initMyAttrs");
+              masterAttrs = { item1: "善", item2: "悩", item3: "愛", item4: "H" };
+              for (i in masterAttrs) {
+                  myAttrs[i] = 20;
+              }
+              var json = gadgets.json.stringify(myAttrs);
+
+              var req = opensocial.newDataRequest();
+              req.add(req.newUpdatePersonAppDataRequest("OWNER", 'attrs', json));
+              req.send();
+          }
+
+          function getMyAttrs(initCallback, divId) {
+console.debug("getMyAttrs");
+              var p = {};
+              p[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+              var idSpec = opensocial.newIdSpec(p);
+
+              var req = opensocial.newDataRequest();
+              req.add(req.newFetchPersonAppDataRequest(idSpec), "attrs");
+              req.send(function(data) {
+                   myAttrs = data.get("attrs").getData();
+                   if (!myAttrs) {
+                       initCallback();
+                   }
+                   console.debug(myAttrs);
+                   $("#" + divId).html(myAttrs);
+              });
+          }
+          getMyAttrs(initMyAttrs, "main");
+      });
+    </script>
+    <div id="main">あいうえお</div>
+    ]]>
+  </Content>
+  <!--
+  <Content view="profile" type="html" >
+    <![CDATA[
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+    <script type="text/javascript">
+      $(function(){
+
+
+      });
+    </script>
+    ]]>
+  </Content>
+  <Content view="preview" type="html" >
+    <![CDATA[
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+    <script type="text/javascript">
+      $(function(){
+
+
+      });
+    </script>
+    ]]>
+  </Content>
+  <Content view="canvas" type="html" >
+    <![CDATA[
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+    <script type="text/javascript">
+      $(function(){
+
+
+      });
+    </script>
+    ]]>
+  </Content>
+  -->
+</Module>
