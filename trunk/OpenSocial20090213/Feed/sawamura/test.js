@@ -7,7 +7,7 @@ function show(feed){
     html.push( feed.data.Title );
     html.push("</h1>");
     $.each(feed.data.Entry,function(data){
-	    html.push("<h2>" + data.Title + "</h2>");
+	    html.push("<h2>" + this.Link + "</h2>");
 	});
     document.getElementById('friends').innerHTML += html.join('');
 }
