@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 4 - Showing What You Got">
+  <ModulePrefs title="Gifts part 5 - Crossing the Streams">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
       <script type="text/javascript">
-        var givenGifts = {};
+        var globalGivenGifts = {};
+        var globalFriends = {};
         var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
+
+        function postActivity(nut, friend) {
+          var title = 'gave ' + globalFriends.getById(friend).getDisplayName() + ' ' + globalGiftList[nut];
+          var params = {};
+          params[opensocial.Activity.Field.TITLE] = title;
+          var activity = opensocial.newActivity(params)
+          opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function() {});
+        }
 
         function updateReceivedList(viewer, data, friends) {
           var viewerId = viewer.getId();
@@ -70,8 +79,8 @@
           var nut = document.getElementById('nut').value;
           var friend = document.getElementById('person').value;
 
-          givenGifts[friend] = nut;
-          var json = gadgets.json.stringify(givenGifts);
+          globalGivenGifts[friend] = nut;
+          var json = gadgets.json.stringify(globalGivenGifts);
 
           var req = opensocial.newDataRequest();
           req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'gifts', json));
@@ -87,6 +96,8 @@
 
           req.add(req.newFetchPersonAppDataRequest(viewerFriends, 'gifts', opt_params), 'viewerFriendData');
           req.send(onLoadFriends);
+
+          postActivity(nut, friend);
         }
 
         function makeOptionsMenu() {
@@ -114,7 +125,7 @@
           req.add(req.newFetchPersonAppDataRequest(viewerFriends, 'gifts', opt_params), 'viewerFriendData');
           req.send(onLoadFriends);
         }
-
+        
         function onLoadFriends(data) {
           var viewer = data.get('viewer').getData();
           var viewerFriends = data.get('viewerFriends').getData();
@@ -130,6 +141,8 @@
           });
           html.push('</select>');
           document.getElementById('friends').innerHTML = html.join('');
+          
+          globalFriends = viewerFriends;
 
           updateGiftList(viewer, giftData, viewerFriends);
           updateReceivedList(viewer, viewerFriendData, viewerFriends);
