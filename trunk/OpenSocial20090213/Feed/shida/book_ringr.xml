@@ -19,7 +19,6 @@ params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
 
 gadgets.io.makeRequest("http://booklog.jp/users/yshida/feed/RSS1", function(obj) {
  var booklog = obj.data;
- output(obj.data.Entry);
  console.log(obj.data.Entry);
 }, params);
       </script>
