@@ -73,6 +73,7 @@ function init(){
     // if viewer
     
     
+	/*
     req = opensocial.newDataRequest();
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
     
@@ -94,7 +95,7 @@ function init(){
             //alert("no install");
         }
     });
-    
+    */
 }
 
 function onClickSave(){
