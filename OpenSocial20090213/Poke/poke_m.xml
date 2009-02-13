@@ -93,7 +93,8 @@ debug("getMyAttrs");
           });
           debug(owner_id);
 
-          var data = { owner_id:[{ item2: -10}] }
+          var data = {}
+          data[owner_id] = [{ item2: -10}];
           var json = gadgets.json.stringify(data);
           debug(json);
 
