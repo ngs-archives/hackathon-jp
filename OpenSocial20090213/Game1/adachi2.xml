@@ -35,14 +35,13 @@
 					var target = document.getElementById("target");
 					friends.each(function(friend){
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
-						var userNickname = friend.getDisplayName()
+						var userNickname = friend.getDisplayName();
 						target.innerHTML += "<img src='" + thumbnailUrl + "'></img><br />" + userNickName+ "<br />";
 					});
 				}
 			}
 		});
 	}
-	document.getElementById("target").innerHTML = "sssss";
 	gadgets.util.registerOnLoadHandler(init);
 	</script>
 	<div id="target"></div>
