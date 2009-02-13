@@ -2,7 +2,7 @@
 <Module>
   <ModulePrefs title="Gifts part 7 - Working with Remote content">
     <Require feature="opensocial-0.8"/>
-    <Preload href="http://opensocial-resources.googlecode.com/svn/samples/tutorial/branches/io/gifts.json" />
+    <!--<Preload href="http://opensocial-resources.googlecode.com/svn/samples/tutorial/branches/io/gifts.json" />-->
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
