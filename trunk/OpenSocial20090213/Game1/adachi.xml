@@ -5,6 +5,7 @@
   </ModulePrefs>
   <Content type="html">
   <![CDATA[
+	<script src="./honma.js" type="text/javascript">
     <script type="text/javascript">
       /**
        * Request the OWNER and OWNER's friends.
