@@ -5,7 +5,9 @@
   </ModulePrefs>
   <Content type="html">
   <![CDATA[
+/*
      <script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/honma.js" type="text/javascript"></scirpt>
+*/
      <script type="text/javascript">
       /**
        * Request the OWNER and OWNER's friends.
