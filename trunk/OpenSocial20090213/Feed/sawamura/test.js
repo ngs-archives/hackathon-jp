@@ -30,7 +30,7 @@ function show(oj){
 	    $.each(["not","want","reading","have read"],function(){
 		    var kw = this;
 		    $('<input type="radio">' + kw + '</input>').attr("name",asin).appendTo($div)
-			.click(function(){ postActivity(kw)   });
+			.click(function(){ postActivity(kw) });
 		});
 	    $base.append($div);
 	});
@@ -43,8 +43,6 @@ function init(){
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
     gadgets.io.makeRequest("http://booklog.jp/users/sawamur/feed/RSS1", show, params );
 }
-
-
 
 function postActivity(text) {  
     var params = {};  
@@ -62,6 +60,3 @@ function callback(status) {
     }
 }
   
-
-
-
