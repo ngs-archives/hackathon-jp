@@ -36,6 +36,7 @@
 	  var viewer = data.get('viewer').getData();
 	  var viewerFriends = data.get('viewerFriends').getData();
 	  var giftData = data.get('data').getData();
+	　　var viewerFriendData = data.get('viewerFriendData').getData();
 	
 	  html = new Array();
 	  html.push('<select id="person">');
@@ -48,6 +49,7 @@
 	  document.getElementById('friends').innerHTML = html.join('');
 	
 	  updateGiftList(viewer, giftData, viewerFriends);
+	　　updateReceivedList(viewer, viewerFriendData, viewerFriends);
 	}
 	
 	function makeOptionsMenu() {
@@ -78,6 +80,8 @@
 
 	  var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
 	  req.add(req.newFetchPersonAppDataRequest(viewer, 'gifts'), 'data');
+	
+	　　req.add(req.newFetchPersonAppDataRequest(viewerFriends, 'gifts', opt_params), 'viewerFriendData');
 	  req.send(onLoadFriends);
 	}
 
@@ -116,6 +120,8 @@
 	          </form>
 	        </div>
 	        <div id='given'></div>
+	　　　　　　　　<div id='received'></div>
+			
 	      </div>
 	
 	
