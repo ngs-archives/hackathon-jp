@@ -3,7 +3,8 @@ socialquest.recievedHenseiData = function (data){
         // 例外送出
         throw data.getErrorMessage();
     }
-    var viewer = data.get("viewer").getData();
+    var item = data.get("friends");
+    var viewer = item.getData();
     var maker = new socialquest.CharacterMaker();
     var p = maker.make(viewer);
 
@@ -39,7 +40,7 @@ gadgets.util.registerOnLoadHandler(
         req.add(
             req.newFetchPeopleRequest(
                 idSpec, socialquest.parsonSearchParams
-            ), "viewer"
+            ), "friends"
         );
         req.send(socialquest.recievedHenseiData);
     }
