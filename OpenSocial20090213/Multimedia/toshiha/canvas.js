@@ -8,7 +8,7 @@ var fsize = prefs.getInt("fontsize");
 
 $(function () {
 	var $os = $.opensocial_simple;
-	vds = new VoiceDelivery((new VoiceDeliveryPlayer("vdsp")), "vds");
+	//vds = new VoiceDelivery((new VoiceDeliveryPlayer("vdsp")), "vds");
 	$os.getPerson(function (person) {
 		$os.get('http://profile.myspace.com/index.cfm', {
 			'fuseaction' : 'user.viewProfile',
