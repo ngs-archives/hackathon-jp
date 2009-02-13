@@ -11,6 +11,7 @@
 
 	function init() {
 	  loadFriends();
+	　　makeOptionsMenu();
 	}
 	
 	function loadFriends() {
@@ -30,20 +31,37 @@
 	  var viewerFriends = data.get('viewerFriends').getData();
 
 	  html = new Array();
-	  html.push('<ul>');
+	  html.push('<select id="person">');
 	  viewerFriends.each(function(person) {
 	    if (person.getId()) {
-	      html.push('<li>' + person.getDisplayName() + "</li>");
+	      html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
 	    }
 	  });
-	  html.push('</ul>');
+	  html.push('</select>');
 	  document.getElementById('friends').innerHTML = html.join('');
 	}
+	
+	var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
+
+	function makeOptionsMenu() {
+	  var html = new Array();
+	  html.push('<select id="nut">');
+	  for (var i = 0; i < globalGiftList.length; i++) {
+	    html.push('<option value="', i, '">', globalGiftList[i], '</option>');
+	  }
+	  html.push('</select>');
+	  document.getElementById('gifts').innerHTML = html.join('');
+	}
+
 </script>
 	<div id='main'>
-	        Your friends:
-	        <div id='friends'></div>
+	        <div id='give'>
+	          <form id='gift_form'>
+	            Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
+	          </form>
+	        </div>
 	      </div>
+	
 	
     ]]>
   </Content>
