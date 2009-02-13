@@ -8,15 +8,18 @@
             category="ネタ系">
         <Require feature="opensocial-0.8" />
     </ModulePrefs>
-    <Content type="html" view="canvas" preferred_height="350"><![CDATA[
+    <Content type="html" view="canvas" preferred_height="500"><![CDATA[
 <link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/canvas.css" />
 <script type=" text/javascript" src="http://api.msappspace.com/OpenSocial/JSExtensions/jquery/jquery-1.2.3.min.js"></script>
 <script type=" text/javascript" src="http://miya2000.up.seesaa.net/marquee/marquee.js"></script>
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/jQuery.opensocial_simple/jquery.opensocial_simple.js"></script>
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/sisso/sisso.js"></script>
 <script type=" text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/canvas.js"></script>
+<script type="text/javascript" src="http://api.vdsapi.ne.jp/cgi-bin/vds.cgi?key=70075972361b44408f588f2c41a49af8">
+</script>
 <div class="container">
 <div id="textFrontBg" class="bgpng"></div>
 </div>
+<div id="vdsp"></div>
     ]]></Content>
 </Module>
