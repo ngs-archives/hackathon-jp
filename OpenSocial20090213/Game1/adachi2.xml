@@ -17,7 +17,7 @@
 		params[opensocial.IdSpec.Field.NECTWORK_DISTANCE] = 1;
 		var idSpec = openSocial.newIdSpec(params);
 		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPeopleRequest(idSpec,socialquest.parsonSearchParams),"friends");
+		req.add(req.newFetchPeopleRequest(idSpec),"friends");
 		req.send(function(data){
 			if(data.hadError()){
 				var msg = data.getErrorMessage();
