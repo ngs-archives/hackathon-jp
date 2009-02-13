@@ -30,6 +30,7 @@
 	  var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
 	  req.add(req.newFetchPersonAppDataRequest(viewer, 'gifts', opt_params), 'data');
 	  
+	  req.add(req.newFetchPersonAppDataRequest(viewerFriends, 'gifts', opt_params), 'viewerFriendData');
 	  req.send(onLoadFriends);
 	}
 	
