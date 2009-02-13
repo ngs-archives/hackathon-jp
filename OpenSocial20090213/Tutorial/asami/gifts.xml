@@ -2,6 +2,7 @@
 <Module>
   <ModulePrefs title="Gifts part 0 - Boilerplate">
     <Require feature="opensocial-0.8"/>
+    <Preload href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Tutorial/asami/gifts.json" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
@@ -11,6 +12,8 @@
 
 	var givenGifts = {};
 	var globalGiftList = ['ああああ', 'いいいい', 'a hazelnut', 'a red pistachio nut'];
+	var globalGivenGifts = {};
+	var globalFriends = {};
 	
 	function init() {
 	  requestGiftList("http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Tutorial/asami/gifts.json");
@@ -32,8 +35,6 @@
 	  req.add(req.newFetchPersonAppDataRequest(viewerFriends, 'gifts', opt_params), 'viewerFriendData');
 	  req.send(onLoadFriends);
 	}
-	
-	var globalFriends = {};
 	
 	function onLoadFriends(data) {
 	  var viewer = data.get('viewer').getData();
