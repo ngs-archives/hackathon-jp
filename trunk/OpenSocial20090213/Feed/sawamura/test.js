@@ -31,7 +31,7 @@ function show(oj){
 	    $.each(["n/a","want","reading","have read"],function(){
 		    var kw = this;
 		    var $ck = $('<input type="radio">' + kw + '</input>').attr("name",asin)
-			.appendTo($div).click(function(){ postActivity(kw) });
+			.appendTo($div.find("div:eq(1)").click(function(){ postActivity(kw) });
 		    if(kw == 'n/a'){
 			$ck.attr("checked",1);
 		    }
