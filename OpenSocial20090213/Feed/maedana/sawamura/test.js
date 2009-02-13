@@ -64,6 +64,7 @@ function storeBookData(dom) {
     req.send(function(data) {
         // 何かする?
         alert(data);
+        console.dir(data);
     });
 }
 
