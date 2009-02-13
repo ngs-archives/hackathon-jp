@@ -1,6 +1,7 @@
 #main{
-	background-image:url("../images/back.jpg");
+	background-image:url("./images/back.jpg");
+	background-repeat:no-repeat;
 	width:800px;
 	height:300px;
-	margin:30px;
+	padding:30px;
 }
