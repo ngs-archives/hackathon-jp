@@ -11,7 +11,7 @@ socialquest.Player.prototype = {
 };
 
 socialquest.CharacterMaker = function (){};
-CharacterMaker.prototype = {
+socialquest.CharacterMaker.prototype = {
     make: function (p) {
         
         
