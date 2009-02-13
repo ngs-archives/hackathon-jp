@@ -3,7 +3,7 @@
   <ModulePrefs title="my poke">
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
-  <Content view="home" type="html" >
+  <Content view="profile" type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
     <script type="text/javascript">
@@ -46,7 +46,13 @@ console.debug("getMyAttrs");
 
                    console.debug("owner_id" + owner.getId());
 
+                   console.log(myAttrs);
                    var jsonStr = myAttrs[owner.getId()]['attrs'];
+
+
+
+
+
                    //                                      if (!myAttrs.hasOwnProperty) {
                    //    console.debug("call init");
                    //    initCallback();
@@ -67,6 +73,7 @@ home
     <div id="main">あいうえお</div>
     ]]>
   </Content>
+<!--
   <Content view="profile" type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
@@ -79,6 +86,7 @@ home
 profile
     ]]>
   </Content>
+-->
   <Content view="preview" type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
