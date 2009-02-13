@@ -28,6 +28,7 @@ debug("initMyAttrs");
 
           var req = opensocial.newDataRequest();
           req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'attrs', json));
+          req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'latestAttrs', json));
           req.send();
       }
 
@@ -71,6 +72,10 @@ debug("getMyAttrs");
           });
       }
 
+      function updateLatest(divId) {
+        
+      }
+
       $(function(){
         debug("init");
         getMyAttrs('main');
@@ -78,7 +83,10 @@ debug("getMyAttrs");
     </script>
     <button type="button" onclick="initMyAttrs();">Init!</button>
     <button type="button" onclick="getMyAttrs('main');">Refresh!</button>
+    <button type="button" onclick="updateLatest('latest')">Lastest!</button>
     <div id="main">あいうえお</div>
+
+    <div id="latest">最新状態</div>
     ]]>
   </Content>
   <!--
