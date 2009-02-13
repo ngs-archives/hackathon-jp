@@ -51,10 +51,10 @@ main (int argc, char **argv)
  		// printf("    <left>%d</left>\n", r->x);
 		puts("[{");
 		printf("	\"id\":%d,\n", 0);
-		printf("	\"x\":%d,\n", 0);
-		printf("	\"y\":%d,\n", 0);
-		printf("	\"w\":%d,\n", 0);
-		printf("	\"h\":%d\n", 0);
+		printf("	\"x\":%d,\n", r->x);
+		printf("	\"y\":%d,\n", r->y);
+		printf("	\"w\":%d,\n", r->w);
+		printf("	\"h\":%d\n", r-h);
 		puts("}]");
 		if (i != faces->total - 1) {
 			puts(",");
@@ -73,9 +73,9 @@ main (int argc, char **argv)
 
 
 	// (6)画像を表示，キーが押されたときに終了
-	cvNamedWindow ("Face Detection", CV_WINDOW_AUTOSIZE);
-	cvShowImage ("Face Detection", src_img);
-	cvWaitKey (0);
+	// cvNamedWindow ("Face Detection", CV_WINDOW_AUTOSIZE);
+	// cvShowImage ("Face Detection", src_img);
+	// cvWaitKey (0);
 
 	cvDestroyWindow ("Face Detection");
 	cvReleaseImage (&src_img);
