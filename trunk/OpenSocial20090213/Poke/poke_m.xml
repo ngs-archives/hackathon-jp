@@ -74,7 +74,7 @@ debug("getMyAttrs");
       function getPokes() {
           var req = opensocial.newDataRequest();
           req.add(req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
-          var idSpec = opensocial.newIdSpec({opensocial.IdSpec.Field.USER_ID: opensocial.IdSpec.PersonId.VIEWER});
+          var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.VIEWER});
           req.add(req.newFetchPersonAppDataRequest(idSpec, ["pokes"]), "pokes");
           req.send(function(data) {
               var viewer = data.get("viewer").getData();
