@@ -13,8 +13,7 @@
 	var globalGiftList = ['ああああ', 'いいいい', 'a hazelnut', 'a red pistachio nut'];
 	
 	function init() {
-	  loadFriends();
-	　　makeOptionsMenu();
+	  requestGiftList("http://example.com/gifts.json");
 	}
 	
 	function loadFriends() {
@@ -169,6 +168,19 @@
 	  opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function() {});
 	}
 	
+	function requestGiftList(url) {
+	  var params = {};
+	  params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+	  gadgets.io.makeRequest(url, onGiftList, params);
+	}
+	
+	function onGiftList(data) {
+	   if (data.data && data.data.length) {
+	     globalGiftList = data.data;
+	   }
+	  loadFriends();
+	　　makeOptionsMenu();
+	}
 	
 </script>
 	<div id='main'>
