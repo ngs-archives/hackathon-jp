@@ -6,7 +6,7 @@ gadgets.util.registerOnLoadHandler(init);
 function show(dom){ 
     var html = new Array();
     html.push("<h1>");
-    html.push( $(dom).find("title:eq(0)").text());
+    html.push( dom);
     html.push("</h1>");
     document.getElementById('friends').innerHTML += html.join('');
 }
