@@ -6,9 +6,8 @@ gadgets.util.registerOnLoadHandler(init);
 function show(oj){ 
     var html = new Array();
     html.push("<h1>");
-    html.push( dom );
-    dom = oj.data;
-    dom.getElementsByTagName("title")[0].childNodes[0].nodeValue );
+    var dom = oj.data;
+    html.push( dom.getElementsByTagName("title")[0].childNodes[0].nodeValue );
     html.push("</h1>");
     document.getElementById('friends').innerHTML += html.join('');
 }
