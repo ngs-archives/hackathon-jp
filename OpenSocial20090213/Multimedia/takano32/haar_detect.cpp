@@ -35,24 +35,38 @@ main (int argc, char **argv)
 	faces = cvHaarDetectObjects (src_gray, cascade, storage, 1.11, 4, 0, cvSize (40, 40));
 
 
-	puts("<faces>");
+	// puts("<faces>");
+	printf("[{\"faces\":");
 	// (5)検出された全ての顔位置に，円を描画する
 	for (i = 0; i < (faces ? faces->total : 0); i++) {
-		puts("  <face>");
+		// puts("  <face>");
+		
 		CvRect *r = (CvRect *) cvGetSeqElem (faces, i);
 		CvPoint center;
 		int radius;
-		printf("    <top>%d</top>\n", r->y);
-		printf("    <right>%d</right>\n", r->x + r->width);
-		printf("    <bottom>%d</bottom>\n", r->y + r->height);
-		printf("    <left>%d</left>\n", r->x);
+ 		// printf("    <top>%d</top>\n", r->y);
+ 		// printf("    <right>%d</right>\n", r->x + r->width);
+ 		// printf("    <bottom>%d</bottom>\n", r->y + r->height);
+ 		// printf("    <left>%d</left>\n", r->x);
+		puts("[{");
+		puts("	\"id\":%d,");
+		puts("	\"x\":%d,");
+		puts("	\"y\":%d,");
+		puts("	\"w\":%d,");
+		puts("	\"h\":%d");
+		puts("}]");
 		center.x = cvRound (r->x + r->width * 0.5);
 		center.y = cvRound (r->y + r->height * 0.5);
 		radius = cvRound ((r->width + r->height) * 0.25);
 		cvCircle (src_img, center, radius, colors[i % 8], 3, 8, 0);
 		puts("  </face>");
 	}
-	puts("</faces>");
+	// puts("</faces>");
+	puts("}]");
+
+
+
+
 
 	// (6)画像を表示，キーが押されたときに終了
 	cvNamedWindow ("Face Detection", CV_WINDOW_AUTOSIZE);
