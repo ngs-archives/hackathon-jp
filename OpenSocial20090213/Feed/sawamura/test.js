@@ -20,7 +20,7 @@ function show(oj){
 	    cdata.match(/img src="(.+?)"/);
 	    var img = RegExp.$1
 	    html.push("<blockquote>" + cdata + "</blockquote>");
-	    html.push(<"img src='" + img + "' width='80'>");
+	    html.push(<"img src='" + img + "' width='80' />");
 	});
     document.getElementById('friends').innerHTML += html.join('');
 }
