@@ -12,7 +12,7 @@ function show(oj){
     html.push( txt(dom,"title") );
     html.push("</h1>");
     var items = dom.getElementsByTagName("item");
-    var $base = $("#friends");
+    var $base = $("#booklist");
     $.each(items,function(){
 	    var $div = $("<div class='bkrg'></div>");
 	    var cdata = txt(this,"description");
