@@ -40,7 +40,7 @@
 					friends.each(function(friend){
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
 						var userNickname = friend.getDisplayName()
-						target.innerHTML += "<img src='" + thumbnailUrl + "'></img><br />" + p.getDisplayName() + "<br />" + p.job + "<br />" + p.hp + "<br />";
+						target.innerHTML += "<img src='" + thumbnailUrl + "'></img><br />" + userName+ "<br />";
 						//target.innerHTML += "<img src='" + thumbnailUrl + "'></img><br />" + p.getDisplayName() + "<br />" + p.job + "<br />" + p.hp + "<br />";
 					});
 				}
