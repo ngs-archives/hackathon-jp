@@ -76,7 +76,7 @@
 		      html.push('You have mixs:');
 		      html.push('<ul>');
 		      for (i in globalItemList) {
-				 html.push('<li> items ', globalItemList[globalItemList[i], '</li>');
+				 html.push('<li> items ', globalItemList[i], '</li>');
 		        //if (i.hasOwnProperty) {
 		        //  for (j in globalItemList[i]) {
 		        //    if (j.hasOwnProperty) {
