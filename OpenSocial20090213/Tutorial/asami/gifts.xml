@@ -19,8 +19,9 @@
 	
 	function loadFriends() {
 	  var req = opensocial.newDataRequest();
-	  req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
-
+	  //req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+	  req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+	
 	  var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
 	  var opt_params = {};
 	  opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
@@ -36,9 +37,7 @@
 	  var viewer = data.get('viewer').getData();
 	  var viewerFriends = data.get('viewerFriends').getData();
 	  var giftData = data.get('data').getData();
-	  if(data.get('viewerFriendData') != null) {
-	　　	var viewerFriendData = data.get('viewerFriendData').getData();
-	  }
+	  var viewerFriendData = data.get('viewerFriendData').getData();
 	
 	  html = new Array();
 	  html.push('<select id="person">');
