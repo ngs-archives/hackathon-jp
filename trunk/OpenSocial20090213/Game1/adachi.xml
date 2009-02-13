@@ -29,7 +29,7 @@
         var html = 'Friends of ' + owner.getDisplayName();
         html += ':<br><ul>';
         friends.each(function(person) {
-          html += '<li>' + person.getDisplayName() + '::' + person.getDisplayAddress() + '</li>';
+          html += '<li>' + person.getDisplayName() + '</li>';
         });
         html += '</ul>';
         document.getElementById('message').innerHTML = html;
