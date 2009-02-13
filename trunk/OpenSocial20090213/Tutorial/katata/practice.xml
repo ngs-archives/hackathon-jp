@@ -58,7 +58,7 @@
 					ownerFriends.each(function(personOwner) {
 						if (personOwner.getId()) {
 							if(personViwer.getId() == personOwner.getId()){
-								html.push('<img src="',personOwner.getField(opensocial.Person.Field.THUMBNAIL_URL),'" onclick="test("',personViwer.getId(),'");"/>',personOwner.getDisplayName());
+								html.push('<img src="',personOwner.getField(opensocial.Person.Field.THUMBNAIL_URL),'" onclick="test(\'',personViwer.getId(),'\');"/>',personOwner.getDisplayName());
 							}
 						}
 					});
