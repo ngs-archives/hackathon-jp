@@ -53,8 +53,8 @@ main (int argc, char **argv)
 		printf("	\"id\":%d,\n", 0);
 		printf("	\"x\":%d,\n", r->x);
 		printf("	\"y\":%d,\n", r->y);
-		printf("	\"w\":%d,\n", r->w);
-		printf("	\"h\":%d\n", r-h);
+		printf("	\"w\":%d,\n", r->width);
+		printf("	\"h\":%d\n", r-height);
 		puts("}]");
 		if (i != faces->total - 1) {
 			puts(",");
