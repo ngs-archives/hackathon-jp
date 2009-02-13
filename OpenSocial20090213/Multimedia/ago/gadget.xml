@@ -15,7 +15,7 @@
 <script type=" text/javascript" src="http://miya2000.up.seesaa.net/marquee/marquee.js"></script>
 <script type=" text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/canvas.js"></script>
 <div class="container">
-<div id="bigFontText"></div>
+<marquee id="bigFontText"></marquee>
 <div id="textFrontBg"></div>
 </div>
     ]]></Content>
