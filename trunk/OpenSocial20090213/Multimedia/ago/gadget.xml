@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
     <ModulePrefs
-            title="scroll"
+            title="big fonts!"
             author="multimedia2"
-            author_email="ago@kayac.com">
+            author_email="ago@kayac.com"
+            description="big fonts!">
         <Require feature="opensocial-0.8" />
     </ModulePrefs>
     <Content type="html" view="canvas"><![CDATA[
@@ -12,6 +13,7 @@
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/jQuery.opensocial_simple/jquery.opensocial_simple.js"></script>
 
 <script type=" text/javascript">
+//http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/dotbg.png
 	var $os = $.opensocial_simple;
 	$os.getPerson(function (person) {
 		$os.getDOM('http://profile.myspace.com/index.cfm', {
