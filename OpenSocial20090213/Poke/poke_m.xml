@@ -181,6 +181,20 @@ console.log("getOwnerAttrs : json : " + json);
           });
       }
 
+      function poke() {
+        var itemId = $('#pokeItemSelect').val();
+        var pokeValue = $('#pokeValueInput').val();
+
+        debug('item ' + itemId + ', value ' + pokeValue );
+      }
+
+      function initializeSelectItems() {
+        var html = [];
+        for (i in masterAttrs) {
+          html.push('<option value="' + i + '">' + masterAttrs[i] + '</option>');
+        }
+        $('#pokeItemSelect').html(html.join(''));
+      }
       $(function(){
         debug("init");
         getMyAttrs('main');
@@ -192,6 +206,10 @@ console.log("getOwnerAttrs : json : " + json);
     <button type="button" onclick="getOwnerAttrs('ownerAttrs')">Show this user(owner)'s latest attrs</button>
     <button type="button" onclick="getPokes();">getPoke</button>
     <button type="button" onclick="poke();">Poke</button>
+
+    <div id="pokeItems"><select id="pokeItemSelect" name="pokeItemSelect"></select>
+      <input type="text" name="pokeValue" id="pokeValueInput" />
+    </div>
 
     <div id="main">あいうえお</div>
 

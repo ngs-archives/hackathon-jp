@@ -164,14 +164,17 @@ console.log("getOwnerAttrs : json : " + json);
               debug(pokes);
           });
       }
-      function poke() {
+      function poke(itemId, pokeVal) {
           var get_req = opensocial.newDataRequest();
           get_req.add(get_req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
           get_req.send(function(data) {
               var ownerId = data.get("owner").getData().getId();
               debug(ownerId);
               var data = {};
-              data[ownerId] = [{ item2: -10}];
+              var item = {};
+              item[itemId] = pokeVal;
+
+              data[ownerId] = [item];
               var json = gadgets.json.stringify(data);
               debug(json);
 
@@ -181,9 +184,26 @@ console.log("getOwnerAttrs : json : " + json);
           });
       }
 
+      function onPoke() {
+        var itemId = $('#pokeItemSelect').val();
+        var pokeValue = $('#pokeValueInput').val();
+
+        poke(itemId, pokeValue );
+        debug('item ' + itemId + ', value ' + pokeValue );
+      }
+
+      function initializeSelectItems() {
+        var html = [];
+        for (i in masterAttrs) {
+          html.push('<option value="' + i + '">' + masterAttrs[i] + '</option>');
+        }
+        $('#pokeItemSelect').html(html.join(''));
+      }
+
       $(function(){
         debug("init");
         getMyAttrs('main');
+        initializeSelectItems();
       });
     </script>
     <button type="button" onclick="initMyAttrs();">Init!</button>
@@ -191,7 +211,10 @@ console.log("getOwnerAttrs : json : " + json);
     <button type="button" onclick="updateLatest();">Update Friends Data</button>
     <button type="button" onclick="getOwnerAttrs('ownerAttrs')">Show this user(owner)'s latest attrs</button>
     <button type="button" onclick="getPokes();">getPoke</button>
-    <button type="button" onclick="poke();">Poke</button>
+    <button type="button" onclick="onPoke();">Poke</button>
+    <div id="pokeItems"><select id="pokeItemSelect" name="pokeItemSelect"></select>
+      <input type="text" name="pokeValue" id="pokeValueInput" />
+    </div>
 
     <div id="main">あいうえお</div>
 
