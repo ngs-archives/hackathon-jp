@@ -9,7 +9,7 @@ function show(feed){
     html.push("</h1>");
 }
 
-opensocial.makeRequest("http://opensocialapis.blogspot.com/atom.xml",
+gadgets.io.makeRequest("http://opensocialapis.blogspot.com/atom.xml",
 		       show,
 		       {'method' : 'GET', 'contentType' : 'feed', 'numEntries' : '5', 'getSummaries' : 'true'}
 		       );
