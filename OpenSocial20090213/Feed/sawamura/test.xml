@@ -23,8 +23,7 @@
 
 
 <div id='main'>
-  from booklog
-  <div id='friends'></div>
+  <div id='booklist'></div>
 </div>
 
     ]]>
