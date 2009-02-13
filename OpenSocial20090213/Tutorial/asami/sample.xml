@@ -63,11 +63,12 @@
 		
 		function loadMixItem() {
 		  var req = opensocial.newDataRequest();
-		  req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
-		
-		  var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
-		  req.add(req.newFetchPersonAppDataRequest(viewer, 'items'), 'data');
-		  req.send(onLoadMixItem);
+	      req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+
+	      var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
+	      req.add(req.newFetchPersonAppDataRequest(viewer, 'items'), 'data');
+
+	      req.send(onLoadMixItem);
 	    }
 	
 		function mix() {
