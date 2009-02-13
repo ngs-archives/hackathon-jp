@@ -88,7 +88,12 @@
 
 	      	var req = opensocial.newDataRequest();
 	      	req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'items', json));
-		  	req.send;
+	        req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+	
+	        var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
+		    req.add(req.newFetchPersonAppDataRequest(viewer, 'items'), 'data');
+		
+		  	req.send(onLoadMixItem);
 		  }
 		  postActivity(mix_item);
 		}
