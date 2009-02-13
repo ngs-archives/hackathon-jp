@@ -52,7 +52,7 @@
 		}
 		
 		function onLoadMixItem(data) {
-			var viewer = data.get('data').getData();
+			var viewer = data.get('items').getData();
 			viewer.each(function(person) {
 				alert(person);
 	      	});
