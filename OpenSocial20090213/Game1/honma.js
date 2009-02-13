@@ -9,9 +9,10 @@ socialquest.parsonSearchParams[
 ] = [
     opensocial.Person.Field.ID,
     opensocial.Person.Field.NAME,
-    opensocial.Person.Field.THUMBNAIL_URL,
-    opensocial.Person.Field.PROFILE_URL,
+//    opensocial.Person.Field.THUMBNAIL_URL,
+//    opensocial.Person.Field.PROFILE_URL,
     opensocial.Person.Field.CURRENT_LOCATION,
+/*
     opensocial.Person.Field.ADDRESSES,
     opensocial.Person.Field.ABOUT_ME,
     opensocial.Person.Field.STATUS,
@@ -37,6 +38,7 @@ socialquest.parsonSearchParams[
     opensocial.Person.Field.LOOKING_FOR,
     opensocial.Person.Field.RELIGION,
     opensocial.Person.Field.POLITICAL_VIEWS
+*/
 ];
 
 
