@@ -49,11 +49,11 @@ main (int argc, char **argv)
  		// printf("    <bottom>%d</bottom>\n", r->y + r->height);
  		// printf("    <left>%d</left>\n", r->x);
 		puts("[{");
-		puts("	\"id\":%d,");
-		puts("	\"x\":%d,");
-		puts("	\"y\":%d,");
-		puts("	\"w\":%d,");
-		puts("	\"h\":%d");
+		printf("	\"id\":%d,\n", 0);
+		printf("	\"x\":%d,\n", 0);
+		printf("	\"y\":%d,\n", 0);
+		printf("	\"w\":%d,\n", 0);
+		printf("	\"h\":%d\n", 0);
 		puts("}]");
 		center.x = cvRound (r->x + r->width * 0.5);
 		center.y = cvRound (r->y + r->height * 0.5);
