@@ -6,28 +6,39 @@
   	<Content type="html">
     <![CDATA[
       <script>
-        var globalFriends = {};
-		
         function loadFriends() {
           var req = opensocial.newDataRequest();
-		  
-          req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
-		  
-		  
-		  var viewerFriends = opensocial.newIdSpec({"userId":"VIEWER","groupId":"FRIENDS"});
 		  var opt_params = {};
 		  opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+		  
+		  req.add(req.newFetchPersonRequest("OWNER"), 'owner');
+		  var ownerFriends = opensocial.newIdSpec({"userId":"OWNER","groupId":"FRIENDS"});
+		  req.add(req.newFetchPeopleRequest(ownerFriends,opt_params),'ownerFriends');
+		  
+          req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+		  var viewerFriends = opensocial.newIdSpec({"userId":"VIEWER","groupId":"FRIENDS"});
           req.add(req.newFetchPeopleRequest(viewerFriends,opt_params),'viewerFriends');
 		  
 		  req.send(onLoadFriends);
         }
         
         function onLoadFriends(data) {
+			var owner = data.get('owner').getData();
+			var ownerFriends = data.get('ownerFriends').getData();
+		
 			var viewer = data.get('viewer').getData();
 			var viewerFriends = data.get('viewerFriends').getData();
 			
 			var html = new Array();
-			html.push('<select id="person">');
+			html.push('<select id="owner">');
+			ownerFriends.each(function(person) {
+				if (person.getId()) {
+					html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
+				}
+			});
+			html.push('</select>');
+			
+			html.push('<select id="viewer">');
 			viewerFriends.each(function(person) {
 				if (person.getId()) {
 					html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
@@ -35,8 +46,6 @@
 			});
 			html.push('</select>');
 			document.getElementById('main').innerHTML = html.join('');
-          
-          	globalFriends = viewerFriends;
         }
         function init() {
            loadFriends();
