@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
- <ModulePrefs title="HonmaSocialQuest">
+ <ModulePrefs title="SocialQuest">
   <Require feature="opensocial-0.8"/>
  </ModulePrefs>
  <Content type="html" view="canvas">
@@ -133,7 +133,7 @@ function postActivity(title, value) {
 </script>
 
       <div id="social-top" style="display: none;">
-      <div class="main" style="display: none;">
+      <div class="main">
       	<div id="photo">
 	</div>
 	<h1>なまえ：<span id="name"></span></h1>
