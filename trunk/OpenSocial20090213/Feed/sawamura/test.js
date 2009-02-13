@@ -26,7 +26,10 @@ function show(oj){
 		       + "ASIN: " + asin		
 		       + "<br />"
 		       );
-	    $('<input type="radio">want</input>').attr("name",asin).appendTo($div);
+	    $('<input type="radio">want</input>').attr("name",asin).appendTo($div)
+		.click(function(){
+			postActivity("This is a sample activity, created at " + new Date().toString());
+		    });
 	    $('<input type="radio">reading</input>').attr("name",asin).appendTo($div);
 	    $('<input type="radio">have read</input>').attr("name",asin).appendTo($div);
 	    $base.append($div);
@@ -40,5 +43,25 @@ function init(){
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
     gadgets.io.makeRequest("http://booklog.jp/users/sawamur/feed/RSS1", show, params );
 }
+
+
+
+function postActivity(text) {  
+    var params = {};  
+    params[opensocial.Activity.Field.TITLE] = text;
+    var activity = opensocial.newActivity(params); 
+    opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, callback);
+    //div.innerHTML = "Activity title is: " + activity.getField(opensocial.Activity.Field.TITLE);
+}        
+
+function callback(status) {
+    if (status.hadError()){
+	alert("Error creating activity.");
+    } else {
+	alert("Activity successfully created.");
+    }
+}
+  
+
 
 
