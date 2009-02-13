@@ -1,11 +1,24 @@
-plz access http://taka.no32.tk/pub/GoogleOpenSocialHackathon/
 
 
-[{"faces":[{
-	"id":1,
-	"x":111,
-	"y":111,
-	"w":111,
-	"h":111
-}]}]
+== OpenCVを用いた顔認識とAPI
+haar_detect.cpp
+OpenCVを使った顔認識を行い、JSONでデータを返します。
+--no-gui オプションを用いることで画像による確認を
+省略します。
+
+
+
+xmlrpc.rb
+XML-RPCのエンドポイント(getFaces)です。
+サーバとしても、CGIとしても使えます。
+
+
+cgirpc.rb
+cgiのエンドポイントです。
+?image=#{image_url}
+という形で使うことで座標がえられます。
+
+
+face.jpg
+楽しい画像です。
 
