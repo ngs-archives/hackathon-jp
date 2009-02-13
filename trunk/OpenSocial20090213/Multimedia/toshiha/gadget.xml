@@ -7,7 +7,10 @@
      description="big fonts!"
      category="ネタ系">
         <Require feature="opensocial-0.8"/>
-		<UserPref name="fontsize"
+		
+		
+    </ModulePrefs>
+	<UserPref name="fontsize"
      display_name="Font Size"
      datatype="enum"    
      default_value="400">
@@ -15,8 +18,6 @@
         <EnumValue value="300" display_value="300pt"/>        
         <EnumValue value="400" display_value="400pt"/>
     </UserPref>
-		
-    </ModulePrefs>
     
     <Content type="html" view="canvas" preferred_height="350">
         <![CDATA[
