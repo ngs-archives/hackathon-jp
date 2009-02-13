@@ -23,6 +23,9 @@
 	  opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
 	  req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
 
+	  var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
+	  req.add(req.newFetchPersonAppDataRequest(viewer, 'gifts', opt_params), 'data');
+	  
 	  req.send(onLoadFriends);
 	}
 	
