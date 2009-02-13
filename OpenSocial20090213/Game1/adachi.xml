@@ -29,7 +29,7 @@
         var html = 'Friends of ' + owner.getDisplayName();
         html += ':<br><ul>';
         friends.each(function(person) {
-          html += '<li>' + person.getField(opensocial.Person.Filed.THUMNAIL_URL) + '</li>';
+          html += '<li>' + person.getField(opensocial.Person.Filed.THUMBNAIL_URL) + '</li>';
         });
         html += '</ul>';
         document.getElementById('message').innerHTML = html;
