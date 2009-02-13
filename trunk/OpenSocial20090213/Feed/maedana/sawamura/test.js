@@ -7,17 +7,17 @@ function txt(dom,tag){
 }
 
 function show(oj){
-    var html = new Array();
-    html.push("<h1>");
+//    var html = new Array();
+//    html.push("<h1>");
     var dom = oj.data;
-    html.push( txt(dom,"title") );
-    html.push("</h1>");
-    var items = dom.getElementsByTagName("item");
-    $.each(items,function(){
-        html.push("<p>" + txt(this,"title") + "</p>");
-        html.push("<blockquote>" + txt(this,"description") + "</blockquote>");
-    });
-    document.getElementById('friends').innerHTML += html.join('');
+//    html.push( txt(dom,"title") );
+//    html.push("</h1>");
+//    var items = dom.getElementsByTagName("item");
+//    $.each(items,function(){
+//        html.push("<p>" + txt(this,"title") + "</p>");
+//        html.push("<blockquote>" + txt(this,"description") + "</blockquote>");
+//    });
+//    document.getElementById('friends').innerHTML += html.join('');
     storeBookData(dom);
 }
 
