@@ -32,14 +32,15 @@
 			var viewerFriends = data.get('viewerFriends').getData();
 			
 			var html = new Array();
-			html.push('<select id="owner">');
+			
+			html.push('OWNERの友達');
+          	html.push('<ul>');
 			ownerFriends.each(function(person) {
 				if (person.getId()) {
-					html.push('<option value="', person.getId(), '">', person.getField(opensocial.Person.Field.THUMBNAIL_URL), '</option>');
+					html.push('<li><img src="',person.getField(opensocial.Person.Field.THUMBNAIL_URL),'"/></li>');
 				}
 			});
-			
-			html.push('</select>');
+			html.push('</ul>');
 			
 			html.push('<select id="viewer">');
 			viewerFriends.each(function(person) {
