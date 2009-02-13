@@ -13,7 +13,6 @@ opensocial.makeRequest("http://opensocialapis.blogspot.com/atom.xml",
 		       show,
 		       {'method' : 'GET', 'contentType' : 'feed', 'numEntries' : '5', 'getSummaries' : 'true'}
 		       );
-}();
 			  
 function init() {
     loadFriends();
