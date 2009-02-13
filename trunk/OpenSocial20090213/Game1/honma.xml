@@ -11,6 +11,9 @@
       <script  type="text/javascript" 
                src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/honma.js">
       </script>
+      <script  type="text/javascript" 
+               src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/md5.js">
+      </script>
       TEST FOR HONMA
       <div id="main"></a>
  ]]>
