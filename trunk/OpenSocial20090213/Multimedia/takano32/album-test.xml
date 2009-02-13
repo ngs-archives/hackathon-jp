@@ -109,7 +109,8 @@
         // Adds the passed photo's thumbnail to the photo grid
         function addToPhotoGrid(photo) {
             document.getElementById('photoGrid').innerHTML +=
-	    photo.getThumbnailUrl() +
+	    'id: ' + photo.getId() + '<br />' +
+	    'thumbnail url: ' + photo.getId() + '<br />' +
 		'<img src="' + photo.getThumbnailUrl()+'"/> <br />';
         };
 
