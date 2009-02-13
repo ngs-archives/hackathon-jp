@@ -51,6 +51,21 @@
 			});
 			html.push('</ul>');
 			
+			html.push('同一の友達');
+			html.push('<ul>');
+			viewerFriends.each(function(personViwer) {
+				if (personViwer.getId()) {
+					ownerFriends.each(function(personOwner) {
+						if (personOwner.getId()) {
+							if(personViwer.getId() == personOwner.getId()){
+								html.push('<img src="',personOwner.getField(opensocial.Person.Field.THUMBNAIL_URL),'"/>',personOwner.getDisplayName());
+							}
+						}
+					}
+				}
+			});
+			html.push('</ul>');
+			
 			document.getElementById('main').innerHTML = html.join('');
         }
         function init() {
