@@ -12,6 +12,7 @@
 <script type=" text/javascript" src="http://api.msappspace.com/OpenSocial/JSExtensions/jquery/jquery-1.2.3.min.js"></script>
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/jQuery.opensocial_simple/jquery.opensocial_simple.js"></script>
 <script type=" text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/canvas.js"></script>
-<marquee scrollamount="20" id="marquee"></marquee>
+<script type=" text/javascript" src="http://miya2000.up.seesaa.net/marquee/marquee.js"></script>
+<div id="wrap"><div id="marquee"></div></div>
     ]]></Content>
 </Module>
