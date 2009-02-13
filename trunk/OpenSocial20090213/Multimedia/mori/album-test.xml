@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="FaceAlbum">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+      <style type="text/css">
+        img {
+          border: solid gray 1px;
+        }
+        #photoGrid{
+          margin: 10px;
+        }
+        #photoGrid img {
+        }
+        table {
+          border: solid #9999CC 1px;
+          background-color: #EEEEFF;
+          margin-bottom: 15px;
+        }
+      </style>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js'></script>
+      <script type="text/javascript">
+
+        // Fetches all of the viewer's albums that are publicly viewable (i.e.
+        // "shared with everyone"
+        function fetchAlbums() {
+          $('#photos').hide();
+          $('#friends').hide();
+          var req = opensocial.newDataRequest();
+          var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
+
+          req.add(req.newFetchAlbumsRequest(idspec), 'viewerAlbums');
+          req.send(fetchAlbumsHandler);
+        };
+
+        // Callback function, executed when orkut finishes fetching the viewer's
+        // public albums
+        function fetchAlbumsHandler(resp) {
+          var viewerAlbumsResp = resp.get('viewerAlbums');
+
+          if (!viewerAlbumsResp.hadError()) {
+            var viewerAlbums = viewerAlbumsResp.getData();
+
+            // Add a table row for each album
+            viewerAlbums.each(
+              function(album) {
+                createAlbumRow(album);
+              }
+            );
+          }
+        };
+
+        // Adds a new table row for the passed album, displaying its thumbnail,
+        // name, and description
+        function createAlbumRow(album) {
+          var row = document.createElement('tr');
+          var thumbnailCell = document.createElement('td');
+          var descriptionCell = document.createElement('td');
+
+          // Add an image tag to the first cell with the album's thumbnail;
+          // also include an event handler which executes fetchPhotos
+          // when the image is clicked, passing in the album's ID.
+          thumbnailCell.innerHTML =
+            '<img src="' + album.getThumbnailUrl() +
+            '" onclick="fetchPhotos(\'' + album.getId() + '\')"/>';
+
+          // Output the album's title...
+          descriptionCell.innerHTML =
+            '<b>' + gadgets.util.escapeString(album.getTitle()) + '</b>';
+
+          // ... and description
+          descriptionCell.innerHTML +=
+            '<p>' + gadgets.util.escapeString(album.getDescription()) + '</p>';
+       
+          row.appendChild(thumbnailCell);
+          row.appendChild(descriptionCell);
+
+          // Add the new row to the table
+          document.getElementById('albumTable').appendChild(row);
+        };
+
+
+        // Fetches all photos from the album with the passed ID
+        function fetchPhotos(albumId) {
+          var req = opensocial.newDataRequest();
+          var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
+
+          req.add(req.newFetchMediaItemsRequest(idspec, albumId), 'albumPhotos');
+          req.send(fetchPhotosHandler);
+        };
+
+        // Callback function, executed when orkut finishes fetching the
+        // requested media items
+        function fetchPhotosHandler(resp) {
+          $('#photos').show();
+          document.getElementById('photoGrid').innerHTML = '';
+          var albumPhotosResp = resp.get('albumPhotos');
+
+          if (!albumPhotosResp.hadError()) {
+            var albumPhotos = albumPhotosResp.getData();
+
+            // Add each photo's thumbnail to the photo grid
+            albumPhotos.each(
+              function(photo) {
+                addToPhotoGrid(photo);
+              }
+            );
+            //bind addTags link
+            $('.addTags').click(function(e) {
+                console.log(e.currentTarget);
+                return false;
+            });
+          }
+        };
+
+        // Adds the passed photo's thumbnail to the photo grid
+        function addToPhotoGrid(photo) {
+          document.getElementById('photoGrid').innerHTML +=
+            '<div style="display: block;"><h3>'+photo.getTitle()+'</h3><img src="' + photo.getThumbnailUrl()+'"/></div><div> - <a href="javascript:void(0)" class="addTags">Add tags</a></div>';
+        };
+
+        // Execute fetchAlbums function when gadget loads
+        gadgets.util.registerOnLoadHandler(fetchAlbums);
+      </script>
+
+      <div id="albums">
+      <h2>Albums:</h2>
+      <table id="albumTable" cellspacing="5"></table>
+      </div>
+
+      <div id="photos">
+      <h2>Photos:</h2>
+      <div id="photoGrid"></div>
+      </div>
+
+      <div id="friends">
+      <h2>Friends:</h2>
+      <div id="friendsGrid"></div>
+      </div>
+    ]]>
+  </Content>
+</Module>
+
+
+
