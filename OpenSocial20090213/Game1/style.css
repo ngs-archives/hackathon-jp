@@ -38,7 +38,8 @@ a:visited {
 	color: white; 
 }
 a:hover { 
-	color: black;background:white;
+	color: black;
+	background:white;
 }
 a:active {
 	color: yellow;
