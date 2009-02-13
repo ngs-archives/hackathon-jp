@@ -62,7 +62,7 @@
 		
 			if (!json) {
 		        globalItemList = {};
-		      }
+		    }
 		      try {
 		        globalItemList = gadgets.json.parse(gadgets.util.unescapeString(json));
 		      } catch (e) {
@@ -83,7 +83,6 @@
 		      }
 		      html.push('</ul>');
 		      document.getElementById('mixs').innerHTML = html.join('');
-			}
 		}
 		
 		function loadMixItem() {
