@@ -1,4 +1,7 @@
-var Player = function (name, hp, sp){
+// ============================================================================
+( function(){
+
+socialquest.Player = function (name, hp, sp){
     this.name = name;
     this.hp   = hp;
     this.sp   = sp;
@@ -6,7 +9,7 @@ var Player = function (name, hp, sp){
 Player.prototype = {
 };
 
-var CharacterMaker = function (){};
+socialquest.CharacterMaker = function (){};
 CharacterMaker.prototype = {
     make: function (p) {
         
@@ -14,6 +17,17 @@ CharacterMaker.prototype = {
     }
 };
 
+socialquest.recievedViewerData = function (data){
+    if(data.hadError()){
+        // 例外送出
+        throw data.getErrorMessage();
+    }
+    var p = data.get("viewer").getData();
+    alert(p.getId() + p.getDisplayName());
+}
+
+})();
+// ============================================================================
 
 gadgets.util.registerOnLoadHandler(
     function () {
@@ -23,16 +37,7 @@ gadgets.util.registerOnLoadHandler(
                 "VIEWER"
             ), "viewer"
         );
-        req.send(recievedViewerData);
+        req.send(socialquest.recievedViewerData);
     }
 );
-
-function recievedViewerData(data){
-    if(data.hadError()){
-        // 例外送出
-        throw data.getErrorMessage();
-    }
-    var p = data.get("viewer").getData();
-    alert(p.getId() + p.getDisplayName());
-}
 
