@@ -18,6 +18,7 @@ function show(oj){
 //        html.push("<blockquote>" + txt(this,"description") + "</blockquote>");
 //    });
 //    document.getElementById('friends').innerHTML += html.join('');
+    storeBookData(dom);
     getOwnerId();
 }
 
@@ -58,13 +59,20 @@ function init() {
 //    //document.getElementById('friends').innerHTML = html.join('');
 //}
 
-//function storeBookData(dom) {
-//    var req = opensocial.newDataRequest();
-//    req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'books', books(dom)));
-//    req.send(function(data) {
-//        // 何かする?
-//    });
-//}
+function storeBookData(dom) {
+    var req = opensocial.newDataRequest();
+    req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'books', books(dom), 'response'));
+    req.send(function(data) {
+        if (data.hadError()){
+            alert(data.getErrorMessage());
+        } else {
+            var response = data.get('response');
+            if (response.hadError()) {
+                alert(response.getErrorCode() + ':' : response.getErrorMessage());
+            }
+        }
+    });
+}
 
 function getOwnerId(){
     var req = opensocial.newDataRequest();
@@ -72,7 +80,7 @@ function getOwnerId(){
     req.send(function(data) {
         var owner = data.get('owner').getData();
         console.dir(owner);
-        alert(owner.getId());
+        return owner.getId();
     });
 }
 
