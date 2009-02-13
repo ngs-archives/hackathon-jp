@@ -1,20 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Adachi Debug">
+  <ModulePrefs title="OpenSocial FriendsDebug">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
   <![CDATA[
-
      <script type="text/javascript">
       /*
        * Request the OWNER and OWNER's friends.
        */
 	function init(){
-			alert("hello");
+		var params = {};
+		params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+		params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+		params[opensocial.IdSpec.Field.NECTWORK_DISTANCE] = 1;
+
+        var idspec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+        var req = opensocial.newDataRequest();
+        req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+        req.add(req.newFetchPeopleRequest(idspec), "friends");
+        req.send(response);
+
+
+		var idSpec = opensocial.newIdSpec(params);
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPeopleRequest(idSpec),"friends");
+
+		req.send(function(data){
+			if(data.hadError()){
+				var msg = data.getErrorMessage();
+				alert(msg);
+			}else{
+				var item = data.get("friends");
+				if(item.hadError()){
+					var code = item.getErrorCode();
+					var msg = item.getErrorMessage();
+					alert(code + " : " + msg);
+				}else{
+					var friends = item.getData();
+					var target = document.getElementById("target");
+					friends.each(function(friend){
+						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
+						var userName = friend.getDisplayName();
+						target.innerHTML += "<div><input type='checkbox' value=''><img src='" + thumbnailUrl + "'></img>"+ userName +"</div><br />";
+					});
+				}
+			}
+		});
 	}
 	gadgets.util.registerOnLoadHandler(init);
 	</script>
+	<div id="teamname"></div>
 	<div id="target"></div>
   ]]>  </Content>
 </Module>
