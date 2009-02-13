@@ -14,7 +14,7 @@ function show(oj){
     var items = dom.getElementsByTagName("item");
     var $base = $("#friends");
     $.each(items,function(){
-	    var $div = $("<div style='margin:5px 0 0 5px;display:inline-block'></div>");
+	    var $div = $("<div></div>");
 	    var cdata = txt(this,"description");
 	    cdata.match(/img src="(.+?)"/);
 	    var img = RegExp.$1;
@@ -25,10 +25,11 @@ function show(oj){
 		       +
 		       "<img src='" + img + "' width='80' />"
 		       + "ASIN: " + asin		
+		       + "<br />"
 		       );
-	    $('<input type="radio">reading</input>').attr("name",asin).appendTo($div);
-	    $('<input type="radio">read</input>').attr("name",asin).appendTo($div);
 	    $('<input type="radio">want</input>').attr("name",asin).appendTo($div);
+	    $('<input type="radio">reading</input>').attr("name",asin).appendTo($div);
+	    $('<input type="radio">have read</input>').attr("name",asin).appendTo($div);
 	    $base.append($div);
 	});
 }
