@@ -49,9 +49,12 @@ function init(){
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
     req.send(function(response){
         var viewer = response.get("viewer").getData();
+		
+		alert("isOwner:" + viewer.isOwner() + " ,isViewer:"+viewer.isViewer());
+		
         if (viewer) {
             isOwner = viewer.isOwner();
-            alert(isOwner);
+            
         }
         else {
             alert("error");
