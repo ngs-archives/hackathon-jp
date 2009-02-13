@@ -24,10 +24,7 @@
 		  req.send(onLoadFriends);
         }
         
-        function onLoadFriends(data) {
-			var param = {};
-			param[]
-			
+        function onLoadFriends(data) {			
 			var owner = data.get('owner').getData();
 			var ownerFriends = data.get('ownerFriends').getData();
 		
