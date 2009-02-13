@@ -9,6 +9,11 @@
 .bkrg {
   margin: 5px 3px;
   border-bottom: solid 1px #ccc ;
+  clear: both;
+}
+.bkrg img{
+  float: left;
+  width: 70px;
 }
 </style>
 

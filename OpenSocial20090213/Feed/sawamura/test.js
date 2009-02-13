@@ -21,9 +21,8 @@ function show(oj){
 	    cdata.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
 	    $div.html( '<div class="br_title">' 
+		       + "<img src='" + img + "'>"
 		       +  txt(this,"title") + '</div>'
-		       +
-		       "<img src='" + img + "' width='80' />"
 		       + "ASIN: " + asin		
 		       + "<br />"
 		       );
