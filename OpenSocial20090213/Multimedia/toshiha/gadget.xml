@@ -32,7 +32,7 @@
 <div class="container">
 <div id="textFrontBg" class="bgpng"></div>
 </div>
-<div id="vdsp"></div>
+<div id="vdsp"></div></div>
     ]]>
     </Content>
 </Module>
