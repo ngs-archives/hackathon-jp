@@ -20,17 +20,17 @@ console.debug("initMyAttrs");
           console.debug(json);
 
           var req = opensocial.newDataRequest();
-          req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'attrs', json));
+          req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'attrs', json));
           req.send();
       }
 
       function getMyAttrs(divId) {
 console.debug("getMyAttrs");
-          var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.OWNER});
+          var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.VIEWER});
 
           var req = opensocial.newDataRequest();
 
-          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'owner');
           req.add(req.newFetchPersonAppDataRequest(idSpec, 'attrs'), "data");
           req.send(function(data) {
                console.debug("callback");
