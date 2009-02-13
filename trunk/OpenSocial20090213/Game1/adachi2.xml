@@ -27,6 +27,9 @@
 				alert(msg);
 			}else{
 				var item = data.get("friends");
+				var maker = new socialquest.CharacterMaker();
+			    var p = maker.make(item);
+
 				if(item.hadError()){
 					var code = item.getErrorCode();
 					var msg = item.getErrorMessage();
@@ -37,7 +40,7 @@
 					friends.each(function(friend){
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
 						var userNickname = friend.getDisplayName()
-						target.innerHTML += "<img src='" + thumbnailUrl + "'></img>" + userNickname + "<br />";
+						target.innerHTML += "<img src='" + thumbnailUrl + "'></img><br />" + p.getDisplayName() + "<br />" + p.job + "<br />" + p.hp + "<br />";
 					});
 				}
 			}
