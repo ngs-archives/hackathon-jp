@@ -62,7 +62,8 @@ socialquest.recievedViewerData = function (data){
     }
     var p = data.get("viewer").getData();
     alert(p.getId() + p.getDisplayName());
-}
+    alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
+};
 
 })();
 // ============================================================================
