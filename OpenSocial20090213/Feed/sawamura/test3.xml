@@ -13,7 +13,7 @@
   width:120px;
   height: 150px;
   overflow: none;
-  font-size: 92%;
+  font-size: 12px;
   vertical-align: top;
 }
 .bkrg img {
