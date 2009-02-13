@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="OpenSocial FriendsList">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html">
+  <![CDATA[
+     <script type="text/javascript">
+      /**
+       * Request the OWNER and OWNER's friends.
+       */
+	function init(){
+		var params = socialquest.parsonSearchParams;
+		var idSpec = openSocial.newIdSpec(params);
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPeopleRequest(idSpec),"friends");
+		req.send(function(data){
+			if(data.hadError()){
+				var msg = data.getErrorMessage();
+				alert(msg);
+			}else{
+				var item = data.getData();
+				var target = document.getElementById("target");
+				friends.each(function(friend){
+					var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
+					target.innerHTML += "<img src='" + thumbnailUrl + "'></img>";
+				})
+			}
+		})
+	}
+	gadgets.util.registerOnLoadHandler(init);
+	</script>
+	<div id="target"></div>
+
+  ]]>
+  </Content>
+</Module>
