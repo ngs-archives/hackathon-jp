@@ -20,7 +20,6 @@
 <style type="text/css">
 </style>
 <ul id="books">
-  test
 </ul>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -31,7 +30,14 @@ var init = function(){
   gadgets.io.makeRequest(url, function(response) {
     var feed = response.data;
     console.dir(feed);
-    $('#books').html(feed.Title);
+    var entries = feed.Entry;
+    for(var i = 0; i < entries.length; i++) {
+      var entry = entries[i];
+      var book_tag = $('<a href="#"></a>');
+      book_tag.attr('href', entry.URL);
+      book_tag.html(entry.Title);
+      $('#books').append(book_tag);
+    }
   }, params);
 };
 gadgets.util.registerOnLoadHandler(init);
