@@ -11,27 +11,26 @@
 console.debug("init");
           myAttrs = {};
 
-          function initMyAttrs() {
+          masterAttrs = { item1: "善", item2: "悩", item3: "愛", item4: "H" };
+
+          // TODO 今見てるのがオーナーでかつ最初なら、初期化データ作成
+          function initMyAttrs(initCallback) {
 console.debug("initMyAttrs");
-              masterAttrs = { item1: "善", item2: "悩", item3: "愛", item4: "H" };
               for (i in masterAttrs) {
-                  myAttrs[i] = 20;
+                  myAttrs[i] = Math.floor(Math.random() * 30);
               }
               var json = gadgets.json.stringify(myAttrs);
               console.debug(json);
 
               var req = opensocial.newDataRequest();
               req.add(req.newUpdatePersonAppDataRequest("OWNER", 'attrs', json));
-              req.send(function() { console.debug("save callback");console.debug(arguments) } );
+              req.send(initCallback);
           }
 
-          //          initMyAttrs();
-          //return;
+          initMyAttrs();
 
           function getMyAttrs(initCallback, divId) {
 console.debug("getMyAttrs");
-//              var p = {};
-//              p[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
               var idSpec = opensocial.newIdSpec({"userId": "OWNER"});
 
               var req = opensocial.newDataRequest();
@@ -57,7 +56,16 @@ console.debug("getMyAttrs");
                    var json = gadgets.json.parse(gadgets.util.unescapeString(jsonStr));
                    console.debug("json");
                    console.debug(json);
-                   //$("#" + divId).html(myAttrs);
+
+
+                   var html = ['<dl>'];
+                   for ( itemkey in json ) {
+                     html.push('<dt>' + masterAttrs[itemkey] + '</dt>');
+                     html.push('<dd>' + json[itemkey] + '</dd>');
+                     }
+                   html.push('</dl>');
+
+                   $("#" + divId).html(html.join(''));
               });
           }
           getMyAttrs(initMyAttrs, "main");
