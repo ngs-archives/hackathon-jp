@@ -13,7 +13,6 @@
        */
 	function init(){
 		var params = {};
-
 		params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
 		params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
 		params[opensocial.IdSpec.Field.NECTWORK_DISTANCE] = 1;
@@ -36,9 +35,8 @@
 					var friends = item.getData();
 					var target = document.getElementById("target");
 					friends.each(function(friend){
-						var thumbnailUrl = friend.getField(opensocial.Person.Field.LANGUAGES_SPOKEN);
-						var nickName = friend.getField(opensocial.Person.Field.NICKNAME);
-						target.innerHTML += "<img src='" + thumbnailUrl + "'></img>" + nickName + "<br />";
+						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
+						target.innerHTML += "<img src='" + thumbnailUrl + "'></img>";
 					});
 				}
 			}
