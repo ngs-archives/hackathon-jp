@@ -9,6 +9,7 @@ function show(feed){
     $.each(feed.data.Entry,function(data){
 	    html.push("<h2>" + this.Link + "</h2>");
 	    html.push("<p>" + this.Description + "</p>");
+	    html.push("<p>" + this.Summary + "</p>");
 	});
     document.getElementById('friends').innerHTML += html.join('');
 }
