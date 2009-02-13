@@ -23,7 +23,6 @@
 		}
 		
 		function onLoadItemsA() {
-		  defaultItemList.push(load_mix_item());
 		
 		  html = new Array();
 		  html.push('</ul>');
@@ -52,10 +51,13 @@
 		}
 		
 		function onLoadMixItem(data) {
-			var viewer = data.get('items').getData();
-			viewer.each(function(person) {
-				alert(person);
-	      	});
+			var viewer = data.get('data').getData();
+			var json = null;
+		      if (data[viewer.getId()]) {
+		        json = data[viewer.getId()]['items'];
+		alert(json);
+		      }
+	
 		}
 		
 		function load_mix_item() {
