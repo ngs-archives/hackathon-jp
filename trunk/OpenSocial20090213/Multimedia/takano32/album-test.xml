@@ -110,7 +110,7 @@
         function addToPhotoGrid(photo) {
             document.getElementById('photoGrid').innerHTML +=
 	    'id: ' + photo.getId() + '<br />' +
-	    'thumbnail url: ' + photo.getId() + '<br />' +
+		'thumbnail url: ' + photo.getThumbnailUrl() + '<br />' +
 		'<img src="' + photo.getThumbnailUrl()+'"/> <br />';
         };
 

@@ -12,7 +12,7 @@ def faceDetect(imgfile):
   # 画像を読み込む
   src_img = cvLoadImage(imgfile, CV_LOAD_IMAGE_COLOR)
   src_gray = cvCreateImage(cvSize(src_img.width, src_img.height),
-                             IPL_DEPTH_8U, 1)
+                           IPL_DEPTH_8U, 1)
 
   # ブーストされた分類器のカスケードを読み込む
   cascade_name = "/var/www/db/haarcascade_frontalface_default.xml"
@@ -69,10 +69,4 @@ if __name__ == '__main__':
   print f2.read()
   f2.close()
 
-  os.remove(new_image_name)
-
-
-
-
-
-
+os.remove(new_image_name)
