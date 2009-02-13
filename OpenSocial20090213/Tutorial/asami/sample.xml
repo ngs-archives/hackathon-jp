@@ -20,9 +20,9 @@
 
 		  html = new Array();
 		  html.push('<ul>');
-		  defaultItemList.each(function(item) {
-		  	html.push('<li>' + item + "</li>");
-		  });
+		  for(i = 0 ; i < defaultItemList.size ; i++) {
+		  	html.push('<li>' + defaultItemList[i] + "</li>");
+		  };
 		  html.push('</ul>');
 		  document.getElementById('items').innerHTML = html.join('');
 		}
