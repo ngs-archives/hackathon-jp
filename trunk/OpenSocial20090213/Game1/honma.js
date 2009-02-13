@@ -90,6 +90,9 @@ socialquest.recievedViewerData = function (data){
     $("#name").html(p.getDisplayName());
     $("#photo").html('<img src="' + thumb + '">');
 
+    // アクティビティ登録
+    setActivity(p.getId());
+
 //    alert(p.getId() + p.getDisplayName());
 //    alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
 //    alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
