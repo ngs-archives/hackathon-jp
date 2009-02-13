@@ -2,9 +2,10 @@
 <Module>
   <ModulePrefs title="Gifts part 0 - Boilerplate">
     <Require feature="opensocial-0.8"/>
+    <Require feature="views" />
     <Preload href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Tutorial/asami/gifts.json" />
   </ModulePrefs>
-  <Content type="html">
+  <Content type="html" view="home,profile,canvas">
     <![CDATA[
  	<script>
     var globalGivenGifts = {};
@@ -147,16 +148,22 @@
       var giftData = data.get('data').getData();
       var viewerFriendData = data.get('viewerFriendData').getData();
 
-      html = new Array();
-      html.push('<select id="person">');
-      viewerFriends.each(function(person) {
-        if (person.getId()) {
-          html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
-        }
-      });
-      html.push('</select>');
-      document.getElementById('friends').innerHTML = html.join('');
+	  if (globalView == "canvas") {
+      	html = new Array();
+      	html.push('<select id="person">');
+      	viewerFriends.each(function(person) {
+        	if (person.getId()) {
+          		html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
+        	}
+      	});
+        html.push('</select>');
+        document.getElementById('friends').innerHTML = html.join('');
 
+        updateGiftList(viewer, giftData, viewerFriends);
+		document.getElementById('give').style.display = "block";
+	  } else {
+		document.getElementById('more').style.display = "block";
+	  }
       globalFriends = viewerFriends;
 
       updateGiftList(viewer, giftData, viewerFriends);
@@ -172,6 +179,11 @@
        makeOptionsMenu();
     }
 
+    function navigateToCanvas() {
+	  var canvas = gadgets.views.getSupportedViews()["canvas"];
+	  gadgets.views.requestNavigateTo(canvas);
+	}
+	
     function requestGiftList(url) {
       var params = {};
       params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
@@ -186,13 +198,16 @@
 
 </script>
 	<div id='main'>
-	        <div id='give'>
+	        <div id='give' style='display: none;'>
 	          <form id='gift_form'>
 	            Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
 	          </form>
 	        </div>
 	        <div id='given'></div>
 	　　　　　　　　<div id='received'></div>
+			<div id='more' style='display: none;'>
+			          <a href='javascript:void(0);' onclick='navigateToCanvas();'>More</a>
+			        </div>
 			
 	      </div>
 	
