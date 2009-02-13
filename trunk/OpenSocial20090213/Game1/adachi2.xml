@@ -5,7 +5,7 @@
   </ModulePrefs>
   <Content type="html">
   <![CDATA[
-     <script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/honma.js" type="text/javascript">
+//     <script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/honma.js" type="text/javascript">
      <script type="text/javascript">
       /**
        * Request the OWNER and OWNER's friends.
@@ -20,23 +20,27 @@
 		req.add(req.newFetchPeopleRequest(idSpec),"friends");
 		req.send(function(data){
 			if(data.hadError()){
-				var code = item.getErrorCode();
-				var msg = item.getErrorMessage();
-				alert(code + " : " + msg);
+				var msg = data.getErrorMessage();
+				alert(msg);
 			}else{
-				var friends = item.getData();
-				var target = document.getElementById("target");
-				friends.each(function(friend){
-					var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
-					target.innerHTML += "<img src='" + thumbnailUrl + "'></img>";
-				})
+				var item = data.get("friends");
+				if(item.hadError()){
+					var code = item.getErrorCode();
+					var msg = item.getErrorMessage();
+					alert(code + " : " + msg);
+				}else{
+					var friends = item.getData();
+					var target = document.getElementById("target");
+					friends.each(function(friend){
+						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
+						target.innerHTML += "<img src='" + thumbnailUrl + "'></img>";
+					});
+				}
 			}
-		})
+		});
 	}
 	gadgets.util.registerOnLoadHandler(init);
 	</script>
 	<div id="target"></div>
-
-  ]]>
-  </Content>
+  ]]>  </Content>
 </Module>
