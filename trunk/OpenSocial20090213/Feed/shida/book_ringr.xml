@@ -8,6 +8,7 @@
       <Param name="include-tags"></Param>
     </Optional>
   </ModulePrefs>
+  <UserPref name="booklog_user_id" display_name="ブクログのユーザーID" />
   <Content type="html">
     <![CDATA[
       <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Feed/shida/javascripts/jquery-1.3.js"></script>
