@@ -94,7 +94,7 @@ console.log("getOwnerAttrs : cb");
                  $("#" + divId).html('no data');
                  return;
                }
-               var jsonStr = attrs[owner.getId()]['attrs'];
+               var jsonStr = attrs[owner.getId()]['latestAttrs'];
 console.log("getOwnerAttrs : jsonStr : " + jsonStr);
 
                var json = gadgets.json.parse(gadgets.util.unescapeString(jsonStr));
