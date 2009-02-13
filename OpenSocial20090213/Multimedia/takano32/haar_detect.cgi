@@ -15,7 +15,8 @@ def faceDetect(imgfile):
                            IPL_DEPTH_8U, 1)
 
   # ブーストされた分類器のカスケードを読み込む
-  cascade_name = "/var/www/db/haarcascade_frontalface_default.xml"
+  cascade_name = "/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml"
+  #cascade_name = "/var/www/db/haarcascade_frontalface_default.xml"
   cascade = cvLoadHaarClassifierCascade(cascade_name, cvSize(1,1))
 
   # メモリを確保し，読み込んだ画像のグレースケール化，ヒストグラムの均一化を行う
