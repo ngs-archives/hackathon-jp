@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Gifts part 3 - Showing Gifts">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+<div id='buttons'>
+    <p><a id="createData" href='javascript:void(0);'>create</a></p>
+    <p><a id="readOwnerData" href='javascript:void(0);'>read owner</a></p>
+    <p><a id="readViewerData" href='javascript:void(0);'>read viewer</a></p>
+    <p><a id="readOwnerFriendsData" href='javascript:void(0);'>read owner friends</a></p>
+    <p><a id="readViewerFriendsData" href='javascript:void(0);'>read viewer friends</a></p>
+    <p><a id="deleteData" href='javascript:void(0);'>delete</a></p>
+    <p><a id="createActivityData" href='javascript:void(0);'>create activity</a></p>
+</div>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js'></script>
+<script type="text/javascript">
+<!--
+AppData = function(){
+    this.OwnerSelfIdSpec     = opensocial.newIdSpec({'userId':'OWNER', 'groupId':'SELF'});
+    this.ViewerSelfIdSpec    = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
+    this.OwnerFriendsIdSpec  = opensocial.newIdSpec({'userId':'OWNER', 'groupId':'FRIENDS'});
+    this.ViewerFriendsIdSpec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'FRIENDS'});
+    this.Owner      = null;
+    this.Viewer     = null;
+    this.OwnerFriends   = null;
+    this.ViewerFriends  = null;
+    this.anyField           = "*";
+    this.anyfieldArray      = ["*"];
+    this.singleField        = "profile";
+    this.singleFieldArray   = ["profile"];
+};
+AppData.prototype = {
+    isPersonIdSpec : function(idSpec) {
+        var groupId = idSpec.getField('groupId');
+        if (!groupId || groupId != 'FRIENDS') {
+            return true;
+        }
+        return false;
+    },
+    readPeopleData : function(idSpec, opt_callback) {
+        opt_callback = opt_callback || {};
+        var people;
+        var req = opensocial.newDataRequest();
+        if (this.isPersonIdSpec(idSpec)) {
+            req.add(req.newFetchPersonRequest(idSpec), 'people');
+        }
+        else {
+            req.add(req.newFetchPeopleRequest(idSpec), 'people');
+        }
+        req.send(function (res) {
+            if (res.hadError()) {
+                // エラー処理
+                opt_callback();
+                return;
+            }
+            people = res.get("people").getData();
+            opt_callback(people);
+        });
+    },
+    createData : function() {
+        var self = this;
+        self.readPeopleData(self.ViewerSelfIdSpec, function (viewer) {
+            var req = opensocial.newDataRequest();
+            var key     = 'profile';
+            var value   = '私の名前は' + viewer.getDisplayName() + 'ですよ';
+    console.log(req);
+            req.add(req.newUpdatePersonAppDataRequest(self.ViewerSelfIdSpec,key, value));
+            req.add(req.newFetchPersonRequest(self.ViewerSelfIdSpec), 'people');
+            req.send();
+            self.createActivity(viewer, viewer);
+        });
+    },
+    _bindCreateActivity : function() {
+        var self = this;
+        self.readPeopleData(self.ViewerSelfIdSpec, function (viewer) {
+            self.readPeopleData(self.OwnerSelfIdSpec, function (owner) {
+ //               self.createActivity(viewer, owner);
+
+function post_activity() {
+var params = {};
+params[opensocial.Activity.Field.TITLE] = "This is new Activity!";
+var activity = opensocial.newActivity(params);
+opensocial.requestCreateActivity(activity,
+opensocial.CreateActivityPriority.LOW);
+}
+post_activity();
+            });
+        });
+    },
+    createActivity : function(viewer, owner) {
+        var viewer_name = viewer.getDisplayName();
+        var owner_name  = owner.getDisplayName();
+        //var owner_name  = owner.getField(opensocial.Person.Field.NAME);
+        var msg         = { "title" : viewer_name + "が" + owner_name + "を突っついた！"};
+        var activity = opensocial.newActivity(msg);
+        activity.setField(opensocial.Activity.Field.STREAM_FAVICON_URL, 'http://images.hi5.com/images/icons/_/update_widget.png');
+        var priority = opensocial.CreateActivityPriority['HIGH'];
+console.log(viewer_name);
+console.log(activity);
+        opensocial.requestCreateActivity(activity, priority, function (res) {
+console.log(res);
+            if (res.hadError()) {
+                // エラー処理
+                opt_callback();
+                return;
+            }
+        });
+    },
+
+    readData : function(idSpec, field, opt_callback) {
+        opt_callback = opt_callback || {};
+        var data;
+        var req = opensocial.newDataRequest();
+        req.add(req.newFetchPersonAppDataRequest(idSpec, field), ["data"]);
+        req.send(function (res) {
+            if (res.hadError()) {
+                // エラー処理
+                opt_callback();
+                return;
+            }
+            data = res.get("data").getData();
+            opt_callback(data);
+        });
+    },
+    readOwnerData : function() {
+        var self = this;
+        self.readPeopleData(self.OwnerSelfIdSpec, function (owner) {
+            self.readData(self.OwnerSelfIdSpec, "*", function (data) {
+                var ownerData = data[owner.getId()];
+                var profile = ownerData["profile"]; // key: "profile"で保存したデータ
+                alert("readOwnerData:" + profile);
+            });
+        });
+    },
+    readViewerData : function() {
+        var self = this;
+        self.readPeopleData(self.ViewerSelfIdSpec, function (viewer) {
+            self.readData(self.ViewerSelfIdSpec, "*", function (data) {
+                var viewerData = data[viewer.getId()];
+                var profile = viewerData["profile"]; // key: "profile"で保存したデータ
+                alert("readViewerData:" + profile);
+            });
+        });
+    },
+    readOwnerFriendsData : function() {
+        var self = this;
+        self.readPeopleData(self.OwnerFriendsIdSpec, function (ownerFriends) {
+            if (!ownerFriends) return;
+            self.readData(self.OwnerFriendsIdSpec, "*", function (data) {
+                if (!data) return;
+                ownerFriends.each(function(person) {
+                    var id = person.getId();
+                    if (!id || !data[id]) return;
+                    var personData = data[id];
+                    if (!personData || !personData["profile"]) return;
+                    var profile = personData["profile"]; // key: "profile"で保存したデータ
+                    alert(person.getDisplayName() + "さんがしゃべりました「" + profile + "」");
+                });
+            });
+        });
+    },
+    readViewerFriendsData : function() {
+        var self = this;
+        self.readPeopleData(self.ViewerFriendsIdSpec, function (viewerFriends) {
+            if (!viewerFriends) return;
+            self.readData(self.ViewerFriendsIdSpec, "*", function (data) {
+                if (!data) return;
+                viewerFriends.each(function(person) {
+                    var id = person.getId();
+                    if (!id || !data[id]) return;
+                    var personData = data[id];
+                    if (!personData || !personData["profile"]) return;
+                    var profile = personData["profile"]; // key: "profile"で保存したデータ
+                    alert(person.getDisplayName() + "さんがしゃべりました「" + profile + "」");
+                });
+            });
+        });
+    },
+    deleteData : function() {
+        var req = opensocial.newDataRequest();
+        var key     = ['profile'];
+        req.add(req.newRemovePersonAppDataRequest(this.ViewerSelfIdSpec,key));
+        req.send();
+    },
+};
+(function () { 
+var appData = new AppData();
+$('#createData').bind("click", function(){appData.createData();return false;});
+$('#deleteData').bind("click", function(){appData.deleteData();return false;});
+$('#readOwnerData').bind("click", function(){appData.readOwnerData();false;});
+$('#readViewerData').bind("click", function(){appData.readViewerData();false;});
+$('#readOwnerFriendsData').bind("click", function(){appData.readOwnerFriendsData();false;});
+$('#readViewerFriendsData').bind("click", function(){appData.readViewerFriendsData();false;});
+$('#createActivityData').bind("click", function(){appData._bindCreateActivity();return false;});
+})();
+//-->
+</script>
+    ]]>
+  </Content>
+</Module>
