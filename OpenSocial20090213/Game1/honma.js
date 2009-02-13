@@ -52,16 +52,17 @@ socialquest.CharacterMaker.prototype = {
         var loc = p.getField( opensocial.Person.Field.CURRENT_LOCATION );
         var latitude   = loc.getField( opensocial.Address.Field.LATITUDE );
         var longtitude = loc.getField( opensocial.Address.Field.LONGITUDE );
+
         if(latitude < 0 && longtitude < 0){
-            return "南東";
+            return "狩人";
         }else if(latitude > 0 && longtitude < 0){
-            return "北東";
+            return "戦士";
         }else if(latitude < 0 && longtitude > 0){
-            return "南西";
+            return "盗賊";
         }else if(latitude > 0 && longtitude > 0){
-            return "北西";
+            return "将軍";
         }else{
-            return "ど真ん中";
+            return "勇者";
         }
     },
 
@@ -82,7 +83,12 @@ socialquest.recievedViewerData = function (data){
     var viewer = data.get("viewer").getData();
     var maker = new socialquest.CharacterMaker();
     var p = maker.make(viewer);
-    alert(p.getId() + p.getDisplayName());
+
+    $("#hp"  ).html(p.hp);
+    $("#job" ).html(p.job);
+    $("#name").html(p.getDisplayName());
+
+//    alert(p.getId() + p.getDisplayName());
 //     alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
 //     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
 //            .getField( opensocial.Address.Field.LATITUDE ));
@@ -90,8 +96,8 @@ socialquest.recievedViewerData = function (data){
 //            .getField( opensocial.Address.Field.LONGITUDE ));
 //     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
 //            .getField( opensocial.Address.Field.COUNTRY ));
-    alert(p.hp);
-    alert(p.job);
+//    alert(p.hp);
+//    alert(p.job);
 };
 
 })();
