@@ -17,7 +17,8 @@
 		gadgets.util.registerOnLoadHandler(init);
 
 		function init() {
-		  onLoadItems();
+		  onLoadItemsA();
+		  onLoadItemsB();
 		}
 		
 		function onLoadItemsA() {
