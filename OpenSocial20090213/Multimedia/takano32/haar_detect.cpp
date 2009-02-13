@@ -22,7 +22,7 @@ main (int argc, char **argv)
 	// (1)画像を読み込む
 	if (argc < 2 || (src_img = cvLoadImage (argv[1], CV_LOAD_IMAGE_COLOR)) == 0)
 		return -1;
-	if (argc = 3 && strcmp("--no-gui", argv[2]) == 0 )
+	if (argc == 3 && strcmp("--no-gui", argv[2]) == 0 )
 		gui = false;
 	
 	src_gray = cvCreateImage (cvGetSize (src_img), IPL_DEPTH_8U, 1);
