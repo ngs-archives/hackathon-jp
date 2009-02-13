@@ -2,8 +2,8 @@
  * big fonts!
  * This JavaScript file is for Canvas view.
  */
-
-// TODO: Write the code for Canvas view.
+$().append('<script type=" text/javascript" src="http://miya2000.up.seesaa.net/marquee/marquee.js"></script>');
+new Marquee('marquee');
 var $os = $.opensocial_simple;
 $os.getPerson(function (person) {
 	$os.get('http://profile.myspace.com/index.cfm', {

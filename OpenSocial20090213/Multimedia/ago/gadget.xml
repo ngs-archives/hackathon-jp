@@ -12,12 +12,6 @@
 <script type=" text/javascript" src="http://api.msappspace.com/OpenSocial/JSExtensions/jquery/jquery-1.2.3.min.js"></script>
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/jQuery.opensocial_simple/jquery.opensocial_simple.js"></script>
 <script type=" text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/canvas.js"></script>
-<marquee scrollamount="20"></marquee>
+<marquee scrollamount="20" id="marquee"></marquee>
     ]]></Content>
-    <Content type="html" view="profile"><![CDATA[<div>Profile view for beat.</div>
-
-  ]]></Content>
-    <Content type="html" view="home"><![CDATA[<div>Home view for beat.</div>
-
-  ]]></Content>
 </Module>
