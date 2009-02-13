@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="sample">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="views" />
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+ 	<script>
+
+	</script>
+	<div id='main'>
+	        <div id='give' style='display: none;'>
+	          <form id='gift_form'>
+	            Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
+	          </form>
+	        </div>
+	        <div id='given'></div>
+	　　　　　　　　<div id='received'></div>
+			<div id='more' style='display: none;'>
+			          <a href='javascript:void(0);' onclick='navigateToCanvas();'>More</a>
+			        </div>
+			
+	      </div>
+	
+	
+    ]]>
+  </Content>
+</Module>
