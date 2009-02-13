@@ -51,7 +51,7 @@
 		  document.getElementById('items_b').innerHTML = html.join('');
 		}
 		
-		function onLoadMixItem() {
+		function onLoadMixItem(data) {
 			return data.get('data').getData();
 		}
 		
