@@ -15,12 +15,15 @@ bookRingr.ProfileController.prototype = {
     books: null,
     loadAppData: function() {
 	var req = opensocial.newDataRequest();
-	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'owner')
+	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner')
 	var keys = ['bookringr'];
 	var idSpecParams = {};
+	var escapeParams = {};
+	escapeParams[opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
 	idSpecParams[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
 	var idSpec = opensocial.newIdSpec(idSpecParams);
-	req.add(req.newFetchPersonAppDataRequest(idSpec, keys), 'stored');
+	req.add(req.newFetchPersonAppDataRequest(idSpec, keys, escapeParams), 
+		'stored');
 	req.send(this.onLoadAppData);
     },
     onLoadAppData: function(data) {
@@ -32,10 +35,16 @@ bookRingr.ProfileController.prototype = {
 	    var stored = data.get('stored').getData();
 	    var obj = stored[owner.getId()];
 	    if (obj) {
-		this.appData = obj['bookringr'];
-		console.log(this.appData);
+		this.appData = gadgets.json.parse(obj['bookringr']);
 	    }
-	    bookRingr.controller.loadXML();
+
+	    if (owner.isViewer()) {
+		bookRingr.controller.loadXML();
+	    }
+	    else {
+		bookRingr.controller.books = this.appData;
+		bookRingr.controller.showBooks();
+	    }
 	}
     },
     loadXML: function() {
@@ -55,7 +64,7 @@ bookRingr.ProfileController.prototype = {
 	$.each(items, function(){
 	    var title       = bookRingr.controller.getNodeValueByTagName(this, 'title');
 	    var description = bookRingr.controller.getNodeValueByTagName(this, 'description');
-	    description.match(/img src='(.+?)'/);
+	    description.match(/img src="(.+?)"/);
 	    var imgUrl = RegExp.$1;
 	    description.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
@@ -66,6 +75,7 @@ bookRingr.ProfileController.prototype = {
     },
     updateAppData: function() {
 	var req = opensocial.newDataRequest();
+	console.log(this.books);
 	req.add(req.newUpdatePersonAppDataRequest(
 	          opensocial.IdSpec.PersonId.VIEWER, 
 	          'bookringr', 
@@ -78,7 +88,25 @@ bookRingr.ProfileController.prototype = {
 	    console.log(data);
 	}
 	else {
-	    console.log('no error!');
+	    bookRingr.controller.showBooks();
+	}
+    },
+    showBooks: function() {
+	var template = $("#template").val();
+	var data     = {books: bookRingr.controller.books}
+	var result   = template.process(data);
+	$('#contents').html(result);
+	$('.status').click(this.onChangeStatus);
+    },
+    onChangeStatus: function(e) {
+	var asin   = $(e.target).parent()[0].id;
+	var status = $(this).val();
+
+	for(var count = 0;count < bookRingr.controller.books.length; ++count) {
+	    if (bookRingr.controller.books[count].asin == asin) {
+		bookRingr.controller.books[count].status = status;
+		bookRingr.controller.updateAppData();
+	    }
 	}
     },
     getNodeValueByTagName: function(xml, tag){
@@ -90,3 +118,4 @@ bookRingr.ProfileController.prototype = {
 gadgets.util.registerOnLoadHandler(function() {
     bookRingr.controller = new bookRingr.ProfileController();
 });
+
