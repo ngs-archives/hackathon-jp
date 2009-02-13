@@ -13,6 +13,7 @@
 		                   ['おにぎり', '', '', ''],
 		                   ['焼きおにぎり', '', '', ''],
 		                   ['', '', '', ''] ];
+		var globalItemList = {};
 		
 		gadgets.util.registerOnLoadHandler(init);
 
@@ -22,7 +23,8 @@
 		}
 		
 		function onLoadItemsA() {
-
+		  defaultItemList.push(load_mix_tem());
+		
 		  html = new Array();
 		  html.push('</ul>');
 		  html.push('<select id="item_select_a">');
@@ -49,6 +51,17 @@
 		  document.getElementById('items_b').innerHTML = html.join('');
 		}
 		
+		function onLoadMixItem() {
+			return data.get('data').getData();
+		}
+		
+		function load_mix_tem() {
+		  var req = opensocial.newDataRequest();
+		  req.add(req.newFetchPersonAppDataRequest(viewer, 'items'), 'data');
+		
+		  req.send(onLoadMixItem);
+	    }
+	
 		function mix() {
 		  var item_a = document.getElementById('item_select_a').value;
 		  var item_b = document.getElementById('item_select_b').value;
@@ -61,6 +74,14 @@
 		  }
 		
 		  document.getElementById('mix_item').style.display = "block";
+		
+	      globalItemList.push(mix_item);
+	      var json = gadgets.json.stringify(globalItemList);
+
+	      var req = opensocial.newDataRequest();
+	      req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'items', json));
+		  req.send;
+		
 		  postActivity(mix_item);
 		}
 		
