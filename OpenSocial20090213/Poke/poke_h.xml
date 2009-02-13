@@ -76,6 +76,46 @@ debug("getMyAttrs");
         
       }
 
+      function getOwnerAttrs(divId) {
+debug("getUserAttrs");
+          var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.OWNER});
+
+          var req = opensocial.newDataRequest();
+
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+          req.add(req.newFetchPersonAppDataRequest(idSpec, 'latestAttrs'), "data");
+          req.send(function(data) {
+               debug("callback");
+               var attrs = data.get("data").getData();
+               var owner = data.get("owner").getData();
+
+
+               if (!attrs[owner.getId()] ) {
+                 $("#" + divId).html('no data');
+                 return;
+               }
+               var jsonStr = attrs[owner.getId()]['attrs'];
+               debug("jsonStr");
+               debug(jsonStr);
+
+               var json = gadgets.json.parse(gadgets.util.unescapeString(jsonStr));
+               debug("json");
+               debug(json);
+
+
+               var html = ['<dl>'];
+               for ( itemkey in json ) {
+                 html.push('<dt>' + masterAttrs[itemkey] + '</dt>');
+                 html.push('<dd>' + json[itemkey] + '</dd>');
+                 }
+               html.push('</dl>');
+
+               $("#" + divId).html(html.join(''));
+          });
+        
+      }
+      
+
       $(function(){
         debug("init");
         getMyAttrs('main');
@@ -84,9 +124,11 @@ debug("getMyAttrs");
     <button type="button" onclick="initMyAttrs();">Init!</button>
     <button type="button" onclick="getMyAttrs('main');">Refresh!</button>
     <button type="button" onclick="updateLatest('latest')">Lastest!</button>
+    <button type="button" onclick="getOwnerAttrs('ownerAttrs')">Show this user(owner)'s latest attrs</button>
     <div id="main">あいうえお</div>
 
     <div id="latest">最新状態</div>
+    <div id="ownerAttrs">このユーザの最新のデータ</div>
     ]]>
   </Content>
   <!--
