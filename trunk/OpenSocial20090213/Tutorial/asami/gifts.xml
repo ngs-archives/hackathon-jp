@@ -32,7 +32,8 @@
 	function onLoadFriends(data) {
 	  var viewer = data.get('viewer').getData();
 	  var viewerFriends = data.get('viewerFriends').getData();
-
+	  var giftData = data.get('data').getData();
+	
 	  html = new Array();
 	  html.push('<select id="person">');
 	  viewerFriends.each(function(person) {
