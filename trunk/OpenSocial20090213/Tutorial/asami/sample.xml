@@ -36,7 +36,7 @@
 	
 	<div id='main'>
 	   items:
-	   <div id='items_a'></div> + <div id='items_b'></div> =
+	   <span id='items_a'></span> + <span id='items_b'></span> =
 	</div>
     ]]>
   </Content>
