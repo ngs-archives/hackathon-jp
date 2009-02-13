@@ -6,7 +6,7 @@ main (int argc, char **argv)
 {
 	int i;
 	IplImage *src_img = 0, *src_gray = 0;
-	const char *cascade_name = "haarcascade_frontalface_default.xml";
+	const char *cascade_name = "/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml";
 	CvHaarClassifierCascade *cascade = 0;
 	CvMemStorage *storage = 0;
 	CvSeq *faces;
