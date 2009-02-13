@@ -55,11 +55,10 @@
 			var viewer = data.get('viewer').getData();
 			var mixitem = data.get('data').getData();
 			var json = null;
-		      if (data[viewer.getId()]) {
+			alert(data[viewer.getId()]);
+		    if (data[viewer.getId()]) {
 		        json = data[viewer.getId()]['items'];
-		alert(json);
 		      }
-	
 		}
 		
 		function loadMixItem() {
