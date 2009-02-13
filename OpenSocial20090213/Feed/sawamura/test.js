@@ -25,6 +25,9 @@ function show(oj){
 		       "<img src='" + img + "' width='80' />"
 		       + "ASIN: " + asin		
 		       );
+	    $('<input type="radio">reading</input>').appendTo($div);
+	    $('<input type="radio">read</input>').appendTo($div);
+	    $('<input type="radio">want</input>').appendTo($div);
 	    $base.append($div);
 	});
 }
