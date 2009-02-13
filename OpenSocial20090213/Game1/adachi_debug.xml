@@ -6,7 +6,7 @@
   <Content type="html">
   <![CDATA[
      <script type="text/javascript">
-      /**
+      /*
        * Request the OWNER and OWNER's friends.
        */
 	function init(){
