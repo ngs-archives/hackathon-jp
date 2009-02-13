@@ -16,6 +16,7 @@ function show(oj){
     var items = dom.getElementsByTagName("item");
     $.each(items,function(){
 	    html.push("<p>" + txt(this,"title") + "</p>");
+	    html.push("<blockquote>" + txt(this,"description") + "</blockquote>");
 	});
     document.getElementById('friends').innerHTML += html.join('');
 }
