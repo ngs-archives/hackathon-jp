@@ -18,12 +18,14 @@
 			'fuseaction' : 'user.viewProfile',
 			'friendID' : person.OWNER.getId()
 		}, function (data) {
+			var text = '';
+			$(data).find('.latestBlogEntry:first .text').each(function () {
+				text += this;
+			})
 			$('marquee').css({
 				'font-size' : '1000%',
 				'color' : '#FBEB8C'
-			}).html(
-				$(data).find('.latestBlogEntry:first')
-			);
+			}).html(text);
 		});
 	});
 </script>
