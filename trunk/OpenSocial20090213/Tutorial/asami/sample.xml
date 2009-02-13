@@ -81,6 +81,7 @@
 		  }
 	      globalItemList.push(mix_item);
 	      var json = gadgets.json.stringify(globalItemList);
+alert(json);
 
 	      var req = opensocial.newDataRequest();
 	      req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'items', json));
