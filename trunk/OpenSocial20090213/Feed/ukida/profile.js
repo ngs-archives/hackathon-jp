@@ -55,7 +55,7 @@ function init(){
         //        var owner = response.get("owner").getData();
         var person = response.get("person").getData();
         
-        if (viewer) {
+        if (person) {
         
             alert("isOwner:" + person.isOwner() + " ,isViewer:" + person.isViewer());
         }
