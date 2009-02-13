@@ -72,6 +72,7 @@ function getOwnerId(){
     req.send(function(data) {
         var owner = data.get('owner').getData();
         console.dir(owner);
+        alert(owner.getId());
     });
 }
 
