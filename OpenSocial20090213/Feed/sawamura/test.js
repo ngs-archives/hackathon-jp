@@ -27,10 +27,13 @@ function show(oj){
 		       + "<br />"
 		       );
 
-	    $.each(["not","want","reading","have read"],function(){
+	    $.each(["n/a","want","reading","have read"],function(){
 		    var kw = this;
-		    $('<input type="radio">' + kw + '</input>').attr("name",asin).appendTo($div)
-			.click(function(){ postActivity(kw) });
+		    var $ck = $('<input type="radio">' + kw + '</input>').attr("name",asin)
+			.appendTo($div).click(function(){ postActivity(kw) });
+		    if(kw == 'n/a'){
+			$ck.attr("checked",1);
+		    }
 		});
 	    $base.append($div);
 	});
