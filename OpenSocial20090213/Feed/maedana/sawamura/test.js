@@ -18,8 +18,7 @@ function show(oj){
 //        html.push("<blockquote>" + txt(this,"description") + "</blockquote>");
 //    });
 //    document.getElementById('friends').innerHTML += html.join('');
-    storeBookData(dom);
-    loadBookData(opensocial.IdSpec.PersonId.OWNER);
+    getOwnerId();
 }
 
 var params = {};
@@ -59,30 +58,38 @@ function init() {
 //    //document.getElementById('friends').innerHTML = html.join('');
 //}
 
-function storeBookData(dom) {
+//function storeBookData(dom) {
+//    var req = opensocial.newDataRequest();
+//    req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'books', books(dom)));
+//    req.send(function(data) {
+//        // 何かする?
+//    });
+//}
+
+function getOwnerId(){
     var req = opensocial.newDataRequest();
-    req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'books', books(dom)));
+    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
     req.send(function(data) {
-        // 何かする?
+        console.dir(data.get('owner'));
     });
 }
 
-function loadBookData(ownerId) {
-    var req = opensocial.newDataRequest();
-    //req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
-    var params = {};
-    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-    var idSpec = opensocial.newIdSpec(params);
-    req.add(req.newFetchPersonAppDataRequest(idSpec, ['books']), 'books');
-    req.send(function(data) {
-        console.dir(data.get('books').geData());
-        //data.get('books').geData()['foo'];
-    })
+//function loadBookData(ownerId) {
+//    var req = opensocial.newDataRequest();
+//    //req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+//    var params = {};
+//    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+//    var idSpec = opensocial.newIdSpec(params);
+//    req.add(req.newFetchPersonAppDataRequest(idSpec, ['books']), 'books');
+//    req.send(function(data) {
+//        console.dir(data.get('books').geData());
+//        //data.get('books').geData()['foo'];
+//    })
 //}
-
-function books(entryDom) {
-    return {foo: 'foo'}
-}
+//
+//function books(entryDom) {
+//    return {foo: 'foo'}
+//}
 
 //function bookMap(entriesDom) {
 //    $.each(items,function(){
