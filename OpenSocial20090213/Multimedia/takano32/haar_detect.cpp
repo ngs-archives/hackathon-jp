@@ -34,16 +34,25 @@ main (int argc, char **argv)
 	// (4)物体（顔）検出
 	faces = cvHaarDetectObjects (src_gray, cascade, storage, 1.11, 4, 0, cvSize (40, 40));
 
+
+	puts("<faces>");
 	// (5)検出された全ての顔位置に，円を描画する
 	for (i = 0; i < (faces ? faces->total : 0); i++) {
+		puts("  <face>");
 		CvRect *r = (CvRect *) cvGetSeqElem (faces, i);
 		CvPoint center;
 		int radius;
+		printf("    <top>%d</top>", r->y);
+		printf("    <right>%d</right>", r->x + r->width);
+		printf("    <bottom>%d</bottom>", r->y + r->height);
+		printf("    <left>%d</left>", r->x);
 		center.x = cvRound (r->x + r->width * 0.5);
 		center.y = cvRound (r->y + r->height * 0.5);
 		radius = cvRound ((r->width + r->height) * 0.25);
 		cvCircle (src_img, center, radius, colors[i % 8], 3, 8, 0);
+		puts("  </face>");
 	}
+	puts("</faces>");
 
 	// (6)画像を表示，キーが押されたときに終了
 	cvNamedWindow ("Face Detection", CV_WINDOW_AUTOSIZE);
