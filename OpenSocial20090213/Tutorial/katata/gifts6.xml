@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 6 - Giving Multiple Gifts">
+  <ModulePrefs title="Gifts part 7 - Working with Remote content">
     <Require feature="opensocial-0.8"/>
+    <Preload href="http://opensocial-resources.googlecode.com/svn/samples/tutorial/branches/io/gifts.json" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
       <script>
         var globalGivenGifts = {};
         var globalFriends = {};
-        var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
-
+        var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistaschio nut'];
+        
         function postActivity(nut, friend) {
           var title = 'gave ' + globalFriends.getById(friend).getDisplayName() + ' ' + globalGiftList[nut];
           var params = {};
@@ -162,9 +163,23 @@
           updateReceivedList(viewer, viewerFriendData, viewerFriends);
         }
 
+        function onGiftList(data) {
+           if (data.data && data.data.length) {
+             globalGiftList = data.data;
+           }
+           
+           loadFriends();
+           makeOptionsMenu();
+        }
+
+        function requestGiftList(url) {
+          var params = {};
+          params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+          gadgets.io.makeRequest(url, onGiftList, params);
+        }
+
         function init() {
-          loadFriends();
-          makeOptionsMenu();
+           requestGiftList('http://opensocial-resources.googlecode.com/svn/samples/tutorial/branches/io/gifts.json');
         }
         
         gadgets.util.registerOnLoadHandler(init);
