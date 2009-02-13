@@ -41,8 +41,6 @@ var isOwner;
 
 function init(){
     var req = opensocial.newDataRequest();
-    var idSpec = opensocial.newIdSpec(params);
-    
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
     
     req.send(function(response){
