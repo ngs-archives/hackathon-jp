@@ -30,6 +30,7 @@ var init = function(){
   params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
   gadgets.io.makeRequest(url, function(response) {
     var feed = response.data;
+    console.dir(feed);
     $('#books').html(feed.Title);
   }, params);
 };
