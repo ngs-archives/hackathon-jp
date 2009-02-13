@@ -35,7 +35,7 @@
 			html.push('<select id="owner">');
 			ownerFriends.each(function(person) {
 				if (person.getId()) {
-					html.push('<option value="', person.getId(), '">', person.getField('AGE',opt_params), '</option>');
+					html.push('<option value="', person.getId(), '">', person.getField(opensocial.Enum.Gender,opt_params), '</option>');
 				}
 			});
 			html.push('</select>');
