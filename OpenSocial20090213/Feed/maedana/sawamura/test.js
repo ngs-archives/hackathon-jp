@@ -70,7 +70,7 @@ function getOwnerId(){
     var req = opensocial.newDataRequest();
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
     req.send(function(data) {
-        var owner = data.get('owner');
+        var owner = data.get('owner').getData();
         return owner.getId();
     });
 }
