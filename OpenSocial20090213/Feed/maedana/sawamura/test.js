@@ -60,21 +60,23 @@ function init() {
 
 function storeBookData(dom) {
     var req = opensocial.newDataRequest();
-    req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'books', books(dom)));
+    req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'books', books(dom)));
     req.send(function(data) {
         // 何かする?
-        console.dir(books(dom));
-        alert(data.get('books'));
-        console.dir(data);
     });
 }
 
-//function loadBookData(ownerId) {
-//    var req = opensocial.newDataRequest();
-//    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
-//    var params = {};
-//    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-//    var idSpec = opensocial.newIdSpec(params);
+function loadBookData(ownerId) {
+    var req = opensocial.newDataRequest();
+    //req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+    var params = {};
+    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+    var idSpec = opensocial.newIdSpec(params);
+    req.add(req.newFetchPersonAppDataRequest(idSpec, ['books']), 'books');
+    req.send(function(data) {
+        console.dir(data.get('books').geData());
+        //data.get('books').geData()['foo'];
+    })
 //}
 
 function books(entryDom) {
