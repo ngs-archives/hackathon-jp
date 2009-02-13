@@ -61,14 +61,14 @@
 		    }
 		
 			if (!json) {
-		        globalItemList = {};
+		        globalItemList = [];
 		    }
 		      try {
 		        globalItemList = gadgets.json.parse(gadgets.util.unescapeString(json));
 		      } catch (e) {
-		        globalItemList = {};
+		        globalItemList = [];
 		      }
-
+alert(globalItemList);
 		      var html = new Array();
 		      html.push('You have mixs:');
 		      html.push('<ul>');
