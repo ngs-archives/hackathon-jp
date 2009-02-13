@@ -20,13 +20,14 @@ function show(oj){
 	    var img = RegExp.$1;
 	    cdata.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
-	    $div.html( '<div class="br_title">' 
+	    $div.html( '<div>'
 		       + "<img src='" + img + "'>"
-		       +  txt(this,"title") + '</div>'
+		       + '</div>'
+		       + '<div>'
+		       +  txt(this,"title") + '<br />'
 		       + "ASIN: " + asin		
-		       + "<br />"
+		       + '</div>'
 		       );
-
 	    $.each(["n/a","want","reading","have read"],function(){
 		    var kw = this;
 		    var $ck = $('<input type="radio">' + kw + '</input>').attr("name",asin)
