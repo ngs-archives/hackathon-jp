@@ -52,7 +52,7 @@
 		}
 		
 		function onLoadMixItem(data) {
-			alert(data.get('data').getData());
+			alert(data.get('data').getData().length);
 		}
 		
 		function load_mix_item() {
