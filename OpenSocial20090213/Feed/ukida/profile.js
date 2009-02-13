@@ -42,25 +42,34 @@ var isOwner;
 function init(){
     var req = opensocial.newDataRequest();
     var params = {};
+    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;    
+    params[opensocial.IdSpec.Field.GROUP_ID] = "SELF";
+    
+    
     var idSpec = opensocial.newIdSpec(params);
-	
-//	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
-    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
-	
+    
+    //	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+    req.add(req.newFetchPersonRequest(idSpec), "person");
+    
     req.send(function(response){
-//        var owner = response.get("owner").getData();
-		var viewer = response.get("viewer").getData();
-		
-		alert("isOwner:" + viewer.isOwner() + " ,isViewer:"+viewer.isViewer());
-		
-		/*
+        //        var owner = response.get("owner").getData();
+        var person = response.get("viewer").getData();
+        
         if (viewer) {
-            isOwner = viewer.isOwner();
-        }
-        else {
-            alert("error");
-        }
-        */
+			
+            alert("isOwner:" + person.isOwner() + " ,isViewer:" + person.isViewer());
+        } else {
+			consol.log("isOwner:" + person.isOwner() + " ,isViewer:" + person.isViewer());
+		}
+        
+        /*
+         if (viewer) {
+         isOwner = viewer.isOwner();
+         }
+         else {
+         alert("error");
+         }
+         */
     });
     
     
