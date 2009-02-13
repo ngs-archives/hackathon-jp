@@ -11,7 +11,7 @@
 		  var opt_params = {};
 		  opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
 		  opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = 
-		  [opensocial.Person.Field.PROFILE_URL];
+		  [opensocial.Person.Field.THUMBNAIL_URL];
 		  
 		  req.add(req.newFetchPersonRequest("OWNER"), 'owner');
 		  var ownerFriends = opensocial.newIdSpec({"userId":"OWNER","groupId":"FRIENDS"});
@@ -35,8 +35,7 @@
 			html.push('<select id="owner">');
 			ownerFriends.each(function(person) {
 				if (person.getId()) {
-					alert(opensocial.Person.Field.PROFILE_URL);
-					html.push('<option value="', person.getId(), '">', person.getField(opensocial.Person.Field.PROFILE_URL), '</option>');
+					html.push('<option value="', person.getId(), '">', person.getField(opensocial.Person.Field.THUMBNAIL_URL), '</option>');
 				}
 			});
 			
