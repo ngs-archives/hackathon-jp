@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="poke">
+  <ModulePrefs title="my poke">
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
-  <Content type="html" >
+  <Content view="home" type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
     <script type="text/javascript">
@@ -63,10 +63,10 @@ console.debug("getMyAttrs");
           getMyAttrs(initMyAttrs, "main");
       });
     </script>
+home
     <div id="main">あいうえお</div>
     ]]>
   </Content>
-  <!--
   <Content view="profile" type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
@@ -76,6 +76,7 @@ console.debug("getMyAttrs");
 
       });
     </script>
+profile
     ]]>
   </Content>
   <Content view="preview" type="html" >
@@ -87,6 +88,7 @@ console.debug("getMyAttrs");
 
       });
     </script>
+preview
     ]]>
   </Content>
   <Content view="canvas" type="html" >
@@ -98,7 +100,7 @@ console.debug("getMyAttrs");
 
       });
     </script>
+canvas
     ]]>
   </Content>
-  -->
 </Module>
