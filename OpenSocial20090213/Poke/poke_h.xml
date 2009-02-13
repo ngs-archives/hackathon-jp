@@ -223,7 +223,7 @@ console.log(friend);
     <button type="button" onclick="getOwnerAttrs('ownerAttrs')">Show this user(owner)'s latest attrs</button>
     <button type="button" onclick="getPokes();">getPoke</button>
     <button type="button" onclick="poke();">Poke</button>
-    <button type="button" onclick="getFriendsPokes('friendsPokes')">Get friendss pokes</button>
+    <button type="button" onclick="getFriendsPokes('friendsPokes')">Get friends pokes</button>
     <div id="main">あいうえお</div>
 
     <div id="latest">最新状態</div>
