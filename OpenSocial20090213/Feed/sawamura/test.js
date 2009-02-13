@@ -14,7 +14,7 @@ function show(oj){
     var items = dom.getElementsByTagName("item");
     var $base = $("#friends");
     $.each(items,function(){
-	    var $div = $("<div></div>");
+	    var $div = $("<div class='bkrg'></div>");
 	    var cdata = txt(this,"description");
 	    cdata.match(/img src="(.+?)"/);
 	    var img = RegExp.$1;
