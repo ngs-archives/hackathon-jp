@@ -41,6 +41,7 @@
 	  document.getElementById('friends').innerHTML = html.join('');
 	}
 	
+	var givenGifts = {};
 	var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
 
 	function makeOptionsMenu() {
