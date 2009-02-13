@@ -102,5 +102,10 @@ socialquest.recievedViewerData = function (data){
 //    alert(p.job);
 };
 
+function goFight{
+    $('#social-top').hide();
+    $('#social-ready').show();
+}
+
 })();
 // ============================================================================
