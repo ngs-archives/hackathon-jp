@@ -57,8 +57,8 @@
 			var json = null;
 			
 			console.info(data[viewer.getId()]);
-		    if (data[viewer.getId()]) {
-				json = data[viewer.getId()]['items'];
+		    if (data) {
+				json = data['items'];
 				console.info(json);
 		    }
 		
@@ -114,6 +114,7 @@
 		  	if(!globalItemList) {
 				globalItemList = new Array();
 		  	}
+		     
 	      	globalItemList.push(mix_item);
 	      	var json = gadgets.json.stringify(globalItemList);
 
