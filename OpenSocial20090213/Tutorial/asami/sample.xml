@@ -59,6 +59,8 @@
 		  } else {
 		  	document.getElementById('mix_item').innerHTML = mix_item;
 		  }
+		  document.getElementById('mix_key').style.display = "none";
+		  document.getElementById('mix_tem').style.display = "block";
 		}
 	</script>
 	
@@ -66,7 +68,8 @@
 	   items:<br/>
 	   <span id='items_a'></span> + 
 	   <span id='items_b'></span> = 
-	   <a id='mix_item' href='javascript:void(0);' onclick='mix();'>?</a>
+	   <a id='mix_key' href='javascript:void(0);' onclick='mix();'>?</a>
+	　　　<span id='mix_tem' style='display: none'></span>
 	</div>
     ]]>
   </Content>
