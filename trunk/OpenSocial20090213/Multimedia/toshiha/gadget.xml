@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
     <ModulePrefs
-            title="big fonts!"
-            author="multimedia2"
-            author_email="thayashing@gmail.com"
-            description="big fonts!"
-            category="ネタ系">
-        <Require feature="opensocial-0.8" />
+     title="big fonts!"
+     author="multimedia2"
+     author_email="thayashing@gmail.com"
+     description="big fonts!"
+     category="ネタ系">
+        <Require feature="opensocial-0.8"/>
     </ModulePrefs>
-    <Content type="html" view="canvas" preferred_height="350"><![CDATA[
+    <UserPref name="fontsize"
+     display_name="FontSize"
+     datatype="enum"    
+     default_value="400">
+        <EnumValue value="200" display_value="200pt"/>
+        <EnumValue value="300" display_value="300pt"/>        
+        <EnumValue value="400" display_value="400pt"/>
+    </UserPref>
+    <Content type="html" view="canvas" preferred_height="350">
+        <![CDATA[
 <link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/toshiha/canvas.css" />
 <script type=" text/javascript" src="http://api.msappspace.com/OpenSocial/JSExtensions/jquery/jquery-1.2.3.min.js"></script>
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/jQuery.opensocial_simple/jquery.opensocial_simple.js"></script>
@@ -18,5 +27,6 @@
 <marquee id="bigFontText"></marquee>
 <div id="textFrontBg" class="bgpng"></div>
 </div>
-    ]]></Content>
+    ]]>
+    </Content>
 </Module>

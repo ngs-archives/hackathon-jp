@@ -2,6 +2,10 @@
  * big fonts!
  * This JavaScript file is for Canvas view.
  */
+var prefs = new gadgets.Prefs();
+var fsize = prefs.getInt("fontsize");
+
+
 $('body').css('')
 var $os = $.opensocial_simple;
 $os.getPerson(function (person) {
@@ -14,7 +18,7 @@ $os.getPerson(function (person) {
 			text += $(this).html();
 		});
 		$('#bigFontText').css({
-			'font-size' : '300px',
+			'font-size' : fsize + 'px',
 			'color' : '#F30'
 		}).html(text);
 	});
