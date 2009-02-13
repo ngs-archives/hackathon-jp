@@ -35,7 +35,8 @@
 					var target = document.getElementById("target");
 					friends.each(function(friend){
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
-						target.innerHTML += "<img src='" + thumbnailUrl + "'></img><br />";
+						var userName = friend.getDisplayName();
+						target.innerHTML += "<img src='" + thumbnailUrl + "'></img>"+ userName +"<br />";
 					});
 				}
 			}
