@@ -26,10 +26,12 @@
 		alert("req.add");
 
 		req.send(function(data){
+/*
 			if(data.hadError()){
 				var msg = data.getErrorMessage();
 				alert(msg);
 			}else{
+*/
 				var item = data.get("friends");
 				if(item.hadError()){
 					var code = item.getErrorCode();
@@ -43,7 +45,9 @@
 						target.innerHTML += "<img src='" + thumbnailUrl + "'></img>";
 					});
 				}
+/*
 			}
+*/
 		});
 	}
 	gadgets.util.registerOnLoadHandler(init);
