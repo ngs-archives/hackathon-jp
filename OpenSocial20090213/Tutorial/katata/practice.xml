@@ -69,6 +69,7 @@
 			document.getElementById('main').innerHTML = html.join('');
         }
 		function test(data){
+			alert(data);
 			var message = opensocial.newMessage();
 			message.setField(opensocial.Message.Field.TITLE, "タイトル");
 			message.setField(opensocial.Message.Field.BODY, "本文");
