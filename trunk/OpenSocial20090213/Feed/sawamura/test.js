@@ -2,20 +2,21 @@
 gadgets.util.registerOnLoadHandler(init);
     
 function show(feed){ 
-    var html= "";
-    //Access the fields in the feed
     var html = new Array();
     html.push("<h1>");
-    html.push( feed.Title );
+    html.push( feed.data.Title );
+    html.push( feed.data.Entry );
     html.push("-");
     html.push("</h1>");
     document.getElementById('friends').innerHTML += html.join('');
 }
 
-gadgets.io.makeRequest("http://opensocialapis.blogspot.com/atom.xml",
-		       show,
-		       {'method' : 'GET', 'contentType' : 'feed', 'numEntries' : '5', 'getSummaries' : 'true'}
-		       );
+var params = {};
+params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+
+gadgets.io.makeRequest("http://booklog.jp/users/yshida/feed/RSS1",
+		       show, params   );
 			  
 function init() {
     loadFriends();
