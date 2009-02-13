@@ -5,9 +5,10 @@ function show(feed){
     var html = new Array();
     html.push("<h1>");
     html.push( feed.data.Title );
-    html.push( feed.data.Entry );
-    html.push("-");
     html.push("</h1>");
+    $.each(feed.data.Entry,function(data){
+	    html.push("<h2>" + data.Title + "</h2>");
+	});
     document.getElementById('friends').innerHTML += html.join('');
 }
 
