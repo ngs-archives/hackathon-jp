@@ -18,9 +18,12 @@ bookRingr.ProfileController.prototype = {
 	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'owner')
 	var keys = ['bookringr'];
 	var idSpecParams = {};
+	var escapeParams = {};
+	escapeParams[opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
 	idSpecParams[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
 	var idSpec = opensocial.newIdSpec(idSpecParams);
-	req.add(req.newFetchPersonAppDataRequest(idSpec, keys), 'stored');
+	req.add(req.newFetchPersonAppDataRequest(idSpec, keys, escapeParams), 
+		'stored');
 	req.send(this.onLoadAppData);
     },
     onLoadAppData: function(data) {
@@ -32,8 +35,7 @@ bookRingr.ProfileController.prototype = {
 	    var stored = data.get('stored').getData();
 	    var obj = stored[owner.getId()];
 	    if (obj) {
-		this.appData = obj['bookringr'];
-		console.log(this.appData);
+		this.appData = gadgets.json.parse(obj['bookringr']);
 	    }
 	    bookRingr.controller.loadXML();
 	}
@@ -55,7 +57,7 @@ bookRingr.ProfileController.prototype = {
 	$.each(items, function(){
 	    var title       = bookRingr.controller.getNodeValueByTagName(this, 'title');
 	    var description = bookRingr.controller.getNodeValueByTagName(this, 'description');
-	    description.match(/img src='(.+?)'/);
+	    description.match(/img src="(.+?)"/);
 	    var imgUrl = RegExp.$1;
 	    description.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
@@ -78,7 +80,10 @@ bookRingr.ProfileController.prototype = {
 	    console.log(data);
 	}
 	else {
-	    console.log('no error!');
+	    var template = $("#template").val();
+	    var data     = {books: bookRingr.controller.books}
+	    var result   = template.process(data);
+	    $('#contents').html(result);
 	}
     },
     getNodeValueByTagName: function(xml, tag){
