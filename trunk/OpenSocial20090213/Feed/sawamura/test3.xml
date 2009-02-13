@@ -9,10 +9,11 @@
 .bkrg {
   margin: 5px 3px;
   display:inline-block;
-  marign: 0 3px 3px 0;
+  marign: 0 5px 3px 0;
   width:120px;
   height: 150px;
   overflow: none;
+  font-size: 92%;
   vertical-align: top;
 }
 .bkrg img {
