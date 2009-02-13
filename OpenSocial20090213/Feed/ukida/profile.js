@@ -40,14 +40,36 @@ function init(){
 */
 
 var value;
+var isOwner;
 
-function init(){
-    var req = opensocial.newDataRequest();
+function init() {
+	var req = opensocial.newDataRequest();
+	var params = {};
+    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+	var idSpec = opensocial.newIdSpec(params);
+    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "viewer");
+    req.send(function(response){
+		var viewer = response.get("viewer").getData();
+		if (viewer) {
+			isOwner = viewer.isOwner();
+			alert(isOwner);
+		} else {
+			alert("error");
+		}
+	});
+	
+	
+	// if owner
+	
+	// if viewer
+	
+	
+    req = opensocial.newDataRequest();
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
     
-    var params = {};
+    params = {};
     params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
-    var idSpec = opensocial.newIdSpec(params);
+    idSpec = opensocial.newIdSpec(params);
     
     req.add(req.newFetchPersonAppDataRequest(idSpec, "value"), "data");
     req.send(function(response){
@@ -58,8 +80,6 @@ function init(){
             if (data && data["value"]) {
                 value = Number(data["value"]);
             }
-			
-            alert("value: " + value);
         }
         else {
             alert("no install");
@@ -68,11 +88,13 @@ function init(){
     
 }
 
-function onClick(){
+function onClickSave(){
+	alert($("#test").text);
+	
     var req = opensocial.newDataRequest();
     req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, "value", ++value));
     req.send(function(response){
-        alert(value)
+		
     });
 }
 
