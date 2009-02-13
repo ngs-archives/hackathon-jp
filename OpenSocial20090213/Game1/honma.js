@@ -104,7 +104,9 @@ socialquest.recievedViewerData = function (data){
 
 socialquest.goFight = function () {
     $('#social-top').hide();
-    $('#social-ready').show();
+    var ready = $('#social-ready');
+    ready.html('<iframe src="http://sq.spicebox.jp/enemies/" width="704" height="254" style="position:relative;left:20px;top:2px;overflow-x:hidden;" border="0"/>');
+    ready.show();
 };
 
 })();
