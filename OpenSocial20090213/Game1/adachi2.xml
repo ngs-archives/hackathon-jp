@@ -36,7 +36,7 @@
 					friends.each(function(friend){
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
 						var userName = friend.getDisplayName();
-						target.innerHTML += "<img src='" + thumbnailUrl + "'></img>"+ userName +"<br />";
+						target.innerHTML += "<div><input type='checkbox' value=''><img src='" + thumbnailUrl + "'></img>"+ userName +"</div><br />";
 					});
 				}
 			}
