@@ -76,17 +76,17 @@
 		
 		  document.getElementById('mix_item').style.display = "block";
 		
-		  if(!globalItemList) {
-			globalItemList = new Array();
-		  }
-	      globalItemList.push(mix_item);
-	      var json = gadgets.json.stringify(globalItemList);
-alert(json);
+		  if(mix_item != '') {
+		  	if(!globalItemList) {
+				globalItemList = new Array();
+		  	}
+	      	globalItemList.push(mix_item);
+	      	var json = gadgets.json.stringify(globalItemList);
 
-	      var req = opensocial.newDataRequest();
-	      req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'items', json));
-		  req.send;
-		
+	      	var req = opensocial.newDataRequest();
+	      	req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'items', json));
+		  	req.send;
+		  }
 		  postActivity(mix_item);
 		}
 		
