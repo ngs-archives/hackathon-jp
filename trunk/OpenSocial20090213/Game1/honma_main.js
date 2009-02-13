@@ -8,5 +8,6 @@ gadgets.util.registerOnLoadHandler(
             ), "viewer"
         );
         req.send(socialquest.recievedViewerData);
+        hensei();
     }
 );

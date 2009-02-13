@@ -92,9 +92,48 @@ function postActivity(title, value) {
 	      }
 	);
 }
+
+
+      /*
+       * Request the OWNER and OWNER's friends.
+       */
+	function hensei(){
+		var params = {};
+		params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+		params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+		params[opensocial.IdSpec.Field.NECTWORK_DISTANCE] = 1;
+
+		var idSpec = opensocial.newIdSpec(params);
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPeopleRequest(idSpec),"friends");
+
+		req.send(function(data){
+			if(data.hadError()){
+				var msg = data.getErrorMessage();
+				alert(msg);
+			}else{
+				var item = data.get("friends");
+				if(item.hadError()){
+					var code = item.getErrorCode();
+					var msg = item.getErrorMessage();
+					alert(code + " : " + msg);
+				}else{
+					var friends = item.getData();
+					var target = document.getElementById("target");
+					friends.each(function(friend){
+						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
+						var userName = friend.getDisplayName();
+						target.innerHTML += "<div><input type='checkbox' value=''><img src='" + thumbnailUrl + "'></img>"+ userName +"</div><br />";
+					});
+				}
+			}
+		});
+	}
+
 </script>
 
-      <div id="social-top" class="main" style="display: none;">
+      <div id="social-top" style="display: none;">
+      <div class="main" style="display: none;">
       	<div id="photo">
 	</div>
 	<h1>なまえ：<span id="name"></span></h1>
@@ -108,10 +147,16 @@ function postActivity(title, value) {
 		<li><a href="#" onclick="" >アイテム</li>
 	</ul>
       </div>
+      <div id="target"></div>
+      </div>
 
       <div id="social-ready" class="main" style="display: none;">
         鋭意製作中
       </div>
+
+
+
+
  ]]>
  </Content>
 </Module>
