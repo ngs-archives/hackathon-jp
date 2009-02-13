@@ -218,6 +218,7 @@ console.log(data[i]);
 console.log("poke--- 2");
 console.log(data[i]["pokes"]);
 console.log("poke--- 3");
+console.log("poke--- getId -> " + owner.getId());
 console.log(data[i]["pokes"][owner.getId()]);
                  var tmp =  gadgets.json.parse(data[i]["pokes"]);
                  var pokes = tmp[owner.getId()];
