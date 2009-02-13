@@ -1,5 +1,20 @@
 gadgets.util.registerOnLoadHandler(init);
 
+
+var show = function(feed) { 
+    var html= "";
+    // Access the fields in the feed
+    html += "<div><b>" + feed.Title + "</b></div>";
+    html += "<div>" + feed.Description + "</div><br>";
+    document.getElementById('content_div').innerHTML = html;
+}
+
+    
+opensocial.makeRequest("http://opensocialapis.blogspot.com/atom.xml",
+		       show,
+		       {'method' : 'GET', 'contentType' : 'feed', 'numEntries' : '5', 'getSummaries' : 'true'}
+		      );
+		       
 function init() {
   loadFriends();
 }
