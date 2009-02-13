@@ -42,10 +42,10 @@ main (int argc, char **argv)
 		CvRect *r = (CvRect *) cvGetSeqElem (faces, i);
 		CvPoint center;
 		int radius;
-		printf("    <top>%d</top>", r->y);
-		printf("    <right>%d</right>", r->x + r->width);
-		printf("    <bottom>%d</bottom>", r->y + r->height);
-		printf("    <left>%d</left>", r->x);
+		printf("    <top>%d</top>\n", r->y);
+		printf("    <right>%d</right>\n", r->x + r->width);
+		printf("    <bottom>%d</bottom>\n", r->y + r->height);
+		printf("    <left>%d</left>\n", r->x);
 		center.x = cvRound (r->x + r->width * 0.5);
 		center.y = cvRound (r->y + r->height * 0.5);
 		radius = cvRound ((r->width + r->height) * 0.25);
