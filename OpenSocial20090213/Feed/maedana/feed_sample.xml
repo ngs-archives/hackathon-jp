@@ -35,8 +35,8 @@ var init = function(){
       var entry = entries[i];
       var book_tag = $('<a href="#"></a>');
       book_tag.attr('href', entry.URL);
-      book_tag.html(entry.Title);
       book_tag.wrap('<li></li>');
+      book_tag.html(entry.Title);
       $('#books').append(book_tag);
     }
   }, params);
