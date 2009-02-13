@@ -179,7 +179,7 @@
     }
 
     function init() {
-       requestGiftList('http://opensocial-resources.googlecode.com/svn/samples/tutorial/branches/io/gifts.json');
+       requestGiftList('http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Tutorial/asami/gifts.json');
     }
 
     gadgets.util.registerOnLoadHandler(init);
