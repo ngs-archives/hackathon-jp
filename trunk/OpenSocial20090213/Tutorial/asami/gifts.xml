@@ -13,7 +13,7 @@
 	  loadFriends();
 	}
 	
-	function onLoadFriends(data) {
+	function loadFriends(data) {
 	  var viewer = data.get('viewer').getData();
 	  var viewerFriends = data.get('viewerFriends').getData();
 
