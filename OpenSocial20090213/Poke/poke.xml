@@ -209,17 +209,13 @@ console.log("getOwnerAttrs : json : " + json);
 console.log("getFriendsPokes 1"); 
 
           req.send(function(data){
-console.log("getFriendsPokes 2"); 
               var owner = data.get("owner").getData();
-console.log("owner -"); 
-console.log(owner);
-              var pokes = owner["pokes"];
-console.log("pokes -"); 
-console.log(pokes);
               var data = data.get("pokes").getData();
-console.log(data);
-              var obj = data[owner.getId()];
-console.log(obj);
+
+              for ( var i in data ){
+                 var pokes = gadgets.json.parse(data[i]["pokes"][owner.getId()]);
+console.log(pokes);
+              }
 
 /*
                pokes.each(function(poke){
