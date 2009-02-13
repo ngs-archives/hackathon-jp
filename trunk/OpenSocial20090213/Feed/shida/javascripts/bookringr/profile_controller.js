@@ -15,7 +15,7 @@ bookRingr.ProfileController.prototype = {
     books: null,
     loadAppData: function() {
 	var req = opensocial.newDataRequest();
-	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'owner')
+	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner')
 	var keys = ['bookringr'];
 	var idSpecParams = {};
 	var escapeParams = {};
@@ -37,7 +37,14 @@ bookRingr.ProfileController.prototype = {
 	    if (obj) {
 		this.appData = gadgets.json.parse(obj['bookringr']);
 	    }
-	    bookRingr.controller.loadXML();
+
+	    if (owner.isViewer()) {
+		bookRingr.controller.loadXML();
+	    }
+	    else {
+		bookRingr.controller.books = this.appData;
+		bookRingr.controller.showBooks();
+	    }
 	}
     },
     loadXML: function() {
@@ -68,6 +75,7 @@ bookRingr.ProfileController.prototype = {
     },
     updateAppData: function() {
 	var req = opensocial.newDataRequest();
+	console.log(this.books);
 	req.add(req.newUpdatePersonAppDataRequest(
 	          opensocial.IdSpec.PersonId.VIEWER, 
 	          'bookringr', 
@@ -80,10 +88,25 @@ bookRingr.ProfileController.prototype = {
 	    console.log(data);
 	}
 	else {
-	    var template = $("#template").val();
-	    var data     = {books: bookRingr.controller.books}
-	    var result   = template.process(data);
-	    $('#contents').html(result);
+	    bookRingr.controller.showBooks();
+	}
+    },
+    showBooks: function() {
+	var template = $("#template").val();
+	var data     = {books: bookRingr.controller.books}
+	var result   = template.process(data);
+	$('#contents').html(result);
+	$('.status').click(this.onChangeStatus);
+    },
+    onChangeStatus: function(e) {
+	var asin   = $(e.target).parent()[0].id;
+	var status = $(this).val();
+
+	for(var count = 0;count < bookRingr.controller.books.length; ++count) {
+	    if (bookRingr.controller.books[count].asin == asin) {
+		bookRingr.controller.books[count].status = status;
+		bookRingr.controller.updateAppData();
+	    }
 	}
     },
     getNodeValueByTagName: function(xml, tag){
@@ -95,3 +118,4 @@ bookRingr.ProfileController.prototype = {
 gadgets.util.registerOnLoadHandler(function() {
     bookRingr.controller = new bookRingr.ProfileController();
 });
+
