@@ -19,8 +19,11 @@ function show(oj){
 	    var cdata = txt(this,"description");
 	    cdata.match(/img src="(.+?)"/);
 	    var img = RegExp.$1;
+	    cdata.match(/asin\/(\w+)/);
+	    var asin = RegExp.$1;
 	    //html.push("<blockquote>" + cdata + "</blockquote>");
 	    html.push("<img src='" + img + "' width='80' />");
+	    html.push("ASIN: " + asin );
 	});
     document.getElementById('friends').innerHTML += html.join('');
 }
