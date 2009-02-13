@@ -77,7 +77,7 @@ debug("getMyAttrs");
       }
 
       function getOwnerAttrs(divId) {
-debug("getUserAttrs");
+console.log("getOwnerAttrs");
           var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.OWNER});
 
           var req = opensocial.newDataRequest();
@@ -85,7 +85,7 @@ debug("getUserAttrs");
           req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
           req.add(req.newFetchPersonAppDataRequest(idSpec, 'latestAttrs'), "data");
           req.send(function(data) {
-               debug("callback");
+console.log("getOwnerAttrs : cb");
                var attrs = data.get("data").getData();
                var owner = data.get("owner").getData();
 
@@ -95,13 +95,10 @@ debug("getUserAttrs");
                  return;
                }
                var jsonStr = attrs[owner.getId()]['attrs'];
-               debug("jsonStr");
-               debug(jsonStr);
+console.log("getOwnerAttrs : jsonStr : " + jsonStr);
 
                var json = gadgets.json.parse(gadgets.util.unescapeString(jsonStr));
-               debug("json");
-               debug(json);
-
+console.log("getOwnerAttrs : json : " + json);
 
                var html = ['<dl>'];
                for ( itemkey in json ) {
