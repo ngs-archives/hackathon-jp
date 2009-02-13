@@ -31,7 +31,6 @@ gadgets.util.registerOnLoadHandler(init);
 &lt;div&gt;
 ブックログのRSSフィードURLを入力する。&lt;br /&gt;
 &lt;div&gt;&lt;input id=&quot;rss_url&quot; type=&quot;text&quot;&gt;&lt;/div&gt;
-&lt;div id=&quot;test&quot;&gt;test&lt;/div&gt;
 &lt;button onclick=&quot;onClickSave();&quot;&gt;保存&lt;/button&gt;
 &lt;/div&gt;</Content><Content view="preview" type="html">
 
