@@ -70,10 +70,11 @@
         }
 		function test(data){
 			alert(data);
+			var arr = [data];
 			var message = opensocial.newMessage();
 			message.setField(opensocial.Message.Field.TITLE, "タイトル");
 			message.setField(opensocial.Message.Field.BODY, "本文");
-			opensocial.requestSendMessage(data, message);
+			opensocial.requestSendMessage(arr, message);
 		}
         function init() {
            loadFriends();
