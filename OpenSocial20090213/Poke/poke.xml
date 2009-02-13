@@ -14,7 +14,7 @@ console.debug("init");
           masterAttrs = { item1: "善", item2: "悩", item3: "愛", item4: "H" };
 
           // TODO 今見てるのがオーナーでかつ最初なら、初期化データ作成
-          function initMyAttrs(initCallback) {
+          function initMyAttrs() {
 console.debug("initMyAttrs");
               for (i in masterAttrs) {
                   myAttrs[i] = Math.floor(Math.random() * 30);
@@ -23,15 +23,15 @@ console.debug("initMyAttrs");
               console.debug(json);
 
               var req = opensocial.newDataRequest();
-              req.add(req.newUpdatePersonAppDataRequest("OWNER", 'attrs', json));
-              req.send(initCallback);
+              req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'attrs', json));
+              req.send(getMyAttrs( function() {}, "main"));
           }
 
-          initMyAttrs();
+          //initMyAttrs();
 
           function getMyAttrs(initCallback, divId) {
 console.debug("getMyAttrs");
-              var idSpec = opensocial.newIdSpec({"userId": "OWNER"});
+              var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.OWNER});
 
               var req = opensocial.newDataRequest();
 
@@ -39,17 +39,18 @@ console.debug("getMyAttrs");
               req.add(req.newFetchPersonAppDataRequest(idSpec, 'attrs'), "data");
               req.send(function(data) {
                    console.debug("callback");
-                   myAttrs = data.get("data").getData();
+                   var attrs = data.get("data").getData();
                    var owner = data.get("owner").getData();
                    console.debug( myAttrs );
 
                    console.debug("owner_id" + owner.getId());
 
-                   var jsonStr = myAttrs[owner.getId()]['attrs'];
-                   //                                      if (!myAttrs.hasOwnProperty) {
-                   //    console.debug("call init");
-                   //    initCallback();
-                   //    }
+                   if (!attrs[owner.getId()] ) {
+                     console.debug("call init");
+                     initMyAttrs();
+                     return;
+                   }
+                   var jsonStr = attrs[owner.getId()]['attrs'];
                    console.debug("jsonStr");
                    console.debug(jsonStr);
 
