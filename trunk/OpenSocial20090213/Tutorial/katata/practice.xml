@@ -10,6 +10,8 @@
           var req = opensocial.newDataRequest();
 		  var opt_params = {};
 		  opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+		  opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = 
+		  [opensocial.Person.Field.ABOUT_ME];
 		  
 		  req.add(req.newFetchPersonRequest("OWNER"), 'owner');
 		  var ownerFriends = opensocial.newIdSpec({"userId":"OWNER","groupId":"FRIENDS"});
@@ -23,6 +25,9 @@
         }
         
         function onLoadFriends(data) {
+			var param = {};
+			param[]
+			
 			var owner = data.get('owner').getData();
 			var ownerFriends = data.get('ownerFriends').getData();
 		
