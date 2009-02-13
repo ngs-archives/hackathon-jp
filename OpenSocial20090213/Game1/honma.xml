@@ -28,7 +28,7 @@
 		<li>しょくぎょう <span id="job"></span></li>
 	</ul>
 	<ul>
-		<li><a href="#" onclick="socialquest.goFight" >たたかう</li>
+		<li><a href="#" onclick="socialquest.goFight();" >たたかう</li>
 		<li><a href="#" onclick="" >せんれき</li>
 		<li><a href="#" onclick="" >アイテム</li>
 	</ul>
