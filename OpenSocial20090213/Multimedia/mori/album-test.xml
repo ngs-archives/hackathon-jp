@@ -2,6 +2,7 @@
 <Module>
   <ModulePrefs title="FaceAlbum">
     <Require feature="opensocial-0.8"/>
+   <Require feature="locked-domain"/>
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
@@ -107,18 +108,44 @@
                 addToPhotoGrid(photo);
               }
             );
+    gadgets.window.adjustHeight();
             //bind addTags link
             $('.addTags').click(function(e) {
-                console.log(e.currentTarget);
+                $('#frieds').show();
+          var req = opensocial.newDataRequest();
+          var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'FRIENDS'});
+
+          req.add(req.newFetchPeopleRequest(idspec), 'viewerFriends');
+          req.send(fetchFriendsHandler);
                 return false;
             });
           }
-        };
+        }
+        function fetchFriendsHandler(resp) {
+          var viewerFriendsResp = resp.get('viewerFriends');
 
+          if (!viewerFriendsResp.hadError()) {
+            var viewerFriends = viewerFriendsResp.getData();
+
+            // Add each photo's thumbnail to the photo grid
+            viewerFriends.each(
+              function(person) {
+                addToFriendGrid(person);
+              }
+            );
+    gadgets.window.adjustHeight();
+          }
+        }
+        
         // Adds the passed photo's thumbnail to the photo grid
         function addToPhotoGrid(photo) {
           document.getElementById('photoGrid').innerHTML +=
             '<div style="display: block;"><h3>'+photo.getTitle()+'</h3><img src="' + photo.getThumbnailUrl()+'"/></div><div> - <a href="javascript:void(0)" class="addTags">Add tags</a></div>';
+        };
+
+        function addToFriendGrid(person) {
+          document.getElementById('friendGrid').innerHTML +=
+            '<div style="display: block;"><h3>'+person.getDisplayName()+'</h3><img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL)+'"/></div><div> - <a href="javascript:void(0)" class="addTags">Add tags</a></div>';
         };
 
         // Execute fetchAlbums function when gadget loads
@@ -137,7 +164,7 @@
 
       <div id="friends">
       <h2>Friends:</h2>
-      <div id="friendsGrid"></div>
+      <div id="friendGrid"></div>
       </div>
     ]]>
   </Content>
