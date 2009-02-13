@@ -25,7 +25,8 @@ function show(oj){
 		       + '</div>'
 		       + '<div>'
 		       +  txt(this,"title") + '<br />'
-		       + "ASIN: " + asin		
+		       + "ASIN: " + asin
+		       + '<br />'
 		       + '</div>'
 		       );
 	    $.each(["n/a","want","reading","have read"],function(){
