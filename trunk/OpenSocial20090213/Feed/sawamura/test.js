@@ -1,5 +1,5 @@
 
-gadgets.util.registerOnLoadHandler(init);
+
 
 function txt(dom,tag){
     return dom.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
@@ -66,3 +66,5 @@ function callback(status) {
     }
 }
   
+
+gadgets.util.registerOnLoadHandler(init);
