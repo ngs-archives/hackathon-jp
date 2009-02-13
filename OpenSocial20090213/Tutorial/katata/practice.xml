@@ -33,7 +33,7 @@
 			html.push('<select id="owner">');
 			ownerFriends.each(function(person) {
 				if (person.getId()) {
-					html.push('<option value="', person.getId(), '">', person.getField('ABOUT_ME'), '</option>');
+					html.push('<option value="', person.getId(), '">', person.getField('ABOUT_ME',null), '</option>');
 				}
 			});
 			html.push('</select>');
