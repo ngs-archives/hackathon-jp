@@ -50,7 +50,8 @@ socialquest.CharacterMaker = function (){};
 socialquest.CharacterMaker.prototype = {
     make: function (p) {
         var person = clone(p);
-        person.md5 = MD5_hexhash(p.getId());
+        person.md5 = MD5_hash(p.getId());
+        person.hp  = person.md5.charCodeAt(0);
         return person;
     }
 };
@@ -65,7 +66,7 @@ socialquest.recievedViewerData = function (data){
     var p = maker.make(viewer);
     alert(p.getId() + p.getDisplayName());
     alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
-    alert(p.md5);
+    alert(p.hp);
 };
 
 })();
