@@ -15,8 +15,12 @@ function show(oj){
     html.push("</h1>");
     var items = dom.getElementsByTagName("item");
     $.each(items,function(){
-	    html.push("<p>" + txt(this,"title") + "</p>");
-	    html.push("<blockquote>" + txt(this,"description") + "</blockquote>");
+	    html.push("<h2>" + txt(this,"title") + "</h2>");
+	    var cdata = txt(this,"description");
+	    cdata.match(/img src="(.+?)"/);
+	    var img = RegExp.$1
+	    html.push("<blockquote>" + cdata + "</blockquote>");
+	    html.push(img);
 	});
     document.getElementById('friends').innerHTML += html.join('');
 }
