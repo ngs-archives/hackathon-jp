@@ -38,8 +38,7 @@
 					friends.each(function(friend){
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.LANGUAGES_SPOKEN);
 						var nickName = friend.getField(opensocial.Person.Field.NICKNAME);
-
-						target.innerHTML += "aaaa<img src='" + thumbnailUrl + "' />" + nickName + "<br />";
+						target.innerHTML += "<img src='" + thumbnailUrl + "'></img>" + nickName + "<br />";
 					});
 				}
 			}
