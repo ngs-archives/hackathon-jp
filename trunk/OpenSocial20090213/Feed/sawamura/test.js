@@ -12,10 +12,9 @@ function show(oj){
     html.push( txt(dom,"title") );
     html.push("</h1>");
     var items = dom.getElementsByTagName("item");
-    var $base = $("friends");
+    var $base = $("#friends");
     $.each(items,function(){
 	    var $div = $("<div style='margin:5px 0 0 5px;display:inline-block'></div>");
-
 	    var cdata = txt(this,"description");
 	    cdata.match(/img src="(.+?)"/);
 	    var img = RegExp.$1;
