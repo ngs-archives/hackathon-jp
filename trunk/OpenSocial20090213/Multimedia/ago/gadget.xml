@@ -9,32 +9,9 @@
         <Require feature="opensocial-0.8" />
     </ModulePrefs>
     <Content type="html" view="canvas"><![CDATA[
-
 <script type=" text/javascript" src="http://api.msappspace.com/OpenSocial/JSExtensions/jquery/jquery-1.2.3.min.js"></script>
 <script type=" text/javascript" src="http://svn.coderepos.org/share/lang/javascript/jQuery.opensocial_simple/jquery.opensocial_simple.js"></script>
-
-<script type=" text/javascript">
-//http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/dotbg.png
-	var $os = $.opensocial_simple;
-	$os.getPerson(function (person) {
-		$os.getDOM('http://profile.myspace.com/index.cfm', {
-			'fuseaction' : 'user.viewProfile',
-			'friendID' : person.OWNER.getId()
-		}, function (data) {
-			var text = '';
-			$(data).find('.latestBlogEntry:first .text').each(function () {
-				text += this;
-			})
-			$('marquee').css({
-				'font-size' : '1000%',
-				'color' : '#FBEB8C'
-			}).html(text);
-		});
-	});
-</script>
-
-<marquee scrollamount="20"></marquee>
-
+<script type=" text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Multimedia/ago/canvas.js"></script>
     ]]></Content>
     <Content type="html" view="profile"><![CDATA[<div>Profile view for beat.</div>
 
