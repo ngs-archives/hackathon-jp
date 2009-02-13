@@ -84,17 +84,19 @@ socialquest.recievedViewerData = function (data){
     var maker = new socialquest.CharacterMaker();
     var p = maker.make(viewer);
 
+    var thumb = p.getField( opensocial.Person.Field.THUMBNAIL_URL;
     $("#hp"  ).html(p.hp);
     $("#job" ).html(p.job);
     $("#name").html(p.getDisplayName());
+    $("#photo").html('<img src="' + thumb + '">');
 
 //    alert(p.getId() + p.getDisplayName());
-//     alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
-//     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
+//    alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
+//    alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
 //            .getField( opensocial.Address.Field.LATITUDE ));
-//     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
+//    alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
 //            .getField( opensocial.Address.Field.LONGITUDE ));
-//     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
+//    alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
 //            .getField( opensocial.Address.Field.COUNTRY ));
 //    alert(p.hp);
 //    alert(p.job);
