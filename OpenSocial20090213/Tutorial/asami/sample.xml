@@ -24,6 +24,7 @@
 		  	html.push('<li>' + defaultItemList[i] + "</li>");
 		  };
 		  html.push('</ul>');
+		alert(html);
 		  document.getElementById('items').innerHTML = html.join('');
 		}
 		
