@@ -13,7 +13,8 @@ function show(oj){
     html.push("</h1>");
     var items = dom.getElementsByTagName("item");
     $.each(items,function(){
-	    html.push("<h2>" + txt(this,"title") + "</h2>");
+	    html.push("<div style='margin:5px 0 0 5px;display:inline-block'>");
+	    html.push("<div>" + txt(this,"title") + "</div>");
 	    var cdata = txt(this,"description");
 	    cdata.match(/img src="(.+?)"/);
 	    var img = RegExp.$1;
@@ -22,15 +23,16 @@ function show(oj){
 	    //html.push("<blockquote>" + cdata + "</blockquote>");
 	    html.push("<img src='" + img + "' width='80' />");
 	    html.push("ASIN: " + asin );
+	    html.push("</div>");
 	});
     document.getElementById('friends').innerHTML += html.join('');
 }
 
-var params = {};
-params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
 
 function init(){
+    var params = {};
+    params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
     gadgets.io.makeRequest("http://booklog.jp/users/sawamur/feed/RSS1", show, params );
 }
 
