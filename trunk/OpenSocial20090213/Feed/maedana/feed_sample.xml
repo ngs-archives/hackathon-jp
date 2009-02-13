@@ -31,7 +31,7 @@ var init = function(){
   gadgets.io.makeRequest(url, function(response) {
     var feed = response.data;
     $('#books').html(feed.Title);
-  }
+  }, params);
 };
 gadgets.util.registerOnLoadHandler(init);
 $(function(){
