@@ -213,8 +213,11 @@ console.log("getFriendsPokes 1");
               var data = data.get("pokes").getData();
 
               for ( var i in data ){
+console.log("poke--- 1");
 console.log(data[i]);
+console.log("poke--- 2");
 console.log(data[i]["pokes"]);
+console.log("poke--- 3");
 console.log(data[i]["pokes"][owner.getId()]);
                  var pokes = gadgets.json.parse(data[i]["pokes"][owner.getId()]);
 console.log(pokes);
