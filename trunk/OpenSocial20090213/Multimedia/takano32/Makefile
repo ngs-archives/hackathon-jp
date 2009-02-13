@@ -1,2 +1,2 @@
-CFLAGS=-I/usr/include/opencv
+CPPFLAGS=-I/usr/include/opencv
 LDFLAGS=-lcxcore -lhighgui -lcv
