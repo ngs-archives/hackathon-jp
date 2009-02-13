@@ -2,6 +2,7 @@
  * big fonts!
  * This JavaScript file is for Canvas view.
  */
+new Marquee('marquee');
 var $os = $.opensocial_simple;
 $os.getPerson(function (person) {
 	$os.get('http://profile.myspace.com/index.cfm', {
@@ -12,7 +13,6 @@ $os.getPerson(function (person) {
 		$(data).find('.latestBlogEntry:first .text').each(function () {
 			text += $(this).html();
 		});
-		new Marquee('marquee');
 		$('#marquee').css({
 			'font-size' : '1000%',
 			'color' : '#FBEB8C'
