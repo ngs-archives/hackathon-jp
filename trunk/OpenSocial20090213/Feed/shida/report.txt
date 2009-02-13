@@ -1,0 +1,49 @@
+h2. 仕様:
+
+ * ブクログから自分がブックマーク(?)した本をRSSで取得
+ * これをPersistence APIで自身(OWNER)の領域に保存
+   * すでにある本は登録せず、フィード内で新規に増えた本だけを登録
+     (未完)
+ * 読んだ!などにステータスを更新したら、Persistence APIで保存
+ * 本の名前とステータスでActivityを作成
+
+// ---------
+
+h2. いろいろはまりどころ:
+
+ * まず、UserPrefでエラー。orkutはUserPrefが使えないらしい。
+
+ * まずどうやってデバッグしていいのかわからない
+   * ガジェットのiframeを別窓で開いて、FireBugで開発
+   * キャッシュが効いてるなと思ったら、nocache=1 をつける必要があったり
+   * iframeで開きっぱなしで開発していると突然、Persistence APIがエラー
+
+ * 最初はgadgets.io.ContentType.FEEDでやってたが、フィードのdescrption内に
+   画像があり、FEEDでは画像が取れなかったため、DOMにした
+     <description><![CDATA[
+       <a href="http://detail.booklog.jp/asin/0470442220">
+       <img src="http://ecx.images-amazon.com/images/I/41OudfNWshL._SL160_.jpg" />
+       </a><br />]]
+     ></description>
+
+ * 非同期なので、処理の順番をうまく制御しないといけない
+   1. loadAppData
+   2. onLoadAppData
+   3. loadXML
+   4. onLoadXML
+   5. updateAppData
+   6. onUpdateAppData
+   7. showBooks  
+
+   * 道のりが遠く、表示が遅い…
+
+ * ただし、オーナーではない人がビュアーの場合は、
+   1. loadAppData
+   2. onLoadAppData
+   3. showBooks  
+
+ * Persistence APIはVIEWERじゃないと保存できない。
+   VEIEWERとOWNERが同一人物でも。
+
+ * CreateActivityが英語じゃないとエラー。
+   * 英語の設定変更の場所も分かりにくい。(左下「設定」)
