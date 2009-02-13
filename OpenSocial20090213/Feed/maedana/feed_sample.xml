@@ -33,7 +33,7 @@ var init = function(){
     var entries = feed.Entry;
     for(var i = 0; i < entries.length; i++) {
       var entry = entries[i];
-      var book_tag = $('<a href="#"></a>');
+      var book_tag = $('<li><a href="#"></a></li>');
       book_tag.attr('href', entry.URL);
       book_tag.html(entry.Title);
       $('#books').append(book_tag);
