@@ -1,22 +1,19 @@
 
 gadgets.util.registerOnLoadHandler(init);
+
+
     
-function show(feed){ 
+function show(dom){ 
     var html = new Array();
     html.push("<h1>");
-    html.push( feed.data.Title );
+    html.push( $(dom).find("title:eq(0)").text());
     html.push("</h1>");
-    $.each(feed.data.Entry,function(data){
-	    html.push("<h2>" + this.Link + "</h2>");
-	    html.push("<p>" + this.Description + "</p>");
-	    html.push("<p>" + this.Summary + "</p>");
-	});
     document.getElementById('friends').innerHTML += html.join('');
 }
 
 var params = {};
 params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
 
 gadgets.io.makeRequest("http://booklog.jp/users/sawamur/feed/RSS1", show, params );
 			  
