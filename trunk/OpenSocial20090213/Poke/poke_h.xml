@@ -8,6 +8,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
     <script type="text/javascript">
       myAttrs = {};
+      friendsPokes = [];
 
       masterAttrs = { item1: "善", item2: "悩", item3: "愛", item4: "H" };
 
@@ -111,6 +112,27 @@ console.log("getOwnerAttrs : json : " + json);
           });
         
       }
+
+      function getFriendsPokes(divId) {
+
+          var req = opensocial.newDataRequest();
+
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+          param = {};
+          param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+          param[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+          param[opensocial.IdSpec.Field.NETWORK_DISTANCE] = 1;
+          var idSpec = opensocial.newIdSpec(param);
+          req.add(req.newFetchPeopleRequest(idSpec), "ownerFriends");
+          req.send(function(data){
+               var owner = data.get("owner").getData();
+               var ownerFriends = data.get("ownerFriends").getData();
+console.log(ownerFriends);
+               
+          });
+
+      }
+
       
 
       $(function(){
@@ -122,10 +144,12 @@ console.log("getOwnerAttrs : json : " + json);
     <button type="button" onclick="getMyAttrs('main');">Refresh!</button>
     <button type="button" onclick="updateLatest('latest')">Lastest!</button>
     <button type="button" onclick="getOwnerAttrs('ownerAttrs')">Show this user(owner)'s latest attrs</button>
+    <button type="button" onclick="getFriendsPokes('friendsPokes')">Get friendss pokes</button>
     <div id="main">あいうえお</div>
 
     <div id="latest">最新状態</div>
     <div id="ownerAttrs">このユーザの最新のデータ</div>
+    <div id="friendsPokes">friends' pokes</div>
     ]]>
   </Content>
   <!--
