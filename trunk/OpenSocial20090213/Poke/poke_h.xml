@@ -73,9 +73,48 @@ debug("getMyAttrs");
           });
       }
 
-      function updateLatest(divId) {
-        
+      var testFriedsData = {
+        2: [
+          { item1: -3 },
+          { item2: 3 }
+        ],
+        3: [
+          { item1: -2 },
+          { item3: 5 }
+        ]
+      };
+
+      function updateLatest() {
+        debug( testFriedsData );
+        updateLatestCallback( testFriedsData );
       }
+
+      function updateLatestCallback(data) {
+        var newAttrs = {};
+        var itemId;
+        // Copy initAttrs to new Attrs
+        for ( itemId in myAttrs ) {
+          newAttrs[itemId] = myAttrs[itemId];
+        }
+
+        debug( newAttrs );
+
+        for ( friendId in data ) {
+          var pokes = data[friendId];
+          for ( i in pokes ) {
+            for ( itemId in pokes[i] )
+              newAttrs[itemId] += pokes[i][itemId];
+          }
+        }
+        debug("new attrs");
+        debug( newAttrs );
+
+        var json = gadgets.json.stringify(newAttrs);
+        var req = opensocial.newDataRequest();
+        req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'latestAttrs', json));
+        req.send();
+      }
+
 
       function getOwnerAttrs(divId) {
 console.log("getOwnerAttrs");
@@ -122,18 +161,56 @@ console.log("getOwnerAttrs : json : " + json);
           param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
           param[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
           param[opensocial.IdSpec.Field.NETWORK_DISTANCE] = 1;
-          var idSpec = opensocial.newIdSpec(param);
+          //var idSpec = opensocial.newIdSpec(param);
+          var idSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
           req.add(req.newFetchPeopleRequest(idSpec), "ownerFriends");
           req.send(function(data){
                var owner = data.get("owner").getData();
                var ownerFriends = data.get("ownerFriends").getData();
+console.log("ownerFriends---");
 console.log(ownerFriends);
+               ownerFriends.each(function(friend){
+
+console.log("friend---");
+console.log(friend);
+
+               });
                
           });
 
       }
 
-      
+      function getPokes() {
+          var req = opensocial.newDataRequest();
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+          var idSpec = opensocial.newIdSpec({"userId": opensocial.IdSpec.PersonId.VIEWER});
+          req.add(req.newFetchPersonAppDataRequest(idSpec, ["pokes"]), "pokes");
+          req.send(function(data) {
+              var owner = data.get("owner").getData();
+              var data = data.get("pokes").getData();
+              var obj = data[owner.getId()];
+              var pokes = obj["pokes"];
+              debug(pokes);
+          });
+      }
+      function poke() {
+          var ownerId;
+          var get_req = opensocial.newDataRequest();
+          get_req.add(get_req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
+          get_req.send(function(data) {
+              ownerId = data.get("owner").getData().getId();
+          });
+          debug(ownerId);
+
+          var data = {};
+          data[ownerId] = [{ item2: -10}];
+          var json = gadgets.json.stringify(data);
+          debug(json);
+
+          var req = opensocial.newDataRequest();
+          req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'pokes', json));
+          req.send();
+      } 
 
       $(function(){
         debug("init");
@@ -142,8 +219,10 @@ console.log(ownerFriends);
     </script>
     <button type="button" onclick="initMyAttrs();">Init!</button>
     <button type="button" onclick="getMyAttrs('main');">Refresh!</button>
-    <button type="button" onclick="updateLatest('latest')">Lastest!</button>
+    <button type="button" onclick="updateLatest();">Update Friends Data</button>
     <button type="button" onclick="getOwnerAttrs('ownerAttrs')">Show this user(owner)'s latest attrs</button>
+    <button type="button" onclick="getPokes();">getPoke</button>
+    <button type="button" onclick="poke();">Poke</button>
     <button type="button" onclick="getFriendsPokes('friendsPokes')">Get friendss pokes</button>
     <div id="main">あいうえお</div>
 
