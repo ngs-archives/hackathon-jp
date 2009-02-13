@@ -55,7 +55,7 @@
 			var viewer = data.get('viewer').getData();
 			var mixitem = data.get('data').getData();
 			var json = null;
-			
+			alert(viewer.getId());
 		    if (data[viewer.getId()]) {
 		        json = data[viewer.getId()]['items'];
 		    }
@@ -68,7 +68,7 @@
 		      } catch (e) {
 		        globalItemList = [];
 		      }
-alert(globalItemList);
+		
 		      var html = new Array();
 		      html.push('You have mixs:');
 		      html.push('<ul>');
