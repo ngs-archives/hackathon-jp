@@ -170,6 +170,7 @@ console.log("getOwnerAttrs : json : " + json);
           get_req.add(get_req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner");
           get_req.send(function(data) {
               ownerId = data.get("owner").getData().getId();
+              debug(ownerId);
           });
           debug(ownerId);
 
