@@ -19,6 +19,7 @@ function show(oj){
 //    });
 //    document.getElementById('friends').innerHTML += html.join('');
     storeBookData(dom);
+    loadBookData(opensocial.IdSpec.PersonId.OWNER);
 }
 
 var params = {};
