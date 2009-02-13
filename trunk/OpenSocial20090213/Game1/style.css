@@ -1,4 +1,4 @@
-#main{
+.main{
 	background-image:url("./images/back.jpg");
 	background-repeat:no-repeat;
 	width:800px;
@@ -15,11 +15,11 @@
 	float:left;
 }
 
-h1{
+.main h1{
 	font-size:20px;
 }
 
-ul{
+.main ul{
 	font-size:20px;
 	float:left;
 	border: medium solid #ffffff;
@@ -27,20 +27,43 @@ ul{
 	padding:20px;
 }
 
-a {
+.main a {
 	color:#FFFFFF;
 }
 
-a:link { 
+.main a:link { 
 	color: white; 
 }
-a:visited { 
+.main a:visited { 
 	color: white; 
 }
-a:hover { 
+.main a:hover { 
 	color: black;
 	background:white;
 }
-a:active {
+.main a:active {
 	color: yellow;
 }
+
+.members{
+	background-image:url("./images/hensei.jpg");
+	background-repeat:no-repeat;
+	width:800px;
+	height:320px;
+	padding:30px;
+	color:#333333;
+}
+
+.members li{
+	float:left;
+	width:200;
+	height:320;
+}
+
+.members li{
+	float:left;
+	width:200;
+	height:300;
+}
+
+
