@@ -58,7 +58,7 @@ bookRingr.ProfileController.prototype = {
     },
     onLoadXML: function(obj) {
 	var xml = obj.data;
-
+	var books = new Array();
 	bookRingr.controller.books = new Array();
 	var items = xml.getElementsByTagName('item');
 	$.each(items, function(){
@@ -69,8 +69,28 @@ bookRingr.ProfileController.prototype = {
 	    description.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
 	    book = new bookRingr.Book(title, imgUrl, asin);
+//	    books.push(book);
 	    bookRingr.controller.books.push(book);
 	});
+/*	
+	for (var count1 = 0;
+	     count1 < books.length;
+	     ++count1) {
+	    var bookFromXML = books[count1];
+	    var alreadyExist = false;
+	    for (var count2 = 0;
+		 count2 < bookRingr.controller.appData.length;
+		 ++count2) {
+		var bookFromAppData = bookRingr.controller.appData[count2];
+		if (bookFromXML.asin == bookFromAppData.asin) {
+		    var alreadyExist = true;
+		}
+	    }
+	    if (! alreadyExist) {
+		bookRingr.controller.books.push(bookFromXML);
+	    }
+	}
+*/
 	bookRingr.controller.updateAppData();
     },
     updateAppData: function() {
@@ -88,6 +108,7 @@ bookRingr.ProfileController.prototype = {
 	    console.log(data);
 	}
 	else {
+	    console.log('updated!');
 	    bookRingr.controller.showBooks();
 	}
     },
@@ -120,14 +141,7 @@ bookRingr.ProfileController.prototype = {
 	var activity = opensocial.newActivity(params); 
 	opensocial.requestCreateActivity(activity, 
 					 opensocial.CreateActivityPriority.LOW, 
-					 function(status) {
-					     if (status.hadError()){
-						 console.log(status);
-						 alert("Error creating activity.");
-					     } else {
-						 alert("Activity successfully created.");
-					     }					     
-					 });
+					 this.onPostActivity);
     },
     onPostActivity: function(status) {
 	if (status.hadError()){
