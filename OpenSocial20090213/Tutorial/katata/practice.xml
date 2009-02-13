@@ -37,18 +37,20 @@
           	html.push('<ul>');
 			ownerFriends.each(function(person) {
 				if (person.getId()) {
-					html.push('<li><img src="',person.getField(opensocial.Person.Field.THUMBNAIL_URL),'"/></li>');
+					html.push('<img src="',person.getField(opensocial.Person.Field.THUMBNAIL_URL),'"/>',person.getDisplayName());
 				}
 			});
 			html.push('</ul>');
 			
-			html.push('<select id="viewer">');
+			html.push('VIWERの友達');
+			html.push('<ul>');
 			viewerFriends.each(function(person) {
 				if (person.getId()) {
-					html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
+					html.push('<img src="',person.getField(opensocial.Person.Field.THUMBNAIL_URL),'"/>',person.getDisplayName());
 				}
 			});
-			html.push('</select>');
+			html.push('</ul>');
+			
 			document.getElementById('main').innerHTML = html.join('');
         }
         function init() {
