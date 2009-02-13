@@ -10,10 +10,11 @@
   margin: 5px 3px;
   border-bottom: solid 1px #ccc ;
   clear: both;
+  height: 100px;
 }
 .bkrg img{
   float: left;
-  width: 70px;
+  height: 100px;
 }
 </style>
 
