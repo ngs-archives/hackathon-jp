@@ -10,8 +10,7 @@
        * Request the OWNER and OWNER's friends.
        */
 	function init(){
-		var params = socialquest.parsonSearchParams;
-		var idSpec = openSocial.newIdSpec(params);
+		var idSpec = openSocial.newIdSpec(socialquest.parsonSearchParams;);
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPeopleRequest(idSpec),"friends");
 		req.send(function(data){
