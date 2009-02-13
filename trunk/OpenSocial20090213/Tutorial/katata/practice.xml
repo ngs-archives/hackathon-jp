@@ -36,6 +36,7 @@
 					html.push('<option value="', person.getId(), '">', person.getField(opensocial.Person.Field.ABOUT_ME), '</option>');
 				}
 			});
+			
 			html.push('</select>');
 			
 			html.push('<select id="viewer">');
