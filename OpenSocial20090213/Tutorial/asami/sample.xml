@@ -56,9 +56,10 @@
 			var mixitem = data.get('data').getData();
 			var json = null;
 			
+			console.info(data[viewer.getId()]);
 		    if (data[viewer.getId()]) {
-		        json = data[viewer.getId()]['items'];
-		alert(json);
+				json = data[viewer.getId()]['items'];
+				console.info(json);
 		    }
 		
 			if (!json) {
