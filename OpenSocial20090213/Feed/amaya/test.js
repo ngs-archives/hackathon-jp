@@ -36,6 +36,7 @@ gadgets.io.makeRequest("http://booklog.jp/users/amaya/feed/RSS1", show, params )
 			  
 function init() {
     loadFriends();
+    loadData();
 }
 
 function loadFriends() {
@@ -63,4 +64,16 @@ function onLoadFriends(data) {
 	});
     html.push('</ul>');
     //document.getElementById('friends').innerHTML = html.join('');
+}
+
+function loadData() {
+    var params = {};
+    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    var escapeParams = {};
+    escapeParams[opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
+
+    var req = opensocial.neDataRequest();
+    var idSpec = opensocial.newIdSpec(params);
+    req.add(req.newFetchPeopleRequest);
+
 }
