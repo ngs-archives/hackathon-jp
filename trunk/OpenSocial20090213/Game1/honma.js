@@ -1,6 +1,7 @@
+var socialquest = new Object();
+
 // ============================================================================
 ( function(){
-
 socialquest.Player = function (name, hp, sp){
     this.name = name;
     this.hp   = hp;
