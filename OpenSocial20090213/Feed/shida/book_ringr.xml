@@ -29,7 +29,7 @@
             </form>
             <img src='${book.imgUrl}' />
             <span>${book.title}</span>
-            <span>(ASIN: ${book.asin}</span>
+            <span>(ASIN: ${book.asin})</span>
         </li>
         {/for}
       </ul>

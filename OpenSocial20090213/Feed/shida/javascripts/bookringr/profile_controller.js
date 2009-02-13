@@ -105,8 +105,35 @@ bookRingr.ProfileController.prototype = {
 	for(var count = 0;count < bookRingr.controller.books.length; ++count) {
 	    if (bookRingr.controller.books[count].asin == asin) {
 		bookRingr.controller.books[count].status = status;
-		bookRingr.controller.updateAppData();
+		activityString = 
+		    bookRingr.controller.books[count].title + 
+		    bookRingr.controller.books[count].status;
+		bookRingr.controller.postActivity(activityString);
 	    }
+	}
+	bookRingr.controller.updateAppData();
+	
+    },
+    postActivity: function(text) {
+	var params = {};  
+	params[opensocial.Activity.Field.TITLE] = text;
+	var activity = opensocial.newActivity(params); 
+	opensocial.requestCreateActivity(activity, 
+					 opensocial.CreateActivityPriority.LOW, 
+					 function(status) {
+					     if (status.hadError()){
+						 console.log(status);
+						 alert("Error creating activity.");
+					     } else {
+						 alert("Activity successfully created.");
+					     }					     
+					 });
+    },
+    onPostActivity: function(status) {
+	if (status.hadError()){
+	    alert("Error creating activity.");
+	} else {
+	    alert("Activity successfully created.");
 	}
     },
     getNodeValueByTagName: function(xml, tag){
