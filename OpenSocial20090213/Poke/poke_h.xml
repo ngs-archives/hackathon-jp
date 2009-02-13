@@ -167,11 +167,16 @@ console.log("getOwnerAttrs : json : " + json);
 
 
           req.send(function(data){
-               var pokes = data.get("pokes").getData();
+               //var pokes = data.get("pokes").getData();
+               console.log(data.get("pokes").getData());
+
+/*
                pokes.each(function(poke){
 console.log("poke---");
 console.log(poke);
                });
+*/
+
           });
 
       }
