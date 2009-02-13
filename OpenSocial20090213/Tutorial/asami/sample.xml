@@ -20,6 +20,7 @@
 		function init() {
 		  onLoadItemsA();
 		  onLoadItemsB();
+		  onLoadMixItem();
 		}
 		
 		function onLoadItemsA() {
@@ -123,6 +124,8 @@
 	   <span id='items_b'></span> = 
 	   <a id='mix_key' href='javascript:void(0);' onclick='mix();'>?</a>
 	　　　<div id='mix_item' style='display: none'></div>
+	
+	   <div id='mixs'></div>
 	</div>
     ]]>
   </Content>
