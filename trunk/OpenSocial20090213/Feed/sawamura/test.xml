@@ -43,11 +43,12 @@ function show(oj){
 	    var img = RegExp.$1;
 	    cdata.match(/asin\/(\w+)/);
 	    var asin = RegExp.$1;
+            var title = txt(this,"title");
 	    $div.html( '<div>'
 		       + "<img src='" + img + "'>"
 		       + '</div>'
 		       + '<div>'
-		       +  txt(this,"title") + '<br />'
+		       +  title  + '<br />'
 		       + "ASIN: " + asin
 		       + '<br />'
 		       + '</div>'
@@ -55,7 +56,7 @@ function show(oj){
 	    $.each(["n/a","want","reading","have read"],function(){
 		    var kw = this;
 		    var $ck = $('<input type="radio">' + kw + '</input>').attr("name",asin)
-			.appendTo($div.find("div:eq(1)")).click(function(){ postActivity("activity" + kw) });
+			.appendTo($div.find("div:eq(1)")).click(function(){ postActivity(" " + kw + " " + title) });
 		    if(kw == 'n/a'){
 			$ck.attr("checked",1);
 		    }
