@@ -25,8 +25,12 @@ gadgets.util.registerOnLoadHandler(init);
 &lt;/script&gt;
 
 &lt;!-- The code for Canvas view is here. --&gt;
+&lt;!--
 &lt;div id=&quot;friends&quot;&gt;&lt;/div&gt;
-</Content><Content view="preview" type="html">
+--&gt;
+&lt;div&gt;
+&lt;button onclick=&quot;onClick();&quot;&gt;cutton&lt;/button&gt;
+&lt;/div&gt;</Content><Content view="preview" type="html">
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;http://localhost:8081/preview.js&quot;&gt;&lt;/script&gt;
 
