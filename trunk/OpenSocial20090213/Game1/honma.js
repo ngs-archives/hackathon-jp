@@ -69,6 +69,8 @@ socialquest.recievedViewerData = function (data){
     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
            .getField( opensocial.Address.Field.LATITUDE ));
     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
+           .getField( opensocial.Address.Field.LONGITUDE ));
+    alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
            .getField( opensocial.Address.Field.COUNTRY ));
     alert(p.hp);
 };
