@@ -48,10 +48,28 @@ function clone(obj) {
 
 socialquest.CharacterMaker = function (){};
 socialquest.CharacterMaker.prototype = {
+    _getJob: function (p){
+        var loc = p.getField( opensocial.Person.Field.CURRENT_LOCATION );
+        var latitude   = loc.getField( opensocial.Address.Field.LATITUDE );
+        var longtitude = loc.getField( opensocial.Address.Field.LONGITUDE );
+        if(latitude < 0 && longtitude < 0){
+            return "南東";
+        }else if(latitude > 0 && longtitude < 0){
+            return "北東";
+        }else if(latitude < 0 && longtitude > 0){
+            return "南西";
+        }else if(latitude > 0 && longtitude > 0){
+            return "北西";
+        }else{
+            return "ど真ん中";
+        }
+    },
+
     make: function (p) {
         var person = clone(p);
         person.md5 = MD5_hash(p.getId());
         person.hp  = person.md5.charCodeAt(0);
+        person.job = this._getJob(p);
         return person;
     }
 };
@@ -65,14 +83,15 @@ socialquest.recievedViewerData = function (data){
     var maker = new socialquest.CharacterMaker();
     var p = maker.make(viewer);
     alert(p.getId() + p.getDisplayName());
-    alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
-    alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
-           .getField( opensocial.Address.Field.LATITUDE ));
-    alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
-           .getField( opensocial.Address.Field.LONGITUDE ));
-    alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
-           .getField( opensocial.Address.Field.COUNTRY ));
+//     alert(p.getField( opensocial.Person.Field.THUMBNAIL_URL ));
+//     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
+//            .getField( opensocial.Address.Field.LATITUDE ));
+//     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
+//            .getField( opensocial.Address.Field.LONGITUDE ));
+//     alert(p.getField( opensocial.Person.Field.CURRENT_LOCATION )
+//            .getField( opensocial.Address.Field.COUNTRY ));
     alert(p.hp);
+    alert(p.job);
 };
 
 })();
