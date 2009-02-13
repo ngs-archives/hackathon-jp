@@ -206,16 +206,17 @@ console.log("getOwnerAttrs : json : " + json);
           req.add(req.newFetchPersonAppDataRequest(idSpec,["pokes"]), "pokes");
 
 
-          req.send(function(data){
-              var owner = data.get("owner").getData();
-              var data = data.get("pokes").getData();
-              var obj = data[owner.getId()];
-              var pokes = obj["pokes"];
+console.log("getFriendsPokes 1"); 
 
-console.log("result---");
+          req.send(function(data){
+console.log("getFriendsPokes 2"); 
+              var owner = data.get("owner").getData();
 console.log(owner);
+              var data = data.get("pokes").getData();
 console.log(data);
+              var obj = data[owner.getId()];
 console.log(obj);
+              var pokes = obj["pokes"];
 
 /*
                pokes.each(function(poke){
