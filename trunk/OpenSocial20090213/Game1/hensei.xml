@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+ <ModulePrefs title="HonmaSocialQuest">
+  <Require feature="opensocial-0.8"/>
+ </ModulePrefs>
+ <Content type="html" view="canvas">
+ <![CDATA[
+      <link rel="STYLESHEET" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/style.css" type="text/css">
+      <script type="text/javascript"
+              src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/jquery-1.3.1.js">
+      </script>
+      <script type="text/javascript"
+               src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/hensei.js">
+      </script>
+      <script type="text/javascript"
+               src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/honma_main.js">
+      </script>
+      <script  type="text/javascript"
+               src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/md5.js">
+      </script>
+
+      <div id="main">
+      	<div id="photo">
+	</div>
+	<h1>なまえ：<span id="name"></span></h1>
+	<ul>
+		<li>HP <span id="hp"></span></li>
+		<li>しょくぎょう <span id="job"></span></li>
+	</ul>
+	<ul>
+		<li><a href="#" onclick="onfight();" >たたかう</li>
+		<li><a href="#" onclick="" >せんれき</li>
+		<li><a href="#" onclick="" >アイテム</li>
+	</ul>
+      </div>
+
+ ]]>
+ </Content>
+</Module>
