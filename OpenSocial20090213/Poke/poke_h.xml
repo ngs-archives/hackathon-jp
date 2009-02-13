@@ -3,7 +3,7 @@
   <ModulePrefs title="poke">
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
-  <Content view="home" type="html" >
+  <Content type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
     <script type="text/javascript">
@@ -18,27 +18,46 @@ console.debug("initMyAttrs");
                   myAttrs[i] = 20;
               }
               var json = gadgets.json.stringify(myAttrs);
+              console.debug(json);
 
               var req = opensocial.newDataRequest();
               req.add(req.newUpdatePersonAppDataRequest("OWNER", 'attrs', json));
-              req.send();
+              req.send(function() { console.debug("save callback");console.debug(arguments) } );
           }
+
+          //          initMyAttrs();
+          //return;
 
           function getMyAttrs(initCallback, divId) {
 console.debug("getMyAttrs");
-              var p = {};
-              p[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-              var idSpec = opensocial.newIdSpec(p);
+//              var p = {};
+//              p[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+              var idSpec = opensocial.newIdSpec({"userId": "OWNER"});
 
               var req = opensocial.newDataRequest();
-              req.add(req.newFetchPersonAppDataRequest(idSpec), "attrs");
+
+              req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
+              req.add(req.newFetchPersonAppDataRequest(idSpec, 'attrs'), "data");
               req.send(function(data) {
-                   myAttrs = data.get("attrs").getData();
-                   if (!myAttrs) {
-                       initCallback();
-                   }
-                   console.debug(myAttrs);
-                   $("#" + divId).html(myAttrs);
+                   console.debug("callback");
+                   myAttrs = data.get("data").getData();
+                   var owner = data.get("owner").getData();
+                   console.debug( myAttrs );
+
+                   console.debug("owner_id" + owner.getId());
+
+                   var jsonStr = myAttrs[owner.getId()]['attrs'];
+                   //                                      if (!myAttrs.hasOwnProperty) {
+                   //    console.debug("call init");
+                   //    initCallback();
+                   //    }
+                   console.debug("jsonStr");
+                   console.debug(jsonStr);
+
+                   var json = gadgets.json.parse(gadgets.util.unescapeString(jsonStr));
+                   console.debug("json");
+                   console.debug(json);
+                   //$("#" + divId).html(myAttrs);
               });
           }
           getMyAttrs(initMyAttrs, "main");
@@ -47,6 +66,7 @@ console.debug("getMyAttrs");
     <div id="main">あいうえお</div>
     ]]>
   </Content>
+  <!--
   <Content view="profile" type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
@@ -56,10 +76,8 @@ console.debug("getMyAttrs");
 
       });
     </script>
-    PRFILE
     ]]>
   </Content>
-  <!--
   <Content view="preview" type="html" >
     <![CDATA[
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
