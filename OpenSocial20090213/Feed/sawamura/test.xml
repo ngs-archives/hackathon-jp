@@ -12,9 +12,8 @@
   clear: both;
   height: 100px;
 }
-.bkrg img{
-  float: left;
-  height: 100px;
+.bkrg div{
+  display:inline-block;
 }
 </style>
 
