@@ -67,13 +67,29 @@ function onLoadFriends(data) {
 }
 
 function loadData() {
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest(opensocial.IdSec.PersonId.OWNER), "owner");
+
     var params = {};
-    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+
     var escapeParams = {};
     escapeParams[opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
 
-    var req = opensocial.neDataRequest();
-    var idSpec = opensocial.newIdSpec(params);
-    req.add(req.newFetchPeopleRequest);
+    req.add(req.newFetchPersonAppDataRequest(idSpec, ["books"], escapeParams), "voteMap");
+    req.send(function(data) {
+        var result = 0;
+        var owner  = data.get("owner").getData();
+        var bookMapList = data.get("books").getData();
+        
+        for (var key in bookMapList) {
+            var bookMap = bookMapList[key];
+            if (bookMap) {
+                bookMap = gadgets.json.parse(bookMap["books"]);
+                var count = bookMap[owner.getId()];
+                if (count) result += count;
+            }
+        }
+    });
 
 }
