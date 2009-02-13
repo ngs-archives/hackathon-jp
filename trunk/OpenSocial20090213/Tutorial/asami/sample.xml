@@ -58,7 +58,7 @@
 			
 			console.info(mixitem[viewer.getId()]);
 			console.info(mixitem);
-		    if (mixitem) {
+		    if (mixitem[viewer.getId()]) {
 				json = mixitem[viewer.getId()]['items'];
 				console.info(json);
 		    }
@@ -76,12 +76,13 @@
 		      html.push('You have mixs:');
 		      html.push('<ul>');
 		      for (i in globalItemList) {
-		        if (i.hasOwnProperty) {
-		          for (j in globalItemList[i]) {
-		            if (j.hasOwnProperty) {
-		              html.push('<li> items ', globalItemList[globalItemList[i][j]], '</li>');
-		            }
-		          }
+				 html.push('<li> items ', globalItemList[globalItemList[i], '</li>');
+		        //if (i.hasOwnProperty) {
+		        //  for (j in globalItemList[i]) {
+		        //    if (j.hasOwnProperty) {
+		        //      html.push('<li> items ', globalItemList[globalItemList[i][j]], '</li>');
+		        //    }
+		        //  }
 		        }
 		      }
 		      html.push('</ul>');
