@@ -60,7 +60,7 @@ function onLoadFriends(data) {
 
 function storeBookData(dom) {
     var req = opensocial.newDataRequest();
-    req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, 'books', books(dom)));
+    req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'books', books(dom)));
     req.send(function(data) {
         // 何かする?
         alert(data.get('books'));
