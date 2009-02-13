@@ -13,7 +13,6 @@
        */
 	function init(){
 		alert("init");
-		alert("init");
 		var params = {};
 		params[opensocail.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
 		params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
@@ -21,11 +20,6 @@
 
 		alert("setParams");
 
-		var idSpec = openSocial.newIdSpec(params);
-		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPeopleRequest(idSpec),"friends");
-
-		alert("req.add");
 	}
 	gadgets.util.registerOnLoadHandler(init);
 	</script>
