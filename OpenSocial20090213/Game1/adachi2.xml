@@ -5,7 +5,6 @@
   </ModulePrefs>
   <Content type="html">
   <![CDATA[
-     <script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/Game1/honma.js" type="text/javascript"></script>
 
      <script type="text/javascript">
       /*
@@ -19,7 +18,7 @@
 
 		var idSpec = opensocial.newIdSpec(params);
 		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPeopleRequest(idSpec,socialquest.parsonSearchParams),"friends");
+		req.add(req.newFetchPeopleRequest(idSpec),"friends");
 
 		req.send(function(data){
 			if(data.hadError()){
@@ -38,7 +37,6 @@
 						var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
 						var userNickname = friend.getDisplayName()
 						target.innerHTML += "<img src='" + thumbnailUrl + "'></img><br />" + userNickName+ "<br />";
-						//target.innerHTML += "<img src='" + thumbnailUrl + "'></img><br />" + p.getDisplayName() + "<br />" + p.job + "<br />" + p.hp + "<br />";
 					});
 				}
 			}
