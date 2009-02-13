@@ -23,7 +23,7 @@
 		  html.push('<select id="item_select">');
 		  
 		  for(i = 0 ; i < defaultItemList.length ; i++) {
-			html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
+			html.push('<option value="', i, '">', defaultItemList[i], '</option>');
 		  }
           html.push('</select>');
 
