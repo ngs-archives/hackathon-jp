@@ -1,47 +1,47 @@
+
 gadgets.util.registerOnLoadHandler(init);
-
-
-var show = function(feed) { 
+    
+function show(feed){ 
     var html= "";
-    // Access the fields in the feed
-    html += "<div><b>" + feed.Title + "</b></div>";
-    html += "<div>" + feed.Description + "</div><br>";
-    document.getElementById('content_div').innerHTML = html;
+    //Access the fields in the feed
+    html.push("<h1>");
+    html.push( feed.Title );
+    html.push("</h1>");
 }
 
-    
 opensocial.makeRequest("http://opensocialapis.blogspot.com/atom.xml",
 		       show,
 		       {'method' : 'GET', 'contentType' : 'feed', 'numEntries' : '5', 'getSummaries' : 'true'}
-		      );
-		       
+		       );
+}();
+			  
 function init() {
-  loadFriends();
+    loadFriends();
 }
 
 function loadFriends() {
-  var req = opensocial.newDataRequest();
-  req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
-  
-  var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
-  var opt_params = {};
-  opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
-  req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
-
-  req.send(onLoadFriends);
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+    
+    var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+    var opt_params = {};
+    opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+    req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
+    
+    req.send(onLoadFriends);
 }
 
 function onLoadFriends(data) {
-  var viewer = data.get('viewer').getData();
-  var viewerFriends = data.get('viewerFriends').getData();
-
-  html = new Array();
-  html.push('<ul>');
-  viewerFriends.each(function(person) {
-    if (person.getId()) {
-      html.push('<li>: ' + person.getDisplayName() + "</li>");
-    }
-  });
-  html.push('</ul>');
-  document.getElementById('friends').innerHTML = html.join('');
+    var viewer = data.get('viewer').getData();
+    var viewerFriends = data.get('viewerFriends').getData();
+    
+    html = new Array();
+    html.push('<ul>');
+    viewerFriends.each(function(person) {
+	    if (person.getId()) {
+		html.push('<li>: ' + person.getDisplayName() + "</li>");
+	    }
+	});
+    html.push('</ul>');
+    document.getElementById('friends').innerHTML = html.join('');
 }
