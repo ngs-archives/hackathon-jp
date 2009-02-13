@@ -5,7 +5,6 @@
   </ModulePrefs>
   <Content type="html">
   <![CDATA[
-	<script src="./honma.js" type="text/javascript">
     <script type="text/javascript">
       /**
        * Request the OWNER and OWNER's friends.
@@ -26,7 +25,7 @@
        */
       function response(dataResponse) {
         var owner = dataResponse.get('get_owner').getData();
-        var friends = dataResponse.get('get_friends').getData(); 
+        var friends = dataResponse.get('get_friends').getData();
         var html = 'Friends of ' + owner.getDisplayName();
         html += ':<br><ul>';
         friends.each(function(person) {
