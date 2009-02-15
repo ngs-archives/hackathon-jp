@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+<ModulePrefs title="Activities - v0.8">
+  <Require feature="opensocial-0.8" />
+</ModulePrefs>
+<Content type="html" view="canvas"><![CDATA[ 
+<script type="text/javascript">
+function setActivity(id){
+	getBattle2Activity(id);
+}
+
+
+/*
+ * 戦闘結果チェック
+ */
+function getBattle2Activity(user_id){
+	var url   = 'http://sq.spicebox.jp/results/getlastresult/';
+	var query = '?nocache=1&user_id=' + user_id + '&rnd=' + Math.random();
+	
+	//オプション設定
+	var params = {};
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+
+	//リクエスト
+	gadgets.io.makeRequest(
+		  url + query
+		, function(response){
+			console.log(response);
+			var json = response.data;
+			if(json['id'] <= 0) return(false);
+
+			var battle_id  = json['id'];
+			var enemy_name = json['ename'];
+			var teame_name = json['teamname'];
+			var result     = json['result'];
+			
+			//Activity name
+			if(result)
+				postActivity(
+					    teame_name + ' is Won!'
+					  , teame_name + 'は' + enemy_name + 'に勝利しました。'
+				);
+			else
+				postActivity(
+					    teame_name + ' is Loose... orz'
+					  , teame_name + 'は' + enemy_name + 'に敗北してしまった。'
+				);
+				
+		  }
+		, params);
+}
+ 
+ 
+/*
+ * Activityを投げる
+ */
+function postActivity(title, value) {  
+	var params = {};  
+
+	//設定
+	params[opensocial.Activity.Field.TITLE] = title;
+	params[opensocial.Activity.Field.BODY]  = value;
+
+	//送信
+	var activity = opensocial.newActivity(params);
+	opensocial.requestCreateActivity(
+		  activity
+		, opensocial.CreateActivityPriority.HIGH
+		, function(status){
+		    if( ! status.hadError() ){
+				return( true );
+			}
+			else{
+				alert(status.getErrorCode());
+				return( false );
+			}
+	      }
+	);
+}
+
+
+gadgets.util.registerOnLoadHandler(function(){
+	setActivity(1234567890);
+});
+</script>
+]]> 
+</Content>
+</Module>
