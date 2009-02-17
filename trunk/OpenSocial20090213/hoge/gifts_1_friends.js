@@ -1,5 +1,3 @@
-gadgets.util.registerOnLoadHandler(init);
-
 function init() {
     loadFriends();
 }

@@ -5,7 +5,15 @@
   </ModulePrefs>
   <Content type="html">
   <![CDATA[
-    <script src="">
+    <script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090213/hoge/gifts_1_friends.js"></script>
+    <script>
+      gadgets.util.registerOnLoadHandler(init);
+    </script>
+    <div id='main'>
+      Your Friends:
+      <div id='friends'>
+      </div>
+    </div>
   ]]>
   </Content>
 </Module>
