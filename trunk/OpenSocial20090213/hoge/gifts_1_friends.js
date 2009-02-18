@@ -15,8 +15,8 @@ function onLoadFriends(data) {
 
     html = new Array();
     html.push('<ul>');
-    viewerFriends.each(function(this) {
-        html.push('<li>' + this.getDisplayName() + '</li>');
+    viewerFriends.each(function(person) {
+        html.push('<li>' + person.getDisplayName() + '</li>');
     });
     html.push('</ul>');
     document.getElementById('friends').innerHTML = html.join('');
