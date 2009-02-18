@@ -44,7 +44,7 @@ function onLoadFriends(data) {
 
 function giveGift() {
     var nut = document.getElementById('nut').value;
-    var friend = doucment.getElementById('person').value;
+    var friend = document.getElementById('person').value;
 
     givenGifts[friend] = nut;
     var json = gadgets.json.stringify(givenGifts);
