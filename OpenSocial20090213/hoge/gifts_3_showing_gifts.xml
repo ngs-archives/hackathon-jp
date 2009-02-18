@@ -34,6 +34,7 @@ function onLoadFriends(data) {
     var viewer = data.get('viewer').getData();
     var viewerFriends = data.get('viewerFriends').getData();
     var giftData = data.get('data').getData();
+    alert(giftData);
     var friends = new Array();
 
     html = new Array();
@@ -50,10 +51,7 @@ function onLoadFriends(data) {
 }
 
 function updateGiftList(viewer, data, friends) {
-    var id = viewer.getId();
-    alert(data[id]);
-    /*
-    var json = data[id]['gifts'];
+    var json = data[viewer.getId()]['gifts'];
 
     if(!json) {
         givenGifts = {};
@@ -78,7 +76,6 @@ function updateGiftList(viewer, data, friends) {
     }
     html.push('</ul>');
     document.getElementById('given').innerHTML = html.join('');
-    */
 }
 
 function giveGift() {
