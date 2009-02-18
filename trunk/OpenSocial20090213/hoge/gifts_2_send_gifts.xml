@@ -50,7 +50,6 @@ function giveGift() {
     var json = gadgets.json.stringify(givenGifts);
 
     var req = opensocial.newDataRequest();
-    alert(req);
     req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.VIEWER, 'gifts', json));
     req.send();
 }
