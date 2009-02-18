@@ -49,7 +49,7 @@ function onLoadFriends(data) {
     document.getElementById('friends').innerHTML = html.join('');
 
     updateGiftList(viewer, giftData, friends);
-    updateRecivedList(viewer, viewerFriendData, viewerFriends);
+    updateReceivedList(viewer, viewerFriendData, viewerFriends);
 }
 
 function updateGiftList(viewer, data, friends) {
