@@ -7,6 +7,7 @@
 <![CDATA[
 <script>
 gadgets.util.registerOnLoadHandler(init);
+
 function loadFriends() {
     var req = opensocial.newDataRequest();
     req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
@@ -21,7 +22,7 @@ function onLoadFriends(data) {
     html = new Array();
     html.push('<ul>');
     viewerFriends.each(function(person) {
-            html.push('<li>' + person.getDisplayName() + "</li>");
+            html.push('<li>' + person.getDisplayName() + '</li>');
             });
     html.push('</ul>');
     document.getElementById('friends').innerHTML = html.join('');
@@ -30,7 +31,6 @@ function onLoadFriends(data) {
 function init() {
     loadFriends();
 }
-
 </script>
 <div id='main'>
 Your Friends:
