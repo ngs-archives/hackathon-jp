@@ -50,6 +50,8 @@ function onLoadFriends(data) {
 }
 
 function updateGiftList(viewer, data, friends) {
+    alert(viewer.getId());
+    /*
     var json = data[viewer.getId()]['gifts'];
 
     if(!json) {
@@ -75,6 +77,7 @@ function updateGiftList(viewer, data, friends) {
     }
     html.push('</ul>');
     document.getElementById('given').innerHTML = html.join('');
+    */
 }
 
 function giveGift() {
