@@ -138,7 +138,7 @@ Give <span id='gifts'></span> to <span id='friends'></span>. <a href="javascript
 </form>
 </div>
 <div id='given'></div>
-<div id='recived'></div>
+<div id='received'></div>
 </div>
 ]]>
 </Content>
