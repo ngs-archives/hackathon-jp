@@ -34,7 +34,6 @@ function onLoadFriends(data) {
     var viewer = data.get('viewer').getData();
     var viewerFriends = data.get('viewerFriends').getData();
     var giftData = data.get('data').getData();
-    alert(giftData);
     var friends = new Array();
 
     html = new Array();
