@@ -6,85 +6,25 @@
 <Content type="html">
 <![CDATA[
 <script>
-var givenGifts = {};
+var globalGivenGifts = {};
 var globalViewer = {};
 var globalFriends = {};
 
 gadgets.util.registerOnLoadHandler(init);
 
-function loadFriends() {
-    var req = opensocial.newDataRequest();
-    req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-    req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-    req.add(req.newFetchPersonAppDataRequest('VIEWER', 'gifts'), 'data');
-    req.add(req.newFetchPersonAppDataRequest('VIEWER_FRIENDS', 'gifts'), 'viewerFriendData');
-    req.send(onLoadFriends);
-}
-
-function makeOptionsMenu() {
+function postActivity(nut, friend) {
     var options = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
 
-    var html = new Array();
-    html.push('<select id="nut">');
-    for (var i = 0; i < options.length; i++) {
-        html.push('<option value="' + i + '">' + options[i] + '</option>');
-    }
-    html.push('</select>');
-    document.getElementById('gifts').innerHTML = html.join('');
+    var title = globalViewer.getDisplayName() + ' gave ' + globalFriends[friend] + ' ' + options[nut];
+    var params = {};
+    params[opensocial.Activity.Field.TITLE] = title;
+    var activity = opensocial.newActivity(params);
+    opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function() {});
 }
-
-function onLoadFriends(data) {
-    var viewer = globalViewer = data.get('viewer').getData();
-    var viewerFriends = data.get('viewerFriends').getData();
-    var giftData = data.get('data').getData();
-    var viewerFriendData = data.get('viewerFriendData').getData();
-    var friends = new Array();
-
-    html = new Array();
-    html.push('<select id="person">');
-    viewerFriends.each(function(person) {
-            html.push('<option value="' + person.getId() + '">' + person.getDisplayName() + '</option>');
-
-            friends[person.getId()] = person.getDisplayName();
-            });
-    html.push('</select>');
-    document.getElementById('friends').innerHTML = html.join('');
-
-
-    globalFriends = friends;
-    updateGiftList(viewer, giftData, friends);
-    updateReceivedList(viewer, viewerFriendData, viewerFriends);
-}
-
-function updateGiftList(viewer, data, friends) {
-    var json = data[viewer.getId()]['gifts'];
-
-    if (!json) {
-        globalGivenGifts = {};
-    }
-    try {
-        globalGivenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
-    } catch (e) {
-        globalGivenGifts = {};
-    }
-
-    var options = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
-
-    var html = new Array();
-    html.push('You have given:');
-    html.push('<ul>');
-    for (i in globalGivenGifts) {
-        if (+(i) > 0) {
-            html.push('<li>' + friends[i] + ' received ' + options[globalGivenGifts[i]] + '</li>');
-        }
-    }
-    html.push('</ul>');
-    document.getElementById('given').innerHTML = html.join('');
-}
-
 
 function updateReceivedList(viewer, data, friends) {
     var viewerId = viewer.getId();
+
     var options = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
 
     var html = new Array();
@@ -115,12 +55,38 @@ function updateReceivedList(viewer, data, friends) {
     document.getElementById('received').innerHTML = html.join('');
 }
 
+function updateGiftList(viewer, data, friends) {
+    var json = data[viewer.getId()]['gifts'];
+
+    if (!json) {
+        globalGivenGifts = {};
+    }
+    try {
+        globalGivenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
+    } catch (e) {
+        globalGivenGifts = {};
+    }
+
+    var options = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
+
+    var html = new Array();
+    html.push('You have given:');
+    html.push('<ul>');
+    for (i in globalGivenGifts) {
+        if (+(i) > 0) {
+            html.push('<li>' + friends[i] + ' received ' + options[globalGivenGifts[i]] + '</li>');
+        }
+    }
+    html.push('</ul>');
+    document.getElementById('given').innerHTML = html.join('');
+}
+
 function giveGift() {
     var nut = document.getElementById('nut').value;
     var friend = document.getElementById('person').value;
 
-    givenGifts[friend] = nut;
-    var json = gadgets.json.stringify(givenGifts);
+    globalGivenGifts[friend] = nut;
+    var json = gadgets.json.stringify(globalGivenGifts);
 
     var req = opensocial.newDataRequest();
     req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.VIEWER, 'gifts', json));
@@ -133,20 +99,55 @@ function giveGift() {
     postActivity(nut, friend);
 }
 
-function postActivity(nut, friend) {
+function makeOptionsMenu() {
     var options = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
 
-    var title = globalViewer.getDisplayName() + ' gave ' + globalFriends[friend] + ' ' + options[nut];
-    var params = {};
-    params[opensocial.Activity.Field.TITLE] = title;
-    var activity = opensocial.newActivity(params);
-    opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function() {});
+    var html = new Array();
+    html.push('<select id="nut">');
+    for (var i = 0; i < options.length; i++) {
+        html.push('<option value="' + i + '">' + options[i] + '</option>');
+    }
+    html.push('</select>');
+    document.getElementById('gifts').innerHTML = html.join('');
+}
+
+function loadFriends() {
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+    req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+    req.add(req.newFetchPersonAppDataRequest('VIEWER', 'gifts'), 'data');
+    req.add(req.newFetchPersonAppDataRequest('VIEWER_FRIENDS', 'gifts'), 'viewerFriendData');
+    req.send(onLoadFriends);
+}
+
+function onLoadFriends(data) {
+    var viewer = globalViewer = data.get('viewer').getData();
+    var viewerFriends = data.get('viewerFriends').getData();
+    var giftData = data.get('data').getData();
+    var viewerFriendData = data.get('viewerFriendData').getData();
+    var friends = new Array();
+
+    html = new Array();
+    html.push('<select id="person">');
+    viewerFriends.each(function(person) {
+            html.push('<option value="' + person.getId() + '">' + person.getDisplayName() + "</option>");
+
+            friends[person.getId()] = person.getDisplayName();
+            });
+    html.push('</select>');
+    document.getElementById('friends').innerHTML = html.join('');
+
+    globalFriends = friends;
+    updateGiftList(viewer, giftData, friends);
+    updateReceivedList(viewer, viewerFriendData, viewerFriends);
 }
 
 function init() {
     loadFriends();
+
     makeOptionsMenu();
 }
+
 </script>
 <div id='main'>
 <div id='give'>
