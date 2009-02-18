@@ -1,5 +1,4 @@
 function init() {
-    alert('init');
     loadFriends();
 }
 
