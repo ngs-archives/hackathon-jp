@@ -11,8 +11,7 @@
     </script>
     <div id='main'>
       Your Friends:
-      <div id='friends'>
-      </div>
+      <div id='friends'></div>
     </div>
   ]]>
   </Content>
