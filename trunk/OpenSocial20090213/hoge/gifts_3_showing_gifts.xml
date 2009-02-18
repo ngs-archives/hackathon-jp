@@ -49,7 +49,7 @@ function onLoadFriends(data) {
     updateGiftList(viewer, giftData, friends);
 }
 
-function updateGiftList(viewer, giftData, friends) {
+function updateGiftList(viewer, data, friends) {
     var json = data[viewer.getId()]['gifts'];
 
     if(!json) {
