@@ -45,7 +45,7 @@ function onLoadFriends(data) {
             });
     html.push('</select>');
     document.getElementById('friends').innerHTML = html.join('');
-    alert(giftData[viewer.getId()]);
+
     updateGiftList(viewer, giftData, friends);
 }
 
