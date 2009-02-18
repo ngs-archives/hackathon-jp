@@ -60,12 +60,12 @@ function updateGiftList(viewer, data, friends) {
     var json = data[viewer.getId()]['gifts'];
 
     if (!json) {
-        givenGifts = {};
+        globalGivenGifts = {};
     }
     try {
-        givenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
+        globalGivenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
     } catch (e) {
-        givenGifts = {};
+        globalGivenGifts = {};
     }
 
     var options = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
@@ -73,14 +73,15 @@ function updateGiftList(viewer, data, friends) {
     var html = new Array();
     html.push('You have given:');
     html.push('<ul>');
-    for (i in givenGifts) {
+    for (i in globalGivenGifts) {
         if (+(i) > 0) {
-            html.push('<li>' + friends[i] + ' received ' + options[givenGifts[i]] + '</li>');
+            html.push('<li>' + friends[i] + ' received ' + options[globalGivenGifts[i]] + '</li>');
         }
     }
     html.push('</ul>');
     document.getElementById('given').innerHTML = html.join('');
 }
+
 
 function updateReceivedList(viewer, data, friends) {
     var viewerId = viewer.getId();
