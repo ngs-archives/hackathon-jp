@@ -55,14 +55,12 @@ function onLoadFriends(data) {
 function updateGiftList(viewer, data, friends) {
     var json = data[viewer.getId()]['gifts'];
 
-    if(!json) {
+    if (!json) {
         givenGifts = {};
     }
-
     try {
         givenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
-    }
-    catch(e) {
+    } catch (e) {
         givenGifts = {};
     }
 
