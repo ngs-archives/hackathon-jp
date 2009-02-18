@@ -56,7 +56,7 @@ function giveGift() {
 
 function init() {
     loadFriends();
-    makeOptionsMenu();
+    //makeOptionsMenu();
 }
 </script>
 <div id='main'>
