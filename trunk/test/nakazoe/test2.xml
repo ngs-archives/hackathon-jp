@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs 
+    title="OpenSocial Owner uidをsubmit">
+    <Require feature="opensocial-0.7"/>
+    <Require feature="setprefs" /> 
+    </ModulePrefs>
+  <UserPref 
+    name="counter" 
+    default_value="0" 
+    datatype="hidden"/>
+<Content type="html">
+<![CDATA[ 
+
+<div id="content_div"></div>
+<script type="text/javascript">
+function getHtml(str) {
+	var now = new Date();
+	var params = {};  
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;  
+	var url = "http://nakazoe.heteml.jp/opensocial/show.php?val="+str+"&nocache="+now.getTime();  
+	gadgets.io.makeRequest(url, response, params);
+};
+
+function response(obj) {  
+	//obj.text contains the text of the page that was requested  
+	var str = obj.text;
+	document.getElementById('content_div').innerHTML = str;
+};
+
+function init() {
+	// (1) リクエストのコンテナを作成する
+	var req = opensocial.newDataRequest();
+	// (2) プロフィール情報を取得するためのリクエストを追加
+	req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER), "viewer");
+	req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER), "owner");
+	// (3) リクエストを送信し、非同期処理
+	req.send(function(resp) {
+		// (4) プロフィールデータを取得
+		var viewer = resp.get("viewer").getData();
+		var owner  = resp.get("owner").getData();
+	
+		document.form1.owner_id.value =		owner.getId();
+		document.form1.owner_name.value =	owner.getDisplayName();
+		document.form1.viewer_id.value =	viewer.getId();
+		document.form1.viewer_name.value =	viewer.getDisplayName();
+	
+	});
+}
+gadgets.util.registerOnLoadHandler(init);
+
+</script>
+<form name="form1">
+owner<br />
+<input type="text" name="owner_id"><br />
+<input type="text" name="owner_name"><br />
+viewer<br />
+<input type="text" name="viewer_id"><br />
+<input type="text" name="viewer_name"><br />
+</form>
+<input type="button" value="submit" onClick="getHtml(document.form1.owner_id.value);">
+
+]]> 
+	</Content>
+</Module>
