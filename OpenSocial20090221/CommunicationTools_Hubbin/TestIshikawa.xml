@@ -8,7 +8,7 @@
 		<script>
 			gadgets.util.registerOnLoadHandler(init);
 		</script>
-		<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/hubbin_logo.png" alt="Hubb[in]" /></div>
+		<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /></div>
 		<div id="main">
 			<div id="give">
 				<form id="gift_form">
