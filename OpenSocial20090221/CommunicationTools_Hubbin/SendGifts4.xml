@@ -4,7 +4,7 @@
 		<Require feature="opensocial-0.7"/>
 	</ModulePrefs>
 	<Content type="html"><![CDATA[
-		<script src="http://www.example.org/send_gifts_4.js"></script>
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/send_gifts_4.js"></script>
 		<script>
 			gadgets.util.registerOnLoadHandler(init);
 		</script>
