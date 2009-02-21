@@ -10,9 +10,9 @@
         with (opensocial.DataRequest) {
             var req = opensocial.newDataRequest();
 	    
-	    fetchAlbums(PersonId.OWNER);
+	    //fetchAlbums(PersonId.OWNER);
 	    
-	    return;
+	    //return;
 	    
             req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
             var searchOpt = {};
