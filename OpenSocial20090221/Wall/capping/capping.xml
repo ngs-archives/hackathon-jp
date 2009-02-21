@@ -126,8 +126,8 @@ function sendTextToAFriend() {
     cap_data["cap"] = cappingText;
     cap_data["number"] = 1;
     cap_data["flg"] = 1;
-    //sendText[personId] = cap_data;
-    sendText[personId] = cappingText;
+    sendText[personId] = cap_data;
+    //sendText[personId] = cappingText;
     //sendText[personId]["flg"] = 1;
     var json = gadgets.json.stringify(sendText);
     alert(json);
