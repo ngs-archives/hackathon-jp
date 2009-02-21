@@ -47,8 +47,13 @@ function onLoadFriends(data) {
 	viewerFriends.each(function(person) {
 		html.push('<h3>' + person.getDisplayName() + '</h3>');
 		html.push('<div>');
-		html.push('<img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '" align="left" />');
-		html.push('<p> 誕生日: ' + person.getField(opensocial.Person.Field.DATE_OF_BIRTH) + ' </p>');
+		html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL    ) + '" align="left" />');
+		html.push('<ul>');
+		html.push('<li>年齢: '   + person.getField(opensocial.Person.Field.AGE              ) + '</li>');
+		html.push('<li>誕生日: ' + person.getField(opensocial.Person.Field.DATE_OF_BIRTH    ) + '</li>');
+		html.push('<li>性別: '   + person.getField(opensocial.Person.Field.GENDER           ) + '</li>');
+		html.push('<li>所在地: ' + person.getField(opensocial.Person.Field.CURRENT_LOCATION ) + '</li>');
+		html.push('</ul>');
 		html.push('<br clear="all" />');
 		html.push('</div>');
 
