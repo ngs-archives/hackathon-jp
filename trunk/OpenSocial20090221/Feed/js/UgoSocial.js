@@ -4,59 +4,47 @@ var MovieNum = "";
 var MovieHatenaSyntax = "";
 var OnloadDate = "";
 
-var ThumbData = {};
-
 var UgoSocial = {};
 UgoSocial.setComments = function() {
-   for ( var p in displayData.comments ) {
-       var data = displayData.comments[p];
-       var func ="setTimeout(function(){UgoSocial.showComment('" + data.comment + "')},"+ data.time +");";
-       eval(func);
-   }
+	for ( var p in displayData.comments) {
+		var data = displayData.comments[p];
+		var func = "setTimeout(function(){UgoSocial.showComment('"
+				+ data.comment + "')}," + data.time + ");";
+		eval(func);
+	}
 }
 UgoSocial.showComment = function(comment) {
-//    $('#comment_area').append('<p>' + comment + '</p>');
-    var topHeight = (Math.random() * 120) + 'px';
-    var speed = 2000 + (Math.random() * 2000);
-    var colorIndex = parseInt(Math.random() * 3);
-    var color = "red,black,yellow,blue".split(",")[colorIndex];
-    $('<p>' + comment + '</p>').css({margin:'0px',color: color,position:'absolute',left:'200px',top: topHeight,zIndex:'1000' }).appendTo('#content_div').animate({left:'-200px'},speed);
+	// $('#comment_area').append('<p>' + comment + '</p>');
+	var topHeight = (Math.random() * 120) + 'px';
+	var speed = 2000 + (Math.random() * 2000);
+	var colorIndex = parseInt(Math.random() * 3);
+	var color = "red,black,yellow,blue".split(",")[colorIndex];
+	$('<p>' + comment + '</p>').css( {
+		margin :'0px',
+		color :color,
+		position :'absolute',
+		left :'200px',
+		top :topHeight,
+		zIndex :'1000'
+	}).appendTo('#content_div').animate( {
+		left :'-200px'
+	}, speed);
 }
-UgoSocial.getAllFriendThumbURL = function(){
-    var params = {};
-    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
-    params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
-    params[opensocial.IdSpec.Field.NETWORK_DISTANCE] = 1;
-    var idSpec = opensocial.newIdSpec(params);
-    var req = opensocial.newDataRequest();
-    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
-    req.add(req.newFetchPeopleRequest(idSpec), "friends");
-	req.send(function(resp) {
-			var viewer = resp.get("viewer").getData();
-			var viewer_friends = resp.get("friends").getData();
-            viewer_friends.each(function(person){
-                ThumbData[person.getId()] = {
-                    thumbnailUrl : person.getField(opensocial.Person.Field.THUMBNAIL_URL),
-                    name : person.getDisplayName()
-                    };
-            });
-            try{console.log(ThumbData);}catch(e){};
-	});
-}
-UgoSocial.makeImage = function(date, src, syntax ,total , now) {
-    try{
-    console.log(date);
-    console.log(src);
-    console.log(syntax);
-    console.log(total);
-    console.log(now);
-    } catch(e){}
-    $("#on_load_date").html(date);
-    $("#content_div").html('<img src="'+src+'">');
-    $("#hatena").html(syntax);
-    $("#movie_num").html(now + "/" + total);
-    
-//    gadgets.window.adjustHeight();    
+UgoSocial.makeImage = function(date, src, syntax, total, now) {
+	try {
+		console.log(date);
+		console.log(src);
+		console.log(syntax);
+		console.log(total);
+		console.log(now);
+	} catch (e) {
+	}
+	$("#on_load_date").html(date);
+	$("#content_div").html('<img src="' + src + '">');
+	$("#hatena").html(syntax);
+	$("#movie_num").html(now + "/" + total);
+
+	// gadgets.window.adjustHeight();
 }
 UgoSocial.jsonResponse = function(obj) {
 	UgomemoJson = obj.data;
@@ -65,20 +53,16 @@ UgoSocial.jsonResponse = function(obj) {
 	MovieHatenaSyntax = UgomemoJson.items[0]["movie_hatena_syntax"];
 
 	var now = new Date();
-	OnloadDate  = +now.getTime();
-    totalNumber = UgomemoJson.items.length;
-    var nowNumber = MovieNum + 1;
-    UgoSocial.makeImage(OnloadDate, imgSrc , MovieHatenaSyntax , totalNumber , nowNumber);
-    
-    UgoSocial.util.show(MovieHatenaSyntax, function(data){    
-        var array = UgoSocial.util.toComments(data);    
-        displayData.comments = array;
-        console.log(array);
-        UgoSocial.setComments();
-    });    
+	OnloadDate = +now.getTime();
+	totalNumber = UgomemoJson.items.length;
+	var nowNumber = MovieNum + 1;
+	UgoSocial.makeImage(OnloadDate, imgSrc, MovieHatenaSyntax, totalNumber,
+			nowNumber);
+
+	UgoSocial.util.show(MovieHatenaSyntax, UgoSocial.util.displayComments);
 };
 
-UgoSocial.getJson = function(){
+UgoSocial.getJson = function() {
 	var params = {};
 	var url = "http://ugomemo.hatena.ne.jp/ranking/daily/movie.json?mode=total";
 
@@ -87,44 +71,40 @@ UgoSocial.getJson = function(){
 	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
 	gadgets.io.makeRequest(url, UgoSocial.jsonResponse, params);
 };
-UgoSocial.next = function(){
-    UgoSocial.viewJson('next');
+UgoSocial.next = function() {
+	UgoSocial.viewJson('next');
 }
-UgoSocial.prev = function(){
-    UgoSocial.viewJson('prev');
+UgoSocial.prev = function() {
+	UgoSocial.viewJson('prev');
 }
-UgoSocial.viewJson = function(vector){
+UgoSocial.viewJson = function(vector) {
 
-	if(vector == "next"){
+	if (vector == "next") {
 		MovieNum++;
-		if(UgomemoJson.items.length-1 < MovieNum){
+		if (UgomemoJson.items.length - 1 < MovieNum) {
 			MovieNum = 0;
 		}
-	}else if(vector == "prev"){
+	} else if (vector == "prev") {
 		MovieNum--;
-		if(MovieNum < 0){
-			MovieNum = UgomemoJson.items.length-1;
+		if (MovieNum < 0) {
+			MovieNum = UgomemoJson.items.length - 1;
 		}
-	}else{
+	} else {
 		MovieNum = 0;
 	}
-	
+
 	var imgSrc = UgomemoJson.items[MovieNum]["movie_animation_gif_path"];
 	MovieHatenaSyntax = UgomemoJson.items[MovieNum]["movie_hatena_syntax"];
-	
-	var now = new Date();
-	OnloadDate  = +now.getTime();
-    totalNumber = UgomemoJson.items.length;
-    var nowNumber = MovieNum + 1;
-    UgoSocial.makeImage(OnloadDate, imgSrc , MovieHatenaSyntax , totalNumber , nowNumber);
 
-    UgoSocial.util.show(MovieHatenaSyntax, function(data){    
-        var array = UgoSocial.util.toComments(data);
-        console.log(array);
-        displayData.comments = array;
-        UgoSocial.setComments();
-    });    
-//    UgoSocial.setComments();
+	var now = new Date();
+	OnloadDate = +now.getTime();
+	totalNumber = UgomemoJson.items.length;
+	var nowNumber = MovieNum + 1;
+	UgoSocial.makeImage(OnloadDate, imgSrc, MovieHatenaSyntax, totalNumber,
+			nowNumber);
+
+	UgoSocial.util.show(MovieHatenaSyntax, UgoSocial.util.displayComments);
+	// UgoSocial.setComments();
 }
 
 UgoSocial.Comment = function(memo_id, comment) {
@@ -135,19 +115,26 @@ UgoSocial.Comment = function(memo_id, comment) {
 UgoSocial.Comment.prototype = {
 	updateRequest : function() {
 		var req = opensocial.newDataRequest();
-		var memoReq = req.newUpdatePersonAppDataRequest("VIEWER", "memo_id",
-				this.memo_id);
-		var commentReq = req.newUpdatePersonAppDataRequest("VIEWER", "comment",
-				this.comment);
-		var timeReq = req.newUpdatePersonAppDataRequest("VIEWER", "time",
-				this.time);
-		req.add(memoReq);
-		req.add(commentReq);
-		req.add(timeReq);
+
+		var jsonData = this.toDataJson();
+		var strData = gadgets.json.stringify(jsonData);
+
+		var field = UgoSocial.util.memoToKey(this.memo_id); // field に使える形に変換
+		var storeReq = req.newUpdatePersonAppDataRequest("VIEWER", field,
+				strData);
+		req.add(storeReq);
 		return req;
 	},
 	setDiffTime : function(display_time) {
-		this.diff = (new Date()).getTime() - display_time;
+		this.time = (new Date()).getTime() - display_time;
+	},
+	toDataJson : function() {
+		return {
+			"memo_id" :this.memo_id,
+			"comment" :this.comment,
+			"time" :this.time
+		};
+
 	}
 }
 
@@ -160,7 +147,8 @@ UgoSocial.util = {
 	show : function(memo_id, callback) {
 
 		var req = opensocial.newDataRequest();
-		var fields = [ "memo_id", "comment", "time" ];
+		var fields = [ UgoSocial.util.memoToKey(memo_id) ];
+		console.log(fields);
 
 		var friendParams = {};
 		friendParams[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
@@ -178,37 +166,46 @@ UgoSocial.util = {
 		var selfIdSpec = opensocial.newIdSpec(selfParams);
 		req.add(req.newFetchPersonAppDataRequest(selfIdSpec, fields),
 				"viewer_comment");
-
 		req.send(callback);
 	},
-	toComments : function(data){
-	    var array = new Array();   
-	    var appendFunc = function(obj){
-	      if(obj){
-	        for(var id in obj){
-	          var commentObj = obj[id];
-	          commentObj["user"] = id;
-	          array.push(commentObj);
-	        }
-	      }
-	    }    
-	    var friends = data.get("friend_comment").getData();
-	    var viewer = data.get("viewer_comment").getData();    	        
-	    appendFunc(friends);
-	    appendFunc(viewer);
-	    return array;
+	toComments : function(data) {
+		var array = new Array();
+		var appendFunc = function(obj) {
+			if (obj) {
+				for ( var id in obj) {
+					var ret = obj[id];
+					var commentObj = null;					
+					for(var p in ret){
+						if(p.indexOf("ugomemo") != -1){
+							commentObj = gadgets.json.parse(gadgets.util.unescapeString(ret[p]));
+							console.log(commentObj);
+						}
+					}						
+					commentObj["user"] = id;
+					array.push(commentObj);
+				}
+			}
+		}
+		var friends = data.get("friend_comment").getData();
+		var viewer = data.get("viewer_comment").getData();
+		appendFunc(friends);
+		appendFunc(viewer);
+		return array;
+	},
+	displayComments : function(data) {
+		var array = UgoSocial.util.toComments(data);
+		displayData.comments = array;
+		UgoSocial.setComments();
+	},
+	memoToKey : function(memo_id){
+		return memo_id.split(":").join("_");
 	}
 }
 
-
-gadgets.util.registerOnLoadHandler(function(){
-    $('#next').click(UgoSocial.next);
-    $('#prev').click(UgoSocial.prev);
-    try{gadgets.window.adjustHeight();}catch(e){}
-    UgoSocial.getJson();
-    
-    
-    UgoSocial.setComments();
-    UgoSocial.getAllFriendThumbURL();
+gadgets.util.registerOnLoadHandler( function() {
+	$('#next').click(UgoSocial.next);
+	$('#prev').click(UgoSocial.prev);
+	gadgets.window.adjustHeight();
+	UgoSocial.getJson();
+	UgoSocial.setComments();
 });
-
