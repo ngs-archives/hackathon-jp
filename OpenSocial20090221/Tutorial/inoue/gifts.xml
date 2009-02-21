@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 4 - Showing What You Got">
+  <ModulePrefs title="Gifts part 5 - Crossing the Streams">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
@@ -8,6 +8,7 @@
       <script type="text/javascript">
         var givenGifts = {};
         var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
+        var globalFriends = {};
 
         function makeOptionsMenu() {
           var html = new Array();
@@ -56,6 +57,8 @@
           html.push('</select>');
           document.getElementById('friends').innerHTML = html.join('');
 
+          globalFriends = viewerFriends;
+
           updateGiftList(viewer, giftData, viewerFriends);
           updateReceivedList(viewer, viewerFriendData, viewerFriends);
         }
@@ -81,6 +84,8 @@
 
           req.add(req.newFetchPersonAppDataRequest(viewerFriends, 'gifts', opt_params), 'viewerFriendData');
           req.send(onLoadFriends);
+
+          postActivity(nut, friend);
         }
 
         function updateGiftList(viewer, data, friends) {
@@ -138,6 +143,14 @@
           });
           html.push('</ul>');
           document.getElementById('received').innerHTML = html.join('');
+        }
+
+        function postActivity(nut, friend) {
+          var title = 'gave ' + globalFriends.getById(friend).getDisplayName() + ' ' + globalGiftList[nut];
+          var params = {};
+          params[opensocial.Activity.Field.TITLE] = title;
+          var activity = opensocial.newActivity(params)
+          opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function() {});
         }
 
         gadgets.util.registerOnLoadHandler(init);
