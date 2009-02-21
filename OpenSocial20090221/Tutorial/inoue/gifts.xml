@@ -6,6 +6,7 @@
   <Content type="html">
     <![CDATA[
       <script type="text/javascript">
+        var givenGifts = {};
         var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
 
         function makeOptionsMenu() {
@@ -17,7 +18,7 @@
           html.push('</select>');
           document.getElementById('gifts').innerHTML = html.join('');
         }
-        
+
         function init() {
           loadFriends();
           makeOptionsMenu();
@@ -55,8 +56,6 @@
           updateGiftList(viewer, giftData, viewerFriends);
         }
 
-        var globalGivenGifts = {};
-
         function giveGift() {
           var nut = document.getElementById('nut').value;
           var friend = document.getElementById('person').value;
@@ -67,7 +66,7 @@
           var req = opensocial.newDataRequest();
           req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'gifts', json));
           req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
-          
+
           var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
           var opt_params = {};
           opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
@@ -85,20 +84,20 @@
           }
 
           if (!json) {
-            globalGivenGifts = {};
+            givenGifts = {};
           }
           try {
-            globalGivenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
+            givenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
           } catch (e) {
-            globalGivenGifts = {};
+            givenGifts = {};
           }
 
           var html = new Array();
           html.push('You have given:');
           html.push('<ul>');
-          for (i in globalGivenGifts) {
+          for (i in givenGifts) {
             if (i.hasOwnProperty) {
-              html.push('<li>', friends.getById(i).getDisplayName(), ' received ', globalGiftList[globalGivenGifts[i]], '</li>');
+              html.push('<li>', friends.getById(i).getDisplayName(), ' received ', globalGiftList[givenGifts[i]], '</li>');
             }
           }
           html.push('</ul>');
