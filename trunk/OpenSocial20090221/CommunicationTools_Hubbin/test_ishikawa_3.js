@@ -70,7 +70,7 @@ function getFriends() {
 	for (var i in os_people_field) {
 		_fields.push(os_people_field[i]['key']);
 	}
-	params[opensocial.DataRequest.PeopleRequestFields] = _fields;
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = _fields;
 
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', params), 'viewerFriends');
