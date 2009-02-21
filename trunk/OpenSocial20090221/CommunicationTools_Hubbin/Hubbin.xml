@@ -13,7 +13,6 @@ function init() {
 <style type="text/css">
 table.theTable { width:90%; }
 table.theTable td { vertical-align:top; text-align:center; padding:6px; }
-table.theTable td input { font-size:20px; width:200%; height:200%; }
 .owner { background-color:#eeeeff; }
 .viewer { background-color:#eeffff; }
 td.longTable { background:url(http://www.unsigneddesign.com/seamless/2895996994_58c0972172_b.jpg); height:150px; }
