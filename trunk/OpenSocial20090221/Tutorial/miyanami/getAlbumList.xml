@@ -14,11 +14,15 @@
 
 	  // Viewer
 	  var idspec_params = {};
-	  var userId = 11386861873409637115;
-	  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
-	  var idSpec = opensocial.newIdSpec(idspec_params);
 
 		alert("alb2");
+
+	  var userId = "11386861873409637115";
+	  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
+
+		alert("alb3");
+
+	  var idSpec = opensocial.newIdSpec(idspec_params);
 	 
 	  var opt_params = { };
 	  opt_params['albumId'] = [];
