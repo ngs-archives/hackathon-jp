@@ -77,7 +77,7 @@
 	function processAlbums(data) {
 		var albumz = data.get("album").getData();
 		albumz.each(function(album) {
-		html += album.getTitle() + "<br>";
+		html += album.getDescription() + "<br>";
 		html += '<img src="' + album.getThumbnailUrl() + '">';
 		});
 
