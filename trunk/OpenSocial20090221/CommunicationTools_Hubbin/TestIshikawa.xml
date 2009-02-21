@@ -4,19 +4,11 @@
 		<Require feature="opensocial-0.8"/>
 	</ModulePrefs>
 	<Content type="html"><![CDATA[
-		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/send_gifts_4.js"></script>
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/test_ishikawa_0.js"></script>
 		<script>
 			gadgets.util.registerOnLoadHandler(init);
 		</script>
-		<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /></div>
-		<div id="main">
-			<div id="give">
-				<form id="gift_form">
-					Give <span id="gifts"></span> to <span id="friends"></span>. <a href="javascript:void(0);" onclick="giveGift();">Give!</a>
-				</form>
-			</div>
-			<div id="given"></div>
-			<div id="received"></div>
-		</div>
+		<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /> TEST</div>
+		<div id="peopleArea"></div>
 	]]></Content>
 </Module>
