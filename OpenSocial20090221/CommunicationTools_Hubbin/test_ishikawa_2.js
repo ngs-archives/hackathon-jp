@@ -29,8 +29,8 @@ function getFriends() {
 	//req.add(req.newFetchPersonRequest('OWNER',          searchOpt), 'owner');
 	//req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  searchOpt), 'ownerFriends');
 
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-	req.add(req.newFetchPeopleRequest('OWNER_FRIENDS' ), 'ownerFriends');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', params), 'viewerFriends');
+	req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  params), 'ownerFriends');
 
 	req.send(onLoadFriends);
 }
