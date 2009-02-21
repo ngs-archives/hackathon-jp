@@ -31,8 +31,8 @@ function processAlbums(data) {
 //if (data.hadError()) {
 //alert(data.getErrorCode());
 //}
-  var albumz = data.get("album").getData();
-   alert(albumz);
+  //var albumz = data.get("album").getData();
+   alert(data.get("album").getData());
 
   albumz.each(function(album) {
      html += ':::' + album.getThumbnailUrl();
