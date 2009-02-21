@@ -105,7 +105,7 @@
         'name1': person.getDisplayName(),
         'type0': (global_viewer.getId() % 3),
         'type1': (person.getId() % 3),
-        'speed0': (gobal_viewer.getId() % 100),
+        'speed0': (global_viewer.getId() %  100),
         'speed1': (person.getId() % 100),
         'accele0': 20,
         'accele1': 10,
