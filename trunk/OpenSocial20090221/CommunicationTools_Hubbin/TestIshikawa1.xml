@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
 	<ModulePrefs title="TestIshikawa1" >
-		<Require feature="opensocial-0.8"/>
+		<Require feature="opensocial-0.7"/>
 	</ModulePrefs>
 	<Content type="html" view="profile canvas preview"><![CDATA[
 		<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /> TEST</div>
