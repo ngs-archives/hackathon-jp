@@ -27,7 +27,7 @@ function getResult( ) {
 	return number
 }
 	  </script>
+	    TEST2
    ]]>
   </Content>
-  TEST2
 </Module>
