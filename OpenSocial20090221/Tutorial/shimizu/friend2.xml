@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="—F’Bî•ñŽæ“¾ƒAƒvƒŠ">
+    <Require feature="opensocial-0.7" />
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+    <script type="text/javascript">
+      function init() {
+        with (opensocial.DataRequest) {
+            var req = opensocial.newDataRequest();
+            req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
+            var searchOpt = {};
+            searchOpt[PeopleRequestFields.FILTER] = FilterType.ALL;
+            searchOpt[PeopleRequestFields.SORT_ORDER] = SortOrder.NAME;
+            req.add(req.newFetchPeopleRequest(Group.OWNER_FRIENDS, searchOpt), "ownerFriends");
+            req.send(onLoadComplete);
+        }
+      }
+      function onLoadComplete(dataResponse) {
+        var owner = dataResponse.get("owner").getData();
+        var ownerFriends = dataResponse.get("ownerFriends").getData();
+        var resultHtml = owner.getDisplayName() + "‚³‚ñ‚Ì‚¨—F’B:"
+        resultHtml += "<ul>";
+        ownerFriends.each(function(friend) {
+          resultHtml += ("<li>" + gadgets.util.escapeString(friend.getDisplayName()) + "</li>");
+        });
+        resultHtml += "</ul>";
+        document.body.innerHTML += resultHtml;
+      }
+      gadgets.util.registerOnLoadHandler(init);
+    </script>
+    ]]>
+  </Content>
+</Module>
