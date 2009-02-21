@@ -8,6 +8,8 @@
       <script type="text/javascript">
         gadgets.util.registerOnLoadHandler(init);
 
+var list = [];
+
 function init() {
 	request2();
 }
@@ -28,12 +30,30 @@ function response2(data) {
 	alert(3);
 	viewerFriends.each(function(person) {
 		alert(person.getId());
-		for(i in person) {
-		//	alert(i);
-		}
-		
+		request3(person.getId());
 	});
 }
+
+
+function request3(id) {
+  var req = opensocial.newDataRequest();
+  var opt_params = { };
+  opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+	opensocial.Person.Field.ABOUT_ME
+  ];
+  req.add(req.newFetchPersonRequest(id, opt_params), "viewer");
+  req.send(response);
+}
+
+function response3(data) {
+  var viewer = data.get("viewer").getData();
+  var name = viewer.getDisplayName();
+  var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
+  var html = about_me + ':' + name;
+  document.getElementById('main').innerHTML = html;
+}
+		
+
 
 
 function request() {
