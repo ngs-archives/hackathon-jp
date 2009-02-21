@@ -29,12 +29,12 @@ function response(data) {
   
   var viewerFriends = data.get('viewerFriends').getData();
   html = new Array();
-  html.push('<ul>');
+  html.push('<table><tr>');
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<li>' + '<a href="#"' + '<img src="' + thumb + '">' + person.getDisplayName() + '</li></a>');
+    html.push('<td>' + '<a href="#"' + '<img src="' + thumb + '">' + person.getDisplayName() + '</a></td>');
   });
-  html.push('</ul>');
+  html.push('</tr></table>');
   document.getElementById('friends').innerHTML = html.join('');
 }
 
