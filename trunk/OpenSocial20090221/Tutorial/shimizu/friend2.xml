@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs title="友達情報取得アプリ">
-    <Require feature="opensocial-0.8" />
+    <Require feature="opensocial-0.7" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
@@ -36,7 +36,6 @@
       
     function fetchAlbums(userId) {
   // Viewer
-  alert(userId);
   var idspec_params = {};
   idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
   var idSpec = opensocial.newIdSpec(idspec_params);
@@ -44,6 +43,7 @@
   var opt_params = { };
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
+  alert(userId);
   req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
   req.send(processAlbums);
 };
