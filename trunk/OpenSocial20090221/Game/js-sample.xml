@@ -18,7 +18,9 @@
       var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
       var opt_params = {};
       opt_params[opensocial.DataRequest.PeopleRequestFields] = [
-        opensocial.Person.Field.AGE];
+        opensocial.Person.Field.AGE,
+        opensocial.Person.Field.GENDER,
+        opensocial.Person.Field.CURRENT_LOCATION];
       opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
       req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
 
@@ -33,7 +35,11 @@
       html.push('<ul>');
       viewerFriends.each(function(person) {
         if (person.getId()) {
-          html.push('<li>' + person.getDisplayName() + '#' + person.getField(opensocial.Person.Field.AGE) + "</li>");
+          html.push('<li>' + person.getDisplayName() +
+            '/' + person.getField(opensocial.Person.Field.AGE) +
+            '/' + person.getField(opensocial.Person.Field.GENDER) +
+            '/' + person.getField(opensocial.Person.Field.CURRENT_LOCATION) +
+            "</li>");
         }
       });
       html.push('</ul>');
