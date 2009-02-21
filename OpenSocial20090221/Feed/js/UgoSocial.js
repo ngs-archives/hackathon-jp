@@ -23,14 +23,19 @@ UgoSocial.showComment = function(comment) {
     $('<p>' + comment + '</p>').css({margin:'0px',color: color,position:'absolute',left:'200px',top: topHeight,zIndex:'1000' }).appendTo('#content_div').animate({left:'-200px'},speed);
 }
 UgoSocial.getAllFriendThumbURL = function(){
+    var params = {};
+    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+    params[opensocial.IdSpec.Field.NETWORK_DISTANCE] = 1;
+    var idSpec = opensocial.newIdSpec(params);
     var req = opensocial.newDataRequest();
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
-    req.add(req.newFetchPersonRequest(opensocial.IdSpec.Group.VIEWER_FRIENDS), "viewer_friends");
+    req.add(req.newFetchPeopleRequest(idSpec, "friends");
 	req.send(function(resp) {
 			var viewer = resp.get("viewer").getData();
             var taraget = ($('#profile_img_' + userId)) ? $('#profile_img_' + userId) : $('<p id="profile_img"'+ userId + '"></p>');
             target.html("<img src='"+viewer.getField(opensocial.Person.Field.THUMBNAIL_URL)+"'>").appendTo('body');
-			var viewer_friends = resp.get("viewer_friends").getData();
+			var viewer_friends = resp.get("friends").getData();
             viewer_friends.each(function(person){
                 ThumbData[person.getId()] = {
                     thumbnailUrl : person.getField(opensocial.Person.Field.THUMBNAIL_URL),
