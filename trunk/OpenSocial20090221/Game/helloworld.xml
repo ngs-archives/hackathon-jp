@@ -21,9 +21,10 @@ function saveResult( number ) {
 }
 
 function onLoadSave(data) {
-	alert(2);
 	var number = data.get('number').getData();
+	alert(3);
 	alert(number);
+	alert(4);
 }
 
 function getResult( ) {
