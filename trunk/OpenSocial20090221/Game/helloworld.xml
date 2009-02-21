@@ -8,12 +8,17 @@
       <script type="text/javascript">
         gadgets.util.registerOnLoadHandler(init);
 
+var number = 0;
+
 function init() {
-	resetResult(1);
+	loadResult(1);
 }
 
 function loadResult() {
-
+	var req = opensocial.newDataRequest();
+	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+	req.add(req.newFetchPersonAppDataRequest('VIEWER', 'number'), 'data');
+	req.send(onLoadSave);
 }
 
 function resetResult( number ) {
@@ -35,7 +40,8 @@ function onLoadSave(data) {
 	  
 	  TEST2
 	  <div id="result">result:</div>
-   
+	  
+	  <input type="button" value="加点" onClick="resetResult(number + 1)">
    ]]>
   </Content>
 </Module>
