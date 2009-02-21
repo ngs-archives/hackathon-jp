@@ -81,7 +81,7 @@ function updateGiveList(data) {
     var viewer_friends_cap = data.get("viewer_friends_cap").getData();
 
     alert("updateGiveList=" + viewer.getId());
-    var json = viewer_cap[viewer.getId()]['cap'];
+    var json = viewer_cap[viewer.getId()]["cap"];
     var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
    
     for(var i = 0; i < sendText.length; i++) {
