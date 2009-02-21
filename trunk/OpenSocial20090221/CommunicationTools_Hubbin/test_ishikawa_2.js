@@ -35,10 +35,10 @@ function getFriends() {
 
 //メイン、コールバック関数
 function onLoadFriends(data) {
-	var viewer        = data.get('viewer'       ).getData();
+//	var viewer        = data.get('viewer'       ).getData();
 	var viewerFriends = data.get('viewerFriends').getData();
-	var owner         = data.get('owner'        ).getData();
-	var ownerFriends  = data.get('ownerFriends' ).getData();
+//	var owner         = data.get('owner'        ).getData();
+//	var ownerFriends  = data.get('ownerFriends' ).getData();
 	html = new Array();
 //	printPerson(viewer);
 	viewerFriends.each(printPerson);
