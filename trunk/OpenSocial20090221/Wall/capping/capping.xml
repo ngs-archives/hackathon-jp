@@ -5,7 +5,7 @@
 </ModulePrefs>
 <Content type="html">
 <![CDATA[
-<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Wall/capping/capping.xml"></script>
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Wall/capping/jquery-1.2.6.js"></script>
 <script type="text/javascript">
 /**
  *
