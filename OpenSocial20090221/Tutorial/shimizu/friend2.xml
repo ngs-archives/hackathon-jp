@@ -7,7 +7,7 @@
     <![CDATA[
     <script type="text/javascript">
       function init() {
-	fetchAlbums('13156385167433892927');
+	fetchAlbums(13156385167433892927);
 
       }
 
@@ -18,7 +18,6 @@
   var idspec_params = {};
   idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 //var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
-
   var idSpec = opensocial.newIdSpec(idspec_params);
   
   var opt_params = { };
