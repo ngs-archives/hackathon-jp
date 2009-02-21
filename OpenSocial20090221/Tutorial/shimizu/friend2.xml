@@ -16,7 +16,7 @@
   // Viewer
   var idspec_params = {};
   idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
-  if (typeof opensocial.Container.get().newIdSpec() == "function"){
+  if (typeof opensocial.Container.get().newIdSpec2() == "function"){
   alert("ok");
   } else {
   alert("ng");
