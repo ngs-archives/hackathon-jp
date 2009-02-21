@@ -7,14 +7,34 @@
     <![CDATA[
       <script type="text/javascript">
         gadgets.util.registerOnLoadHandler(init);
+
 function init() {
-	alert(1);
-	request();
+	request2();
 }
 
+function request2() {
+	alert(1);
+	var req = opensocial.newDataRequest();
+	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS), "ownerFriends");
+	req.send(response2);
+}
+
+
+function response2(data) {
+	alert(2);
+	var viewer = data.get('viewer').getData();
+	var viewerFriends = data.get('viewerFriends').getData();
+
+	viewerFriends.each(function(person) {
+				for(i in person) {
+					alert(i);
+				}
+	});
+}
+
+
 function request() {
- 	alert(2);
- var req = opensocial.newDataRequest();
+  var req = opensocial.newDataRequest();
   var opt_params = { };
   opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
 	opensocial.Person.Field.ABOUT_ME
@@ -24,39 +44,15 @@ function request() {
 }
 
 function response(data) {
-alert(3);
   var viewer = data.get("viewer").getData();
   var name = viewer.getDisplayName();
   var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
-  
-  alert(about_me);
   var html = about_me + ':' + name;
   document.getElementById('main').innerHTML = html;
-}
-
-function loadFriends() {
-	var req = opensocial.newDataRequest();
-	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-	req.send(onLoadFriends);
-}
-
-function onLoadFriends(data) {
-	var viewer = data.get('viewer').getData();
-	var viewerFriends = data.get('viewerFriends').getData();
-
-	html = new Array();
-	html.push('<ul>');
-	viewerFriends.each(function(person) {
-				html.push('<li>' + person.getDisplayName() + "</li>");
-				});
-	html.push('</ul>');
-	document.getElementById('friends').innerHTML = html.join('');
 }
 		
 	  </script>
 	  <div id="main"></div>
-	  <div id="friends"></div>
    ]]>
   </Content>
 </Module>
