@@ -123,7 +123,6 @@
         "swf_container", "100%", "100%");
       so.addParam("allowScriptAccess", "always");
       //so.addParam("wmode", "transparent");
-      so.write("swf_container");
       so.addParam('codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0');
       so.addParam('width', '640');
       so.addParam('height', '480');
@@ -144,6 +143,7 @@
       so.addParam('allowScriptAccess','sameDomain');
       so.addParam('movie', 'main');
       so.addParam('salign', '');
+      so.write("swf_container");
       delete so;
     };
     </script>
