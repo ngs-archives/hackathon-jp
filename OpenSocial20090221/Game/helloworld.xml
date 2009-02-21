@@ -17,10 +17,10 @@ function saveResult( number ) {
 	var req = opensocial.newDataRequest();
 	req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.VIEWER, 'number', number));
 	req.send(onLoadSave);
-	alert(1);
 }
 
 function onLoadSave(data) {
+	alert(2);
   var number = data.get('number').getData();
   alert(number);
 }
