@@ -20,7 +20,8 @@
       function onLoadComplete(dataResponse) {
         var owner = dataResponse.get("owner").getData();
         var owner = dataResponse.get("owner").getData();
-	
+	 alert("");
+
 	fetchAlbums(owner.getId());
 	return;
         var ownerFriends = dataResponse.get("ownerFriends").getData();
@@ -50,7 +51,6 @@
  
 function processAlbums(data) {
   var html = "";  
- alert("");
   var albumz = data.get("albums").getData() || [];
  
   albumz.each(function(album) {
