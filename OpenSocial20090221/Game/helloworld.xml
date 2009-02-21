@@ -18,12 +18,11 @@ function request() {
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-	req.send(request);
+	req.send(response);
 }
 
 
 function response(data) {
-alert(3);
   var viewer = data.get("viewer").getData();
   var name = viewer.getDisplayName();
   var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
