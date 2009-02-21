@@ -33,9 +33,10 @@
 function processAlbums(data) {
   var html = "";  
   var albumz = data.get("viewerAlbums").getData();
- alert("kita");
 
   albumz.each(function(album) {
+   alert("kita");
+
      html += album.getThumbnailUrl();
   });
         document.body.innerHTML += html;
