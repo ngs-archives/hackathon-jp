@@ -124,6 +124,26 @@
       so.addParam("allowScriptAccess", "always");
       //so.addParam("wmode", "transparent");
       so.write("swf_container");
+      so.addParam('codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0');
+      so.addParam('width', '640');
+      so.addParam('height', '480');
+      so.addParam('src', 'main');
+      so.addParam('quality', 'high');
+      so.addParam('pluginspage', 'http://www.macromedia.com/go/getflashplayer');
+      so.addParam('align', 'middle');
+      so.addParam('play', 'true');
+      so.addParam('loop', 'true');
+      so.addParam('scale', 'showall');
+      so.addParam('wmode', 'window');
+      so.addParam('devicefont', 'false');
+      so.addParam('id', 'main');
+      so.addParam('bgcolor', '#ffffff');
+      so.addParam('name', 'main');
+      so.addParam('menu', 'true');
+      so.addParam('allowFullScreen', 'false');
+      so.addParam('allowScriptAccess','sameDomain');
+      so.addParam('movie', 'main');
+      so.addParam('salign', '');
       delete so;
     };
     </script>
