@@ -104,7 +104,7 @@ function updateReceivedList(data) {
     });
     alert(viewer.getId());
     var hoge = viewer.getId();
-    var json = viewer_friends_cap[viewer.getId()]["cap"];
+    //var json = viewer_friends_cap[viewer.getId()]["cap"];
 
     //alert(json);
     
