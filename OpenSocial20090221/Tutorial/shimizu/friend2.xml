@@ -73,9 +73,9 @@ function processAlbums(data) {
 //}
   var albumz = data.get("album").getData();
    
-alert("a");
+
   albumz.each(function(album) {
-  alert(album.getThumbnailUrl());
+  alert("s");
      html += '<img src="' + album.getThumbnailUrl() + '">';
   });
         document.body.innerHTML += html;
