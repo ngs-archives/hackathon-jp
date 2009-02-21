@@ -67,7 +67,8 @@ function onLoadFriends(data) {
     $("#select").html(html.join(""));
 
     updateGiveList(viewer, viewer_cap);
-    updateReceivedList(data);
+    //updateReceivedList(data);
+    updateReceivedList(viewer, viewer_friends_cap, viewerFriends);
 }
 
 /**
@@ -96,17 +97,35 @@ function updateGiveList(viewer, viewer_cap) {
  *
  *
  */
-function updateReceivedList(data) {
+function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
+    var html = {};
+
+    html.push("<ul>");
+    viewerFriends.each(function(person){
+        var personData = viewer_friends_cap[person.getId()];
+        var json = viewer_friends_cap[person.getId()]['cap'];
+        var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
+        html.push("<li>" + sendText + "</li>");
+    });
+    html.push("</ul>");
+    $("#receive").html(html.join(""));
+
+    /*
     var viewer = data.get("viewer").getData();
     var viewerFriends = data.get("viewer_friends").getData();
     var viewer_cap = data.get("viewer_cap").getData();
     var viewer_friends_cap = data.get("viewer_friends_cap").getData();
+    */
 
+    /*
     viewerFriends.each(function(person){
         var personData = viewer_friends_cap[person.getId()];
     });
+    */
+    /*
     alert(viewer.getId());
     var hoge = viewer.getId();
+    */
     //var json = viewer_friends_cap[viewer.getId()]["cap"];
 
     //alert(json);
