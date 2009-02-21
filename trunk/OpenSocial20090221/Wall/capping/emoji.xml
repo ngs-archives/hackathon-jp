@@ -99,8 +99,9 @@ function init() {
     loadFriends();
 
     $("#btn_submit").bind("click", function(){
-        if(capping_plus_emoji()) {
-            sendTextToAFriend();
+        var tmp = capping_plus_emoji()
+        if(tmp) {
+            sendTextToAFriend(tmp);
         }
     });
 }
@@ -228,15 +229,16 @@ function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
  *
  *
  */
-function sendTextToAFriend() {
-    var cappingText = $("#capping_phraze").val();
-    alert("capping_phraze is = " + cappingText);
+function sendTextToAFriend(tmp) {
+    //var cappingText = $("#capping_phraze").val();
+    //alert("capping_phraze is = " + cappingText);
     var personId = $("#person").val();
 
     var data = {}
     var sendText = {};
     var cap_data = {};
-    cap_data["cap"] = cappingText;
+    //cap_data["cap"] = cappingText;
+    cap_data["cap"] = tmp;
     alert("capping_ar is =" + cap_data["cap"]);
     cap_data["number"] = 1;
     cap_data["flg"] = 1;
