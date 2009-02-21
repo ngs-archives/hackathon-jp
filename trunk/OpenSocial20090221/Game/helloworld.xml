@@ -8,12 +8,10 @@
       <script type="text/javascript">
         gadgets.util.registerOnLoadHandler(init);
 function init() {
-	alert(0);
 	loadFriends();
 }
 		
 function loadFriends() {
-	alert(2);
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
@@ -21,7 +19,6 @@ function loadFriends() {
 }
 
 function onLoadFriends(data) {
-	alert(3);
 	var viewer = data.get('viewer').getData();
 	var viewerFriends = data.get('viewerFriends').getData();
 
@@ -32,7 +29,6 @@ function onLoadFriends(data) {
 				});
 	html.push('</ul>');
 	document.getElementById('friends').innerHTML = html.join('');
-	alert(4);
 }
 		
 	  </script>
