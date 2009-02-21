@@ -230,6 +230,7 @@ function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
  *
  */
 function sendTextToAFriend(tmp) {
+    $("#capping_phraze").html(tmp);
     //var cappingText = $("#capping_phraze").val();
     //alert("capping_phraze is = " + cappingText);
     var personId = $("#person").val();
