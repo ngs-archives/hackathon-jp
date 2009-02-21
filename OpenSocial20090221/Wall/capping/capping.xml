@@ -121,7 +121,7 @@ function sendTextToAFriend() {
     var personId = $("#person").val();
     alert(personId);
 
-    var sendText = {};
+    var sendText = new Array();
     var cap_data = new Array();
     cap_data["cap"] = cappingText;
     cap_data["number"] = 1;
