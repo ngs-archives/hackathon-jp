@@ -25,17 +25,19 @@
 
           html = new Array();
           html.push('<ul>');
+
           viewerFriends.each(function(person) {
+
             if (person.getId()) {
 
-		var addresses = person.getField(opensocial.Person.Field.ADDRESSES);
-		alert(addresses.length);
+
 
               html.push('<li>', person.getDisplayName(),
 		person.getField(opensocial.Address),
 		'<img src=',person.getField(opensocial.Person.Field.THUMBNAIL_URL) ,'>',
 		'</li>');
             }
+
           });
           html.push('</ul>');
           document.getElementById('friends').innerHTML = html.join('');
