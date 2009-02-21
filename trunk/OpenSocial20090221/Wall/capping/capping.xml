@@ -84,9 +84,11 @@ function updateGiveList(data) {
     var json = viewer_cap[viewer.getId()]["cap"];
     var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
    
+    /*
     for(var i = 0; i < sendText.length; i++) {
         alert(sendText);
     }
+    */
 }
 
 /**
