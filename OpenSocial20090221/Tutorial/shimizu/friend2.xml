@@ -55,6 +55,7 @@
 		opt_params['albumId'] = [];
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
+		req.add("MyAlbum", "pname");
 		req.send(processAlbums);
 
 	};
@@ -68,6 +69,7 @@
 		opt_params['albumId'] = [];
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
+		req.add("MyAlbum", "pname");
 
 		req.send(processAlbums);
 
@@ -75,6 +77,7 @@
  
 	function processAlbums(data) {
 		var albumz = data.get("album").getData();
+		var pname = data.get("pname");
 		albumz.each(function(album) {
 		html += '<img src="' + album.getThumbnailUrl() + '">';
 		});
