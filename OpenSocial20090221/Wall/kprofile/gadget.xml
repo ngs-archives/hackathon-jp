@@ -57,8 +57,13 @@ gadgets.util.registerOnLoadHandler(init);
 gadgets.util.registerOnLoadHandler(init);
 </script>
 
-<!-- The code for Home view is here. -->
-<div>Home view for 勝手にプロフィール.</div>
+<div style="color:orange;">Aさんとは？</div>
+<ul>
+<li>動物に例えると蛙っぽい</li>		
+<li>戦隊者で例えるとアオレンジャー</li>
+<li>年齢より若く見える</li>
+</ul>
 
+<!-- The code for Home view is here. -->
   ]]></Content>
 </Module>
