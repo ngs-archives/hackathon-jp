@@ -6,17 +6,13 @@
   <Content type="html">
     <![CDATA[
       <script type="text/javascript">
-        gadgets.util.registerOnLoadHandler(init);
+		gadgets.util.registerOnLoadHandler(init);
 		
 		funciton init () {
 			alert(1);
-			loadFriends();
 		}
 		
 	  </script>
-	  
-	  TEST3
-	  <div id="friends"></div>
    ]]>
   </Content>
 </Module>
