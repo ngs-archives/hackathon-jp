@@ -9,6 +9,7 @@
         gadgets.util.registerOnLoadHandler(init);
 
 var list = [];
+var viewer;
 
 function init() {
 	request();
@@ -23,7 +24,7 @@ function request() {
 
 
 function response(data) {
-  var viewer = data.get("viewer").getData();
+  viewer = data.get("viewer").getData();
   //var name = viewer.getDisplayName();
   //var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
   var viewerFriends = data.get('viewerFriends').getData();
@@ -32,15 +33,16 @@ function response(data) {
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
+	list[person.getId()] = person;
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + viewer.getId() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + person.getId() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
   
   html.push('</tr><tr>');
   
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + viewer.getId() + ');">' + person.getDisplayName() + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + person.getId() + ');">' + person.getDisplayName() + '</a></td>');
   });
   
   html.push('</tr></table>');
