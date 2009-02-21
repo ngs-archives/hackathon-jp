@@ -75,6 +75,11 @@
 
       html.push('</tr></table>');
 
+      document.getElementById('friends').innerHTML = html.join('');
+
+    }
+
+    var startGame = function(params) { // FIXME: use params
       var swf_params_hash = {
         'name0': 'dummy name 0',
         'name1': 'dummy name 1',
@@ -91,8 +96,7 @@
       for (var e in swf_params_hash) {
         swf_params += e + '=' + swf_params_hash[e].toString().replace(/ /g, '%20') + '&';
       }
-      html.push('<pre>' + swf_params + '<pre>'); // for debug
-      document.getElementById('friends').innerHTML = html.join('');
+      //html.push('<pre>' + swf_params + '<pre>'); // for debug
 
       var so = new SWFObject(
         "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params,
@@ -101,7 +105,7 @@
       //so.addParam("wmode", "transparent");
       so.write("swf_container");
       delete so;
-    }
+    };
     </script>
     <div id='main'>
       Your friends:
