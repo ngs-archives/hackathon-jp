@@ -29,7 +29,7 @@ function response(data) {
   
   var viewerFriends = data.get('viewerFriends').getData();
   html = new Array();
-  html.push('<table cellpadding="2"><tr>');
+  html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + '<a href="#"' + '<img src="' + thumb + '">' + '</a></td>');
