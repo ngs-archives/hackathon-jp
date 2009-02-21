@@ -6,13 +6,16 @@
   <Content type="html">
     <![CDATA[
       <script type="text/javascript">
-		gadgets.util.registerOnLoadHandler(init);
-		
-		funciton init () {
-			alert(1);
-		}
-		
+        gadgets.util.registerOnLoadHandler(init);
+function init() {
+	alert(0);
+}
+
 	  </script>
+	  
+	  TEST2
+	  <div id="result">result:</div>
+	  <input type="button" value="加点" onClick="resetResult(parseInt(number) + 1)">
    ]]>
   </Content>
 </Module>
