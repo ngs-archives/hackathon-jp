@@ -77,9 +77,9 @@ table.theTable img { width:100px; height: 100px; }
 		<div>スコア: 2.04</div>
 	</td>
 	<td class="vf3">
-		<input type="radio" name="v" id="v3" value="v3" /><br />
-		<label for="v3"><img src="http://img3.orkut.com/images/small/851/51851.jpg" /></label><br />
-		<h3>イシカワ</h3>
+		<input type="radio" name="v" id="v3" value="v3" selected /><br />
+		<label for="v3"><img src="http://img4.orkut.com/images/small/1203377439/134902017.jpg" /></label><br />
+		<h3>Yoichiro Tanaka</h3>
 		<div><strong>スコア: 3.26</strong></div>
 	</td>
 	<td class="vf4">
@@ -91,7 +91,7 @@ table.theTable img { width:100px; height: 100px; }
 </tr>
 </table>
 <div class="ctrl">
-<input type="button" value="『君たち○○したら良いんじゃない？？』" />
+<input type="button" value="『君たち○○したら良いんじゃない？？』" onClick="" />
 </div>
 </form>
 ]]></Content>
