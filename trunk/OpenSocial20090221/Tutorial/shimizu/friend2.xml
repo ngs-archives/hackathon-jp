@@ -24,12 +24,13 @@
           var viewer = data.get('viewer').getData();
           var viewerFriends = data.get('viewerFriends').getData();
 	    fetchMyAlbums();
+html += '<hr>';
 
           //html = new Array();
           //html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
-html += '<b>' + person.getDisplayName() + '</b>';
+html += '<b>' + person.getDisplayName() + '</b><br>';
 	    fetchAlbums(person.getId());
               //html.push('<li>', person.getDisplayName(), '</li>');
             }
