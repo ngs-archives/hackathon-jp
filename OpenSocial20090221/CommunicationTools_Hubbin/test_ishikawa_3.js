@@ -66,21 +66,28 @@ function init() {
 function getFriends() {
 	var params = {};
 
+/*
 	var _fields = [];
 	for (var i in os_people_field) {
 		_fields.push(os_people_field[i]['key']);
 	}
-	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = _fields;
+*/
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+		opensocial.Person.Field.ABOUT_ME,
+		opensocial.Person.Field.STATUS
+	];
 
 	var req = opensocial.newDataRequest();
+	req.add(req.newFetchPeopleRequest('VIEWER', params), 'viewer');
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', params), 'viewerFriends');
 	req.send(onLoadFriends);
 }
 
 function onLoadFriends(data) {
+	var viewer        = data.get('viewer').getData();
 	var viewerFriends = data.get('viewerFriends').getData();
 	html = new Array();
-	viewerFriends.each(function(person) {
+	viewer.each(function(person) {
 		var age     = person.getField(opensocial.Person.Field.AGE);
 /*
 		var gender  = person.getField(opensocial.Person.Field.GENDER);
@@ -95,7 +102,7 @@ function onLoadFriends(data) {
 		html.push('<div class="person">');
 		html.push('<h3>' + person.getDisplayName() + '</h3>');
 		html.push('<div>');
-		html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL    ) + '" align="left" />');
+		html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '" align="left" />');
 		html.push('<ul>');
 		html.push('<li>年齢: '   + age + '</li>');
 		html.push('<li>状態: '   + people.getField(opensocial.Person.Field.STATUS) + '</li>');
