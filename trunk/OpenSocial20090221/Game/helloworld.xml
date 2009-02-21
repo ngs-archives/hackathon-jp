@@ -33,6 +33,7 @@ function response(data) {
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
 	param = viewer.getDisplayName() + "," + viewer.getId() + ",test" + person.getDisplayName() + ',' + person.getId() + ",test";	
+	alert(param);
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + '<a href="#" onClick="startGame(' + param + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
