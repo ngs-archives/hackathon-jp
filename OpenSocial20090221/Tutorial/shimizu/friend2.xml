@@ -72,6 +72,8 @@
 	};
  
 	function processAlbums(data, pname) {
+		html += pname + "<br>";
+
 		var albumz = data.get("album").getData();
 		albumz.each(function(album) {
 		html += pname + "<br>";
