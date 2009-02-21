@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="しりとりフロント">
+  <ModulePrefs title="絵文字でしりとり">
     <Require feature="opensocial-0.7"/>
   </ModulePrefs>
   <Content type="html">
@@ -33,7 +33,7 @@ document.getElementById('org_str').value = Emojica.sample;
 var img_dir = emoji_domain + Emojica.img_dir;
 
 function capping_plus_emoji() {
-    var tmp = $("#capping_plus_emoji");
+    var tmp = $("#capping_plus_emoji").text();
     alert(tmp);
 	var default_img = emoji_domain + '/img/e_tp/leftright.gif';
 	var image_bracket = '';
