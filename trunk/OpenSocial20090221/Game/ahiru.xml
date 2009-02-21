@@ -121,7 +121,7 @@
       //html.push('<pre>' + swf_params + '<pre>'); // for debug
 
       var so = new SWFObject(
-        "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params,
+        "main.swf?" + swf_params,
         "swf_container", "100%", "100%");
       so.addParam('codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0');
       so.addParam('width', '640');
