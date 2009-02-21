@@ -118,6 +118,7 @@ function sendTextToAFriend() {
     var sendText = {};
     var cap_data = {};
     cap_data["cap"] = cappingText;
+    cap_data["number"] = 1;
     cap_data["flg"] = 1;
     sendText[personId] = cap_data;
     //sendText[personId] = cappingText;
