@@ -34,6 +34,8 @@ html += '<hr>';
             if (person.getId()) {
 html += '<b>' + person.getDisplayName() + '</b><br>';
 	    fetchAlbums(person.getId());
+	    html += '<hr>';
+
               //html.push('<li>', person.getDisplayName(), '</li>');
             }
           });
@@ -96,6 +98,8 @@ function processAlbums(data) {
   albumz.each(function(album) {
      html += '<img src="' + album.getThumbnailUrl() + '">';
   });
+  
+  
         document.body.innerHTML += html;
 };
 
