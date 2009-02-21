@@ -43,7 +43,7 @@
 
             // Add a table row for each album
             viewerAlbums.each(
-            alert("in call back function 02");
+            alert("in add table row");
               function(album) {
                 createAlbumRow(album);
               }
