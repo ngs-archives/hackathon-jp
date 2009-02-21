@@ -29,7 +29,7 @@
           viewerFriends.each(function(person) {
             if (person.getId()) {
 
-	    fetchAlbums(person.getId());
+	    fetchAlbums('13156385167433892927');
               //html.push('<li>', person.getDisplayName(), '</li>');
             }
           });
