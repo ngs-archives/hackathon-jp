@@ -93,13 +93,13 @@
       var person;
       var i = 0;
       global_viewerFriends.each(function(e) {
-        if (i == index) {
-          alert(i);
-          alert(e.getDisplayName());
-          person = e;
-          return;
+        if (e.getId()) {
+          if (i == index) {
+            person = e;
+            return;
+          }
+          i++;
         }
-        i++;
       });
 
       var swf_params_hash = {
