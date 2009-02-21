@@ -15,7 +15,7 @@ function init() {
 
       html = new Array();
       html.push('<ul>');
-      viewerFriends.each(function(person) {
+      people.each(function(person) {
         var age = person.getField(opensocial.Person.Field.AGE);
         var gender = person.getField(opensocial.Person.Field.GENDER);
         var addr = person.getField(opensocial.Person.Field.CURRENT_LOCATION);
