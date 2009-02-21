@@ -9,12 +9,12 @@
         gadgets.util.registerOnLoadHandler(init);
 
 function init() {
+	alert(1);
 	saveResutl(1);
 }
 
 function saveResult( number ) {
-  alert(number);
-
+	alert(1);
 	var req = opensocial.newDataRequest();
 	req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.VIEWER, 'number', number));
 	req.send(onLoadSave);
