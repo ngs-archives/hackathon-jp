@@ -29,7 +29,7 @@
           //html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
-
+html += '<b>' + person.getDisplayName() + '</b>';
 	    fetchAlbums(person.getId());
               //html.push('<li>', person.getDisplayName(), '</li>');
             }
@@ -91,7 +91,6 @@ function processAlbums(data) {
    
 
   albumz.each(function(album) {
-  alert("s");
      html += '<img src="' + album.getThumbnailUrl() + '">';
   });
         document.body.innerHTML += html;
