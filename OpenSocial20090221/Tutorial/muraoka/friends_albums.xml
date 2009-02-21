@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="—F’Bî•ñŽæ“¾ƒAƒvƒŠ">
+    <Require feature="opensocial-0.8" />
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+    <script type="text/javascript">
+    
+		var html = "";  
+		function loadFriends() {
+			var req = opensocial.newDataRequest();
+		
+			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+			var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+			var opt_params = {};
+			opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+			req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
+			req.send(onLoadFriends);
+		}
+
+		function onLoadFriends(data) {
+			var viewer = data.get('viewer').getData();
+			var viewerFriends = data.get('viewerFriends').getData();
+
+			viewerFriends.each(function(person) {
+				if (person.getId()) {
+					fetchAlbums(person.getId());
+				}
+			});
+		}
+
+		function init() {
+			loadFriends();
+		}
+
+
+		function fetchAlbums(userId) {
+			var idspec_params = {};
+			idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
+			var idSpec = opensocial.newIdSpec(idspec_params);
+			var opt_params = { };
+			opt_params['albumId'] = [];
+			
+			var req = opensocial.newDataRequest();
+			req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
+			req.send(processAlbums);
+		};
+ 
+		function processAlbums(data) {
+			var albumz = data.get("album").getData();
+
+			albumz.each(function(album) {
+				html += '<img src="' + album.getThumbnailUrl() + '">';
+			});
+			document.body.innerHTML += html;
+		};
+
+		gadgets.util.registerOnLoadHandler(init);
+		</script>
+    ]]>
+  </Content>
+</Module>
