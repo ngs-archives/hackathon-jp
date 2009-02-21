@@ -29,25 +29,6 @@
 <div id="hatena"></div>
 <div id="on_load_date"></div>
 
-<script type="text/javascript">
-<!--
-
-UgomemoJson = "";
-MovieNum = "";
-MovieHatenaSyntax = "";
-OnloadDate = "";
-
-//JSON
-//Callback
-
-//Movie送り
-//onLoad
-gadgets.util.registerOnLoadHandler(getJson);
-
--->
-</script>
-
-
 ]]> 
 	</Content>
 </Module>
