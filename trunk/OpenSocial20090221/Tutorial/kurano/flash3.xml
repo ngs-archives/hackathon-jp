@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+ <ModulePrefs title="flashtest2">
+	<Require feature="flash" />
+ </ModulePrefs>
+
+ <Content type="html">
+  <![CDATA[
+  
+	<ifram src="http://www.softdevice.co.jp/~web/osxml/flash/GoogleMap3.swf">
+
+  ]]>
+ </Content>
+</Module>
+
