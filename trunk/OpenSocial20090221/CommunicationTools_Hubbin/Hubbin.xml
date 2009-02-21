@@ -6,9 +6,8 @@
 <Content type="html"><![CDATA[
 <script>
 // http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/Hubbin.xml
-function init() {
-	
-}
+function sorry() { document.getElementById('sorry').style.display = 'block'; }
+function init() {}
 </script>
 <script>gadgets.util.registerOnLoadHandler(init);</script>
 <style type="text/css">
@@ -20,6 +19,7 @@ td.longTable { background:url(http://www.unsigneddesign.com/seamless/2895996994_
 table.theTable img { width:100px; height: 100px; }
 .ctrl { text-align:center; padding:1em 0; }
 .ctrl input { font-size:24px; }
+#sorry { font-size:24px; background-color:#ffffff; border:#ff3333 4px solid; padding:2em 1em; position:absolute; top:100px; left:100px; }
 </style>
 <h1><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in] Beta" /></h1>
 <h2>Kozo Nishida さん！俺のツレどう思う？？</h2>
@@ -91,8 +91,9 @@ table.theTable img { width:100px; height: 100px; }
 </tr>
 </table>
 <div class="ctrl">
-<input type="button" value="『君たち○○したら良いんじゃない？？』" onClick="" />
+<input type="button" value="『君たち○○したら良いんじゃない？？』" onClick="sorry()" />
 </div>
 </form>
+<div id="sorry">すみません全然実装できてません、、、</div>
 ]]></Content>
 </Module>
