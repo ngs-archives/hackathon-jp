@@ -93,54 +93,6 @@
 	
 	
 	
-	
-	
-
-        // Fetches all photos from the album with the passed ID
-        function fetchPhotos(albumId) {
-          var req = opensocial.newDataRequest();
-          var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
-
-          req.add(req.newFetchMediaItemsRequest(idspec, albumId), 'albumPhotos');
-          req.send(fetchPhotosHandler);
-        };
-
-        // Callback function, executed when orkut finishes fetching the
-        // requested media items
-        function fetchPhotosHandler(resp) {
-          document.getElementById('photoGrid').innerHTML = '';
-          var albumPhotosResp = resp.get('albumPhotos');
-
-          if (!albumPhotosResp.hadError()) {
-            var albumPhotos = albumPhotosResp.getData();
-
-            // Add each photo's thumbnail to the photo grid
-            albumPhotos.each(
-              function(photo) {
-                addToPhotoGrid(photo);
-              }
-            );
-          }
-        };
-
-        // Adds the passed photo's thumbnail to the photo grid
-        function addToPhotoGrid(photo) {
-          document.getElementById('photoGrid').innerHTML +=
-            '<img src="' + photo.getThumbnailUrl()+'"/>';
-        };
-
-        // Execute fetchAlbums function when gadget loads
-        gadgets.util.registerOnLoadHandler(fetchAlbums);
-      </script>
-
-      <!-- Table to display album thumbnail and metadata -->
-      <table id="albumTable" cellspacing="5"></table>
-
-      <h2>Photos from selected album:</h2>
-
-      <!-- Styled div to display photos from selected album -->
-      <div id="photoGrid"></div>
-	
     </script>
     ]]>
   </Content>
