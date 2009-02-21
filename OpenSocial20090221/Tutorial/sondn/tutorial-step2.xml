@@ -9,6 +9,10 @@
     <script type="text/javascript">
     gadgets.util.registerOnLoadHandler(init);
 
+	var html = '';
+	var heading = '';
+	var viewer = '';
+	var param = {};
 	function init() {
 	  loadFriends();
 	}
@@ -32,11 +36,15 @@
 	  html = new Array();
 	  html.push('<ul>');
 	  viewerFriends.each(function(person) {
+	  
 	    if (person.getId()) {
+	      var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
+          var profile = person.getField(opensocial.Person.Field.PROFILE_URL);
+
 	      html.push('<li>' + person.getId() + "</li>");
 	      html.push('<li>' + person.getDisplayName() + "</li>");
 	      html.push('<li>' + person.getField(opensocial.Person.Field.PROFILE_URL) + "</li>");
-	      <!--html.push('<img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + "'>");-->
+	      html.push('<img src="' + thumb + '">);
 	    }
 	  });
 	  html.push('</ul>');
