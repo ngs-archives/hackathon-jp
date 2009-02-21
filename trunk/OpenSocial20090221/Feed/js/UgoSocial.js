@@ -29,7 +29,7 @@ UgoSocial.showComment = function() {
    }
 }
 UgoSocial.init = function() {
-    $('event_trigger').click(us.showComment);
+    $('event_trigger').click(UgoSocial.showComment);
 }
 $(UgoSocial.init);
 
