@@ -23,12 +23,12 @@
         function onLoadFriends(data) {
           var viewer = data.get('viewer').getData();
           var viewerFriends = data.get('viewerFriends').getData();
-		
+	    fetchMyAlbums();
+
           //html = new Array();
           //html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
-//	    fetchAlbums('13156385167433892927');
 
 	    fetchAlbums(person.getId());
               //html.push('<li>', person.getDisplayName(), '</li>');
@@ -44,7 +44,22 @@
         }
 
 
+ function fetchMyAlbums(userId) {
+  // Viewer
 
+  var idspec_params = {};
+  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
+var idSpec = opensocial.newIdSpec({'userId':'OWNER', 'groupId':'SELF'});
+//  var idSpec = opensocial.newIdSpec(idspec_params);
+  
+  var opt_params = { };
+  opt_params['albumId'] = [];
+  var req = opensocial.newDataRequest();
+  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
+
+  req.send(processAlbums);
+
+};
 
 
 
