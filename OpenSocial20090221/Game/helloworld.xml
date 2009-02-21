@@ -23,7 +23,7 @@ function request2() {
 function response2(data) {
 	alert(2);
 	var viewer = data.get('viewer').getData();
-	var viewerFriends = data.get('viewerFriends').getData();
+	var ownerFriends = data.get('ownerFriends').getData();
 
 	viewerFriends.each(function(person) {
 				for(i in person) {
