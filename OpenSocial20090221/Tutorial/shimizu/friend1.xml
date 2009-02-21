@@ -35,7 +35,7 @@
         // Callback function, executed when orkut finishes fetching the viewer's
         // public albums
         function fetchAlbumsHandler(resp) {
-          var viewerAlbumsResp = resp.get('viewerAlbums').getData();
+          var viewerAlbumsResp = resp.get('viewerAlbums');
 
           if (!viewerAlbumsResp.hadError()) {
             var viewerAlbums = viewerAlbumsResp.getData();
