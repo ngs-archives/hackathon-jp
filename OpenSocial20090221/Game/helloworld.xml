@@ -50,6 +50,7 @@ function response(data) {
 }
 
 function startGame(id) {
+	alert(id);
 	alert(list[id]);
 }
 
