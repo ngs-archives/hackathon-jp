@@ -9,8 +9,16 @@
         gadgets.util.registerOnLoadHandler(init);
 function init() {
 	alert(0);
+	loadFriends();
 }
-
+		
+function loadFriends() {
+	alert(2);
+	var req = opensocial.newDataRequest();
+	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+	req.send(onLoadFriends);
+}
 	  </script>
 	  
 	  TEST2
