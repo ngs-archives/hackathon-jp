@@ -23,14 +23,12 @@ var UgoSocial = {};
 UgoSocial.showComment = function() {
    for ( var p in displayData.comments ) {
        var data = displayData.comments[p];
-       setTimeout(function(){
-           $('#comment_area').append('<p>' + data.comment + '</p>');
-        },data.time);
+       var func ="function(){$('#comment_area').append('<p>'" + data.comment + "'</p>');}";
+       setTimeout(eval(func),data.time);
    }
 }
 UgoSocial.init = function() {
     $('#event_trigger').click(UgoSocial.showComment);
 }
 gadgets.util.registerOnLoadHandler(UgoSocial.init);
-//$(UgoSocial.init);
 
