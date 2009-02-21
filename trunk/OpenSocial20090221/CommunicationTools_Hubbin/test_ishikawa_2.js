@@ -13,22 +13,17 @@ function getFriends() {
 	var params = {};
 
 	// ソート順序の指定: NAME
-	params[opensocial.DataRequest.PeopleRequestFields.SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
+	//params[opensocial.DataRequest.PeopleRequestFields.SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
 
 	//項目の追加
-	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
-		opensocial.Person.Field.AGE,
-		opensocial.Person.Field.DATE_OF_BIRTH,
-		opensocial.Person.Field.GENDER,
-		opensocial.Person.Field.CURRENT_LOCATION
-	];
+	//params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+	//	opensocial.Person.Field.AGE,
+	//	opensocial.Person.Field.DATE_OF_BIRTH,
+	//	opensocial.Person.Field.GENDER,
+	//	opensocial.Person.Field.CURRENT_LOCATION
+	//];
 
 	var req = opensocial.newDataRequest();
-
-	//req.add(req.newFetchPersonRequest('VIEWER',         searchOpt), 'viewer');
-	//req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', searchOpt), 'viewerFriends');
-	//req.add(req.newFetchPersonRequest('OWNER',          searchOpt), 'owner');
-	//req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  searchOpt), 'ownerFriends');
 
 	req.add(req.newFetchPersonRequest('VIEWER',         params), 'viewer');
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', params), 'viewerFriends');
