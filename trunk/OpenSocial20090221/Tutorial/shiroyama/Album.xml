@@ -25,7 +25,7 @@
         // Fetches all of the viewer's albums that are publicly viewable (i.e.
         // "shared with everyone"
         function fetchAlbums() {
-        alert("in fetchAlbums");
+
           var req = opensocial.newDataRequest();
           var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
 
@@ -36,7 +36,7 @@
         // Callback function, executed when orkut finishes fetching the viewer's
         // public albums
         function fetchAlbumsHandler(resp) {
-        alert("in call back function 01");
+
           var viewerAlbumsResp = resp.get('viewerAlbums');
 
           if (!viewerAlbumsResp.hadError()) {
@@ -44,7 +44,7 @@
 
             // Add a table row for each album
             viewerAlbums.each(
-            alert("in add table row");
+
               function(album) {
                 createAlbumRow(album);
               }
