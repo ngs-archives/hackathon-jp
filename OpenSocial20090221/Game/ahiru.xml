@@ -94,7 +94,7 @@
       var i = 0;
       global_viewerFriends.each(function(e) {
         if (e.getId()) {
-          if (i == index) {
+          if (i == parseInt(index)) {
             person = e;
             return;
           }
