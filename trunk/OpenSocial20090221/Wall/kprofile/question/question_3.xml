@@ -1,0 +1,11 @@
+<faq>           
+    <id>3</id>
+    <type>select</type>          
+    <answer>%s</answer>
+    <form-data><![CDATA[
+<input type="radio" name="answer" />年齢より若く見える<br />
+<input type="radio" name="answer" />年齢より老けて見える<br />
+<input type="radio" name="answer" />年相応<br />
+    ]]>           
+    </form-data>           
+</faq>          
