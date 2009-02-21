@@ -33,9 +33,13 @@
       req.send(onLoadFriends);
     }
 
+    var global_viewer;
+    var global_viewerFriends;
     function onLoadFriends(data){
-      var viewer = data.get('viewer').getData();
-      var viewerFriends = data.get('friends').getData();
+      global_viewer = data.get('viewer').getData();
+      global_viewerFriends = data.get('friends').getData();
+      var viewer = global_viewer;
+      var viewerFriends = global_viewerFriends;
 
       html = new Array();
       html.push('<ul>');
@@ -48,28 +52,34 @@
       });
       html.push('</ul>');
 
+      var i = 0;
       html.push('<table cellpadding="5"><tr>');
       viewerFriends.each(function(person) {
+        /*
         var param = viewer.getDisplayName() + "," +
           viewer.getId() + ",test" +
           person.getDisplayName() + ',' +
           person.getId() + ",test";
+        */
         var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
         html.push(
-          '<td>' + '<a href="#" onClick="startGame(\'' + param + '\');">' +
+          '<td>' + '<a href="#" onClick="startGame(\'' + (i++) + '\');">' +
           '<img src="' + thumb + '">' + '</a></td>');
       });
 
       html.push('</tr><tr>');
 
+      var i = 0;
       viewerFriends.each(function(person) {
+        /*
         var param = viewer.getDisplayName() + "," +
           viewer.getId() + ",test" +
           person.getDisplayName() + ',' +
           person.getId() + ",test";
+        */
         var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
         html.push(
-          '<td>' + '<a href="#" onClick="startGame(\'' + param + '\');">' +
+          '<td>' + '<a href="#" onClick="startGame(\'' + (i++) + '\');">' +
           person.getDisplayName() + '</a></td>');
       });
 
@@ -79,7 +89,8 @@
 
     }
 
-    var startGame = function(params) { // FIXME: use params
+    var startGame = function(index) {
+      alert(global_viewer[index]);
       var swf_params_hash = {
         'name0': 'dummy name 0',
         'name1': 'dummy name 1',
