@@ -27,23 +27,33 @@ function response(data) {
   //var name = viewer.getDisplayName();
   //var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
   
+  
+  
+  param = "";
+  viewerFriends.each(function(person) {
+  });
+    
   var viewerFriends = data.get('viewerFriends').getData();
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#"' + '<img src="' + thumb + '">' + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="loadJvascript(' + param + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
   
   html.push('</tr><tr>');
   
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#">' + person.getDisplayName() + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="loadJvascript(' + param + ');">' + person.getDisplayName() + '</a></td>');
   });
   
   html.push('</tr></table>');
   document.getElementById('friends').innerHTML = html.join('');
+}
+
+function loadJvascript() {
+
 }
 
 	  </script>
