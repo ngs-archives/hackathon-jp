@@ -131,8 +131,8 @@ function sendTextToAFriend() {
     //sendText[personId] = cap_data;
     //sendText[personId]["cap"] = cappingText;
     sendText[personId] = cappingText;
-    number[personId] = 1;
-    flg[personId] = 1;
+    //number[personId] = 1;
+    //flg[personId] = 1;
     //sendText[personId]["flg"] = 1;
     var json = gadgets.json.stringify(sendText);
     //var json_number = gadgets.json.stringify(number);
@@ -140,8 +140,6 @@ function sendTextToAFriend() {
 
     var req = opensocial.newDataRequest();
     req.add(req.newUpdatePersonAppDataRequest("VIEWER", "cap", json));
-    //req.add(req.newUpdatePersonAppDataRequest("VIEWER", "cap_number", json_number));
-    //req.add(req.newUpdatePersonAppDataRequest("VIEWER", "cap_flg", json_flg));
     req.add(req.newFetchPersonRequest("VIEWER"), "viewer");
     req.add(req.newFetchPeopleRequest("VIEWER_FRIENDS"), "viewer_friends");
     req.add(req.newFetchPersonAppDataRequest("VIEWER", "cap"), "viewer_cap");
