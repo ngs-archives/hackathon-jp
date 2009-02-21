@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs title="友達情報取得アプリ">
-    <Require feature="opensocial-0.8" />
+    <Require feature="opensocial-0.9" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
@@ -33,7 +33,7 @@ function processAlbums(data) {
 //}
   var albumz = data.get("album").getData();
    
-   alert(albumz.hadError());
+   alert(albumz);
 
   albumz.each(function(album) {
      html += ':::' + album.getThumbnailUrl();
