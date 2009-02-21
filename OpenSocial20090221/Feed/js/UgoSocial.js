@@ -19,6 +19,11 @@ var displayData = {
     ]
 }
 
+var UgomemoJson = "";
+var MovieNum = "";
+var MovieHatenaSyntax = "";
+var OnloadDate = "";
+
 var UgoSocial = {};
 UgoSocial.setComments = function() {
    for ( var p in displayData.comments ) {
