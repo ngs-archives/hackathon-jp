@@ -43,6 +43,8 @@
 
             viewerAlbums.each(
               function(album) {
+
+		alert("1");
                 createAlbumRow(album);
               }
             );
@@ -54,15 +56,10 @@
 
         function createAlbumRow(album) {
 
-	alert("1");
-
           var row = document.createElement('tr');
           var thumbnailCell = document.createElement('td');
           var descriptionCell = document.createElement('td');
 
-          // Add an image tag to the first cell with the album's thumbnail;
-          // also include an event handler which executes fetchPhotos
-          // when the image is clicked, passing in the album's ID.
           thumbnailCell.innerHTML =
             '<img src="' + album.getThumbnailUrl() +
             '" onclick="fetchPhotos(\'' + album.getId() + '\')"/>';
