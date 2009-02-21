@@ -9,8 +9,8 @@
     gadgets.util.registerOnLoadHandler(init);
 
     function loadFriends() {
-        alert("ƒTƒ“ƒvƒ‹ƒAƒvƒŠ‚ªƒ[ƒh‚³‚ê‚Ü‚µ‚½B")
-        var yesno = confirm("‘±‚¢‚ÄAƒRƒ“ƒeƒi‚ÉƒtƒŒƒ“ƒhƒŠƒXƒgî•ñæ“¾ƒŠƒNƒGƒXƒg‚ğ‘—‚è‚Ü‚·‚©H");
+        alert("ã‚µãƒ³ãƒ—ãƒ«ã‚¢ãƒ—ãƒªãŒãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¾ã—ãŸã€‚")
+        var yesno = confirm("ç¶šã„ã¦ã€ã‚³ãƒ³ãƒ†ãƒŠã«ãƒ•ãƒ¬ãƒ³ãƒ‰ãƒªã‚¹ãƒˆæƒ…å ±å–å¾—ãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’é€ã‚Šã¾ã™ã‹ï¼Ÿ");
         if(yesno){
             var req = opensocial.newDataRequest();
             req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
@@ -18,12 +18,12 @@
                 'viewerFriends');
             req.send(onLoadFriends);
         }else{
-            alert('ƒTƒ“ƒvƒ‹ƒAƒvƒŠI—¹');
+            alert('ã‚µãƒ³ãƒ—ãƒ«ã‚¢ãƒ—ãƒªçµ‚äº†');
         }
     }
 
     function onLoadFriends(data) {
-        alert('ƒRƒ“ƒeƒi‚©‚çƒtƒŒƒ“ƒhƒŠƒXƒgî•ñ‚ª•Ô“š‚³‚ê‚Ü‚µ‚½B');
+        alert('ã‚³ãƒ³ãƒ†ãƒŠã‹ã‚‰ãƒ•ãƒ¬ãƒ³ãƒ‰ãƒªã‚¹ãƒˆæƒ…å ±ãŒè¿”ç­”ã•ã‚Œã¾ã—ãŸã€‚');
         var viewer = data.get('viewer').getData();
         var viewerFriends = data.get('viewerFriends').getData();
 
@@ -42,9 +42,9 @@
 
   </script>
   <div id='main'>
-    ‚ ‚È‚½‚ÌƒtƒŒƒ“ƒh‚Í<div id='friends'></div>
+    ã‚ãªãŸã®ãƒ•ãƒ¬ãƒ³ãƒ‰ã¯<div id='friends'></div>
   </div>
-  ‚Å‚·B
+  ã§ã™ã€‚
 
   ]]>
   </Content>
