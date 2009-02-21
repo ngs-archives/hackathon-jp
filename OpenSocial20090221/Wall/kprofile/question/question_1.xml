@@ -1,0 +1,10 @@
+<faq>           
+    <id>1</id>
+    <type>text</type>          
+    <answer>動物で例えると%sっぽい</answer>          
+    <form-data><![CDATA[        
+        　　<font color="orange">Q. Aさんを動物で例えると何ですか?</font><br />         
+        　　<input type="text" id="answer" value="" />っぽい <br />
+    ]]>           
+    </form-data>           
+</faq>          
