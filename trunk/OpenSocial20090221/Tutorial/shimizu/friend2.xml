@@ -7,9 +7,7 @@
     <![CDATA[
     <script type="text/javascript">
       function init() {
-        var owner = dataResponse.get("owner").getData();
-	alert(owner.getId());
-	exit;
+
         with (opensocial.DataRequest) {
             var req = opensocial.newDataRequest();
             req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
@@ -23,7 +21,7 @@
       function onLoadComplete(dataResponse) {
         var owner = dataResponse.get("owner").getData();
         var owner = dataResponse.get("owner").getData();
-	
+	alert(owner.getId());
 	fetchAlbums(owner.getId());
 	return;
         var ownerFriends = dataResponse.get("ownerFriends").getData();
