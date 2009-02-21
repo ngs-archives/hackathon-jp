@@ -46,7 +46,7 @@
             "</li>");
         }
       });
-      var so = new SWFObject("http://res.nicovideo.jp/swf/rotationad.swf?081027", "swf_container", "100%", "100%");
+      var so = new SWFObject("http://s.ytimg.com/yt/swf/watch-vfl79425.swf", "swf_container", "100%", "100%");
       so.addParam("allowScriptAccess", "always");
       //so.addParam("wmode", "transparent");
       so.write("swf_container");
