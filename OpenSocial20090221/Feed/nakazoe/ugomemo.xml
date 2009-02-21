@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs 
+    title="うごめも動画">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="setprefs" /> 
+    <Require feature="flash" /> 
+    </ModulePrefs>
+  <UserPref 
+    name="counter" 
+    default_value="0" 
+    datatype="hidden"/>
+<Content type="html">
+<![CDATA[
+<style type="text/css">
+
+html, body {
+    height: 100%;
+	margin: 0px;
+	padding: 0px;
+	background:url("./img/body-green.gif");
+
+}
+a img {
+    border-style:none;
+}
+div.movie_num {
+	margin:0px;
+	border:2px solid #9966cc;
+	width:82px;
+	height:24px;
+	background-color:#FFFFFF;
+	text-align:right;
+}
+div.content_div {
+	margin:0px;
+	clear:both;
+}
+
+</style>
+<div style="float:left;">
+	<a href="#"><img src="./img/pager_prev.gif" onClick="viewJson('prev');"></a>
+</div>
+<div class="movie_num" id="movie_num" style="float:left;">
+</div>
+<div style="float:left;">
+	<a href="#"><img src="./img/pager_next.gif" onClick="viewJson('next');"></a>
+</div>
+<div style="clear:both;"></div>
+<div id="content_div"></div>
+<div id="hatena"></div>
+<div id="on_load_date"></div>
+
+<script type="text/javascript">
+<!--
+
+UgomemoJson = "";
+MovieNum = "";
+MovieHatenaSyntax = "";
+OnloadDate = "";
+
+//JSON
+function getJson(){
+	var params = {};
+	var url = "http://ugomemo.hatena.ne.jp/ranking/daily/movie.json?mode=total";
+
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+	gadgets.io.makeRequest(url, jsonResponse, params);
+};
+//Callback
+function jsonResponse(obj) {
+	UgomemoJson = obj.data;
+	MovieNum = 0;
+	var ImgSrc = UgomemoJson.items[0]["movie_animation_gif_path"];
+	MovieHatenaSyntax = UgomemoJson.items[0]["movie_hatena_syntax"];
+
+	var now = new Date();
+	OnloadDate  = +now.getTime();
+
+	document.getElementById("on_load_date").innerHTML = OnloadDate;
+	document.getElementById("content_div").innerHTML = '<img src="'+ImgSrc+'">';
+	document.getElementById("hatena").innerHTML = MovieHatenaSyntax;
+	document.getElementById("movie_num").innerHTML = MovieNum+1+"/"+UgomemoJson.items.length;
+};
+
+//Movie送り
+function viewJson(vector){
+
+	if(vector == "next"){
+		MovieNum++;
+		if(UgomemoJson.items.length-1 < MovieNum){
+			MovieNum = 0;
+		}
+	}else if(vector == "prev"){
+		MovieNum--;
+		if(MovieNum < 0){
+			MovieNum = UgomemoJson.items.length-1;
+		}
+	}else{
+		MovieNum = 0;
+	}
+	
+	
+	
+	var ImgSrc = UgomemoJson.items[MovieNum]["movie_animation_gif_path"];
+	MovieHatenaSyntax = UgomemoJson.items[MovieNum]["movie_hatena_syntax"];
+	
+	var now = new Date();
+	OnloadDate  = +now.getTime();
+
+	document.getElementById("on_load_date").innerHTML = OnloadDate;
+	document.getElementById("content_div").innerHTML = '<img src="'+ImgSrc+'">';
+	document.getElementById("hatena").innerHTML = MovieHatenaSyntax;
+	document.getElementById("movie_num").innerHTML = MovieNum+1+"/"+UgomemoJson.items.length;
+
+}
+
+
+
+//onLoad
+gadgets.util.registerOnLoadHandler(getJson);
+
+-->
+</script>
+
+
+]]> 
+	</Content>
+</Module>
