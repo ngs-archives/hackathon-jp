@@ -9,7 +9,7 @@ function loadFriends() {
 function onLoadFriends(data) {
   var viewer = data.get('viewer').getData();
   var viewerFriends = data.get('viewerFriends').getData();
-  var viewerFace = data.get('THUMBNAIL_URL').getData();
+  var viewerFace = data.get('viewerFace').getData();
   
   html = new Array();
   html.push('<ul>');
