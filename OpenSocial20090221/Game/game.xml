@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Hello World!">
+  <ModulePrefs title="Hello World!" description="aaa" thumbnail="" screenshot="">
     <Require feature="opensocial-0.7" />
   </ModulePrefs>
   <Content type="html">
