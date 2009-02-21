@@ -40,15 +40,15 @@ function onLoadFriends(data) {
 }
 
 function buildPersonHtml(person) {
-	html.push('<div class="person">');
-	html.push('<h3>' + person.getDisplayName() + '</h3>');
-	html.push('<div>');
-	html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL    ) + '" align="left" />');
-	html.push('<ul>');
+	_peopleArea_html.push('<div class="person">');
+	_peopleArea_html.push('<h3>' + person.getDisplayName() + '</h3>');
+	_peopleArea_html.push('<div>');
+	_peopleArea_html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL    ) + '" align="left" />');
+	_peopleArea_html.push('<ul>');
 	for (var x in _targetFields) {
-		html.push('<li>'   + person.getField(x) + '</li>');
+		_peopleArea_html.push('<li>'   + person.getField(x) + '</li>');
 	}
-	html.push('</ul>');
-	html.push('<br clear="all" />');
-	html.push('</div>');
+	_peopleArea_html.push('</ul>');
+	_peopleArea_html.push('<br clear="all" />');
+	_peopleArea_html.push('</div>');
 }
