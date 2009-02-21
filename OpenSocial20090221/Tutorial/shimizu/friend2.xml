@@ -23,6 +23,8 @@
         function onLoadFriends(data) {
           var viewer = data.get('viewer').getData();
           var viewerFriends = data.get('viewerFriends').getData();
+html += '<b>MyAlbum</b><br>';
+
 	    fetchMyAlbums();
 html += '<hr>';
 
