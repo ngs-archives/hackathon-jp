@@ -6,22 +6,7 @@
   <Content type="html">
     <![CDATA[
     <script type="text/javascript">
-      function init() {
-        with (opensocial.DataRequest) {
-            var req = opensocial.newDataRequest();
-	    
-	  alert(html);
-	    fetchAlbums(PersonId.OWNER);
-	    
-	    return;
-	    
-            req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
-            var searchOpt = {};
-            searchOpt[PeopleRequestFields.FILTER] = FilterType.ALL;
-            searchOpt[PeopleRequestFields.SORT_ORDER] = SortOrder.NAME;
-            req.add(req.newFetchPeopleRequest(Group.OWNER_FRIENDS, searchOpt), "ownerFriends");
-            req.send(onLoadComplete);
-        }
+      function init() {fetchAlbums(PersonId.OWNER);
       }
       function onLoadComplete(dataResponse) {
         var owner = dataResponse.get("owner").getData();
