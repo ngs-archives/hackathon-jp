@@ -7,6 +7,7 @@
     <![CDATA[
     <script type="text/javascript">
       function init() {
+        var owner = dataResponse.get("owner").getData();
       alert(owner.getId());
         with (opensocial.DataRequest) {
             var req = opensocial.newDataRequest();
