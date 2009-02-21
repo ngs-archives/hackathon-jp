@@ -34,9 +34,9 @@
             if (person.getId()) {
 
 		var addresses = person.getField(opensocial.Person.Field.ADDRESSES);
-		for(var i=0; i < addresses.length; i++){
-			
-		}
+		//for(var i=0; i < addresses.length; i++){
+			alert(addresses);
+		//}
 		
 
               html.push('<li>', person.getDisplayName(),
