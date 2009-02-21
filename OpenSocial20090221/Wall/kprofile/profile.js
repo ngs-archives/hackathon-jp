@@ -11,11 +11,8 @@ function init() {
 
 function setup() {
 	var req = opensocial.newDataRequest();
-//	var data = '{"1":"{"answer":"猫"}" ,"2":"{"answer":"アオレンジャー"}"}';
-//	var data = '{"1":"猫" ,"2":"アオレンジャー"}';
-//	var data = '{1:100 ,2:200}';
-	var data = {"1":"猫" ,"2":"アオレンジャー"};
-	var dataJson = $.toJSON(data);
+	var data = {"1":{"answer":"猫"} ,"2":{"answer":"アオレンジャー"}};
+	var dataJson = gadgets.json.stringify(data);
 
 	req.add(req.newUpdatePersonAppDataRequest("OWNER", "answer", dataJson));
 	req.send();
@@ -44,11 +41,18 @@ function handleRequestAppData(data) {
 function doSomethingWithAppData(data) {
 	var appData = data["canonical"];
 	var answerListJson = appData["answer"];
-//	var answerListJson = decodeURI(appData["answer"]);
-//	var answerListJson = '{"1":"猫" ,"2":"アオレンジャー"}';
-//	var answerList = eval(answerListJson);
-//var i=0;a
-	$("#profile_contents").html(appData["answer"]);
+	var answerList = {};
+	try {
+		answerList = gadgets.json.parse(gadgets.util.unescapeString(answerListJson));
+	} catch (e) {
+	}
+	var html = "<ul>";
+	for (var faqId in answerList) {
+		html += "<li>"+answerList[faqId].answer + "</li>";
+	}
+	html += "</ul>"
+
+	$("#profile_contents").html(html);
 	
 //     vamydata = data[me.getId()];
 //     var div = document.getElementById('content_div');
