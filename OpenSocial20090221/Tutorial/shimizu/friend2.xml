@@ -24,8 +24,8 @@
           var viewer = data.get('viewer').getData();
           var viewerFriends = data.get('viewerFriends').getData();
 		
-          html = new Array();
-          html.push('<ul>');
+          //html = new Array();
+          //html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
 
@@ -33,9 +33,9 @@
               //html.push('<li>', person.getDisplayName(), '</li>');
             }
           });
-          html.push('</ul>');
+          //html.push('</ul>');
           //document.getElementById('friends').innerHTML = html.join('');
-          gadgets.window.adjustHeight();
+          //gadgets.window.adjustHeight();
         }
 
         function init() {
@@ -75,6 +75,7 @@ function processAlbums(data) {
    
 
   albumz.each(function(album) {
+  alert(album.getThumbnailUrl());
      html += '<img src="' + album.getThumbnailUrl() + '">';
   });
         document.body.innerHTML += html;
