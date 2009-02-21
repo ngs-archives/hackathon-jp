@@ -19,6 +19,7 @@
       var opt_params = {};
       opt_params[opensocial.DataRequest.PeopleRequestFields] = [
         opensocial.Person.Field.AGE,
+        opensocial.Person.Field.DATE_OF_BIRTH,
         opensocial.Person.Field.GENDER,
         opensocial.Person.Field.CURRENT_LOCATION];
       opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
@@ -37,6 +38,7 @@
         if (person.getId()) {
           html.push('<li>' + person.getDisplayName() +
             '/' + person.getField(opensocial.Person.Field.AGE) +
+            '/' + person.getField(opensocial.Person.Field.DATE_OF_BIRTH) +
             '/' + person.getField(opensocial.Person.Field.GENDER) +
             '/' + person.getField(opensocial.Person.Field.CURRENT_LOCATION) +
             "</li>");
