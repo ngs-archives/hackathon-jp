@@ -8,14 +8,15 @@ function init() {
 
 //メイン、リクエスト発行
 function getFriends() {
-	var searchOpt = {};
+	//var searchOpt = {};
 	var req = opensocial.newDataRequest();
 	// ソート順序の指定: NAME
-	searchOpt[SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
+	//searchOpt[SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
 	//req.add(req.newFetchPersonRequest('VIEWER',         searchOpt), 'viewer');
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', searchOpt), 'viewerFriends');
+	//req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', searchOpt), 'viewerFriends');
 	//req.add(req.newFetchPersonRequest('OWNER',          searchOpt), 'owner');
 	//req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  searchOpt), 'ownerFriends');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
 	req.send(onLoadFriends);
 }
 
