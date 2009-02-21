@@ -39,7 +39,7 @@ function response(data) {
   
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + person.getDisplayName() + '</a></td>');
+    html.push('<td>' + '<a href="#"' + person.getDisplayName() + '</a></td>');
   });
   
   html.push('</tr></table>');
