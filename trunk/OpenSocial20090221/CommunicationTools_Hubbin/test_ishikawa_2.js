@@ -30,7 +30,9 @@ function getFriends() {
 	//req.add(req.newFetchPersonRequest('OWNER',          searchOpt), 'owner');
 	//req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  searchOpt), 'ownerFriends');
 
+	req.add(req.newFetchPersonRequest('VIEWER',         params), 'viewer');
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', params), 'viewerFriends');
+	req.add(req.newFetchPersonRequest('OWNER',          params), 'owner');
 	req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  params), 'ownerFriends');
 
 	req.send(onLoadFriends);
@@ -43,9 +45,9 @@ function onLoadFriends(data) {
 		var msg = data.getErrorMessage();
 	}
 
-	//var viewer        = data.get('viewer'       ).getData();
+	var viewer        = data.get('viewer'       ).getData();
 	var viewerFriends = data.get('viewerFriends').getData();
-	//var owner         = data.get('owner'        ).getData();
+	var owner         = data.get('owner'        ).getData();
 	var ownerFriends  = data.get('ownerFriends' ).getData();
 	html = new Array();
 	//とりあえずviewerFriends
