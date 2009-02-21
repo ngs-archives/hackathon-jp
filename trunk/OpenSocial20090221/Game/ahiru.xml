@@ -90,7 +90,7 @@
     }
 
     var startGame = function(index) {
-      alert(global_viewer[index]);
+      alert(global_viewerFriends[index]);
       var swf_params_hash = {
         'name0': 'dummy name 0',
         'name1': 'dummy name 1',
