@@ -65,6 +65,7 @@
         swf_params += e + '=' + swf_params_hash[e].toString().replace(/ /g, '%20') + '&';
       }
       html.push('<table cellpadding="5"><tr>');
+      html.push('<td>dummy column</td></tr><tr>');
       viewerFriends.each(function(person) {
         var param = viewer.getDisplayName() + "," + viewer.getId() + ",test" + person.getDisplayName() + ',' + person.getId() + ",test";
         alert(param);
