@@ -91,6 +91,18 @@
 
     var startGame = function(index) {
       alert(global_viewerFriends[index]);
+      var person;
+      var i = 0;
+      for (var e in global_viewerFriends) {
+        if (i == index) {
+          person = global_viewerFriends[e];
+          break;
+        }
+        i++;
+      }
+      alert(person);
+      alert(person.getDisplayName());
+
       var swf_params_hash = {
         'name0': 'dummy name 0',
         'name1': 'dummy name 1',
