@@ -7,7 +7,6 @@
   <Content type="html" view="profile">
     <![CDATA[
 <script type="text/javascript">
-<!--
 var owner = null;
 var FLASH_ID = "GenerateSound";
 
@@ -317,7 +316,6 @@ var init = function() {
 }
 
 init();
--->
 </script>
 <object id="GenerateSound" allowScriptAccess="always" allowNetworking="all" type="application/x-shockwave-flash" data="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/GenerateSound.swf" width="100%" height="100%">
 <param name="GenerateSound" value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/GenerateSound.swf" />
@@ -325,7 +323,5 @@ init();
 <param name="wmode" value="transparent" />
 </object>
     ]]>
-
-
   </Content>
 </Module>
