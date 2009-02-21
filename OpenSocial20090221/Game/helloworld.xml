@@ -9,7 +9,7 @@
         gadgets.util.registerOnLoadHandler(init);
 
 var list = [];
-var viewer;
+var viewer_id;
 
 function init() {
 	request();
@@ -29,7 +29,8 @@ function response(data) {
   //var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
   var viewerFriends = data.get('viewerFriends').getData();
   
-    
+  viewer_id = viewer.getId();
+  
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
@@ -50,6 +51,7 @@ function response(data) {
 }
 
 function startGame(id) {
+  alert(viewer_id);
   alert(list[parseInt(id)]);
   for(i in list) {
 	alert(i);
