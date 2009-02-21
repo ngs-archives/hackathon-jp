@@ -32,7 +32,7 @@ var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
 function processAlbums(data) {
   var html = "";  
 if (data.hadError()) {
-alert("error");
+alert(data. getErrorMessage());
 }
   var albumz = data.get("albums").getData();
    alert(albumz);
