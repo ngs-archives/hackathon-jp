@@ -24,14 +24,14 @@ function onLoadSave(data) {
 	var viewer = data.get('viewer').getData();
 	var data = data.get('data').getData();
 	number = data[viewer.getId()]['number'];
-
+alert(number);
 	document.getElementById('result').innerHTML = number
 }
 
 	  </script>
 	  
 	  TEST2
-	  <div id="result"></div>
+	  <div id="result">result:</div>
    
    ]]>
   </Content>
