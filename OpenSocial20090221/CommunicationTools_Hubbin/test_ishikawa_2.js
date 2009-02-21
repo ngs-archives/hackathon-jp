@@ -37,6 +37,11 @@ function getFriends() {
 
 //メイン、コールバック関数
 function onLoadFriends(data) {
+
+	if(data.hadError()){
+		var msg = data.getErrorMessage();
+	}
+
 	//var viewer        = data.get('viewer'       ).getData();
 	var viewerFriends = data.get('viewerFriends').getData();
 	//var owner         = data.get('owner'        ).getData();
@@ -77,6 +82,9 @@ function onLoadFriends(data) {
 
 	});
 	html.push('</div>');
+	if(msg !== ''){
+		html.push('<div>' + msg + '</div>');
+	}
 	document.getElementById('peopleArea').innerHTML = html.join('');
 }
 
