@@ -28,8 +28,8 @@
 
           viewerFriends.each(function(person) {
 
-		var addresses = person.getField(opensocial.Person.Field.ADDRESSES);
-		alert(addresses.length);
+		//var addresses = person.getField(opensocial.Person.Field.ADDRESSES);
+		//alert(addresses.length);
 
             if (person.getId()) {
               html.push('<li>', person.getDisplayName(),
