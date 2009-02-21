@@ -31,24 +31,25 @@ function response(data) {
   viewer_id = viewer.getId();
   viewer_name = viewer.getDisplayName();
   
+  id = 0;
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
-	id = person.getId().toString();
 	
-	list[ id ] = "TEST";	
-	alert( id );
-		
+	list[ id ] = 
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + id.toString() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + id + ');">' + '<img src="' + thumb + '">' + '</a></td>');
+	id ++;
   });
   
   html.push('</tr><tr>');
   
+  id = 0;
   viewerFriends.each(function(person) {
 	id = person.getId();
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + id.toString() + ');">' + person.getDisplayName() + '</a>' + id + '</td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + id + ');">' + person.getDisplayName() + '</a>' + id + '</td>');
+	id++;
   });
   
   html.push('</tr></table>');
