@@ -155,7 +155,7 @@
 	<param name="movie" value="main.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />	<embed src="main.swf' + swf_params + '" quality="high" bgcolor="#ffffff" width="640" height="480" name="main" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
 	</object>';
       document.getElementById('swf_container').innerHTML = aaa;
-      /*
+      */
 
     };
     </script>
