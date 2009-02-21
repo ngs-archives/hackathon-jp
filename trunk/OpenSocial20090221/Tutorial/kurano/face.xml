@@ -13,8 +13,7 @@ function onLoadFriends(data) {
   html = new Array();
   html.push('<ul>');
   viewerFriends.each(function(person) {
-    html.push('<li>' + person.getDisplayName()  + person.getField() + "</li>");
-
+    html.push('<li>' + person.getField() + "</li>");
   });
 
 
