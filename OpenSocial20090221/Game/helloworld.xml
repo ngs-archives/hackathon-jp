@@ -11,78 +11,30 @@
 var list = [];
 
 function init() {
-	request2();
+	request();
 }
 
-function request2() {
+function request() {
 	alert(1);
 	var req = opensocial.newDataRequest();
-
-  var opt_params = { };
-  opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
-	opensocial.Person.Field.ABOUT_ME
-  ];
-  
 	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', opt_params), 'viewerFriends');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
 	req.send(response2);
 }
 
 
-function response2(data) {
-	alert(2);
+function request(data) {
 	var viewer = data.get('viewer').getData();
 	var viewerFriends = data.get('viewerFriends').getData();
-	alert(3);
 	viewerFriends.each(function(person) {
-		alert(person.getId());
-		var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
-		alert(about_me);
+		person.getDisplayName();
+		for(i in person) {
+			alert(i);
+		}
+		exit;
 	});
 }
 
-
-function request3(id) {
-  alert(4);
-  var req = opensocial.newDataRequest();
-  var opt_params = { };
-  opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
-	opensocial.Person.Field.ABOUT_ME
-  ];
-  req.add(req.newFetchPersonRequest(id, opt_params), "viewer");
-  req.send(response);
-}
-
-function response3(data) {
-  alert(5);
-  var viewer = data.get("viewer").getData();
-  var name = viewer.getDisplayName();
-  var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
-  var html = about_me + ':' + name;
-  document.getElementById('main').innerHTML = html;
-}
-		
-
-
-
-function request() {
-  var req = opensocial.newDataRequest();
-  var opt_params = { };
-  opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
-	opensocial.Person.Field.ABOUT_ME
-  ];
-  req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER, opt_params), "viewer");
-  req.send(response);
-}
-
-function response(data) {
-  var viewer = data.get("viewer").getData();
-  var name = viewer.getDisplayName();
-  var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
-  var html = about_me + ':' + name;
-  document.getElementById('main').innerHTML = html;
-}
-		
 	  </script>
 	  <div id="main"></div>
    ]]>
