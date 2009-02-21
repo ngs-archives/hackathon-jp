@@ -82,6 +82,7 @@ function onLoadFriends(data) {
 	html = new Array();
 	viewerFriends.each(function(person) {
 //		var age     = person.getField(opensocial.Person.Field.AGE);
+/*
 		var gender  = person.getField(opensocial.Person.Field.GENDER);
 		var gender_str = '';
 		if (gender.getKey() === opensocial.Enum.Gender.MALE) {
@@ -89,6 +90,7 @@ function onLoadFriends(data) {
 		} else if (gender.getKey() === opensocial.Enum.Gender.FEMALE) {
 			gender_str = 'Female';
 		}
+*/
 		var address = person.getField(opensocial.Person.Field.CURRENT_LOCATION);
 		html.push('<div class="person">');
 		html.push('<h3>' + person.getDisplayName() + '</h3>');
@@ -96,7 +98,7 @@ function onLoadFriends(data) {
 		html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL    ) + '" align="left" />');
 		html.push('<ul>');
 //		html.push('<li>年齢: '   + age.toString() + '</li>');
-		html.push('<li>性別: '   + gender_str + '</li>');
+//		html.push('<li>性別: '   + gender_str + '</li>');
 //		html.push('<li>所在地: ' + person.getField(opensocial.Person.Field.CURRENT_LOCATION ) + '</li>');
 		html.push('</ul>');
 		html.push('<br clear="all" />');
