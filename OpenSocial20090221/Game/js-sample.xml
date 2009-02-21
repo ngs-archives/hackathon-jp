@@ -19,6 +19,7 @@
       var opt_params = {};
       opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
         opensocial.Person.Field.AGE,
+        opensocial.Person.Field.THUMBNAIL_URL,
         opensocial.Person.Field.ABOUT_ME,
         opensocial.Person.Field.STATUS,
         opensocial.Person.Field.DATE_OF_BIRTH,
@@ -39,6 +40,7 @@
       viewerFriends.each(function(person) {
         if (person.getId()) {
           html.push('<li>' + person.getDisplayName() +
+            '/' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) +
             '/' + person.getField(opensocial.Person.Field.AGE) +
             '/' + person.getField(opensocial.Person.Field.ABOUT_ME) +
             '/' + person.getField(opensocial.Person.Field.STATUS) +
