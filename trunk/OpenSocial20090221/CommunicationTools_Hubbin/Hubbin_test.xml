@@ -8,6 +8,7 @@
 
 // http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/Hubbin_test.xml
 
+/*
 function printFriendsSpec(specs) {
 	var html = [];
 	for (skey in specs) {
@@ -20,6 +21,7 @@ function printFriendsSpec(specs) {
 	}
 	document.getElementById('ownerArea').innerHTML = html.join('');
 }
+*/
 
 function printOwnerSpec(spec) {
 	var html = [];
@@ -41,9 +43,10 @@ function analyzePerson(person) {
 
 function onLoadFriends(data) {
 	var owner   = data.get('owner').getData();
-	var friends = data.get('viewerFriends').getData().asArray();
+//	var friends = data.get('viewerFriends').getData().asArray();
 	var ownerSpec = analyzePerson(owner);
 	printOwnerSpec(ownerSpec);
+/*
 	var friendsSpec = [];
 	for (fkey in friends) {
 		friend = friends[fkey];
@@ -51,12 +54,13 @@ function onLoadFriends(data) {
 		friendsSpec.push(friendSpec);
 	}
 	printFriendsSpec(ownerSpec);
+*/
 }
 
 function loadFriends() {
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPeopleRequest('OWNER'),          'owner');
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+//	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
 	req.send(onLoadFriends);
 }
 
