@@ -124,7 +124,7 @@ function sendTextToAFriend() {
     alert(personId);
 
     var sendText = {};
-    var cap_data = new Array();
+    var cap_data = {};
     cap_data["cap"] = cappingText;
     cap_data["number"] = 1;
     cap_data["flg"] = 1;
