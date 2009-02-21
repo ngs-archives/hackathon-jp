@@ -23,7 +23,7 @@ var UgoSocial = {};
 UgoSocial.showComment = function() {
    for ( var p in displayData.comments ) {
        var data = displayData.comments[p];
-       var func ="function(){$('#comment_area').append('<p>'" + data.comment + "'</p>');}";
+       var func ="function(){$('#comment_area').append('<p>" + data.comment + "</p>');}";
        setTimeout(eval(func),data.time);
    }
 }
