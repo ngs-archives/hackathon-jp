@@ -6,6 +6,8 @@
 <Content type="html"><![CDATA[
 <script>
 
+// http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/Hubbin_test.xml
+
 function printFriendsSpec(specs) {
 	var html = [];
 	for (skey in specs) {
