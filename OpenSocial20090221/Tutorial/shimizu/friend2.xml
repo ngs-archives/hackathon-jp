@@ -21,7 +21,6 @@
 	function onLoadFriends(data) {
 		var viewer = data.get('viewer').getData();
 		var viewerFriends = data.get('viewerFriends').getData();
-		html += '<b>MyAlbum</b><br>';
 
 
 		//html = new Array();
@@ -39,7 +38,8 @@
 		//document.getElementById('friends').innerHTML = html.join('');
 		//gadgets.window.adjustHeight();
 	
-	
+		html += '<b><font color="red">MyAlbum</font></b><br>';
+
 		fetchMyAlbums();
 		html += '<hr>';
 	}
