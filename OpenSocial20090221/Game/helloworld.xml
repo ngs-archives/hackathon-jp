@@ -36,7 +36,8 @@ function response2(data) {
 	alert(3);
 	viewerFriends.each(function(person) {
 		alert(person.getId());
-		request3(person.getId());
+		var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
+		alert(about_me);
 	});
 }
 
