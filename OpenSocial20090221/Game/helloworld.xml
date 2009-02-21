@@ -36,7 +36,7 @@ function response(data) {
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
 	
-	list[ id ] = 
+	list[ id ] = person.getDisplayName();
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + '<a href="#" onClick="startGame(' + id + ');">' + '<img src="' + thumb + '">' + '</a></td>');
 	id ++;
