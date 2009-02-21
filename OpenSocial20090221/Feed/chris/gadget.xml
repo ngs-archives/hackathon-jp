@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="ugomemo-chris" author_email="chris4403@gmail.com">
+    <Require feature="opensocial-0.8" />
+  </ModulePrefs>
+  <Content type="html" view="canvas"><![CDATA[
+
+    Hello!
+
+  ]]></Content>
+</Module>
