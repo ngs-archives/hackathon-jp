@@ -16,7 +16,7 @@ function init() {
 function saveResult( number ) {
 	var req = opensocial.newDataRequest();
 	req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.VIEWER, 'number', number));
-	req.add(req.newFetchPersonAppDataRequest('VIEWER', 'number'), 'number');
+	req.add(req.newFetchPersonAppDataRequest('VIEWER', 'number'), 'data');
 	req.send(onLoadSave);
 	alert(2);
 }
