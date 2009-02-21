@@ -120,6 +120,7 @@ function updateReceivedList(data) {
  *
  */
 function sendTextToAFriend() {
+    var ts = new Date().getTime();
     var cappingText = $("#capping").val();
     var personId = $("#person").val();
     alert(personId);
@@ -129,7 +130,8 @@ function sendTextToAFriend() {
     cap_data["cap"] = cappingText;
     cap_data["number"] = 1;
     cap_data["flg"] = 1;
-    sendText[personId] = cap_data;
+    //sendText[personId] = cap_data;
+    sendText[ts] = cap_data;
     //sendText[personId]["cap"] = cappingText;
     alert(cappingText);
     //sendText[personId] = cappingText;
