@@ -81,12 +81,9 @@
 	function processAlbums(data, pname) {
 		var albumz = data.get("album").getData();
 		albumz.each(function(album) {
-		html += '<hr>';
-		html += '<b>' + pname + '</b><br>';
-		albumz.each(function(album) {
-			html += '<img src="' + album.getThumbnailUrl() + '"><br>
+		html += pname + "<br>";
+		html += '<img src="' + album.getThumbnailUrl() + '">';
 		});
-		html += '<hr>';
 
 		document.body.innerHTML += html;
 	};
