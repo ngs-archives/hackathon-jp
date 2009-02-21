@@ -1,17 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="ugomemo-someda" author_email="someda@isenshi.com">
-    <Require feature="opensocial-0.8" />
-  </ModulePrefs>
-  <Content type="html" view="canvas"><![CDATA[
+	<ModulePrefs title="ugomemo-someda" author_email="someda@isenshi.com">
+		<Require feature="opensocial-0.8" />
+	</ModulePrefs>
+	<Content type="html" view="canvas"><![CDATA[
 
 <script type="text/javascript" src="http://localhost:8080/ugomemo/canvas.js"></script>
+<script type="text/javascript" src="http://localhost:8080/ugomemo/js/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="http://localhost:8080/ugomemo/js/comment.js"></script>
 
 <script type="text/javascript">
-gadgets.util.registerOnLoadHandler(init);
+
+var displayObject = {
+  current_memo : "ugomemo:0B9A8A20AA3196BD:3196BD_0894DE03C4D7C_001",
+  display_time : (new Date()).getTime()
+};
+
+var initwrap = function(){
+  init();
+  if(displayObject.current_memo){
+    show();
+  }
+}
+
+gadgets.util.registerOnLoadHandler(initwrap);
+
+var register = function(){
+  var comment = $("#comment_form :input[name='comment']").val();  
+  Ugomemo.util.register(displayObject.current_memo, displayObject.display_time, comment, function(data){
+    show();
+  });
+}
+
+var show = function(){
+  Ugomemo.util.show(displayObject.current_memo, function(data){
+    
+    var friends = data.get("comment_list").getData();
+    var viewer = data.get("viewer").getData();
+    var array = new Array();
+    
+    if(friends){
+	    for(var id in friends){
+		    var commentObj = friends[id];		    
+		    array.push(commentObj);		    
+	    }
+    }
+    
+    var selfd = data.get("viewer_list").getData();    
+    for(var id in selfd){
+      var commentObj = selfd[id];
+      array.push(commentObj);
+    }
+    
+    $("#comments").empty();
+    for(var i=0;i<array.length;i++){
+      $("#comments").append(array[i].comment);
+    }
+    
+  });  
+}
 </script>
 
+<form id="comment_form">
+<input name="comment" type="text"/>
+<input type="button" value="コメント登録" onclick="register();"/>
+</form>
+
+<div id="comments"></div>
 <div id="input_result" style="position:relative;"></div>
+
 
   ]]></Content>
 </Module>
