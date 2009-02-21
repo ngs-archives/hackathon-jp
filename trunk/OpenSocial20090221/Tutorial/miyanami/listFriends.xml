@@ -27,7 +27,7 @@
           html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
-              html.push('<li>', person.getDisplayName(),person.getField(opensocial.Person.Field.THUMBNAIL_URL) ,'</li>');
+              html.push('<li>', person.getDisplayName(),'<img src=',person.getField(opensocial.Person.Field.THUMBNAIL_URL) ,'></li>');
             }
           });
           html.push('</ul>');
