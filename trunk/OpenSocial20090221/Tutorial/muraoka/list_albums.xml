@@ -31,7 +31,7 @@
 					alert("Debug Start");
 					
 					//--debug
-					alert(idspec);
+					alert(idspec.toSource());
 					
           req.add(req.newFetchAlbumsRequest(idspec), 'viewerAlbums');
           req.send(fetchAlbumsHandler);
