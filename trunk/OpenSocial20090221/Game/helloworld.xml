@@ -9,34 +9,30 @@
         gadgets.util.registerOnLoadHandler(init);
 
 function init() {
-	alert(1);
 	saveResult(1);
 }
 
-function saveResult( number ) {
+function resetResult( number ) {
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
 	req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.VIEWER, 'number', number));
 	req.add(req.newFetchPersonAppDataRequest('VIEWER', 'number'), 'data');
 	req.send(onLoadSave);
-	alert(2);
 }
 
 function onLoadSave(data) {
 	var viewer = data.get('viewer').getData();
 	var data = data.get('data').getData();
-	alert(3);
-	alert(data);
-	alert(4);
-	alert(data[viewer.getId()]);
-	alert(data[viewer.getId()]['number']);
+	number = data[viewer.getId()]['number'];
+
+	document.getElementById('result').innerHTML = number
 }
 
-function getResult( ) {
-	return number
-}
 	  </script>
-	    TEST2
+	  
+	  TEST2
+	  <div id="result"></div>
+   
    ]]>
   </Content>
 </Module>
