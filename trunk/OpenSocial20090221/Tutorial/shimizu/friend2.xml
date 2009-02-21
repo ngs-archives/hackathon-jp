@@ -73,7 +73,7 @@ function processAlbums(data) {
 //}
   var albumz = data.get("album").getData();
    
-
+alert("a");
   albumz.each(function(album) {
   alert(album.getThumbnailUrl());
      html += '<img src="' + album.getThumbnailUrl() + '">';
