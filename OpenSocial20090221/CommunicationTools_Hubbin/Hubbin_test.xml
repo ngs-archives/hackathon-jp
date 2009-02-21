@@ -39,7 +39,7 @@ function analyzePerson(person) {
 	return data;
 }
 
-function onLoadFriends() {
+function onLoadFriends(data) {
 	var owner   = data.get('owner').getData();
 	var friends = data.get('viewerFriends').getData().asArray();
 	var ownerSpec = analyzePerson(owner);
