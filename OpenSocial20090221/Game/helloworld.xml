@@ -10,7 +10,7 @@
 
 function init() {
 	alert(1);
-	saveResutl(1);
+	saveResult(1);
 }
 
 function saveResult( number ) {
