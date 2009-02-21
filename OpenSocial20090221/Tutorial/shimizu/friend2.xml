@@ -1,51 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Sample App">
+  <ModulePrefs title="友達情報取得アプリ">
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
   <Content type="html">
-  <![CDATA[
-  <script>
-    gadgets.util.registerOnLoadHandler(init);
-
-    function loadFriends() {
-        alert("サンプルアプリがロードされました。")
-        var yesno = confirm("続いて、コンテナにフレンドリスト情報取得リクエストを送りますか？");
-        if(yesno){
+    <![CDATA[
+    <script type="text/javascript">
+      function init() {
+        with (opensocial.DataRequest) {
             var req = opensocial.newDataRequest();
-            req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-            req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'),
-                'viewerFriends');
-            req.send(onLoadFriends);
-        }else{
-            alert('サンプルアプリ終了');
+            req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
+            var searchOpt = {};
+            searchOpt[PeopleRequestFields.FILTER] = FilterType.ALL;
+            searchOpt[PeopleRequestFields.SORT_ORDER] = SortOrder.NAME;
+            req.add(req.newFetchPeopleRequest(Group.OWNER_FRIENDS, searchOpt), "ownerFriends");
+            req.send(onLoadComplete);
         }
-    }
-
-    function onLoadFriends(data) {
-        alert('コンテナからフレンドリスト情報が返答されました。');
-        var viewer = data.get('viewer').getData();
-        var viewerFriends = data.get('viewerFriends').getData();
-
-        html = new Array();
-        html.push('<ul>');
-        viewerFriends.each(function(person) {
-            html.push('<li>' + person.getDisplayName() + "</li>");
+      }
+      function onLoadComplete(dataResponse) {
+        var owner = dataResponse.get("owner").getData();
+        var ownerFriends = dataResponse.get("ownerFriends").getData();
+        var resultHtml = owner.getDisplayName() + "さんのお友達:"
+        resultHtml += "<ul>";
+        ownerFriends.each(function(friend) {
+          resultHtml += ("<li>" + gadgets.util.escapeString(friend.getDisplayName()) + "</li>");
         });
-        html.push('</ul>');
-        document.getElementById('friends').innerHTML = html.join('');
-    }
-
-    function init() {
-        loadFriends();
-    }
-
-  </script>
-  <div id='main'>
-    あなたのフレンドは<div id='friends'></div>
-  </div>
-  です。
-
-  ]]>
+        resultHtml += "</ul>";
+        document.body.innerHTML += resultHtml;
+      }
+      gadgets.util.registerOnLoadHandler(init);
+    </script>
+    ]]>
   </Content>
 </Module>
