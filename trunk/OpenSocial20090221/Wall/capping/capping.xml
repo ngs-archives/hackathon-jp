@@ -102,13 +102,11 @@ function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
 
     html.push("<ul>");
     viewerFriends.each(function(person){
-        alert(person.getId());
-        /*
+        //alert(person.getId());
         var personData = viewer_friends_cap[person.getId()];
         var json = viewer_friends_cap[person.getId()]['cap'];
         var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
         html.push("<li>" + sendText + "</li>");
-        */
     });
     html.push("</ul>");
     $("#receive").html(html.join(""));
