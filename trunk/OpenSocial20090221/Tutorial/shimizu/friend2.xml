@@ -23,7 +23,7 @@ var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
   var opt_params = { };
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
-  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "mediaitems");
+  req.add(req.newFetchAlbumsRequest(idSpec), "albums");
 
   req.send(processAlbums);
 
@@ -31,7 +31,7 @@ var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
  
 function processAlbums(data) {
   var html = "";  
-  var albumz = data.get("mediaitems").getData();
+  var albumz = data.get("albums").getData();
 
    alert(albumz);
 
