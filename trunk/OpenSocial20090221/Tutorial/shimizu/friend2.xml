@@ -22,14 +22,13 @@
           var viewer = data.get('viewer').getData();
           var viewerFriends = data.get('viewerFriends').getData();
 		
-		alert(viewerFriends.getId());
-		return;
-		
           html = new Array();
           html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
-              html.push('<li>', person.getDisplayName(), '</li>');
+	    
+	    fetchAlbums(person.getId());
+              //html.push('<li>', person.getDisplayName(), '</li>');
             }
           });
           html.push('</ul>');
