@@ -9,14 +9,17 @@
 	<form name="escform" action="" method="get">
 		<textarea name="org_str" id="org_str"></textarea>
 	</form>
-<div id="emojica_text">
+		<input type="button" name="escbtn" id="escbtn" value="しりとり" onclick="capping_plus_emoji()" />
+		<input type="button" name="escbtn" id="escbtn" value="クリア" onclick='document.getElementById("capping_phraze").innerHTML=""' />
+
+<hr>
+<div id="capping_phraze">
 </div>
-		<input type="button" name="escbtn" id="escbtn" value="絵文字化" onclick="emojica_by_js()" />
-		<input type="button" name="escbtn" id="escbtn" value="絵文字化クリア" onclick='document.getElementById("emojica_text").innerHTML=""' />
-		<input type="button" name="escbtn" id="escbtn" value="debug_json確認" onclick="run()" />
-		<input type="button" name="escbtn" id="escbtn" value="debugクリア" onclick='document.getElementById("debug_str").innerHTML=""' />
-<div id="debug_str">
+<hr>
+<div id="next_char">
 </div>
+
+
 <div id="info">
 <a href="http://emojica.com/appendixes/json/2" target="_new">json</a>
 <a href="http://start.typepad.jp/typecast/" target="_new">利用している絵文字２</a>
@@ -28,91 +31,59 @@
 	var url = emoji_domain+"/appendixes/json";
 	document.getElementById('org_str').value = Emojica.sample;
 	var img_dir = emoji_domain+Emojica.img_dir;
-//json/1の場合
-//	var img_dir = "	http://emojica.com/img/e_simple/";
-//json/2の場合
-//	var img_dir = "	";
-function emojica() {
-	var params = {};
-	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-	// This URL returns a JSON-encoded string that represents a JavaScript
-	// object
-	gadgets.io.makeRequest(url, response, params);
-};
 
-function response(obj) {
-	var html;
-	var jsondata = obj.data;
+function capping_plus_emoji() {
+	var default_img = emoji_domain + '/img/e_tp/leftright.gif';
+	var image_bracket = '';
+	var default_image_bracket = ''
+	var org_str = document.getElementById('org_str').value;
+	var capping_check = true;
 
-	// var html = "<strong>Values: </strong><br /><br />";
-	// Returned JS object can be processed as an associative array
-	// emojica_str = org_str;
-	emojica_str = document.getElementById('org_str').value;
-	for (var key in jsondata) {
-		for (var word in jsondata[key]) {
-			var item = jsondata[key][word];
-			image_bracket = "<img src=\"" + img_dir + jsondata[key][word]
-					+ "\">";
-			emojica_str = emojica_str.replace(word, image_bracket);
+	for (var i = 0; i < Emojica.dictionary.length; i++) {
+		if (org_str.match(Emojica.dictionary[i].words.word) !== null){
+			image_bracket = "<img src=\"" + img_dir
+				+ Emojica.dictionary[i].pc_files.file_name + "\">";
+			//最初の一つでクリア
+			break;
 		}
 	}
-	// html += "<br />";
-	html += emojica_str;
-	document.getElementById('emojica_text').innerHTML = html;
-};
 
-function emojica_by_js() {
-	var html = '';
-	emojica_str = document.getElementById('org_str').value;
-	for (var i = 0; i < Emojica.dictionary.length; i++) {
-		image_bracket = "<img src=\"" + img_dir
-				+ Emojica.dictionary[i].pc_files.file_name + "\">";
-		emojica_str = emojica_str.replace(Emojica.dictionary[i].words.word,
-				image_bracket);
+	if (image_bracket.length == 0) {
+		image_bracket = "<img src=\"" 
+				+ default_img + "\">";
+
 	}
-	html += emojica_str;
-	document.getElementById('emojica_text').innerHTML = html;
-}
 
-function clear() {
-	delNode('debug_str');
-	delNode('emojica_text');
-}
+	if (typeof( document.getElementById('next_char').value ) == "undefined") {
 
-function delNode(s) {
-	ob = document.getElementById(s);
-	ob.innerHTML = '';
-	ob.value = '';
-	while (ob.hasChildNodes) {
-		ob.removeChild(ob.firstChild);
+	}else{
+		if (document.getElementById('next_char').value != org_str.charAt(0)) {
+			alert('つぎは「' + document.getElementById('next_char').value + '」からです');
+			var capping_check = false;
+		}
 	}
+
+	if (org_str.slice(-1)=='ん' || org_str.slice(-1)=='ン'){
+		alert('「' + org_str + '」あうとー');
+		var capping_check = false;
+	}
+
+	if (capping_check) {
+		CappingPhraze = document.getElementById('capping_phraze');
+	//	CappingPhraze.innerHTML = CappingPhraze.innerHTML + "<div>";
+		CappingPhraze.innerHTML = CappingPhraze.innerHTML + org_str;
+		CappingPhraze.innerHTML = CappingPhraze.innerHTML + " ";
+		CappingPhraze.innerHTML = CappingPhraze.innerHTML + image_bracket;
+		CappingPhraze.innerHTML = CappingPhraze.innerHTML + " ";
+	//	CappingPhraze.innerHTML = CappingPhraze.innerHTML + "</div>";
+
+		next_char = org_str.slice(-1);
+		document.getElementById('org_str').value = next_char;
+		document.getElementById('next_char').value = next_char;
+	}
+
 }
 
-/* JSON受信 */
-function run() {
-	// trace(url + " からJSON受信");
-	var max = 10;
-	
-	trace(Emojica.sample + "=>サンプル文字列");
-	trace("<br />");
-	
-	trace(Emojica.dictionary.length + "件受信(のうち" + max + "まで)");
-	trace("<br />");
-	// 全件やると固まる
-	// for (var i = 0; i < Emojica.dictionary.length; i++) {
-	for (var i = 0; i < max; i++) {
-		trace("word: " + Emojica.dictionary[i].words.word);
-		trace(",");
-		trace("file_name: " + Emojica.dictionary[i].pc_files.file_name);
-		trace("<br />");
-	}
-}
-/* デバッグ用 */
-function trace(str) {
-	// alert(str);
-	debug = document.getElementById('debug_str');
-	debug.innerHTML = debug.innerHTML + str;
-}
 </script>
 
   ]]>
