@@ -32,6 +32,7 @@
 	  html.push('<ul>');
 	  viewerFriends.each(function(person) {
 	    if (person.getId()) {
+	      html.push('<li>' + person.getId() + "</li>");
 	      html.push('<li>' + person.getDisplayName() + "</li>");
 	    }
 	  });
