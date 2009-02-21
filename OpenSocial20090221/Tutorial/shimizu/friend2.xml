@@ -28,8 +28,9 @@
           //html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
+//	    fetchAlbums('13156385167433892927');
 
-	    fetchAlbums('13156385167433892927');
+	    fetchAlbums(person.getId());
               //html.push('<li>', person.getDisplayName(), '</li>');
             }
           });
