@@ -14,6 +14,8 @@
 
     function fetchAlbums(userId) {
   // Viewer
+  alert("send");
+
   var idspec_params = {};
   idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
@@ -24,7 +26,6 @@ var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
   req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "viewerAlbums");
-alert("send");
   req.send(processAlbums);
 
 };
