@@ -26,6 +26,7 @@ function onLoadSave(data) {
 	alert(3);
 	alert(data);
 	alert(4);
+	alert(data[viewer.getId()]);
 	alert(data[viewer.getId()]['number']);
 }
 
