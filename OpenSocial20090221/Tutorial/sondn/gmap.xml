@@ -11,7 +11,6 @@
 	<script type="text/javascript">
 		if (GBrowserIsCompatible()) {
 			var map = new GMap2(document.getElementById("map"));
-			map.addControl(new GMapTypeControl());
 			map.addControl( new GScaleControl() );
 			map.setCenter(new GLatLng(35.0517810710154,135.76509475708008), 12);
 		}
