@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="勝手にプロフィール" author_email="yoshio.hayashi@gmail.com">
+    <Require feature="opensocial-0.8" />
+  </ModulePrefs>
+  <Content type="html" view="canvas"><![CDATA[
+
+<script type="text/javascript" src="http://localhost:8080/kprofile/canvas.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Canvas view is here. -->
+<div>Canvas view for 勝手にプロフィール.</div>
+
+  ]]></Content>
+  <Content type="html" view="profile"><![CDATA[
+
+<script type="text/javascript" src="http://localhost:8080/kprofile/profile.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Profile view is here. -->
+<div>Profile view for 勝手にプロフィール.</div>
+
+  ]]></Content>
+  <Content type="html" view="preview"><![CDATA[
+
+<script type="text/javascript" src="http://localhost:8080/kprofile/preview.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Preview view is here. -->
+<div>Preview view for 勝手にプロフィール.</div>
+
+  ]]></Content>
+  <Content type="html" view="home"><![CDATA[
+
+<script type="text/javascript" src="http://localhost:8080/kprofile/home.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Home view is here. -->
+<div>Home view for 勝手にプロフィール.</div>
+
+  ]]></Content>
+</Module>
