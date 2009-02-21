@@ -90,7 +90,7 @@ UgoSocial.viewJson = function(vector){
 	
 	
 	
-	var ImgSrc = UgomemoJson.items[MovieNum]["movie_animation_gif_path"];
+	var imgSrc = UgomemoJson.items[MovieNum]["movie_animation_gif_path"];
 	MovieHatenaSyntax = UgomemoJson.items[MovieNum]["movie_hatena_syntax"];
 	
 	var now = new Date();
