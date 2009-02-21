@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
   <ModulePrefs title="Load Album List">
-    <Require feature="opensocial-0.7" />
+    <Require feature="opensocial-0.9" />
   </ModulePrefs>
   <Content type="html">
   <![CDATA[
@@ -9,9 +9,9 @@
     gadgets.util.registerOnLoadHandler(init);
 
     function loadFriends() {
-        alert("サンプルアプリがロードされました。")
-        var yesno = confirm("続いて、コンテナにフレンドリスト情報取得リクエストを送りますか？");
-        if(yesno){
+        //alert("サンプルアプリがロードされました。")
+        //var yesno = confirm("続いて、コンテナにフレンドリスト情報取得リクエストを送りますか？");
+        if(1){
             var req = opensocial.newDataRequest();
             req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
             req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'),
@@ -42,29 +42,6 @@
     function init() {
         loadFriends();
     }
-
-function fetchAlbums(userId) {
-  // Viewer
-  var idspec_params = {};
-  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
-  var idSpec = opensocial.newIdSpec(idspec_params);
- 
-  var opt_params = { };
-  opt_params['albumId'] = [];
-  var req = opensocial.newDataRequest();
-  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
-  req.send(processAlbums);
-};
- 
-function processAlbums(data) {
-  var html = "";  
- 
-  var albumz = data.get("albums").getData() || [];
- 
-  albumz.each(function(album) {
-     html += album.getField(opensocial.Album.Field.TITLE) + " ";
-  });
-};
 
 
 
