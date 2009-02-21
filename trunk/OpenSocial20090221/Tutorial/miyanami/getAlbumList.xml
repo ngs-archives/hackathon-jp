@@ -41,10 +41,10 @@
           if (!viewerAlbumsResp.hadError()) {
             var viewerAlbums = viewerAlbumsResp.getData();
 
+		alert("1");
+
             viewerAlbums.each(
               function(album) {
-
-		alert("1");
                 createAlbumRow(album);
               }
             );
