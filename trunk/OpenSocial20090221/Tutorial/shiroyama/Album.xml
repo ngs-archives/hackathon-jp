@@ -35,7 +35,7 @@
         // Callback function, executed when orkut finishes fetching the viewer's
         // public albums
         function fetchAlbumsHandler(resp) {
-        alert("in call back function");
+        alert("in call back function 01");
           var viewerAlbumsResp = resp.get('viewerAlbums');
 
           if (!viewerAlbumsResp.hadError()) {
@@ -43,6 +43,7 @@
 
             // Add a table row for each album
             viewerAlbums.each(
+            alert("in call back function 02");
               function(album) {
                 createAlbumRow(album);
               }
