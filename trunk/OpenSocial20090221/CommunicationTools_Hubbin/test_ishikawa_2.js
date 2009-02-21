@@ -17,6 +17,7 @@ function getFriends() {
 	//req.add(req.newFetchPersonRequest('OWNER',          searchOpt), 'owner');
 	//req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  searchOpt), 'ownerFriends');
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+	req.add(req.newFetchPeopleRequest('OWNER_FRIENDS' ), 'ownerFriends');
 	req.send(onLoadFriends);
 }
 
@@ -25,29 +26,32 @@ function onLoadFriends(data) {
 	//var viewer        = data.get('viewer'       ).getData();
 	var viewerFriends = data.get('viewerFriends').getData();
 	//var owner         = data.get('owner'        ).getData();
-	//var ownerFriends  = data.get('ownerFriends' ).getData();
+	var ownerFriends  = data.get('ownerFriends' ).getData();
 	html = new Array();
 	//とりあえずviewerFriends
 	html.push('<div class="person">');
 	viewerFriends.each(function(person) {
 		html.push('<h3>' + person.getDisplayName() + '</h3>');
-		html.push('<ul>');
-		for (var field in opensocial.Person.Field) {
-			try {
-				var fieldValue = person.getField(opensocial.Person.Field[field]);
-				if(fieldValue !== null) {
-					// field は fieldValue
-					html.push('<li>' + field + ' : ' + fieldValue + '</li>');
-				} else {
-					// field は null
-					html.push('<li>(' + field + 'はnullでした)</li>');
-				}
-			} catch (ex) {
-				//field で例外発生
-				html.push('<li>(' + field + 'で例外発生…)</li>');
-			}
-		}
-		html.push('</ul>');
+		html.push('<div><img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '" /></div>');
+
+//		html.push('<ul>');
+//		for (var field in opensocial.Person.Field) {
+//			try {
+//				var fieldValue = person.getField(opensocial.Person.Field[field]);
+//				if(fieldValue !== null) {
+//					// field は fieldValue
+//					html.push('<li>' + field + ' : ' + fieldValue + '</li>');
+//				} else {
+//					// field は null
+//					html.push('<li>(' + field + 'はnullでした)</li>');
+//				}
+//			} catch (ex) {
+//				//field で例外発生
+//				html.push('<li>(' + field + 'で例外発生…)</li>');
+//			}
+//		}
+//		html.push('</ul>');
+
 	});
 	html.push('</div>');
 	document.getElementById('peopleArea').innerHTML = html.join('');
