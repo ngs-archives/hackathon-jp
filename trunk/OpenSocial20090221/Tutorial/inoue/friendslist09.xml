@@ -7,8 +7,9 @@
     <![CDATA[
       <script type="text/javascript">
         function loadFriends() {
-          var req = opensocial.newDataRequest();
+console.log("a");
           /*
+          var req = opensocial.newDataRequest();
           req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
           
           var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
