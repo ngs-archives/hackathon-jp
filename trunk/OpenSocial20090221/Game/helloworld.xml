@@ -51,7 +51,7 @@ function response(data) {
 }
 
 function startGame(name0, id0, thumb0, name1, id1, thumb1) {
-	alert('test');
+	alert(name0);
 }
 
 	  </script>
