@@ -24,9 +24,14 @@
 
 	  var idSpec = opensocial.newIdSpec(idspec_params);
 	 
+		alert("alb4");
+
 	  var opt_params = { };
 	  opt_params['albumId'] = [];
 	  var req = opensocial.newDataRequest();
+
+		alert("alb5");
+
 	  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
 	  req.send(processAlbums);
 	};
