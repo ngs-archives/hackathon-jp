@@ -65,15 +65,10 @@
         swf_params += e + '=' + swf_params_hash[e].toString().replace(/ /g, '%20') + '&';
       }
       html.push('<pre>' + swf_params + '<pre>'); // for debug
-      var so = new SWFObject("http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params, "swf_container", "100%", "100%");
-      so.addParam("allowScriptAccess", "always");
-      //so.addParam("wmode", "transparent");
-      so.write("swf_container");
-      delete so;
 
       html.push('<table cellpadding="5"><tr>');
       viewerFriends.each(function(person) {
-        param = viewer.getDisplayName() + "," + viewer.getId() + ",test" + person.getDisplayName() + ',' + person.getId() + ",test";
+        var param = viewer.getDisplayName() + "," + viewer.getId() + ",test" + person.getDisplayName() + ',' + person.getId() + ",test";
         alert(param);
         var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
         html.push(
@@ -92,6 +87,13 @@
         html.push('</tr></table>');
         document.getElementById('friends').innerHTML = html.join('');
       }
+
+      var so = new SWFObject("http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params, "swf_container", "100%", "100%");
+      so.addParam("allowScriptAccess", "always");
+      //so.addParam("wmode", "transparent");
+      so.write("swf_container");
+      delete so;
+
     </script>
     <div id='main'>
       Your friends:
