@@ -99,14 +99,12 @@
         }
         i++;
       });
-      alert(person);
-      alert(person.getDisplayName());
 
       var swf_params_hash = {
-        'name0': 'dummy name 0',
-        'name1': 'dummy name 1',
-        'type0': 0,
-        'type1': 1,
+        'name0': global_viewer.getDisplayName(),
+        'name1': person.getDisplayName(),
+        'type0': (global_viewer.getId() % 3),
+        'type1': (person.getId() % 3),
         'speed0': 10,
         'speed1': 20,
         'accele0': 20,
