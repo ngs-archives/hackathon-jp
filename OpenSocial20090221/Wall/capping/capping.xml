@@ -109,7 +109,7 @@ function updateReceivedList(data) {
     //alert(json);
     
     //givenCap = gadets.util.parse(gadets.util.unescapeString(json));
-    alert(givenCap);
+    //alert(givenCap);
 }
 
 /**
