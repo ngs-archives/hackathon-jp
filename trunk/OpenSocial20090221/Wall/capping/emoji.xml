@@ -234,14 +234,14 @@ function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
  */
 function sendTextToAFriend() {
     var cappingText = $("#capping_phraze").val();
-    alert(cappingText);
+    alert("capping_phraze is = " + cappingText);
     var personId = $("#person").val();
 
     var data = {}
     var sendText = {};
     var cap_data = {};
     cap_data["cap"] = cappingText;
-    alert(cap_data["cap"]);
+    alert("capping_ar is =" + cap_data["cap"]);
     cap_data["number"] = 1;
     cap_data["flg"] = 1;
     sendText[personId] = cap_data;
