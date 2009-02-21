@@ -9,7 +9,7 @@ table.theTable {  }
 table.theTable td { vertical-align:top; width:150px; text-align:center; }
 .owner { background-color:#eeeeff; }
 .viewer { background-color:#eeffff; }
-td.longTable { background:url(http://www.artbir.com/img/free_cg_tex.jpg); height:100px; }
+td.longTable { background:url(http://www.unsigneddesign.com/seamless/2895996994_58c0972172_b.jpg); height:100px; }
 </style>
 <h1><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in] Beta" /></h1>
 <h2>Settings</h2>
