@@ -33,7 +33,6 @@ UgoSocial.getAllFriendThumbURL = function(){
     req.add(req.newFetchPeopleRequest(idSpec), "friends");
 	req.send(function(resp) {
 			var viewer = resp.get("viewer").getData();
-            target.html("<img src='"+viewer.getField(opensocial.Person.Field.THUMBNAIL_URL)+"'>").appendTo('body');
 			var viewer_friends = resp.get("friends").getData();
             viewer_friends.each(function(person){
                 ThumbData[person.getId()] = {
