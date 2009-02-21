@@ -81,7 +81,7 @@ function capping_plus_emoji() {
 
 
         returnTag =  org_str + " " + image_bracket + " ";
-        alert(returnTag);//デバッグ
+        //alert(returnTag);//デバッグ
         return returnTag;
 
         document.getElementById('capping_phraze').innerHTML = returnTag;
@@ -244,7 +244,7 @@ function sendTextToAFriend(tmp) {
     var cap_data = {};
     //cap_data["cap"] = cappingText;
     cap_data["cap"] = tmp;
-    alert("capping_ar is =" + cap_data["cap"]);
+    //alert("capping_ar is =" + cap_data["cap"]);
     cap_data["number"] = 1;
     cap_data["flg"] = 1;
     sendText[personId] = cap_data;
@@ -257,7 +257,7 @@ function sendTextToAFriend(tmp) {
     var json = gadgets.json.stringify(sendText);
     //var json_number = gadgets.json.stringify(number);
     //var json_flg = gadgets.json.stringify(flg);
-    alert(json);
+    //alert(json);
 
     var req = opensocial.newDataRequest();
     req.add(req.newUpdatePersonAppDataRequest("VIEWER", "cap", json));
