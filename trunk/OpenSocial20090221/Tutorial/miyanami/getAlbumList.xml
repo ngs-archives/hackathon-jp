@@ -24,7 +24,7 @@
 
 	  var idSpec = opensocial.newIdSpec(idspec_params);
 	 
-		alert("alb4");
+		alert(idSpec);
 
 	  var opt_params = { };
 	  opt_params['albumId'] = [];
