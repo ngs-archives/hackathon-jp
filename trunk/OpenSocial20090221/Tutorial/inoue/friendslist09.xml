@@ -8,7 +8,6 @@
       <script type="text/javascript">
         function loadFriends() {
 console.log("a");
-          /*
           var req = opensocial.newDataRequest();
           req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
           
@@ -16,9 +15,10 @@ console.log("a");
           var opt_params = {};
           opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
           req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
-          */
 
+/*
           req.send(onLoadFriends);
+*/
         }
 
         function onLoadFriends(data) {
