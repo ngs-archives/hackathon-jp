@@ -22,7 +22,7 @@
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
   req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
-
+alert("kita");
   req.send(processAlbums);
 
 };
