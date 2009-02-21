@@ -34,7 +34,7 @@ function processAlbums(data) {
   var albumz = data.get("albums").getData() || [];
  
   albumz.each(function(album) {
-     html += album.getField(opensocial.Album.Field.TITLE) + " ";
+     html += album.getThumbnailUrl();
   });
         document.body.innerHTML += html;
 };
