@@ -46,10 +46,10 @@
             "</li>");
         }
       });
-      var so = new SWFObject("http://res.nicovideo.jp/swf/rotationad.swf?081027", "rotation_anime", "100%", "100%");
+      var so = new SWFObject("http://res.nicovideo.jp/swf/rotationad.swf?081027", "swf_container", "100%", "100%");
       so.addParam("allowScriptAccess", "always");
-      so.addParam("wmode", "transparent");
-      so.write("rotation_anime_container");
+      //so.addParam("wmode", "transparent");
+      so.write("swf_container");
       delete so;
 
       html.push('</ul>');
@@ -60,7 +60,7 @@
       Your friends:
       <div id='friends'></div>
     </div>
-    <div id="rotation_anime_container" style="position:absolute; right:0; top:5px; width:594px; height:60px; z-index:1000;"></div>
+    <div id="swf_container"></div>
 
     ]]>
   </Content>
