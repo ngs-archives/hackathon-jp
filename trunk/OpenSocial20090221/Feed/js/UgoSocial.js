@@ -31,5 +31,6 @@ UgoSocial.showComment = function() {
 UgoSocial.init = function() {
     $('event_trigger').click(UgoSocial.showComment);
 }
-$(UgoSocial.init);
+gadgets.util.registerOnLoadHandler(UgoSocial.init);
+//$(UgoSocial.init);
 
