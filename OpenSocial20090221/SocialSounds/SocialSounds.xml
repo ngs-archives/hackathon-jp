@@ -318,7 +318,7 @@ init();
     ]]>
 
 <object id="GenerateSound" allowScriptAccess="always" allowNetworking="all" type="application/x-shockwave-flash" data="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/GenerateSound.swf" width="100%" height="100%">
-<param name="movie" name="GenerateSound" value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/GenerateSound.swf" />
+<param name="GenerateSound" value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/GenerateSound.swf" />
 <param name="quality" value="high" />
 <param name="wmode" value="transparent" />
 </object>
