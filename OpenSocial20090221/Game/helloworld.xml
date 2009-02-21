@@ -89,11 +89,11 @@
 
     }
 
-    var startGame = function(index) {
+    var startGame = function(j) {
       var person;
       var i = 0;
       global_viewerFriends.each(function(e) {
-        if (i == index) {
+        if (i == j) {
           person = e;
           return;
         }
