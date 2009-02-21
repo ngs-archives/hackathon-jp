@@ -107,7 +107,10 @@ function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
         if(personData) {
             var json = viewer_friends_cap[person.getId()]["cap"];
             var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
-            html.push("<li>" + sendText["cap"] + "</li>");
+
+            for(id in sendText) {
+            html.push("<li>" + sendText[id]["cap"] + "</li>");
+            }
         }
 
     });
