@@ -3,7 +3,7 @@
 	<ModulePrefs title="TestIshikawa1" >
 		<Require feature="opensocial-0.8"/>
 	</ModulePrefs>
-	<Content type="html" view="profile canvas"><![CDATA[
+	<Content type="html" view="profile canvas preview"><![CDATA[
 		<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /> TEST</div>
 	]]></Content>
 	<Content type="html" view="canvas"><![CDATA[
