@@ -23,6 +23,7 @@ function onLoadFriends(data) {
 	var viewerFriends = data.get('viewerFriends').getData();
 	html = new Array();
 	viewerFriends.each(function(person) {
+		var gender = (person.getField(opensocial.Person.Field.GENDER) === opensocial.Enum.Gender.MALE) ? 'Male' : 'Female';
 		html.push('<div class="person">');
 		html.push('<h3>' + person.getDisplayName() + '</h3>');
 		html.push('<div>');
@@ -30,7 +31,7 @@ function onLoadFriends(data) {
 		html.push('<ul>');
 		html.push('<li>年齢: '   + person.getField(opensocial.Person.Field.AGE              ) + '</li>');
 		html.push('<li>誕生日: ' + person.getField(opensocial.Person.Field.DATE_OF_BIRTH    ) + '</li>');
-		html.push('<li>性別: '   + person.getField(opensocial.Person.Field.GENDER           ) + '</li>');
+		html.push('<li>性別: '   + gender + '</li>');
 		html.push('<li>所在地: ' + person.getField(opensocial.Person.Field.CURRENT_LOCATION ) + '</li>');
 		html.push('</ul>');
 		html.push('<br clear="all" />');
