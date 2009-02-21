@@ -31,8 +31,8 @@
 	     html += album.getField(opensocial.Album.Field.TITLE) + " ";
 	  });
 
-	  alert(html);
-	  document.getElementById('main').innerHTML = html.join('');
+	  // alert(html);
+	  document.getElementById('main').innerHTML = html;
 
 	};
 
