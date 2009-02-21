@@ -36,11 +36,7 @@ function onLoadFriends(data) {
 }
 		
 	  </script>
-	  
-	  TEST2
 	  <div id="friends"></div>
-	  <div id="result">result:</div>
-	  <input type="button" value="加点" onClick="resetResult(parseInt(number) + 1)">
    ]]>
   </Content>
 </Module>
