@@ -7,28 +7,30 @@
     <![CDATA[
     <script type="text/javascript">
       function init() {
-        with (opensocial.DataRequest) {
-	alert(PersonId.OWNER);
-            var req = opensocial.newDataRequest();
-            req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
-            var searchOpt = {};
-            searchOpt[PeopleRequestFields.FILTER] = FilterType.ALL;
-            searchOpt[PeopleRequestFields.SORT_ORDER] = SortOrder.NAME;
-            req.add(req.newFetchPeopleRequest(Group.OWNER_FRIENDS, searchOpt), "ownerFriends");
-            req.send(onLoadComplete);
-        }
+fetchAlbums('OWNER');
       }
-      function onLoadComplete(dataResponse) {
-        var owner = dataResponse.get("owner").getData();
-        var ownerFriends = dataResponse.get("ownerFriends").getData();
-        var resultHtml = owner.getDisplayName() + "さんのお友達:"
-        resultHtml += "<ul>";
-        ownerFriends.each(function(friend) {
-          resultHtml += ("<li>" + gadgets.util.escapeString(friend.getDisplayName()) + "</li>");
-        });
-        resultHtml += "</ul>";
-        document.body.innerHTML += resultHtml;
-      }
+function fetchAlbums(userId) {
+  // Viewer
+  var idspec_params = {};
+  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
+  var idSpec = opensocial.newIdSpec(idspec_params);
+ 
+  var opt_params = { };
+  opt_params['albumId'] = [];
+  var req = opensocial.newDataRequest();
+  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
+  req.send(processAlbums);
+};
+ 
+function processAlbums(data) {
+  var html = "";  
+ 
+  var albumz = data.get("albums").getData() || [];
+ 
+  albumz.each(function(album) {
+     html += album.getField(opensocial.Album.Field.TITLE) + " ";
+  });
+};
       gadgets.util.registerOnLoadHandler(init);
     </script>
     ]]>
