@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="ahiru">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+    <script type="text/javascript">
+    gadgets.util.registerOnLoadHandler( function(){
+      loadFriends();
+    });
+
+    function loadFriends(){
+      var req = opensocial.newDataRequest();
+      req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+
+
+      var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+      var opt_params = {};
+      opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [];
+      //opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+      //  opensocial.Person.Field.AGE,
+      //  opensocial.Person.Field.THUMBNAIL_URL,
+      //  opensocial.Person.Field.ABOUT_ME,
+      //  opensocial.Person.Field.STATUS,
+      //  opensocial.Person.Field.DATE_OF_BIRTH,
+      //  opensocial.Person.Field.GENDER,
+      //  opensocial.Person.Field.CURRENT_LOCATION];
+      opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+      req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'friends');
+
+      req.send(onLoadFriends);
+    }
+
+    function onLoadFriends(data){
+      //var viewer = data.get('viewer').getData();
+      var viewerFriends = data.get('friends').getData();
+
+      html = new Array();
+      html.push('<ul>');
+      viewerFriends.each(function(person) {
+        if (person.getId()) {
+          html.push('<li>' + person.getDisplayName() +
+            '#' + person.getId() +
+            "</li>");
+        }
+      });
+      html.push('</ul>');
+      document.getElementById('friends').innerHTML = html.join('');
+    }
+    </script>
+    <div id='main'>
+      Your friends:
+      <div id='friends'></div>
+    </div>
+    ]]>
+  </Content>
+</Module>
