@@ -18,7 +18,7 @@ table.theTable td { vertical-align:top; text-align:center; padding:6px; }
 .viewer { background-color:#eeffff; }
 td.longTable { background:url(http://www.unsigneddesign.com/seamless/2895996994_58c0972172_b.jpg); height:150px; }
 table.theTable img { width:100px; height: 100px; }
-.ctrl { text-align:center; padding:1em; }
+.ctrl { text-align:center; padding:1em 0; }
 .ctrl input { font-size:24px; }
 </style>
 <h1><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in] Beta" /></h1>
