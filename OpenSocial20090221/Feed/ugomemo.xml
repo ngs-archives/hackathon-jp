@@ -25,7 +25,7 @@
   <img src="./img/pager_next.gif" id="next" style="cursor:pointer">
 </div>
 <div style="clear:both;"></div>
-<div id="content_div"></div>
+<div id="content_div" style="width:192px;overflow:hidden;"></div>
 <div id="hatena"></div>
 <div id="on_load_date"></div>
 

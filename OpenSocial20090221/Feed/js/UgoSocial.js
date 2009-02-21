@@ -36,7 +36,9 @@ UgoSocial.showComment = function(comment) {
 //    $('#comment_area').append('<p>' + comment + '</p>');
     var topHeight = (Math.random() * 120) + 'px';
     var speed = 2000 + (Math.random() * 2000);
-    $('<p>' + comment + '</p>').css({position:'relative',left:'200px',top: topHeight }).appendTo('#content_div').animate({left:'-200px'},speed);
+    var colorIndex = parseInt(Math.random() * 3);
+    var color = "red,black,yellow,blue".split(",")[colorIndex];
+    $('<p>' + comment + '</p>').css({margin:'0px',color: color,position:'relative',left:'200px',top: topHeight }).appendTo('#content_div').animate({left:'-200px'},speed);
 }
 UgoSocial.makeImage = function(date, src, syntax ,total , now) {
     try{
