@@ -18,9 +18,12 @@ gadgets.util.registerOnLoadHandler(init);
 
   ]]></Content>
     <Content type="html" view="profile"><![CDATA[
-
+<!--
 <script type="text/javascript" src="http://localhost:8080/kprofile/jquery-1.3.1.js"></script>
 <script type="text/javascript" src="http://localhost:8080/kprofile/profile.js"></script>
+-->
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Wall/kprofile/jquery-1.3.1.js"></script>
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Wall/kprofile/profile.js"></script>
 
 <script type="text/javascript">
 gadgets.util.registerOnLoadHandler(init);
@@ -39,7 +42,10 @@ gadgets.util.registerOnLoadHandler(init);
   ]]></Content>
     <Content type="html" view="preview"><![CDATA[
 
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Wall/kprofile/preview.js"></script>
+<!--
 <script type="text/javascript" src="http://localhost:8080/kprofile/preview.js"></script>
+-->
 
 <script type="text/javascript">
 gadgets.util.registerOnLoadHandler(init);
@@ -51,7 +57,10 @@ gadgets.util.registerOnLoadHandler(init);
   ]]></Content>
     <Content type="html" view="home"><![CDATA[
 
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Wall/kprofile/home.js"></script>
+<!--
 <script type="text/javascript" src="http://localhost:8080/kprofile/home.js"></script>
+-->
 
 <script type="text/javascript">
 gadgets.util.registerOnLoadHandler(init);
