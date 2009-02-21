@@ -11,8 +11,7 @@
 gadgets.util.registerOnLoadHandler(init);
 </script>
 
-<!-- The code for Canvas view is here. -->
-<div>Canvas view for ugomemo-someda.</div>
+<div id="input_result" style="position:relative;"></div>
 
   ]]></Content>
 </Module>
