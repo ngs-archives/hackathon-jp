@@ -11,11 +11,11 @@ Scene {
 	amb 0.250 0.250 0.250
 }
 Material 5 {
-	"mat1" shader(3) col(1.000 1.000 1.000 1.000) dif(0.570) amb(0.600) emi(0.450) spc(0.080) power(16.00) tex("http://code.google.com/p/hackathon-jp/source/browse/trunk/OpenSocial20090221/Game/pic/groundtex.png")
-	"mat2" shader(3) col(1.000 1.000 1.000 1.000) dif(0.590) amb(0.330) emi(0.480) spc(0.250) power(16.00) tex("http://code.google.com/p/hackathon-jp/source/browse/trunk/OpenSocial20090221/Game/pic/gl.png")
-	"mat3" shader(3) col(1.000 1.000 1.000 1.000) dif(0.620) amb(0.360) emi(0.460) spc(0.250) power(24.00) tex("http://code.google.com/p/hackathon-jp/source/browse/trunk/OpenSocial20090221/Game/pic/sg.png")
+	"mat1" shader(3) col(1.000 1.000 1.000 1.000) dif(0.570) amb(0.600) emi(0.450) spc(0.080) power(16.00) tex("pic/groundtex.png")
+	"mat2" shader(3) col(1.000 1.000 1.000 1.000) dif(0.590) amb(0.330) emi(0.480) spc(0.250) power(16.00) tex("pic/gl.png")
+	"mat3" shader(3) col(1.000 1.000 1.000 1.000) dif(0.620) amb(0.360) emi(0.460) spc(0.250) power(24.00) tex("pic/sg.png")
 	"mat4" shader(3) col(1.000 0.000 0.063 1.000) dif(0.800) amb(0.050) emi(0.560) spc(0.240) power(15.00)
-	"mat5" shader(3) col(1.000 1.000 1.000 1.000) dif(0.800) amb(0.250) emi(0.360) spc(0.190) power(14.00) tex("http://code.google.com/p/hackathon-jp/source/browse/trunk/OpenSocial20090221/Game/pic/sg.png")
+	"mat5" shader(3) col(1.000 1.000 1.000 1.000) dif(0.800) amb(0.250) emi(0.360) spc(0.190) power(14.00) tex("pic/sg.png")
 }
 Object "obj2" {
 	depth 0
