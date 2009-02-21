@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs title="友達情報取得アプリ">
-    <Require feature="opensocial-0.7" />
+    <Require feature="opensocial-0.9" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
@@ -10,9 +10,9 @@
         with (opensocial.DataRequest) {
             var req = opensocial.newDataRequest();
 	    
-	    //fetchAlbums(PersonId.OWNER);
+	    fetchAlbums(PersonId.OWNER);
 	    
-	    //return;
+	    return;
 	    
             req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
             var searchOpt = {};
