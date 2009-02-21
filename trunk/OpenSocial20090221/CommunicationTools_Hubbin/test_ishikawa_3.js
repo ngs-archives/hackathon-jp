@@ -14,7 +14,7 @@ function getFriends() {
 		opensocial.Person.Field.GENDER,
 		opensocial.Person.Field.CURRENT_LOCATION
 	];*/
-	params[opensocial.DataRequest.PeopleRequestFields] = [
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
 		opensocial.Person.Field.AGE,
 		opensocial.Person.Field.GENDER,
 		opensocial.Person.Field.CURRENT_LOCATION
