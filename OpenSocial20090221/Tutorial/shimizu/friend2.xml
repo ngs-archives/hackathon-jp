@@ -55,7 +55,7 @@
 	  albumz.each(function(album) {
 	     html += album.getField(opensocial.Album.Field.TITLE) + " ";
 	  });
-	  
+	  alert(html);
 	  document.body.innerHTML += html;
 	};
       
