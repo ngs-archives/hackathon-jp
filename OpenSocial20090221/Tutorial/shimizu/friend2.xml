@@ -17,7 +17,7 @@
   var idspec_params = {};
   idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
   var idSpec = opensocial.newIdSpec(idspec_params);
-  alert("kia");
+  alert(idSpec[0]);
   var opt_params = { };
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
