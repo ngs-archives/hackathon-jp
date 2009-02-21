@@ -4,8 +4,15 @@
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
   <Content type="html" view="canvas"><![CDATA[
-
+    <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Feed/js/jquery-1.3.2.js"></script>
+    <script type="text/javascript">
+    document.write('<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Feed/js/UgoSocial.js?'+ new Date().getTime() +'"></script>');
+    </script>
+    <script type="text/javascript">
+    </script>
     Hello!
+    <div id="comment_area"></div>
+    <input type="button" id="event_trigger" value="trigger">
 
   ]]></Content>
 </Module>
