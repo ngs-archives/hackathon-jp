@@ -22,10 +22,11 @@ function saveResult( number ) {
 }
 
 function onLoadSave(data) {
-	var number = data.get('data').getData();
+	var data = data.get('data').getData();
 	alert(3);
-	alert(number);
+	alert(data);
 	alert(4);
+	alert(data[viewer.getId()]['number'];
 }
 
 function getResult( ) {
