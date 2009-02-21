@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="しりとりフロント">
+    <Require feature="opensocial-0.7"/>
+  </ModulePrefs>
+  <Content type="html">
+  <![CDATA[
+<div id="select"></div>
+<div id="capping_div"><div id="capping_area">ここに経歴が入ります．</div></div>
+<div id="text"><input type="text" id ="capping" name="capping" value="" /><input type="submit" id="btn_submit" name="btn_submit" value="送る"></div>
+<div id="friends"></div>
+<div id="give"></div>
+<div id="receive"></div>
+
+	<form name="escform" action="" method="get">
+		<textarea name="org_str" id="org_str"></textarea>
+	</form>
+		<input type="button" name="escbtn" id="escbtn" value="しりとり" onclick="capping_plus_emoji()" />
+		<input type="button" name="escbtn" id="escbtn" value="クリア" onclick='document.getElementById("capping_phraze").innerHTML=""' />
+
+<hr>
+<div id="capping_phraze">
+</div>
+<hr>
+<div id="next_char">
+</div>
+
+
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Wall/capping/jquery-1.2.6.js"></script>
+<script type="text/javascript" src="http://emojica.com/appendixes/json/2"></script>
+<script type="text/javascript">
+var emoji_domain = "http://emojica.com";
+var url = emoji_domain + "/appendixes/json";
+document.getElementById('org_str').value = Emojica.sample;
+var img_dir = emoji_domain + Emojica.img_dir;
+
+function capping_plus_emoji() {
+	var default_img = emoji_domain + '/img/e_tp/leftright.gif';
+	var image_bracket = '';
+	var default_image_bracket = ''
+	var org_str = document.getElementById('org_str').value;
+	var capping_check = true;
+
+	for (var i = 0; i < Emojica.dictionary.length; i++) {
+		if (org_str.match(Emojica.dictionary[i].words.word) !== null) {
+			image_bracket = "<img src=\"" + img_dir
+					+ Emojica.dictionary[i].pc_files.file_name + "\">";
+			// 最初の一つでクリア
+			break;
+		}
+	}
+
+	if (image_bracket.length == 0) {
+		image_bracket = "<img src=\"" + default_img + "\">";
+
+	}
+
+	if (typeof(document.getElementById('next_char').value) == "undefined") {
+
+	} else {
+		if (document.getElementById('next_char').value != org_str.charAt(0)) {
+			alert('つぎは「' + document.getElementById('next_char').value + '」からです');
+			var capping_check = false;
+		}
+	}
+
+	if (org_str.slice(-1) == 'ん' || org_str.slice(-1) == 'ン') {
+		alert('「' + org_str + '」あうとー');
+		var capping_check = false;
+	}
+
+	if (capping_check) {
+		CappingPhraze = document.getElementById('capping_phraze');
+		// CappingPhraze.innerHTML = CappingPhraze.innerHTML + "<div>";
+		CappingPhraze.innerHTML = CappingPhraze.innerHTML + org_str;
+		CappingPhraze.innerHTML = CappingPhraze.innerHTML + " ";
+		CappingPhraze.innerHTML = CappingPhraze.innerHTML + image_bracket;
+		CappingPhraze.innerHTML = CappingPhraze.innerHTML + " ";
+		// CappingPhraze.innerHTML = CappingPhraze.innerHTML + "</div>";
+
+		next_char = org_str.slice(-1);
+		document.getElementById('org_str').value = next_char;
+		document.getElementById('next_char').value = next_char;
+	}
+
+}
+
+/**
+ *
+ *
+ */
+function init() {
+    loadFriends();
+
+    $("#btn_submit").bind("click", function(){
+        if(validateData()) {
+            sendTextToAFriend();
+        }
+    });
+}
+
+/**
+ *
+ *
+ */
+function loadFriends() {
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest("VIEWER"), "viewer");
+    req.add(req.newFetchPeopleRequest("VIEWER_FRIENDS"), "viewer_friends");
+    req.add(req.newFetchPersonAppDataRequest("VIEWER", "cap"), "viewer_cap");
+    req.add(req.newFetchPersonAppDataRequest("VIEWER_FRIENDS", "cap"), "viewer_friends_cap");
+    req.send(handleLoadFriends);
+}
+
+/**
+ *
+ *
+ */
+function handleLoadFriends(data) {
+    if(data.hadError()) {
+        alert('error');
+        return;
+    }
+    onLoadFriends(data);
+}
+
+/**
+ *
+ *
+ */
+function onLoadFriends(data) {
+    var viewer = data.get("viewer").getData();
+    var viewerFriends = data.get("viewer_friends").getData();
+    var viewer_cap = data.get("viewer_cap").getData();
+    var viewer_friends_cap = data.get("viewer_friends_cap").getData();
+
+    var html = new Array();
+    html.push("<select id='person'>");
+    viewerFriends.each(function(person){
+        html.push("<option value='" + person.getId() + "'>" + person.getDisplayName() + "</option>");
+    });
+    html.push("</select>");
+    html.push("と絵文字しりとりする．");
+    $("#select").html(html.join(""));
+
+    updateGiveList(viewer, viewer_cap);
+    //updateReceivedList(data);
+    updateReceivedList(viewer, viewer_friends_cap, viewerFriends);
+}
+
+/**
+ *
+ *
+ */
+function updateGiveList(viewer, viewer_cap) {
+    html = new Array();
+    //var viewer = data.get("viewer").getData();
+    //var viewerFriends = data.get("viewer_friends").getData();
+    //var viewer_cap = data.get("viewer_cap").getData();
+    //var viewer_friends_cap = data.get("viewer_friends_cap").getData();
+
+    //alert("updateGiveList=" + viewer.getId());
+    var json = viewer_cap[viewer.getId()]["cap"];
+    var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
+   
+    //alert(sendText["cap"]);
+    //alert(sendText["flg"]);
+    html.push("<ul>");
+    for(var id in sendText) {
+        //$('#give').html(sendText[id]["cap"] + " : " + sendText[id]["flg"] + " : " + sendText[id]["number"]);
+        html.push("<li>" + sendText[id]["cap"] + " : " + sendText[id]["flg"] + " : " + sendText[id]["number"] + "</li>");
+        //alert(sendText);
+    }
+    html.push("</ul>");
+    $("#give").html(html.join(""));
+}
+
+/**
+ *
+ *
+ */
+function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
+    var html = new Array();
+
+    html.push("<ul>");
+    viewerFriends.each(function(person){
+        //alert(person.getId());
+        var personData = viewer_friends_cap[person.getId()];
+        
+        if(personData) {
+            var json = viewer_friends_cap[person.getId()]["cap"];
+            var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
+
+            for(id in sendText) {
+            html.push("<li>" + sendText[id]["cap"] + "</li>");
+            }
+        }
+
+    });
+    html.push("</ul>");
+    $("#receive").html(html.join(""));
+
+    /*
+    var viewer = data.get("viewer").getData();
+    var viewerFriends = data.get("viewer_friends").getData();
+    var viewer_cap = data.get("viewer_cap").getData();
+    var viewer_friends_cap = data.get("viewer_friends_cap").getData();
+    */
+
+    /*
+    viewerFriends.each(function(person){
+        var personData = viewer_friends_cap[person.getId()];
+    });
+    */
+    /*
+    alert(viewer.getId());
+    var hoge = viewer.getId();
+    */
+    //var json = viewer_friends_cap[viewer.getId()]["cap"];
+
+    //alert(json);
+    
+    //givenCap = gadets.util.parse(gadets.util.unescapeString(json));
+    //alert(givenCap);
+}
+
+/**
+ *
+ *
+ */
+function sendTextToAFriend() {
+    var ts = new Date().getTime();
+    var cappingText = $("#capping").val();
+    var personId = $("#person").val();
+    alert(personId);
+
+    var data = {}
+    var sendText = {};
+    var cap_data = {};
+    cap_data["cap"] = cappingText;
+    cap_data["number"] = 1;
+    cap_data["flg"] = 1;
+    sendText[personId] = cap_data;
+    //sendText[ts] = cap_data;
+    //sendText[personId]["cap"] = cappingText;
+    //sendText[personId] = cappingText;
+    //number[personId] = 1;
+    //flg[personId] = 1;
+    //sendText[personId]["flg"] = 1;
+    var json = gadgets.json.stringify(sendText);
+    //var json_number = gadgets.json.stringify(number);
+    //var json_flg = gadgets.json.stringify(flg);
+    alert(json);
+
+    var req = opensocial.newDataRequest();
+    req.add(req.newUpdatePersonAppDataRequest("VIEWER", "cap", json));
+    req.add(req.newFetchPersonRequest("VIEWER"), "viewer");
+    req.add(req.newFetchPeopleRequest("VIEWER_FRIENDS"), "viewer_friends");
+    req.add(req.newFetchPersonAppDataRequest("VIEWER", "cap"), "viewer_cap");
+    req.add(req.newFetchPersonAppDataRequest("VIEWER_FRIENDS", "cap"), "viewer_friends_cap");
+    req.send(handleLoadFriends);
+}
+
+/**
+ *
+ *
+ */
+function validateData(){
+    return true;
+}
+
+gadgets.util.registerOnLoadHandler(init);
+
+</script>
+
+  ]]>
+  </Content>
+</Module>
