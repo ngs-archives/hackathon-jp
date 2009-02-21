@@ -6,6 +6,6 @@
   <Content type="html">
     <![CDATA[
       Hello, world!
-    [[>
+    ]]>
   </Content>
 </Module>
