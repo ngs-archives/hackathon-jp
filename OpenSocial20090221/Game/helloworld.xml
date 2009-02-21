@@ -24,13 +24,16 @@ function request() {
 
 function response(data) {
   var viewer = data.get("viewer").getData();
-  var name = viewer.getDisplayName();
-  var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-  var profile = gadgets.util.getUrlParameters()["parent"] +
-                  viewer.getField(opensocial.Person.Field.PROFILE_URL);
-  var html = '<img src="' + thumb + '"/>' +
-             '<a href="' + profile + '" target="_top">' + name + '</a>';
-  document.getElementById('main').innerHTML = html;
+  //var name = viewer.getDisplayName();
+  //var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+  html = new Array();
+  html.push('<ul>');
+  viewerFriends.each(function(person) {
+    html.push('<li>' + person.getDisplayName() + "</li>");
+  });
+  html.push('</ul>');
+  document.getElementById('friends').innerHTML = html.join('');
+
 }
 
 	  </script>
