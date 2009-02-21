@@ -47,14 +47,10 @@ function response(data) {
   
   html.push('</tr></table>');
   document.getElementById('friends').innerHTML = html.join('');
-  
-  for(i in list) {
-	alert(i);
-  }
 }
 
 function startGame(id) {
-  alert(list[id]);
+  alert(list[parseInt(id)]);
   for(i in list) {
 	alert(i);
   }
