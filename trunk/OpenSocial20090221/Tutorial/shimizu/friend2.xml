@@ -14,11 +14,11 @@
 
     function fetchAlbums(userId) {
   // Viewer
-  alert("send");
 
   var idspec_params = {};
   idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
+  alert("send");
 
  // var idSpec = opensocial.newIdSpec(idspec_params);
   
