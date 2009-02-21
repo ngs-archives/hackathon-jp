@@ -3,7 +3,7 @@ var loadFriends = function() {
   req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
   req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
   req.send(onLoadFriends);
-}
+};
 
 var onLoadFriends = function(data) {
   var viewer = data.get('viewer').getData();
@@ -16,8 +16,8 @@ var onLoadFriends = function(data) {
   });
   html.push('</ul>');
   document.getElementById('friends').innerHTML = html.join('');
-}
+};
 
 var init = function() {
   loadFriends();
-}
+};
