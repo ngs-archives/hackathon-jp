@@ -130,10 +130,10 @@ function sendTextToAFriend() {
     cap_data["number"] = 1;
     cap_data["flg"] = 1;
     */
-    //sendText[personId] = cap_data;
+    sendText[personId] = cap_data;
     //sendText[personId]["cap"] = cappingText;
     alert(cappingText);
-    sendText[personId] = cappingText;
+    //sendText[personId] = cappingText;
     //number[personId] = 1;
     //flg[personId] = 1;
     //sendText[personId]["flg"] = 1;
