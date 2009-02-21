@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="—F’Bî•ñŽæ“¾ƒAƒvƒŠ">
-    <Require feature="opensocial-0.8" />
+  <ModulePrefs title="å‹é”æƒ…å ±å–å¾—ã‚¢ãƒ—ãƒª">
+    <Require feature="opensocial-0.7" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
@@ -20,7 +20,7 @@
       function onLoadComplete(dataResponse) {
         var owner = dataResponse.get("owner").getData();
         var ownerFriends = dataResponse.get("ownerFriends").getData();
-        var resultHtml = owner.getDisplayName() + "‚³‚ñ‚Ì‚¨—F’B:"
+        var resultHtml = owner.getDisplayName() + "ã•ã‚“ã®ãŠå‹é”:"
         resultHtml += "<ul>";
         ownerFriends.each(function(friend) {
           resultHtml += ("<li>" + gadgets.util.escapeString(friend.getDisplayName()) + "</li>");
