@@ -17,7 +17,7 @@ function request() {
  var req = opensocial.newDataRequest();
   var opt_params = { };
   opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
-	opensocial.Person.Field.ABOUT_ME
+	opensocial.Person.Field.NICK_NAME
   ];
   req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER, opt_params), "viewer");
   req.send(response);
@@ -27,7 +27,7 @@ function response(data) {
 alert(3);
   var viewer = data.get("viewer").getData();
   var name = viewer.getDisplayName();
-  var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
+  var about_me = viewer.getField(opensocial.Person.Field.NICK_NAME);
   
   alert(about_me);
   var html = about_me + ':' + name;
