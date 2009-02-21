@@ -40,7 +40,7 @@ function response(data) {
 	alert( id );
 		
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame("' + id.toString() + '");">' + '<img src="' + thumb + '">' + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + id.toString() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
   
   html.push('</tr><tr>');
@@ -48,7 +48,7 @@ function response(data) {
   viewerFriends.each(function(person) {
 	id = person.getId();
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(¥'' + id.toString() + '¥');">' + person.getDisplayName() + '</a>' + id + '</td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + id.toString() + ');">' + person.getDisplayName() + '</a>' + id + '</td>');
   });
   
   html.push('</tr></table>');
