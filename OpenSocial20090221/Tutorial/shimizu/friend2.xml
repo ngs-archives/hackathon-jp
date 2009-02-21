@@ -72,7 +72,7 @@
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
 		
-		var func = function (data) { processAlbums(data, ); };
+		var func = function (data) { processAlbums(data, 'a'); };
 		
 		req.send(func);
 
