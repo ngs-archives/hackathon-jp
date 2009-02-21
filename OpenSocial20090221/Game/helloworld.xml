@@ -10,6 +10,7 @@
 
 var list = [];
 var viewer_id;
+var viewer_name;
 
 function init() {
 	request();
@@ -25,16 +26,17 @@ function request() {
 
 function response(data) {
   viewer = data.get("viewer").getData();
-  //var name = viewer.getDisplayName();
-  //var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
   var viewerFriends = data.get('viewerFriends').getData();
   
   viewer_id = viewer.getId();
+  viewer_name = viewer.getDisplayName();
   
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
-	list[person.getId()] = "TEST";
+	list[ person.getId() ] = "TEST";
+	alert( list[ person.getId() ] );
+	
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + '<a href="#" onClick="startGame(' + person.getId() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
@@ -51,11 +53,8 @@ function response(data) {
 }
 
 function startGame(id) {
-  alert(viewer_id);
-  alert(list[parseInt(id)]);
-  for(i in list) {
-	alert(i);
-  }
+
+
 }
 
 	  </script>
