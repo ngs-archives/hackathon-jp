@@ -9,7 +9,7 @@
         gadgets.util.registerOnLoadHandler(init);
 
 function init() {
-	saveResult(1);
+	resetResult(1);
 }
 
 function resetResult( number ) {
