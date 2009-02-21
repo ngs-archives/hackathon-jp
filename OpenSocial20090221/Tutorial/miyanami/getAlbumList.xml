@@ -8,32 +8,34 @@
   <script>
     gadgets.util.registerOnLoadHandler(init);
 
-function fetchAlbums() {
-  // Viewer
-  var idspec_params = {};
-  idspec_params[opensocial.IdSpec.Field.USER_ID] = 11386861873409637115; // miyanami固定
-  var idSpec = opensocial.newIdSpec(idspec_params);
- 
-  var opt_params = { };
-  opt_params['albumId'] = [];
-  var req = opensocial.newDataRequest();
-  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
-  req.send(processAlbums);
-};
- 
-function processAlbums(data) {
-  var html = "";  
- 
-  var albumz = data.get("albums").getData() || [];
- 
-  albumz.each(function(album) {
-     html += album.getField(opensocial.Album.Field.TITLE) + " ";
-     alert(html);
-  });
+	function fetchAlbums() {
+	  // Viewer
+	  var idspec_params = {};
+	  var userId = 11386861873409637115;
+	  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
+	  var idSpec = opensocial.newIdSpec(idspec_params);
+	 
+	  var opt_params = { };
+	  opt_params['albumId'] = [];
+	  var req = opensocial.newDataRequest();
+	  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
+	  req.send(processAlbums);
+	};
 
-  document.getElementById('main').innerHTML = html.join('');
 
-};
+	function processAlbums(data) {
+	  var html = "";  
+	  var albumz = data.get("albums").getData() || [];
+	 
+	  albumz.each(function(album) {
+	     html += album.getField(opensocial.Album.Field.TITLE) + " ";
+	  });
+
+	  alert(html);
+	  document.getElementById('main').innerHTML = html.join('');
+
+	};
+
 
     function init() {
         fetchAlbums();
