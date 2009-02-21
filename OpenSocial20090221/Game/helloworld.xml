@@ -34,18 +34,21 @@ function response(data) {
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
-	list[ person.getId() ] = "TEST";	
-	alert( person.getId() );
+	id = person.getId();
+	
+	list[ id ] = "TEST";	
+	alert( id );
 		
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + person.getId() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + id + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
   
   html.push('</tr><tr>');
   
   viewerFriends.each(function(person) {
+	id = person.getId();
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + person.getId() + ');">' + person.getDisplayName() + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + id + ');">' + person.getDisplayName() + '</a></td>');
   });
   
   html.push('</tr></table>');
