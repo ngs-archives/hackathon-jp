@@ -1,10 +1,10 @@
-  <?xml version="1.0" encoding="UTF-8" ?> 
-- <Module>
-- <ModulePrefs title="Load Friend List">
-  <Require feature="opensocial-0.7" /> 
-  </ModulePrefs>
-- <Content type="html">
-- <![CDATA[ 
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="Load Friend List">
+<Require feature="opensocial-0.7" /> 
+</ModulePrefs>
+<Content type="html">
+<![CDATA[ 
   <script>
     gadgets.util.registerOnLoadHandler(init);
 
