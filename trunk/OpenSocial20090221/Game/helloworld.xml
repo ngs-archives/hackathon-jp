@@ -23,9 +23,9 @@ function request() {
 
 
 function request(data) {
-	alert(1);
 	var viewer = data.get('viewer').getData();
 	var viewerFriends = data.get('viewerFriends').getData();
+	alert(1);
 	viewerFriends.each(function(person) {
 		person.getDisplayName();
 		for(i in person) {
