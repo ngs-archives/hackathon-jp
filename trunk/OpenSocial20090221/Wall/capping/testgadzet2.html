@@ -1,0 +1,80 @@
+	<form name="escform" action="" method="get">
+		<textarea name="org_str" id="org_str"></textarea>
+	</form>
+		<input type="button" name="escbtn" id="escbtn" value="しりとり" onclick="capping_plus_emoji()" />
+		<input type="button" name="escbtn" id="escbtn" value="クリア" onclick='document.getElementById("capping_phraze").innerHTML=""' />
+
+<hr>
+<div id="capping_phraze">
+</div>
+<hr>
+<div id="next_char">
+</div>
+
+
+<script type="text/javascript" src="http://emojica.com/appendixes/json/2"></script>
+<script type="text/javascript">
+var emoji_domain = "http://emojica.com";
+var url = emoji_domain + "/appendixes/json";
+document.getElementById('org_str').value = Emojica.sample;
+var img_dir = emoji_domain + Emojica.img_dir;
+
+function capping_plus_emoji() {
+	var default_img = emoji_domain + '/img/e_tp/leftright.gif';
+	var image_bracket = '';
+	var default_image_bracket = ''
+	var org_str = document.getElementById('org_str').value;
+	var capping_check = true;
+
+	for (var i = 0; i < Emojica.dictionary.length; i++) {
+		if (org_str.match(Emojica.dictionary[i].words.word) !== null) {
+			image_bracket = "<img src=\"" + img_dir
+					+ Emojica.dictionary[i].pc_files.file_name + "\">";
+			// 最初の一つでクリア
+			break;
+		}
+	}
+
+	if (image_bracket.length == 0) {
+		image_bracket = "<img src=\"" + default_img + "\">";
+
+	}
+
+	if (typeof(document.getElementById('next_char').value) == "undefined") {
+
+	} else {
+		if (document.getElementById('next_char').value != org_str.charAt(0)) {
+			alert('つぎは「' + document.getElementById('next_char').value + '」からです');
+			var capping_check = false;
+		}
+	}
+
+	if (org_str.slice(-1) == 'ん' || org_str.slice(-1) == 'ン') {
+		alert('「' + org_str + '」あうとー');
+		var capping_check = false;
+	}
+
+	if (capping_check) {
+//		CappingPhraze = document.getElementById('capping_phraze');
+//		CappingPhraze.innerHTML = CappingPhraze.innerHTML + org_str;
+//		CappingPhraze.innerHTML = CappingPhraze.innerHTML + " ";
+//		CappingPhraze.innerHTML = CappingPhraze.innerHTML + image_bracket;
+//		CappingPhraze.innerHTML = CappingPhraze.innerHTML + " ";
+
+		//つぎの入力のためのセットアップ
+		next_char = org_str.slice(-1);
+		document.getElementById('org_str').value = next_char;
+		document.getElementById('next_char').value = next_char;
+
+
+		returnTag =  org_str + " " + image_bracket + " ";
+		alert(returnTag);//デバッグ
+		return returnTag;
+
+		document.getElementById('capping_phraze').innerHTML = returnTag;
+
+	}
+
+}
+
+</script>
