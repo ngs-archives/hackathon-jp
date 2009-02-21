@@ -43,8 +43,8 @@
 
 	      html.push('<li>' + person.getId() + "</li>");
 	      html.push('<li>' + person.getDisplayName() + "</li>");
-	      html.push('<li>' + person.getField(opensocial.Person.Field.PROFILE_URL) + "</li>");
-	      html.push('<img src="' + thumb + '">);
+	      <!--html.push('<li>' + person.getField(opensocial.Person.Field.PROFILE_URL) + "</li>");-->
+	      <!--html.push('<img src="' + thumb + '">);-->
 	    }
 	  });
 	  html.push('</ul>');
