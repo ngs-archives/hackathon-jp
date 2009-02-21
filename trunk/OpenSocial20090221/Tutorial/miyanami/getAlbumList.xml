@@ -43,6 +43,9 @@
             // Add a table row for each album
             viewerAlbums.each(
               function(album) {
+
+		alert(album);
+
                 createAlbumRow(album);
               }
             );
