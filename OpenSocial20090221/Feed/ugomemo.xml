@@ -49,7 +49,7 @@ var register = function(){
 }
 
 var show = function(){
-  UgoSocial.util.show(displayObject.current_memo, function(data){    
+  UgoSocial.util.show(MovieHatenaSyntax, function(data){    
     var array = Ugomemo.util.toComments(data);           
     displayData.comments = array;
   });  
