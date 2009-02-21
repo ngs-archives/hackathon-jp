@@ -47,7 +47,7 @@ UgoSocial.makeImage = function(date, src, syntax ,total , now) {
 UgoSocial.jsonResponse = function(obj) {
 	UgomemoJson = obj.data;
 	MovieNum = 0;
-	var ImgSrc = UgomemoJson.items[0]["movie_animation_gif_path"];
+	var imgSrc = UgomemoJson.items[0]["movie_animation_gif_path"];
 	MovieHatenaSyntax = UgomemoJson.items[0]["movie_hatena_syntax"];
 
 	var now = new Date();
