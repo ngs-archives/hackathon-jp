@@ -11,9 +11,9 @@ Scene {
 	amb 0.250 0.250 0.250
 }
 Material 3 {
-	"mat1" shader(3) col(1.000 1.000 1.000 1.000) dif(0.490) amb(0.450) emi(0.450) spc(0.000) power(5.00) tex("http://code.google.com/p/hackathon-jp/source/browse/#svn/trunk/OpenSocial20090221/Game/pic/ahiru.bmp")
-	"mat2" shader(3) col(1.000 0.980 0.965 1.000) dif(0.800) amb(0.600) emi(0.170) spc(0.000) power(5.00) tex("http://code.google.com/p/hackathon-jp/source/browse/#svn/trunk/OpenSocial20090221/Game/pic/ahiru.bmp")
-	"mat3" shader(3) col(1.000 1.000 1.000 1.000) dif(0.800) amb(0.810) emi(0.210) spc(0.000) power(5.00) tex("http://code.google.com/p/hackathon-jp/source/browse/#svn/trunk/OpenSocial20090221/Game/pic/ahiru.bmp")
+	"mat1" shader(3) col(1.000 1.000 1.000 1.000) dif(0.490) amb(0.450) emi(0.450) spc(0.000) power(5.00) tex("http://code.google.com/p/hackathon-jp/source/browse/trunk/OpenSocial20090221/Game/pic/ahiru.bmp")
+	"mat2" shader(3) col(1.000 0.980 0.965 1.000) dif(0.800) amb(0.600) emi(0.170) spc(0.000) power(5.00) tex("http://code.google.com/p/hackathon-jp/source/browse/trunk/OpenSocial20090221/Game/pic/ahiru.bmp")
+	"mat3" shader(3) col(1.000 1.000 1.000 1.000) dif(0.800) amb(0.810) emi(0.210) spc(0.000) power(5.00) tex("http://code.google.com/p/hackathon-jp/source/browse/trunk/OpenSocial20090221/Game/pic/ahiru.bmp")
 }
 Object "obj1" {
 	depth 0
