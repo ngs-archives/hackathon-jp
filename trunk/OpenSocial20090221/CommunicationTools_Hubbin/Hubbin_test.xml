@@ -55,8 +55,8 @@ function onLoadFriends(data) {
 //	var owner   = data.get('owner').getData();
 	var viewer  = data.get('viewer').getData();
 //	var friends = data.get('viewerFriends').getData().asArray();
-	var ownerSpec = analyzePerson(owner);
-	printOwnerSpec(ownerSpec);
+//	var ownerSpec = analyzePerson(owner);
+//	printOwnerSpec(ownerSpec);
 	var viewerSpec = analyzePerson(viewer);
 	printViewerSpec(viewerSpec);
 /*
