@@ -15,9 +15,6 @@
 	  var idspec_params = {};
 	  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 	  var idSpec = opensocial.newIdSpec(idspec_params);
-	 
-		alert(idSpec);
-
 	  var opt_params = { };
 	  opt_params['albumId'] = [];
 	  var req = opensocial.newDataRequest();
@@ -27,10 +24,14 @@
  
 
 	function processAlbums(data) {
+
+
 	  var html = "";  
 	 
 	  var albumz = data.get("albums").getData() || [];
-	 
+
+	 alert(albumz);
+
 	  albumz.each(function(album) {
 	     html += album.getField(opensocial.Album.Field.TITLE) + " ";
 	  });
