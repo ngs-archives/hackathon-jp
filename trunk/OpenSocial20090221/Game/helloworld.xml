@@ -41,7 +41,7 @@ function onLoadSave(data) {
 	  TEST2
 	  <div id="result">result:</div>
 	  
-	  <input type="button" value="加点" onClick="resetResult(number + 1)">
+	  <input type="button" value="加点" onClick="resetResult(parseInt(number) + 1)">
    ]]>
   </Content>
 </Module>
