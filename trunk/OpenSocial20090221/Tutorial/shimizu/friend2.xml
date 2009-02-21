@@ -6,32 +6,46 @@
   <Content type="html">
     <![CDATA[
     <script type="text/javascript">
-    alert("");
+    
 	var html = "";  
 	function loadFriends() {
-		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
-		var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
-		var opt_params = {};
-		opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
-		req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
-		req.send(onLoadFriends);
+  var req = opensocial.newDataRequest();
+				req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+			
+				var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+				var opt_params = {};
+				opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+  req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
+
+  req.send(onLoadFriends);
 	}
 
 	function onLoadFriends(data) {
-		var viewer = data.get('viewer').getData();
-		var viewerFriends = data.get('viewerFriends').getData();
+	  var viewer = data.get('viewer').getData();
+	  var viewerFriends = data.get('viewerFriends').getData();
+	html += '<b>MyAlbum</b><br>';
 
-		fetchMyAlbums();
-		viewerFriends.each(function(person) {
-		if (person.getId()) {
-			fetchAlbums(person.getId(), person.getDisplayName());
-		}
-		});
+	    fetchMyAlbums();
+	html += '<hr>';
+
+	  //html = new Array();
+	  //html.push('<ul>');
+	  viewerFriends.each(function(person) {
+	    if (person.getId()) {
+	html += '<b>' + person.getDisplayName() + '</b><br>';
+	    fetchAlbums(person.getId());
+	    html += '<hr>';
+
+	      //html.push('<li>', person.getDisplayName(), '</li>');
+	    }
+	  });
+	  //html.push('</ul>');
+	  //document.getElementById('friends').innerHTML = html.join('');
+	  //gadgets.window.adjustHeight();
 	}
 
 	function init() {
-		loadFriends();
+	  loadFriends();
 	}
 
 
@@ -43,12 +57,11 @@
 		opt_params['albumId'] = [];
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
-		req.add("MyAlbum", "pname");
 		req.send(processAlbums);
 
 	};
 
-	function fetchAlbums(userId, pname) {
+	function fetchAlbums(userId) {
 		var idspec_params = {};
 		idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 		//var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
@@ -57,7 +70,6 @@
 		opt_params['albumId'] = [];
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
-		req.add(pname, "pname");
 
 		req.send(processAlbums);
 
@@ -65,14 +77,9 @@
  
 	function processAlbums(data) {
 		var albumz = data.get("album").getData();
-		var pname = data.get("pname");
-		
-		html += '<hr>';
-		html += '<b>' + pname + '</b><br>';
 		albumz.each(function(album) {
-			html += '<img src="' + album.getThumbnailUrl() + '"><br>
+		html += '<img src="' + album.getThumbnailUrl() + '">';
 		});
-		html += '<hr>';
 
 		document.body.innerHTML += html;
 	};
