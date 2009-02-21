@@ -23,6 +23,7 @@ function request() {
 
 
 function request(data) {
+	alert(1);
 	var viewer = data.get('viewer').getData();
 	var viewerFriends = data.get('viewerFriends').getData();
 	viewerFriends.each(function(person) {
