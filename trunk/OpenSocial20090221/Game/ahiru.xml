@@ -48,6 +48,33 @@
       });
       html.push('</ul>');
 
+      html.push('<table cellpadding="5"><tr>');
+      viewerFriends.each(function(person) {
+        var param = viewer.getDisplayName() + "," +
+          viewer.getId() + ",test" +
+          person.getDisplayName() + ',' +
+          person.getId() + ",test";
+        var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+        html.push(
+          '<td>' + '<a href="#" onClick="startGame(' + param + ');">' +
+          '<img src="' + thumb + '">' + '</a></td>');
+      });
+
+      html.push('</tr><tr>');
+
+      viewerFriends.each(function(person) {
+        var param = viewer.getDisplayName() + "," +
+          viewer.getId() + ",test" +
+          person.getDisplayName() + ',' +
+          person.getId() + ",test";
+        var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+        html.push(
+          '<td>' + '<a href="#" onClick="startGame(' + param + ');">' +
+          person.getDisplayName() + '</a></td>');
+      });
+
+      html.push('</tr></table>');
+
       var swf_params_hash = {
         'name0': 'dummy name 0',
         'name1': 'dummy name 1',
@@ -64,32 +91,12 @@
       for (var e in swf_params_hash) {
         swf_params += e + '=' + swf_params_hash[e].toString().replace(/ /g, '%20') + '&';
       }
-      html.push('<table cellpadding="5"><tr>');
-      html.push('<td>dummy column</td></tr><tr>');
-      viewerFriends.each(function(person) {
-        var param = viewer.getDisplayName() + "," + viewer.getId() + ",test" + person.getDisplayName() + ',' + person.getId() + ",test";
-        alert(param);
-        var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-        html.push(
-          '<td>' + '<a href="#" onClick="startGame(' + param + ');">' + '<img src="' + thumb + '">' + '</a></td>');
-      });
-
-      html.push('</tr><tr>');
-
-      viewerFriends.each(function(person) {
-        var param = viewer.getDisplayName() + "," + viewer.getId() + ",test" + person.getDisplayName() + ',' + person.getId() + ",test";
-
-        var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-        html.push('<td>' + '<a href="#" onClick="startGame(' + param + ');">' + person.getDisplayName() + '</a></td>');
-      });
-
-      html.push('</tr></table>');
+      html.push('<pre>' + swf_params + '<pre>'); // for debug
       document.getElementById('friends').innerHTML = html.join('');
 
-      html.push('<pre>' + swf_params + '<pre>'); // for debug
-
-
-      var so = new SWFObject("http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params, "swf_container", "100%", "100%");
+      var so = new SWFObject(
+        "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params,
+        "swf_container", "100%", "100%");
       so.addParam("allowScriptAccess", "always");
       //so.addParam("wmode", "transparent");
       so.write("swf_container");
