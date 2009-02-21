@@ -28,7 +28,7 @@ table.theTable img { width:100px; height: 100px; }
 	<td class="owner" colspan="5">
 		<h3>Kozo Nishida</h3>
 		<img src="http://img2.orkut.com/images/small/871/41871.jpg" /><br />
-		<input type="radio" name="o" value="o0" />
+<!--		<input type="radio" name="o" value="o0" />-->
 	</td>
 <!--
 	<td class="of1">
@@ -58,29 +58,29 @@ table.theTable img { width:100px; height: 100px; }
 </tr>
 <tr>
 	<td class="viewer">
-		<input type="radio" name="v" value="v0" /><br />
-		<img src="http://img4.orkut.com/images/small/861/115861.jpg" /><br />
-		<h3>Kenji Ishikawa</h3>
+		<input type="radio" name="v" id="v0" value="v0" /><br />
+		<label for="v4"><img src="http://img4.orkut.com/images/small/861/115861.jpg" /><br />
+		<h3>Kenji Ishikawa</h3></label>
 	</td>
 	<td class="vf1">
-		<input type="radio" name="v" value="v1" /><br />
-		<img src="http://img4.orkut.com/images/small/506/56506.jpg" /><br />
-		<h3>シンイチ</h3>
+		<input type="radio" name="v" id="v1" value="v1" /><br />
+		<label for="v4"><img src="http://img4.orkut.com/images/small/506/56506.jpg" /><br />
+		<h3>シンイチ</h3></label>
 	</td>
 	<td class="vf2">
-		<input type="radio" name="v" value="v2" /><br />
-		<img src="http://img3.orkut.com/images/small/873/873.jpg" /><br />
-		<h3>北野</h3>
+		<input type="radio" name="v" id="v2" value="v2" /><br />
+		<label for="v4"><img src="http://img3.orkut.com/images/small/873/873.jpg" /><br />
+		<h3>北野</h3></label>
 	</td>
 	<td class="vf3">
-		<input type="radio" name="v" value="v3" /><br />
-		<img src="http://img3.orkut.com/images/small/851/51851.jpg" /><br />
-		<h3>イシカワ</h3>
+		<input type="radio" name="v" id="v3" value="v3" /><br />
+		<label for="v4"><img src="http://img3.orkut.com/images/small/851/51851.jpg" /><br />
+		<h3>イシカワ</h3></label>
 	</td>
 	<td class="vf4">
-		<input type="radio" name="v" value="v4" /><br />
-		<img src="http://img1.orkut.com/images/small/816/42816.jpg" /><br />
-		<h3>Hoge Hoge</h3>
+		<input type="radio" name="v" id="v4" value="v4" /><br />
+		<label for="v4"><img src="http://img1.orkut.com/images/small/816/42816.jpg" /><br />
+		<h3>Hoge Hoge</h3></label>
 	</td>
 </tr>
 </table>
