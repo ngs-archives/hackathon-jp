@@ -1,5 +1,6 @@
 
 // Based on OpenSocialApps_2
+// http://sandbox.orkut.com/Main#Application.aspx?appId=591740862440&nocache=1
 
 //初期化
 function init() {
@@ -32,7 +33,10 @@ function onLoadFriends(data) {
 	html.push('<div class="person">');
 	viewerFriends.each(function(person) {
 		html.push('<h3>' + person.getDisplayName() + '</h3>');
-		html.push('<div><img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '" /></div>');
+		html.push('<div>');
+		html.push('<img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '" align="left" />');
+		html.push('<p> 誕生日: ' + person.getField(opensocial.Person.Field.DATE_OF_BIRTH) + ' </p>');
+		html.push('</div>');
 
 //		html.push('<ul>');
 //		for (var field in opensocial.Person.Field) {
