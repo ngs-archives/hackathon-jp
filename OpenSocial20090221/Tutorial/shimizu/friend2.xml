@@ -6,6 +6,8 @@
   <Content type="html">
     <![CDATA[
     <script type="text/javascript">
+    
+      var html = "";  
         function loadFriends() {
           var req = opensocial.newDataRequest();
 					req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
@@ -26,7 +28,7 @@
           html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
-	    
+	    alert(person.getId());
 	    fetchAlbums(person.getId());
               //html.push('<li>', person.getDisplayName(), '</li>');
             }
@@ -65,7 +67,7 @@
 };
  
 function processAlbums(data) {
-  var html = "";  
+
 //if (data.hadError()) {
 //alert(data.getErrorCode());
 //}
