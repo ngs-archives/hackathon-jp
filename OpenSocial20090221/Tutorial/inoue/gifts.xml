@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 2 - Send Gifts">
+  <ModulePrefs title="Gifts part 3 - Showing Gifts">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
@@ -25,19 +25,22 @@
 
         function loadFriends() {
           var req = opensocial.newDataRequest();
-          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
-          
+          req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+
           var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
           var opt_params = {};
           opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
           req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
 
+          var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
+          req.add(req.newFetchPersonAppDataRequest(viewer, 'gifts', opt_params), 'data');
           req.send(onLoadFriends);
         }
 
         function onLoadFriends(data) {
           var viewer = data.get('viewer').getData();
           var viewerFriends = data.get('viewerFriends').getData();
+          var giftData = data.get('data').getData();
 
           html = new Array();
           html.push('<select id="person">');
@@ -48,6 +51,8 @@
           });
           html.push('</select>');
           document.getElementById('friends').innerHTML = html.join('');
+
+          updateGiftList(viewer, giftData, viewerFriends);
         }
 
         var globalGivenGifts = {};
@@ -61,7 +66,43 @@
 
           var req = opensocial.newDataRequest();
           req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'gifts', json));
-          req.send();
+          req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+          
+          var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+          var opt_params = {};
+          opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+          req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
+
+          var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
+          req.add(req.newFetchPersonAppDataRequest(viewer, 'gifts'), 'data');
+          req.send(onLoadFriends);
+        }
+
+        function updateGiftList(viewer, data, friends) {
+          var json = null;
+          if (data[viewer.getId()]) {
+            json = data[viewer.getId()]['gifts'];
+          }
+
+          if (!json) {
+            globalGivenGifts = {};
+          }
+          try {
+            globalGivenGifts = gadgets.json.parse(gadgets.util.unescapeString(json));
+          } catch (e) {
+            globalGivenGifts = {};
+          }
+
+          var html = new Array();
+          html.push('You have given:');
+          html.push('<ul>');
+          for (i in globalGivenGifts) {
+            if (i.hasOwnProperty) {
+              html.push('<li>', friends.getById(i).getDisplayName(), ' received ', globalGiftList[globalGivenGifts[i]], '</li>');
+            }
+          }
+          html.push('</ul>');
+          document.getElementById('given').innerHTML = html.join('');
         }
 
         gadgets.util.registerOnLoadHandler(init);
@@ -73,6 +114,7 @@
             <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
           </form>
         </div>
+        <div id='given'></div>
       </div>
     ]]>
   </Content>
