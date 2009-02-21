@@ -17,8 +17,14 @@ function init() {
 function request2() {
 	alert(1);
 	var req = opensocial.newDataRequest();
+
+  var opt_params = { };
+  opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+	opensocial.Person.Field.ABOUT_ME
+  ];
+  
 	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', opt_params), 'viewerFriends');
 	req.send(response2);
 }
 
