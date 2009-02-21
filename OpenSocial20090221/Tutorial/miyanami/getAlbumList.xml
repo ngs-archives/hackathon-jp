@@ -5,6 +5,8 @@
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
+
+
       <style type="text/css">
         img {
           border: solid gray 1px;
@@ -20,6 +22,8 @@
           margin-bottom: 15px;
         }
       </style>
+
+
       <script type="text/javascript">
 
         // Fetches all of the viewer's albums that are publicly viewable (i.e.
@@ -32,9 +36,14 @@
           req.send(fetchAlbumsHandler);
         };
 
+
+
         // Callback function, executed when orkut finishes fetching the viewer's
         // public albums
         function fetchAlbumsHandler(resp) {
+
+			alert(resp);
+
           var viewerAlbumsResp = resp.get('viewerAlbums');
 
           if (!viewerAlbumsResp.hadError()) {
@@ -43,9 +52,6 @@
             // Add a table row for each album
             viewerAlbums.each(
               function(album) {
-
-		alert(album);
-
                 createAlbumRow(album);
               }
             );
