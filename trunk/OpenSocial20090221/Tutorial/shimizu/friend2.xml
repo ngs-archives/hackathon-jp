@@ -31,8 +31,10 @@ var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
  
 function processAlbums(data) {
   var html = "";  
+if (data.hadError()) {
+alert("error");
+}
   var albumz = data.get("albums").getData();
-
    alert(albumz);
 
   albumz.each(function(album) {
