@@ -1,43 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs title="友達情報取得アプリ">
-    <Require feature="opensocial-0.8" />
+    <Require feature="opensocial-0.9" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
     <script type="text/javascript">
       function init() {
-	fetchAlbums('13156385167433892927');
 
+alert("ss");
       }
 
 
-    function fetchAlbums(userId) {
-  // Viewer
-  var idspec_params = {};
-  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
-  var idSpec = opensocial.newIdSpec(idspec_params);
- 
-  var opt_params = { };
-  opt_params['albumId'] = [];
-  var req = opensocial.newDataRequest();
-  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
-alert("kita");
-  req.send(processAlbums);
-
-};
- 
-function processAlbums(data) {
-  var html = "";  
-  var albumz = data.get("albums").getData() || [];
- 
-  albumz.each(function(album) {
-     html += album.getField(opensocial.Album.Field.TITLE) + " ";
-  });
-        document.body.innerHTML += html;
-};
-
-      
       
       
       gadgets.util.registerOnLoadHandler(init);
