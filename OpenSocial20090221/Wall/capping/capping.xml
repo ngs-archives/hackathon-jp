@@ -63,6 +63,7 @@ function onLoadFriends(data) {
         html.push("<option value='" + person.getId() + "'>" + person.getDisplayName() + "</option>");
     });
     html.push("</select>");
+    html.push("と絵文字しりとりする．");
     $("#select").html(html.join(""));
 
     updateGiveList(data);
