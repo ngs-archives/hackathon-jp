@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="勝手にプロフィール" author_email="yoshio.hayashi@gmail.com">
-    <Require feature="opensocial-0.8" />
-  </ModulePrefs>
-  <Content type="html" view="canvas"><![CDATA[
+    <ModulePrefs
+            title="勝手にプロフィール"
+            author_email="yoshio.hayashi@gmail.com">
+        <Require feature="opensocial-0.8" />
+    </ModulePrefs>
+    <Content type="html" view="canvas"><![CDATA[
 
 <script type="text/javascript" src="http://localhost:8080/kprofile/canvas.js"></script>
 
@@ -15,7 +17,7 @@ gadgets.util.registerOnLoadHandler(init);
 <div>Canvas view for 勝手にプロフィール.</div>
 
   ]]></Content>
-  <Content type="html" view="profile"><![CDATA[
+    <Content type="html" view="profile"><![CDATA[
 
 <script type="text/javascript" src="http://localhost:8080/kprofile/jquery-1.3.1.js"></script>
 <script type="text/javascript" src="http://localhost:8080/kprofile/profile.js"></script>
@@ -25,10 +27,17 @@ gadgets.util.registerOnLoadHandler(init);
 </script>
 
 <!-- The code for Profile view is here. -->
-<div id="profile_contents">Loading...</div>
+
+<div id="profile_contents">
+<div id="div_form_data">
+</div>
+<div>
+<input type="button" onclick="onVote()" value="投稿" />
+</div>
+</div>
 
   ]]></Content>
-  <Content type="html" view="preview"><![CDATA[
+    <Content type="html" view="preview"><![CDATA[
 
 <script type="text/javascript" src="http://localhost:8080/kprofile/preview.js"></script>
 
@@ -40,7 +49,7 @@ gadgets.util.registerOnLoadHandler(init);
 <div>Preview view for 勝手にプロフィール.</div>
 
   ]]></Content>
-  <Content type="html" view="home"><![CDATA[
+    <Content type="html" view="home"><![CDATA[
 
 <script type="text/javascript" src="http://localhost:8080/kprofile/home.js"></script>
 
