@@ -17,6 +17,8 @@
 
       var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
       var opt_params = {};
+      opt_params[opensocial.DataRequest.PeopleRequestFields] = [
+        opensocial.Person.Field.AGE];
       opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
       req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
 
