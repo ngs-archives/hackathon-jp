@@ -118,7 +118,6 @@
       }
       //html.push('<pre>' + swf_params + '<pre>'); // for debug
 
-      /*
       var so = new SWFObject(
         "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params,
         "swf_container", "100%", "100%");
@@ -144,10 +143,11 @@
       so.addParam('salign', '');
       so.write("swf_container");
       delete so;
-      */
+      /*
       document.getElementById('swf_container').innerHTML = '<a href="' + 
         "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params +
         '">swf</a>';
+      */
 
     };
     </script>
