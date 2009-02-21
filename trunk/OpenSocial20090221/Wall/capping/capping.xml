@@ -84,7 +84,8 @@ function updateGiveList(viewer, viewer_cap) {
     var json = viewer_cap[viewer.getId()]["cap"];
     var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
    
-    alert(sendText);
+    alert(sendText["cap"]);
+    alert(sendText["flg"]);
     /*
     for(var i = 0; i < sendText.length; i++) {
         alert(sendText);
