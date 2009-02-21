@@ -38,10 +38,12 @@
 
           var viewerAlbumsResp = resp.get('viewerAlbums');
 
+		alert("1");
+
           if (!viewerAlbumsResp.hadError()) {
             var viewerAlbums = viewerAlbumsResp.getData();
 
-		alert("1");
+
 
             viewerAlbums.each(
               function(album) {
