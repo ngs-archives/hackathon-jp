@@ -22,19 +22,16 @@ function request() {
 }
 
 
-function request(data) {
-	alert(1);
-	var viewer = data.get('viewer').getData();
-	alert(1);
-	var viewerFriends = data.get('viewerFriends').getData();
-	alert(1);
-	viewerFriends.each(function(person) {
-		person.getDisplayName();
-		for(i in person) {
-			alert(i);
-		}
-		exit;
-	});
+function response(data) {
+alert(3);
+  var viewer = data.get("viewer").getData();
+  var name = viewer.getDisplayName();
+  var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+  var profile = gadgets.util.getUrlParameters()["parent"] +
+                  viewer.getField(opensocial.Person.Field.PROFILE_URL);
+  var html = '<img src="' + thumb + '"/>' +
+             '<a href="' + profile + '" target="_top">' + name + '</a>';
+  document.getElementById('main').innerHTML = html;
 }
 
 	  </script>
