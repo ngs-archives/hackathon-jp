@@ -217,7 +217,7 @@ function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
     });
     */
     /*
-    alert(viewer.getId());
+    //alert(viewer.getId());
     var hoge = viewer.getId();
     */
     //var json = viewer_friends_cap[viewer.getId()]["cap"];
