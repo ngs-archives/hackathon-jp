@@ -87,7 +87,7 @@ function updateGiveList(viewer, viewer_cap) {
     //alert(sendText["cap"]);
     //alert(sendText["flg"]);
     for(var id in sendText) {
-        $('#give').html(sendText[id]["cap"] + " : " + sendText[id]["flg"] + " : " + sendText[id][""number]);
+        $('#give').html(sendText[id]["cap"] + " : " + sendText[id]["flg"] + " : " + sendText[id]["number"]);
         //alert(sendText);
     }
 }
