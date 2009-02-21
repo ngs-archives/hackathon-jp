@@ -87,17 +87,8 @@ function onLoadFriends(data) {
 	var viewer        = data.get('viewer').getData();
 	var viewerFriends = data.get('viewerFriends').getData();
 	html = new Array();
-	viewer.each(function(person) {
+	function printPerson(person) {
 		var age     = person.getField(opensocial.Person.Field.AGE);
-/*
-		var gender  = person.getField(opensocial.Person.Field.GENDER);
-		var gender_str = '';
-		if (gender.getKey() === opensocial.Enum.Gender.MALE) {
-			gender_str = 'Male';
-		} else if (gender.getKey() === opensocial.Enum.Gender.FEMALE) {
-			gender_str = 'Female';
-		}
-*/
 		var address = person.getField(opensocial.Person.Field.CURRENT_LOCATION);
 		html.push('<div class="person">');
 		html.push('<h3>' + person.getDisplayName() + '</h3>');
@@ -111,7 +102,9 @@ function onLoadFriends(data) {
 		html.push('</ul>');
 		html.push('<br clear="all" />');
 		html.push('</div>');
-	});
+	}
+	printPerson(viewer);
+	viewerFriends.each(printPerson);
 	document.getElementById('peopleArea').innerHTML = html.join('');
 }
 
