@@ -16,20 +16,15 @@
   // Viewer
   var idspec_params = {};
   idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
-  if (typeof opensocial.Container.get().newIdSpec2() == "function"){
-  alert("ok");
-  } else {
-  alert("ng");
-  }
+var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
 
+ // var idSpec = opensocial.newIdSpec(idspec_params);
   
-  var idSpec = opensocial.newIdSpec(idspec_params);
-  alert(idSpec[0]);
   var opt_params = { };
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
   req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
-alert("");
+
   req.send(processAlbums);
 
 };
