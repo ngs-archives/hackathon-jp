@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Load Friend List">
+    <Require feature="opensocial-0.9" />
+  </ModulePrefs>
+  <Content type="html">
+  <![CDATA[
+  <script>
+    gadgets.util.registerOnLoadHandler(init);
+
+    function loadFriends() {
+        alert("サンプルアプリがロードされました。")
+        var yesno = confirm("続いて、コンテナにフレンドリスト情報取得リクエストを送りますか？");
+        if(yesno){
+            var req = opensocial.newDataRequest();
+            req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+            req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'),
+                'viewerFriends');
+            req.send(onLoadFriends);
+        }else{
+            alert('サンプルアプリ終了');
+        }
+    }
+
+    function onLoadFriends(data) {
+        alert('コンテナからフレンドリスト情報が返答されました。');
+        var viewer = data.get('viewer').getData();
+        var viewerFriends = data.get('viewerFriends').getData();
+
+        html = new Array();
+        html.push('<ul>');
+        viewerFriends.each(function(person) {
+            html.push('<li>' + person.getDisplayName() + "</li>");
+            html.push('<ul>');
+	    html.push('ここにアルバムのリスト');	
+            html.push('</ul>');
+        });
+        html.push('</ul>');
+        document.getElementById('friends').innerHTML = html.join('');
+    }
+
+    function init() {
+        loadFriends();
+    }
+
+function fetchAlbums(userId) {
+  // Viewer
+  var idspec_params = {};
+  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
+  var idSpec = opensocial.newIdSpec(idspec_params);
+ 
+  var opt_params = { };
+  opt_params['albumId'] = [];
+  var req = opensocial.newDataRequest();
+  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
+  req.send(processAlbums);
+};
+ 
+function processAlbums(data) {
+  var html = "";  
+ 
+  var albumz = data.get("albums").getData() || [];
+ 
+  albumz.each(function(album) {
+     html += album.getField(opensocial.Album.Field.TITLE) + " ";
+  });
+};
+
+
+
+
+  </script>
+  <div id='main'>
+    あなたのフレンドは<div id='friends'></div>
+  </div>
+  です。
+
+  ]]>
+  </Content>
+</Module>
