@@ -7,8 +7,15 @@ function init() {
 }
 
 function getFriends() {
+	var params = {};
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+		opensocial.Person.Field.AGE,
+		opensocial.Person.Field.DATE_OF_BIRTH,
+		opensocial.Person.Field.GENDER,
+		opensocial.Person.Field.CURRENT_LOCATION
+	];
 	var req = opensocial.newDataRequest();
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', params), 'viewerFriends');
 	req.send(onLoadFriends);
 }
 
