@@ -45,7 +45,7 @@ function printOwnerSpec(spec) {
 
 function analyzePerson(person) {
 	var data = [];
-	data.push(person.getId());
+//	data.push(person.getId());
 	data.push(person.getDisplayName());
 	data.push(person.getField(opensocial.Person.Field.THUMBNAIL_URL));
 	return data;
