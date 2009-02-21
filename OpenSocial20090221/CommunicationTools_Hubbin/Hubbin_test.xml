@@ -88,8 +88,9 @@ gadgets.util.registerOnLoadHandler(init);
 <div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /> TEST</div>
 <h1>Owner</h1>
 <div id="ownerArea"></div>
+<h1>Viewer</h1>
 <div id="viewerArea"></div>
-<h1>peopleFriends</h1>
+<h1>Friends</h1>
 <div id="friendsArea"></div>
 ]]></Content>
 </Module>
