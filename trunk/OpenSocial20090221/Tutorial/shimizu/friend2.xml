@@ -26,20 +26,13 @@
 	fetchMyAlbums();
 	html += '<hr>';
 
-	//html = new Array();
-	//html.push('<ul>');
 	viewerFriends.each(function(person) {
 	if (person.getId()) {
-	html += '<b>' + person.getDisplayName() + '</b><br>';
-	fetchAlbums(person.getId());
-	html += '<hr>';
+	fetchAlbums(person.getId(), person.getDisplayName());
 
-	//html.push('<li>', person.getDisplayName(), '</li>');
 	}
 	});
-	//html.push('</ul>');
-	//document.getElementById('friends').innerHTML = html.join('');
-	//gadgets.window.adjustHeight();
+
 	}
 
 	function init() {
@@ -62,7 +55,7 @@
 
 	};
 
-	function fetchAlbums(userId) {
+	function fetchAlbums(userId, pname) {
 		var idspec_params = {};
 		idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 		//var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
@@ -72,7 +65,7 @@
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
 		
-		var func = function (data) { processAlbums(data, 'MyAlbum3'); };
+		var func = function (data) { processAlbums(data, pname); };
 		
 		req.send(func);
 
