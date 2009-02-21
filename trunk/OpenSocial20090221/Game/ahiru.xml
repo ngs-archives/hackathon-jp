@@ -56,23 +56,20 @@
           person.getId() + ",test";
         var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
         html.push(
-          '<td>' + '<a href="#" onClick="startGame(' + param + ');">' +
+          '<td>' + '<a href="#" onClick="startGame(\'' + param + '\');">' +
           '<img src="' + thumb + '">' + '</a></td>');
       });
 
       html.push('</tr><tr>');
 
       viewerFriends.each(function(person) {
-        /*
         var param = viewer.getDisplayName() + "," +
           viewer.getId() + ",test" +
           person.getDisplayName() + ',' +
           person.getId() + ",test";
-          */
-        var param = 'aaaaaaaaaaaaaaaaaaaaa';
         var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
         html.push(
-          '<td>' + '<a href="#" onClick="startGame(' + param + ');">' +
+          '<td>' + '<a href="#" onClick="startGame(\'' + param + '\');">' +
           person.getDisplayName() + '</a></td>');
       });
 
