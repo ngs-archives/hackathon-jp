@@ -13,11 +13,11 @@ function onLoadFriends(data) {
   html.push('<ul>');
   viewerFriends.each(function(person) {		
     	html.push('<img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '"><br />');
-	html.push('<li>' + person.getDisplayName() + "<br />")
+	html.push(person.getDisplayName() + "<br />")
   });
 
 
-  html.push('</ul>');
+  html.push('</ul>')
   document.getElementById('friends').innerHTML = html.join('');
 }
 
