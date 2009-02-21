@@ -10,14 +10,13 @@ function onLoadFriends(data) {
   var viewerFriends = data.get('viewerFriends').getData();
   
   html = new Array();
-  html.push('<ul>');
+
   viewerFriends.each(function(person) {		
-    	html.push('<img src=' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '>');
-	html.push(person.getDisplayName() + "<br />")
+    	html.push('<img src=',person.getField(opensocial.Person.Field.THUMBNAIL_URL),'>');
+	html.push(person.getDisplayName(), '<br />')
   });
 
 
-  html.push('</ul>')
   document.getElementById('friends').innerHTML = html.join('');
 }
 
