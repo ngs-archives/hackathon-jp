@@ -25,6 +25,7 @@
         // Fetches all of the viewer's albums that are publicly viewable (i.e.
         // "shared with everyone"
         function fetchAlbums() {
+        alert("in fetchAlbums");
           var req = opensocial.newDataRequest();
           var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
 
