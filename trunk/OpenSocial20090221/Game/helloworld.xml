@@ -22,7 +22,7 @@ function saveResult( number ) {
 }
 
 function onLoadSave(data) {
-	var number = data.get('number').getData();
+	var number = data.get('data').getData();
 	alert(3);
 	alert(number);
 	alert(4);
