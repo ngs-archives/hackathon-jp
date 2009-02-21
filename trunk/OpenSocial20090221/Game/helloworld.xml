@@ -28,7 +28,11 @@ function response(data) {
   //var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
   
   
-
+  
+  var param = "";
+  viewerFriends.each(function(person) {
+  });
+    
   var viewerFriends = data.get('viewerFriends').getData();
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
