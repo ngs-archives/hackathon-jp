@@ -45,12 +45,12 @@
   var req = opensocial.newDataRequest();
   req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
   req.send(processAlbums);
+  alert(userId);
 };
  
 function processAlbums(data) {
   var html = "";  
  
-  alert(userId);
   var albumz = data.get("albums").getData() || [];
  
   albumz.each(function(album) {
