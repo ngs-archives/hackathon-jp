@@ -8,47 +8,16 @@
 
 // http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/Hubbin_test.xml
 
-/*
-function printFriendsSpec(specs) {
-	var html = [];
-	for (skey in specs) {
-		spec = specs[skey];
-		html.push('<div class="person">');
-		html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
-		html.push('<div>');
-		html.push('<img src="'   + spec[2] + '" />');
-		html.push('</div>');
-	}
-	document.getElementById('friendsArea').innerHTML = html.join('');
-}
-*/
-
-function printViewerSpec(spec) {
-	var html = [];
-	html.push('<div class="person">');
-	html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
-	html.push('<div>');
-	html.push('<img src="'   + spec[2] + '" />');
-	html.push('</div>');
-	document.getElementById('viewerArea').innerHTML = html.join('');
+function init() {
+	loadFriends();
 }
 
-function printOwnerSpec(spec) {
-	var html = [];
-	html.push('<div class="person">');
-	html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
-	html.push('<div>');
-	html.push('<img src="'   + spec[2] + '" />');
-	html.push('</div>');
-	document.getElementById('ownerArea').innerHTML = html.join('');
-}
-
-function analyzePerson(person) {
-	var data = [];
-//	data.push(person.getId());
-	data.push(person.getDisplayName());
-	data.push(person.getField(opensocial.Person.Field.THUMBNAIL_URL));
-	return data;
+function loadFriends() {
+	var req = opensocial.newDataRequest();
+//	req.add(req.newFetchPeopleRequest('OWNER'),          'owner');
+	req.add(req.newFetchPeopleRequest('VIEWER'),         'viewer');
+//	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+	req.send(onLoadFriends);
 }
 
 function onLoadFriends(data) {
@@ -70,17 +39,48 @@ function onLoadFriends(data) {
 */
 }
 
-function loadFriends() {
-	var req = opensocial.newDataRequest();
-//	req.add(req.newFetchPeopleRequest('OWNER'),          'owner');
-	req.add(req.newFetchPeopleRequest('VIEWER'),         'viewer');
-//	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-	req.send(onLoadFriends);
+function analyzePerson(person) {
+	var data = [];
+//	data.push(person.getId());
+	data.push(person.getDisplayName());
+	data.push(person.getField(opensocial.Person.Field.THUMBNAIL_URL));
+	return data;
 }
 
-function init() {
-	loadFriends();
+function printOwnerSpec(spec) {
+	var html = [];
+	html.push('<div class="person">');
+	html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
+	html.push('<div>');
+	html.push('<img src="'   + spec[2] + '" />');
+	html.push('</div>');
+	document.getElementById('ownerArea').innerHTML = html.join('');
 }
+
+function printViewerSpec(spec) {
+	var html = [];
+	html.push('<div class="person">');
+	html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
+	html.push('<div>');
+	html.push('<img src="'   + spec[2] + '" />');
+	html.push('</div>');
+	document.getElementById('viewerArea').innerHTML = html.join('');
+}
+
+/*
+function printFriendsSpec(specs) {
+	var html = [];
+	for (skey in specs) {
+		spec = specs[skey];
+		html.push('<div class="person">');
+		html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
+		html.push('<div>');
+		html.push('<img src="'   + spec[2] + '" />');
+		html.push('</div>');
+	}
+	document.getElementById('friendsArea').innerHTML = html.join('');
+}
+*/
 
 gadgets.util.registerOnLoadHandler(init);
 
