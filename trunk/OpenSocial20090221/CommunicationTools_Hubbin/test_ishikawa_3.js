@@ -67,8 +67,8 @@ function getFriends() {
 	var params = {};
 
 	var _fields = [];
-	for (var i in osfield) {
-		_fields.push(osfield[i]['key']);
+	for (var i in os_people_field) {
+		_fields.push(os_people_field[i]['key']);
 	}
 	params[opensocial.DataRequest.PeopleRequestFields] = _fields;
 
