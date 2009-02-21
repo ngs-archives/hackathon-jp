@@ -11,7 +11,8 @@ function init() {
 
 function setup() {
 	var req = opensocial.newDataRequest();
-	var data = {"1":{"answer":"猫"} ,"2":{"answer":"アオレンジャー"}};
+//	var data = {"1":{"answer":"猫", "star":2, "is_answer":false} ,"2":{"answer":"蛙", "star":4, "is_answer":false}};
+	var data = {"1":{"answer":{"猫":["george"], "犬":["george","jane.doe"], "蛙":[]}}};
 	var dataJson = gadgets.json.stringify(data);
 
 	req.add(req.newUpdatePersonAppDataRequest("OWNER", "answer", dataJson));
@@ -25,11 +26,14 @@ function loadingAnswer() {
 
 	p[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
 	var idSpec = opensocial.newIdSpec(p);
+	req.add(req.newFetchPersonRequest(idSpec, "owner"));
 	req.add(req.newFetchPersonAppDataRequest(idSpec, fields), "app_data");
 	req.send(handleRequestAppData);
 }
-
+var owner;
 function handleRequestAppData(data) {
+//	var ownerData = data.get("owner");
+//	owner = ownerData.getData();
 	var appData = data.get("app_data");
 	if (appData.hadError()) {
 		$("#profile_contents").html(data.getErrorMessage());
@@ -38,26 +42,44 @@ function handleRequestAppData(data) {
 	doSomethingWithAppData(appData.getData());
 }
 
+var is_answer = false;
 function doSomethingWithAppData(data) {
+	var faqId = 1; //ダミーデータ
+//	var appData = data[owner.getId()];
 	var appData = data["canonical"];
 	var answerListJson = appData["answer"];
-	var answerList = {};
+	var answerObj = {};
 	try {
-		answerList = gadgets.json.parse(gadgets.util.unescapeString(answerListJson));
+		answerObj = gadgets.json.parse(gadgets.util.unescapeString(answerListJson));
 	} catch (e) {
 	}
-	var html = "<ul>";
-	for (var faqId in answerList) {
-		html += "<li>"+answerList[faqId].answer + "</li>";
+	var html = '<div style="color:orange;">回答一覧</div><table>';
+	var answerList = answerObj[faqId]["answer"];
+	for (var answerValue in answerList) {
+		html += '<tr style="cursor:pointer;" onmouseover="mouseOverStar(\'add_star_'+answerValue+'\');" onmouseout="mouseOutStar(\'add_star_'+answerValue+'\');" onclick="addStar(\'add_star_'+answerValue+'\');"><td>'+answerValue + "</td>";
+		html += '<td>';
+		for (var i=0; i<answerList[answerValue].length; i++) {
+			html += '<img src="http://localhost:8080/kprofile/star.gif" alt="Star" />';
+		}
+		html += '<img id="add_star_'+answerValue+'" style="display:none" src="http://localhost:8080/kprofile/star.gif" alt="Star" /></td></tr>';
 	}
-	html += "</ul>"
+	html += "</table>"
 
 	$("#profile_contents").html(html);
-	
-//     vamydata = data[me.getId()];
-//     var div = document.getElementById('content_div');
-//     htmlout += "My AppField1 data is: " + mydata["AppField1"] + "<br />";
-//     htmlout += "My AppField2 data is: " + mydata["AppField2"] + "<br />";
-//     htmlout += "My AppField3 data is: " + mydata["AppField3"] + "<br />";
-//     div.innerHTML = htmlout;
+}
+
+function mouseOverStar(id) {
+	if (!is_answer) {
+		$("#"+id).show();
+	}
+}
+
+function mouseOutStar(id) {
+	if (!is_answer) {
+		$("#"+id).hide();
+	}
+}
+
+function addStar(id) {
+	is_answer = true;
 }
