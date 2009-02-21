@@ -21,12 +21,11 @@
 	function onLoadFriends(data) {
 		var viewer = data.get('viewer').getData();
 		var viewerFriends = data.get('viewerFriends').getData();
-		html += '<b>MyAlbum</b><br>';
+
 		fetchMyAlbums();
 		viewerFriends.each(function(person) {
 		if (person.getId()) {
-		
-		fetchAlbums(person.getId(), person.getDisplayName());
+			fetchAlbums(person.getId(), person.getDisplayName());
 		}
 		});
 	}
@@ -66,12 +65,12 @@
  
 	function processAlbums(data) {
 		var albumz = data.get("album").getData();
-		var pname = data.get("pname").getData();
+		var pname = data.get("pname");
 		
 		html += '<hr>';
 		html += '<b>' + pname + '</b><br>';
 		albumz.each(function(album) {
-		html += '<img src="' + album.getThumbnailUrl() + '"><br>
+			html += '<img src="' + album.getThumbnailUrl() + '"><br>
 		});
 		html += '<hr>';
 
