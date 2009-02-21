@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Gifts">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+      <script src="/OpenSocialTutorial.js"></script>
+      <script type="text/javascript">
+        /* ... */
+      </script>
+      <div id='main'>
+        <div id='give'>
+          <form id='gift_form'>
+            Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
+          </form>
+        </div>
+      </div>
+    ]]>
+  </Content>
+</Module>
