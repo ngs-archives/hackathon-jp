@@ -6,7 +6,7 @@
   <Content type="html">
     <![CDATA[
     <script type="text/javascript">
-    
+
 	var html = "";  
 	function loadFriends() {
 		var req = opensocial.newDataRequest();
@@ -19,27 +19,15 @@
 	}
 
 	function onLoadFriends(data) {
-	var viewer = data.get('viewer').getData();
-	var viewerFriends = data.get('viewerFriends').getData();
-	html += '<b>MyAlbum</b><br>';
+		var viewer = data.get('viewer').getData();
+		var viewerFriends = data.get('viewerFriends').getData();
 
-	fetchMyAlbums();
-	html += '<hr>';
-
-	//html = new Array();
-	//html.push('<ul>');
-	viewerFriends.each(function(person) {
-	if (person.getId()) {
-	html += '<b>' + person.getDisplayName() + '</b><br>';
-	fetchAlbums(person.getId());
-	html += '<hr>';
-
-	//html.push('<li>', person.getDisplayName(), '</li>');
-	}
-	});
-	//html.push('</ul>');
-	//document.getElementById('friends').innerHTML = html.join('');
-	//gadgets.window.adjustHeight();
+		fetchMyAlbums();
+		viewerFriends.each(function(person) {
+		if (person.getId()) {
+			fetchAlbums(person.getId(), person.getDisplayName());
+		}
+		});
 	}
 
 	function init() {
@@ -55,14 +43,13 @@
 		opt_params['albumId'] = [];
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
-
-		var func = function (data) { processAlbums(data, 1); };
+		var func = function (data) { processAlbums(data, 'MyAlbum'); };
 		
 		req.send(func);
 
-	};
+	}
 
-	function fetchAlbums(userId) {
+	function fetchAlbums(userId, pname) {
 		var idspec_params = {};
 		idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 		//var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
@@ -71,76 +58,27 @@
 		opt_params['albumId'] = [];
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
-		
-		var func = function (data) { processAlbums(); };
+		var func = function (data) { processAlbums(data, 'MyAlbum'); };
 		
 		req.send(func);
 
-	};
+	}
  
 	function processAlbums(data, pname) {
 		var albumz = data.get("album").getData();
+		
+		html += '<hr>';
+		html += '<b>' + pname + '</b><br>';
 		albumz.each(function(album) {
-		html += pname + "<br>";
-		html += '<img src="' + album.getThumbnailUrl() + '">';
+			html += '<img src="' + album.getThumbnailUrl() + '"><br>
 		});
+		html += '<hr>';
 
 		document.body.innerHTML += html;
-	};
+	}
 
 
 	gadgets.util.registerOnLoadHandler(init);
-	
-	
-	
-
-        // Fetches all photos from the album with the passed ID
-        function fetchPhotos(albumId) {
-          var req = opensocial.newDataRequest();
-          var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
-
-          req.add(req.newFetchMediaItemsRequest(idspec, albumId), 'albumPhotos');
-          req.send(fetchPhotosHandler);
-        };
-
-        // Callback function, executed when orkut finishes fetching the
-        // requested media items
-        function fetchPhotosHandler(resp) {
-          document.getElementById('photoGrid').innerHTML = '';
-          var albumPhotosResp = resp.get('albumPhotos');
-
-          if (!albumPhotosResp.hadError()) {
-            var albumPhotos = albumPhotosResp.getData();
-
-            // Add each photo's thumbnail to the photo grid
-            albumPhotos.each(
-              function(photo) {
-                addToPhotoGrid(photo);
-              }
-            );
-          }
-        };
-
-        // Adds the passed photo's thumbnail to the photo grid
-        function addToPhotoGrid(photo) {
-          document.getElementById('photoGrid').innerHTML +=
-            '<img src="' + photo.getThumbnailUrl()+'"/>';
-        };
-
-        // Execute fetchAlbums function when gadget loads
-        gadgets.util.registerOnLoadHandler(fetchAlbums);
-      </script>
-
-      <!-- Table to display album thumbnail and metadata -->
-      <table id="albumTable" cellspacing="5"></table>
-
-      <h2>Photos from selected album:</h2>
-
-      <!-- Styled div to display photos from selected album -->
-      <div id="photoGrid"></div>
-	
-	
-	
     </script>
     ]]>
   </Content>
