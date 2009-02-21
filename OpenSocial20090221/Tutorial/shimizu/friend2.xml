@@ -21,7 +21,7 @@
 	function onLoadFriends(data) {
 		var viewer = data.get('viewer').getData();
 		var viewerFriends = data.get('viewerFriends').getData();
-
+alert("a");
 		fetchMyAlbums();
 		viewerFriends.each(function(person) {
 		if (person.getId()) {
