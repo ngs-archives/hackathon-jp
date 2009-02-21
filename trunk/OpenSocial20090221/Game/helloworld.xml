@@ -36,6 +36,7 @@ function response2(data) {
 
 
 function request3(id) {
+  alert(4);
   var req = opensocial.newDataRequest();
   var opt_params = { };
   opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
@@ -46,6 +47,7 @@ function request3(id) {
 }
 
 function response3(data) {
+  alert(5);
   var viewer = data.get("viewer").getData();
   var name = viewer.getDisplayName();
   var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
