@@ -13,7 +13,7 @@
 		var opt_params = {};
  		 opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
   		 opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETALS] = [opensocial.Person.Field.EMAILS];
-  		req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS',opt_prams), 'viewerFriends');
+  		req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS',opt_params), 'viewerFriends');
   		req.send(onLoadFriends);
 	}
 
