@@ -28,7 +28,7 @@
           html.push('<ul>');
           viewerFriends.each(function(person) {
             if (person.getId()) {
-	    alert(person.getId());
+
 	    fetchAlbums(person.getId());
               //html.push('<li>', person.getDisplayName(), '</li>');
             }
@@ -61,7 +61,7 @@
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
   req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
-
+alert(userId);
   req.send(processAlbums);
 
 };
@@ -73,7 +73,6 @@ function processAlbums(data) {
 //}
   var albumz = data.get("album").getData();
    
-   alert(albumz);
 
   albumz.each(function(album) {
      html += '<img src="' + album.getThumbnailUrl() + '">';
