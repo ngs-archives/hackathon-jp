@@ -1,24 +1,4 @@
-var displayData = {
-    memoId : 'ugomemo:XXXXXXXXXXXXX:BBBBBBBBBBBBBBBB',
-    comments : [
-        {
-            time    : 1000,
-            user    : 'chris4403',//TODO fix to userid
-            comment : 'ほげほげ'
-        },
-        {
-            time    : 2000,
-            user    : 'someda',//TODO fix to userid
-            comment : 'もげもげー'
-        },
-        {
-            time    : 3000,
-            user    : 'nakazoe',//TODO fix to userid
-            comment : 'うごうごー'
-        }
-    ]
-}
-
+var displayData = {};
 var UgomemoJson = "";
 var MovieNum = "";
 var MovieHatenaSyntax = "";
@@ -66,6 +46,13 @@ UgoSocial.jsonResponse = function(obj) {
     totalNumber = UgomemoJson.items.length;
     var nowNumber = MovieNum + 1;
     UgoSocial.makeImage(OnloadDate, imgSrc , MovieHatenaSyntax , totalNumber , nowNumber);
+    
+    UgoSocial.util.show(MovieHatenaSyntax, function(data){    
+        var array = UgoSocial.util.toComments(data);    
+        displayData.comments = array;
+        console.log(array);
+        UgoSocial.setComments();
+    });    
 };
 
 UgoSocial.getJson = function(){
@@ -107,7 +94,14 @@ UgoSocial.viewJson = function(vector){
     totalNumber = UgomemoJson.items.length;
     var nowNumber = MovieNum + 1;
     UgoSocial.makeImage(OnloadDate, imgSrc , MovieHatenaSyntax , totalNumber , nowNumber);
-    UgoSocial.setComments();
+
+    UgoSocial.util.show(MovieHatenaSyntax, function(data){    
+        var array = UgoSocial.util.toComments(data);
+        console.log(array);
+        displayData.comments = array;
+        UgoSocial.setComments();
+    });    
+//    UgoSocial.setComments();
 }
 
 UgoSocial.Comment = function(memo_id, comment) {
@@ -187,8 +181,10 @@ UgoSocial.util = {
 gadgets.util.registerOnLoadHandler(function(){
     $('#next').click(UgoSocial.next);
     $('#prev').click(UgoSocial.prev);
-    
+    gadgets.window.adjustHeight();        
     UgoSocial.getJson();
-
+    
+    
+    UgoSocial.setComments();
 });
 
