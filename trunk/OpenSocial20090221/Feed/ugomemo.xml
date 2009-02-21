@@ -14,7 +14,11 @@
 <![CDATA[
 <link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Feed/css/ugomemo.css" type="text/css" />
 <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Feed/js/jquery-1.3.2.js"></script>
+<script type="text/javascript" src="./js/UgoSocial.js"></script>
+<script type="text/javascript" src="http://localhost:8080/Feed/js/UgoSocial.js"></script>
+<!--
 <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Feed/js/UgoSocial.js"></script>
+-->
 
 <div id="content_div" style="width:192px;overflow:hidden;"></div>
 
@@ -29,6 +33,28 @@
 <div style="clear:both;"></div>
 <div id="hatena"></div>
 <div id="on_load_date"></div>
+
+<form id="comment_form">
+<input name="comment" type="text"/>
+<input type="button" value="コメント登録" onclick="register();"/>
+</form>
+
+<script type="text/javascript">
+var register = function(){
+  var comment = $("#comment_form :input[name='comment']").val();  
+  UgoSocial.util.register(MovieHatenaSyntax, OnloadDate, comment, function(data){
+    show();
+  });
+}
+
+var show = function(){
+  UgoSocial.util.show(displayObject.current_memo, function(data){    
+    var array = Ugomemo.util.toComments(data);           
+    displayData.comments = array;
+  });  
+}
+</script>
+
 
 ]]> 
 	</Content>
