@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+	<ModulePrefs title="TestIshikawa3" >
+		<Require feature="opensocial-0.7"/>
+	</ModulePrefs>
+	<Content type="html" view="profile,canvas,preview"><![CDATA[
+		<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /> TEST</div>
+		<div>とりあえずVIEWERのFRIENDSから情報を抜くよ！</div>
+	]]></Content>
+	<Content type="html" view="canvas"><![CDATA[
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/test_ishikawa_3.js"></script>
+		<script>
+			gadgets.util.registerOnLoadHandler(init);
+		</script>
+		<div id="peopleArea"></div>
+	]]></Content>
+</Module>
