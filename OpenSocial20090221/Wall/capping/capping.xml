@@ -75,6 +75,11 @@ function onLoadFriends(data) {
  *
  */
 function updateGiveList(data) {
+    var viewer = data.get("viewer").getData();
+    var viewerFriends = data.get("viewer_friends").getData();
+    var viewer_cap = data.get("viewer_cap").getData();
+    var viewer_friends_cap = data.get("viewer_friends_cap").getData();
+
 
 }
 
