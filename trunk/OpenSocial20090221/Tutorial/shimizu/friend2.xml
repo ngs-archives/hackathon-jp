@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs title="友達情報取得アプリ">
-    <Require feature="opensocial-0.9" />
+    <Require feature="opensocial-0.7" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
     <script type="text/javascript">
       function init() {
-fetchAlbums('OWNER');
+      alert(owner.getId());
+        with (opensocial.DataRequest) {
+            var req = opensocial.newDataRequest();
+            req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
+            var searchOpt = {};
+            searchOpt[PeopleRequestFields.FILTER] = FilterType.ALL;
+            searchOpt[PeopleRequestFields.SORT_ORDER] = SortOrder.NAME;
+            req.add(req.newFetchPeopleRequest(Group.OWNER_FRIENDS, searchOpt), "ownerFriends");
+            req.send(onLoadComplete);
+        }
       }
-function fetchAlbums(userId) {
-  // Viewer
-  var idspec_params = {};
-  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
-  var idSpec = opensocial.newIdSpec(idspec_params);
- 
-  var opt_params = { };
-  opt_params['albumId'] = [];
-  var req = opensocial.newDataRequest();
-  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
-  req.send(processAlbums);
-};
- 
-function processAlbums(data) {
-  var html = "";  
- 
-  var albumz = data.get("albums").getData() || [];
- 
-  albumz.each(function(album) {
-     html += album.getField(opensocial.Album.Field.TITLE) + " ";
-  });
-};
+      function onLoadComplete(dataResponse) {
+        var owner = dataResponse.get("owner").getData();
+        var ownerFriends = dataResponse.get("ownerFriends").getData();
+        var resultHtml = owner.getDisplayName() + "さんのお友達:"
+        resultHtml += "<ul>";
+        ownerFriends.each(function(friend) {
+          resultHtml += ("<li>" + gadgets.util.escapeString(friend.getDisplayName()) + "</li>");
+        });
+        resultHtml += "</ul>";
+        document.body.innerHTML += resultHtml;
+      }
       gadgets.util.registerOnLoadHandler(init);
     </script>
     ]]>
