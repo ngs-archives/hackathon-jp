@@ -98,7 +98,7 @@ function updateGiveList(viewer, viewer_cap) {
  *
  */
 function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
-    var html = {};
+    var html = new Array();
 
     html.push("<ul>");
     viewerFriends.each(function(person){
