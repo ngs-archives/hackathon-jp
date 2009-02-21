@@ -63,7 +63,7 @@
       swf_params += e + '=' + swf_params_hash[e].toString().replace(/ /g, '%20') + '&';
       }
       html.push('<pre>' + swf_params + '<pre>'); // for debug
-      var so = new SWFObject("main.swf?" + swf_params, "swf_container", "100%", "100%");
+      var so = new SWFObject("http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params, "swf_container", "100%", "100%");
       so.addParam("allowScriptAccess", "always");
       //so.addParam("wmode", "transparent");
       so.write("swf_container");
