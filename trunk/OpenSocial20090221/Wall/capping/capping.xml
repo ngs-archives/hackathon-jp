@@ -125,6 +125,7 @@ function sendTextToAFriend() {
     var personId = $("#person").val();
     alert(personId);
 
+    var data = {}
     var sendText = {};
     var cap_data = {};
     cap_data["cap"] = cappingText;
@@ -133,7 +134,6 @@ function sendTextToAFriend() {
     sendText[personId] = cap_data;
     //sendText[ts] = cap_data;
     //sendText[personId]["cap"] = cappingText;
-    alert(cappingText);
     //sendText[personId] = cappingText;
     //number[personId] = 1;
     //flg[personId] = 1;
