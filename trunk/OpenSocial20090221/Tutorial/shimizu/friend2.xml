@@ -56,6 +56,7 @@
 	};
 
 	function fetchAlbums(userId, pname) {
+		html += pname + '<br>';
 		var idspec_params = {};
 		idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 		//var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
