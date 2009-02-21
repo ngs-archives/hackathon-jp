@@ -81,7 +81,7 @@ function onLoadFriends(data) {
 	var viewerFriends = data.get('viewerFriends').getData();
 	html = new Array();
 	viewerFriends.each(function(person) {
-//		var age     = person.getField(opensocial.Person.Field.AGE);
+		var age     = person.getField(opensocial.Person.Field.AGE);
 /*
 		var gender  = person.getField(opensocial.Person.Field.GENDER);
 		var gender_str = '';
@@ -97,7 +97,7 @@ function onLoadFriends(data) {
 		html.push('<div>');
 		html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL    ) + '" align="left" />');
 		html.push('<ul>');
-//		html.push('<li>年齢: '   + age.toString() + '</li>');
+		html.push('<li>年齢: '   + (typeof age) + '</li>');
 //		html.push('<li>性別: '   + gender_str + '</li>');
 //		html.push('<li>所在地: ' + person.getField(opensocial.Person.Field.CURRENT_LOCATION ) + '</li>');
 		html.push('</ul>');
