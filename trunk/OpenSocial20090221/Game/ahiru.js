@@ -9,9 +9,9 @@ function init() {
   var req = opensocial.newDataRequest();
   req.add(
       req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER_FRIENDS, params),
-      'viewerFriends');
+      'friends');
   req.send(function(data) {
-      var people = data.get('viewerFriends').getData();
+      var people = data.get('friends').getData();
 
       html = new Array();
       html.push('<ul>');
@@ -25,5 +25,4 @@ function init() {
       html.push('</ul>');
       document.getElementById('friends').innerHTML = html.join('');
       });
-  //loadFriends();
 }
