@@ -8,7 +8,7 @@
 		<div>とりあえずVIEWERのFRIENDSから情報を抜くよ！</div>
 	]]></Content>
 	<Content type="html" view="canvas"><![CDATA[
-		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/test_ishikawa_2.js?12"></script>
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/test_ishikawa_2.js?123"></script>
 		<script>
 			gadgets.util.registerOnLoadHandler(init);
 		</script>
