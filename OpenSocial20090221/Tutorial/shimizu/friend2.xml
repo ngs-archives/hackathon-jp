@@ -43,8 +43,8 @@
   var opt_params = { };
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
-  alert(userId);
   req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
+  alert(userId);
   req.send(processAlbums);
 };
  
