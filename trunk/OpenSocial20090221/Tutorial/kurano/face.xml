@@ -22,6 +22,7 @@
 
  		 viewerFriends.each(function(person) {		
     			html.push('<img src="',person.getField(opensocial.Person.Field.THUMBNAIL_URL),'">');
+			html.push(person.getField(opensocial.Email.Field.ADDRESS));
 			html.push('<hr>');
 			html.push(person.getDisplayName(), '<br />')
  		 });
