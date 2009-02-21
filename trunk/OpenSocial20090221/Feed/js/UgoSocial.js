@@ -30,7 +30,7 @@ UgoSocial.getAllFriendThumbURL = function(){
     var idSpec = opensocial.newIdSpec(params);
     var req = opensocial.newDataRequest();
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
-    req.add(req.newFetchPeopleRequest(idSpec, "friends");
+    req.add(req.newFetchPeopleRequest(idSpec), "friends");
 	req.send(function(resp) {
 			var viewer = resp.get("viewer").getData();
             var taraget = ($('#profile_img_' + userId)) ? $('#profile_img_' + userId) : $('<p id="profile_img"'+ userId + '"></p>');
