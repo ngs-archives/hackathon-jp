@@ -118,11 +118,10 @@
       }
       //html.push('<pre>' + swf_params + '<pre>'); // for debug
 
+      /*
       var so = new SWFObject(
         "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params,
         "swf_container", "100%", "100%");
-      so.addParam("allowScriptAccess", "always");
-      //so.addParam("wmode", "transparent");
       so.addParam('codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0');
       so.addParam('width', '640');
       so.addParam('height', '480');
@@ -145,6 +144,15 @@
       so.addParam('salign', '');
       so.write("swf_container");
       delete so;
+      */
+      document.getElementById('friends').innerHTML = html.join('');
+      
+
+
+var doc_hedder = "<embed src=\"http://canvas-games.net/game/numbercross/swf/main.swf\" allowScriptAccess=\"always\" allowNetworking=\"all\" width=640 height=480 wmode=\"opaque\" flashvars=\"domain=myspace&my_sessionid=" + sid + "&uid=" + user_id + "&username=" + user_name +">";
+var obj = document.getElementById("content_body");
+document.getElementById('swf_container').innerHTML = obj;
+
     };
     </script>
     <div id='main'>
