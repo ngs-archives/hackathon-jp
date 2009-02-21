@@ -20,15 +20,18 @@ var displayData = {
 }
 
 var UgoSocial = {};
-UgoSocial.showComment = function() {
+UgoSocial.setComments = function() {
    for ( var p in displayData.comments ) {
        var data = displayData.comments[p];
-       var func ="setTimeout(function(){$('#comment_area').append('<p>" + data.comment + "</p>');},"+ data.time +");";
+       var func ="setTimeout(UgoSocial.showComment('" + data.comment + "'),"+ data.time +");";
        eval(func);
    }
 }
+UgoSocial.showComment = function(comment) {
+    $('#comment_area').append('<p>' + comment + '</p>');
+}
 UgoSocial.init = function() {
-    $('#event_trigger').click(UgoSocial.showComment);
+    $('#event_trigger').click(UgoSocial.setComments);
 }
 gadgets.util.registerOnLoadHandler(UgoSocial.init);
 
