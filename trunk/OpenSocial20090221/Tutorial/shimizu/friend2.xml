@@ -19,27 +19,29 @@
 	}
 
 	function onLoadFriends(data) {
-	var viewer = data.get('viewer').getData();
-	var viewerFriends = data.get('viewerFriends').getData();
-	html += '<b>MyAlbum</b><br>';
+		var viewer = data.get('viewer').getData();
+		var viewerFriends = data.get('viewerFriends').getData();
+		html += '<b>MyAlbum</b><br>';
 
-	fetchMyAlbums();
-	html += '<hr>';
 
-	//html = new Array();
-	//html.push('<ul>');
-	viewerFriends.each(function(person) {
-	if (person.getId()) {
-	html += '<b>' + person.getDisplayName() + '</b><br>';
-	fetchAlbums(person.getId());
-	html += '<hr>';
+		//html = new Array();
+		//html.push('<ul>');
+		viewerFriends.each(function(person) {
+		if (person.getId()) {
+		html += '<b>' + person.getDisplayName() + '</b><br>';
+		fetchAlbums(person.getId());
+		html += '<hr>';
 
-	//html.push('<li>', person.getDisplayName(), '</li>');
-	}
-	});
-	//html.push('</ul>');
-	//document.getElementById('friends').innerHTML = html.join('');
-	//gadgets.window.adjustHeight();
+		//html.push('<li>', person.getDisplayName(), '</li>');
+		}
+		});
+		//html.push('</ul>');
+		//document.getElementById('friends').innerHTML = html.join('');
+		//gadgets.window.adjustHeight();
+	
+	
+		fetchMyAlbums();
+		html += '<hr>';
 	}
 
 	function init() {
