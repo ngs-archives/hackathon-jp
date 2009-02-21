@@ -34,9 +34,7 @@ function response(data) {
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
-	list[ person.getId() ] = "TEST";
-	alert( list[ person.getId() ] );
-	
+	list[ person.getId() ] = "TEST";	
 	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + '<a href="#" onClick="startGame(' + person.getId() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
@@ -53,8 +51,8 @@ function response(data) {
 }
 
 function startGame(id) {
-
-
+	alert (id);
+	alert (list[ id ]);
 }
 
 	  </script>
