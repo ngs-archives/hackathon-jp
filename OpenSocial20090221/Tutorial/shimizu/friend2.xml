@@ -30,6 +30,7 @@ var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
 };
  
 function processAlbums(data) {
+alert("kita");
   var html = "";  
   var albumz = data.get("viewerAlbums").getData();
  
