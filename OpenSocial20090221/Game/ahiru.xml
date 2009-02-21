@@ -92,11 +92,12 @@
     var startGame = function(index) {
       var person;
       var i = 0;
+      aaaaa:
       global_viewerFriends.each(function(e) {
         if (e.getId()) {
           if (i == parseInt(index)) {
             person = e;
-            return;
+            goto aaaaa;
           }
           i++;
         }
