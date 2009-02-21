@@ -63,7 +63,7 @@
         */
         var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
         html.push(
-          '<td>' + '<a href="#" onClick="startGame(\'' + (i++) + '\');">' +
+          '<td>' + '<a href="#" onClick="startGame(' + (i++) + ');">' +
           '<img src="' + thumb + '">' + '</a></td>');
       });
 
@@ -79,7 +79,7 @@
         */
         var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
         html.push(
-          '<td>' + '<a href="#" onClick="startGame(\'' + (i++) + '\');">' +
+          '<td>' + '<a href="#" onClick="startGame(' + (i++) + ');">' +
           person.getDisplayName() + '</a></td>');
       });
 
