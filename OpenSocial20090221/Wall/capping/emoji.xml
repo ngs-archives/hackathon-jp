@@ -183,7 +183,7 @@ function updateGiveList(viewer, viewer_cap) {
 function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
     var html = new Array();
 
-    html.push("<ul>");
+    //html.push("<ul>");
     viewerFriends.each(function(person){
             //alert(person.getId());
             var personData = viewer_friends_cap[person.getId()];
@@ -193,13 +193,17 @@ function updateReceivedList(viewer, viewer_friends_cap, viewerFriends) {
             var sendText = gadgets.json.parse(gadgets.util.unescapeString(json));
 
             for(id in sendText) {
-            html.push("<li>" + sendText[id]["cap"] + "</li>");
+                html.push(sendText[id]["cap"]);
+            //html.push("<li>" + sendText[id]["cap"] + "</li>");
             }
             }
 
             });
+    /*
     html.push("</ul>");
     $("#receive").html(html.join(""));
+    */
+    $("#capping_phraze").html(html.join(""));
 
     /*
        var viewer = data.get("viewer").getData();
