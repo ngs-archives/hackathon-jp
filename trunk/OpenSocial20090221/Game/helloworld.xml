@@ -34,14 +34,14 @@ function response(data) {
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
 	list[person.getId()] = person;
-	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + '<a href="#" onClick="startGame(' + person.getId() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
   
   html.push('</tr><tr>');
   
   viewerFriends.each(function(person) {
-	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + '<a href="#" onClick="startGame(' + person.getId() + ');">' + person.getDisplayName() + '</a></td>');
   });
   
