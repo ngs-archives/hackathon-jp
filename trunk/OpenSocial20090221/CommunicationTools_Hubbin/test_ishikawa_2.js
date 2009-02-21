@@ -17,12 +17,12 @@ function getFriends() {
 
 	//項目の追加
 	var params = {};
-	params[opensocial.DataRequest.PeopleRequestFields] = {
+	params[opensocial.DataRequest.PeopleRequestFields] = [ //プロパティとして列挙する
 		opensocial.Person.Field.AGE,
 		opensocial.Person.Field.DATE_OF_BIRTH,
 		opensocial.Person.Field.GENDER,
 		opensocial.Person.Field.CURRENT_LOCATION
-	};
+	];
 
 	//req.add(req.newFetchPersonRequest('VIEWER',         searchOpt), 'viewer');
 	//req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', searchOpt), 'viewerFriends');
@@ -49,7 +49,16 @@ function onLoadFriends(data) {
 	html = new Array();
 	//とりあえずviewerFriends
 	html.push('<div class="person">');
-	viewerFriends.each(function(person) {
+	viewerFriends.each(printPerson);
+	ownerFriends.each(printPerson);
+	html.push('</div>');
+	if(msg !== ''){
+		html.push('<div>' + msg + '</div>');
+	}
+	document.getElementById('peopleArea').innerHTML = html.join('');
+}
+
+function printPerson(person) {
 		html.push('<h3>' + person.getDisplayName() + '</h3>');
 		html.push('<div>');
 		html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL    ) + '" align="left" />');
@@ -61,30 +70,4 @@ function onLoadFriends(data) {
 		html.push('</ul>');
 		html.push('<br clear="all" />');
 		html.push('</div>');
-
-//		html.push('<ul>');
-//		for (var field in opensocial.Person.Field) {
-//			try {
-//				var fieldValue = person.getField(opensocial.Person.Field[field]);
-//				if(fieldValue !== null) {
-//					// field は fieldValue
-//					html.push('<li>' + field + ' : ' + fieldValue + '</li>');
-//				} else {
-//					// field は null
-//					html.push('<li>(' + field + 'はnullでした)</li>');
-//				}
-//			} catch (ex) {
-//				//field で例外発生
-//				html.push('<li>(' + field + 'で例外発生…)</li>');
-//			}
-//		}
-//		html.push('</ul>');
-
-	});
-	html.push('</div>');
-	if(msg !== ''){
-		html.push('<div>' + msg + '</div>');
-	}
-	document.getElementById('peopleArea').innerHTML = html.join('');
 }
-
