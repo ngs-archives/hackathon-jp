@@ -5,6 +5,7 @@
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
+    <script type="text/javascript" src="http://res.nicovideo.jp/js/swfobject.js?4"></script>
     <script type="text/javascript">
     gadgets.util.registerOnLoadHandler( function(){
       loadFriends();
