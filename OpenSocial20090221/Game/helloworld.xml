@@ -31,9 +31,8 @@ function response(data) {
   html = new Array();
   html.push('<ul>');
   viewerFriends.each(function(person) {
-    html.push('<li>' + person.getDisplayName() + "</li>");
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-	alert(thumb);
+    html.push('<li>' + '<img src="' + thumb + '">' + person.getDisplayName() + "</li>");
   });
   html.push('</ul>');
   document.getElementById('friends').innerHTML = html.join('');
