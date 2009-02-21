@@ -14,10 +14,10 @@ function init() {
 }
 
 function saveResult( number ) {
-	alert(1);
 	var req = opensocial.newDataRequest();
 	req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.VIEWER, 'number', number));
 	req.send(onLoadSave);
+	alert(1);
 }
 
 function onLoadSave(data) {
