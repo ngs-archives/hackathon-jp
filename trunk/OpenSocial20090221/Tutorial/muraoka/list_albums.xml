@@ -31,7 +31,8 @@
 					alert("Debug Start");
 					
 					//--debug
-					alert(idspec.toSource());
+					var bufobj = {'name':'test','com':'hoge'};
+					alert(bufobj.toSource());
 					
           req.add(req.newFetchAlbumsRequest(idspec), 'viewerAlbums');
           req.send(fetchAlbumsHandler);
