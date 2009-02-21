@@ -97,7 +97,8 @@ function onLoadFriends(data) {
 		html.push('<div>');
 		html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL    ) + '" align="left" />');
 		html.push('<ul>');
-		html.push('<li>年齢: '   + (typeof age) + '</li>');
+		html.push('<li>年齢: '   + age + '</li>');
+		html.push('<li>状態: '   + people.getField(opensocial.Person.Field.STATUS) + '</li>');
 //		html.push('<li>性別: '   + gender_str + '</li>');
 //		html.push('<li>所在地: ' + person.getField(opensocial.Person.Field.CURRENT_LOCATION ) + '</li>');
 		html.push('</ul>');
