@@ -53,7 +53,7 @@ function response(data) {
 }
 
 function loadJvascript() {
-
+	alert('test');
 }
 
 	  </script>
