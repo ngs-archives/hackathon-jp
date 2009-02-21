@@ -13,7 +13,7 @@ function onLoadFriends(data) {
   html.push('<ul>');
   viewerFriends.each(function(person) {
 	html.push(person.getField(opensocial.Person.Field.THUMBNAIL_URL) + "<br />")	
-    html.push('<img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '">');
+    html.push('<img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '"><br />');
   });
 
 
