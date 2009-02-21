@@ -30,6 +30,9 @@ function processAlbums(data) {
      html += album.getField(opensocial.Album.Field.TITLE) + " ";
      alert(html);
   });
+
+  document.getElementById('main').innerHTML = html.join('');
+
 };
 
     function init() {
@@ -41,9 +44,7 @@ function processAlbums(data) {
 
   </script>
   <div id='main'>
-    あなたのフレンドは<div id='friends'></div>
   </div>
-  です。
 
   ]]>
   </Content>
