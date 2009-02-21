@@ -34,7 +34,7 @@ function processAlbums(data) {
   var html = "";  
   var albumz = data.get("viewerAlbums").getData();
 
-   alert(albumz);
+   alert(data);
 
   albumz.each(function(album) {
      html += album.getThumbnailUrl();
