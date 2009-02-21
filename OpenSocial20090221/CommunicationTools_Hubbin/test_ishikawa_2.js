@@ -17,12 +17,12 @@ function getFriends() {
 
 	//項目の追加
 	var params = {};
-	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ //プロパティとして列挙する…？
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = { //プロパティとして列挙する…？
 		opensocial.Person.Field.AGE,
 		opensocial.Person.Field.DATE_OF_BIRTH,
 		opensocial.Person.Field.GENDER,
 		opensocial.Person.Field.CURRENT_LOCATION
-	];
+	};
 
 	//req.add(req.newFetchPersonRequest('VIEWER',         searchOpt), 'viewer');
 	//req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', searchOpt), 'viewerFriends');
