@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="Hubb[in] Test">
+	<Require feature="opensocial-0.7"/>
+</ModulePrefs>
+<Content type="html"><![CDATA[
+<script>
+
+function printFriendsSpec(specs) {
+	var html = [];
+	for (skey in specs) {
+		spec = specs[skey];
+		html.push('<div class="person">');
+		html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
+		html.push('<div>');
+		html.push('<img src="'   + spec[2] + '" />');
+		html.push('</div>');
+	}
+	document.getElementById('ownerArea').innerHTML = html.join('');
+}
+
+function printOwnerSpec(spec) {
+	var html = [];
+	html.push('<div class="person">');
+	html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
+	html.push('<div>');
+	html.push('<img src="'   + spec[2] + '" />');
+	html.push('</div>');
+	document.getElementById('ownerArea').innerHTML = html.join('');
+}
+
+function analyzePerson(person) {
+	var data = [];
+	data.push(person.getId());
+	data.push(person.getDisplayName());
+	data.push(person.getField(opensocial.Person.Field.THUMBNAIL_URL));
+	return data;
+}
+
+function onLoadFriends() {
+	var owner   = data.get('owner').getData();
+	var friends = data.get('viewerFriends').getData().asArray();
+	var ownerSpec = analyzePerson(owner);
+	printOwnerSpec(ownerSpec);
+	var friendsSpec = [];
+	for (fkey in friends) {
+		friend = friends[fkey];
+		friendSpec = analyzePerson(friend)
+		friendsSpec.push(friendSpec);
+	}
+	printFriendsSpec(ownerSpec);
+}
+
+function loadFriends() {
+	var req = opensocial.newDataRequest();
+	req.add(req.newFetchPeopleRequest('OWNER'),          'owner');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+	req.send(onLoadFriends);
+}
+
+function init() {
+	loadFriends();
+}
+
+gadgets.util.registerOnLoadHandler(init);
+
+</script>
+<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /> TEST</div>
+<h1>Owner</h1>
+<div id="ownerArea"></div>
+<h1>peopleFriends</h1>
+<div id="friendsArea"></div>
+]]></Content>
+</Module>
