@@ -7,7 +7,7 @@
  <Content type="html">
   <![CDATA[
   
-	<ifram src="http://www.softdevice.co.jp/~web/osxml/flash/GoogleMap3.swf" />
+	<iframe src="http://www.softdevice.co.jp/~web/osxml/flash/GoogleMap3.swf"></iframe>
 
   ]]>
  </Content>
