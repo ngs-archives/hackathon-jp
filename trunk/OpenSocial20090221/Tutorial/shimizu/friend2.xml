@@ -26,7 +26,7 @@
 		viewerFriends.each(function(person) {
 		if (person.getId()) {
 		
-		fetchAlbums(person.getId(), person.getDisplayName);
+		fetchAlbums(person.getId(), person.getDisplayName());
 		}
 		});
 	}
