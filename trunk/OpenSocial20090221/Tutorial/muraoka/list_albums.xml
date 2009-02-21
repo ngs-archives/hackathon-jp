@@ -28,6 +28,8 @@
           var req = opensocial.newDataRequest();
           var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
 					
+					alert("Debug Start");
+					
 					//--debug
 					alert(idspec.toSource());
 					
