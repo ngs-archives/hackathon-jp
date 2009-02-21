@@ -36,6 +36,7 @@ function onLoadFriends(data) {
 		html.push('<div>');
 		html.push('<img src="' + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '" align="left" />');
 		html.push('<p> 誕生日: ' + person.getField(opensocial.Person.Field.DATE_OF_BIRTH) + ' </p>');
+		html.push('<br clear="all" />');
 		html.push('</div>');
 
 //		html.push('<ul>');
