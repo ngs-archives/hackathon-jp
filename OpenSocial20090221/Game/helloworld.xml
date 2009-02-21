@@ -11,6 +11,7 @@
 var number = 0;
 
 function init() {
+	resetResult(0);
 	loadResult(1);
 }
 
@@ -40,7 +41,6 @@ function onLoadSave(data) {
 	  
 	  TEST2
 	  <div id="result">result:</div>
-	  
 	  <input type="button" value="加点" onClick="resetResult(parseInt(number) + 1)">
    ]]>
   </Content>
