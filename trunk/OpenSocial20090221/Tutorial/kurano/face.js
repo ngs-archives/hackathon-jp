@@ -14,7 +14,7 @@ function onLoadFriends(data) {
   html = new Array();
   html.push('<ul>');
   viewerFace.each(function(person) {
-    html.push('<li>' + person.getField() + "</li>");
+    html.push('<li>' + person.getField(opensocial.Person.Field) + "</li>");
   });
 
 
