@@ -87,23 +87,7 @@ function onLoadFriends(data) {
 	var viewer        = data.get('viewer').getData();
 	var viewerFriends = data.get('viewerFriends').getData();
 	html = new Array();
-	function printPerson(person) {
-		var age     = person.getField(opensocial.Person.Field.AGE);
-		var address = person.getField(opensocial.Person.Field.CURRENT_LOCATION);
-		html.push('<div class="person">');
-		html.push('<h3>' + person.getDisplayName() + '</h3>');
-		html.push('<div>');
-		html.push('<img src="'   + person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '" align="left" />');
-		html.push('<ul>');
-		html.push('<li>年齢: '   + age + '</li>');
-		html.push('<li>状態: '   + person.getField(opensocial.Person.Field.STATUS) + '</li>');
-//		html.push('<li>性別: '   + gender_str + '</li>');
-//		html.push('<li>所在地: ' + person.getField(opensocial.Person.Field.CURRENT_LOCATION ) + '</li>');
-		html.push('</ul>');
-		html.push('<br clear="all" />');
-		html.push('</div>');
-	}
-	printPerson(viewer);
+	viewer;
 	viewerFriends.each(printPerson);
 	document.getElementById('peopleArea').innerHTML = html.join('');
 }
