@@ -6,8 +6,6 @@
   <Content type="html">
   <![CDATA[
 <div id="select"></div>
-<!--<div id="capping_div"><div id="capping_area">ここに経歴が入ります．</div></div>-->
-<!--<div id="text"><input type="text" id ="capping" name="capping" value="" /><input type="submit" id="btn_submit" name="btn_submit" value="送る"></div>-->
 <div id="friends"></div>
 <div id="give"></div>
 <div id="receive"></div>
@@ -15,7 +13,7 @@
 	<form name="escform" action="" method="get">
 		<textarea name="org_str" id="org_str"></textarea>
 	</form>
-		<input type="button" name="escbtn" id="escbtn" value="しりとり" onclick="capping_plus_emoji()" />
+		<input type="button" name="escbtn" id="btn_submit" value="しりとり" onclick="capping_plus_emoji()" />
 		<input type="button" name="escbtn" id="escbtn" value="クリア" onclick='document.getElementById("capping_phraze").innerHTML=""' />
 
 <hr>
@@ -94,6 +92,7 @@ function init() {
 
     $("#btn_submit").bind("click", function(){
         if(validateData()) {
+            capping_plus_emoji();
             sendTextToAFriend();
         }
     });
