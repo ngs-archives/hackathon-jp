@@ -10,7 +10,7 @@ function init() {
 //メイン、リクエスト発行
 function getFriends() {
 
-	var params = {};
+//	var params = {};
 
 	// ソート順序の指定: NAME
 	//params[opensocial.DataRequest.PeopleRequestFields.SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
@@ -26,9 +26,11 @@ function getFriends() {
 	var req = opensocial.newDataRequest();
 
 //	req.add(req.newFetchPersonRequest('VIEWER',         params), 'viewer');
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', params), 'viewerFriends');
+//	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', params), 'viewerFriends');
 //	req.add(req.newFetchPersonRequest('OWNER',          params), 'owner');
 //	req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  params), 'ownerFriends');
+
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
 
 	req.send(onLoadFriends);
 }
