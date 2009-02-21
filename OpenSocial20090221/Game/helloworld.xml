@@ -26,6 +26,7 @@ function response(data) {
   var viewer = data.get("viewer").getData();
   //var name = viewer.getDisplayName();
   //var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+  var viewerFriends = data.get('viewerFriends').getData();
   html = new Array();
   html.push('<ul>');
   viewerFriends.each(function(person) {
