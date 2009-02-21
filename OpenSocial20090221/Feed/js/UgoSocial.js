@@ -33,8 +33,72 @@ UgoSocial.showComment = function(comment) {
     var speed = 2000 + (Math.random() * 2000);
     $('<p>' + comment + '</p>').css({position:'relative',left:'200px',top: topHeight }).appendTo('#comment_area').animate({left:'-200px'},speed);
 }
-UgoSocial.init = function() {
-    $('#event_trigger').click(UgoSocial.setComments);
+UgoSocial.makeImage = function(date, src, syntax ,total , now) {
+    $("#on_load_date").html(date);
+    $("#content_div").html('<img src="'+src+'">');
+    $("#hatena").html(syntax);
+    $("#movie_num").html(now + "/" + total);
 }
-gadgets.util.registerOnLoadHandler(UgoSocial.init);
+UgoSocial.jsonResponse = function(obj) {
+	UgomemoJson = obj.data;
+	MovieNum = 0;
+	var ImgSrc = UgomemoJson.items[0]["movie_animation_gif_path"];
+	MovieHatenaSyntax = UgomemoJson.items[0]["movie_hatena_syntax"];
+
+	var now = new Date();
+	OnloadDate  = +now.getTime();
+    totalNumber = UgomemoJson.items.length;
+    var nowNumber = MovieNum + 1;
+    UgoSocial.makeImage(OnloadDate, imgSrc , MovieHatenaSyntax , totalNumber , nowNumber);
+};
+
+UgoSocial.getJson = function(){
+	var params = {};
+	var url = "http://ugomemo.hatena.ne.jp/ranking/daily/movie.json?mode=total";
+
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+	gadgets.io.makeRequest(url, UgoSocial.jsonResponse, params);
+};
+UgoSocial.next = function(){
+    UgoSocial.viewJson('next');
+}
+UgoSocial.prev = function(){
+    UgoSocial.viewJson('prev');
+}
+UgoSocial.viewJson = function(vector){
+
+	if(vector == "next"){
+		MovieNum++;
+		if(UgomemoJson.items.length-1 < MovieNum){
+			MovieNum = 0;
+		}
+	}else if(vector == "prev"){
+		MovieNum--;
+		if(MovieNum < 0){
+			MovieNum = UgomemoJson.items.length-1;
+		}
+	}else{
+		MovieNum = 0;
+	}
+	
+	
+	
+	var ImgSrc = UgomemoJson.items[MovieNum]["movie_animation_gif_path"];
+	MovieHatenaSyntax = UgomemoJson.items[MovieNum]["movie_hatena_syntax"];
+	
+	var now = new Date();
+	OnloadDate  = +now.getTime();
+    totalNumber = UgomemoJson.items.length;
+    var nowNumber = MovieNum + 1;
+    UgoSocial.makeImage(OnloadDate, imgSrc , MovieHatenaSyntax , totalNumber , nowNumber);
+
+}
+
+gadgets.util.registerOnLoadHandler(function(){
+    $('#next').click(UgoSocial.next);
+    $('#prev').click(UgoSocial.prev);
+    UgoSocial.getJson();
+});
 
