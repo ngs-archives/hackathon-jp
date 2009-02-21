@@ -96,7 +96,6 @@
         if (e.getId()) {
           if (i == parseInt(index)) {
             person = e;
-            return;
           }
           i++;
         }
