@@ -30,7 +30,7 @@
 	 
 	  var albumz = data.get("albums").getData() || [];
 
-	 alert(albumz);
+	 alert(data);
 
 	  albumz.each(function(album) {
 	     html += album.getField(opensocial.Album.Field.TITLE) + " ";
