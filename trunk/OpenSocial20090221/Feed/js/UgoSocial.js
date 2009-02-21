@@ -67,6 +67,7 @@ UgoSocial.getJson = function(){
 	gadgets.io.makeRequest(url, UgoSocial.jsonResponse, params);
 };
 UgoSocial.next = function(){
+    alert('next');
     UgoSocial.viewJson('next');
 }
 UgoSocial.prev = function(){
