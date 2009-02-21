@@ -1,0 +1,118 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
+<title>GenerateSound</title>
+</head>
+<body bgcolor="#ffffff">
+<!--ムービーで使用されている URL-->
+<!--ムービーで使用されているテキスト-->
+<!-- saved from url=(0013)about:internet -->
+	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="550" height="400" id="GenerateSound" align="middle">
+	<param name="allowScriptAccess" value="always" allowNetworking="all"/>
+	<param name="allowFullScreen" value="false" />
+	<param name="movie" value="GenerateSound.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />	<embed src="GenerateSound.swf" quality="high" bgcolor="#ffffff" width="550" height="400" name="GenerateSound" align="middle" allowScriptAccess="always" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_jp" />
+	</object>
+<script language="JavaScript" type="text/javascript">
+
+var browseFlg; //1:IE, 2:Firefox,Opera
+
+var isMSIE = /*@cc_on!@*/false;
+if (isMSIE) {
+	browseFlg = 1;
+} else {
+	browseFlg = 2;
+}
+
+var objUserData = {
+	id: '0000067',
+	sound: '50',
+	name: 'ekuroda',
+	region: '京都府',
+	country: 'JP',
+	hometown: 'homtown',
+	gender: 'Male',
+	culture: 'ja-JP',
+	maritalStatus: 'Married',
+	interests: 'music, programming, web, technology',
+	music: 'avant-pop',
+	movies: 'jan svankmajer',
+	books: 'yoshimi uchida',
+	zodiacSign: 'Libra',
+	thumbnailUrl: 'http://c2.ac-images.myspacecdn.com/images02/27/s_d33b41ba95204ff69d6a21547651aecd.png'
+}
+
+var objResult = {
+	success: true,
+	message: 'ok',
+}
+
+var objReturn = {
+	owner:objUserData,
+	result:objResult
+}
+
+//----
+
+var objUserDataV = {
+	id: '11111111',
+	name: 'ekuroda',
+	region: '京都府',
+	country: 'JP',
+	hometown: 'homtown',
+	gender: 'Male',
+	culture: 'ja-JP',
+	maritalStatus: 'Married',
+	interests: 'music, programming, web, technology',
+	music: 'avant-pop',
+	movies: 'jan svankmajer',
+	books: 'yoshimi uchida',
+	zodiacSign: 'Libra',
+	thumbnailUrl: 'http://c2.ac-images.myspacecdn.com/images02/27/s_d33b41ba95204ff69d6a21547651aecd.png',
+	hasOwnerSound: false
+}
+
+var objResultV = {
+	success: true,
+	message: 'ok',
+}
+
+var objReturnV = {
+	viewer:objUserDataV,
+	result:objResultV
+}
+
+//----
+
+function getOwner(){
+	if(browseFlg == 1){
+		window["GenerateSound"].setOwner(objReturn);
+	}else if(browseFlg == 2){
+		document["GenerateSound"].setOwner(objReturn);
+	}
+}
+
+function getViewer(){
+	if(browseFlg == 1){
+		window["GenerateSound"].setViewer(objReturnV);
+	}else if(browseFlg == 2){
+		document["GenerateSound"].setViewer(objReturnV);
+	}
+}
+
+function saveSound(id,sound){
+	alert(id);
+	alert(sound);
+}
+
+function addSound(owner_id, viewer_id){
+	alert(owner_id);
+	alert(viewer_id);
+}
+
+
+</script>
+
+
+
+</body>
+</html>
