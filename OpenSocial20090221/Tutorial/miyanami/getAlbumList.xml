@@ -14,6 +14,8 @@
 	  var userId = 11386861873409637115;
 	  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
 	  var idSpec = opensocial.newIdSpec(idspec_params);
+
+		alert(idSpec);
 	 
 	  var opt_params = { };
 	  opt_params['albumId'] = [];
@@ -38,7 +40,6 @@
 
 
     function init() {
-	alert("init");
         fetchAlbums();
     }
 
