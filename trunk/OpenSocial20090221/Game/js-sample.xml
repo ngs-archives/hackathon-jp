@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Gifts part 1 - Friends">
+    <Require feature="opensocial-0.7"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+      <script src="http://opensocial-resources.googlecode.com/svn/samples/tutorial/tags/api-0.7/gifts_1_friends.js"></script>
+      <script>
+        gadgets.util.registerOnLoadHandler(init);
+      </script>
+      <div id='main'>
+        Your friends:
+        <div id='friends'></div>
+      </div>
+    ]]>
+  </Content>
+</Module>
