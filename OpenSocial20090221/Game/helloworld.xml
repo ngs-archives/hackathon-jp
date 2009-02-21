@@ -94,6 +94,8 @@
       var i = 0;
       global_viewerFriends.each(function(e) {
         if (i == j) {
+			alert(j)
+			alert(i)
           person = e;
           return;
         }
