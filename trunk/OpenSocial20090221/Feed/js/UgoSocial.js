@@ -4,6 +4,8 @@ var MovieNum = "";
 var MovieHatenaSyntax = "";
 var OnloadDate = "";
 
+var ThumbData = {};
+
 var UgoSocial = {};
 UgoSocial.setComments = function() {
    for ( var p in displayData.comments ) {
@@ -19,6 +21,24 @@ UgoSocial.showComment = function(comment) {
     var colorIndex = parseInt(Math.random() * 3);
     var color = "red,black,yellow,blue".split(",")[colorIndex];
     $('<p>' + comment + '</p>').css({margin:'0px',color: color,position:'absolute',left:'200px',top: topHeight,zIndex:'1000' }).appendTo('#content_div').animate({left:'-200px'},speed);
+}
+UgoSocial.getAllFriendThumbURL = function(){
+    var req = opensocial.newDataRequest();
+    req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
+    req.add(req.newFetchPersonRequest(opensocial.IdSpec.Group.VIEWER_FRIENDS), "viewer_friends");
+	req.send(function(resp) {
+			var viewer = resp.get("viewer").getData();
+            var taraget = ($('#profile_img_' + userId)) ? $('#profile_img_' + userId) : $('<p id="profile_img"'+ userId + '"></p>');
+            target.html("<img src='"+viewer.getField(opensocial.Person.Field.THUMBNAIL_URL)+"'>").appendTo('body');
+			var viewer_friends = resp.get("viewer_friends").getData();
+            viewer_friends.each(function(person){
+                ThumbData[person.getId()] = {
+                    thumbnailUrl : person.getField(opensocial.Person.Field.THUMBNAIL_URL),
+                    name : person.getDisplayName()
+                    };
+            });
+            try{console.log(ThumbData);}catch(e){};
+	});
 }
 UgoSocial.makeImage = function(date, src, syntax ,total , now) {
     try{
@@ -186,5 +206,6 @@ gadgets.util.registerOnLoadHandler(function(){
     
     
     UgoSocial.setComments();
+    UgoSocial.getAllFriendThumbURL();
 });
 
