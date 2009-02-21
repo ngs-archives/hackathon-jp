@@ -24,7 +24,7 @@
   var opt_params = { };
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
-  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "viewerAlbums");
+  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "mediaitems");
 
   req.send(processAlbums);
 
@@ -32,7 +32,7 @@
  
 function processAlbums(data) {
   var html = "";  
-  var albumz = data.get("viewerAlbums").getData();
+  var albumz = data.get("mediaitems").getData();
 
    alert(data);
 
