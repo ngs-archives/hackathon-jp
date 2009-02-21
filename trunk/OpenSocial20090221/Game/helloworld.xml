@@ -32,27 +32,23 @@ function response(data) {
   html = new Array();
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
-	param = viewer.getDisplayName() + "," + viewer.getId() + ",test" + person.getDisplayName() + ',' + person.getId() + ",test";	
-	alert(param);
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + param + ');">' + '<img src="' + thumb + '">' + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + viewer.getId() + ');">' + '<img src="' + thumb + '">' + '</a></td>');
   });
   
   html.push('</tr><tr>');
   
   viewerFriends.each(function(person) {
-	param = viewer.getDisplayName() + "," + viewer.getId() + ",test" + person.getDisplayName() + ',' + person.getId() + ",test";
-	
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + param + ');">' + person.getDisplayName() + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="startGame(' + viewer.getId() + ');">' + person.getDisplayName() + '</a></td>');
   });
   
   html.push('</tr></table>');
   document.getElementById('friends').innerHTML = html.join('');
 }
 
-function startGame(name0, id0, thumb0, name1, id1, thumb1) {
-	alert(name0);
+function startGame(id) {
+	alert(id);
 }
 
 	  </script>
