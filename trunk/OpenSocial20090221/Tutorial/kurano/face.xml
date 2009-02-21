@@ -1,27 +1,18 @@
-function loadFriends() {
-  var req = opensocial.newDataRequest();
-  req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-  req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-  req.add(req.newFetchPeopleRequest('THUMBNAIL_URL'), 'viewerFace');
-  req.send(onLoadFriends);
-}
-
-function onLoadFriends(data) {
-  var viewer = data.get('viewer').getData();
-  var viewerFriends = data.get('viewerFriends').getData();
-  var viewerFace = data.get('viewerFace').getData();
-  
-  html = new Array();
-  html.push('<ul>');
-  viewerFace.each(function(person) {
-    html.push('<li>' + person.getField() + "</li>");
-  });
-
-
-  html.push('</ul>');
-  document.getElementById('friends').innerHTML = html.join('');
-}
-
-function init() {
-  loadFriends();
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Gifts part 1 - Friends">
+    <Require feature="opensocial-0.7"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+      <script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Tutorial/kurano/face.js"></script>
+      <script>
+        gadgets.util.registerOnLoadHandler(init);
+      </script>
+      <div id='main'>
+        Your friend's face:
+        <div id='friends'></div>
+      </div>
+    ]]>
+  </Content>
+</Module>
