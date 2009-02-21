@@ -6,9 +6,9 @@
 
  <Content type="html">
   <![CDATA[
-  
+  CHOME AND IE CAN DISPLAY MAP!
 	<iframe src="http://www.softdevice.co.jp/~web/osxml/flash/GoogleMap3.swf" width="300" height="300"></iframe>
-CHOME AND IE CAN DISPLAY MAP!
+
 
   ]]>
  </Content>
