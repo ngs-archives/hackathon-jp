@@ -107,10 +107,10 @@
         'type1': (person.getId() % 3),
         'speed0': (global_viewer.getId() %  100),
         'speed1': (person.getId() % 100),
-        'accele0': 20,
-        'accele1': 10,
-        'stamina0': 40,
-        'stamina1': 30,
+        'accele0': (global_viewer.getId() %  100),
+        'accele1': (person.getId() % 100),
+        'stamina0': (global_viewer.getId() %  100),
+        'stamina1': (person.getId() % 100),
       };
       var swf_params = '';
       for (var e in swf_params_hash) {
