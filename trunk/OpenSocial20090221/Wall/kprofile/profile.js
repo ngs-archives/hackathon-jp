@@ -22,18 +22,26 @@ function setup() {
 function loadingAnswer() {
 	var req = opensocial.newDataRequest();
 	var fields = [ "answer" ];
-	var p = {};
+	var pOwner = {};
+	var pViwer = {};
 
-	p[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-	var idSpec = opensocial.newIdSpec(p);
-	req.add(req.newFetchPersonRequest(idSpec, "owner"));
-	req.add(req.newFetchPersonAppDataRequest(idSpec, fields), "app_data");
+	pOwner[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+	var idSpecOwner = opensocial.newIdSpec(pOwner);
+	pViwer[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIWER;
+	var idSpecViewer = opensocial.newIdSpec(pViwer);
+	req.add(req.newFetchPersonRequest(idSpecOwner, "owner"));
+	req.add(req.newFetchPersonRequest(idSpecViewer, 'viewer'));
+//	req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+	req.add(req.newFetchPersonAppDataRequest(idSpecOwner, fields), "app_data");
 	req.send(handleRequestAppData);
 }
 var owner;
 function handleRequestAppData(data) {
 //	var ownerData = data.get("owner");
 //	owner = ownerData.getData();
+ 	var viewerData = data.get('viewer');
+ 	var viewer = viewerData.getData();
+//	alert(viewer.getId());
 	var appData = data.get("app_data");
 	if (appData.hadError()) {
 		$("#profile_contents").html(data.getErrorMessage());
