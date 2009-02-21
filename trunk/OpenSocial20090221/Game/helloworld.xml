@@ -8,9 +8,30 @@
       <script type="text/javascript">
         gadgets.util.registerOnLoadHandler(init);
 function init() {
-	loadFriends();
+	request();
 }
-		
+
+function request() {
+  var req = opensocial.newDataRequest();
+  var opt_params = { };
+  opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+    opensocial.Person.Field.PROFILE_URL
+  ];
+  req.add(req.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER, opt_params), "viewer");
+  req.send(response);
+}
+
+function response(data) {
+  var viewer = data.get("viewer").getData();
+  var name = viewer.getDisplayName();
+  var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+  var profile = gadgets.util.getUrlParameters()["parent"] +
+                  viewer.getField(opensocial.Person.Field.PROFILE_URL);
+  var html = '<img src="' + thumb + '"/>' +
+             '<a href="' + profile + '" target="_top">' + name + '</a>';
+  document.getElementById('main').innerHTML = html;
+}
+
 function loadFriends() {
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
@@ -32,6 +53,7 @@ function onLoadFriends(data) {
 }
 		
 	  </script>
+	  <div id="main"></div>
 	  <div id="friends"></div>
    ]]>
   </Content>
