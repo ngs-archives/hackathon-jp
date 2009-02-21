@@ -5,8 +5,8 @@
 </ModulePrefs>
 <Content type="html"><![CDATA[
 <style type="text/css">
-table.theTable {  }
-table.theTable td { vertical-align:top; width:150px; text-align:center; padding:6px; }
+table.theTable { width:90%; }
+table.theTable td { vertical-align:top; text-align:center; padding:6px; }
 .owner { background-color:#eeeeff; }
 .viewer { background-color:#eeffff; }
 td.longTable { background:url(http://www.unsigneddesign.com/seamless/2895996994_58c0972172_b.jpg); height:100px; }
