@@ -8,6 +8,7 @@
     <script type="text/javascript">
       function init() {
         with (opensocial.DataRequest) {
+	alert(PersonId.OWNER);
             var req = opensocial.newDataRequest();
             req.add(req.newFetchPersonRequest(PersonId.OWNER), "owner");
             var searchOpt = {};
