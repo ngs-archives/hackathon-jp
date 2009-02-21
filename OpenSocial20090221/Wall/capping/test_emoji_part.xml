@@ -20,11 +20,6 @@
 </div>
 
 
-<div id="info">
-<a href="http://emojica.com/appendixes/json/2" target="_new">json</a>
-<a href="http://start.typepad.jp/typecast/" target="_new">利用している絵文字２</a>
-</div>
-
 <script type="text/javascript" src="http://emojica.com/appendixes/json/2"></script>
 <script type="text/javascript">
 	var emoji_domain = "http://emojica.com";
