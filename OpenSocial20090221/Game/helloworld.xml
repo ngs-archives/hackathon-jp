@@ -15,7 +15,8 @@ function init() {
 function request2() {
 	alert(1);
 	var req = opensocial.newDataRequest();
-	req.add(req.newFetchPeopleRequest(opensocial.DataRequest.Group.OWNER_FRIENDS), "ownerFriends");
+	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
 	req.send(response2);
 }
 
