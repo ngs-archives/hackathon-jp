@@ -29,7 +29,7 @@
           var idspec = opensocial.newIdSpec({'userId':'VIEWER', 'groupId':'SELF'});
 					
 					
-          req.add(req.newFetchAlbumsRequest(idspec), 'viewerAlbums');
+          req.add(req.newFetchAlbumsRequest(idspec), '1');
           req.send(fetchAlbumsHandler);
         };
 
@@ -96,9 +96,7 @@
         // requested media items
         function fetchPhotosHandler(resp) {
           document.getElementById('photoGrid').innerHTML = '';
-//          var albumPhotosResp = resp.get('albumPhotos');
-
-          var albumPhotosResp = resp.get('1');
+          var albumPhotosResp = resp.get('albumPhotos');
 
           if (!albumPhotosResp.hadError()) {
             var albumPhotos = albumPhotosResp.getData();
