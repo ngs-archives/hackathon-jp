@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Gifts part 1 - Friends">
+    <Require feature="opensocial-0.7"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+      <script type="text/javascript">
+        gadgets.util.registerOnLoadHandler(init);
+
+var number = 0;
+
+function init() {
+	resetResult(0);
+	loadResult(1);
+}
+
+function loadResult() {
+	var req = opensocial.newDataRequest();
+	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+	req.add(req.newFetchPersonAppDataRequest('VIEWER', 'number'), 'data');
+	req.send(onLoadSave);
+}
+
+function resetResult( number ) {
+	var req = opensocial.newDataRequest();
+	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+	req.add(req.newUpdatePersonAppDataRequest(opensocial.DataRequest.PersonId.VIEWER, 'number', number));
+	req.add(req.newFetchPersonAppDataRequest('VIEWER', 'number'), 'data');
+	req.send(onLoadSave);
+}
+
+function onLoadSave(data) {
+	var viewer = data.get('viewer').getData();
+	var data = data.get('data').getData();
+	number = data[viewer.getId()]['number'];
+	document.getElementById('result').innerHTML = "result:" + number;
+}
+
+	  </script>
+	  
+	  TEST2
+	  <div id="result">result:</div>
+	  <input type="button" value="加点" onClick="resetResult(parseInt(number) + 1)">
+   ]]>
+  </Content>
+</Module>
