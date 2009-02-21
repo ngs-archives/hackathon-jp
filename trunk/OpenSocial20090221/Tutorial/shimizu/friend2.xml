@@ -1,51 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="å‹é”æƒ…å ±å–å¾—ã‚¢ãƒ—ãƒª">
+  <ModulePrefs title="Sample App">
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
   <Content type="html">
-    <![CDATA[
-    <script type="text/javascript">
-      function init() {fetchAlbums(PersonId.OWNER);
-      }
-      function onLoadComplete(dataResponse) {
-        var owner = dataResponse.get("owner").getData();
-        var ownerFriends = dataResponse.get("ownerFriends").getData();
-        var resultHtml = owner.getDisplayName() + "ã•ã‚“ã®ãŠå‹é”:"
-        resultHtml += "<ul>";
-        ownerFriends.each(function(friend) {
-          resultHtml += ("<li>" + gadgets.util.escapeString(friend.getDisplayName()) + "</li>");
+  <![CDATA[
+  <script>
+    gadgets.util.registerOnLoadHandler(init);
+
+    function loadFriends() {
+        alert("ƒTƒ“ƒvƒ‹ƒAƒvƒŠ‚ªƒ[ƒh‚³‚ê‚Ü‚µ‚½B")
+        var yesno = confirm("‘±‚¢‚ÄAƒRƒ“ƒeƒi‚ÉƒtƒŒƒ“ƒhƒŠƒXƒgî•ñæ“¾ƒŠƒNƒGƒXƒg‚ğ‘—‚è‚Ü‚·‚©H");
+        if(yesno){
+            var req = opensocial.newDataRequest();
+            req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
+            req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'),
+                'viewerFriends');
+            req.send(onLoadFriends);
+        }else{
+            alert('ƒTƒ“ƒvƒ‹ƒAƒvƒŠI—¹');
+        }
+    }
+
+    function onLoadFriends(data) {
+        alert('ƒRƒ“ƒeƒi‚©‚çƒtƒŒƒ“ƒhƒŠƒXƒgî•ñ‚ª•Ô“š‚³‚ê‚Ü‚µ‚½B');
+        var viewer = data.get('viewer').getData();
+        var viewerFriends = data.get('viewerFriends').getData();
+
+        html = new Array();
+        html.push('<ul>');
+        viewerFriends.each(function(person) {
+            html.push('<li>' + person.getDisplayName() + "</li>");
         });
-        resultHtml += "</ul>";
-        document.body.innerHTML += resultHtml;
-      }
-      
-     function fetchAlbums(userId) {
-	  // Viewer
-	  var idspec_params = {};
-	  idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
-	  var idSpec = opensocial.newIdSpec(idspec_params);
- 
-	  var opt_params = { };
-	  opt_params['albumId'] = [];
-	  var req = opensocial.newDataRequest();
-	  req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "albums");
-	  req.send(processAlbums);
-	};
- 
-	function processAlbums(data) {
-	  var html = "";  
- 
-	  var albumz = data.get("albums").getData() || [];
- 
-	  albumz.each(function(album) {
-	     html += album.getField(opensocial.Album.Field.TITLE) + " ";
-	  });
-	  document.body.innerHTML += html;
-	};
-      
-      gadgets.util.registerOnLoadHandler(init);
-    </script>
-    ]]>
+        html.push('</ul>');
+        document.getElementById('friends').innerHTML = html.join('');
+    }
+
+    function init() {
+        loadFriends();
+    }
+
+  </script>
+  <div id='main'>
+    ‚ ‚È‚½‚ÌƒtƒŒƒ“ƒh‚Í<div id='friends'></div>
+  </div>
+  ‚Å‚·B
+
+  ]]>
   </Content>
 </Module>
