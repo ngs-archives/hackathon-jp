@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="SocialSounds">
+  <ModulePrefs title="SocialSounds"
+    description="sound app"
+	height="600">
     <Require feature="opensocial-0.8"/>
     <Require feature="views" />
   </ModulePrefs>
