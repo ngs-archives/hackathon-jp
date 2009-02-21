@@ -10,7 +10,7 @@
         with (opensocial.DataRequest) {
             var req = opensocial.newDataRequest();
 	    
-	    fetchAlbums(PersonId.OWNER);]]
+	    fetchAlbums(PersonId.OWNER);
 	    
 	    return;
 	    
