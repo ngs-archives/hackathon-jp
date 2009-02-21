@@ -24,8 +24,8 @@ function request2() {
 function response2(data) {
 	alert(2);
 	var viewer = data.get('viewer').getData();
-	var ownerFriends = data.get('ownerFriends').getData();
-
+	var viewerFriends = data.get('viewerFriends').getData();
+	alert(3);
 	viewerFriends.each(function(person) {
 				for(i in person) {
 					alert(i);
