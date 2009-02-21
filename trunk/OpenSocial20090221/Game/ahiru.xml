@@ -90,16 +90,15 @@
     }
 
     var startGame = function(index) {
-      alert(global_viewerFriends[index]);
       var person;
       var i = 0;
-      for (var e in global_viewerFriends) {
+      global_viewerFriends.each(function(e) {
         if (i == index) {
-          person = global_viewerFriends[e];
-          break;
+          person = e;
+          return;
         }
         i++;
-      }
+      });
       alert(person);
       alert(person.getDisplayName());
 
