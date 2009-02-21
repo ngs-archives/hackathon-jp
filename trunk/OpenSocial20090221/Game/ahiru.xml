@@ -97,7 +97,7 @@
         if (e.getId()) {
           if (i == parseInt(index)) {
             person = e;
-            goto aaaaa;
+            break aaaaa;
           }
           i++;
         }
