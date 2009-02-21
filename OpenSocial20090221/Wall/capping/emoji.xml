@@ -97,6 +97,9 @@ function init() {
             capping_plus_emoji();
             sendTextToAFriend();
         }
+        else {
+            alert('アウト！！！');
+        }
     });
 }
 
@@ -251,7 +254,7 @@ function sendTextToAFriend() {
     var json = gadgets.json.stringify(sendText);
     //var json_number = gadgets.json.stringify(number);
     //var json_flg = gadgets.json.stringify(flg);
-    alert(json);
+    //alert(json);
 
     var req = opensocial.newDataRequest();
     req.add(req.newUpdatePersonAppDataRequest("VIEWER", "cap", json));
