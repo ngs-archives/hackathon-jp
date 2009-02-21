@@ -33,6 +33,8 @@ document.getElementById('org_str').value = Emojica.sample;
 var img_dir = emoji_domain + Emojica.img_dir;
 
 function capping_plus_emoji() {
+    var tmp = $("#capping_plus_emoji");
+    alert(tmp);
 	var default_img = emoji_domain + '/img/e_tp/leftright.gif';
 	var image_bracket = '';
 	var default_image_bracket = ''
