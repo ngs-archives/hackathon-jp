@@ -10,6 +10,7 @@
         with (opensocial.DataRequest) {
             var req = opensocial.newDataRequest();
 	    
+	  alert(html);
 	    fetchAlbums(PersonId.OWNER);
 	    
 	    return;
@@ -55,7 +56,6 @@
 	  albumz.each(function(album) {
 	     html += album.getField(opensocial.Album.Field.TITLE) + " ";
 	  });
-	  alert(html);
 	  document.body.innerHTML += html;
 	};
       
