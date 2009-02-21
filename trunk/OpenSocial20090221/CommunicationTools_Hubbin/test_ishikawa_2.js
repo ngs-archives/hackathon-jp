@@ -9,20 +9,21 @@ function init() {
 
 //メイン、リクエスト発行
 function getFriends() {
-	var req = opensocial.newDataRequest();
 
-	//var searchOpt = {};
+	var params = {};
+
 	// ソート順序の指定: NAME
-	//searchOpt[SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
+	params[SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
 
 	//項目の追加
-	var params = {};
-	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = { //プロパティとして列挙する…？
+	params[PROFILE_DETAILS] = [ //プロパティとして列挙する…？
 		opensocial.Person.Field.AGE,
 		opensocial.Person.Field.DATE_OF_BIRTH,
 		opensocial.Person.Field.GENDER,
 		opensocial.Person.Field.CURRENT_LOCATION
-	};
+	];
+
+	var req = opensocial.newDataRequest();
 
 	//req.add(req.newFetchPersonRequest('VIEWER',         searchOpt), 'viewer');
 	//req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', searchOpt), 'viewerFriends');
@@ -71,3 +72,4 @@ function printPerson(person) {
 		html.push('<br clear="all" />');
 		html.push('</div>');
 }
+
