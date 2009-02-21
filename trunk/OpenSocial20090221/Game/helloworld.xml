@@ -32,7 +32,7 @@ function response(data) {
   html.push('<ul>');
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<li>' + '<img src="' + thumb + '">' + person.getDisplayName() + "</li>");
+    html.push('<li>' + '<a hreef="#"' + <img src="' + thumb + '">' + person.getDisplayName() + "</li></a>");
   });
   html.push('</ul>');
   document.getElementById('friends').innerHTML = html.join('');
