@@ -21,12 +21,10 @@ function resetResult( number ) {
 }
 
 function onLoadSave(data) {
-alert(1);
 	var viewer = data.get('viewer').getData();
 	var data = data.get('data').getData();
 	number = data[viewer.getId()]['number'];
-alert(number);
-	//document.getElementById('result').innerHTML = number;
+	document.getElementById('result').innerHTML = number;
 }
 
 	  </script>
