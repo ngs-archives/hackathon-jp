@@ -25,11 +25,12 @@ table.theTable img { width:100px; height: 100px; }
 <form name="hubbin">
 <table class="theTable">
 <tr>
-	<td class="owner">
+	<td class="owner" colspan="5">
 		<h3>Kozo Nishida</h3>
 		<img src="http://img2.orkut.com/images/small/871/41871.jpg" /><br />
 		<input type="radio" name="o" value="o0" />
 	</td>
+<!--
 	<td class="of1">
 		<h3>山本</h3>
 		<img src="http://img1.orkut.com/images/small/1230283841/123637/ep.jpg" /><br />
@@ -50,6 +51,7 @@ table.theTable img { width:100px; height: 100px; }
 		<img src="http://img1.orkut.com/images/small/274/91274.jpg" /><br />
 		<input type="radio" name="o" value="o4" />
 	</td>
+-->
 </tr>
 <tr>
 	<td colspan="5" class="longTable">&nbsp;</td>
