@@ -97,8 +97,6 @@ UgoSocial.viewJson = function(vector){
 		MovieNum = 0;
 	}
 	
-	
-	
 	var imgSrc = UgomemoJson.items[MovieNum]["movie_animation_gif_path"];
 	MovieHatenaSyntax = UgomemoJson.items[MovieNum]["movie_hatena_syntax"];
 	
@@ -109,6 +107,80 @@ UgoSocial.viewJson = function(vector){
     UgoSocial.makeImage(OnloadDate, imgSrc , MovieHatenaSyntax , totalNumber , nowNumber);
     UgoSocial.setComments();
 }
+
+UgoSocial.Comment = function(memo_id, comment) {
+	this.memo_id = memo_id;
+	this.comment = comment;
+}
+
+UgoSocial.Comment.prototype = {
+	updateRequest : function() {
+		var req = opensocial.newDataRequest();
+		var memoReq = req.newUpdatePersonAppDataRequest("VIEWER", "memo_id",
+				this.memo_id);
+		var commentReq = req.newUpdatePersonAppDataRequest("VIEWER", "comment",
+				this.comment);
+		var timeReq = req.newUpdatePersonAppDataRequest("VIEWER", "time",
+				this.time);
+		req.add(memoReq);
+		req.add(commentReq);
+		req.add(timeReq);
+		return req;
+	},
+	setDiffTime : function(display_time) {
+		this.diff = (new Date()).getTime() - display_time;
+	}
+}
+
+UgoSocial.util = {
+	register : function(memo_id, display_time, comment, callback) {
+		var comObj = new UgoSocial.Comment(memo_id, comment);
+		comObj.setDiffTime(display_time);
+		comObj.updateRequest().send(callback);
+	},
+	show : function(memo_id, callback) {
+
+		var req = opensocial.newDataRequest();
+		var fields = [ "memo_id", "comment", "time" ];
+
+		var friendParams = {};
+		friendParams[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+		friendParams[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+		friendParams[opensocial.IdSpec.Field.NETWORK_DISTANCE] = 1;
+
+		var friendIdSpec = opensocial.newIdSpec(friendParams);
+		// req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),
+		// "viewer");
+		req.add(req.newFetchPersonAppDataRequest(friendIdSpec, fields),
+				"friend_comment");
+
+		var selfParams = {};
+		selfParams[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+		var selfIdSpec = opensocial.newIdSpec(selfParams);
+		req.add(req.newFetchPersonAppDataRequest(selfIdSpec, fields),
+				"viewer_comment");
+
+		req.send(callback);
+	},
+	toComments : function(data){
+	    var array = new Array();   
+	    var appendFunc = function(obj){
+	      if(obj){
+	        for(var id in obj){
+	          var commentObj = obj[id];
+	          commentObj["user"] = id;
+	          array.push(commentObj);
+	        }
+	      }
+	    }    
+	    var friends = data.get("friend_comment").getData();
+	    var viewer = data.get("viewer_comment").getData();    	        
+	    appendFunc(friends);
+	    appendFunc(viewer);
+	    return array;
+	}
+}
+
 
 gadgets.util.registerOnLoadHandler(function(){
     $('#next').click(UgoSocial.next);
