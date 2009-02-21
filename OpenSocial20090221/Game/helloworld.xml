@@ -15,11 +15,10 @@ function init() {
 }
 
 function request() {
-	alert(1);
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-	req.send(response2);
+	req.send(request);
 }
 
 
