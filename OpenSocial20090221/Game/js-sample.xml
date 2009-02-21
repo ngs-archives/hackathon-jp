@@ -17,7 +17,7 @@
 
       var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
       var opt_params = {};
-      opt_params[opensocial.DataRequest.PeopleRequestFields] = [
+      opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
         opensocial.Person.Field.AGE,
         opensocial.Person.Field.DATE_OF_BIRTH,
         opensocial.Person.Field.GENDER,
