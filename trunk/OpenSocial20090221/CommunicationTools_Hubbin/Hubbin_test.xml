@@ -19,9 +19,19 @@ function printFriendsSpec(specs) {
 		html.push('<img src="'   + spec[2] + '" />');
 		html.push('</div>');
 	}
-	document.getElementById('ownerArea').innerHTML = html.join('');
+	document.getElementById('friendsArea').innerHTML = html.join('');
 }
 */
+
+function printViewerSpec(spec) {
+	var html = [];
+	html.push('<div class="person">');
+	html.push('<h3>' + spec[0] + ': ' + spec[1] + '</h3>');
+	html.push('<div>');
+	html.push('<img src="'   + spec[2] + '" />');
+	html.push('</div>');
+	document.getElementById('viewerArea').innerHTML = html.join('');
+}
 
 function printOwnerSpec(spec) {
 	var html = [];
@@ -42,10 +52,13 @@ function analyzePerson(person) {
 }
 
 function onLoadFriends(data) {
-	var owner   = data.get('owner').getData();
+//	var owner   = data.get('owner').getData();
+	var viewer  = data.get('viewer').getData();
 //	var friends = data.get('viewerFriends').getData().asArray();
 	var ownerSpec = analyzePerson(owner);
 	printOwnerSpec(ownerSpec);
+	var viewerSpec = analyzePerson(viewer);
+	printViewerSpec(viewerSpec);
 /*
 	var friendsSpec = [];
 	for (fkey in friends) {
@@ -59,7 +72,8 @@ function onLoadFriends(data) {
 
 function loadFriends() {
 	var req = opensocial.newDataRequest();
-	req.add(req.newFetchPeopleRequest('OWNER'),          'owner');
+//	req.add(req.newFetchPeopleRequest('OWNER'),          'owner');
+	req.add(req.newFetchPeopleRequest('VIEWER'),         'viewer');
 //	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
 	req.send(onLoadFriends);
 }
@@ -74,6 +88,7 @@ gadgets.util.registerOnLoadHandler(init);
 <div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /> TEST</div>
 <h1>Owner</h1>
 <div id="ownerArea"></div>
+<div id="viewerArea"></div>
 <h1>peopleFriends</h1>
 <div id="friendsArea"></div>
 ]]></Content>
