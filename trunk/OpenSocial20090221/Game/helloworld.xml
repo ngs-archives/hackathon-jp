@@ -54,6 +54,7 @@ function response(data) {
 }
 
 function startGame(id) {
+  alert(list[id]);
   for(i in list) {
 	alert(i);
   }
