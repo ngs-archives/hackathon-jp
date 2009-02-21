@@ -39,6 +39,11 @@ UgoSocial.showComment = function(comment) {
     $('<p>' + comment + '</p>').css({position:'relative',left:'200px',top: topHeight }).appendTo('#comment_area').animate({left:'-200px'},speed);
 }
 UgoSocial.makeImage = function(date, src, syntax ,total , now) {
+    console.log(date);
+    console.log(src);
+    console.log(syntax);
+    console.log(total);
+    console.log(now);
     $("#on_load_date").html(date);
     $("#content_div").html('<img src="'+src+'">');
     $("#hatena").html(syntax);
