@@ -27,9 +27,11 @@ function response2(data) {
 	var viewerFriends = data.get('viewerFriends').getData();
 	alert(3);
 	viewerFriends.each(function(person) {
-				for(i in person) {
-					alert(i);
-				}
+		for(i in person) {
+			alert(i);
+		}
+		
+		alert(person.getId());
 	});
 }
 
