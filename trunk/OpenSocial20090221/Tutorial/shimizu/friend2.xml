@@ -6,10 +6,7 @@
   <Content type="html">
     <![CDATA[
     <script type="text/javascript">
-      function init() {
-	fetchAlbums('13156385167433892927');
 
-      }
 
 
     function fetchAlbums(userId) {
@@ -46,7 +43,7 @@ function processAlbums(data) {
       
       
       
-      gadgets.util.registerOnLoadHandler(init);
+      gadgets.util.registerOnLoadHandler(fetchAlbums('13156385167433892927'));
     </script>
     ]]>
   </Content>
