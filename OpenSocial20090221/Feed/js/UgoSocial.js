@@ -29,7 +29,9 @@ UgoSocial.setComments = function() {
 }
 UgoSocial.showComment = function(comment) {
 //    $('#comment_area').append('<p>' + comment + '</p>');
-    $('<p>' + comment + '</p>').css({position:'relative',left:'200px'}).appendTo('#comment_area').animate({left:'-200px'},2000);
+    var topHeight = (Math.random() * 120) + 'px';
+    var speed = 2000 + (Math.random() * 2000);
+    $('<p>' + comment + '</p>').css({position:'relative',left:'200px',top: topHeight }).appendTo('#comment_area').animate({left:'-200px'},speed);
 }
 UgoSocial.init = function() {
     $('#event_trigger').click(UgoSocial.setComments);
