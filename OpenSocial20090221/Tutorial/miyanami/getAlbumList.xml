@@ -42,9 +42,9 @@
         // public albums
         function fetchAlbumsHandler(resp) {
 
-			alert(resp);
-
           var viewerAlbumsResp = resp.get('viewerAlbums');
+
+			alert(viewerAlbumsResp);
 
           if (!viewerAlbumsResp.hadError()) {
             var viewerAlbums = viewerAlbumsResp.getData();
