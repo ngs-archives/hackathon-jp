@@ -52,6 +52,8 @@ UgoSocial.makeImage = function(date, src, syntax ,total , now) {
     $("#content_div").html('<img src="'+src+'">');
     $("#hatena").html(syntax);
     $("#movie_num").html(now + "/" + total);
+    
+//    gadgets.window.adjustHeight();    
 }
 UgoSocial.jsonResponse = function(obj) {
 	UgomemoJson = obj.data;
@@ -185,6 +187,8 @@ UgoSocial.util = {
 gadgets.util.registerOnLoadHandler(function(){
     $('#next').click(UgoSocial.next);
     $('#prev').click(UgoSocial.prev);
+    
     UgoSocial.getJson();
+
 });
 
