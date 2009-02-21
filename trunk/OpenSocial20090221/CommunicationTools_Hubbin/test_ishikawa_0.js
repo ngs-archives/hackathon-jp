@@ -11,20 +11,20 @@ function getFriends() {
 	var searchOpt = {};
 	var req = opensocial.newDataRequest();
 	// ソート順序の指定: NAME
-	searchOpt[opensocial.DataRequest.PeopleRequestFields.SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
-	req.add(req.newFetchPersonRequest('VIEWER',         searchOpt), 'viewer');
+	searchOpt[SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
+	//req.add(req.newFetchPersonRequest('VIEWER',         searchOpt), 'viewer');
 	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS', searchOpt), 'viewerFriends');
-	req.add(req.newFetchPersonRequest('OWNER',          searchOpt), 'owner');
-	req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  searchOpt), 'ownerFriends');
+	//req.add(req.newFetchPersonRequest('OWNER',          searchOpt), 'owner');
+	//req.add(req.newFetchPeopleRequest('OWNER_FRIENDS',  searchOpt), 'ownerFriends');
 	req.send(onLoadFriends);
 }
 
 //メイン、コールバック関数
 function onLoadFriends(data) {
-	var viewer        = data.get('viewer'       ).getData();
+	//var viewer        = data.get('viewer'       ).getData();
 	var viewerFriends = data.get('viewerFriends').getData();
-	var owner         = data.get('owner'        ).getData();
-	var ownerFriends  = data.get('ownerFriends' ).getData();
+	//var owner         = data.get('owner'        ).getData();
+	//var ownerFriends  = data.get('ownerFriends' ).getData();
 	html = new Array();
 	//とりあえずviewerFriends
 	html.push('<div class="person">');
