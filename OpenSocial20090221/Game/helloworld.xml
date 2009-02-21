@@ -33,11 +33,10 @@ function response(data) {
   });
   html.push('</ul>');
   document.getElementById('friends').innerHTML = html.join('');
-
 }
 
 	  </script>
-	  <div id="main"></div>
+	  <div id="friends"></div>
    ]]>
   </Content>
 </Module>
