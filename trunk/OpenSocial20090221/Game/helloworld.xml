@@ -26,11 +26,14 @@ function response(data) {
   var viewer = data.get("viewer").getData();
   //var name = viewer.getDisplayName();
   //var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+  
   var viewerFriends = data.get('viewerFriends').getData();
   html = new Array();
   html.push('<ul>');
   viewerFriends.each(function(person) {
     html.push('<li>' + person.getDisplayName() + "</li>");
+	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+	alert(thumb);
   });
   html.push('</ul>');
   document.getElementById('friends').innerHTML = html.join('');
