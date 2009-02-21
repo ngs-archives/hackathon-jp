@@ -67,11 +67,18 @@ function onVote() {
 	p[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
 	var idSpec = opensocial.newIdSpec(p);
 	req.add(req.newFetchPersonAppDataRequest(idSpec, fields), "app_data");
+	req.add(req.newFetchPersonRequest("OWNER"), 'owner');
 	req.send(handleGetAnswerList);
 
 	function handleGetAnswerList(data) {
+		try {
+			var owner = data.get('owner').getData();
+			ownerId = owner.getId();
+		} catch (e) {
+		}
+
 		var appData = data.get("app_data").getData();
-		appData = appData["canonical"];
+		appData = appData[ownerId];
 		var answerAll = {};
 		var answerAllJson = appData["answer"];
 		try {
@@ -135,20 +142,16 @@ function loadingAnswer() {
 	var idSpecOwner = opensocial.newIdSpec(pOwner);
 	pViwer[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIWER;
 	var idSpecViewer = opensocial.newIdSpec(pViwer);
-	req.add(req.newFetchPersonRequest(idSpecOwner, "owner"));
-	req.add(req.newFetchPersonRequest(idSpecViewer, 'viewer'));
-//	req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+//	req.add(req.newFetchPersonRequest(idSpecOwner, "owner"));
+//	req.add(req.newFetchPersonRequest(idSpecViewer, 'viewer'));
+	req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+	req.add(req.newFetchPersonRequest("OWNER"), 'owner');
 	req.add(req.newFetchPersonAppDataRequest(idSpecOwner, fields), "app_data");
 	req.send(handleRequestAppData);
 }
 
 var owner;
 function handleRequestAppData(data) {
-//	var ownerData = data.get("owner");
-//	owner = ownerData.getData();
-// 	var viewerData = data.get('viewer');
-// 	var viewer = viewerData.getData();
-//	alert(viewer.getId());
 	try {
 		var viewer = data.get('viewer').getData();
 		viewerId = viewer.getId();
