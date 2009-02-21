@@ -34,7 +34,7 @@
             }
           });
           html.push('</ul>');
-          document.getElementById('friends').innerHTML = html.join('');
+          //document.getElementById('friends').innerHTML = html.join('');
           gadgets.window.adjustHeight();
         }
 
