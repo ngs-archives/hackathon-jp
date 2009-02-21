@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 1 - Friends">
+  <ModulePrefs title="Gifts part 2 - Friends">
     <Require feature="opensocial-0.7"/>
   </ModulePrefs>
   <Content type="html">
