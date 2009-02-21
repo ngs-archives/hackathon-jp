@@ -38,14 +38,14 @@ function response(data) {
   html.push('<table cellpadding="5"><tr>');
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="loadJvascript(' + param + ');">' + '<img src="' + thumb + '">' + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="loadJvascript();">' + '<img src="' + thumb + '">' + '</a></td>');
   });
   
   html.push('</tr><tr>');
   
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="loadJvascript(' + param + ');">' + person.getDisplayName() + '</a></td>');
+    html.push('<td>' + '<a href="#" onClick="loadJvascript();">' + person.getDisplayName() + '</a></td>');
   });
   
   html.push('</tr></table>');
