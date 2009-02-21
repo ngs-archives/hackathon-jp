@@ -90,6 +90,7 @@
     }
 
     var startGame = function(index) {
+      alert(index);
       var person;
       var i = 0;
       global_viewerFriends.each(function(e) {
