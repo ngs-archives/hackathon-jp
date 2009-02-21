@@ -36,7 +36,7 @@ UgoSocial.showComment = function(comment) {
 //    $('#comment_area').append('<p>' + comment + '</p>');
     var topHeight = (Math.random() * 120) + 'px';
     var speed = 2000 + (Math.random() * 2000);
-    $('<p>' + comment + '</p>').css({position:'relative',left:'200px',top: topHeight }).appendTo('#comment_area').animate({left:'-200px'},speed);
+    $('<p>' + comment + '</p>').css({position:'relative',left:'200px',top: topHeight }).appendTo('#content_div').animate({left:'-200px'},speed);
 }
 UgoSocial.makeImage = function(date, src, syntax ,total , now) {
     try{
@@ -105,7 +105,7 @@ UgoSocial.viewJson = function(vector){
     totalNumber = UgomemoJson.items.length;
     var nowNumber = MovieNum + 1;
     UgoSocial.makeImage(OnloadDate, imgSrc , MovieHatenaSyntax , totalNumber , nowNumber);
-
+    UgoSocial.setComments();
 }
 
 gadgets.util.registerOnLoadHandler(function(){
