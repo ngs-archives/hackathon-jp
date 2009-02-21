@@ -6,6 +6,7 @@
   <Content type="html">
     <![CDATA[
   <script>
+
     gadgets.util.registerOnLoadHandler(init);
 
 
