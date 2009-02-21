@@ -100,19 +100,18 @@
         i++;
       });
 	 
-	alert(i);
 	
       var swf_params_hash = {
         'name0': global_viewer.getDisplayName(),
         'name1': person.getDisplayName(),
         'type0': (global_viewer.getId() % 3),
         'type1': (person.getId() % 3),
-        'speed0': (global_viewer.getId() %  100),
-        'speed1': (person.getId() % 100),
-        'accele0': (global_viewer.getId() %  100),
-        'accele1': (person.getId() % 100),
-        'stamina0': (global_viewer.getId() %  100),
-        'stamina1': (person.getId() % 100),
+        'speed0': 10,
+        'speed1': 10,
+        'accele0': 10,
+        'accele1': 10,
+        'stamina0': 10,
+        'stamina1': 10,
       };
       var swf_params = '';
       for (var e in swf_params_hash) {
