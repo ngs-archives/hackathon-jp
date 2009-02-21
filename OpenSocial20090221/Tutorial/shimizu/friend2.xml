@@ -41,7 +41,6 @@
 		html += '<b><font color="red">MyAlbum</font></b><br>';
 
 		fetchMyAlbums();
-		html += '<hr>';
 	}
 
 	function init() {
