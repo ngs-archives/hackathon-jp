@@ -162,7 +162,7 @@ function validateData(){
 gadgets.util.registerOnLoadHandler(init);
 </script>
 <div id="select"></div>
-<div id="capping"><div id="capping_area">ここに経歴が入ります．</div></div>
+<div id="capping_div"><div id="capping_area">ここに経歴が入ります．</div></div>
 <div id="text"><input type="text" id ="capping" name="capping" value="" /><input type="submit" id="btn_submit" name="btn_submit" value="送る"></div>
 <div id="friends"></div>
 ]]>
