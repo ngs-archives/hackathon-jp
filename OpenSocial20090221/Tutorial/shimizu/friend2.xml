@@ -23,7 +23,7 @@ var idSpec = opensocial.newIdSpec({'userId':userId, 'groupId':'SELF'});
   var opt_params = { };
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
-  req.add(req.newFetchAlbumsRequest(idSpec), "albums");
+  req.add(req.newFetchAlbumsRequest(idSpec), "album");
 
   req.send(processAlbums);
 
@@ -34,7 +34,7 @@ function processAlbums(data) {
 //if (data.hadError()) {
 //alert(data.getErrorCode());
 //}
-  var albumz = data.get("albums").getData();
+  var albumz = data.get("album").getData();
    alert(albumz);
 
   albumz.each(function(album) {
