@@ -8,11 +8,13 @@
       <script type="text/javascript">
         gadgets.util.registerOnLoadHandler(init);
 function init() {
+	alert(1);
 	request();
 }
 
 function request() {
-  var req = opensocial.newDataRequest();
+ 	alert(2);
+ var req = opensocial.newDataRequest();
   var opt_params = { };
   opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
     opensocial.Person.Field.PROFILE_URL
@@ -22,6 +24,7 @@ function request() {
 }
 
 function response(data) {
+	alert(3);
   var viewer = data.get("viewer").getData();
   var name = viewer.getDisplayName();
   var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
