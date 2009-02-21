@@ -29,9 +29,7 @@ UgoSocial.showComment = function() {
    }
 }
 UgoSocial.init = function() {
-    alert('hoge');
-    $('event_trigger').click(function(){alert('click');});
-    $('event_trigger').click(UgoSocial.showComment);
+    $('#event_trigger').click(UgoSocial.showComment);
 }
 gadgets.util.registerOnLoadHandler(UgoSocial.init);
 //$(UgoSocial.init);
