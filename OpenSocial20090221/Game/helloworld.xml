@@ -12,6 +12,10 @@ function init() {
 	resetResult(1);
 }
 
+function loadResult() {
+
+}
+
 function resetResult( number ) {
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
@@ -24,7 +28,7 @@ function onLoadSave(data) {
 	var viewer = data.get('viewer').getData();
 	var data = data.get('data').getData();
 	number = data[viewer.getId()]['number'];
-	document.getElementById('result').innerHTML = number;
+	document.getElementById('result').innerHTML = "result:" + number;
 }
 
 	  </script>
