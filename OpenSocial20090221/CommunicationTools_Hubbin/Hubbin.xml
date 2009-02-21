@@ -13,7 +13,7 @@ function init() {
 <style type="text/css">
 table.theTable { width:90%; }
 table.theTable td { vertical-align:top; text-align:center; padding:6px; }
-table.theTable td input { font-size:20px; }
+table.theTable td input { font-size:20px; width:200%; height:200%; }
 .owner { background-color:#eeeeff; }
 .viewer { background-color:#eeffff; }
 td.longTable { background:url(http://www.unsigneddesign.com/seamless/2895996994_58c0972172_b.jpg); height:150px; }
@@ -60,32 +60,32 @@ table.theTable img { width:100px; height: 100px; }
 <tr>
 	<td class="viewer">
 		<input type="radio" name="v" id="v0" value="v0" /><br />
-		<label for="v0"><img src="http://img4.orkut.com/images/small/861/115861.jpg" /><br />
-		<h3>Kenji Ishikawa</h3></label>
+		<label for="v0"><img src="http://img4.orkut.com/images/small/861/115861.jpg" /></label><br />
+		<h3>Kenji Ishikawa</h3>
 		<div>スコア: 1.25</div>
 	</td>
 	<td class="vf1">
 		<input type="radio" name="v" id="v1" value="v1" /><br />
-		<label for="v1"><img src="http://img4.orkut.com/images/small/506/56506.jpg" /><br />
-		<h3>シンイチ</h3></label>
+		<label for="v1"><img src="http://img4.orkut.com/images/small/506/56506.jpg" /></label><br />
+		<h3>シンイチ</h3>
 		<div>スコア: 1.01</div>
 	</td>
 	<td class="vf2">
 		<input type="radio" name="v" id="v2" value="v2" /><br />
-		<label for="v2"><img src="http://img3.orkut.com/images/small/873/873.jpg" /><br />
-		<h3>北野</h3></label>
+		<label for="v2"><img src="http://img3.orkut.com/images/small/873/873.jpg" /></label><br />
+		<h3>北野</h3>
 		<div>スコア: 2.04</div>
 	</td>
 	<td class="vf3">
 		<input type="radio" name="v" id="v3" value="v3" /><br />
-		<label for="v3"><img src="http://img3.orkut.com/images/small/851/51851.jpg" /><br />
-		<h3>イシカワ</h3></label>
+		<label for="v3"><img src="http://img3.orkut.com/images/small/851/51851.jpg" /></label><br />
+		<h3>イシカワ</h3>
 		<div>スコア: 3.26</div>
 	</td>
 	<td class="vf4">
 		<input type="radio" name="v" id="v4" value="v4" /><br />
-		<label for="v4"><img src="http://img1.orkut.com/images/small/816/42816.jpg" /><br />
-		<h3>Hoge Hoge</h3></label>
+		<label for="v4"><img src="http://img1.orkut.com/images/small/816/42816.jpg" /></label><br />
+		<h3>Hoge Hoge</h3>
 		<div>スコア: 0.19</div>
 	</td>
 </tr>
