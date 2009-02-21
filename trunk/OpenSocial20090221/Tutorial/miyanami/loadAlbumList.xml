@@ -23,7 +23,7 @@
     }
 
     function onLoadFriends(data) {
-        alert('コンテナからフレンドリスト情報が返答されました。');
+        // alert('コンテナからフレンドリスト情報が返答されました。');
         var viewer = data.get('viewer').getData();
         var viewerFriends = data.get('viewerFriends').getData();
 
