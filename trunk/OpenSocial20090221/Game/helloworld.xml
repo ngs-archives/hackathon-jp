@@ -47,11 +47,13 @@ function response(data) {
   
   html.push('</tr></table>');
   document.getElementById('friends').innerHTML = html.join('');
+  
+  for(i in list) {
+	alert(i);
+  }
 }
 
 function startGame(id) {
-	alert(id);
-	alert(list[id]);
 }
 
 	  </script>
