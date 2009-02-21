@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 3 - Showing Gifts">
+  <ModulePrefs title="Gifts part 4 - Showing What You Got">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
@@ -35,6 +35,8 @@
 
           var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
           req.add(req.newFetchPersonAppDataRequest(viewer, 'gifts', opt_params), 'data');
+
+          req.add(req.newFetchPersonAppDataRequest(viewerFriends, 'gifts', opt_params), 'viewerFriendData');
           req.send(onLoadFriends);
         }
 
@@ -42,6 +44,7 @@
           var viewer = data.get('viewer').getData();
           var viewerFriends = data.get('viewerFriends').getData();
           var giftData = data.get('data').getData();
+          var viewerFriendData = data.get('viewerFriendData').getData();
 
           html = new Array();
           html.push('<select id="person">');
@@ -54,6 +57,7 @@
           document.getElementById('friends').innerHTML = html.join('');
 
           updateGiftList(viewer, giftData, viewerFriends);
+          updateReceivedList(viewer, viewerFriendData, viewerFriends);
         }
 
         function giveGift() {
@@ -74,6 +78,8 @@
 
           var viewer = opensocial.newIdSpec({ "userId" : "VIEWER" });
           req.add(req.newFetchPersonAppDataRequest(viewer, 'gifts'), 'data');
+
+          req.add(req.newFetchPersonAppDataRequest(viewerFriends, 'gifts', opt_params), 'viewerFriendData');
           req.send(onLoadFriends);
         }
 
@@ -104,6 +110,36 @@
           document.getElementById('given').innerHTML = html.join('');
         }
 
+        function updateReceivedList(viewer, data, friends) {
+          var viewerId = viewer.getId();
+
+          var html = new Array();
+          html.push('You have received:<ul>');
+          friends.each(function(person) {
+            if (data[person.getId()]) {
+              var json = data[person.getId()]['gifts'];
+
+              var gifts = {}
+              if (!json) {
+                gifts = {};
+              }
+              try {
+                gifts = gadgets.json.parse(gadgets.util.unescapeString(json));
+              } catch (e) {
+                gifts = {};
+              }
+
+              for (i in gifts) {
+                if (i.hasOwnProperty && i == viewerId) {
+                  html.push('<li>', globalGiftList[gifts[i]], ' from ', person.getDisplayName(), '</li>');
+                }
+              }
+            }
+          });
+          html.push('</ul>');
+          document.getElementById('received').innerHTML = html.join('');
+        }
+
         gadgets.util.registerOnLoadHandler(init);
       </script>
       <div id='main'>
@@ -114,6 +150,7 @@
           </form>
         </div>
         <div id='given'></div>
+        <div id='received'></div>
       </div>
     ]]>
   </Content>
