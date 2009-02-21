@@ -28,7 +28,7 @@
 	function onLoadFriends(data) {
 	  var viewer = data.get('viewer').getData();
 	  var viewerFriends = data.get('viewerFriends').getData();
-
+		/*sondn security test*/	
 	  html = new Array();
 	  html.push('<ul>');
 	  viewerFriends.each(function(person) {
