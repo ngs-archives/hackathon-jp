@@ -25,14 +25,14 @@
         opensocial.Person.Field.GENDER,
         opensocial.Person.Field.CURRENT_LOCATION];
       opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
-      req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
+      req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'friends');
 
       req.send(onLoadFriends);
     }
 
     function onLoadFriends(data){
-      var viewer = data.get('viewer').getData();
-      var viewerFriends = data.get('viewerFriends').getData();
+      //var viewer = data.get('viewer').getData();
+      var viewerFriends = data.get('friends').getData();
 
       html = new Array();
       html.push('<ul>');
