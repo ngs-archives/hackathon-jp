@@ -28,6 +28,8 @@ alert(3);
   var viewer = data.get("viewer").getData();
   var name = viewer.getDisplayName();
   var about_me = viewer.getField(opensocial.Person.Field.ABOUT_ME);
+  
+  alert(about_me);
   var html = about_me + ':' + name;
   document.getElementById('main').innerHTML = html;
 }
