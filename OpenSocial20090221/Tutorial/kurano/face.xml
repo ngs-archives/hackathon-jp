@@ -2,6 +2,7 @@ function loadFriends() {
   var req = opensocial.newDataRequest();
   req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
   req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
+  req.add(req.newFetchPeopleRequest('THUMBNAIL_URL'), 'viewerFace');
   req.send(onLoadFriends);
 }
 
@@ -12,7 +13,7 @@ function onLoadFriends(data) {
   
   html = new Array();
   html.push('<ul>');
-  viewerFriends.each(function(person) {
+  viewerFace.each(function(person) {
     html.push('<li>' + person.getField() + "</li>");
   });
 
