@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+	<ModulePrefs title="TestIshikawa">
+		<Require feature="opensocial-0.8"/>
+	</ModulePrefs>
+	<Content type="html"><![CDATA[
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/test_ishikawa_0.js"></script>
+		<script>
+			gadgets.util.registerOnLoadHandler(init);
+		</script>
+		<div><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in]" /> TEST</div>
+		<div id="peopleArea"></div>
+	]]></Content>
+</Module>
