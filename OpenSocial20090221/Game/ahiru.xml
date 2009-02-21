@@ -81,11 +81,10 @@
 
         var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
         html.push('<td>' + '<a href="#" onClick="startGame(' + param + ');">' + person.getDisplayName() + '</a></td>');
-        });
+      });
 
-        html.push('</tr></table>');
-        document.getElementById('friends').innerHTML = html.join('');
-      }
+      html.push('</tr></table>');
+      document.getElementById('friends').innerHTML = html.join('');
 
       html.push('<pre>' + swf_params + '<pre>'); // for debug
 
@@ -95,7 +94,7 @@
       //so.addParam("wmode", "transparent");
       so.write("swf_container");
       delete so;
-
+    }
     </script>
     <div id='main'>
       Your friends:
