@@ -30,10 +30,10 @@
 
             if (person.getId()) {
 
-
+		var addresses = person.getField(opensocial.Person.Field.ADDRESSES);
+		alert(addresses.length);
 
               html.push('<li>', person.getDisplayName(),
-		person.getField(opensocial.Address),
 		'<img src=',person.getField(opensocial.Person.Field.THUMBNAIL_URL) ,'>',
 		'</li>');
             }
