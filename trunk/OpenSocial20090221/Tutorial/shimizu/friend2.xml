@@ -16,6 +16,9 @@
   // Viewer
   var idspec_params = {};
   idspec_params[opensocial.IdSpec.Field.USER_ID] = userId;
+  alert(opensocial.Container.get().newIdSpec(idspec_params));
+
+  
   var idSpec = opensocial.newIdSpec(idspec_params);
   alert(idSpec[0]);
   var opt_params = { };
