@@ -21,9 +21,10 @@
   		html = new Array();
 
  		 viewerFriends.each(function(person) {
+			html.push('');
 			html.push(person.getDisplayName(), '<br />');	
     			html.push('<img src="',person.getField(opensocial.Person.Field.THUMBNAIL_URL),'">');
-			html.push(person.getField(opensocial.Email.Field.ADDRESS));
+			html.push(person.getField(opensocial.Person.Field.EMAILS));
 			html.push('<hr>');
 			
  		 });
