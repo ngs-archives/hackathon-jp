@@ -69,15 +69,17 @@
 		opt_params['albumId'] = [];
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "album");
-
-		req.send(processAlbums);
+		
+		var func = function (data) { processAlbums(data, 'test'); };
+		
+		req.send(func);
 
 	};
  
-	function processAlbums(data) {
+	function processAlbums(data, pname) {
 		var albumz = data.get("album").getData();
 		albumz.each(function(album) {
-		html += album.getTitle() + "<br>";
+		html += pname + "<br>";
 		html += '<img src="' + album.getThumbnailUrl() + '">';
 		});
 
