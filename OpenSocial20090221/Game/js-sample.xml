@@ -5,14 +5,14 @@
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
-      <script src="http://opensocial-resources.googlecode.com/svn/samples/tutorial/tags/api-0.7/gifts_1_friends.js"></script>
-      <script>
-        gadgets.util.registerOnLoadHandler(init);
-      </script>
-      <div id='main'>
-        Your friends:
-        <div id='friends'></div>
-      </div>
+    <script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/ahuru.js"></script>
+    <script>
+      gadgets.util.registerOnLoadHandler(init);
+    </script>
+    <div id='main'>
+      Your friends:
+      <div id='friends'></div>
+    </div>
     ]]>
   </Content>
 </Module>
