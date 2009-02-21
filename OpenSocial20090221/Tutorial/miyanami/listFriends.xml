@@ -28,10 +28,13 @@
 
           viewerFriends.each(function(person) {
 
-		//var addresses = person.getField(opensocial.Person.Field.ADDRESSES);
+		
 		//alert(addresses.length);
 
             if (person.getId()) {
+
+		var addresses = person.getField(opensocial.Person.Field.ADDRESSES);
+
               html.push('<li>', person.getDisplayName(),
 		'<img src=',person.getField(opensocial.Person.Field.THUMBNAIL_URL) ,'>',
 		'</li>');
