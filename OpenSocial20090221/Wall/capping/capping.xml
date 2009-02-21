@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-<ModulePrefs title="しりとり(日本語版)">
+<ModulePrefs title="しりとり(日本語版) viewer">
 <Require feature="opensocial-0.7"/>
 </ModulePrefs>
 <Content type="html">
 <![CDATA[
-<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Wall/capping/jquery-1.2.6.js"></script>
+<script type="text/javascript" src="http://home.ekzm.net/~oguni/OpenSocial/jquery-1.2.6.js"></script>
 <script type="text/javascript">
 /**
  *
@@ -27,10 +27,10 @@ function init() {
  */
 function loadFriends() {
     var req = opensocial.newDataRequest();
-    req.add(req.newFetchPersonRequest("OWNER"), "owner");
-    req.add(req.newFetchPeopleRequest("OWNER_FRIENDS"), "owner_friends");
-    req.add(req.newFetchPersonAppDataRequest("OWNER", "cap"), "owner_cap");
-    req.add(req.newFetchPersonAppDataRequest("OWNER_FRIENDS", "cap"), "owner_friends_cap");
+    req.add(req.newFetchPersonRequest("VIEWER"), "viewer");
+    req.add(req.newFetchPeopleRequest("VIEWER_FRIENDS"), "viewer_friends");
+    req.add(req.newFetchPersonAppDataRequest("VIEWER", "cap"), "viewer_cap");
+    req.add(req.newFetchPersonAppDataRequest("VIEWER_FRIENDS", "cap"), "viewer_friends_cap");
     req.send(handleLoadFriends);
 }
 
@@ -52,21 +52,52 @@ function handleLoadFriends(data) {
  *
  */
 function onLoadFriends(data) {
-    var owner = data.get("owner").getData();
-    var ownerFriends = data.get("owner_friends").getData();
-    var owner_cap = data.get("owner_cap").getData();
-    var owner_friends_cap = data.get("owner_friends_cap").getData();
+    var viewer = data.get("viewer").getData();
+    var viewerFriends = data.get("viewer_friends").getData();
+    var viewer_cap = data.get("viewer_cap").getData();
+    var viewer_friends_cap = data.get("viewer_friends_cap").getData();
 
-    alert(owner_cap);
-    alert(owner_friends_cap);
-    
     var html = new Array();
     html.push("<select id='person'>");
-    ownerFriends.each(function(person){
+    viewerFriends.each(function(person){
         html.push("<option value='" + person.getId() + "'>" + person.getDisplayName() + "</option>");
     });
     html.push("</select>");
     $("#select").html(html.join(""));
+
+    updateGiveList(data);
+    updateReceivedList(data);
+}
+
+/**
+ *
+ *
+ */
+function updateGiveList(data) {
+
+}
+
+/**
+ *
+ *
+ */
+function updateReceivedList(data) {
+    var viewer = data.get("viewer").getData();
+    var viewerFriends = data.get("viewer_friends").getData();
+    var viewer_cap = data.get("viewer_cap").getData();
+    var viewer_friends_cap = data.get("viewer_friends_cap").getData();
+
+    viewerFriends.each(function(person){
+        var personData = viewer_friends_cap[person.getId()];
+    });
+    alert(viewer.getId());
+    var hoge = viewer.getId();
+    var json = viewer_friends_cap[viewer.getId()]["cap"];
+
+    //alert(json);
+    
+    givenCap = gadets.util.parse(gadets.util.unescapeString(json));
+    alert(givenCap);
 }
 
 /**
@@ -82,18 +113,18 @@ function sendTextToAFriend() {
     var cap_data = {};
     cap_data["cap"] = cappingText;
     cap_data["flg"] = 1;
-    //sendText[personId] = cap_data;
-    sendText[personId] = cappingText;
+    sendText[personId] = cap_data;
+    //sendText[personId] = cappingText;
     //sendText[personId]["flg"] = 1;
     var json = gadgets.json.stringify(sendText);
     alert(json);
 
     var req = opensocial.newDataRequest();
-    req.add(req.newUpdatePersonAppDataRequest("OWNER", "cap"), json);
-    req.add(req.newFetchPersonRequest("OWNER"), "owner");
-    req.add(req.newFetchPeopleRequest("OWNER_FRIENDS"), "owner_friends");
-    req.add(req.newFetchPersonAppDataRequest("OWNER", "cap"), "owner_cap");
-    req.add(req.newFetchPersonAppDataRequest("OWNER_FRIENDS", "cap"), "owner_friends_cap");
+    req.add(req.newUpdatePersonAppDataRequest("VIEWER", "cap", json));
+    req.add(req.newFetchPersonRequest("VIEWER"), "viewer");
+    req.add(req.newFetchPeopleRequest("VIEWER_FRIENDS"), "viewer_friends");
+    req.add(req.newFetchPersonAppDataRequest("VIEWER", "cap"), "viewer_cap");
+    req.add(req.newFetchPersonAppDataRequest("VIEWER_FRIENDS", "cap"), "viewer_friends_cap");
     req.send(handleLoadFriends);
 }
 
@@ -110,6 +141,10 @@ gadgets.util.registerOnLoadHandler(init);
 <div id="select"></div>
 <div id="text"><input type="text" id ="capping" name="capping" value="" /><input type="submit" id="btn_submit" name="btn_submit" value="送る"></div>
 <div id="friends"></div>
+]]>
+</Content>
+<Content type="html">
+<![CDATA[
 ]]>
 </Content>
 </Module>
