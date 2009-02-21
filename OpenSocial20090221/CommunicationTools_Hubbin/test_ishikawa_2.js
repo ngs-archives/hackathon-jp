@@ -13,10 +13,10 @@ function getFriends() {
 	var params = {};
 
 	// ソート順序の指定: NAME
-	params[SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
+	params[opensocial.DataRequest.PeopleRequestFields.SORT_ORDER] = opensocial.DataRequest.SortOrder.NAME;
 
 	//項目の追加
-	params[PROFILE_DETAILS] = [ //プロパティとして列挙する…？
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
 		opensocial.Person.Field.AGE,
 		opensocial.Person.Field.DATE_OF_BIRTH,
 		opensocial.Person.Field.GENDER,
