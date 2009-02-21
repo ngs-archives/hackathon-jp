@@ -38,7 +38,7 @@ UgoSocial.showComment = function(comment) {
     var speed = 2000 + (Math.random() * 2000);
     var colorIndex = parseInt(Math.random() * 3);
     var color = "red,black,yellow,blue".split(",")[colorIndex];
-    $('<p>' + comment + '</p>').css({margin:'0px',color: color,position:'relative',left:'200px',top: topHeight }).appendTo('#content_div').animate({left:'-200px'},speed);
+    $('<p>' + comment + '</p>').css({margin:'0px',color: color,position:'absolute',left:'200px',top: topHeight,zIndex:'1000' }).appendTo('#content_div').animate({left:'-200px'},speed);
 }
 UgoSocial.makeImage = function(date, src, syntax ,total , now) {
     try{
