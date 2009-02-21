@@ -25,17 +25,16 @@
   opt_params['albumId'] = [];
   var req = opensocial.newDataRequest();
   req.add(req.newFetchAlbumsRequest(idSpec, opt_params), "viewerAlbums");
-  alert("send");
 
   req.send(processAlbums);
 
 };
  
 function processAlbums(data) {
-alert("kita");
   var html = "";  
   var albumz = data.get("viewerAlbums").getData();
- 
+ alert("kita");
+
   albumz.each(function(album) {
      html += album.getThumbnailUrl();
   });
