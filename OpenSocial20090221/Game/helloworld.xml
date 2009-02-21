@@ -1,68 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 1 - Friends">
-    <Require feature="opensocial-0.7"/>
+  <ModulePrefs title="ahiru">
+    <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
-      <script type="text/javascript">
-        gadgets.util.registerOnLoadHandler(init);
+    <script type="text/javascript" src="http://res.nicovideo.jp/js/swfobject.js?4"></script>
+    <script type="text/javascript">
+    gadgets.util.registerOnLoadHandler( function(){
+      loadFriends();
+    });
 
-var list = [];
-var viewer_id;
-var viewer_name;
-
-function init() {
-	request();
-}
-
-function request() {
-	var req = opensocial.newDataRequest();
-	req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-	req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-	req.send(response);
-}
+    function loadFriends(){
+      var req = opensocial.newDataRequest();
+      req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
 
 
-function response(data) {
-  viewer = data.get("viewer").getData();
-  var viewerFriends = data.get('viewerFriends').getData();
-  
-  viewer_id = viewer.getId();
-  viewer_name = viewer.getDisplayName();
-  
-  id = 0;
-  html = new Array();
-  html.push('<table cellpadding="5"><tr>');
-  viewerFriends.each(function(person) {
-	
-	list[ id ] = person.getDisplayName();
-	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + id + ');">' + '<img src="' + thumb + '">' + '</a></td>');
-	id ++;
-  });
-  
-  html.push('</tr><tr>');
-  
-  id = 0;
-  viewerFriends.each(function(person) {
-	id = person.getId();
-	var thumb = person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#" onClick="startGame(' + id + ');">' + person.getDisplayName() + '</a>' + id + '</td>');
-	id++;
-  });
-  
-  html.push('</tr></table>');
-  document.getElementById('friends').innerHTML = html.join('');
-}
+      var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+      var opt_params = {};
+      opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [];
+      //opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+      //  opensocial.Person.Field.AGE,
+      //  opensocial.Person.Field.THUMBNAIL_URL,
+      //  opensocial.Person.Field.ABOUT_ME,
+      //  opensocial.Person.Field.STATUS,
+      //  opensocial.Person.Field.DATE_OF_BIRTH,
+      //  opensocial.Person.Field.GENDER,
+      //  opensocial.Person.Field.CURRENT_LOCATION];
+      opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+      req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'friends');
 
-function startGame(id) {
-	alert(id);
-	alert (list[ id ]);
-}
+      req.send(onLoadFriends);
+    }
 
-	  </script>
-	  <div id="friends"></div>
-   ]]>
+    var global_viewer;
+    var global_viewerFriends;
+    function onLoadFriends(data){
+      global_viewer = data.get('viewer').getData();
+      global_viewerFriends = data.get('friends').getData();
+      var viewer = global_viewer;
+      var viewerFriends = global_viewerFriends;
+
+      html = new Array();
+      html.push('<ul>');
+      viewerFriends.each(function(person) {
+        if (person.getId()) {
+          html.push('<li>' + person.getDisplayName() +
+            '#' + person.getId() +
+            "</li>");
+        }
+      });
+      html.push('</ul>');
+
+      var i = 0;
+      html.push('<table cellpadding="5"><tr>');
+      viewerFriends.each(function(person) {
+        /*
+        var param = viewer.getDisplayName() + "," +
+          viewer.getId() + ",test" +
+          person.getDisplayName() + ',' +
+          person.getId() + ",test";
+        */
+        var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+        html.push(
+          '<td>' + '<a href="#" onClick="startGame(\'' + (i++) + '\');">' +
+          '<img src="' + thumb + '">' + '</a></td>');
+      });
+
+      html.push('</tr><tr>');
+
+      var i = 0;
+      viewerFriends.each(function(person) {
+        /*
+        var param = viewer.getDisplayName() + "," +
+          viewer.getId() + ",test" +
+          person.getDisplayName() + ',' +
+          person.getId() + ",test";
+        */
+        var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+        html.push(
+          '<td>' + '<a href="#" onClick="startGame(\'' + (i++) + '\');">' +
+          person.getDisplayName() + '</a></td>');
+      });
+
+      html.push('</tr></table>');
+
+      document.getElementById('friends').innerHTML = html.join('');
+
+    }
+
+    var startGame = function(index) {
+      var person;
+      var i = 0;
+      global_viewerFriends.each(function(e) {
+        if (i == index) {
+          person = e;
+          return;
+        }
+        i++;
+      });
+
+      var swf_params_hash = {
+        'name0': global_viewer.getDisplayName(),
+        'name1': person.getDisplayName(),
+        'type0': (global_viewer.getId() % 3),
+        'type1': (person.getId() % 3),
+        'speed0': (global_viewer.getId() %  100),
+        'speed1': (person.getId() % 100),
+        'accele0': (global_viewer.getId() %  100),
+        'accele1': (person.getId() % 100),
+        'stamina0': (global_viewer.getId() %  100),
+        'stamina1': (person.getId() % 100),
+      };
+      var swf_params = '';
+      for (var e in swf_params_hash) {
+        swf_params += e + '=' + swf_params_hash[e].toString().replace(/ /g, '%20') + '&';
+      }
+      //html.push('<pre>' + swf_params + '<pre>'); // for debug
+
+      var so = new SWFObject(
+        "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/Game/main.swf?" + swf_params,
+        "swf_container", "100%", "100%");
+      so.addParam("allowScriptAccess", "always");
+      //so.addParam("wmode", "transparent");
+      so.write("swf_container");
+      delete so;
+    };
+    </script>
+    <div id='main'>
+      Your friends:
+      <div id='friends'></div>
+    </div>
+    <div id="swf_container"></div>
+
+    ]]>
   </Content>
 </Module>
