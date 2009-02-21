@@ -201,7 +201,7 @@ UgoSocial.util = {
 gadgets.util.registerOnLoadHandler(function(){
     $('#next').click(UgoSocial.next);
     $('#prev').click(UgoSocial.prev);
-    gadgets.window.adjustHeight();        
+    try{gadgets.window.adjustHeight();}catch(e){}
     UgoSocial.getJson();
     
     
