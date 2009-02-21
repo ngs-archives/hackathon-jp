@@ -96,7 +96,9 @@
         // requested media items
         function fetchPhotosHandler(resp) {
           document.getElementById('photoGrid').innerHTML = '';
-          var albumPhotosResp = resp.get('albumPhotos');
+//          var albumPhotosResp = resp.get('albumPhotos');
+
+          var albumPhotosResp = resp.get('1');
 
           if (!albumPhotosResp.hadError()) {
             var albumPhotos = albumPhotosResp.getData();
