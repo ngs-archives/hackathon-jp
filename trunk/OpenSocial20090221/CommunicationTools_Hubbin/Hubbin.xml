@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="Hubb[in] Test">
+	<Require feature="opensocial-0.7"/>
+</ModulePrefs>
+<Content type="html"><![CDATA[
+<h1><img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/CommunicationTools_Hubbin/logo.png" alt="Hubb[in] Beta" /></h1>
+<h2>Settings</h2>
+<table class="theTable">
+<tr>
+	<td class="owner">
+		<h3>Kozo Nishida</h3>
+		<img src="http://img2.orkut.com/images/small/871/41871.jpg" /><br />
+	</td>
+	<td class="of1">
+		<h3>山本</h3>
+		<img src="http://img1.orkut.com/images/small/1230283841/123637/ep.jpg" /><br />
+	</td>
+	<td class="of2">
+		<h3>ゴメス</h3>
+		<img src="http://img3.orkut.com/images/small/62/51062.jpg" /><br />
+	</td>
+	<td class="of3">
+		<h3>Fukuda</h3>
+		<img src="http://img3.orkut.com/images/small/219/56219.jpg" /><br />
+	</td>
+	<td class="of4">
+		<h3>Matsuo</h3>
+		<img src="http://img1.orkut.com/images/small/274/91274.jpg" /><br />
+	</td>
+</tr>
+<tr>
+	<td colspan="5"><img src="http://www.artbir.com/img/free_cg_tex.jpg" style="height:100px;" /></td>
+</tr>
+<tr>
+	<td class="viewer">
+		<h3>Kenji Ishikawa</h3>
+		<img src="http://img4.orkut.com/images/small/861/115861.jpg" /><br />
+	</td>
+	<td class="vf1">
+		<h3>シンイチ</h3>
+		<img src="http://img4.orkut.com/images/small/506/56506.jpg" /><br />
+	</td>
+	<td class="vf2">
+		<h3>北野</h3>
+		<img src="http://img3.orkut.com/images/small/873/873.jpg" /><br />
+	</td>
+	<td class="vf3">
+		<h3>イシカワ</h3>
+		<img src="http://img3.orkut.com/images/small/851/51851.jpg" /><br />
+	</td>
+	<td class="vf4">
+		<h3>hoge</h3>
+		<img src="http://img1.orkut.com/images/small/816/42816.jpg" /><br />
+	</td>
+</tr>
+</table>
+]]></Content>
+</Module>
