@@ -22,6 +22,8 @@
 
 		alert("alb3");
 
+		alert(typeof opensocial.newIdSpec(idspec_params));
+
 	  var idSpec = opensocial.newIdSpec(idspec_params);
 	 
 		alert(idSpec);
