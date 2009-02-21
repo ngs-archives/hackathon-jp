@@ -32,8 +32,14 @@ function response(data) {
   html.push('<table><tr>');
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-    html.push('<td>' + '<a href="#"' + '<img src="' + thumb + '">' + person.getDisplayName() + '</a></td>');
+    html.push('<td>' + '<a href="#"' + '<img src="' + thumb + '">' + '</a></td>');
   });
+ 
+  viewerFriends.each(function(person) {
+	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+    html.push('<td>' + person.getDisplayName() + '</a></td>');
+  });
+  
   html.push('</tr></table>');
   document.getElementById('friends').innerHTML = html.join('');
 }
