@@ -34,7 +34,9 @@ function response(data) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + '<a href="#"' + '<img src="' + thumb + '">' + '</a></td>');
   });
- 
+  
+  html.push('</tr><tr>');
+  
   viewerFriends.each(function(person) {
 	var thumb = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
     html.push('<td>' + person.getDisplayName() + '</a></td>');
