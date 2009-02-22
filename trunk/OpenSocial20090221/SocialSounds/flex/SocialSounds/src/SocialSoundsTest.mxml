@@ -26,11 +26,11 @@
             try {
                 //Set up Javascript to Actionscript calls
                 var methodName:String = "setViewer";
-                var method:Function = callbackViewer;
+                var method:Function = setViewer;
                 ExternalInterface.addCallback(methodName, method);
 
                 methodName = "setOwner";
-                method = callbackOwner;
+                method = setOwner;
                 ExternalInterface.addCallback(methodName, method);
 
                 methodName = "setSaveSoundResult";
@@ -63,7 +63,7 @@
         btnSoundCollection.addEventListener(MouseEvent.CLICK, getSoundCollection);
     }
 
-    public function callbackViewer(returnData:Object):void {
+    public function setViewer(returnData:Object):void {
 //        p1.visible = false;
 //        p2.visible = true;
         var output:String = "Viewer:\n";
@@ -79,7 +79,7 @@
         }
     }
 
-    public function callbackOwner(returnData:Object):void {
+    public function setOwner(returnData:Object):void {
 //        p1.visible = false;
 //        p2.visible = true;
         returnDataArea.text = "Owner:\n" + getOutput(returnData.owner);

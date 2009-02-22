@@ -303,7 +303,5 @@ var test = function() {
   flashobj.setOwner({owner:ownerData, result:res});
 }
 
-var init = function() {
-}
-
+var init = function() {}
 init();
