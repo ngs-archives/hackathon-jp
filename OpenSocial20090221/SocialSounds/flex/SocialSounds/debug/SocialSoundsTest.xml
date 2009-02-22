@@ -2,8 +2,8 @@
 <Module>
   <ModulePrefs title="SocialSounds"
     description="sound app test"
-    category="12"
-    category2="3"
+    category="music"
+    category2="communicating"
     height="800">
     <Require feature="opensocial-0.8"/>
     <Require feature="views" />
