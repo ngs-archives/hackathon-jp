@@ -2,7 +2,7 @@
 <Module>
   <ModulePrefs title="SocialSounds"
     description="sound app"
-	height="600">
+    height="800">
     <Require feature="opensocial-0.8"/>
     <Require feature="views" />
   </ModulePrefs>
@@ -325,9 +325,9 @@ init();
   allowNetworking="all"
   type="application/x-shockwave-flash"
   width="100%" height="100%"
-  data="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/bin-debug/SocialSoundsTest.swf">
+  data="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf">
 <param name="movie"
-  value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/bin-debug/SocialSoundsTest.swf" />
+  value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf" />
 <param name="quality" value="high" />
 <param name="wmode" value="transparent" />
 </object>
