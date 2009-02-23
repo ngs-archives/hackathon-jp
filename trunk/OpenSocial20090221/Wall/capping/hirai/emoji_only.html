@@ -1,8 +1,8 @@
-	<form name="escform" action="" method="get">
-		<textarea name="org_str" id="org_str"></textarea>
-	</form>
-		<input type="button" name="escbtn" id="escbtn" value="しりとり" onclick="capping_plus_emoji()" />
-		<input type="button" name="escbtn" id="escbtn" value="クリア" onclick='document.getElementById("capping_phraze").innerHTML=""' />
+<form name="escform" action="" method="get">
+	<textarea name="org_str" id="org_str"></textarea>
+</form>
+	<input type="button" name="escbtn" id="escbtn" value="しりとり" onclick="capping_plus_emoji(document.getElementById('next_char'), document.getElementById('org_str'), document.getElementById('capping_phraze'))" />
+	<input type="button" name="escbtn" id="escbtn" value="クリア" onclick='document.getElementById("capping_phraze").innerHTML=""' />
 
 <hr>
 <div id="capping_phraze">
