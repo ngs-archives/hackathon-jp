@@ -63,6 +63,16 @@ function compOwner(str){
   alert(str);
 }
 
+var so = new SWFObject(
+  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf",
+  "GenerateSound", "550", "400", "9", "#ffffff");
+so.addParam("allowScriptAccess","always");
+so.addParam("allowNetworking","all");
+so.addParam("wmode","transparent");
+so.addParam('menu', 'false');
+so.write("flashcontainer");
+
+/*
 gadgets.flash.embedFlash(
   "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf",
   "flashcontainer", {
@@ -71,6 +81,7 @@ gadgets.flash.embedFlash(
   allowScriptAccess: "always",
   allowNetworking: "all",
   wmode: "transparent"});
+*/
 </script>
 
 <!--
