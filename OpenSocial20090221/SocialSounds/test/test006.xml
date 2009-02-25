@@ -63,19 +63,25 @@ function compOwner(str){
 
 
 </script>
-<object id="GenerateSound" 
+
+<object
+  id="GenerateSound" 
   classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
   codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0"
   width="550" height="400" align="middle">
-<param name="allowScriptAccess" value="always" allowNetworking="all"/>
-<param name="allowFullScreen" value="false" />
-<param name="movie"
+<param
+  name="movie"
   value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest.swf" />
 <param name="quality" value="high" />
 <param name="bgcolor" value="#ffffff" />
-<embed name="GenerateSound"
+<param name="allowScriptAccess" value="always" />
+<param name="allowNetworking" value="all" />
+<param name="allowFullScreen" value="false" />
+<embed
+  name="GenerateSound"
   src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest.swf"
-  quality="high" bgcolor="#ffffff" width="550" height="400" align="middle"
+  width="550" height="400" align="middle"
+  quality="high" bgcolor="#ffffff" 
   allowScriptAccess="always" allowNetworking="all" allowFullScreen="false"
   type="application/x-shockwave-flash"
   pluginspage="http://www.adobe.com/go/getflashplayer_jp" />
