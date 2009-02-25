@@ -75,8 +75,7 @@ gadgets.flash.embedFlash(
   bgcolor: "#ffffff" ,
   allowScriptAccess: "always",
   allowNetworking: "all",
-  allowFullScreen: "false",
-})
+  allowFullScreen: "false"});
 </script>
 
 <!--
