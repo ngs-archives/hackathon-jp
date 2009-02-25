@@ -41,10 +41,11 @@ person.getField(opensocial.Person.Field.THUMBNAIL_URL) + "'>" +
 "ID:" + person.getId() + "<br>" +
 "表示名:" + person.getDisplayName();
 }
-  gadgets.util.registerOnLoadHandler(init);
+//gadgets.util.registerOnLoadHandler(init);
   
 function fromFlash(){
-  	alert("Flash");
+  alert("Flash");
+  init();
 }
 
 function initFlash(){
