@@ -75,8 +75,6 @@ gadgets.flash.embedFlash(
   allowScriptAccess: "always",
   allowNetworking: "all",
   allowFullScreen: "false",
-  width: 300,
-  height: 250,
 })
 </script>
 
