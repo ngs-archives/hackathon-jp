@@ -5,6 +5,7 @@
   </ModulePrefs>
   <Content type="html">
 <![CDATA[
+<div id="flashcontainer" style="text-align: center;"></div> 
 <script type="text/javascript">
 
 var browseFlg; //1:IE, 2:Firefox,Opera
@@ -61,9 +62,25 @@ function compOwner(str){
   alert(str);
 }
 
-
+gadgets.flash.embedFlash(
+  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf",
+  "flashcontainer", {
+  swf_version: 10,
+  id: "GenerateSound",
+  width: "550",
+  height: "400",
+  align: "middle",
+  quality: "high",
+  bgcolor: "#ffffff" ,
+  allowScriptAccess: "always",
+  allowNetworking: "all",
+  allowFullScreen: "false",
+  width: 300,
+  height: 250,
+})
 </script>
 
+<!--
 <object
   id="GenerateSound"
   classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
@@ -86,7 +103,7 @@ function compOwner(str){
   type="application/x-shockwave-flash"
   pluginspage="http://www.adobe.com/go/getflashplayer_jp" />
 </object>
-
+-->
 <h2>あなたのプロフィール</h2><div id="viewerData"></div>
 <h2>オーナーのプロフィール</h2><div id="ownerData"></div>
 ]]>
