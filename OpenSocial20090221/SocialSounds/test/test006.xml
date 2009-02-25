@@ -62,10 +62,22 @@ function compOwner(str){
 
 
 </script>
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="550" height="400" id="GenerateSound" align="middle">
+<object id="GenerateSound" 
+  classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0"
+  width="550" height="400" align="middle">
 <param name="allowScriptAccess" value="always" allowNetworking="all"/>
 <param name="allowFullScreen" value="false" />
-<param name="movie" value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />	<embed src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf" quality="high" bgcolor="#ffffff" width="550" height="400" name="GenerateSound" align="middle" allowScriptAccess="always" allowNetworking="all" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer_jp" />
+<param name="movie"
+  value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest.swf" />
+<param name="quality" value="high" />
+<param name="bgcolor" value="#ffffff" />
+<embed name="GenerateSound"
+  src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest.swf"
+  quality="high" bgcolor="#ffffff" width="550" height="400" align="middle"
+  allowScriptAccess="always" allowNetworking="all" allowFullScreen="false"
+  type="application/x-shockwave-flash"
+  pluginspage="http://www.adobe.com/go/getflashplayer_jp" />
 </object>
 
 <h2>あなたのプロフィール</h2><div id="viewerData"></div>
