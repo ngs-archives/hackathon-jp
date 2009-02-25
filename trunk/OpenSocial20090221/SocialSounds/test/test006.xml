@@ -71,7 +71,7 @@ function compOwner(str){
   width="550" height="400" align="middle">
 <param
   name="movie"
-  value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest.swf" />
+  value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf" />
 <param name="quality" value="high" />
 <param name="bgcolor" value="#ffffff" />
 <param name="allowScriptAccess" value="always" />
@@ -79,7 +79,7 @@ function compOwner(str){
 <param name="allowFullScreen" value="false" />
 <embed
   name="GenerateSound"
-  src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest.swf"
+  src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf"
   width="550" height="400" align="middle"
   quality="high" bgcolor="#ffffff" 
   allowScriptAccess="always" allowNetworking="all" allowFullScreen="false"
