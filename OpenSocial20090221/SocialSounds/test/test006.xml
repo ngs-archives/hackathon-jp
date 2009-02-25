@@ -68,11 +68,8 @@ gadgets.flash.embedFlash(
   "flashcontainer", {
   swf_version: 10,
   id: "GenerateSound",
-  width: "550",
-  height: "400",
-  align: "middle",
-  quality: "high",
-  bgcolor: "#ffffff" ,
+  width: 550,
+  height: 400,
   allowScriptAccess: "always",
   allowNetworking: "all",
   allowFullScreen: "false"});
