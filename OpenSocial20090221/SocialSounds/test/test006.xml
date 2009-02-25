@@ -69,19 +69,17 @@ var so = new SWFObject(
 so.addParam("allowScriptAccess","always");
 so.addParam("allowNetworking","all");
 so.addParam("wmode","transparent");
-so.addParam('menu', 'false');
+so.addParam("menu", "false");
 so.write("flashcontainer");
 
-/*
-gadgets.flash.embedFlash(
-  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf",
-  "flashcontainer", {
-  swf_version: 10,
-  id: "GenerateSound",
-  allowScriptAccess: "always",
-  allowNetworking: "all",
-  wmode: "transparent"});
-*/
+//gadgets.flash.embedFlash(
+//  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf",
+//  "flashcontainer", {
+//  swf_version: 10,
+//  id: "GenerateSound",
+//  allowScriptAccess: "always",
+//  allowNetworking: "all",
+//  wmode: "transparent"});
 </script>
 
 <!--
