@@ -7,7 +7,7 @@
   <Content type="html">
 <![CDATA[
 <div id="flashcontainer" style="text-align: center;"></div> 
-<script type="text/javascript" src="./swfobject.js"></script>
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/swfobject.js"></script>
 <script type="text/javascript">
 var browseFlg; //1:IE, 2:Firefox,Opera
 
