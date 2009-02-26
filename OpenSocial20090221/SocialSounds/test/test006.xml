@@ -2,7 +2,7 @@
 <Module>
   <ModulePrefs title="test006">
     <Require feature="opensocial-0.7" />
-    <Require feature="flash"/>
+    <!-- <Require feature="flash"/> -->
   </ModulePrefs>
   <Content type="html">
 <![CDATA[
