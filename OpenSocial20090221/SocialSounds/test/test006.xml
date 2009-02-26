@@ -10,7 +10,7 @@
   </ModulePrefs>
   <Content type="html">
 <![CDATA[
-<div id="flashcontainer" style="text-align: center;"></div> 
+<div id="flashcontainer"></div> 
 <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/swfobject.js"></script>
 <script type="text/javascript">
 var browseFlg; //1:IE, 2:Firefox,Opera
@@ -69,21 +69,23 @@ function compOwner(str){
 
 var so = new SWFObject(
   "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf",
-  "GenerateSound", "550", "400", "9", "#ffffff");
+  "GenerateSound", "550", "400", "10", "#ffffff");
 so.addParam("allowScriptAccess","always");
 so.addParam("allowNetworking","all");
 so.addParam("wmode","transparent");
 so.addParam("menu", "false");
 so.write("flashcontainer");
 
-//gadgets.flash.embedFlash(
-//  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf",
-//  "flashcontainer", {
-//  swf_version: 10,
-//  id: "GenerateSound",
-//  allowScriptAccess: "always",
-//  allowNetworking: "all",
-//  wmode: "transparent"});
+/*
+gadgets.flash.embedFlash(
+  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/test/speedTest2.swf",
+  "flashcontainer", {
+  swf_version: 10,
+  id: "GenerateSound",
+  allowScriptAccess: "always",
+  allowNetworking: "all",
+  wmode: "transparent"});
+*/
 </script>
 
 <!--
