@@ -4,11 +4,9 @@
     <Require feature="opensocial-0.7" />
     <!-- <Require feature="flash"/> -->
     <Optional feature="content-rewrite">
-      <Param name="include">NONE</Param>
-<!--      <Param name="include-urls"></Param>
-      <Param name="exclude-urls">.*</Param>
+      <Param name="include-urls"></Param>
+      <Param name="exclude-urls">*</Param>
       <Param name="include-tags"></Param>
--->
     </Optional>
   </ModulePrefs>
   <Content type="html">
