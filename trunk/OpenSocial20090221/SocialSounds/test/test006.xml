@@ -5,8 +5,7 @@
     <!-- <Require feature="flash"/> -->
     <Optional feature="content-rewrite">
       <Param name="include-urls"></Param>
-      <Param name="exclude-urls">*</Param>
-      <Param name="include-tags"></Param>
+      <Param name="exclude-urls">.*</Param>
     </Optional>
   </ModulePrefs>
   <Content type="html">
