@@ -347,7 +347,7 @@ var getOwner = function(callback) {
       }
       res = {success:true, message:""};
     }
-    flashObj.setOwner({owner:ownerData, result:res});
+    flashobj.setOwner({owner:ownerData, result:res});
     //console.log(defaultCallback("getOwner"));
     //(callback || defaultCallback("getOwner"))({owner:ownerData, result:res});
   }
