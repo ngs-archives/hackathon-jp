@@ -230,8 +230,6 @@ var init = function(callback) {
     };
     return function(func) { console.log(callbacks[func]); return callbacks[func]; }
   })();
-
-  //flashobj.initResultHandler({result:{success:true, message:""}});
   (callback || defaultCallback("init"))({result:{success:true, message:""}});
 }
 
@@ -287,7 +285,6 @@ var getViewer = function(callback) {
 };
 
 var getOwner = function(callback) {
-  //var callback = (arguments[0] ? callback : defaultCallback("getOwner"));
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
   var dr = opensocial.DataRequest;
@@ -351,9 +348,8 @@ var getOwner = function(callback) {
       }
       res = {success:true, message:""};
     }
-    flashobj["setOwner"]({owner:ownerData, result:res});
-    //console.log(defaultCallback("getOwner"));
-    //callback({owner:ownerData, result:res});
+    //flashobj.setOwner({owner:ownerData, result:res});
+    (callback || defaultCallback("getOwner"))({owner:ownerData, result:res});
   }
 }
 
