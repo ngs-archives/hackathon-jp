@@ -252,7 +252,7 @@ Person.prototype = (function(domain){
       getCulture: function() { return this.person.getField(MyOpenSpace.Person.Field.CULTURE) },
       getHeadline: function() { return this.person.getField(MyOpenSpace.Person.Field.HEADLINE) },
       getMaritalStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.MARITAL_STATUS) },
-      getMood: function() { return [this.person.getField(MyOpenSpace.Person.Field.MOOD) },
+      getMood: function() { return this.person.getField(MyOpenSpace.Person.Field.MOOD) },
       getZodiacSign: function() { return this.person.getField(MyOpenSpace.Person.Field.ZODIAC_SIGN) }
       //'city' : owner.getField(MyOpenSpace.Person.Field.CITY),
       //'region' : owner.getField(MyOpenSpace.Person.Field.REGION),
