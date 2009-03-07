@@ -227,7 +227,7 @@ Person.prototype = (function(domain){
       getTvShows: function() { return [this.person.getField(MyOpenSpace.Person.Field.TELEVISION)] },
       getJobs: function() { return [this.person.getField(MyOpenSpace.Person.Field.OCCUPATION)] },
       getStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.STATUS) },
-      getThumbnailUrl: function() { return this.person.getField(MyOpenSpace.Person.Field.THUMBNAIL_URL) },
+      //getThumbnailUrl: function() { return this.person.getField(MyOpenSpace.Person.Field.THUMBNAIL_URL) },
       //
       getCulture: function() { return [this.person.getField(MyOpenSpace.Person.Field.CULTURE)] },
       getHeadline: function() { return [this.person.getField(MyOpenSpace.Person.Field.HEADLINE)] },
