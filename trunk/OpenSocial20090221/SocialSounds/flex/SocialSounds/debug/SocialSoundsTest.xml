@@ -284,6 +284,7 @@ var getViewer = function(callback) {
 };
 
 var getOwner = function(callback) {
+  var callback = (arguments[0] ? callback : defaultCallback("getOwner"));
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
   var dr = opensocial.DataRequest;
@@ -347,9 +348,9 @@ var getOwner = function(callback) {
       }
       res = {success:true, message:""};
     }
-    flashobj.setOwner({owner:ownerData, result:res});
+    //flashobj.setOwner({owner:ownerData, result:res});
     //console.log(defaultCallback("getOwner"));
-    //(callback || defaultCallback("getOwner"))({owner:ownerData, result:res});
+    callback({owner:ownerData, result:res});
   }
 }
 
