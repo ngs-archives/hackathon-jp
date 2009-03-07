@@ -205,7 +205,7 @@ var defaultCallback = (function() {
   var callbacks = {
     init: "initResultHandler",
     getViewer: "setViewer",
-    setOwner: "setOwner",
+    getOwner: "setOwner",
     saveSound: "setSaveSoundResult",
     getSoundCollection: "setGetSoundCollectionResult",
     addSound: "setAddSoundResult",
