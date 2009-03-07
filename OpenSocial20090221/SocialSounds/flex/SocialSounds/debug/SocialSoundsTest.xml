@@ -228,9 +228,10 @@ var init = function(callback) {
       clearSound: flashobj.setClearSoundResult,
       test: flashobj.setOwner
     };
-    return function(func) { console.log(callbacks[func]); return callbacks[func]; }
+    return function(func, args) { console.log(callbacks[func]); return callbacks[func].apply(this, args); }
   })();
-  (callback || defaultCallback("init"))({result:{success:true, message:""}});
+  defaultCallback("init", [{result:{success:true, message:""}}]);
+  //(callback || defaultCallback("init"))({result:{success:true, message:""}});
 }
 
 var getViewer = function(callback) {
