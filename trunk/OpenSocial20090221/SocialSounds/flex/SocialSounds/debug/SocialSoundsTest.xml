@@ -209,6 +209,8 @@ var flashobj = null;
 var callbackHandle = null;
 var owner = null;
 console.log(opensocial.Container.get());
+console.log(opensocial);
+console.log(opensocial.environment_);
 
 var init = function() {
   flashobj = document.getElementById(FLASH_ID);
