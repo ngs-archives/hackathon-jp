@@ -229,7 +229,8 @@ so.write("flashcontainer");
 
 var init = function(callback) {
   flashobj = document.getElementById(FLASH_ID);
-  (callback || defaultCallback("init"))({result:{success:true, message:""}});
+  flashobj.initResultHandler({result:{success:true, message:""}});
+  //(callback || defaultCallback("init"))({result:{success:true, message:""}});
 }
 
 var getViewer = function(callback) {
