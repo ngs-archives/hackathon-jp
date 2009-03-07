@@ -228,21 +228,19 @@ Person.prototype = (function(domain){
       getJobs: function() { return [this.person.getField(MyOpenSpace.Person.Field.OCCUPATION)] },
       getStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.STATUS) },
       getThumbnailUrl: function() { return this.person.getField(MyOpenSpace.Person.Field.THUMBNAIL_URL) },
-
+      //
       getCulture: function() { return [this.person.getField(MyOpenSpace.Person.Field.CULTURE)] },
       getHeadline: function() { return [this.person.getField(MyOpenSpace.Person.Field.HEADLINE)] },
       getMaritalStatus: function() { return [this.person.getField(MyOpenSpace.Person.Field.MARITAL_STATUS)] },
       getMood: function() { return [this.person.getField(MyOpenSpace.Person.Field.MOOD)] },
-      getZodiacSign: function() { return [this.person.getField(MyOpenSpace.Person.Field.ZODIAC_SIGN)] },
-
+      getZodiacSign: function() { return [this.person.getField(MyOpenSpace.Person.Field.ZODIAC_SIGN)] }
+      //'city' : owner.getField(MyOpenSpace.Person.Field.CITY),
+      //'region' : owner.getField(MyOpenSpace.Person.Field.REGION),
+      //'postalcode' : owner.getField(MyOpenSpace.Person.Field.POSTALCODE),
+      //'country' : owner.getField(MyOpenSpace.Person.Field.COUNTRY),
+      //'hometown' : owner.getField(MyOpenSpace.Person.Field.HOMETOWN),
     }
   };
-
-        //'city' : owner.getField(MyOpenSpace.Person.Field.CITY),
-        //'region' : owner.getField(MyOpenSpace.Person.Field.REGION),
-        //'postalcode' : owner.getField(MyOpenSpace.Person.Field.POSTALCODE),
-        //'country' : owner.getField(MyOpenSpace.Person.Field.COUNTRY),
-        //'hometown' : owner.getField(MyOpenSpace.Person.Field.HOMETOWN),
 
   var ret = {
     getAboutMe: function() { return this.person.getField(opensocial.Person.Field.ABOUT_ME) },
