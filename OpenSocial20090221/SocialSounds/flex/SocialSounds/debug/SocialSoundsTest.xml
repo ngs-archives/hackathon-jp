@@ -203,19 +203,7 @@ if(typeof console == "undefined") var console = {log: emptyFunction};
 var FLASH_ID = "SocialSoundsTest";
 var flashobj = null;
 var owner = null;
-var defaultCallback = (function() {
-  var callbacks = {
-    init: "initResultHandler",
-    getViewer: "setViewer",
-    getOwner: "setOwner",
-    saveSound: "setSaveSoundResult",
-    getSoundCollection: "setGetSoundCollectionResult",
-    addSound: "setAddSoundResult",
-    clearSound: "setClearSoundResult",
-    test: "setOwner"
-  };
-  return function(func, args) { console.log(flashobj[callbacks[func]]); flashobj[callbacks[func]].call(this, args); }
-})();
+var defaultCallback = null;
 
 var so = new SWFObject(
   "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf",
@@ -229,6 +217,20 @@ so.write("flashcontainer");
 
 var init = function(callback) {
   flashobj = document.getElementById(FLASH_ID);
+  defaultCallback = (function() {
+    var callbacks = {
+      init: flashobj.initResultHandler,
+      getViewer: flashobj.setViewer,
+      getOwner: flashobj.setOwner,
+      saveSound: flashobj.setSaveSoundResult,
+      getSoundCollection: flashobj.setGetSoundCollectionResult,
+      addSound: flashobj.setAddSoundResult,
+      clearSound: flashobj.setClearSoundResult,
+      test: flashobj.setOwner
+    };
+    return function(func) { console.log(callbacks[func]); return callbacks[func]; }
+  })();
+
   flashobj.initResultHandler({result:{success:true, message:""}});
   //(callback || defaultCallback("init"))({result:{success:true, message:""}});
 }
