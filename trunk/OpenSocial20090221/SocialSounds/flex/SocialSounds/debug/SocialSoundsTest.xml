@@ -7,6 +7,10 @@
     height="800">
     <Require feature="opensocial-0.8"/>
     <Require feature="views" />
+    <Optional feature="content-rewrite">
+      <Param name="include-urls"></Param>
+      <Param name="exclude-urls">.*</Param>
+    </Optional>
   </ModulePrefs>
   <Content type="html" view="canvas,profile">
     <![CDATA[
@@ -202,13 +206,14 @@ var emptyFunction = function() {};
 if(typeof console == "undefined") var console = {log: emptyFunction};
 var FLASH_ID = "SocialSoundsTest";
 var flashobj = null;
-var owner = null;
 var callbackHandle = null;
+var owner = null;
+console.log(opensocial.Container.get());
 
 var init = function() {
   flashobj = document.getElementById(FLASH_ID);
   callbackHandle = flashobj;
-  callbackHandle({result:{success:true, message:""}});
+  callbackHandle.initResultHandler({result:{success:true, message:""}});
 }
 
 var so = new SWFObject(
@@ -221,7 +226,7 @@ so.addParam("menu", "false");
 so.addParam("quality", "high");
 so.write("flashcontainer");
 
-var getViewer = function(callback) {
+var getViewer = function() {
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
   var param = {};
@@ -519,19 +524,6 @@ var test = function() {
 
 
 </script>
-<!--
-<object id="SocialSoundsTest"
-  allowScriptAccess="always"
-  allowNetworking="all"
-  type="application/x-shockwave-flash"
-  width="100%" height="100%"
-  data="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf">
-<param name="movie"
-  value="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf" />
-<param name="quality" value="high" />
-<param name="wmode" value="transparent" />
-</object>
--->
     ]]>
   </Content>
 </Module>
