@@ -221,7 +221,7 @@ Person.prototype = (function(domain){
       getBooks: function() { return [this.person.getField(MyOpenSpace.Person.Field.BOOKS)] },
       getHeroes: function() { return [this.person.getField(MyOpenSpace.Person.Field.HEROES)] },
       getInterests: function() { return [this.person.getField(MyOpenSpace.Person.Field.INTERESTS)] },
-      getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) }
+      getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) },
       getMovies: function() { return [this.person.getField(MyOpenSpace.Person.Field.MOVIES)] },
       getMusic: function() { return [this.person.getField(MyOpenSpace.Person.Field.MUSIC)] },
       getTvShows: function() { [return this.person.getField(MyOpenSpace.Person.Field.TELEVISION)] },
