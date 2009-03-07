@@ -214,7 +214,7 @@ var defaultCallback = (function() {
     clearSound: "setClearSoundResult",
     test: "setOwner"
   };
-  return function(func) { return flashobj[callbacks[func]]; }
+  return function(func) { console.log(callbacks[func]); return flashobj[callbacks[func]]; }
 })();
 
 var so = new SWFObject(
