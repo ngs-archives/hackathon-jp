@@ -198,7 +198,7 @@ var SWFObject=deconcept.SWFObject;
 // main
 //========================================
 
-var emptyFunction: function() {};
+var emptyFunction = function() {};
 if(typeof console == "undefined") var console = {log: emptyFunction};
 var FLASH_ID = "SocialSoundsTest";
 var flashobj = null;
