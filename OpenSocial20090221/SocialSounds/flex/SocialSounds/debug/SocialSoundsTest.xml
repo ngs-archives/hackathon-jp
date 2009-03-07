@@ -433,7 +433,7 @@ var getOwner = function() {
       }
       res = {success:true, message:""};
     }
-    //flashobj.setOwner({owner:ownerData, result:res});
+    console.log(ownerData);
     callbackHandle.getOwnerResultHandler({owner:ownerData, result:res});
   }
 }
