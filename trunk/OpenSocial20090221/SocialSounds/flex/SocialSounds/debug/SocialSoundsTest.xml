@@ -206,11 +206,11 @@ var defaultCallbacks = {
   getViewer: flashobj.setViewer,
   setOwner: flashobj.setOwner,
   saveSound: flashobj.setSaveSoundResult,
-  getSoundCollection: flashobj.setGetSoundCollectionResult;
+  getSoundCollection: flashobj.setGetSoundCollectionResult,
   addSound: flashobj.setAddSoundResult,
   clearSound: flashobj.setClearSoundResult,
   test: flashobj.setOwner
-}
+};
 
 var so = new SWFObject(
   "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf",
