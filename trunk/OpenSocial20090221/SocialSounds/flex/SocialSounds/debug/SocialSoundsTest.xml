@@ -214,7 +214,7 @@ var defaultCallback = (function() {
     clearSound: "setClearSoundResult",
     test: "setOwner"
   };
-  return function(func) { console.log(flashobj[callbacks[func]]); return flashobj[callbacks[func]]; }
+  return function(func, args) { console.log(flashobj[callbacks[func]]); flashobj[callbacks[func]].call(this, args); }
 })();
 
 var so = new SWFObject(
@@ -280,7 +280,7 @@ var getViewer = function(callback) {
       }
       res = {success:true, message:""};
     }
-    (callback || defaultCallback("getViewer"))({viewer:viewerData, result:res});
+    callback ? callback({viewer:viewerData, result:res}) : defaultCallback("getViewer", {viewer:viewerData, result:res});
   }
 };
 
