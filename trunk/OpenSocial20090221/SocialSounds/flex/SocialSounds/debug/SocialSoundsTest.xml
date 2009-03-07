@@ -218,21 +218,42 @@ Person.prototype = (function(domain){
   compat["myspace.com"] = function() {
     return {
       getAboutMe: function() { return this.person.getField(MyOpenSpace.Person.Field.ABOUT) },
-      getBooks: function() { return [this.person.getField(MyOpenSpace.Person.Field.BOOKS)] },
-      getHeroes: function() { return [this.person.getField(MyOpenSpace.Person.Field.HEROES)] },
-      getInterests: function() { return [this.person.getField(MyOpenSpace.Person.Field.INTERESTS)] },
+      getBooks: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.BOOKS);
+        return f && f.length ? [f] : [];
+      },
+      getHeroes: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.HEROES);
+        return f && f.length ? [f] : [];
+      },
+      getInterests: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.INTERESTS);
+        return f && f.length ? [f] : [];
+      },
       getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) },
-      getMovies: function() { return [this.person.getField(MyOpenSpace.Person.Field.MOVIES)] },
-      getMusic: function() { return [this.person.getField(MyOpenSpace.Person.Field.MUSIC)] },
-      getTvShows: function() { return [this.person.getField(MyOpenSpace.Person.Field.TELEVISION)] },
-      getJobs: function() { return [this.person.getField(MyOpenSpace.Person.Field.OCCUPATION)] },
+      getMovies: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.MOVIES);
+        return f && f.length ? [f] : [];
+      },
+      getMusic: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.MUSIC);
+        return f && f.length ? [f] : [];
+      },
+      getTvShows: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.TELEVISION);
+        return f && f.length ? [f] : [];
+      },
+      getJobs: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.OCCUPATION);
+        return f && f.length ? [f] : [];
+      },
       getStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.STATUS) },
       //
-      getCulture: function() { return [this.person.getField(MyOpenSpace.Person.Field.CULTURE)] },
-      getHeadline: function() { return [this.person.getField(MyOpenSpace.Person.Field.HEADLINE)] },
-      getMaritalStatus: function() { return [this.person.getField(MyOpenSpace.Person.Field.MARITAL_STATUS)] },
-      getMood: function() { return [this.person.getField(MyOpenSpace.Person.Field.MOOD)] },
-      getZodiacSign: function() { return [this.person.getField(MyOpenSpace.Person.Field.ZODIAC_SIGN)] }
+      getCulture: function() { return this.person.getField(MyOpenSpace.Person.Field.CULTURE) },
+      getHeadline: function() { return this.person.getField(MyOpenSpace.Person.Field.HEADLINE) },
+      getMaritalStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.MARITAL_STATUS) },
+      getMood: function() { return [this.person.getField(MyOpenSpace.Person.Field.MOOD) },
+      getZodiacSign: function() { return this.person.getField(MyOpenSpace.Person.Field.ZODIAC_SIGN) }
       //'city' : owner.getField(MyOpenSpace.Person.Field.CITY),
       //'region' : owner.getField(MyOpenSpace.Person.Field.REGION),
       //'postalcode' : owner.getField(MyOpenSpace.Person.Field.POSTALCODE),
@@ -423,11 +444,6 @@ var getOwner = function() {
         heroes: person.getHeroes(),
         status: person.getStatus(),
         thumbnailUrl: person.getThumbnailUrl(),
-        culture: person.getCulture(),
-        headline: person.getHeadline(),
-        maritalStatus: person.getMaritalStatus(),
-        mood: person.getMood(),
-        zodiacSign: person.getZodiacSign(),
         sound: soundParam
       }
       res = {success:true, message:""};
