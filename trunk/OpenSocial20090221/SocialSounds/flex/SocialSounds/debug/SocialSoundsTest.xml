@@ -231,8 +231,8 @@ var init = function(callback) {
     return function(func) { console.log(callbacks[func]); return callbacks[func]; }
   })();
 
-  flashobj.initResultHandler({result:{success:true, message:""}});
-  //(callback || defaultCallback("init"))({result:{success:true, message:""}});
+  //flashobj.initResultHandler({result:{success:true, message:""}});
+  (callback || defaultCallback("init"))({result:{success:true, message:""}});
 }
 
 var getViewer = function(callback) {
@@ -282,7 +282,7 @@ var getViewer = function(callback) {
       }
       res = {success:true, message:""};
     }
-    callback ? callback({viewer:viewerData, result:res}) : defaultCallback("getViewer", {viewer:viewerData, result:res});
+    (callback || defaultCallback("getViewer"))({viewer:viewerData, result:res});
   }
 };
 
