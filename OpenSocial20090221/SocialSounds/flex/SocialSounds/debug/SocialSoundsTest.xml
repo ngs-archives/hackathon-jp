@@ -198,6 +198,8 @@ var SWFObject=deconcept.SWFObject;
 // main
 //========================================
 
+var emptyFunction: function() {};
+if(typeof console == "undefined") var console = {log: emptyFunction};
 var FLASH_ID = "SocialSoundsTest";
 var flashobj = null;
 var owner = null;
@@ -345,6 +347,7 @@ var getOwner = function(callback) {
       }
       res = {success:true, message:""};
     }
+    console.log(ownerData);
     (callback || defaultCallback("getOwner"))({owner:ownerData, result:res});
   }
 }
