@@ -347,7 +347,7 @@ var getOwner = function(callback) {
       }
       res = {success:true, message:""};
     }
-    console.log(ownerData);
+    console.log(defaultCallback("getOwner"));
     (callback || defaultCallback("getOwner"))({owner:ownerData, result:res});
   }
 }
