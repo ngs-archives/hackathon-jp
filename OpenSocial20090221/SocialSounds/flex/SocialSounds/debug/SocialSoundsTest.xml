@@ -414,7 +414,7 @@ var getOwner = function() {
     //  ["soundParam"]);
   //} else {
     idSpecParam = {};
-    idSpecParam[opensocial.IdSpec.Field.USER_ID] = [opensocial.IdSpec.PersonId.OWNER];
+    idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
     soundParamReq = dataRequest.newFetchPersonAppDataRequest(
       opensocial.newIdSpec(idSpecParam),
       ["soundParam"]);
@@ -439,8 +439,10 @@ var getOwner = function() {
         console.log(soundParams);
         console.log(owner.getId());
         var sp = soundParams[owner.getId()];
-        soundParam = gadgets.json.parse(sp["soundParam"]);
-        console.log(soundParam);
+        if (sp && sp["soundParam"]) {
+          soundParam = gadgets.json.parse(sp["soundParam"]);
+          console.log(soundParam);
+        }
       }
       var ownerData = {
         id: person.getId(),
