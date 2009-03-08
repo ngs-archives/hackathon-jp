@@ -335,7 +335,7 @@ var errorMessage = function(response, header, keys) {
   var msg = [];
   msg.push(header + ": " + response .getErrorMessage());
   for (var i in keys) {
-    if (response.get(keys[i]))) {
+    if (response.get(keys[i])) {
       msg.push(keys[i] + ": " + response.get(keys[i]).getErrorCode() + "\n"+ response.get(keys[i]).getErrorMessage());
     }
   }
