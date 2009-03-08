@@ -20,38 +20,23 @@
 
     private function onCreationComplete():void {
         //allow cross domain calls
-        flash.system.Security.allowDomain("api.msappspace.com");
+        //flash.system.Security.allowDomain("api.msappspace.com");
+        flash.system.Security.allowDomain("*");
 
         if(ExternalInterface.available) {
             try {
                 //Set up Javascript to Actionscript calls
-                var methodName:String = "setViewer";
-                var method:Function = setViewer;
-                ExternalInterface.addCallback(methodName, method);
+                ExternalInterface.addCallback("initResultHandler", initResultHandler);
+                ExternalInterface.addCallback("getViewerResultHandler", getViewerResultHandler);
+                ExternalInterface.addCallback("getOwnerResultHandler", getOwnerResultHandler);
+                ExternalInterface.addCallback("saveSoundResultHandler", saveSoundResultHandler);
+                ExternalInterface.addCallback("addSoundResultHandler", addSoundResultHandler);
+                ExternalInterface.addCallback("clearSoundCollectionResultHandler", clearSoundCollectionResultHandler);
+                ExternalInterface.addCallback("getSoundCollectionResultHandler", getSoundCollectionResultHandler);
 
-                methodName = "setOwner";
-                method = setOwner;
-                ExternalInterface.addCallback(methodName, method);
-
-                methodName = "setSaveSoundResult";
-                method = setSaveSoundResult;
-                ExternalInterface.addCallback(methodName, method);
-
-                methodName = "setAddSoundResult";
-                method = setAddSoundResult;
-                ExternalInterface.addCallback(methodName, method);
-
-                methodName = "setClearSoundResult";
-                method = setClearSoundResult;
-                ExternalInterface.addCallback(methodName, method);
-
-                methodName = "setGetSoundCollectionResult";
-                method = setGetSoundCollectionResult;
-                ExternalInterface.addCallback(methodName, method);
-
-                ExternalInterface.call("getOwner");
+                ExternalInterface.call("init");
             } catch (error:Error) {
-                Alert.show("An Error occurred: " + error.message + "\n");
+                Alert.show("an error occurred: " + error.message + "\n");
             }
         }
         //Setup button events
@@ -59,45 +44,58 @@
         btnReset.addEventListener(MouseEvent.CLICK, resetForm);
         btnSave.addEventListener(MouseEvent.CLICK, saveSound);
         btnAdd.addEventListener(MouseEvent.CLICK, addSound);
-        btnClear.addEventListener(MouseEvent.CLICK, clearSound);
+        btnClear.addEventListener(MouseEvent.CLICK, clearSoundCollection);
         btnSoundCollection.addEventListener(MouseEvent.CLICK, getSoundCollection);
     }
 
-    public function setViewer(returnData:Object):void {
-//        p1.visible = false;
-//        p2.visible = true;
-        var output:String = "Viewer:\n";
-        returnDataArea.text = "Viewer:\n" + getOutput(returnData.viewer);
-        if (returnData.viewer) {
-            thumbnail.source =  returnData.viewer.thumbnailUrl;
-            message.text = message.text + "\n" + "viewer found.";
-        } else {
-            message.text = message.text + "\n" + "viewer not found.";
-            if (returnData.result && !returnData.result.success) {
-                message.text = message.text + "\n" + returnData.result.message;
-            }
-        }
+    public function initResultHandler(response:Object):void {
+        //ExternalInterface.call("getOwner");
+        messageArea.text = "init ok.";
     }
 
-    public function setOwner(returnData:Object):void {
-//        p1.visible = false;
-//        p2.visible = true;
-        returnDataArea.text = "Owner:\n" + getOutput(returnData.owner);
-        if (returnData.owner && returnData.owner.sound) {
-            foo.text = returnData.owner.sound;
-            message.text = message.text + "\n" + "sound found.";
-        } else {
-            foo.text = "";
-            message.text = message.text + "\n" + "no sound found.";
+    public function getViewerResultHandler(response:Object):void {
+        if (!response.result) {
+            messageArea.text += "unknown error.\n";
+            return;
         }
-        if (returnData.owner) {
-            thumbnail.source =  returnData.owner.thumbnailUrl;
-            message.text = message.text + "\n" + "owner found.";
+        if (!response.result.success) {
+            messageArea.text += response.result.message  + "\n";
+            return;
+        }
+        if (!response.viewer) {
+            messageArea.text += "viewer not found.\n";
+            return;
+        }
+        returnDataArea.text = "Viewer:\n" + getOutput(response.viewer);
+        returnDataArea.text = "hasOwnerSound: " + response.viewer.hasOwnerSound + "\n";
+        thumbnail.source =  response.viewer.thumbnailUrl;
+        messageArea.text += "viewer found.\n";
+    }
+
+    public function getOwnerResultHandler(response:Object):void {
+        if (!response.result) {
+            messageArea.text += "unknown error.\n";
+            return;
+        }
+        if (!response.result.success) {
+            messageArea.text += response.result.message + "\n";
+            return;
+        }
+        if (!response.owner) {
+            messageArea.text += "owner not found.\n";
+            return;
+        }
+        returnDataArea.text = "Owner:\n" + getOutput(response.owner);
+        thumbnail.source =  response.owner.thumbnailUrl;
+        messageArea.text += "owner found.\n";
+        if (response.owner.sound) {
+            returnDataArea.text += "sound: data:" + response.owner.sound.data + "\n";
+            returnDataArea.text += "sound: timestamp:" + response.owner.sound.timestamp + "\n";
+            messageArea.text += "sound found.\n";
         } else {
-            message.text = message.text + "\n" + "owner not found.";
-            if (returnData.result && !returnData.result.success) {
-                message.text = message.text + "\n" + returnData.result.message;
-            }
+            returnDataArea.text += "sound: data: n/a\n";
+            returnDataArea.text += "sound: timestamp: n/a\n";
+            messageArea.text += "no sound found.\n";
         }
     }
 
@@ -105,83 +103,87 @@
         var output:String = "";
         output += "id: " + user.id + "\n";
         output += "name: " + user.name + "\n";
-        output += "city: " + user.city + "\n";
-        output += "region: " + user.region + "\n";
-        output += "postalcode: " + user.postalcode + "\n";
-        output += "country: " + user.country + "\n";
-        output += "hometown: " + user.hometown + "\n";
+        output += "age: " + user.age + "\n";
         output += "gender: " + user.gender + "\n";
-        output += "culture: " + user.culture + "\n";
-        output += "maritalStatus: " + user.maritalStatus + "\n";
-        output += "headline: " + user.headline + "\n";
-        output += "occupation: " + user.occupation + "\n";
-        output += "desireToMeet: " + user.desireToMeet + "\n";
+        output += "aboutMe: " + user.aboutMe + "\n";
+        output += "jobs: " + user.jobs + "\n";
+        output += "lookingFor: " + user.desireToMeet + "\n";
         output += "interests: " + user.interests + "\n";
         output += "music: " + user.music + "\n";
         output += "movies: " + user.movies + "\n";
-        output += "television: " + user.television + "\n";
+        output += "tvShows: " + user.tvShows + "\n";
         output += "books: " + user.books + "\n";
         output += "heroes: " + user.heroes + "\n";
-        output += "zodiacSign: " + user.zodiacSign + "\n";
-        output += "mood: " + user.mood + "\n";
         output += "status: " + user.status + "\n";
         output += "thumbnailUrl: " + user.thumbnailUrl + "\n";
+
+//        output += "addresses: " + user.addresses + "\n";
+//        output += "currentLocation: " + user.currentLocation + "\n";
+//        output += "city: " + user.city + "\n";
+//        output += "region: " + user.region + "\n";
+//        output += "postalcode: " + user.postalcode + "\n";
+//        output += "country: " + user.country + "\n";
+//        output += "hometown: " + user.hometown + "\n";
+//        output += "maritalStatus: " + user.maritalStatus + "\n";
+//        output += "headline: " + user.headline + "\n";
+//        output += "culture: " + user.culture + "\n";
+//        output += "zodiacSign: " + user.zodiacSign + "\n";
+//        output += "mood: " + user.mood + "\n";
         return output;
     }
 
-    public function setSaveSoundResult(returnData:Object):void {
-        if (returnData.result) {
-            if (returnData.result.success) {
-                message.text = "saveSound success!";
+    public function saveSoundResultHandler(response:Object):void {
+        if (response.result) {
+            if (response.result.success) {
+                messageArea.text += "saveSound success!\n";
             } else {
-                message.text = returnData.result.message;
+                messageArea.text += response.result.message + "\n";
             }
         } else {
-            message.text = "setSaveSoundResult error! result not set.";
+            messageArea.text += "saveSoundResultHandler error! result not set.\n";
         }
     }
 
-    public function setAddSoundResult(returnData:Object):void {
-        if (returnData.result) {
-            if (returnData.result.success) {
-                message.text = "addSound success!";
+    public function addSoundResultHandler(response:Object):void {
+        if (response.result) {
+            if (response.result.success) {
+                messageArea.text += "addSound success!\n";
             } else {
-                message.text = returnData.result.message;
+                messageArea.text += response.result.message + "\n";
             }
         } else {
-            message.text = "setAddSoundResult error! result not set.";
+            messageArea.text += "addSoundResultHandler error! result not set.\n";
         }
     }
 
-    public function setClearSoundResult(returnData:Object):void {
-        if (returnData.result) {
-            if (returnData.result.success) {
-                message.text = "clearSound success!";
+    public function clearSoundCollectionResultHandler(response:Object):void {
+        if (response.result) {
+            if (response.result.success) {
+                messageArea.text += "clearSoundCollection success!\n";
             } else {
-                message.text = returnData.result.message;
+                messageArea.text += response.result.message + "\n";
             }
         } else {
-            message.text = "setClearSoundResult error! result not set.";
+            messageArea.text += "clearSoundCollectionResultHandler error! result not set.\n";
         }
     }
 
-    public function setGetSoundCollectionResult(returnData:Object):void {
-        var sounds:Array = returnData.sounds;
-        if (returnData.result) {
-            if (returnData.result.success) {
-                message.text = "getSoundCollection success!";
-                message.text += sounds.toString();
+    public function getSoundCollectionResultHandler(response:Object):void {
+        var sounds:Array = response.sounds;
+        if (response.result) {
+            if (response.result.success) {
+                messageArea.text += "getSoundCollection success!\n";
+                messageArea.text += sounds.toString() + "\n";
             } else {
-                message.text = returnData.result.message;
+                messageArea.text += response.result.message + "\n";
             }
         } else {
-            message.text = "getSoundCollection error! result not set.";
+            messageArea.text += "getSoundCollectionResultHandler error! result not set.\n";
         }
     }
 
     private function resetForm(event:MouseEvent):void {
-//        p1.visible = true;
-//        p2.visible = false;
+        messageArea.text = "";
         returnDataArea.text = "";
         thumbnail.source ="";
     }
@@ -203,22 +205,26 @@
     }
 
     private function saveSound(event:MouseEvent):void {
-        message.text = "";
-        ExternalInterface.call("saveSound", foo.text);
+        messageArea.text = "";
+        var param:Object = {
+            data: soundParam.text,
+            timestamp: new Date().getTime()
+        };
+        ExternalInterface.call("saveSound", param);
     }
 
     private function addSound(event:MouseEvent):void {
-        message.text = "";
-        ExternalInterface.call("addSound", 11111, bar.text);
+        messageArea.text = "";
+        ExternalInterface.call("addSound", ownerIdToAdd.text);
     }
 
-    private function clearSound(event:MouseEvent):void {
-        message.text = "";
-        ExternalInterface.call("clearSound");
+    private function clearSoundCollection(event:MouseEvent):void {
+        messageArea.text = "";
+        ExternalInterface.call("clearSoundCollection");
     }
 
     private function getSoundCollection(event:MouseEvent):void {
-        message.text = "";
+        messageArea.text = "";
         ExternalInterface.call("getSoundCollection");
     }
     ]]>
@@ -232,9 +238,6 @@
                 <mx:FormItem label="Request Data">
                     <mx:Button id="btnSend" label="Request"/>
                 </mx:FormItem>
-                <mx:ControlBar>
-                    <mx:Label id="labelStatus" text=""/>
-                </mx:ControlBar>
                 <mx:FormItem label="Save Sound">
                     <mx:Button id="btnSave" label="Save"/>
                 </mx:FormItem>
@@ -247,15 +250,13 @@
                 <mx:FormItem label="Clear Sound">
                     <mx:Button id="btnClear" label="Clear"/>
                 </mx:FormItem>
-                <mx:FormItem label="Message">
-                    <mx:TextArea id="message" height ="150"/>
-                </mx:FormItem>
                 <mx:FormItem label="SoundParam">
-                    <mx:TextArea id="foo"/>
+                    <mx:TextArea id="soundParam"/>
                 </mx:FormItem>
-                <mx:FormItem label="ViewerId to Add">
-                    <mx:TextArea id="bar"/>
+                <mx:FormItem label="OwnerId to Add">
+                    <mx:TextArea id="ownerIdToAdd"/>
                 </mx:FormItem>
+                <mx:TextArea id="messageArea" width="300" height="150"/>
             </mx:Form>
         </mx:Panel>
         <mx:Panel name="p2" id="p2" visible="true" height="100%">
@@ -266,8 +267,10 @@
                             <mx:GridItem width="100%" height="100%">
                                 <mx:Image id="thumbnail" />
                             </mx:GridItem>
+                        </mx:GridRow>
+                        <mx:GridRow width="100%" height="100%">
                             <mx:GridItem width="100%" height="100%">
-                                <mx:TextArea name="returnDataArea" id="returnDataArea" width="300" height="240"/>
+                                <mx:TextArea name="returnDataArea" id="returnDataArea" width="250" height="400"/>
                             </mx:GridItem>
                         </mx:GridRow>
                     </mx:Grid>
