@@ -303,7 +303,7 @@ Person.prototype = (function(domain){
       ret[opensocial.Person.Field.ADDITIONAL_NAME ] = name.getField(opensocial.Person.Field.ADDITIONAL_NAME );
       ret[opensocial.Person.Field.HONORIFIC_PREFIX ] = name.getField(opensocial.Person.Field.HONORIFIC_PREFIX );
       ret[opensocial.Person.Field.HONORIFIC_SUFFIX] = name.getField(opensocial.Person.Field.HONORIFIC_SUFFIX);
-      ret[opensocial.Person.Field.UNSTRUCTURED] = name.getField(opensocial.Person.Field.UNSTRUCTURED);
+      ret["unstructured"] = name.getField("unstructured");
       return ret;
     },
     getNickname: function() { return this.person.getField(opensocial.Person.Field.NICKNAME) },
@@ -421,9 +421,9 @@ var getOwner = function() {
     opensocial.Person.Field.AGE,
     opensocial.Person.Field.GENDER,
     opensocial.Person.Field.ABOUT_ME,
-//    opensocial.Person.Field.JOBS,
-//    opensocial.Person.Field.LOOKING_FOR,
-//    opensocial.Person.Field.INTERESTS,
+    opensocial.Person.Field.JOBS,
+    opensocial.Person.Field.LOOKING_FOR,
+    opensocial.Person.Field.INTERESTS,
     opensocial.Person.Field.MUSIC,
     opensocial.Person.Field.MOVIES,
 //    opensocial.Person.Field.TV_SHOWS,
