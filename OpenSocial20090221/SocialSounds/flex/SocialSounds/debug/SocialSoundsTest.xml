@@ -613,8 +613,9 @@ var clearSoundCollection = function() {
   var newSoundCollection = [];
   var json = gadgets.json.stringify(newSoundCollection);
   dataRequest = os.newDataRequest();
+  console.log(json);
   var clearSoundCollectionReq = dataRequest .newUpdatePersonAppDataRequest(
-    opensocial.DataRequest.PersonId.VIEWER,
+    opensocial.IdSpec.PersonId.VIEWER,
     "soundCollection",
     json);
   dataRequest.add(clearSoundCollectionReq);
