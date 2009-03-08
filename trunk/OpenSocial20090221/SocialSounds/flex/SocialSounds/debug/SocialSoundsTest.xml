@@ -512,29 +512,37 @@ var getSoundCollection = function() {
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
   var res = {};
-  var soundCollectionReq = os.newFetchPersonAppDataRequest(
-    opensocial.DataRequest.PersonId.OWNER,
-    ["soundCollection"]);
-    dataRequest.add(soundCollectionReq, "soundCollection");
-    dataRequest.send(onSoundCollectionComplete);
+  var ownerReq = dataRequest.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER);
+  var soundCollectionReq = dataRequest.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, ["soundCollection"]);
+  dataRequest.add(ownerReq, "owner");
+  dataRequest.add(soundCollectionReq, "soundCollection");
+  dataRequest.send(onSoundCollectionComplete);
 
   function onSoundCollectionComplete(response) {
     var res = {success:true, message:""};
     var soundCollection = [];
     if (response.hadError()) {
-      res = {success:false, message:"getSoundCollection error.(get)\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+      res = {success:false, message:errorMessage(response, "getSoundCollection error", ["owner", "soundCollection"])};
       callbackHandle.getSoundCollectionResultHandler({sounds:[], result:res});
     } else {
+      var owner = response.get("owner").getData();
       var soundCollections = response.get("soundCollection").getData();
-      if (soundCollections) {
-        console.log(soundCollections);
-        var sc = soundCollections[owner.getId()];
-        if (sc) {
-          soundCollection = gadgets.json.parse(sc["soundCollection"]);
-          console.log(soundCollection);
+      if (!owner) {
+        res = {success:false, message:"getSoundCollection error. owner not found."};
+        callbackHandle.getSoundCollectionResultHandler({result:res});
+      } else {
+        if (soundCollections) {
+          console.log(soundCollections);
+          var m = owner.getId().match(/(\d+$)/);
+          var sc = soundCollections[(m || [])[1]];
+          if (sc && sc["soundCollection"]) {
+            soundCollection = sc["soundCollection"];
+            //soundCollection = gadgets.json.parse(sc["soundCollection"]);
+            console.log(soundCollection);
+          }
         }
+        callbackHandle.getSoundCollectionResultHandler({sounds:soundCollection, result:res});
       }
-      callbackHandle.getSoundCollectionResultHandler({sounds:soundCollection, result:res});
     }
   }
 }
