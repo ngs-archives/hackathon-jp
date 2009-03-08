@@ -305,15 +305,7 @@ Person.prototype = (function(domain){
 })(domain);
 
 var CompatUtil = (function(domain) {
-  ret = {
-    getPersonId: function(person) {
-      return person.getId();
-    },
-    getParsedAppData: function(data) {
-      data = unescapeString(data);
-      return gadgets.json.parse(data);
-    }
-  };
+  var ret = {};
   if (domain == "myspace.com") {
     ret.getPersonId = function(person) {
       var m = owner.getId().match(/(\d+$)/);
@@ -321,6 +313,14 @@ var CompatUtil = (function(domain) {
     };
     ret.getParsedAppData = function(data) {
       return data;
+    }
+  } else {
+    ret.getPersonId = function(person) {
+      return person.getId();
+    };
+    ret.getParsedAppData = function(data) {
+      data = gadgets.util.unescapeString(data);
+      return gadgets.json.parse(data);
     }
   }
   return ret;
