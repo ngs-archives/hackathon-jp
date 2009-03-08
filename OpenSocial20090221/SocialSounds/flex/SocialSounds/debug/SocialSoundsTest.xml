@@ -436,7 +436,7 @@ var getOwner = function() {
   function getResponse(response) {
     console.log(response);
     var res = {};
-    var ownerData = {};
+    var ownerData = null;
     var msg = [];
     if (response.hadError()) {
       res = {success:false, message:errorMessage(response, "getViewer error", ["owner", "soundParam"])};
