@@ -443,6 +443,8 @@ var getOwner = function() {
         books: person.getBooks(),
         heroes: person.getHeroes(),
         status: person.getStatus(),
+        addresses: person.getAddresses(),
+        currentLocation: person.getCurrentLocation(),
         thumbnailUrl: person.getThumbnailUrl(),
         sound: soundParam
       }
