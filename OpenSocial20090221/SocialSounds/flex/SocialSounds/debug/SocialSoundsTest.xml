@@ -513,7 +513,9 @@ var getSoundCollection = function() {
   var dataRequest = os.newDataRequest();
   var res = {};
   var ownerReq = dataRequest.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER);
-  var soundCollectionReq = dataRequest.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.OWNER, ["soundCollection"]);
+  var idSpecParam = {};
+  idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+  var soundCollectionReq = dataRequest.newFetchPersonAppDataRequest(opensocial.newIdSpec(idSpecParam), ["soundCollection"]);
   dataRequest.add(ownerReq, "owner");
   dataRequest.add(soundCollectionReq, "soundCollection");
   dataRequest.send(onSoundCollectionComplete);
