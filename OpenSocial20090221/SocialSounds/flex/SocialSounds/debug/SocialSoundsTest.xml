@@ -601,30 +601,29 @@ var addSound = function(ownerId, viewerId) {
   }
 }
 
-var clearSound = function() {
+var clearSoundCollection = function() {
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
   var res = {};
   var newSoundCollection = [];
   var json = gadgets.json.stringify(newSoundCollection);
-  console.log(json);
   dataRequest = os.newDataRequest();
   var clearSoundCollectionReq = dataRequest .newUpdatePersonAppDataRequest(
     opensocial.DataRequest.PersonId.VIEWER,
     "soundCollection",
-     json);
+    json);
   dataRequest.add(clearSoundCollectionReq);
   dataRequest.send(onClearSoundCollectionComplete);
 
   function onClearSoundCollectionComplete(response) {
     if (response .hadError()) {
       console.log(response);
-      res = {success:false, message:"clearSound error.\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+      res = {success:false, message:errorMessage(response, "clearSoundCollection error", ["soundCollection"])};
     } else {
       console.log(response);
-      res = {success:true, message:"clearSound success."};
+      res = {success:true, message:"clearSoundCollection success."};
     }
-    callbackHandle.clearSoundResultHandler({result:res});
+    callbackHandle.clearSoundCollectionResultHandler({result:res});
   }
 }
 
