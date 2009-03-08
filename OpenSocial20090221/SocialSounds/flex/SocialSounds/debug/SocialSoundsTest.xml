@@ -218,10 +218,10 @@ Person.prototype = (function(domain){
   compat["myspace.com"] = function() {
     return {
       getAboutMe: function() { return this.person.getField(MyOpenSpace.Person.Field.ABOUT) },
-      getBooks: function() {
-        var f = this.person.getField(MyOpenSpace.Person.Field.BOOKS);
-        return f && f.length ? [f] : [];
-      },
+      //getBooks: function() {
+      //  var f = this.person.getField(MyOpenSpace.Person.Field.BOOKS);
+      //  return f && f.length ? [f] : [];
+      //},
       getHeroes: function() {
         var f = this.person.getField(MyOpenSpace.Person.Field.HEROES);
         return f && f.length ? [f] : [];
@@ -231,10 +231,10 @@ Person.prototype = (function(domain){
         return f && f.length ? [f] : [];
       },
       getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) },
-      getMovies: function() {
-        var f = this.person.getField(MyOpenSpace.Person.Field.MOVIES);
-        return f && f.length ? [f] : [];
-      },
+      //getMovies: function() {
+      //  var f = this.person.getField(MyOpenSpace.Person.Field.MOVIES);
+      //  return f && f.length ? [f] : [];
+      //},
       getMusic: function() {
         var f = this.person.getField(MyOpenSpace.Person.Field.MUSIC);
         return f && f.length ? [f] : [];
@@ -293,6 +293,7 @@ Person.prototype = (function(domain){
     getMusic: function() { return this.person.getField(opensocial.Person.Field.MUSIC) },
     getName: function() {
       var name = this.person.getField(opensocial.Person.Field.NAME);
+      console.log(name);
       var ret = {};
       ret[opensocial.Person.Field.FAMILY_NAME] = name.getField(opensocial.Person.Field.FAMILY_NAME);
       ret[opensocial.Person.Field.GIVEN_NAME] = name.getField(opensocial.Person.Field.GIVEN_NAME);
