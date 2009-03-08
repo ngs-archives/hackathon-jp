@@ -406,8 +406,12 @@ var getOwner = function() {
   var ownerReq = dataRequest.newFetchPersonRequest("OWNER", param);
   //var escapeParams = {};
   //escapeParams [opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
+  idSpecParam = {};
+  idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+  console.log(idSpecParam);
   var soundParamReq = dataRequest.newFetchPersonAppDataRequest(
-    opensocial.DataRequest.PersonId.OWNER,
+    opensocial.newIdSpec(idSpecParam),
+//    opensocial.DataRequest.PersonId.OWNER,
     ["soundParam"]);
 //    escapeParams);
 
