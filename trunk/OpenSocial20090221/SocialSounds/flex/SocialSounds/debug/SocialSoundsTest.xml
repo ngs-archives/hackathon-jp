@@ -336,7 +336,7 @@ var errorMessage = function(response, header, keys) {
   console.log(response);
   msg.push(header + ": " + response .getErrorMessage());
   for (var i in keys) {
-    if (response.get(keys[i])) {
+    if (response.get(keys[i]) && response.get(keys[i]).hadError()) {
       console.log(response.get(keys[i]));
       msg.push(keys[i] + ": " + response.get(keys[i]).getErrorCode() + "\n"+ response.get(keys[i]).getErrorMessage());
     }
@@ -360,7 +360,7 @@ var getViewer = function() {
 
   function getResponse(response) {
     var res = {};
-    var viewerData = {};
+    var viewerData = null;
     if (response.hadError()) {
       res = {success:false, message:"getViewer error.\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
     } else {
