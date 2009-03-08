@@ -344,17 +344,15 @@ var init = function() {
   callbackHandle.initResultHandler({result:{success:true, message:""}});
 }
 
-(function() {
-  var swfObject = new SWFObject(
-    "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf",
-    FLASH_ID, "800", "600", "10", "#FFFFFF");
-  swfObject.addParam("allowScriptAccess","always");
-  swfObject.addParam("allowNetworking","all");
-  swfObject.addParam("wmode","transparent");
-  swfObject.addParam("menu", "false");
-  swfObject.addParam("quality", "high");
-  swfObject.write("flashcontainer");
-})();
+var swfObject = new SWFObject(
+  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf",
+  FLASH_ID, "800", "600", "10", "#FFFFFF");
+swfObject.addParam("allowScriptAccess","always");
+swfObject.addParam("allowNetworking","all");
+swfObject.addParam("wmode","transparent");
+swfObject.addParam("menu", "false");
+swfObject.addParam("quality", "high");
+swfObject.write("flashcontainer");
 
 var errorMessage = function(response, header, keys) {
   var msg = [];
