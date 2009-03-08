@@ -272,8 +272,8 @@ Person.prototype = (function(domain){
       console.log(name.getField(opensocial.Name.Field.UNSTRUCTURED));
       console.log(opensocial.Name.Field.UNSTRUCTURED);
       var ret = {};
-      ret[opensocial.Name.Field.FAMILY_NAME] = name.getField(opensocial.Person.Name.FAMILY_NAME);
-      ret[opensocial.Name.Field.GIVEN_NAME] = name.getField(opensocial.Person.Name.GIVEN_NAME);
+      ret[opensocial.Name.Field.FAMILY_NAME] = name.getField(opensocial.Name.Field.FAMILY_NAME);
+      ret[opensocial.Name.Field.GIVEN_NAME] = name.getField(opensocial.Name.Field.GIVEN_NAME);
       ret[opensocial.Name.Field.ADDITIONAL_NAME ] = name.getField(opensocial.Name.Field.ADDITIONAL_NAME );
       ret[opensocial.Name.Field.HONORIFIC_PREFIX ] = name.getField(opensocial.Name.Field.HONORIFIC_PREFIX );
       ret[opensocial.Name.Field.HONORIFIC_SUFFIX] = name.getField(opensocial.Name.Field.HONORIFIC_SUFFIX);
