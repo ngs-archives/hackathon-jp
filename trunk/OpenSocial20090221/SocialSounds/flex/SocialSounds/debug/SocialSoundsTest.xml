@@ -217,13 +217,6 @@ Person.prototype = (function(domain){
   var compat = {};
   compat["myspace.com"] = function() {
     return {
-      getName: function() {
-        var name = this.person.getField(opensocial.Person.Field.NAME);
-        var ret = {};
-        ret["unstructured"] = name.getField("unstructured");
-        return ret;
-      },
-      //
       getCulture: function() { return this.person.getField(MyOpenSpace.Person.Field.CULTURE) },
       getHeadline: function() { return this.person.getField(MyOpenSpace.Person.Field.HEADLINE) },
       getMaritalStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.MARITAL_STATUS) },
@@ -348,13 +341,15 @@ var getViewer = function() {
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
   var param = {};
-  param[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [opensocial.Person.Field.ID,opensocial.Person.Field.ABOUT_ME,opensocial.Person.Field.BOOKS];
-  var viewerReq = os.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER, param);
-  var soundCollectionReq = os.newFetchPersonAppDataRequest(
-    opensocial.DataRequest.PersonId.VIEWER,
-    ["soundCollection"]);
-
-  dataRequest.add(viewerReq);
+  param[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+    opensocial.Person.Field.ID,
+    opensocial.Person.Field.NAME,
+    opensocial.Person.Field.THUMBNAIL_URL];
+  var viewerReq = dataRequest.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, param);
+  var idSpecParam = {};
+  idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+  var soundCollectionReq = dataRequest.newFetchPersonAppDataRequest(opensocial.newIdSpec(idSpecParam), ["soundCollection"]);
+  dataRequest.add(viewerReq, "viewer");
   dataRequest.add(soundCollectionReq, "soundCollection");
   dataRequest.send(getResponse);
 
@@ -362,33 +357,37 @@ var getViewer = function() {
     var res = {};
     var viewerData = null;
     if (response.hadError()) {
-      res = {success:false, message:"getViewer error.\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+      res = {success:false, message:errorMessage(response, "getViewer error", ["viewer", "soundCollection"])};
     } else {
-      var viewer = response.get(opensocial.DataRequest.PersonId.VIEWER).getData();
-      var person = new Person(viewer);
+      var viewer = response.get("viewer").getData();
       var soundCollections = response.get("soundCollection").getData();
       var hasOwnerSound = false;
       if (soundCollections) {
         console.log(soundCollections);
         var sc = soundCollections[viewer.getId()];
-        var soundCollection = gadgets.json.parse(sc["soundCollection"]);
-        if (soundCollection) {
-          for (var i = 0; i < soundCollection.length; i++) {
-            if (soundCollection[i].id == owner.getId()) {
-              console.log(soundCollection[i].id);
-              hasOwnerSound = true;
-              break;
+        if (sc && sc["soundCollection"]) {
+          var soundCollection = gadgets.json.parse(sc["soundCollection"]);
+          if (soundCollection) {
+            for (var i = 0; i < soundCollection.length; i++) {
+              if (soundCollection[i].id == owner.getId()) {
+                console.log(soundCollection[i].id);
+                hasOwnerSound = true;
+                break;
+              }
             }
           }
+          console.log(soundCollection);
         }
-        console.log(soundCollection);
       }
-      viewerData = {
-        id: person.getId(),
-        name: person.getName(),
-        thumbnailUrl: person.getThumbnailUrl(),
-        sound: null,
-        hasOwnerSound: hasOwnerSound,
+      if (viewer) {
+        var person = new Person(viewer);
+        viewerData = {
+          id: person.getId(),
+          name: person.getName(),
+          thumbnailUrl: person.getThumbnailUrl(),
+          sound: null,
+          hasOwnerSound: hasOwnerSound,
+        }
       }
       res = {success:true, message:""};
     }
@@ -425,21 +424,17 @@ var getOwner = function() {
   var ownerReq = dataRequest.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, param);
   var idSpecParam = {};
   idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-  var soundParamReq = dataRequest.newFetchPersonAppDataRequest(
-    opensocial.newIdSpec(idSpecParam),
-    ["soundParam"]);
+  var soundParamReq = dataRequest.newFetchPersonAppDataRequest(opensocial.newIdSpec(idSpecParam), ["soundParam"]);
   dataRequest.add(ownerReq, "owner");
   dataRequest.add(soundParamReq, "soundParam");
-
   dataRequest.send(getResponse);
 
   function getResponse(response) {
     console.log(response);
-    var res = {};
     var ownerData = null;
-    var msg = [];
+    var res = {};
     if (response.hadError()) {
-      res = {success:false, message:errorMessage(response, "getViewer error", ["owner", "soundParam"])};
+      res = {success:false, message:errorMessage(response, "getOwner error", ["owner", "soundParam"])};
     } else {
       owner = response.get("owner").getData();
       var soundParams = response.get("soundParam").getData();
