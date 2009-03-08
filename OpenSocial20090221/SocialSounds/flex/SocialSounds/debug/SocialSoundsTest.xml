@@ -594,7 +594,7 @@ var addSound = function(ownerId) {
         }
         var included = false;
         for (var i = 0; i < newSoundCollection.length; i++) {
-          if (newSoundCollection[i] = ownerId) {
+          if (newSoundCollection[i] == ownerId) {
             included = true;
             break;
           }
