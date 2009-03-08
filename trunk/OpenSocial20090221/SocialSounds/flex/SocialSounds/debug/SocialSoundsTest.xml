@@ -493,11 +493,10 @@ var saveSound = function(param) {
   }
 
   function onSaveSoundComplete(response) {
-    var res = {};
     if (response.hadError()) {
       res = {success:false, message:errorMeaage(response, "saveSound error", ["saveSoundParamResult"])};
     } else {
-      console.log(result);
+      console.log(res);
       res = {success:true, message:""};
     }
     callbackHandler.saveSoundResultHandler({result:res});
