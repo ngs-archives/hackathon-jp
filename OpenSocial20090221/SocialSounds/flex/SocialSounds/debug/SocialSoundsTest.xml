@@ -415,6 +415,7 @@ var getOwner = function() {
   dataRequest.send(getResponse);
 
   function getResponse(response) {
+    console.log(response);
     var res = {};
     var ownerData = {};
     if (response.hadError()) {
