@@ -489,7 +489,7 @@ var saveSound = function(param) {
   } else {
     res = {success:false, message:"saveSound error. invalid param."};
     console.log(res);
-    callbackHandler.saveSoundResultHandler({result:res});
+    callbackHandle.saveSoundResultHandler({result:res});
   }
 
   function onSaveSoundComplete(response) {
@@ -499,7 +499,7 @@ var saveSound = function(param) {
       console.log(res);
       res = {success:true, message:""};
     }
-    callbackHandler.saveSoundResultHandler({result:res});
+    callbackHandle.saveSoundResultHandler({result:res});
   }
 }
 
@@ -518,7 +518,7 @@ var getSoundCollection = function() {
     var soundCollection = [];
     if (response.hadError()) {
       res = {success:false, message:"getSoundCollection error.(get)\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
-      callbackHandler.getSoundCollectionResultHandler({sounds:[], result:res});
+      callbackHandle.getSoundCollectionResultHandler({sounds:[], result:res});
     } else {
       var soundCollections = response.get("soundCollection").getData();
       if (soundCollections) {
@@ -529,7 +529,7 @@ var getSoundCollection = function() {
           console.log(soundCollection);
         }
       }
-      callbackHandler.getSoundCollectionResultHandler({sounds:soundCollection, result:res});
+      callbackHandle.getSoundCollectionResultHandler({sounds:soundCollection, result:res});
     }
   }
 }
@@ -549,21 +549,21 @@ var addSound = function(ownerId, viewerId) {
   } else {
     res = {success:false, message:"addSound error. invalid param."};
     console.log(res);
-    callbackHandler.addSoundResultHandler({result:res});
+    callbackHandle.addSoundResultHandler({result:res});
   }
 
   function onSoundCollectionComplete(response) {
     var res = {};
     if (response.hadError()) {
       res = {success:false, message:"addSound error.(get)\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
-      callbackHandler.addSoundResultHandler({result:res});
+      callbackHandle.addSoundResultHandler({result:res});
     } else {
       var viewer = response.get(opensocial.DataRequest.PersonId.VIEWER).getData();
       var soundCollections = response.get("soundCollection").getData();
       var newSoundCollection = [];
       if (!viewer) {
         res = {success:false, message:"addSound error.(get)\nviewer not found."};
-        callbackHandler.addSoundResultHandler({result:res});
+        callbackHandle.addSoundResultHandler({result:res});
       } else {
         if (soundCollections) {
           console.log(soundCollections);
@@ -597,7 +597,7 @@ var addSound = function(ownerId, viewerId) {
       console.log(response);
       res = {success:true, message:""};
     }
-    callbackHandler.addSoundResultHandler({result:res});
+    callbackHandle.addSoundResultHandler({result:res});
   }
 }
 
@@ -624,7 +624,7 @@ var clearSound = function() {
       console.log(response);
       res = {success:true, message:"clearSound success."};
     }
-    callbackHandler.clearSoundResultHandler({result:res});
+    callbackHandle.clearSoundResultHandler({result:res});
   }
 }
 
@@ -638,7 +638,7 @@ var test = function() {
     'soundParam' : "xxxxxxxxxxxx",
   }
   var res = {success:true, message:""};
-  callbackHandler.getOwnerResultHandler({owner:ownerData, result:res});
+  callbackHandle.getOwnerResultHandler({owner:ownerData, result:res});
 }
 
 
