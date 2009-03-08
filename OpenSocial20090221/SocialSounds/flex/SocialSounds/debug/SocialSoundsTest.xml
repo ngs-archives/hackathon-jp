@@ -351,9 +351,9 @@ var getViewer = function() {
   var soundCollectionReq = dataRequest.newFetchPersonAppDataRequest(opensocial.newIdSpec(idSpecParam), ["soundCollection"]);
   dataRequest.add(viewerReq, "viewer");
   dataRequest.add(soundCollectionReq, "soundCollection");
-  dataRequest.send(getResponse);
+  dataRequest.send(onGetViewerComplete);
 
-  function getResponse(response) {
+  function onGetViewerComplete(response) {
     var res = {};
     var viewerData = null;
     if (response.hadError()) {
@@ -427,9 +427,9 @@ var getOwner = function() {
   var soundParamReq = dataRequest.newFetchPersonAppDataRequest(opensocial.newIdSpec(idSpecParam), ["soundParam"]);
   dataRequest.add(ownerReq, "owner");
   dataRequest.add(soundParamReq, "soundParam");
-  dataRequest.send(getResponse);
+  dataRequest.send(onGetOwnerComplete);
 
-  function getResponse(response) {
+  function onGetOwnerComplete(response) {
     console.log(response);
     var ownerData = null;
     var res = {};
@@ -498,18 +498,12 @@ var saveSound = function(param) {
 
   function onSaveSoundComplete(response) {
     var res = {};
-    //if (response.hadError()) {
-    //  res = {success:false, message:"data request error.\n" + response.getErrorCode() + "\n"+ response.getErrorMessage()};
-    //} else {
-      var result = response.get("saveSoundParamResult");
-      if (result .hadError()) {
-        console.log(result);
-        res = {success:false, message:"savSound error.\n" + result .getErrorCode() + "\n"+ result .getErrorMessage()};
-      } else {
-        console.log(result);
-        res = {success:true, message:""};
-      }
-    //}
+    if (response.hadError()) {
+      res = {success:false, message:errorMeaage(response, "saveSound error", ["saveSoundParamResult"])};
+    } else {
+      console.log(result);
+      res = {success:true, message:""};
+    }
     callbackHandler.saveSoundResultHandler({result:res});
   }
 }
