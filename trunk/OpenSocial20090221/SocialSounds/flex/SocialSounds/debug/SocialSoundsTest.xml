@@ -291,7 +291,17 @@ Person.prototype = (function(domain){
     getLookingFor: function() { return this.person.getField(opensocial.Person.Field.LOOKING_FOR) },
     getMovies: function() { return this.person.getField(opensocial.Person.Field.MOVIES) },
     getMusic: function() { return this.person.getField(opensocial.Person.Field.MUSIC) },
-    getName: function() { return this.person.getField(opensocial.Person.Field.NAME) },
+    getName: function() {
+      var name = this.person.getField(opensocial.Person.Field.NAME);
+      var ret = {};
+      ret[opensocial.Person.Field.FAMILY_NAME] = name.getField(opensocial.Person.Field.FAMILY_NAME);
+      ret[opensocial.Person.Field.GIVEN_NAME] = name.getField(opensocial.Person.Field.GIVEN_NAME);
+      ret[opensocial.Person.Field.ADDITIONAL_NAME ] = name.getField(opensocial.Person.Field.ADDITIONAL_NAME );
+      ret[opensocial.Person.Field.HONORIFIC_PREFIX ] = name.getField(opensocial.Person.Field.HONORIFIC_PREFIX );
+      ret[opensocial.Person.Field.HONORIFIC_SUFFIX] = name.getField(opensocial.Person.Field.HONORIFIC_SUFFIX);
+      ret[opensocial.Person.Field.UNSTRUCTURED] = name.getField(opensocial.Person.Field.UNSTRUCTURED);
+      return ret;
+    },
     getNickname: function() { return this.person.getField(opensocial.Person.Field.NICKNAME) },
     getPets: function() { return this.person.getField(opensocial.Person.Field.PETS) },
     getPhoneNumbers: function() { return this.person.getField(opensocial.Person.Field.PHONE_NUMBERS) },
@@ -402,23 +412,12 @@ var getOwner = function() {
   var dr = opensocial.DataRequest;
   var param = {};
   param[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [opensocial.Person.Field.ID,opensocial.Person.Field.ABOUT_ME,opensocial.Person.Field.BOOKS];
-  //var ownerReq = os.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, param);
   var ownerReq = dataRequest.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, param);
-  //var escapeParams = {};
-  //escapeParams [opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
-  var soundParamReq;
-  //if (domain == "myspace.com") {
-    //soundParamReq = dataRequest.newFetchPersonAppDataRequest(
-      //opensocial.DataRequest.PersonId.OWNER,
-    //  opensocial.IdSpec.PersonId.OWNER,
-    //  ["soundParam"]);
-  //} else {
-    idSpecParam = {};
-    idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-    soundParamReq = dataRequest.newFetchPersonAppDataRequest(
-      opensocial.newIdSpec(idSpecParam),
-      ["soundParam"]);
-  //}
+  var idSpecParam = {};
+  idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+  var soundParamReq = dataRequest.newFetchPersonAppDataRequest(
+    opensocial.newIdSpec(idSpecParam),
+    ["soundParam"]);
   dataRequest.add(ownerReq, "owner");
   dataRequest.add(soundParamReq, "soundParam");
 
