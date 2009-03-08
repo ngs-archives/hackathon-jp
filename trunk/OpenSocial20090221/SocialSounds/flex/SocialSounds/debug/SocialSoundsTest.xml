@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Social Sounds Test"
+    description="sound app test"
+    category="music"
+    category2="communicating"
+    height="800">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="views" />
+    <Optional feature="content-rewrite">
+      <Param name="include-urls"></Param>
+      <Param name="exclude-urls">.*</Param>
+    </Optional>
+  </ModulePrefs>
+  <Content type="html" view="canvas,profile">
+    <![CDATA[
+<div id="flashcontainer"></div>
+<script type="text/javascript">
+
+/**
+ * SWFObject v1.5: Flash Player detection and embed - http://blog.deconcept.com/swfobject/
+ *
+ * SWFObject is (c) 2007 Geoff Stearns and is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ */
+if(typeof deconcept=="undefined"){var deconcept=new Object();}
+if(typeof deconcept.util=="undefined"){deconcept.util=new Object();}
+if(typeof deconcept.SWFObjectUtil=="undefined"){deconcept.SWFObjectUtil=new Object();}
+deconcept.SWFObject=function(_1,id,w,h,_5,c,_7,_8,_9,_a){
+  if(!document.getElementById){return;}
+  this.DETECT_KEY=_a?_a:"detectflash";
+  this.skipDetect=deconcept.util.getRequestParameter(this.DETECT_KEY);
+  this.params=new Object();
+  this.variables=new Object();
+  this.attributes=new Array();
+  if(_1){this.setAttribute("swf",_1);}
+  if(id){this.setAttribute("id",id);}
+  if(w){this.setAttribute("width",w);}
+  if(h){this.setAttribute("height",h);}
+  if(_5){this.setAttribute("version",new deconcept.PlayerVersion(_5.toString().split(".")));}
+  this.installedVer=deconcept.SWFObjectUtil.getPlayerVersion();
+  if(!window.opera&&document.all&&this.installedVer.major>7){deconcept.SWFObject.doPrepUnload=true;}
+  if(c){this.addParam("bgcolor",c);}
+  var q=_7?_7:"high";
+  this.addParam("quality",q);
+  this.setAttribute("useExpressInstall",false);
+  this.setAttribute("doExpressInstall",false);
+  var _c=(_8)?_8:window.location;
+  this.setAttribute("xiRedirectUrl",_c);
+  this.setAttribute("redirectUrl","");
+  if(_9){this.setAttribute("redirectUrl",_9);}
+};
+deconcept.SWFObject.prototype={
+  useExpressInstall:function(_d){
+    this.xiSWFPath=!_d?"expressinstall.swf":_d;
+    this.setAttribute("useExpressInstall",true);
+  },
+  setAttribute:function(_e,_f){this.attributes[_e]=_f;},
+  getAttribute:function(_10){return this.attributes[_10];},
+  addParam:function(_11,_12){this.params[_11]=_12;},
+  getParams:function(){return this.params;},
+  addVariable:function(_13,_14){this.variables[_13]=_14;},
+  getVariable:function(_15){return this.variables[_15];},
+  getVariables:function(){return this.variables;},
+  getVariablePairs:function(){
+    var _16=new Array();
+    var key;
+    var _18=this.getVariables();
+    for(key in _18){_16[_16.length]=key+"="+_18[key];}
+    return _16;
+  },
+  getSWFHTML:function(){
+    var _19="";
+    if(navigator.plugins&&navigator.mimeTypes&&navigator.mimeTypes.length){
+      if(this.getAttribute("doExpressInstall")){
+        this.addVariable("MMplayerType","PlugIn");
+        this.setAttribute("swf",this.xiSWFPath);
+      }
+      _19="<embed type=\"application/x-shockwave-flash\" src=\""+this.getAttribute("swf")+"\" width=\""+this.getAttribute("width")+"\" height=\""+this.getAttribute("height")+"\" style=\""+this.getAttribute("style")+"\"";
+      _19+=" id=\""+this.getAttribute("id")+"\" name=\""+this.getAttribute("id")+"\" ";
+      var _1a=this.getParams();
+      for(var key in _1a){_19+=[key]+"=\""+_1a[key]+"\" ";}
+      var _1c=this.getVariablePairs().join("&");
+      if(_1c.length>0){_19+="flashvars=\""+_1c+"\"";}
+      _19+="/>";
+    }else{
+      if(this.getAttribute("doExpressInstall")){
+        this.addVariable("MMplayerType","ActiveX");
+        this.setAttribute("swf",this.xiSWFPath);
+      }
+      _19="<object id=\""+this.getAttribute("id")+"\" classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" width=\""+
+        this.getAttribute("width")+"\" height=\""+this.getAttribute("height")+"\" style=\""+this.getAttribute("style")+"\">";
+      _19+="<param name=\"movie\" value=\""+this.getAttribute("swf")+"\" />";
+      var _1d=this.getParams();
+      for(var key in _1d){_19+="<param name=\""+key+"\" value=\""+_1d[key]+"\" />";}
+      var _1f=this.getVariablePairs().join("&");
+      if(_1f.length>0){_19+="<param name=\"flashvars\" value=\""+_1f+"\" />";}
+      _19+="</object>";
+    }
+    return _19;
+  },
+  write:function(_20){
+    if(this.getAttribute("useExpressInstall")){
+      var _21=new deconcept.PlayerVersion([6,0,65]);
+      if(this.installedVer.versionIsValid(_21)&&!this.installedVer.versionIsValid(this.getAttribute("version"))){
+        this.setAttribute("doExpressInstall",true);
+        this.addVariable("MMredirectURL",escape(this.getAttribute("xiRedirectUrl")));
+        document.title=document.title.slice(0,47)+" - Flash Player Installation";
+        this.addVariable("MMdoctitle",document.title);
+      }
+    }
+    if(this.skipDetect||this.getAttribute("doExpressInstall")||this.installedVer.versionIsValid(this.getAttribute("version"))){
+      var n=(typeof _20=="string")?document.getElementById(_20):_20;
+      n.innerHTML=this.getSWFHTML();
+      return true;
+    }else{if(this.getAttribute("redirectUrl")!=""){document.location.replace(this.getAttribute("redirectUrl"));}}
+    return false;
+  }
+};
+deconcept.SWFObjectUtil.getPlayerVersion=function(){
+  var _23=new deconcept.PlayerVersion([0,0,0]);
+  if(navigator.plugins&&navigator.mimeTypes.length){
+    var x=navigator.plugins["Shockwave Flash"];
+    if(x&&x.description){_23=new deconcept.PlayerVersion(x.description.replace(/([a-zA-Z]|\s)+/,"").replace(/(\s+r|\s+b[0-9]+)/,".").split("."));}
+  }else{
+    if(navigator.userAgent&&navigator.userAgent.indexOf("Windows CE")>=0){
+      var axo=1;
+      var _26=3;
+      while(axo){
+        try{
+          _26++;
+          axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash."+_26);
+          _23=new deconcept.PlayerVersion([_26,0,0]);
+        }catch(e){axo=null;}
+      }
+    }
+    else{
+      try{var axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");}catch(e){
+        try{
+          var axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
+          _23=new deconcept.PlayerVersion([6,0,21]);
+          axo.AllowScriptAccess="always";
+        }catch(e){if(_23.major==6){return _23;}}
+        try{axo=new ActiveXObject("ShockwaveFlash.ShockwaveFlash");}catch(e){}
+      }
+      if(axo!=null){_23=new deconcept.PlayerVersion(axo.GetVariable("$version").split(" ")[1].split(","));}
+    }
+  }
+  return _23;
+};
+deconcept.PlayerVersion=function(_29){
+  this.major=_29[0]!=null?parseInt(_29[0]):0;
+  this.minor=_29[1]!=null?parseInt(_29[1]):0;
+  this.rev=_29[2]!=null?parseInt(_29[2]):0;
+};
+deconcept.PlayerVersion.prototype.versionIsValid=function(fv){
+  if(this.major<fv.major){return false;}
+  if(this.major>fv.major){return true;}
+  if(this.minor<fv.minor){return false;}
+  if(this.minor>fv.minor){return true;}
+  if(this.rev<fv.rev){return false;}
+  return true;
+}
+;
+deconcept.util={
+  getRequestParameter:function(_2b){
+    var q=document.location.search||document.location.hash;
+    if(_2b==null){return q;}
+    if(q){
+      var _2d=q.substring(1).split("&");
+      for(var i=0;i<_2d.length;i++){if(_2d[i].substring(0,_2d[i].indexOf("="))==_2b){return _2d[i].substring((_2d[i].indexOf("=")+1));}}
+    }
+    return "";
+  }
+};
+deconcept.SWFObjectUtil.cleanupSWFs=function(){
+  var _2f=document.getElementsByTagName("OBJECT");
+  for(var i=_2f.length-1;i>=0;i--){
+    _2f[i].style.display="none";
+    for(var x in _2f[i]){if(typeof _2f[i][x]=="function"){_2f[i][x]=function(){};}}
+  }
+};
+if(deconcept.SWFObject.doPrepUnload){
+  if(!deconcept.unloadSet){
+    deconcept.SWFObjectUtil.prepUnload=function(){
+      __flash_unloadHandler=function(){};
+      __flash_savedUnloadHandler=function(){};
+      window.attachEvent("onunload",deconcept.SWFObjectUtil.cleanupSWFs);
+    };
+    window.attachEvent("onbeforeunload",deconcept.SWFObjectUtil.prepUnload);
+    deconcept.unloadSet=true;
+  }
+}
+if(!document.getElementById&&document.all){document.getElementById=function(id){return document.all[id];};}
+var getQueryParamValue=deconcept.util.getRequestParameter;
+var FlashObject=deconcept.SWFObject;
+var SWFObject=deconcept.SWFObject;
+
+
+//========================================
+// main
+//========================================
+
+var emptyFunction = function() {};
+if(typeof console == "undefined") var console = {log: emptyFunction};
+var FLASH_ID = "SocialSoundsTest";
+var flashobj = null;
+var callbackHandle = null;
+var owner = null;
+var domain = opensocial.Container.get().environment_.domain;
+
+var Person = function(person) {
+  this.person = person;
+}
+Person.prototype = (function(domain){
+  var compat = {};
+  compat["myspace.com"] = function() {
+    return {
+      getAboutMe: function() { return this.person.getField(MyOpenSpace.Person.Field.ABOUT) },
+      getBooks: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.BOOKS);
+        return f && f.length ? [f] : [];
+      },
+      getHeroes: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.HEROES);
+        return f && f.length ? [f] : [];
+      },
+      getInterests: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.INTERESTS);
+        return f && f.length ? [f] : [];
+      },
+      getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) },
+      getMovies: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.MOVIES);
+        return f && f.length ? [f] : [];
+      },
+      getMusic: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.MUSIC);
+        return f && f.length ? [f] : [];
+      },
+      getTvShows: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.TELEVISION);
+        return f && f.length ? [f] : [];
+      },
+      getJobs: function() {
+        var f = this.person.getField(MyOpenSpace.Person.Field.OCCUPATION);
+        return f && f.length ? [f] : [];
+      },
+      getStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.STATUS) },
+      //
+      getCulture: function() { return this.person.getField(MyOpenSpace.Person.Field.CULTURE) },
+      getHeadline: function() { return this.person.getField(MyOpenSpace.Person.Field.HEADLINE) },
+      getMaritalStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.MARITAL_STATUS) },
+      getMood: function() { return this.person.getField(MyOpenSpace.Person.Field.MOOD) },
+      getZodiacSign: function() { return this.person.getField(MyOpenSpace.Person.Field.ZODIAC_SIGN) }
+      //'city' : owner.getField(MyOpenSpace.Person.Field.CITY),
+      //'region' : owner.getField(MyOpenSpace.Person.Field.REGION),
+      //'postalcode' : owner.getField(MyOpenSpace.Person.Field.POSTALCODE),
+      //'country' : owner.getField(MyOpenSpace.Person.Field.COUNTRY),
+      //'hometown' : owner.getField(MyOpenSpace.Person.Field.HOMETOWN),
+    }
+  };
+
+  var ret = {
+    getAboutMe: function() { return this.person.getField(opensocial.Person.Field.ABOUT_ME) },
+    getActivities: function() { return this.person.getField(opensocial.Person.Field.ACTIVITIES) },
+    getAddresses: function() { return this.person.getField(opensocial.Person.Field.ADDRESSES) },
+    getAge: function() { return this.person.getField(opensocial.Person.Field.AGE) },
+    getBodyType: function() { return this.person.getField(opensocial.Person.Field.BODY_TYPE) },
+    getBooks: function() { return this.person.getField(opensocial.Person.Field.BOOKS) },
+    getCars: function() { return this.person.getField(opensocial.Person.Field.CARS) },
+    getChildren: function() { return this.person.getField(opensocial.Person.Field.CHILDREN) },
+    getCurrentLocation: function() { return this.person.getField(opensocial.Person.Field.CURRENT_LOCATION) },
+    getDateOfBirth: function() { return this.person.getField(opensocial.Person.Field.DATE_OF_BIRTH) },
+    getDrinker: function() { return this.person.getField(opensocial.Person.Field.DRINKER) },
+    getEmails: function() { return this.person.getField(opensocial.Person.Field.EMAILS) },
+    getEthnicity: function() { return this.person.getField(opensocial.Person.Field.ETHNICITY) },
+    getFashion: function() { return this.person.getField(opensocial.Person.Field.FASHION) },
+    getFood: function() { return this.person.getField(opensocial.Person.Field.FOOD) },
+    getGender: function() { return this.person.getField(opensocial.Person.Field.GENDER) },
+    getHappiestWhen: function() { return this.person.getField(opensocial.Person.Field.HAPPIEST_WHEN) },
+    getHeroes: function() { return this.person.getField(opensocial.Person.Field.HEROES) },
+    getHumor: function() { return this.person.getField(opensocial.Person.Field.HUMOR) },
+    getId: function() { return this.person.getField(opensocial.Person.Field.ID) },
+    getInterests: function() { return this.person.getField(opensocial.Person.Field.INTERESTS) },
+    getJobs: function() { return this.person.getField(opensocial.Person.Field.JOBS) },
+    getJobInterests: function() { return this.person.getField(opensocial.Person.Field.JOB_INTERESTS) },
+    getLanguagesSpoken: function() { return this.person.getField(opensocial.Person.Field.LANGUAGES_SPOKEN) },
+    getLivingArrangement: function() { return this.person.getField(opensocial.Person.Field.LIVING_ARRANGEMENT) },
+    getLookingFor: function() { return this.person.getField(opensocial.Person.Field.LOOKING_FOR) },
+    getMovies: function() { return this.person.getField(opensocial.Person.Field.MOVIES) },
+    getMusic: function() { return this.person.getField(opensocial.Person.Field.MUSIC) },
+    getName: function() { return this.person.getField(opensocial.Person.Field.NAME) },
+    getNickname: function() { return this.person.getField(opensocial.Person.Field.NICKNAME) },
+    getPets: function() { return this.person.getField(opensocial.Person.Field.PETS) },
+    getPhoneNumbers: function() { return this.person.getField(opensocial.Person.Field.PHONE_NUMBERS) },
+    getPoliticalViews: function() { return this.person.getField(opensocial.Person.Field.POLITICAL_VIEWS) },
+    getProfileSong: function() { return this.person.getField(opensocial.Person.Field.PROFILE_SONG) },
+    getProfileUrl: function() { return this.person.getField(opensocial.Person.Field.PROFILE_URL) },
+    getProfileVideo: function() { return this.person.getField(opensocial.Person.Field.PROFILE_VIDEO) },
+    getQuotes: function() { return this.person.getField(opensocial.Person.Field.QUOTES) },
+    getRelationshipStatus: function() { return this.person.getField(opensocial.Person.Field.RELATIONSHIP_STATUS) },
+    getReligion: function() { return this.person.getField(opensocial.Person.Field.RELIGION) },
+    getRomance: function() { return this.person.getField(opensocial.Person.Field.ROMANCE) },
+    getScaredOf: function() { return this.person.getField(opensocial.Person.Field.SCARED_OF) },
+    getSchools: function() { return this.person.getField(opensocial.Person.Field.SCHOOLS) },
+    getSexualOrientation: function() { return this.person.getField(opensocial.Person.Field.SEXUAL_ORIENTATION) },
+    getSmoker: function() { return this.person.getField(opensocial.Person.Field.SMOKER) },
+    getSports: function() { return this.person.getField(opensocial.Person.Field.SPORTS) },
+    getStatus: function() { return this.person.getField(opensocial.Person.Field.STATUS) },
+    getTags: function() { return this.person.getField(opensocial.Person.Field.TAGS) },
+    getThumbnailUrl: function() { return this.person.getField(opensocial.Person.Field.THUMBNAIL_URL) },
+    getTimeZone: function() { return this.person.getField(opensocial.Person.Field.TIME_ZONE) },
+    getTurnOffs: function() { return this.person.getField(opensocial.Person.Field.TURN_OFFS) },
+    getTurnOns: function() { return this.person.getField(opensocial.Person.Field.TURN_ONS) },
+    getTvShows: function() { return this.person.getField(opensocial.Person.Field.TV_SHOWS) },
+    getUrls: function() { return this.person.getField(opensocial.Person.Field.URLS) }
+  };
+  var c = (compat[domain])();
+  for (var key in c) {
+    ret[key] = c[key];
+  }
+  return ret;
+})(domain);
+
+
+var init = function() {
+  flashobj = document.getElementById(FLASH_ID);
+  callbackHandle = flashobj;
+  callbackHandle.initResultHandler({result:{success:true, message:""}});
+}
+
+var so = new SWFObject(
+  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf",
+  FLASH_ID, "800", "600", "10", "#FFFFFF");
+so.addParam("allowScriptAccess","always");
+so.addParam("allowNetworking","all");
+so.addParam("wmode","transparent");
+so.addParam("menu", "false");
+so.addParam("quality", "high");
+so.write("flashcontainer");
+
+var getViewer = function() {
+  var os = opensocial.Container.get();
+  var dataRequest = os.newDataRequest();
+  var param = {};
+  param[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [opensocial.Person.Field.ID,opensocial.Person.Field.ABOUT_ME,opensocial.Person.Field.BOOKS];
+  var viewerReq = os.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER, param);
+  var soundCollectionReq = os.newFetchPersonAppDataRequest(
+    opensocial.DataRequest.PersonId.VIEWER,
+    ["soundCollection"]);
+
+  dataRequest.add(viewerReq);
+  dataRequest.add(soundCollectionReq, "soundCollection");
+  dataRequest.send(getResponse);
+
+  function getResponse(response) {
+    var res = {};
+    var viewerData = {};
+    if (response.hadError()) {
+      res = {success:false, message:"getViewer error.\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+    } else {
+      var viewer = response.get(opensocial.DataRequest.PersonId.VIEWER).getData();
+      var person = new Person(viewer);
+      var soundCollections = response.get("soundCollection").getData();
+      var hasOwnerSound = false;
+      if (soundCollections) {
+        console.log(soundCollections);
+        var sc = soundCollections[viewer.getId()];
+        var soundCollection = gadgets.json.parse(sc["soundCollection"]);
+        if (soundCollection) {
+          for (var i = 0; i < soundCollection.length; i++) {
+            if (soundCollection[i].id == owner.getId()) {
+              console.log(soundCollection[i].id);
+              hasOwnerSound = true;
+              break;
+            }
+          }
+        }
+        console.log(soundCollection);
+      }
+      viewerData = {
+        id: person.getId(),
+        name: person.getName(),
+        thumbnailUrl: person.getThumbnailUrl(),
+        sound: null,
+        hasOwnerSound: hasOwnerSound,
+      }
+      res = {success:true, message:""};
+    }
+    callbackHandle.getViewerResultHandler({viewer:viewerData, result:res});
+  }
+};
+
+var getOwner = function() {
+  var os = opensocial.Container.get();
+  var dataRequest = os.newDataRequest();
+  var dr = opensocial.DataRequest;
+  var param = {};
+  param[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [opensocial.Person.Field.ID,opensocial.Person.Field.ABOUT_ME,opensocial.Person.Field.BOOKS];
+  var ownerReq = os.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, param);
+  //var escapeParams = {};
+  //escapeParams [opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
+  var soundParamReq = os.newFetchPersonAppDataRequest(
+    opensocial.DataRequest.PersonId.OWNER,
+    ["soundParam"]);
+//    escapeParams);
+
+  dataRequest.add(ownerReq, "owner");
+  dataRequest.add(soundParamReq, "soundParam");
+
+  dataRequest.send(getResponse);
+
+  function getResponse(response) {
+    var res = {};
+    var ownerData = {};
+    if (response.hadError()) {
+      res = {success:false, message:"getViewer error.\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+    } else {
+      owner = response.get("owner").getData();
+      var person = new Person(owner);
+      var soundParams = response.get("soundParam").getData();
+      var soundParam = null;
+      if (soundParams) {
+        console.log(soundParams);
+        var sp = soundParams[owner.getId()];
+        soundParam = gadgets.json.parse(sp["soundParam"]);
+        console.log(soundParam);
+      }
+      var ownerData = {
+        id: person.getId(),
+        name: person.getName(),
+        age: person.getAge(),
+        gender: person.getGender(),
+        aboutMe: person.getAboutMe(),
+        jobs: person.getJobs(),
+        lookingFor: person.getLookingFor(),
+        interests: person.getInterests(),
+        music: person.getMusic(),
+        movies: person.getMovies(),
+        tvShows: person.getTvShows(),
+        books: person.getBooks(),
+        heroes: person.getHeroes(),
+        status: person.getStatus(),
+        addresses: person.getAddresses(),
+        currentLocation: person.getCurrentLocation(),
+        thumbnailUrl: person.getThumbnailUrl(),
+        sound: soundParam
+      }
+      res = {success:true, message:""};
+    }
+    console.log(ownerData);
+    callbackHandle.getOwnerResultHandler({owner:ownerData, result:res});
+  }
+}
+
+var saveSound = function(param) {
+  var os = opensocial.Container.get();
+  var o = opensocial;
+  var res = {};
+  var dataRequest = os.newDataRequest();
+  if (param) {
+    var json = gadgets.json.stringify(param);
+    console.log(json);
+    var soundParamReq = dataRequest .newUpdatePersonAppDataRequest(
+      opensocial.DataRequest.PersonId.VIEWER,
+      "soundParam",
+      json);
+    dataRequest.add(soundParamReq, "saveSoundParamResult");
+    dataRequest.send(onSaveSoundComplete);
+  } else {
+    res = {success:false, message:"saveSound error. invalid param."};
+    console.log(res);
+    callbackHandler.saveSoundResultHandler({result:res});
+  }
+
+  function onSaveSoundComplete(response) {
+    var res = {};
+    //if (response.hadError()) {
+    //  res = {success:false, message:"data request error.\n" + response.getErrorCode() + "\n"+ response.getErrorMessage()};
+    //} else {
+      var result = response.get("saveSoundParamResult");
+      if (result .hadError()) {
+        console.log(result);
+        res = {success:false, message:"savSound error.\n" + result .getErrorCode() + "\n"+ result .getErrorMessage()};
+      } else {
+        console.log(result);
+        res = {success:true, message:""};
+      }
+    //}
+    callbackHandler.saveSoundResultHandler({result:res});
+  }
+}
+
+var getSoundCollection = function() {
+  var os = opensocial.Container.get();
+  var dataRequest = os.newDataRequest();
+  var res = {};
+  var soundCollectionReq = os.newFetchPersonAppDataRequest(
+    opensocial.DataRequest.PersonId.OWNER,
+    ["soundCollection"]);
+    dataRequest.add(soundCollectionReq, "soundCollection");
+    dataRequest.send(onSoundCollectionComplete);
+
+  function onSoundCollectionComplete(response) {
+    var res = {success:true, message:""};
+    var soundCollection = [];
+    if (response.hadError()) {
+      res = {success:false, message:"getSoundCollection error.(get)\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+      callbackHandler.getSoundCollectionResultHandler({sounds:[], result:res});
+    } else {
+      var soundCollections = response.get("soundCollection").getData();
+      if (soundCollections) {
+        console.log(soundCollections);
+        var sc = soundCollections[owner.getId()];
+        if (sc) {
+          soundCollection = gadgets.json.parse(sc["soundCollection"]);
+          console.log(soundCollection);
+        }
+      }
+      callbackHandler.getSoundCollectionResultHandler({sounds:soundCollection, result:res});
+    }
+  }
+}
+
+var addSound = function(ownerId, viewerId) {
+  var os = opensocial.Container.get();
+  var dataRequest = os.newDataRequest();
+  var res = {};
+  if (ownerId && viewerId) {
+    var viewerReq = os.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER);
+    var soundCollectionReq = os.newFetchPersonAppDataRequest(
+      opensocial.DataRequest.PersonId.VIEWER,
+      ["soundCollection"]);
+    dataRequest.add(viewerReq);
+    dataRequest.add(soundCollectionReq, "soundCollection");
+    dataRequest.send(onSoundCollectionComplete);
+  } else {
+    res = {success:false, message:"addSound error. invalid param."};
+    console.log(res);
+    callbackHandler.addSoundResultHandler({result:res});
+  }
+
+  function onSoundCollectionComplete(response) {
+    var res = {};
+    if (response.hadError()) {
+      res = {success:false, message:"addSound error.(get)\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+      callbackHandler.addSoundResultHandler({result:res});
+    } else {
+      var viewer = response.get(opensocial.DataRequest.PersonId.VIEWER).getData();
+      var soundCollections = response.get("soundCollection").getData();
+      var newSoundCollection = [];
+      if (!viewer) {
+        res = {success:false, message:"addSound error.(get)\nviewer not found."};
+        callbackHandler.addSoundResultHandler({result:res});
+      } else {
+        if (soundCollections) {
+          console.log(soundCollections);
+          var sc = soundCollections[viewer.getId()];
+          var soundCollection = gadgets.json.parse(sc["soundCollection"]);
+          if (soundCollection) {
+            newSoundCollection = soundCollection;
+          }
+          console.log(soundCollection);
+        }
+        newSoundCollection[newSoundCollection.length] = viewerId;
+        var json = gadgets.json.stringify(newSoundCollection);
+        console.log(json);
+        dataRequest = os.newDataRequest();
+        var updateSoundCollectionReq = dataRequest .newUpdatePersonAppDataRequest(
+          opensocial.DataRequest.PersonId.VIEWER,
+          "soundCollection",
+          json);
+        dataRequest.add(updateSoundCollectionReq);
+        dataRequest.send(onUpdateSoundCollectionComplete);
+      }
+    }
+  }
+
+  function onUpdateSoundCollectionComplete(response) {
+    res = {};
+    if (response .hadError()) {
+      console.log(response);
+      res = {success:false, message:"addSound error.(update)\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+    } else {
+      console.log(response);
+      res = {success:true, message:""};
+    }
+    callbackHandler.addSoundResultHandler({result:res});
+  }
+}
+
+var clearSound = function() {
+  var os = opensocial.Container.get();
+  var dataRequest = os.newDataRequest();
+  var res = {};
+  var newSoundCollection = [];
+  var json = gadgets.json.stringify(newSoundCollection);
+  console.log(json);
+  dataRequest = os.newDataRequest();
+  var clearSoundCollectionReq = dataRequest .newUpdatePersonAppDataRequest(
+    opensocial.DataRequest.PersonId.VIEWER,
+    "soundCollection",
+     json);
+  dataRequest.add(clearSoundCollectionReq);
+  dataRequest.send(onClearSoundCollectionComplete);
+
+  function onClearSoundCollectionComplete(response) {
+    if (response .hadError()) {
+      console.log(response);
+      res = {success:false, message:"clearSound error.\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+    } else {
+      console.log(response);
+      res = {success:true, message:"clearSound success."};
+    }
+    callbackHandler.clearSoundResultHandler({result:res});
+  }
+}
+
+var test = function() {
+  var ownerData = {
+    'id' : "1123",
+    'name' : "Test User",
+    'age' : "34",
+    'gender' : "Male",
+    'thumbnailUrl' : "http://x.myspacecdn.com/images/no_pic.gif",
+    'soundParam' : "xxxxxxxxxxxx",
+  }
+  var res = {success:true, message:""};
+  callbackHandler.getOwnerResultHandler({owner:ownerData, result:res});
+}
+
+
+</script>
+    ]]>
+  </Content>
+</Module>
