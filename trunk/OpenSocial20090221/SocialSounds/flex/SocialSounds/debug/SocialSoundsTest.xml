@@ -409,7 +409,8 @@ var getOwner = function() {
   var soundParamReq;
   if (domain == "myspace.com") {
     soundParamReq = dataRequest.newFetchPersonAppDataRequest(
-      opensocial.DataRequest.PersonId.OWNER,
+      //opensocial.DataRequest.PersonId.OWNER,
+      opensocial.IdSpec.PersonId.OWNER,
       ["soundParam"]);
   } else {
     idSpecParam = {};
