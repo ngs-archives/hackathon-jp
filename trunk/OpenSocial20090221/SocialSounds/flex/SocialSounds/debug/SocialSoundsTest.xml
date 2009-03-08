@@ -217,8 +217,6 @@ Person.prototype = (function(domain){
   var compat = {};
   compat["myspace.com"] = function() {
     return {
-      //getAboutMe: function() { return this.person.getField(MyOpenSpace.Person.Field.ABOUT) },
-      //getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) },
       getName: function() {
         var name = this.person.getField(opensocial.Person.Field.NAME);
         var ret = {};
@@ -405,9 +403,9 @@ var getOwner = function() {
     opensocial.Person.Field.TV_SHOWS,
     opensocial.Person.Field.BOOKS,
     opensocial.Person.Field.HEROES,
-//    opensocial.Person.Field.STATUS,
+    opensocial.Person.Field.STATUS,
 //    opensocial.Person.Field.ADDRESSES,
-//    opensocial.Person.Field.CURRENT_LOCATION,
+    opensocial.Person.Field.CURRENT_LOCATION,
     opensocial.Person.Field.THUMBNAIL_URL,
     opensocial.Person.Field.BOOKS];
   var ownerReq = dataRequest.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, param);
