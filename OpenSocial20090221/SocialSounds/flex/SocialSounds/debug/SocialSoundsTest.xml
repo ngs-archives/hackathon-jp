@@ -384,7 +384,7 @@ var getViewer = function() {
         console.log(soundCollections);
         var sc = soundCollections[viewer.getId()];
         if (sc && sc["soundCollection"]) {
-          var soundCollection = CompatUtil.getPersedAppData(sc["soundCollection"]);
+          var soundCollection = CompatUtil.getParsedAppData(sc["soundCollection"]);
           if (soundCollection) {
             for (var i = 0; i < soundCollection.length; i++) {
               if (soundCollection[i].id == owner.getId()) {
@@ -463,7 +463,7 @@ var getOwner = function() {
         console.log(sp);
         if (sp && sp["soundParam"]) {
           console.log(sp["soundParam"]);
-          soundParam = CompatUtil.getPersedAppData(sp["soundParam"]);
+          soundParam = CompatUtil.getParsedAppData(sp["soundParam"]);
           console.log(soundParam);
         }
       }
@@ -554,7 +554,7 @@ var getSoundCollection = function() {
           console.log(soundCollections);
           var sc = soundCollections[CompatUtil.getPersonId(owner)];
           if (sc && sc["soundCollection"]) {
-            soundCollection = CompatUtil.getPersedAppData(sc["soundCollection"]);
+            soundCollection = CompatUtil.getParsedAppData(sc["soundCollection"]);
             console.log(soundCollection);
           }
         }
@@ -598,7 +598,7 @@ var addSound = function(ownerId) {
           console.log(soundCollections);
           var sc = soundCollections[CompatUtil.getPersonId(viewer)];
           if (sc && sc["soundCollection"]) {
-            var soundCollection = CompatUtil.getPersedAppData(sc["soundCollection"]);
+            var soundCollection = CompatUtil.getParsedAppData(sc["soundCollection"]);
             if (soundCollection) {
               newSoundCollection = soundCollection;
             }
