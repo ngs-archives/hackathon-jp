@@ -317,9 +317,11 @@ Person.prototype = (function(domain){
     getTvShows: function() { return this.person.getField(opensocial.Person.Field.TV_SHOWS) },
     getUrls: function() { return this.person.getField(opensocial.Person.Field.URLS) }
   };
-  var c = (compat[domain])();
-  for (var key in c) {
-    ret[key] = c[key];
+  var c = (compat[domain] || emptyFunction)();
+  if (c) {
+    for (var key in c) {
+      ret[key] = c[key];
+    }
   }
   return ret;
 })(domain);
