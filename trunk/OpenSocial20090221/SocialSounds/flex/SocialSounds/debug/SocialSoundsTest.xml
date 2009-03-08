@@ -407,18 +407,18 @@ var getOwner = function() {
   //var escapeParams = {};
   //escapeParams [opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
   var soundParamReq;
-  if (domain == "myspace.com") {
-    soundParamReq = dataRequest.newFetchPersonAppDataRequest(
+  //if (domain == "myspace.com") {
+    //soundParamReq = dataRequest.newFetchPersonAppDataRequest(
       //opensocial.DataRequest.PersonId.OWNER,
-      opensocial.IdSpec.PersonId.OWNER,
-      ["soundParam"]);
-  } else {
+    //  opensocial.IdSpec.PersonId.OWNER,
+    //  ["soundParam"]);
+  //} else {
     idSpecParam = {};
     idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
     soundParamReq = dataRequest.newFetchPersonAppDataRequest(
       opensocial.newIdSpec(idSpecParam),
       ["soundParam"]);
-  }
+  //}
   dataRequest.add(ownerReq, "owner");
   dataRequest.add(soundParamReq, "soundParam");
 
