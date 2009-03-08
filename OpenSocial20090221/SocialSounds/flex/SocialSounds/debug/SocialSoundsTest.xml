@@ -539,16 +539,16 @@ var getSoundCollection = function() {
   }
 }
 
-var addSound = function(ownerId, viewerId) {
+var addSound = function(ownerId) {
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
   var res = {};
-  if (ownerId && viewerId) {
-    var viewerReq = os.newFetchPersonRequest(opensocial.DataRequest.PersonId.VIEWER);
-    var soundCollectionReq = os.newFetchPersonAppDataRequest(
-      opensocial.DataRequest.PersonId.VIEWER,
-      ["soundCollection"]);
-    dataRequest.add(viewerReq);
+  if (ownerId) {
+    var viewerReq = dataRequest.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER);
+    var idSpecParam = {};
+    idSpecParam[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    var soundCollectionReq = dataRequest.newFetchPersonAppDataRequest(opensocial.newIdSpec(idSpecParam), ["soundCollection"]);
+    dataRequest.add(viewerReq, "viewer");
     dataRequest.add(soundCollectionReq, "soundCollection");
     dataRequest.send(onSoundCollectionComplete);
   } else {
@@ -558,33 +558,36 @@ var addSound = function(ownerId, viewerId) {
   }
 
   function onSoundCollectionComplete(response) {
-    var res = {};
     if (response.hadError()) {
-      res = {success:false, message:"addSound error.(get)\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+      res = {success:false, message:errorMessage(response, "addSound error", ["viewer", "soundCollection"])};
       callbackHandle.addSoundResultHandler({result:res});
     } else {
-      var viewer = response.get(opensocial.DataRequest.PersonId.VIEWER).getData();
+      var viewer = response.get("viewer").getData();
       var soundCollections = response.get("soundCollection").getData();
       var newSoundCollection = [];
       if (!viewer) {
-        res = {success:false, message:"addSound error.(get)\nviewer not found."};
+        res = {success:false, message:"addSound error. viewer not found."};
         callbackHandle.addSoundResultHandler({result:res});
       } else {
         if (soundCollections) {
           console.log(soundCollections);
-          var sc = soundCollections[viewer.getId()];
-          var soundCollection = gadgets.json.parse(sc["soundCollection"]);
-          if (soundCollection) {
-            newSoundCollection = soundCollection;
+          var m = viewer.getId().match(/(\d+$)/);
+          var sc = soundCollections[(m || [])[1]];
+          if (sc && sc["soundCollection"]) {
+            var soundCollection = sc["soundCollection"];
+            //var soundCollection = gadgets.json.parse(sc["soundCollection"]);
+            if (soundCollection) {
+              newSoundCollection = soundCollection;
+            }
+            console.log(soundCollection);
           }
-          console.log(soundCollection);
         }
-        newSoundCollection[newSoundCollection.length] = viewerId;
+        newSoundCollection.push(ownerId);
         var json = gadgets.json.stringify(newSoundCollection);
         console.log(json);
         dataRequest = os.newDataRequest();
         var updateSoundCollectionReq = dataRequest .newUpdatePersonAppDataRequest(
-          opensocial.DataRequest.PersonId.VIEWER,
+          opensocial.IdSpec.PersonId.VIEWER,
           "soundCollection",
           json);
         dataRequest.add(updateSoundCollectionReq);
@@ -594,10 +597,8 @@ var addSound = function(ownerId, viewerId) {
   }
 
   function onUpdateSoundCollectionComplete(response) {
-    res = {};
     if (response .hadError()) {
-      console.log(response);
-      res = {success:false, message:"addSound error.(update)\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+      res = {success:false, message:errorMessage(response, "addSound error", ["soundCollection"])}
     } else {
       console.log(response);
       res = {success:true, message:""};
@@ -614,7 +615,7 @@ var clearSoundCollection = function() {
   var json = gadgets.json.stringify(newSoundCollection);
   dataRequest = os.newDataRequest();
   console.log(json);
-  var clearSoundCollectionReq = dataRequest .newUpdatePersonAppDataRequest(
+  var clearSoundCollectionReq = dataRequest.newUpdatePersonAppDataRequest(
     opensocial.IdSpec.PersonId.VIEWER,
     "soundCollection",
     json);
