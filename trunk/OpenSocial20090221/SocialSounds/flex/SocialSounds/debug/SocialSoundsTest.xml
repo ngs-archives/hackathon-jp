@@ -333,9 +333,11 @@ so.write("flashcontainer");
 
 var errorMessage = function(response, header, keys) {
   var msg = [];
+  cosole.log(response);
   msg.push(header + ": " + response .getErrorMessage());
   for (var i in keys) {
     if (response.get(keys[i])) {
+      cosole.log(response.get(keys[i]));
       msg.push(keys[i] + ": " + response.get(keys[i]).getErrorCode() + "\n"+ response.get(keys[i]).getErrorMessage());
     }
   }
