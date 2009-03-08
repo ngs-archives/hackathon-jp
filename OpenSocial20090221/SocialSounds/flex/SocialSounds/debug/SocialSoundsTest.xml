@@ -304,6 +304,27 @@ Person.prototype = (function(domain){
   return ret;
 })(domain);
 
+var CompatUtil = (function(domain) {
+  ret = {
+    getPersonId: function(person) {
+      return person.getId();
+    },
+    getParsedAppData: function(data) {
+      data = unescapeString(data);
+      return gadgets.json.parse(data);
+    }
+  };
+  if (domain == "myspace.com") {
+    ret.getPersonId = function(person) {
+      var m = owner.getId().match(/(\d+$)/);
+      return (m || [])[1];
+    };
+    ret.getParsedAppData = function(data) {
+      return data;
+    }
+  }
+  return ret;
+})(domain);
 
 var init = function() {
   flashobj = document.getElementById(FLASH_ID);
@@ -363,7 +384,7 @@ var getViewer = function() {
         console.log(soundCollections);
         var sc = soundCollections[viewer.getId()];
         if (sc && sc["soundCollection"]) {
-          var soundCollection = gadgets.json.parse(sc["soundCollection"]);
+          var soundCollection = CompatUtil.getPersedAppData(sc["soundCollection"]);
           if (soundCollection) {
             for (var i = 0; i < soundCollection.length; i++) {
               if (soundCollection[i].id == owner.getId()) {
@@ -438,15 +459,11 @@ var getOwner = function() {
       var soundParam = null;
       if (soundParams) {
         console.log(soundParams);
-        console.log(owner.getId());
-        var m = owner.getId().match(/(\d+$)/);
-        console.log(m);
-        var sp = soundParams[(m || [])[1]];
+        var sp = soundParams[CompatUtil.getPersonId(owner)];
         console.log(sp);
         if (sp && sp["soundParam"]) {
           console.log(sp["soundParam"]);
-          soundParam = sp["soundParam"];
-          //soundParam = gadgets.json.parse(sp["soundParam"]);
+          soundParam = CompatUtil.getPersedAppData(sp["soundParam"]);
           console.log(soundParam);
         }
       }
@@ -535,11 +552,9 @@ var getSoundCollection = function() {
       } else {
         if (soundCollections) {
           console.log(soundCollections);
-          var m = owner.getId().match(/(\d+$)/);
-          var sc = soundCollections[(m || [])[1]];
+          var sc = soundCollections[CompatUtil.getPersonId(owner)];
           if (sc && sc["soundCollection"]) {
-            soundCollection = sc["soundCollection"];
-            //soundCollection = gadgets.json.parse(sc["soundCollection"]);
+            soundCollection = CompatUtil.getPersedAppData(sc["soundCollection"]);
             console.log(soundCollection);
           }
         }
@@ -581,11 +596,9 @@ var addSound = function(ownerId) {
       } else {
         if (soundCollections) {
           console.log(soundCollections);
-          var m = viewer.getId().match(/(\d+$)/);
-          var sc = soundCollections[(m || [])[1]];
+          var sc = soundCollections[CompatUtil.getPersonId(viewer)];
           if (sc && sc["soundCollection"]) {
-            var soundCollection = sc["soundCollection"];
-            //var soundCollection = gadgets.json.parse(sc["soundCollection"]);
+            var soundCollection = CompatUtil.getPersedAppData(sc["soundCollection"]);
             if (soundCollection) {
               newSoundCollection = soundCollection;
             }
