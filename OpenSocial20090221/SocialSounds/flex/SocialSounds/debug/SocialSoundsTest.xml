@@ -218,37 +218,13 @@ Person.prototype = (function(domain){
   compat["myspace.com"] = function() {
     return {
       getAboutMe: function() { return this.person.getField(MyOpenSpace.Person.Field.ABOUT) },
-      //getBooks: function() {
-      //  var f = this.person.getField(MyOpenSpace.Person.Field.BOOKS);
-      //  return f && f.length ? [f] : [];
-      //},
-      getHeroes: function() {
-        var f = this.person.getField(MyOpenSpace.Person.Field.HEROES);
-        return f && f.length ? [f] : [];
-      },
-      getInterests: function() {
-        var f = this.person.getField(MyOpenSpace.Person.Field.INTERESTS);
-        return f && f.length ? [f] : [];
-      },
       getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) },
-      //getMovies: function() {
-      //  var f = this.person.getField(MyOpenSpace.Person.Field.MOVIES);
-      //  return f && f.length ? [f] : [];
-      //},
-      //getMusic: function() {
-      //  return this.person.getField(MyOpenSpace.Person.Field.MUSIC);
-      //  var f = this.person.getField(MyOpenSpace.Person.Field.MUSIC);
-      //  return f && f.length ? [f] : [];
-      //},
-      getTvShows: function() {
-        var f = this.person.getField(MyOpenSpace.Person.Field.TELEVISION);
-        return f && f.length ? [f] : [];
+      getName: function() {
+        var name = this.person.getField(opensocial.Person.Field.NAME);
+        var ret = {};
+        ret["unstructured"] = name.getField("unstructured");
+        return ret;
       },
-      getJobs: function() {
-        var f = this.person.getField(MyOpenSpace.Person.Field.OCCUPATION);
-        return f && f.length ? [f] : [];
-      },
-      getStatus: function() { return this.person.getField(MyOpenSpace.Person.Field.STATUS) },
       //
       getCulture: function() { return this.person.getField(MyOpenSpace.Person.Field.CULTURE) },
       getHeadline: function() { return this.person.getField(MyOpenSpace.Person.Field.HEADLINE) },
@@ -303,7 +279,7 @@ Person.prototype = (function(domain){
       ret[opensocial.Person.Field.ADDITIONAL_NAME ] = name.getField(opensocial.Person.Field.ADDITIONAL_NAME );
       ret[opensocial.Person.Field.HONORIFIC_PREFIX ] = name.getField(opensocial.Person.Field.HONORIFIC_PREFIX );
       ret[opensocial.Person.Field.HONORIFIC_SUFFIX] = name.getField(opensocial.Person.Field.HONORIFIC_SUFFIX);
-      ret["unstructured"] = name.getField("unstructured");
+      ret[opensocial.Person.Field.UNSTRUCTURED] = name.getField(opensocial.Person.Field.UNSTRUCTURED);
       return ret;
     },
     getNickname: function() { return this.person.getField(opensocial.Person.Field.NICKNAME) },
@@ -426,9 +402,9 @@ var getOwner = function() {
     opensocial.Person.Field.INTERESTS,
     opensocial.Person.Field.MUSIC,
     opensocial.Person.Field.MOVIES,
-//    opensocial.Person.Field.TV_SHOWS,
-//    opensocial.Person.Field.BOOKS,
-//    opensocial.Person.Field.HEROES,
+    opensocial.Person.Field.TV_SHOWS,
+    opensocial.Person.Field.BOOKS,
+    opensocial.Person.Field.HEROES,
 //    opensocial.Person.Field.STATUS,
 //    opensocial.Person.Field.ADDRESSES,
 //    opensocial.Person.Field.CURRENT_LOCATION,
