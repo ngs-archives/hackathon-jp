@@ -396,6 +396,7 @@ var getViewer = function() {
 };
 
 var getOwner = function() {
+  console.log("getOwner");
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
   var dr = opensocial.DataRequest;
