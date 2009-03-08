@@ -331,6 +331,17 @@ so.addParam("menu", "false");
 so.addParam("quality", "high");
 so.write("flashcontainer");
 
+var errorMessage = function(response, header, keys) {
+  var msg = [];
+  msg.push(header + ": " + response .getErrorMessage());
+  for (var i in keys) {
+    if (response.get(keys[i]))) {
+      msg.push(keys[i] + ": " + response.get(keys[i]).getErrorCode() + "\n"+ response.get(keys[i]).getErrorMessage());
+    }
+  }
+  return msg.join("\n");
+}
+
 var getViewer = function() {
   var os = opensocial.Container.get();
   var dataRequest = os.newDataRequest();
@@ -424,8 +435,9 @@ var getOwner = function() {
     console.log(response);
     var res = {};
     var ownerData = {};
+    var msg = [];
     if (response.hadError()) {
-      res = {success:false, message:"getViewer error.\n" + response .getErrorCode() + "\n"+ response .getErrorMessage()};
+      res = {success:false, message:errorMessage(response, "getViewer error", ["owner", "soundParam"])};
     } else {
       owner = response.get("owner").getData();
       var person = new Person(owner);
