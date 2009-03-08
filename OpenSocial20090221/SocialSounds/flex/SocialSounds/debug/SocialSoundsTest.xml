@@ -406,13 +406,13 @@ var getOwner = function() {
   var ownerReq = dataRequest.newFetchPersonRequest("OWNER", param);
   //var escapeParams = {};
   //escapeParams [opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
-//  var soundParamReq = os.newFetchPersonAppDataRequest(
-//    opensocial.DataRequest.PersonId.OWNER,
-//    ["soundParam"]);
+  var soundParamReq = dataRequest.newFetchPersonAppDataRequest(
+    "OWNER",
+    ["soundParam"]);
 //    escapeParams);
 
   dataRequest.add(ownerReq, "owner");
-//  dataRequest.add(soundParamReq, "soundParam");
+  dataRequest.add(soundParamReq, "soundParam");
 
   dataRequest.send(getResponse);
 
