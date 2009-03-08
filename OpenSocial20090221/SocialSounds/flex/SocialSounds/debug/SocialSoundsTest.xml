@@ -611,12 +611,12 @@ var clearSoundCollection = function() {
   var dataRequest = os.newDataRequest();
   var res = {};
   var newSoundCollection = [];
-  //var json = gadgets.json.stringify(newSoundCollection);
+  var json = gadgets.json.stringify(newSoundCollection);
   dataRequest = os.newDataRequest();
   var clearSoundCollectionReq = dataRequest .newUpdatePersonAppDataRequest(
     opensocial.DataRequest.PersonId.VIEWER,
     "soundCollection",
-    newSoundCollection);
+    json);
   dataRequest.add(clearSoundCollectionReq);
   dataRequest.send(onClearSoundCollectionComplete);
 
