@@ -482,12 +482,12 @@ var saveSound = function(param) {
   var res = {};
   if (param) {
     var dataRequest = os.newDataRequest();
-    //var json = gadgets.json.stringify(param);
+    var json = gadgets.json.stringify(param);
     console.log(json);
     var soundParamReq = dataRequest.newUpdatePersonAppDataRequest(
       opensocial.IdSpec.PersonId.VIEWER,
       "soundParam",
-      param);
+      json);
     dataRequest.add(soundParamReq, "saveSoundParamResult");
     dataRequest.send(onSaveSoundComplete);
   } else {
