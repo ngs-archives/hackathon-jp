@@ -389,6 +389,7 @@ var getOwner = function() {
   var dataRequest = os.newDataRequest();
   var dr = opensocial.DataRequest;
   var param = {};
+  console.log(opensocial.Person.Field);
   param[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
     opensocial.Person.Field.ID,
     opensocial.Person.Field.NAME,
