@@ -217,8 +217,8 @@ Person.prototype = (function(domain){
   var compat = {};
   compat["myspace.com"] = function() {
     return {
-      getAboutMe: function() { return this.person.getField(MyOpenSpace.Person.Field.ABOUT) },
-      getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) },
+      //getAboutMe: function() { return this.person.getField(MyOpenSpace.Person.Field.ABOUT) },
+      //getLookingFor: function() { return this.person.getField(MyOpenSpace.Person.Field.DESIRE_TO_MEET) },
       getName: function() {
         var name = this.person.getField(opensocial.Person.Field.NAME);
         var ret = {};
