@@ -445,6 +445,7 @@ var getOwner = function() {
         console.log(sp);
         if (sp && sp["soundParam"]) {
           console.log(sp["soundParam"]);
+          soundParam = sp["soundParam"];
           //soundParam = gadgets.json.parse(sp["soundParam"]);
           console.log(soundParam);
         }
