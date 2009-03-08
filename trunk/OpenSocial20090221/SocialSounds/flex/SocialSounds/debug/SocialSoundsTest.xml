@@ -440,7 +440,9 @@ var getOwner = function() {
         console.log(soundParams);
         console.log(owner.getId());
         var m = owner.getId().match(/(\d+$)/);
+        console.log(m);
         var sp = soundParams[(m || [])[1]];
+        console.log(sp);
         if (sp && sp["soundParam"]) {
           soundParam = gadgets.json.parse(sp["soundParam"]);
           console.log(soundParam);
