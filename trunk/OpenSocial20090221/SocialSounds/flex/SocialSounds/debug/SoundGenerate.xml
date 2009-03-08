@@ -345,7 +345,7 @@ var init = function() {
 }
 
 var swfObject = new SWFObject(
-  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SocialSoundsTest.swf",
+  "http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090221/SocialSounds/flex/SocialSounds/debug/SoundGenerate.swf",
   FLASH_ID, "800", "600", "10", "#FFFFFF");
 swfObject.addParam("allowScriptAccess","always");
 swfObject.addParam("allowNetworking","all");
