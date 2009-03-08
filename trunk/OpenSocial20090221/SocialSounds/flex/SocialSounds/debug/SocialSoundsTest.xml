@@ -261,9 +261,6 @@ Person.prototype = (function(domain){
     getMusic: function() { return this.person.getField(opensocial.Person.Field.MUSIC) },
     getName: function() {
       var name = this.person.getField(opensocial.Person.Field.NAME);
-      console.log(name);
-      console.log(name.getField(opensocial.Name.Field.UNSTRUCTURED));
-      console.log(opensocial.Name.Field.UNSTRUCTURED);
       var ret = {};
       ret[opensocial.Name.Field.FAMILY_NAME] = name.getField(opensocial.Name.Field.FAMILY_NAME);
       ret[opensocial.Name.Field.GIVEN_NAME] = name.getField(opensocial.Name.Field.GIVEN_NAME);
@@ -478,14 +475,13 @@ var getOwner = function() {
 
 var saveSound = function(param) {
   var os = opensocial.Container.get();
-  var o = opensocial;
   var res = {};
-  var dataRequest = os.newDataRequest();
   if (param) {
+    var dataRequest = os.newDataRequest();
     var json = gadgets.json.stringify(param);
     console.log(json);
-    var soundParamReq = dataRequest .newUpdatePersonAppDataRequest(
-      opensocial.DataRequest.PersonId.VIEWER,
+    var soundParamReq = dataRequest.newUpdatePersonAppDataRequest(
+      opensocial.IdSpec.PersonId.VIEWER,
       "soundParam",
       json);
     dataRequest.add(soundParamReq, "saveSoundParamResult");
