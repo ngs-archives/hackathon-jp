@@ -269,15 +269,15 @@ Person.prototype = (function(domain){
     getName: function() {
       var name = this.person.getField(opensocial.Person.Field.NAME);
       console.log(name);
-      console.log(name.getField(opensocial.Person.Field.UNSTRUCTURED));
-      console.log(opensocial.Person.Field.UNSTRUCTURED);
+      console.log(name.getField(opensocial.Name.Field.UNSTRUCTURED));
+      console.log(opensocial.Name.Field.UNSTRUCTURED);
       var ret = {};
-      ret[opensocial.Person.Field.FAMILY_NAME] = name.getField(opensocial.Person.Field.FAMILY_NAME);
-      ret[opensocial.Person.Field.GIVEN_NAME] = name.getField(opensocial.Person.Field.GIVEN_NAME);
-      ret[opensocial.Person.Field.ADDITIONAL_NAME ] = name.getField(opensocial.Person.Field.ADDITIONAL_NAME );
-      ret[opensocial.Person.Field.HONORIFIC_PREFIX ] = name.getField(opensocial.Person.Field.HONORIFIC_PREFIX );
-      ret[opensocial.Person.Field.HONORIFIC_SUFFIX] = name.getField(opensocial.Person.Field.HONORIFIC_SUFFIX);
-      ret[opensocial.Person.Field.UNSTRUCTURED] = name.getField(opensocial.Person.Field.UNSTRUCTURED);
+      ret[opensocial.Name.Field.FAMILY_NAME] = name.getField(opensocial.Person.Name.FAMILY_NAME);
+      ret[opensocial.Name.Field.GIVEN_NAME] = name.getField(opensocial.Person.Name.GIVEN_NAME);
+      ret[opensocial.Name.Field.ADDITIONAL_NAME ] = name.getField(opensocial.Name.Field.ADDITIONAL_NAME );
+      ret[opensocial.Name.Field.HONORIFIC_PREFIX ] = name.getField(opensocial.Name.Field.HONORIFIC_PREFIX );
+      ret[opensocial.Name.Field.HONORIFIC_SUFFIX] = name.getField(opensocial.Name.Field.HONORIFIC_SUFFIX);
+      ret[opensocial.Name.Field.UNSTRUCTURED] = name.getField(opensocial.Name.Field.UNSTRUCTURED);
       return ret;
     },
     getNickname: function() { return this.person.getField(opensocial.Person.Field.NICKNAME) },
@@ -418,7 +418,7 @@ var getOwner = function() {
     opensocial.Person.Field.BOOKS,
     opensocial.Person.Field.HEROES,
     opensocial.Person.Field.STATUS,
-    opensocial.Person.Field.ADDRESSES,
+//    opensocial.Person.Field.ADDRESSES,
 //    opensocial.Person.Field.CURRENT_LOCATION,
     opensocial.Person.Field.THUMBNAIL_URL,
     opensocial.Person.Field.BOOKS];
@@ -462,7 +462,7 @@ var getOwner = function() {
           gender: person.getGender(),
           aboutMe: person.getAboutMe(),
           jobs: person.getJobs(),
-          lookingFor: person.getLookingFor(),
+          //lookingFor: person.getLookingFor(),
           interests: person.getInterests(),
           music: person.getMusic(),
           movies: person.getMovies(),
@@ -470,8 +470,6 @@ var getOwner = function() {
           books: person.getBooks(),
           heroes: person.getHeroes(),
           status: person.getStatus(),
-          addresses: person.getAddresses(),
-          currentLocation: person.getCurrentLocation(),
           thumbnailUrl: person.getThumbnailUrl(),
           sound: soundParam
         }
