@@ -592,7 +592,16 @@ var addSound = function(ownerId) {
             console.log(soundCollection);
           }
         }
-        newSoundCollection.push(ownerId);
+        var included = false;
+        for (var i = 0; i < newSoundCollection.length; i++) {
+          if (newSoundCollection[i] = ownerId) {
+            included = true;
+            break;
+          }
+        }
+        if (!included) {
+          newSoundCollection.push(ownerId);
+        }
         var json = gadgets.json.stringify(newSoundCollection);
         console.log(json);
         dataRequest = os.newDataRequest();
