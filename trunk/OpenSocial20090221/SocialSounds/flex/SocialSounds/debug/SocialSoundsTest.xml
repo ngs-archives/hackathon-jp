@@ -403,7 +403,7 @@ var getOwner = function() {
   var param = {};
   param[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [opensocial.Person.Field.ID,opensocial.Person.Field.ABOUT_ME,opensocial.Person.Field.BOOKS];
   //var ownerReq = os.newFetchPersonRequest(opensocial.DataRequest.PersonId.OWNER, param);
-  var ownerReq = dataRequest.newFetchPersonRequest("OWNER", param);
+  var ownerReq = dataRequest.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, param);
   //var escapeParams = {};
   //escapeParams [opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
   var soundParamReq;
@@ -437,6 +437,7 @@ var getOwner = function() {
       var soundParam = null;
       if (soundParams) {
         console.log(soundParams);
+        console.log(owner.getId());
         var sp = soundParams[owner.getId()];
         soundParam = gadgets.json.parse(sp["soundParam"]);
         console.log(soundParam);
