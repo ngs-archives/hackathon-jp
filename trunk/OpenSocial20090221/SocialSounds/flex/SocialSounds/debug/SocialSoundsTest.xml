@@ -354,7 +354,7 @@ var init = function() {
   swfObject.addParam("menu", "false");
   swfObject.addParam("quality", "high");
   swfObject.write("flashcontainer");
-)();
+})();
 
 var errorMessage = function(response, header, keys) {
   var msg = [];
