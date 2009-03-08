@@ -639,7 +639,7 @@ var test = function() {
     'age' : "34",
     'gender' : "Male",
     'thumbnailUrl' : "http://x.myspacecdn.com/images/no_pic.gif",
-    'soundParam' : "xxxxxxxxxxxx",
+    'soundParam' : {data: "xxxx", timestamp: 123456},
   }
   var res = {success:true, message:""};
   callbackHandle.getOwnerResultHandler({owner:ownerData, result:res});
