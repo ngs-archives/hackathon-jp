@@ -407,7 +407,7 @@ var getOwner = function() {
   //var escapeParams = {};
   //escapeParams [opensocial.DataRequest.DataRequestFields.ESCAPE_TYPE] = opensocial.EscapeType.NONE;
   var soundParamReq = dataRequest.newFetchPersonAppDataRequest(
-    "OWNER",
+    opensocial.DataRequest.PersonId.OWNER,
     ["soundParam"]);
 //    escapeParams);
 
