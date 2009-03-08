@@ -445,7 +445,7 @@ var getOwner = function() {
         console.log(sp);
         if (sp && sp["soundParam"]) {
           console.log(sp["soundParam"]);
-          soundParam = gadgets.json.parse(sp["soundParam"]);
+          //soundParam = gadgets.json.parse(sp["soundParam"]);
           console.log(soundParam);
         }
       }
@@ -482,12 +482,12 @@ var saveSound = function(param) {
   var res = {};
   if (param) {
     var dataRequest = os.newDataRequest();
-    var json = gadgets.json.stringify(param);
+    //var json = gadgets.json.stringify(param);
     console.log(json);
     var soundParamReq = dataRequest.newUpdatePersonAppDataRequest(
       opensocial.IdSpec.PersonId.VIEWER,
       "soundParam",
-      json);
+      param);
     dataRequest.add(soundParamReq, "saveSoundParamResult");
     dataRequest.send(onSaveSoundComplete);
   } else {
@@ -610,12 +610,12 @@ var clearSoundCollection = function() {
   var dataRequest = os.newDataRequest();
   var res = {};
   var newSoundCollection = [];
-  var json = gadgets.json.stringify(newSoundCollection);
+  //var json = gadgets.json.stringify(newSoundCollection);
   dataRequest = os.newDataRequest();
   var clearSoundCollectionReq = dataRequest .newUpdatePersonAppDataRequest(
     opensocial.DataRequest.PersonId.VIEWER,
     "soundCollection",
-    json);
+    newSoundCollection);
   dataRequest.add(clearSoundCollectionReq);
   dataRequest.send(onClearSoundCollectionComplete);
 
