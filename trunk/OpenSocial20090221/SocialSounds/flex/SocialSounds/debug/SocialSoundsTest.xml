@@ -459,7 +459,7 @@ var getOwner = function() {
           id: person.getId(),
           name: person.getName(),
           age: person.getAge(),
-          gender: person.getGender(),
+          //gender: person.getGender(),
           aboutMe: person.getAboutMe(),
           jobs: person.getJobs(),
           //lookingFor: person.getLookingFor(),
