@@ -236,6 +236,7 @@ Person.prototype = (function(domain){
       //  return f && f.length ? [f] : [];
       //},
       getMusic: function() {
+        return this.person.getField(MyOpenSpace.Person.Field.MUSIC);
         var f = this.person.getField(MyOpenSpace.Person.Field.MUSIC);
         return f && f.length ? [f] : [];
       },
@@ -294,6 +295,8 @@ Person.prototype = (function(domain){
     getName: function() {
       var name = this.person.getField(opensocial.Person.Field.NAME);
       console.log(name);
+      console.log(name.getField(opensocial.Person.Field.UNSTRUCTURED));
+      console.log(opensocial.Person.Field.UNSTRUCTURED);
       var ret = {};
       ret[opensocial.Person.Field.FAMILY_NAME] = name.getField(opensocial.Person.Field.FAMILY_NAME);
       ret[opensocial.Person.Field.GIVEN_NAME] = name.getField(opensocial.Person.Field.GIVEN_NAME);
