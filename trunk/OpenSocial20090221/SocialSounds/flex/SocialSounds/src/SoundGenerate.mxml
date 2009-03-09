@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+    layout="absolute"
+    creationComplete="onCreationComplete()"
+    backgroundAlpha="0" backgroundColor="#FFFFFF">
+
+    <mx:Script>
+    <![CDATA[
+    import mx.core.UIComponent;
+    import SocialSounds;
+
+    private var ss:SocialSounds;
+
+    private function onCreationComplete():void {
+        flash.system.Security.allowDomain("*");
+        ss = new SocialSounds;
+        var base:UIComponent = new UIComponent();
+        addChild(base);
+        base.addChild(ss);
+    }
+
+    ]]>
+    </mx:Script>
+</mx:Application>
