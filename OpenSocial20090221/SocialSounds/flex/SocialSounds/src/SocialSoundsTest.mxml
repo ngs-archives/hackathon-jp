@@ -2,7 +2,7 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
     layout="absolute"
     creationComplete="onCreationComplete()"
-    backgroundAlpha="0" backgroundColor="#FFFFFF">
+    backgroundAlpha="0" backgroundColor="#FFFFFF" width="800" height="500">
 
     <mx:Script>
     <![CDATA[
@@ -10,6 +10,10 @@
     import mx.controls.Alert;
     import flash.external.*;
     import mx.collections.ArrayCollection;
+    import lib.SoundGenerator;
+    import lib.ObjectDumper;
+
+    private var soundGenerator:SoundGenerator;
 
     [Bindable]
     public var dataTypes:ArrayCollection = new ArrayCollection([
@@ -21,6 +25,7 @@
     private function onCreationComplete():void {
         //allow cross domain calls
         //flash.system.Security.allowDomain("api.msappspace.com");
+        //+orkut
         flash.system.Security.allowDomain("*");
 
         if(ExternalInterface.available) {
@@ -46,11 +51,21 @@
         btnAdd.addEventListener(MouseEvent.CLICK, addSound);
         btnClear.addEventListener(MouseEvent.CLICK, clearSoundCollection);
         btnSoundCollection.addEventListener(MouseEvent.CLICK, getSoundCollection);
+
+        btnPlay.addEventListener(MouseEvent.CLICK, btnPlayClickHandler);
+        btnStop.addEventListener(MouseEvent.CLICK, btnStopClickHandler);
+        btnPlay.enabled = false;
+        btnStop.enabled = false;
+//        soundGenerator = new SoundGenerator({});
+//        btnPlay.addEventListener(MouseEvent.CLICK, btnPlayClickHandler);
+//        btnStop.addEventListener(MouseEvent.CLICK, btnStopClickHandler);
+//        btnPlay.enabled = true;
+//        btnStop.enabled = true;
     }
 
     public function initResultHandler(response:Object):void {
         //ExternalInterface.call("getOwner");
-        messageArea.text = "init ok.";
+        messageArea.text = "init ok.\n";
     }
 
     public function getViewerResultHandler(response:Object):void {
@@ -66,8 +81,7 @@
             messageArea.text += "viewer not found.\n";
             return;
         }
-        returnDataArea.text = "Viewer:\n" + getOutput(response.viewer);
-        returnDataArea.text = "hasOwnerSound: " + response.viewer.hasOwnerSound + "\n";
+        returnDataArea.text = "Viewer:\n" + ObjectDumper.toString(response.viewer) + "\n";
         thumbnail.source =  response.viewer.thumbnailUrl;
         messageArea.text += "viewer found.\n";
     }
@@ -85,20 +99,18 @@
             messageArea.text += "owner not found.\n";
             return;
         }
-        returnDataArea.text = "Owner:\n" + getOutput(response.owner);
-        thumbnail.source =  response.owner.thumbnailUrl;
+        returnDataArea.text = "Owner:\n" + ObjectDumper.toString(response.owner) + "\n";
+        thumbnail.source = response.owner.thumbnailUrl;
         messageArea.text += "owner found.\n";
         if (response.owner.sound) {
-            returnDataArea.text += "sound: data:" + response.owner.sound.data + "\n";
-            returnDataArea.text += "sound: timestamp:" + response.owner.sound.timestamp + "\n";
             messageArea.text += "sound found.\n";
         } else {
-            returnDataArea.text += "sound: data: n/a\n";
-            returnDataArea.text += "sound: timestamp: n/a\n";
             messageArea.text += "no sound found.\n";
         }
+        resetSound(response.owner);
     }
 
+    // note: Addresses and CurrentLocation are not implemented in myspace.
     private function getOutput(user:Object):String {
         var output:String = "";
         output += "id: " + user.id + "\n";
@@ -116,6 +128,7 @@
         output += "heroes: " + user.heroes + "\n";
         output += "status: " + user.status + "\n";
         output += "thumbnailUrl: " + user.thumbnailUrl + "\n";
+
 
 //        output += "addresses: " + user.addresses + "\n";
 //        output += "currentLocation: " + user.currentLocation + "\n";
@@ -135,6 +148,9 @@
     public function saveSoundResultHandler(response:Object):void {
         if (response.result) {
             if (response.result.success) {
+                if (soundGenerator) {
+                    resetSound(soundGenerator.getPerson());
+                }
                 messageArea.text += "saveSound success!\n";
             } else {
                 messageArea.text += response.result.message + "\n";
@@ -186,19 +202,20 @@
         messageArea.text = "";
         returnDataArea.text = "";
         thumbnail.source ="";
+        cancelSound();
     }
 
     private function sendMessage(event:MouseEvent):void {
+        cancelSound();
         var dataType:String = dataType.selectedItem.label;
-
         switch (dataType) {
-            case "Viewer" :
+            case "Viewer":
                 ExternalInterface.call("getViewer");
                 break;
-            case "Owner" :
+            case "Owner":
                 ExternalInterface.call("getOwner");
                 break;
-            case "Test" :
+            case "Test":
                 ExternalInterface.call("test");
                 break;
         }
@@ -210,6 +227,10 @@
             data: soundParam.text,
             timestamp: new Date().getTime()
         };
+        if (soundGenerator) {
+            cancelSound();
+            soundGenerator.getPerson().sound = param;
+        }
         ExternalInterface.call("saveSound", param);
     }
 
@@ -227,19 +248,46 @@
         messageArea.text = "";
         ExternalInterface.call("getSoundCollection");
     }
+
+    private function cancelSound():void {
+        if (soundGenerator) soundGenerator.stopSound();
+        btnPlay.enabled = false;
+        btnStop.enabled = false;
+    }
+
+    private function resetSound(person:Object):void {
+        if (soundGenerator) soundGenerator.stopSound();
+        soundGenerator = new SoundGenerator(person);
+        btnPlay.enabled = true;
+        btnStop.enabled = true;
+    }
+
+    private function btnPlayClickHandler(event:MouseEvent):void {
+        if (soundGenerator) soundGenerator.playSound();
+    }
+
+    private function btnStopClickHandler(event:MouseEvent):void {
+        if (soundGenerator) soundGenerator.stopSound();
+    }
     ]]>
     </mx:Script>
-    <mx:HBox x="82" y="5" width="100%">
-        <mx:Panel name="p1" id="p1" visible="true">
+    <mx:HBox width="100%" x="82" y="0">
+        <mx:Panel name="p1" id="p1" visible="true" height="500" width="280">
             <mx:Form width="100%" height="100%">
                 <mx:FormItem label="Data Type" >
-                    <mx:ComboBox dataProvider="{dataTypes}" id="dataType" width="150"/>
+                    <mx:ComboBox dataProvider="{dataTypes}" id="dataType" width="100"/>
                 </mx:FormItem>
                 <mx:FormItem label="Request Data">
                     <mx:Button id="btnSend" label="Request"/>
                 </mx:FormItem>
+                <mx:FormItem label="SoundParam" height="20">
+                    <mx:TextArea id="soundParam" height="20" width="100"/>
+                </mx:FormItem>
                 <mx:FormItem label="Save Sound">
                     <mx:Button id="btnSave" label="Save"/>
+                </mx:FormItem>
+                <mx:FormItem label="OwnerId to Add" height="20">
+                    <mx:TextArea id="ownerIdToAdd" width="100" height="20"/>
                 </mx:FormItem>
                 <mx:FormItem label="Add Sound">
                     <mx:Button id="btnAdd" label="Add"/>
@@ -250,35 +298,21 @@
                 <mx:FormItem label="Clear Sound">
                     <mx:Button id="btnClear" label="Clear"/>
                 </mx:FormItem>
-                <mx:FormItem label="SoundParam">
-                    <mx:TextArea id="soundParam"/>
-                </mx:FormItem>
-                <mx:FormItem label="OwnerId to Add">
-                    <mx:TextArea id="ownerIdToAdd"/>
-                </mx:FormItem>
-                <mx:TextArea id="messageArea" width="300" height="150"/>
             </mx:Form>
-        </mx:Panel>
-        <mx:Panel name="p2" id="p2" visible="true" height="100%">
-            <mx:Form width="100%" height="100%">
-                <mx:FormItem height="100%">
-                    <mx:Grid>
-                        <mx:GridRow width="100%" height="100%">
-                            <mx:GridItem width="100%" height="100%">
-                                <mx:Image id="thumbnail" />
-                            </mx:GridItem>
-                        </mx:GridRow>
-                        <mx:GridRow width="100%" height="100%">
-                            <mx:GridItem width="100%" height="100%">
-                                <mx:TextArea name="returnDataArea" id="returnDataArea" width="250" height="400"/>
-                            </mx:GridItem>
-                        </mx:GridRow>
-                    </mx:Grid>
-                </mx:FormItem>
-                <mx:FormItem>
-                    <mx:Button id="btnReset" label="Reset Form" />
-                </mx:FormItem>
-            </mx:Form>
+            <mx:TextArea id="messageArea" width="100%" height="100%"/>
+            <mx:HBox width="100%">
+                <mx:Button id="btnReset" label="Reset Form" />
+            </mx:HBox>
+            </mx:Panel>
+        <mx:Panel name="p2" id="p2" visible="true" height="500" width="320">
+            <mx:VBox height="100%" width="100%">
+                <mx:Image id="thumbnail" height="100%"/>
+                <mx:TextArea name="returnDataArea" id="returnDataArea" width="100%" height="320"/>
+                <mx:HBox width="100%">
+                    <mx:Button id="btnPlay" label="Play" />
+                    <mx:Button id="btnStop" label="Stop" />
+                </mx:HBox>
+            </mx:VBox>
         </mx:Panel>
     </mx:HBox>
 </mx:Application>
