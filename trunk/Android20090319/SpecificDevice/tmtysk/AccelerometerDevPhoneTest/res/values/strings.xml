@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">AccelerometerTest</string>
+    <string name="app_name">AccelerometerDevPhoneTest</string>
+<string name="setting_sensor_simulator">setting simulator</string>
+</resources>
