@@ -1,5 +1,9 @@
 package com.appengine.hackathonjp;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.SensorListener;
@@ -12,10 +16,10 @@ import android.widget.TextView;
 
 public class GestureMeasure extends Activity
 {
-
 	private SensorManager sensorManager;
 	private MySensorListener mySensorListener;
 	private StringBuffer sensorValueHistory;
+	private BufferedWriter bufferedWriter;
 
 	private TextView accelView;
 	private ToggleButton opButton;
@@ -27,8 +31,8 @@ public class GestureMeasure extends Activity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
-		sensorValueHistory = new StringBuffer();
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+		BufferedWriter bufferedWriter = null;
 		mySensorListener = new MySensorListener();
 		accelView = (TextView) findViewById(R.id.accelView);
 		opButton = (ToggleButton) findViewById(R.id.opButton);
@@ -38,16 +42,49 @@ public class GestureMeasure extends Activity
             {
             	if(((ToggleButton) v).isChecked())
             	{
+            		sensorValueHistory = new StringBuffer();
             		sensorManager.registerListener(mySensorListener, 
                     		SensorManager.SENSOR_ACCELEROMETER|SensorManager.SENSOR_ORIENTATION);
             	}
             	else
             	{
+            		try
+            		{
+            			saveMeasuredData();
+            		}
+            		catch(Exception e)
+            		{
+            		}
             		sensorManager.unregisterListener(mySensorListener);
             	}
             }
         }
 		);
+	}
+	
+	public void saveMeasuredData() throws Exception
+	{
+		try
+		{
+			bufferedWriter = new BufferedWriter(
+					new FileWriter("/sdcard/"
+							+ (new Long(System.currentTimeMillis()).toString()) + ".csv"));
+			bufferedWriter.write(sensorValueHistory.toString(), 0, sensorValueHistory.length());
+		} 
+		finally
+		{
+			if(bufferedWriter != null)
+			{
+				try
+				{
+					bufferedWriter.close();
+					bufferedWriter = null;
+				}
+				catch(IOException exception)
+				{
+				}
+			}
+		}
 	}
 
 	class MySensorListener implements SensorListener
