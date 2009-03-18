@@ -22,9 +22,7 @@ public class Maps implements Serializable {
 
     public ViewPort viewport;
 
-    //public ArrayList<String> modules;
-
-    //public Overlays overlays;
+    public Overlays overlays;
 
     //public Panel panel;
 

@@ -9,6 +9,8 @@ import hacathon.android.net.transit.item.G;
 import hacathon.android.net.transit.item.GLatLng;
 import hacathon.android.net.transit.item.L;
 import hacathon.android.net.transit.item.Maps;
+import hacathon.android.net.transit.item.Marker;
+import hacathon.android.net.transit.item.Overlays;
 import hacathon.android.net.transit.item.Query;
 import hacathon.android.net.transit.item.ViewPort;
 import hacathon.android.util.Log;
@@ -18,6 +20,7 @@ import java.io.Reader;
 import java.text.ParseException;
 
 import org.apache.http.util.CharArrayBuffer;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +44,7 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
                 maps.form = parseForm(root.optJSONObject("form"));
                 maps.query = parseQuery(root.optJSONObject("query"));
                 maps.viewport = parseViewPort(root.optJSONObject("viewport"));
+                maps.overlays = parseOverlays(root.optJSONObject("overlays"));
 
                 final TransitResponse response = new TransitResponse();
                 response.maps = maps;
@@ -146,8 +150,43 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
         return o;
     }
 
+    private static Overlays parseOverlays(final JSONObject json) {
+        if (json == null) {
+            return null;
+        }
+
+        final Overlays o = new Overlays();
+        o.sxcar = json.optBoolean("sxcar");
+
+        final JSONArray jsonMarkers = json.optJSONArray("markers");
+        if (jsonMarkers != null) {
+            final int length = jsonMarkers.length();
+            o.markers = new Marker[length];
+            for (int i = 0; i < length; i++) {
+                o.markers[i] = parseMarker(jsonMarkers.optJSONObject(i));
+            }
+        }
+
+        return o;
+    }
+
+    private static Marker parseMarker(final JSONObject json) {
+        if (json == null) {
+            return null;
+        }
+
+        final Marker o = new Marker();
+        o.id = json.optString("id");
+        o.image = json.optString("image");
+        o.drg = json.optBoolean("drg");
+        o.geocode = json.optString("geocode");
+        o.latlng = parseGLatLng(json.optJSONObject("latlng"));
+        return o;
+    }
+
     private static String toString(final Reader reader) throws IOException, ParseException {
-        final CharArrayBuffer buffer = new CharArrayBuffer(4096);
+        // Google Mapの受信サイズが結構大きい。
+        final CharArrayBuffer buffer = new CharArrayBuffer(16384);
         try {
             char[] tmp = new char[1024];
             int l;
@@ -159,5 +198,4 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
         }
         return buffer.toString();
     }
-
 }
