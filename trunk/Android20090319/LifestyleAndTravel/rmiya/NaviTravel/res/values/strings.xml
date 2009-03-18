@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, NaviTravelActivity</string>
+    <string name="app_name">NaviTravel</string>
+<string name="api_key_map_by_work">0LwhmRYxY72NHT4R5rCXWkC1YbPXma_8m1RVDHA</string>
+<string name="api_key_map">0UE8YRDNQJrC8rhxo-E4_LkSUJm-ht-B9xbk_DA</string>
+</resources>
