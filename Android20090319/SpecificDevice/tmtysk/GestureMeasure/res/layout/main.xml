@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	>
+	    <ScrollView
+	    	android:layout_width="fill_parent" 
+    		android:layout_height="fill_parent"
+    		android:scrollbars="vertical"
+    		>
+			<TextView
+				android:id="@+id/accelView"
+    			android:layout_width="fill_parent" 
+    			android:layout_height="fill_parent"
+    			android:lines="18"
+    			/>
+    	</ScrollView>
+    </LinearLayout>
+    <ToggleButton
+    	android:id="@+id/opButton"
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content"
+    	android:height="100px"
+    	android:textOff="@string/opButtonStart"
+    	android:textOn="@string/opButtonStop"
+    	/>
+</LinearLayout>
