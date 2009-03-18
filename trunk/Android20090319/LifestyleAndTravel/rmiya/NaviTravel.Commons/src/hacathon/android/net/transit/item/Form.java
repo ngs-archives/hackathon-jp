@@ -10,11 +10,11 @@ public class Form implements Serializable {
 
     //public String[] q;
 
-    public final L l = new L();
+    public L l;
 
-    public final D d = new D();
+    public D d;
 
     public String geocode;
 
-    public final G g = new G();
+    public G g;
 }
