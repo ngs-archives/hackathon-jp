@@ -4,6 +4,6 @@
     <string name="app_name">GestureMeasure</string>
 <string name="setting_sensor_simulator">setting simulator</string>
 <string name="initialized">initialized..</string>
-<string name="opButtonStart">測定開始</string>
-<string name="opButtonStop">終了</string>
+<string name="opButtonStart">リセット＆測定開始</string>
+<string name="opButtonStop">終了＆保存</string>
 </resources>
