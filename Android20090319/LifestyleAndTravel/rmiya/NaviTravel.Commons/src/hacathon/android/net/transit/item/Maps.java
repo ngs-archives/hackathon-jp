@@ -16,11 +16,11 @@ public class Maps implements Serializable {
 
     public String ei;
 
-    public final Form form = new Form();
+    public Form form;
 
-    //public Query query;
+    public Query query;
 
-    //public ViewPort viewport;
+    public ViewPort viewport;
 
     //public ArrayList<String> modules;
 
