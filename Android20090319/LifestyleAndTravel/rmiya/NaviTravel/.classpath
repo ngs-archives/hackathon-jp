@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Bin/android-sdk-windows-1.1_r1/android.jar" sourcepath="C:/Bin/android-sdk-windows-1.1_r1/android-source-20090215.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Bin/android-sdk-windows-1.1_r1/docs/reference/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/NaviTravel.Commons">
+		<accessrules>
+			<accessrule kind="discouraged" pattern="tests/**"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
