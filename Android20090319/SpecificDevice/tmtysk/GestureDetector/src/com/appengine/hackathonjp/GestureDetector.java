@@ -24,7 +24,8 @@ public class GestureDetector extends Activity
 	private static final int MOVED_APPROACHING = 5;
 	private static final int MOVED_LEAVING = 6;
 	private static final float G = 9.8F;
-	private static final float ACC_THRESHOLD = 2.0F;
+	private static final float ACC_THRESHOLD = 1.0F;
+	private static final float ACC_MARGIN = 2.0F;
 	
 	private static final int DEVICETOP_TOP = 11;
 	private static final int DEVICERIGHT_TOP = 12;
@@ -33,7 +34,7 @@ public class GestureDetector extends Activity
 	private static final int DISPLAY_TOP = 15;
 	private static final int BACK_TOP = 16;
 	
-	private static final int TIMES_RECORDING = 2;
+	private static final int TIMES_RECORDING = 5;
 	
 	/*
 	private final String[7] STR_MOVED = 
@@ -87,7 +88,8 @@ public class GestureDetector extends Activity
             	{
             		sensorValueHistory = new StringBuffer();
             		sensorManager.registerListener(mySensorListener, 
-                    		SensorManager.SENSOR_ACCELEROMETER|SensorManager.SENSOR_ORIENTATION);
+                    		SensorManager.SENSOR_ACCELEROMETER|SensorManager.SENSOR_ORIENTATION,
+                    		SensorManager.SENSOR_DELAY_FASTEST);
             	}
             	else
             	{
@@ -239,7 +241,7 @@ public class GestureDetector extends Activity
 					), absZ
 				);
 				
-				if ((absMaxDirection == absX)&&(absX > ACC_THRESHOLD))
+				if (absMaxDirection == absX)
 				{
 					// Moved X
 					if (accX > 0)
@@ -254,7 +256,7 @@ public class GestureDetector extends Activity
 					}
 					//sensorValueHistory.append(direction);
 				}
-				else if ((absMaxDirection == absY)&&(absZ > ACC_THRESHOLD))
+				else if (absMaxDirection == absY)
 				{
 					// Moved Y
 					if (accY > 0)
@@ -270,6 +272,7 @@ public class GestureDetector extends Activity
 					//sensorValueHistory.append(direction);
 
 				}
+				/*
 				else if ((absMaxDirection == absZ)&&(absZ > ACC_THRESHOLD))
 				{
 					// Moved Z
@@ -285,6 +288,7 @@ public class GestureDetector extends Activity
 					}
 					//sensorValueHistory.append(direction);
 				}
+				*/
 				else
 				{
 					pushDirection(NOT_MOVED);
