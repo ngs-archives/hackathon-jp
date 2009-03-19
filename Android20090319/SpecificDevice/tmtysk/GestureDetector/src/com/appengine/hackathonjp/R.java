@@ -26,5 +26,12 @@ public final class R {
         public static final int opButtonStart=0x7f040003;
         public static final int opButtonStop=0x7f040004;
         public static final int setting_sensor_simulator=0x7f040001;
+        public static final int strMovedApproaching=0x7f04000a;
+        public static final int strMovedDown=0x7f040008;
+        public static final int strMovedLeaving=0x7f04000b;
+        public static final int strMovedLeft=0x7f040009;
+        public static final int strMovedRight=0x7f040007;
+        public static final int strMovedUp=0x7f040006;
+        public static final int strNotMoved=0x7f040005;
     }
 }
