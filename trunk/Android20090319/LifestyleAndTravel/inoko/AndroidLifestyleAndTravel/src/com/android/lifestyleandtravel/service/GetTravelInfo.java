@@ -11,18 +11,7 @@ import java.util.*;
 import com.android.lifestyleandtravel.net.http.CustomHttpClient;
 import com.android.lifestyleandtravel.net.transit.*;
 import com.android.lifestyleandtravel.net.calendar.client;
-
-class LifeStyleCalendar {
-	
-	public LifeStyleCalendar() {
-		
-	}
-	
-	String[] appointmentInfo = { "10:00AM", "新宿", "Dentist appointment" }; 
-	public String[] getNextSchedule(){
-		return appointmentInfo;
-	}
-}
+import com.android.lifestyleandtravel.net.ui.*;
 
 
 public class GetTravelInfo /*extends Activity*/ {
@@ -33,7 +22,7 @@ public class GetTravelInfo /*extends Activity*/ {
 	String currentLocation;
 	// Name of current destination
 	String destinationLocation;
-	
+	String startDate;
 	String title;
 	
 	String serverURL = "";
@@ -92,16 +81,14 @@ public class GetTravelInfo /*extends Activity*/ {
 	// Use JSon component
 	public void getServerData() {
 
-		// You have current location
-		calendar = new LifeStyleCalendar();
-		if( calendar != null ) {
+		GCalendar gcal = CalendarServiceClient.getNextSchedule( "2009/03/20 12:00:00"  );
+		
+		if( gcal != null ) {
 			// Time, location of appointment and some title
 			
-			
-			GCalendar gcal = CalendarServiceClient.getNextSchedule( "2009/03/20 12:00:00"  );
 			destinationLocation = gcal.getDest();
-			
 			title = gcal.getText();
+			startDate = gcal.getStartDate();
 			
 			// Call JSon component here with CurrentLocation, coords. for destination
 			transitRequest = new TransitRequest( );
@@ -139,7 +126,7 @@ public class GetTravelInfo /*extends Activity*/ {
 	void prepareServerData(  TransitResponse dataFromServer ) {
 
 		// Call Map UI Activity
-		Intent mapUi = new Intent( this, <class.name.here>.class );
+	//	Intent mapUi = new Intent( this, com.android.lifestyleandtravel.net.ui.lifestyleandtravel2.class );
 		String dataForMapUI = "dataForMapUI";
 		mapUi.putExtra( dataForMapUI , dataFromServer )
 		startActivity( mapUi );	
