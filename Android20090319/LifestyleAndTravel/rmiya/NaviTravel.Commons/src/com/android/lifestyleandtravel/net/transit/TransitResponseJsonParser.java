@@ -1,18 +1,5 @@
-package hacathon.android.net.transit;
+package com.android.lifestyleandtravel.net.transit;
 
-import hacathon.android.net.http.CustomHttpParseException;
-import hacathon.android.net.http.CustomHttpResponseHandler;
-import hacathon.android.net.http.CustomHttpResponseParser;
-import hacathon.android.net.transit.item.D;
-import hacathon.android.net.transit.item.Form;
-import hacathon.android.net.transit.item.G;
-import hacathon.android.net.transit.item.GLatLng;
-import hacathon.android.net.transit.item.L;
-import hacathon.android.net.transit.item.Maps;
-import hacathon.android.net.transit.item.Marker;
-import hacathon.android.net.transit.item.Overlays;
-import hacathon.android.net.transit.item.Query;
-import hacathon.android.net.transit.item.ViewPort;
 import hacathon.android.util.Log;
 
 import java.io.IOException;
@@ -23,6 +10,20 @@ import org.apache.http.util.CharArrayBuffer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.android.lifestyleandtravel.net.http.CustomHttpParseException;
+import com.android.lifestyleandtravel.net.http.CustomHttpResponseHandler;
+import com.android.lifestyleandtravel.net.http.CustomHttpResponseParser;
+import com.android.lifestyleandtravel.net.transit.item.D;
+import com.android.lifestyleandtravel.net.transit.item.Form;
+import com.android.lifestyleandtravel.net.transit.item.G;
+import com.android.lifestyleandtravel.net.transit.item.GLatLng;
+import com.android.lifestyleandtravel.net.transit.item.L;
+import com.android.lifestyleandtravel.net.transit.item.Maps;
+import com.android.lifestyleandtravel.net.transit.item.Marker;
+import com.android.lifestyleandtravel.net.transit.item.Overlays;
+import com.android.lifestyleandtravel.net.transit.item.Query;
+import com.android.lifestyleandtravel.net.transit.item.ViewPort;
 
 public class TransitResponseJsonParser implements CustomHttpResponseParser<TransitResponse> {
 

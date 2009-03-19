@@ -1,6 +1,6 @@
-package hacathon.android.net.transit;
+package com.android.lifestyleandtravel.net.transit;
 
-import hacathon.android.net.http.CustomHttpRequest;
+import com.android.lifestyleandtravel.net.http.CustomHttpRequest;
 
 public class TransitRequest implements CustomHttpRequest {
 

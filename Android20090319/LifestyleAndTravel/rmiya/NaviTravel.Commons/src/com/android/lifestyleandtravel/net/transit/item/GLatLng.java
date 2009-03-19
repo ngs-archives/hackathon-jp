@@ -1,4 +1,4 @@
-package hacathon.android.net.transit.item;
+package com.android.lifestyleandtravel.net.transit.item;
 
 import java.io.Serializable;
 
