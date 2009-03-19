@@ -1,3 +1,6 @@
-#Thu Mar 19 09:57:42 JST 2009
+#Thu Mar 19 14:11:34 JST 2009
 com.android.ide.eclipse.adt.sdk=/Developer/android-sdk-mac_x86-1.1_r1
+deviceChooser.serial=191
+deviceChooser.state=66
 eclipse.preferences.version=1
+deviceChooser.build=72
