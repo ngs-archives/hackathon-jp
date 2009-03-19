@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	
+	<ImageView android:id="@+id/imageview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+    />
+
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <TextView
+          android:id="@+id/date_view"
+		  android:visibility="visible"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:layout_alignParentLeft="true"
+          android:layout_marginLeft="10dip"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="5dip"
+          android:textColor="#88ffffff"
+          android:background="#88000000"
+          android:paddingLeft="5dip"
+          android:paddingRight="5dip"
+          android:textSize="18sp"/>
+          
+        <TextView
+          android:id="@+id/place_view"
+		  android:visibility="visible"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:layout_alignParentRight="true"
+          android:layout_marginRight="10dip"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="5dip"
+          android:textColor="#88ffffff"
+          android:background="#88000000"
+          android:paddingLeft="5dip"
+          android:paddingRight="5dip"
+          android:textSize="18sp"/>
+     </RelativeLayout>
+
+</FrameLayout>

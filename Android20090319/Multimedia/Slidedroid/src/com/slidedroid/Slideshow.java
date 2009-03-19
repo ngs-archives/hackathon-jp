@@ -1,12 +1,14 @@
 package com.slidedroid;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+
+import com.google.android.maps.GeoPoint;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,26 +16,46 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.Media;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.google.android.maps.GeoPoint;
+import android.widget.TextView;
+import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 
 public class Slideshow extends Activity {
-	
-	private static final int SCR_WIDHT = 200;
-	private static final int SCR_HEIGHT = 480;
-	
-	private final static String TAG = "Slideshow";
+    static final private String TAG = "SlideShow";
+    static final int sNextImageInterval = 5000;
+    private boolean mPosted = false;
+    private int mCurrentPosition = 0;
+
+    private TextView date_view = null;
+    private TextView place_view = null;
+
+    ImageView mSwitcher = null;
+    private Integer[] mImageIds = {
+            R.drawable.img1, R.drawable.img2, R.drawable.img3
+    };
+
+    private Integer[] mAnime = {
+    		R.anim.slide_left,
+    		R.anim.slide_right,
+    		R.anim.slide_top_to_bottom,
+    		R.anim.hyperspace_in
+    };
+
 	private Cursor imgCursor;
-	
 	private String [] imgUri;
-	
-	Geocoder gc;
-	
+	Geocoder gc = null;
+
 	private class ImgInfo {
 		int id;
 		 String uri;
@@ -83,27 +105,6 @@ public class Slideshow extends Activity {
 	
 	private int cnt=0;
 	private ImgInfo [] imgInfo;
-	
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        
-        gc = new Geocoder(this);
-        
-        mView = (ImageView)findViewById(R.id.main);
-        
-        setCursor();
-        
-        showCursorEntries();
-        
-        drawImg(cnt-1);
-        
-       addDescription2(cnt-1, "Nice pic", "It was so hot...");
-    }
-    
-    
     private String [] proj = new String [] {
 			Images.Media._ID,
 			// Images.Media._COUNT,
@@ -115,6 +116,30 @@ public class Slideshow extends Activity {
 			Images.Media.LONGITUDE,
 			Images.Media.LATITUDE
 	};
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        Window wp = getWindow();
+        wp.setFlags(FLAG_KEEP_SCREEN_ON, FLAG_KEEP_SCREEN_ON);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
+        setContentView(R.layout.slideshow);
+        
+        mSwitcher = (ImageView)findViewById(R.id.imageview);
+        mSwitcher.setImageResource(R.drawable.img1);
+
+        date_view = (TextView)findViewById(R.id.date_view);
+        place_view = (TextView)findViewById(R.id.place_view);
+
+        Log.d(TAG, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        setCursor();
+        showCursorEntries();
+        Log.d(TAG, "pic count = " + imgInfo.length);
+    }
     
     private void setCursor() {
     	Uri imgUri = Media.EXTERNAL_CONTENT_URI;
@@ -171,83 +196,92 @@ public class Slideshow extends Activity {
     		
     	}
     }
-    
-    private void drawImg(int i) {
-    	
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadImage();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cancelPost();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(0, 0, 0, "TEST1");
+        menu.add(0, 1, 0, "TEST2");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
+    }
+
+	private static final int SCR_WIDHT = 200;
+	private static final int SCR_HEIGHT = 480;
+	private Bitmap bmp = null;
+	
+    private void loadImage() {
+//        SimpleDateFormat sdf1 = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
+
+//        int i = Integer.getInteger(imgInfo[mCurrentPosition].taken);
+//        Date d = new Date(i);
+        
+        place_view.setText("Tokyo");
+		date_view.setText(imgInfo[mCurrentPosition].taken);
+//		date_view.setText(sdf1.format(d));
+		
     	int w = SCR_WIDHT;
     	
+    	Log.d(TAG, "Position = " + mCurrentPosition);
     	BitmapFactory.Options opt = new BitmapFactory.Options();
     	opt.outWidth = w;
     	opt.outHeight = w/2 * 3;
-    
-    	Bitmap bmp = BitmapFactory.decodeFile(imgInfo[0].uri, opt);
-    	
-    	
-    	// float rf = (float)bmp.getWidth() / SCR_WIDHT;
-    	// int h = (int) (bmp.getHeight() / rf);
-    
-    	mView.setImageBitmap(bmp);
-    	
-    	// Toast t = new Toast(this);
-    	Toast.makeText(this, imgInfo[i].sAdr, 10).show();
-    	// t.setText(imgInfo[i].sAdr);
-    	// t.show();
-    	
-    }
-    
-    
-    
-    void addDescription(int ix, String title, String desc) {
-    	ContentValues val = new ContentValues(2);
-    	
-    	val.put(proj[3], title);
-    	val.put(proj[4], desc);
-    	
-    	ContentResolver cr = getContentResolver();
-    	String sid; Uri u;
-    	
-    	// throws exception:
-    	// Caused by: java.lang.UnsupportedOperationException: Unknown or unsupported URL: 
-    	// content://media/external/images/media/com.slidedroid.Slideshow$ImgInfo@433e5e58
-    	/*sid = String.valueOf(imgInfo[ix]);
-    	u = Uri.withAppendedPath(Media.EXTERNAL_CONTENT_URI, sid );
-    	sid=null;*/
-    	
-    	// this is like in Sql: WHERE sid
-    	// WHERE "_id=5"
-    	// throws
-    	// 03-19 06:36:15.975: ERROR/AndroidRuntime(1811): Caused by: java.lang.UnsupportedOperationException: 
-    	// Unknown or unsupported URL: content://media/external/images/media
-    	u = Media.EXTERNAL_CONTENT_URI;
-    	sid = proj[0] + "=" + imgInfo[ix].id;   
-    	
-    	cr.update(u, val, sid, null);
-    	
-    }
-    
-    void addDescription2(int ix, String title, String desc) {
-    	
-    	ContentValues values = new ContentValues(3);
-    	values.put(Media.DISPLAY_NAME, title);
-    	values.put(Media.DESCRIPTION, desc);
-    	values.put(Media.MIME_TYPE, "image/jpeg");
-
-    	// Add a new record without the bitmap, but with the values just set.
-    	// insert() returns the URI of the new record.
-    	Uri uri = getContentResolver().insert(Media.EXTERNAL_CONTENT_URI, values);
-
-    	// Now get a handle to the file for that record, and save the data into it.
-    	// Here, sourceBitmap is a Bitmap object representing the file to save to the database.
-    	Bitmap sourceBitmap = BitmapFactory.decodeFile(imgInfo[ix].uri);
-    	try {
-    	    OutputStream outStream = getContentResolver().openOutputStream(uri);
-    	    sourceBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
-    	    outStream.close();
-    	    Log.d(TAG, "Wrote " + title +", " + desc);
-    	} catch (Exception e) {
-    	    Log.e(TAG, "exception while writing image", e);
+    	if (bmp != null) {
+    		bmp.recycle();
     	}
+    	bmp = BitmapFactory.decodeFile(imgInfo[mCurrentPosition].uri, opt);
+
+    	mSwitcher.setImageBitmap(bmp);
+//        mSwitcher.setImageResource(mImageIds[mCurrentPosition]);
+
+        Random rand = new Random();
+        Integer no = Math.abs(rand.nextInt() % mAnime.length);
+    	Animation anim = AnimationUtils.loadAnimation(this, mAnime[no]);
+    	anim.setRepeatMode(Animation.RESTART);
+    	mSwitcher.startAnimation(anim);
+
+    	post();
     }
-    
-    
+
+    private void cancelPost() {
+        mHandler.removeCallbacks(mImageLoadRunnable);
+        mPosted = false;
+    }
+
+    private void post() {
+        mHandler.postDelayed(mImageLoadRunnable, sNextImageInterval);
+        mPosted = true;
+    }
+
+    private Runnable mImageLoadRunnable = new Runnable() {
+        public void run() {
+//            loadNextImage();
+//            if (++mCurrentPosition >= mImageIds.length)
+            if (++mCurrentPosition >= imgInfo.length)
+                mCurrentPosition = 0;
+            loadImage();
+        }
+    };
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+        }
+    };
 }
