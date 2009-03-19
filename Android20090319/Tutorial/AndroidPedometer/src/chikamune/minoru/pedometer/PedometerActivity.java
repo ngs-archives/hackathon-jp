@@ -4,6 +4,9 @@ import java.util.Arrays;
 import android.app.Activity;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
@@ -13,40 +16,62 @@ import android.widget.TextView;
 
 public class PedometerActivity extends Activity {
     protected TextView stepsView;
+    protected TextView gps;
     protected long steps;
     protected Vibrator vibrator;
     SensorManager sensorManager;
+    protected Vibrator getVibrator() {
+        if (vibrator == null) {
+            vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        }
+        return vibrator;
+    }
+    protected SensorManager getSensorManager() {
+        if (sensorManager == null) {
+            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        }
+        return sensorManager;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         stepsView = (TextView) findViewById(R.id.steps);
-        handleSystemService();
-        //        ((TextView) findViewById(R.id.title)).setGravity();
+        gps = (TextView) findViewById(R.id.gps);
         ((Button) findViewById(R.id.start)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                sensorManager.registerListener(sensorListener, SensorManager.SENSOR_ACCELEROMETER);
-                vibrator.vibrate(100);
+                getSensorManager().registerListener(sensorListener, SensorManager.SENSOR_ACCELEROMETER);
+                getVibrator().vibrate(100);
             }
         });
         ((Button) findViewById(R.id.stop)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                sensorManager.unregisterListener(sensorListener);
-                vibrator.vibrate(100);
+                getSensorManager().unregisterListener(sensorListener);
+                getVibrator().vibrate(100);
             }
         });
         ((Button) findViewById(R.id.reset_button)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 steps = 0;
                 stepsView.setText(steps + " •à");
-                vibrator.vibrate(100);
             }
         });
-        sensorManager.registerListener(sensorListener, SensorManager.SENSOR_ACCELEROMETER);
-        vibrator.vibrate(100);
-        //            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        getSensorManager().registerListener(sensorListener, SensorManager.SENSOR_ACCELEROMETER);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+            public void onLocationChanged(Location location) {
+                gps.setText("Œo“x : " + location.getLongitude() + "\n" + "ˆÜ“x : " + location.getLatitude());
+            }
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            //                gps.setText("onStatusChanged");
+            }
+            public void onProviderEnabled(String provider) {
+                gps.setText("onProviderEnabled " + provider);
+            }
+            public void onProviderDisabled(String provider) {
+                gps.setText("onProviderDisabled " + provider);
+            }
+        });
     }
     protected SensorListener sensorListener = new SensorListener() {
         public void onSensorChanged(int sensor, float[] values) {
@@ -62,7 +87,7 @@ public class PedometerActivity extends Activity {
                 synchronized (PedometerActivity.class) {
                     if (isStep(values)) {
                         steps++;
-                        vibrator.vibrate(30);
+                        //                        vibrator.vibrate(30);
                     }
                 }
             }
@@ -98,30 +123,8 @@ public class PedometerActivity extends Activity {
             shortRecentDatas = new float[2];
             Arrays.fill(shortRecentDatas, current);
         }
-        stepsView.setText(//values[0]
-                //                + "\n"
-                //                + values[1]
-                //                + "\n"
-                //                + values[2]
-                //                + "\n"
-                //                +values[3]
-                //                        + "\n"
-                //                        + values[4]
-                //                        + "\n"
-                //                        + values[5]
-                //                        + "\n----------\n"
-                averagePower()
-                        + " ave"
-                        + "\n"
-                        + currentPower()
-                        + " current"
-                        + "\n"
-                        + Math.abs(averagePower() - currentPower())
-                        + " "
-                        + "\n----------\n"
-                        + steps
-                        + " •à");
-        if (Math.abs(averagePower() - currentPower()) > 0.1 /*&& (System.currentTimeMillis() - previousStep > 500)*/) {
+        stepsView.setText(+steps + " •à");
+        if (Math.abs(averagePower() - currentPower()) > 0.15 && (System.currentTimeMillis() - previousStep > 300)) {
             Arrays.fill(longRecentDatas, currentPower());
             previousStep = System.currentTimeMillis();
             return true;
@@ -144,51 +147,5 @@ public class PedometerActivity extends Activity {
     }
     protected static float power(float value) {
         return value * value;
-    }
-    protected void handleSystemService() {
-    //        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-    //        Notification notification = new Notification(R.drawable.icon, "notified by M.Chikamune", System.currentTimeMillis());
-    //        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, PedometerActivity.class), 0);
-    //        notification.setLatestEventInfo(this, // the context to use
-    //                "notify title",
-    //                // the title for the notification
-    //                "abc", // the details to display in the notification
-    //                contentIntent); // the contentIntent (see above)
-    //        notificationManager.notify(0, notification);
-    //
-    //
-    //        // The top-level window manager in which you can place custom windows. The returned object is a WindowManager.
-    //        WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-    //        // A LayoutInflater for inflating layout resources in this context.
-    //        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-    //        // A ActivityManager for interacting with the global activity state of the system.
-    //        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-    //        // A PowerManager for controlling power management.
-    //        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-    //        // A AlarmManager for receiving intents at the time of your choosing.
-    //        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-    //        // A NotificationManager for informing the user of background events.
-    //        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-    //        Notification notification = new Notification(R.drawable.icon, "notified by M.Chikamune", System.currentTimeMillis());
-    //        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, PedometerActivity.class), 0);
-    //        notification.setLatestEventInfo(this, // the context to use
-    //                "notify title",
-    //                // the title for the notification
-    //                "abc", // the details to display in the notification
-    //                contentIntent); // the contentIntent (see above)
-    //        notificationManager.notify(0, notification);
-    //        // A KeyguardManager for controlling keyguard.
-    //        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-    //        // A LocationManager for controlling location (e.g., GPS) updates.
-    //        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-    //        // A SearchManager for handling search.
-    //        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-    //        // A Vibrator for interacting with the vibrator hardware.
-    //        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-    //        vibrator.vibrate(1000);
-    //        // A ConnectivityManager for handling management of network connections.
-    //        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-    //        // A WifiManager for management of Wi-Fi connectivity.        
-    //        WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
     }
 }
