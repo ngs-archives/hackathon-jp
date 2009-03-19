@@ -6,4 +6,11 @@
 <string name="initialized">initialized..</string>
 <string name="opButtonStart">リセット＆測定開始</string>
 <string name="opButtonStop">終了＆保存</string>
+<string name="strNotMoved">動いてません</string>
+<string name="strMovedUp">上</string>
+<string name="strMovedRight">右</string>
+<string name="strMovedDown">下</string>
+<string name="strMovedLeft">左</string>
+<string name="strMovedApproaching">接近</string>
+<string name="strMovedLeaving">離脱</string>
 </resources>
