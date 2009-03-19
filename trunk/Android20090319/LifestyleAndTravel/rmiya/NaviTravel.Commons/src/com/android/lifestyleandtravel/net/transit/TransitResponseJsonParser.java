@@ -1,6 +1,5 @@
 package com.android.lifestyleandtravel.net.transit;
 
-import hacathon.android.util.Log;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -24,6 +23,7 @@ import com.android.lifestyleandtravel.net.transit.item.Marker;
 import com.android.lifestyleandtravel.net.transit.item.Overlays;
 import com.android.lifestyleandtravel.net.transit.item.Query;
 import com.android.lifestyleandtravel.net.transit.item.ViewPort;
+import com.android.lifestyleandtravel.util.Log;
 
 public class TransitResponseJsonParser implements CustomHttpResponseParser<TransitResponse> {
 

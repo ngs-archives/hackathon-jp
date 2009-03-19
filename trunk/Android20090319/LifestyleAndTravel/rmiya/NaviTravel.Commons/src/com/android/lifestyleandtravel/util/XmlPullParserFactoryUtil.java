@@ -1,4 +1,4 @@
-package hacathon.android.util;
+package com.android.lifestyleandtravel.util;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
