@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import android.content.Intent;
+import java.util.*;
 
 import com.android.lifestyleandtravel.net.http.CustomHttpClient;
 import com.android.lifestyleandtravel.net.transit.*;
@@ -32,6 +33,8 @@ public class GetTravelInfo /*extends Activity*/ {
 	String currentLocation;
 	// Name of current destination
 	String destinationLocation;
+	
+	String title;
 	
 	String serverURL = "";
 	
@@ -93,9 +96,12 @@ public class GetTravelInfo /*extends Activity*/ {
 		calendar = new LifeStyleCalendar();
 		if( calendar != null ) {
 			// Time, location of appointment and some title
-			calendarData = calendar.getNextSchedule();
 			
-			// Get Calendar's time, destination and title
+			
+			GCalendar gcal = CalendarServiceClient.getNextSchedule( "2009/03/20 12:00:00"  );
+			destinationLocation = gcal.getDest();
+			
+			title = gcal.getText();
 			
 			// Call JSon component here with CurrentLocation, coords. for destination
 			transitRequest = new TransitRequest( );
@@ -106,15 +112,15 @@ public class GetTravelInfo /*extends Activity*/ {
 				transitRequest.saddr = "新宿駅";
 			}
 			
-			if( calendarData[0] != "" ) {
-				transitRequest.daddr = calendarData[0];
+			if( destinationLocation != "" ) {
+				transitRequest.daddr = destinationLocation;
 			} else {
 				// 
 				transitRequest.daddr = "37.0625,-95.677068";
 			}
 			
 			try {
-		        final TransitService service = new TransitService(new CustomHttpClient());
+		        final TransitService service = new TransitService( new CustomHttpClient() );
 		        service.execute(handler, transitRequest);
 
 		        // This is the response for the Map Ui
