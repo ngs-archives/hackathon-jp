@@ -26,8 +26,10 @@ viewport:{
 		lat:35.659615000000002,
 		lng:139.735894
 	},
-	span:{lat:0.085683999999999996,
-	lng:0.071494000000000002},
+	span:{
+		lat:0.085683999999999996,
+		lng:0.071494000000000002
+	},
 	mapType:""
 },
 modules:[
@@ -40,20 +42,24 @@ modules:[
 ],
 overlays:{
 	sxcar:false,
-	markers:[{id:"ddw0",
-	image:"/intl/ja_jp/mapfiles/marker_greenA.png",
-	drg:true,
-	infoWindow:{},
-	geocode:"",
-	latlng:{lat:35.690921000000003,
-	lng:139.70025799999999}},
-	{id:"ddw1",
-	image:"/intl/ja_jp/mapfiles/marker_greenB.png",
-	drg:true,
-	infoWindow:{},
-	geocode:"",
-	latlng:{lat:35.630152000000002,
-	lng:139.74044000000001}}]
+	markers:[
+		{id:"ddw0",
+		image:"/intl/ja_jp/mapfiles/marker_greenA.png",
+		drg:true,
+		infoWindow:{},
+		geocode:"",
+		latlng:{
+			lat:35.690921000000003,
+			lng:139.70025799999999}
+		},
+		{id:"ddw1",
+		image:"/intl/ja_jp/mapfiles/marker_greenB.png",
+		drg:true,
+		infoWindow:{},
+		geocode:"",
+		latlng:{lat:35.630152000000002,
+		lng:139.74044000000001}}
+		]
 },
 panel:"\x3cdiv id=panel_dir class=dir style=display:none\x3e\x3cdiv id=dirref class=\"noprint suggest\"\x3e\x3cspan class=closer\x3e\x3ca href=javascript:void(0) onclick=\"this.parentNode.parentNode.style.display='none'\"\x3e\x3cimg src=/intl/ja_jp/mapfiles/iw_close.gif width=12 height=12 /\x3e\x3c/a\x3e\x3c/span\x3e\x3cspan class=didyou\x3e以下の候補から選択してください:\x3c/span\x3e\x3cform\x3e\x3ctable id=dirreftbl\x3e\x3ctr\x3e\x3ctd\x3e出発:\x3c/td\x3e\x3ctd class=dirway\x3e\x3cselect id=tr_disamb_saddr style=width:100%\x3e\x3coption value=\"新宿駅（東京）\"\x3e新宿駅（東京）\x3c/option\x3e\x3coption value=\"新宿駅（東京）（東京メトロ）\"\x3e新宿駅（東京）（東京メトロ）\x3c/option\x3e\x3coption value=\"東京都新宿区\"\x3e東京都新宿区\x3c/option\x3e\x3c/select\x3e\x3c/td\x3e\x3c/tr\x3e\x3ctr\x3e\x3ctd\x3e到着:\x3c/td\x3e\x3ctd class=dirway\x3e\x3cselect id=tr_disamb_daddr style=width:100%\x3e\x3coption value=\"品川駅（東京）\"\x3e品川駅（東京）\x3c/option\x3e\x3coption value=\"東京都品川区\"\x3e東京都品川区\x3c/option\x3e\x3c/select\x3e\x3c/td\x3e\x3c/tr\x3e\x3ctr\x3e\x3ctd colspan=2\x3e\x3cinput type=submit id=tr_opt_update value=\"更新\" onclick=\"return false\" /\x3e\x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/form\x3e\x3c/div\x3e\x3cdiv class=\"dir_adbox_c0 noprint\"\x3e\x3cdiv class=dir_adbox_c1\x3e\x3c/div\x3e\x3cdiv class=dir_adbox_c2\x3e\x3c/div\x3e\x3cdiv class=dir_adbox_content style=vertical-align:center\x3e\x3cspan class=dir_adbox_hdr\x3e\x3cb\x3eその他の交通手段: \x3cspan class=noprint style=color:red\x3e\x3csup\x3eNew!\x3c/sup\x3e\x3c/span\x3e\x3c/b\x3e\x3c/span\x3e\x3cspan class=dir_adbox_icon\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/drive.gif\x3e\x3c/span\x3e\x3cspan class=dir_adbox_mode\x3e\x3ca id=dmode_link_d href=javascript:void(0)\x3e車で行く\x3c/a\x3e\x3c/span\x3e\x3c/div\x3e\x3cdiv class=dir_adbox_c2\x3e\x3c/div\x3e\x3cdiv class=dir_adbox_c1\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv id=tr_iui_enabled class=tabstrip\x3e\x3ctable\x3e\x3ctr\x3e\x3ctd class=tabhdr id=dir_alt_routes_tab\x3e別のルート\x3cimg id=dir_alt_routes_arrow src=/intl/ja_jp/mapfiles/arrow-down.gif\x3e\x3c/td\x3e\x3ctd width=100%\x3e\x3c/td\x3e\x3c/tr\x3e\x3ctr id=dir_alt_routes_sp style=display:none height=5\x3e\x3ctd class=ts_lrbdr\x3e\x3c/td\x3e\x3ctd class=ts_bbdr\x3e\x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3ctable class=altsummary style=display:none id=dir_alt_routes width=100%\x3e\x3ctr\x3e\x3ctd class=altsummary_sugg\x3e\x3cb\x3e2009/03/17 13:33発\x3c/b\x3eのルート:\x3c/td\x3e\x3c/tr\x3e\x3ctr\x3e\x3ctd\x3e\x3cdiv class=altsummary_r id=transit_trips_0 xonclick=trShowTransitDirs(0)\x3e\x3ctable width=100%\x3e\x3ctr\x3e\x3ctd\x3e\x3ca href=javascript:void(0)\x3e1\x3c/a\x3e:\x26nbsp;\x3c/td\x3e\x3ctd width=100%\x3e\x3cdiv class=altsummary_it\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3c/div\x3e13:36 - 13:54 \x3cspan class=altsummary_dur\x3e(18分)\x3c/span\x3e 190円 \x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/div\x3e\x3cdiv class=altsummary_r id=transit_trips_1 xonclick=trShowTransitDirs(1)\x3e\x3ctable width=100%\x3e\x3ctr\x3e\x3ctd\x3e\x3ca href=javascript:void(0)\x3e2\x3c/a\x3e:\x26nbsp;\x3c/td\x3e\x3ctd width=100%\x3e\x3cdiv class=altsummary_it\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3c/div\x3e13:40 - 13:58 \x3cspan class=altsummary_dur\x3e(18分)\x3c/span\x3e 190円 \x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/div\x3e\x3cdiv class=altsummary_r id=transit_trips_2 xonclick=trShowTransitDirs(2)\x3e\x3ctable width=100%\x3e\x3ctr\x3e\x3ctd\x3e\x3ca href=javascript:void(0)\x3e3\x3c/a\x3e:\x26nbsp;\x3c/td\x3e\x3ctd width=100%\x3e\x3cdiv class=altsummary_it\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3c/div\x3e13:36 - 14:00 \x3cspan class=altsummary_dur\x3e(24分)\x3c/span\x3e 190円 \x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/div\x3e\x3cdiv class=altsummary_r id=transit_trips_3 xonclick=trShowTransitDirs(3)\x3e\x3ctable width=100%\x3e\x3ctr\x3e\x3ctd\x3e\x3ca href=javascript:void(0)\x3e4\x3c/a\x3e:\x26nbsp;\x3c/td\x3e\x3ctd width=100%\x3e\x3cdiv class=altsummary_it\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3c/div\x3e13:45 - 14:02 \x3cspan class=altsummary_dur\x3e(17分)\x3c/span\x3e 190円 \x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/div\x3e\x3cdiv class=altsummary_r id=transit_trips_4 xonclick=trShowTransitDirs(4)\x3e\x3ctable width=100%\x3e\x3ctr\x3e\x3ctd\x3e\x3ca href=javascript:void(0)\x3e5\x3c/a\x3e:\x26nbsp;\x3c/td\x3e\x3ctd width=100%\x3e\x3cdiv class=altsummary_it\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3c/div\x3e13:45 - 14:02 \x3cspan class=altsummary_dur\x3e(17分)\x3c/span\x3e 190円 \x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/div\x3e\x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/div\x3e\x3cdiv id=dir_title\x3e品川駅（東京）へのルート\x3c/div\x3e\x3cdiv class=ddwpt id=panel_ddw0\x3e\x3ctable class=ddwpt_table\x3e\x3ctr\x3e\x3ctd class=ddptlnk\x3e\x3cimg src=/intl/ja_jp/mapfiles/icon_greenA.png width=24 height=38 /\x3e\x3c/td\x3e\x3ctd class=ddw_addr\x3e\x3cdiv id=ddw_addr_area_0 class=value\x3e\x3cdiv id=sxaddr\x3e\x3cdiv dir=ltr class=sa\x3e新宿駅（東京）\x3c/div\x3e\x3c/div\x3e\x3c/div\x3e\x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/div\x3e \x3cdiv id=tsp\x3e\x3cdiv id=transit_route_0 class=ts_routediv style=display:none\x3e\x3cdiv class=ts_routehdr\x3e\x3cdiv\x3e\x3cspan class=ts_routecost\x3e190円\x3c/span\x3e\x3c/div\x3e\x3cdiv class=ts_clear\x3e\x3c/div\x3e\x3cdiv\x3e\x3cspan class=ts_jtime\x3e所要時間:  約 18分\x3c/span\x3e\x3cspan class=ts_gray\x3e\x3cb\x3eルート1\x3c/b\x3e\x3c/span\x3e\x3c/div\x3e\x3c/div\x3e\x3cdiv id=ts_route_0\x3e\x3ctable class=ts_step id=step_0_0 xonclick=trShowTransitStep(0)\x3e\x3ctr\x3e\x3ctd class=ts_icon\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3c/td\x3e\x3ctd class=ts_text\x3e\x3cdiv class=ts_legfare\x3e190円\x3c/div\x3e\x3cdiv\x3e\x3cspan class=action\x3e\x3ca href=javascript:void(0)\x3e電車\x3c/a\x3e\x3c/span\x3e - \x3cspan class=line\x3e\x3cspan class=longline\x3eJR山手線内回り\x3c/span\x3e\x3c/span\x3e\x3c/div\x3e\x3ctable class=ts_deparr\x3e\x3ctr\x3e\x3ctd class=ts_step_time\x3e13:36\x3c/td\x3e\x3ctd\x3e\x3cspan class=location\x3e新宿\x3c/span\x3e 発 \x3c/td\x3e\x3c/tr\x3e\x3ctr\x3e\x3ctd class=ts_travelgap\x3e\x3c/td\x3e\x3ctd class=ts_addinfo\x3e18分\x3c/td\x3e\x3c/tr\x3e\x3ctr\x3e\x3ctd class=ts_step_time\x3e13:54\x3c/td\x3e\x3ctd\x3e\x3cspan class=location\x3e品川\x3c/span\x3e 着 \x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e\x3ctable\x3e\x3ctr\x3e\x3ctd class=ts_left_spacer\x3e\x3c/td\x3e\x3ctd id=tsib_0_0 style=display:none\x3e\x3ctable cols=3 class=ts_ib id=ts_ib\x3e\x3ctr\x3e\x3ctd align=left valign=top width=16px\x3e\x3cimg src=/intl/ja_jp/mapfiles/transit/iw/rail.gif /\x3e\x3c/td\x3e\x3ctd colspan=2\x3e\x3cspan class=action\x3e電車\x3c/span\x3e - \x3cspan class=line\x3e\x3cspan class=longline\x3eJR山手線内回り\x3c/span\x3e\x3c/span\x3e\x3c/td\x3e\x3c/tr\x3e\x3ctr\x3e\x3ctd\x3e\x3c/td\x3e\x3ctd width=1% align=left valign=top\x3e\x3cnobr\x3e\x3cfont size=-1\x3e\x3cspan class=ts_step_time\x3e13:36 \x3c/span\x3e\x3c/font\x3e\x3c/nobr\x3e\x3c/td\x3e\x3ctd align=left valign=top\x3e\x3cfont size=-1\x3e\x3cspan class=location\x3e新宿\x3c/span\x3e 発\x3c/font\x3e\x3c/td\x3e\x3c/tr\x3e\x3ctr\x3e\x3ctd\x3e\x3c/td\x3e\x3ctd align=left valign=top\x3e\x3cnobr\x3e\x3cfont size=-1\x3e\x3cspan class=ts_step_time\x3e13:54 \x3c/span\x3e\x3c/font\x3e\x3c/nobr\x3e\x3c/td\x3e\x3ctd align=left valign=top\x3e\x3cfont size=-1\x3e\x3cspan class=location\x3e品川\x3c/span\x3e 着\x3c/font\x3e\x3c/td\x3e\x3c/tr\x3e\x3ctr height=4px\x3e\x3ctd\x3e\x3c/td\x3e\x3c/tr\x3e\x3ctr\x3e\x3ctd colspan=3 align=center\x3e\x3ctable cols=4 width=80%\x3e\x3ctr\x3e\x3ctd width=50% align=left nowrap\x3e\x3cfont color=#676767 id=tsib_prev_disabled\x3e\x26laquo;\x26nbsp;前へ\x3c/font\x3e\x3c/td\x3e\x3ctd align=center nowrap\x3e\x3cdiv id=tsib_0_0_overview class=ts_summary_r xonclick=\"trShowTransitStep(0,
  null,
