@@ -25,7 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class showDirection extends Activity {
-	private boolean onTouch = false;
+	
 	private TextView tv;
 	private ImageView iv;
 	private Bitmap up,down,left,right,up_right,up_left,down_right,down_left;
@@ -45,10 +45,10 @@ public class showDirection extends Activity {
         down = BitmapFactory.decodeResource(r, R.drawable.down);
         right = BitmapFactory.decodeResource(r, R.drawable.right);
         left = BitmapFactory.decodeResource(r, R.drawable.left);
-        up_right = BitmapFactory.decodeResource(r, R.drawable.down);
-        up_left = BitmapFactory.decodeResource(r, R.drawable.down);
-        down_right = BitmapFactory.decodeResource(r, R.drawable.down);
-        down_left = BitmapFactory.decodeResource(r, R.drawable.down);
+        up_right = BitmapFactory.decodeResource(r, R.drawable.rightup);
+        up_left = BitmapFactory.decodeResource(r, R.drawable.leftup);
+        down_right = BitmapFactory.decodeResource(r, R.drawable.rightdown);
+        down_left = BitmapFactory.decodeResource(r, R.drawable.leftdown);
         
         try {
         	mp = MediaPlayer.create(getApplicationContext(), R.raw.kamehameha);
@@ -85,21 +85,32 @@ public class showDirection extends Activity {
 				iv.setImageBitmap(up);
 				//mp.start();
 			}
-			if(gestureType == 5){
+			else if(gestureType == 2){
+				iv.setImageBitmap(up_right);
+				
+			}
+			else if(gestureType == 3){
+				iv.setImageBitmap(right);
+			}
+			else if(gestureType == 4){
+				iv.setImageBitmap(down_right);
+				
+			}
+			else if(gestureType == 5){
 				iv.setImageBitmap(down);
 				//mp.pause();
 			}
-			if(gestureType == 3){
-				iv.setImageBitmap(right);
+			else if(gestureType == 6){
+				iv.setImageBitmap(down_left);
+				
 			}
-			if(gestureType == 7){
+			else if(gestureType == 7){
 				iv.setImageBitmap(left);
 			}
-			
-			
-			
-			
-			
+			else if(gestureType == 8){
+				iv.setImageBitmap(up_left);
+			}
+											
 			return false;
 		}
 

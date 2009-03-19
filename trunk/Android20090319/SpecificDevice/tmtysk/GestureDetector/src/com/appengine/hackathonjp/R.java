@@ -14,8 +14,13 @@ public final class R {
         public static final int down=0x7f020000;
         public static final int icon=0x7f020001;
         public static final int left=0x7f020002;
-        public static final int right=0x7f020003;
-        public static final int up=0x7f020004;
+        public static final int leftdown=0x7f020003;
+        public static final int leftup=0x7f020004;
+        public static final int ninja=0x7f020005;
+        public static final int right=0x7f020006;
+        public static final int rightdown=0x7f020007;
+        public static final int rightup=0x7f020008;
+        public static final int up=0x7f020009;
     }
     public static final class id {
         public static final int accelView=0x7f060002;
