@@ -31,4 +31,6 @@ public class Maps implements Serializable {
     //public int panelId;
 
     //public AddressBook addressbook;
+
+    public TimeFormat timeformat;
 }
