@@ -24,13 +24,7 @@ public class Maps implements Serializable {
 
     public Overlays overlays;
 
-    //public Panel panel;
-
-    //public String panelStyle;
-
-    //public int panelId;
-
-    //public AddressBook addressbook;
+    public Point[] points;
 
     public TimeFormat timeformat;
 }

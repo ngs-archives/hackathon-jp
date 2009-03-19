@@ -20,6 +20,7 @@ import com.android.lifestyleandtravel.net.transit.item.L;
 import com.android.lifestyleandtravel.net.transit.item.Maps;
 import com.android.lifestyleandtravel.net.transit.item.Marker;
 import com.android.lifestyleandtravel.net.transit.item.Overlays;
+import com.android.lifestyleandtravel.net.transit.item.Point;
 import com.android.lifestyleandtravel.net.transit.item.Query;
 import com.android.lifestyleandtravel.net.transit.item.TimeFormat;
 import com.android.lifestyleandtravel.net.transit.item.ViewPort;
@@ -46,6 +47,16 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
                 maps.query = parseQuery(root.optJSONObject("query"));
                 maps.viewport = parseViewPort(root.optJSONObject("viewport"));
                 maps.overlays = parseOverlays(root.optJSONObject("overlays"));
+
+                final JSONArray jsonPoints = root.optJSONArray("points");
+                if (jsonPoints != null) {
+                    final int length = jsonPoints.length();
+                    maps.points = new Point[length];
+                    for (int i = 0; i < length; i++) {
+                        maps.points[i] = parsePoint(jsonPoints.optJSONObject(i));
+                    }
+                }
+
                 maps.timeformat = parseTimeFormat(root.optJSONObject("timeformat"));
 
                 final TransitResponse response = new TransitResponse();
@@ -194,6 +205,18 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
         final TimeFormat o = new TimeFormat();
         o.ampm = json.optBoolean("ampm");
         o.dp = json.optString("dp");
+        return o;
+    }
+
+    private static Point parsePoint(final JSONObject json) {
+        if (json == null) {
+            return null;
+        }
+
+        final Point o = new Point();
+        o.latlng = new GLatLng();
+        o.latlng.lat = json.optDouble("lat");
+        o.latlng.lng = json.optDouble("lng");
         return o;
     }
 

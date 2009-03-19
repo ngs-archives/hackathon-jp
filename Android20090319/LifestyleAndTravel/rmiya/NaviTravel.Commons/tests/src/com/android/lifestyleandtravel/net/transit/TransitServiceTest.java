@@ -29,12 +29,13 @@ public class TransitServiceTest extends TestCase {
     }
 
     /**
-     * 新宿駅（東京） から 品川駅（東京）の路線検索をする。
+     * 35.690921000000003,139.70025799999999(新宿) から セルリアンタワーの路線検索をする。
      */
     public void testExecute() throws Exception {
         final TransitRequest request = new TransitRequest();
-        request.saddr = "新宿駅";
-        request.daddr = "品川駅";
+        //        request.saddr = "新宿";
+        request.saddr = "35.690921000000003,139.70025799999999";
+        request.daddr = "セルリアンタワー";
 
         final TransitResponseHandlerImpl handler = new TransitResponseHandlerImpl();
         final TransitService service = new TransitService(mHttpClient);
@@ -45,16 +46,22 @@ public class TransitServiceTest extends TestCase {
 
         final Maps maps = handler.mResponse.maps;
         assertNotNull(maps);
-        assertEquals("新宿駅（東京） から 品川駅（東京） - Google マップ", maps.title);
-        assertEquals("", maps.vartitle);
-        assertFalse(maps.urlViewport);
+        assertEquals("35.690921, 139.700258 から セルリアンタワー - Google マップ", maps.title);
+
+        assertEquals("35.690921000000003,139.70025799999999", maps.form.d.saddr);
+        assertEquals("セルリアンタワー", maps.form.d.daddr);
+
+        assertEquals("from: 35.690921000000003,139.70025799999999 to: セルリアンタワー", maps.form.g.q);
 
         // マーカーのオーバーレイ表示。
-        assertEquals("新宿駅の緯度", 35.690921000000003d, maps.overlays.markers[0].latlng.lat);
-        assertEquals("新宿駅の経度", 139.70025799999999d, maps.overlays.markers[0].latlng.lng);
+        assertEquals("新宿駅の緯度", 35.630152000000002d, maps.overlays.markers[0].latlng.lat, 14);
+        assertEquals("新宿駅の経度", 139.74044000000001d, maps.overlays.markers[0].latlng.lng, 14);
 
-        assertEquals("品川駅の緯度", 35.630152000000002d, maps.overlays.markers[1].latlng.lat);
-        assertEquals("品川駅の経度", 139.74044000000001d, maps.overlays.markers[1].latlng.lng);
+        assertEquals("セルリアンタワーの緯度", 35.656317000000001d, maps.overlays.markers[1].latlng.lat, 14);
+        assertEquals("セルリアンタワーの経度", 139.69941499999999d, maps.overlays.markers[1].latlng.lng, 14);
+
+        // 経路？
+        assertEquals(9, maps.points.length);
 
         assertFalse(maps.timeformat.ampm);
         assertEquals("ymd", maps.timeformat.dp);
