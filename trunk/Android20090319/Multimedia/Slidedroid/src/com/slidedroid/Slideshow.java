@@ -135,10 +135,8 @@ public class Slideshow extends Activity {
         date_view = (TextView)findViewById(R.id.date_view);
         place_view = (TextView)findViewById(R.id.place_view);
 
-        Log.d(TAG, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         setCursor();
         showCursorEntries();
-        Log.d(TAG, "pic count = " + imgInfo.length);
     }
     
     private void setCursor() {
