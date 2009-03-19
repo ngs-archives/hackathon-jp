@@ -4,34 +4,76 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import android.content.Intent;
 
-import android.app.Activity;
-import android.view.View;
+import com.android.lifestyleandtravel.net.http.CustomHttpClient;
+import com.android.lifestyleandtravel.net.transit.*;
+
+class LifeStyleCalendar {
+	
+	public LifeStyleCalendar() {
+		
+	}
+	
+	String[] appointmentInfo = { "10:00AM", "新宿", "Dentist appointment" }; 
+	public String[] getNextSchedule(){
+		return appointmentInfo;
+	}
+}
 
 
-public class GetTravelInfo {
+public class GetTravelInfo /*extends Activity*/ {
 
 	String[] travelInfo;
 	
 	// Name of current location i.e. "Shinjuku"
 	String currentLocation;
+	// Name of current destination
+	String destinationLocation;
+	
 	String serverURL = "";
 	
+	// Location and time from Calendar for next appointment
+	String[] calendarData = null;
 	
+	// Calendar object
+	LifeStyleCalendar calendar = null;
+	
+	// JSon component
+	TransitRequest transitRequest = null;
+	
+	TransitResponseHandlerImpl handler = new TransitResponseHandlerImpl();
+	
+	// Constructor
 	public GetTravelInfo() {
 		
 	}
+/*	
+	@Override
+    public void onCreate( Bundle savedInstanceState ) {
+		super.onCreate( savedInstanceState );
+		
+		calendar = new LifeStyleCalendar();
+		
+		if( calendar != null ) {
+			// Time, location of appointment and some title
+			calendarData= calendar.getNextSchedule();
+			
+			// Call JSon component here
+		}
+		
+	}
+	*/
 	
 	
 	public void setCurrentLocation( String str ) {
 		this.currentLocation = str;	
+	}
+	
+	
+	public void setDestinationLocation( String str ) {
+		this.destinationLocation = str;	
 	}
 	
 	
@@ -44,78 +86,76 @@ public class GetTravelInfo {
 	}
 	
 	
-	public void getServerData() {
-		String webContent = null;
+	public boolean getServerData() {
 		
-		try {   
-	    	   DefaultHttpClient client = new DefaultHttpClient();
-	    	
-	    	   URI uri = new URI( serverURL );  
-	    	   HttpGet method = new HttpGet(uri);  
-	    	   HttpResponse res = client.execute(method);  
-	    	   InputStream data = res.getEntity().getContent();  
-	    	   
-	    	   // webContent contains 
-	    	   // #1. Nearest station
-	    	   // #2. Transfer station
-	    	   // #3. Destination station
-	    	   // #4. Final destination ( Cerulean Tower )
-	    	   // #5. Total distance to destination 
-	    	   webContent = generateString( data );
-	    	   
-		    	   if(webContent != null) {
-		    		   prepareServerData( webContent );  
-		    	   }
-	    	   } 
-	       catch (ClientProtocolException e) { 
-	    		   e.printStackTrace();
-	    		   System.out.println( "ERROR: ClientProtocolException " + e.toString() );
-	    		   
-	    	   }
-	       catch (IOException e) { 
-	    		   e.printStackTrace(); 
-	    		   System.out.println( "ERROR: IOException " + e.toString() );
-	    		   
-	    	   } 
-	       catch (URISyntaxException e) {  
-	    		   e.printStackTrace();      
-	    		   System.out.println( "ERROR: URISyntaxException " + e.toString() );
-	    	   }   
+		boolean result = false;
+		
+		// You have current location
+		calendar = new LifeStyleCalendar();
+		
+		if( calendar != null ) {
+			// Time, location of appointment and some title
+			calendarData = calendar.getNextSchedule();
+			
+			// Get Calendar's time, destination and title
+			
+			// Call JSon component here with CurrentLocation, coords. for destination
+			transitRequest = new TransitRequest( );
+			if( currentLocation != "" ) {
+				transitRequest.saddr = currentLocation;	
+			} else {
+				transitRequest.saddr = "新宿駅";
+			}
+			
 
-	        }
-	
-	
-	public String generateString(InputStream stream) {   
-    	InputStreamReader reader = new InputStreamReader(stream); 
-    	BufferedReader buffer = new BufferedReader(reader); 
-    	StringBuilder sb = new StringBuilder();  
-    	try {
-    		String cur; 
-    		while ((cur = buffer.readLine()) != null) { 
-    			sb.append(cur + "\n"); 
-    			}  
-    		}
-    	catch (IOException e) { 
-    			e.printStackTrace(); 
-    		} 
-    	try {  
-    		stream.close(); 
-    		} 
-    	catch (IOException e) {  
-    			e.printStackTrace(); 
-    		} 
-    	
-    	return sb.toString();  
-     }
-	
-	
-	void prepareServerData(  String dataFromServer ) {
-		String delims = "[,]";
-		// How to pass tokens to UI?
-		String[] tokens = dataFromServer.split( delims );
+			if( calendarData[0] != "" ) {
+				transitRequest.daddr = calendarData[0];
+			} else {
+				// 
+				transitRequest.daddr = "37.0625,-95.677068";
+			}
+			
+			try {
+		        final TransitService service = new TransitService(new CustomHttpClient());
+		        service.execute(handler, transitRequest);
+
+		        // This is the response for the Map Ui
+		        final TransitResponse response = handler.getResponse();
+		        prepareServerData( response );
+			} catch( Exception ex ) {
+				result = false;
+			}
 		
+		}
+		return result;
+	}
+	
+
+	
+	
+	void prepareServerData(  TransitResponse dataFromServer ) {
+		
+		
+		// Call Map UI Activity
+		Intent mapUi = new Intent( this, <class.name.here>.class );
+		String dataForMapUI = "dataForMapUI";
+		mapUi.putExtra( dataForMapUI , dataFromServer )
+		startActivity( mapUi );
 		
 	}
 
+    private class TransitResponseHandlerImpl implements TransitResponseHandler {
+
+        private TransitResponse mResponse;
+
+        public final TransitResponse getResponse() {
+            return mResponse;
+        }
+
+        @Override
+        public void post( final TransitResponse response ) {
+            mResponse = response;
+        }
+    }
 
 } // end class
