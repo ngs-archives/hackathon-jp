@@ -37,7 +37,8 @@ public class LifeNaviServiceController extends Activity {
             // the service explicitly specifies our service component, because
             // we want it running in our own process and don't want other
             // applications to replace it.
-            startService(new Intent(LifeNaviServiceController.this, LifeNaviService.class));
+        	startService(new Intent(LifeNaviServiceController.this, LifeNaviService.class));
+        	
             /*
              * startButton.setEnabled(false); stopButton.setEnabled(true);
              */
