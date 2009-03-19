@@ -2,13 +2,20 @@ package com.slidedroid;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.Media;
 import android.util.Log;
+import android.widget.ImageView;
 
 public class Slideshow extends Activity {
+	
+	private static final int SCR_WIDHT = 200;
+	private static final int SCR_HEIGHT = 480;
+	
 	private final static String TAG = "Slideshow";
 	private Cursor imgCursor;
 	
@@ -23,6 +30,8 @@ public class Slideshow extends Activity {
 		 int size;
 	}
 	
+	private ImageView mView;
+	
 	private ImgInfo [] imgInfo;
 	
     /** Called when the activity is first created. */
@@ -31,9 +40,13 @@ public class Slideshow extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        mView = (ImageView)findViewById(R.id.main);
+        
         setCursor();
         
         showCursorEntries();
+        
+        drawImg(0);
         
     }
     
@@ -94,6 +107,25 @@ public class Slideshow extends Activity {
     	
     		
     	}
+    }
+    
+    private void drawImg(int i) {
+    	
+    	int w = SCR_WIDHT;
+    	
+    	BitmapFactory.Options opt = new BitmapFactory.Options();
+    	opt.outWidth = w;
+    	opt.outHeight = w/2 * 3;
+    
+    	Bitmap bmp = BitmapFactory.decodeFile(imgInfo[0].uri, opt);
+    	
+    	
+    	// float rf = (float)bmp.getWidth() / SCR_WIDHT;
+    	// int h = (int) (bmp.getHeight() / rf);
+    
+    	
+    	mView.setImageBitmap(bmp);
+    	
     }
     
 }
