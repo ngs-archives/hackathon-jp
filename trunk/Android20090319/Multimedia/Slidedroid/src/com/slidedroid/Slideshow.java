@@ -12,7 +12,18 @@ public class Slideshow extends Activity {
 	private final static String TAG = "Slideshow";
 	private Cursor imgCursor;
 	
+	private String [] imgUri;
 	
+	private class ImgInfo {
+		int id;
+		 String uri;
+		 String taken;
+		 String disName;
+		 String decs;
+		 int size;
+	}
+	
+	private ImgInfo [] imgInfo;
 	
     /** Called when the activity is first created. */
     @Override
@@ -47,22 +58,37 @@ public class Slideshow extends Activity {
     
     private void showCursorEntries() {
     	
+    	int n = imgCursor.getCount();
+    	Log.d(TAG, "Got img cursor: " + imgCursor.getCount() + " entires");
+    	
+    	imgUri = new String[n];
+    	imgInfo = new ImgInfo[n];
+    	
+    	int [] c = new int[proj.length];
+    	
+    	int i;
     	if (imgCursor.moveToFirst()) {
     		String dateTaken, dataStr;
     		int size, id;
     		int sid;
-    		int [] c = new int[proj.length];
-    		for(int i=0; i<proj.length; i++) {
+    		
+    		for(i=0; i<proj.length; i++) {
     			c[i] = imgCursor.getColumnIndex(proj[i]);
     		}
-    	
+    		
+    		i=0;
+    		
     		do {
-    			id = imgCursor.getInt(0);
-    			dateTaken = imgCursor.getString(3);
-    			size = imgCursor.getInt(5);
-    			dataStr= imgCursor.getString(1);
+    			// id = imgCursor.getInt(0);
+    			imgInfo[i] = new ImgInfo();
     			
-    			Log.d(TAG, "id=" + id + ", taken=" + dateTaken + ", s=" + dataStr);
+    			imgInfo[i].id = imgCursor.getInt(c[0]);
+    			imgInfo[i].uri = imgCursor.getString(c[1]);
+    			imgInfo[i].taken = imgCursor.getString(c[2]);
+    			imgInfo[i].size = imgCursor.getInt(c[5]);
+    			
+    			Log.d(TAG, "id=" + imgInfo[i].id + ", taken=" + imgInfo[i].taken + ", s=" + imgInfo[i].uri);
+    			i++;
     			
     		} while (imgCursor.moveToNext());
     	
