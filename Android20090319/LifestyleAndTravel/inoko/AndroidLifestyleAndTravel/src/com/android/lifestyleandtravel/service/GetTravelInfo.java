@@ -140,8 +140,7 @@ public class GetTravelInfo /*extends Activity*/ {
 		Intent mapUi = new Intent( this, <class.name.here>.class );
 		String dataForMapUI = "dataForMapUI";
 		mapUi.putExtra( dataForMapUI , dataFromServer )
-		startActivity( mapUi );
-		
+		startActivity( mapUi );	
 	}
 
     private class TransitResponseHandlerImpl implements TransitResponseHandler {
