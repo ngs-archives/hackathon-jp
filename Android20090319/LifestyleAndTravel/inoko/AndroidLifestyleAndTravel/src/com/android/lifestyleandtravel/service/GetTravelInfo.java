@@ -11,7 +11,7 @@ import java.util.*;
 import com.android.lifestyleandtravel.net.http.CustomHttpClient;
 import com.android.lifestyleandtravel.net.transit.*;
 import com.android.lifestyleandtravel.net.calendar.client;
-import com.android.lifestyleandtravel.net.ui.*;
+import com.android.lifestyleandtravel.ui.*;
 
 
 public class GetTravelInfo /*extends Activity*/ {
@@ -126,7 +126,7 @@ public class GetTravelInfo /*extends Activity*/ {
 	void prepareServerData(  TransitResponse dataFromServer ) {
 
 		// Call Map UI Activity
-	//	Intent mapUi = new Intent( this, com.android.lifestyleandtravel.net.ui.lifestyleandtravel2.class );
+		Intent mapUi = new Intent( this, com.android.lifestyleandtravel.ui.lifestyleandtravel2.class );
 		String dataForMapUI = "dataForMapUI";
 		mapUi.putExtra( dataForMapUI , dataFromServer )
 		startActivity( mapUi );	
