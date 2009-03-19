@@ -76,23 +76,25 @@ public class LifeNaviActivity extends MapActivity implements LocationListener {
 		}
 		*/
 
-		/*
-		if ( nowLocation.getLatitude() == 0.0 ) {
+
+		if ( location.getLatitude() == 0.0 ) {
 			final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-			
+			alertDialogBuilder.setTitle("到着！");
+			alertDialogBuilder.setCancelable(true);
 			AlertDialog alertDialog = alertDialogBuilder.create();
 			alertDialog.show();
-
 		}
 		else {
 			// TODO Auto-generated method stub
 			nowLocation = location;
 			c.setCenter(new GeoPoint((int)(nowLocation.getLatitude()*1E6), (int)(nowLocation.getLongitude()*1E6)));
 		}
-		*/
+
 		// TODO Auto-generated method stub
+		/*
 		nowLocation = location;
 		c.setCenter(new GeoPoint((int)(nowLocation.getLatitude()*1E6), (int)(nowLocation.getLongitude()*1E6)));
+		*/
 	}
 
 	public void onProviderDisabled(String provider) {
