@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.ToggleButton;
 import android.widget.TextView;
 
-public class GestureMeasure extends Activity
+public class GestureDetector extends Activity
 {
 	private SensorManager sensorManager;
 	private MySensorListener mySensorListener;
@@ -101,11 +101,22 @@ public class GestureMeasure extends Activity
 			
 			if (sensor == SensorManager.SENSOR_ACCELEROMETER)
 			{
+				/*
 				sensorValueHistory.append(
 						"accelero," + (new Float(values[0]).toString()) +
 						"," + (new Float(values[1]).toString()) +
 						"," + (new Float(values[2]).toString()) + "\n");
-			} 
+						*/
+				sensorValueHistory.append(
+						(new Float(Math.sqrt(
+								values[0]*values[0] +
+								values[1]*values[1] +
+								values[2]*values[2])
+								)).toString()
+						+ "\n"
+						);
+			}
+			/*
 			else 
 			{
 				sensorValueHistory.append(
@@ -113,6 +124,7 @@ public class GestureMeasure extends Activity
 						"," + (new Float(values[1]).toString()) +
 						"," + (new Float(values[2]).toString()) + "\n");
 			}
+			*/
 			accelView.setText(sensorValueHistory);
 		}
 
