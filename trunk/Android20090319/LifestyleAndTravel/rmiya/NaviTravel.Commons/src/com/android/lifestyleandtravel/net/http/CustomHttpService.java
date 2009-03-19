@@ -1,4 +1,4 @@
-package hacathon.android.net.http;
+package com.android.lifestyleandtravel.net.http;
 
 public interface CustomHttpService<T extends CustomHttpRequest, R extends CustomHttpResponse> {
 

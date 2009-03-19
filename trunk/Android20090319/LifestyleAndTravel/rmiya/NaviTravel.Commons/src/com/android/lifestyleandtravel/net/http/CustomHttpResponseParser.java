@@ -1,4 +1,4 @@
-package hacathon.android.net.http;
+package com.android.lifestyleandtravel.net.http;
 
 import java.io.IOException;
 import java.io.Reader;
