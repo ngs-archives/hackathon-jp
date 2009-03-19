@@ -1,4 +1,4 @@
-package hacathon.android.net.transit;
+package com.android.lifestyleandtravel.net.transit;
 
 import com.android.lifestyleandtravel.net.http.CustomHttpClient;
 import com.android.lifestyleandtravel.net.transit.TransitRequest;
