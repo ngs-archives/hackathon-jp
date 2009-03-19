@@ -1,13 +1,9 @@
 package com.android.lifestyleandtravel.net.transit;
 
-import com.android.lifestyleandtravel.net.http.CustomHttpClient;
-import com.android.lifestyleandtravel.net.transit.TransitRequest;
-import com.android.lifestyleandtravel.net.transit.TransitResponse;
-import com.android.lifestyleandtravel.net.transit.TransitResponseHandler;
-import com.android.lifestyleandtravel.net.transit.TransitService;
-import com.android.lifestyleandtravel.net.transit.item.Maps;
-
 import junit.framework.TestCase;
+
+import com.android.lifestyleandtravel.net.http.CustomHttpClient;
+import com.android.lifestyleandtravel.net.transit.item.Maps;
 
 public class TransitServiceTest extends TestCase {
 
@@ -32,10 +28,13 @@ public class TransitServiceTest extends TestCase {
         }
     }
 
+    /**
+     * 新宿駅（東京） から 品川駅（東京）の路線検索をする。
+     */
     public void testExecute() throws Exception {
-        // 新宿駅（東京） から 品川駅（東京）
-        final String baseUri = "http://www.google.co.jp/maps?ie=UTF8&f=d&dirflg=r&saddr=%E6%96%B0%E5%AE%BF&daddr=%E5%93%81%E5%B7%9D&ttype=dep&date=3%2F17&time=13%3A33&output=json";
-        final TransitRequest request = new TransitRequest(baseUri);
+        final TransitRequest request = new TransitRequest();
+        request.saddr = "新宿駅";
+        request.daddr = "品川駅";
 
         final TransitResponseHandlerImpl handler = new TransitResponseHandlerImpl();
         final TransitService service = new TransitService(mHttpClient);
@@ -48,9 +47,16 @@ public class TransitServiceTest extends TestCase {
         assertNotNull(maps);
         assertEquals("新宿駅（東京） から 品川駅（東京） - Google マップ", maps.title);
         assertEquals("", maps.vartitle);
-        assertEquals(
-                "/maps?ie=UTF8&f=d&dirflg=r&saddr=%E6%96%B0%E5%AE%BF&daddr=%E5%93%81%E5%B7%9D&ttype=dep&date=3/17&time=13:33",
-                maps.url);
         assertFalse(maps.urlViewport);
+
+        // マーカーのオーバーレイ表示。
+        assertEquals("新宿駅の緯度", 35.690921000000003d, maps.overlays.markers[0].latlng.lat);
+        assertEquals("新宿駅の経度", 139.70025799999999d, maps.overlays.markers[0].latlng.lng);
+
+        assertEquals("品川駅の緯度", 35.630152000000002d, maps.overlays.markers[1].latlng.lat);
+        assertEquals("品川駅の経度", 139.74044000000001d, maps.overlays.markers[1].latlng.lng);
+
+        assertFalse(maps.timeformat.ampm);
+        assertEquals("ymd", maps.timeformat.dp);
     }
 }

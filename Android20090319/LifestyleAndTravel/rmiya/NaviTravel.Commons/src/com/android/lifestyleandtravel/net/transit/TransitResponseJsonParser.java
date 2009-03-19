@@ -1,6 +1,5 @@
 package com.android.lifestyleandtravel.net.transit;
 
-
 import java.io.IOException;
 import java.io.Reader;
 import java.text.ParseException;
@@ -22,6 +21,7 @@ import com.android.lifestyleandtravel.net.transit.item.Maps;
 import com.android.lifestyleandtravel.net.transit.item.Marker;
 import com.android.lifestyleandtravel.net.transit.item.Overlays;
 import com.android.lifestyleandtravel.net.transit.item.Query;
+import com.android.lifestyleandtravel.net.transit.item.TimeFormat;
 import com.android.lifestyleandtravel.net.transit.item.ViewPort;
 import com.android.lifestyleandtravel.util.Log;
 
@@ -46,6 +46,7 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
                 maps.query = parseQuery(root.optJSONObject("query"));
                 maps.viewport = parseViewPort(root.optJSONObject("viewport"));
                 maps.overlays = parseOverlays(root.optJSONObject("overlays"));
+                maps.timeformat = parseTimeFormat(root.optJSONObject("timeformat"));
 
                 final TransitResponse response = new TransitResponse();
                 response.maps = maps;
@@ -182,6 +183,17 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
         o.drg = json.optBoolean("drg");
         o.geocode = json.optString("geocode");
         o.latlng = parseGLatLng(json.optJSONObject("latlng"));
+        return o;
+    }
+
+    private static TimeFormat parseTimeFormat(final JSONObject json) {
+        if (json == null) {
+            return null;
+        }
+
+        final TimeFormat o = new TimeFormat();
+        o.ampm = json.optBoolean("ampm");
+        o.dp = json.optString("dp");
         return o;
     }
 
