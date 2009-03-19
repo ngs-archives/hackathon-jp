@@ -24,7 +24,7 @@ public class Maps implements Serializable {
 
     public Overlays overlays;
 
-    public Point[] points;
+    public Transit transit;
 
     public TimeFormat timeformat;
 }

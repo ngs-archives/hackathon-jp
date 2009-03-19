@@ -22,7 +22,9 @@ import com.android.lifestyleandtravel.net.transit.item.Marker;
 import com.android.lifestyleandtravel.net.transit.item.Overlays;
 import com.android.lifestyleandtravel.net.transit.item.Point;
 import com.android.lifestyleandtravel.net.transit.item.Query;
+import com.android.lifestyleandtravel.net.transit.item.Route;
 import com.android.lifestyleandtravel.net.transit.item.TimeFormat;
+import com.android.lifestyleandtravel.net.transit.item.Transit;
 import com.android.lifestyleandtravel.net.transit.item.ViewPort;
 import com.android.lifestyleandtravel.util.Log;
 
@@ -47,16 +49,7 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
                 maps.query = parseQuery(root.optJSONObject("query"));
                 maps.viewport = parseViewPort(root.optJSONObject("viewport"));
                 maps.overlays = parseOverlays(root.optJSONObject("overlays"));
-
-                final JSONArray jsonPoints = root.optJSONArray("points");
-                if (jsonPoints != null) {
-                    final int length = jsonPoints.length();
-                    maps.points = new Point[length];
-                    for (int i = 0; i < length; i++) {
-                        maps.points[i] = parsePoint(jsonPoints.optJSONObject(i));
-                    }
-                }
-
+                maps.transit = parseTransit(root.optJSONObject("transit"));
                 maps.timeformat = parseTimeFormat(root.optJSONObject("timeformat"));
 
                 final TransitResponse response = new TransitResponse();
@@ -217,6 +210,40 @@ public class TransitResponseJsonParser implements CustomHttpResponseParser<Trans
         o.latlng = new GLatLng();
         o.latlng.lat = json.optDouble("lat");
         o.latlng.lng = json.optDouble("lng");
+        return o;
+    }
+
+    private static Transit parseTransit(final JSONObject json) {
+        if (json == null) {
+            return null;
+        }
+
+        final Transit o = new Transit();
+        final JSONArray jsonRoutes = json.optJSONArray("routes");
+        if (jsonRoutes != null) {
+            final int length = jsonRoutes.length();
+            o.routes = new Route[length];
+            for (int i = 0; i < length; i++) {
+                o.routes[i] = parseRoute(jsonRoutes.optJSONObject(i));
+            }
+        }
+        return o;
+    }
+
+    private static Route parseRoute(final JSONObject json) {
+        if (json == null) {
+            return null;
+        }
+
+        final Route o = new Route();
+        final JSONArray jsonPoints = json.optJSONArray("points");
+        if (jsonPoints != null) {
+            final int length = jsonPoints.length();
+            o.points = new Point[length];
+            for (int i = 0; i < length; i++) {
+                o.points[i] = parsePoint(jsonPoints.optJSONObject(i));
+            }
+        }
         return o;
     }
 
