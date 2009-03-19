@@ -20,14 +20,33 @@ public class CalendarServiceClient {
 	}
 
 	public static GCalendar getNewestCalendar(Calendar startDate) throws IOException{
-        HttpClient httpclient = new DefaultHttpClient();
-
+		GCalendar hoge = null;
+		try{
+		HttpClient httpclient = new DefaultHttpClient();
+		
 		HttpClient http = new DefaultHttpClient();
 		HttpGet method = new HttpGet("http://localhost:8080/GoogleCalendar/select");
 		HttpResponse response = http.execute(method);
 		String jsonstr = response.getEntity().toString();
 		System.out.println("jsonstr = " + jsonstr);
-		GCalendar hoge = JSON.decode(jsonstr, GCalendar.class);
+		hoge = JSON.decode(jsonstr, GCalendar.class);
+
+        }catch(Exception ex){
+        	ex.printStackTrace();
+        	
+        }
+		return hoge;
+	}
+	
+	public static GCalendar getNewestCalendar(String startDate) throws IOException{
+		GCalendar hoge = null;
+		try{
+			GCalendar gcal = new GCalendar("AndroidHackathon", "渋谷セルリアンタワー", "2009/03/20 12:00:00");
+			return gcal;
+        }catch(Exception ex){
+        	ex.printStackTrace();
+        	
+        }
 		return hoge;
 	}
 
