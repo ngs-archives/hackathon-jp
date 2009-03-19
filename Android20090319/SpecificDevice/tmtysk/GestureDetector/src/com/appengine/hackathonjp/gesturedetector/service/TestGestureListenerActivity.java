@@ -21,10 +21,10 @@ public class TestGestureListenerActivity extends Activity {
 	private IGestureDetectorListener mListener = new IGestureDetectorListener() {
 
 		@Override
-		public boolean onBasicGestureDetect(String gestureType)
+		public boolean onBasicGestureDetect(int gestureType)
 				throws RemoteException {
 			// TODO Auto-generated method stub
-			tv.setText("yes! takasu!");
+			tv.setText("yes! takasu!: " + gestureType);
 			return false;
 		}
 
@@ -44,7 +44,8 @@ public class TestGestureListenerActivity extends Activity {
 					.asInterface(service);
 			try {
 				Log.d("GD", "register");
-				mService.registerGestureDetection("", mListener);
+				for (int i = 1; i <= 8; ++i)
+					mService.registerGestureDetection(i, mListener);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

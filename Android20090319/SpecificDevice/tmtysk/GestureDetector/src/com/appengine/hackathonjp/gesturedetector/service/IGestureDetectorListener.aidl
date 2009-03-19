@@ -6,5 +6,5 @@ interface IGestureDetectorListener {
     * gestureType includes: ROTATE, SHAKE, CATCH, DROP
     * 
     */
-    boolean onBasicGestureDetect(String gestureType);
+    boolean onBasicGestureDetect(int gestureType);
 }
