@@ -85,14 +85,11 @@ public class GetTravelInfo /*extends Activity*/ {
 		}
 	}
 	
-	
-	public boolean getServerData() {
-		
-		boolean result = false;
-		
+	// Use JSon component
+	public void getServerData() {
+
 		// You have current location
 		calendar = new LifeStyleCalendar();
-		
 		if( calendar != null ) {
 			// Time, location of appointment and some title
 			calendarData = calendar.getNextSchedule();
@@ -101,13 +98,13 @@ public class GetTravelInfo /*extends Activity*/ {
 			
 			// Call JSon component here with CurrentLocation, coords. for destination
 			transitRequest = new TransitRequest( );
+			
 			if( currentLocation != "" ) {
 				transitRequest.saddr = currentLocation;	
 			} else {
 				transitRequest.saddr = "新宿駅";
 			}
 			
-
 			if( calendarData[0] != "" ) {
 				transitRequest.daddr = calendarData[0];
 			} else {
@@ -123,19 +120,17 @@ public class GetTravelInfo /*extends Activity*/ {
 		        final TransitResponse response = handler.getResponse();
 		        prepareServerData( response );
 			} catch( Exception ex ) {
-				result = false;
+
 			}
-		
 		}
-		return result;
+		
+
 	}
 	
 
-	
-	
+
 	void prepareServerData(  TransitResponse dataFromServer ) {
-		
-		
+
 		// Call Map UI Activity
 		Intent mapUi = new Intent( this, <class.name.here>.class );
 		String dataForMapUI = "dataForMapUI";
@@ -146,11 +141,11 @@ public class GetTravelInfo /*extends Activity*/ {
     private class TransitResponseHandlerImpl implements TransitResponseHandler {
 
         private TransitResponse mResponse;
-
         public final TransitResponse getResponse() {
             return mResponse;
         }
 
+        
         @Override
         public void post( final TransitResponse response ) {
             mResponse = response;
