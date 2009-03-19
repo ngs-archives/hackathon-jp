@@ -30,7 +30,7 @@ import com.android.lifestyleandtravel.util.Log;
 
 public class TransitResponseJsonParser implements CustomHttpResponseParser<TransitResponse> {
 
-    @Override
+
     public void parse(final CustomHttpResponseHandler<TransitResponse> handler, final Reader in)
             throws IOException, CustomHttpParseException {
         try {

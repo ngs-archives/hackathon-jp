@@ -137,7 +137,6 @@ public class GetTravelInfo /* extends Activity */{
             return mResponse;
         }
 
-        @Override
         public void post(final TransitResponse response) {
             mResponse = response;
         }

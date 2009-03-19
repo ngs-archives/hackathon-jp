@@ -32,7 +32,7 @@ public class TransitRequest implements CustomHttpRequest {
         mBaseUri = baseUri;
     }
 
-    @Override
+
     public String toUrl() {
         try {
             final String encodeSaddr = URLEncoder.encode(saddr, "utf-8");

@@ -24,7 +24,7 @@ public class TransitService implements CustomHttpService<TransitRequest, Transit
         mHttpClient = httpClient;
     }
 
-    @Override
+    
     public void execute(final CustomHttpResponseHandler<TransitResponse> handler,
             final TransitRequest request) throws CustomHttpException {
         final String url = request.toUrl();
