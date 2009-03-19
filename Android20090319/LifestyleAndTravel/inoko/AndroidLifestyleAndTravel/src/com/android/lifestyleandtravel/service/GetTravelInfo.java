@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import com.android.lifestyleandtravel.net.http.CustomHttpClient;
 import com.android.lifestyleandtravel.net.transit.*;
+import com.android.lifestyleandtravel.net.calendar.client;
 
 class LifeStyleCalendar {
 	
@@ -38,7 +39,7 @@ public class GetTravelInfo /*extends Activity*/ {
 	String[] calendarData = null;
 	
 	// Calendar object
-	LifeStyleCalendar calendar = null;
+	GCalendar calendar = null;
 	
 	// JSon component
 	TransitRequest transitRequest = null;
