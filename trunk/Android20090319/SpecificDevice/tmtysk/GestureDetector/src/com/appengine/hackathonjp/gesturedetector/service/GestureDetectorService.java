@@ -114,7 +114,6 @@ public class GestureDetectorService extends Service {
 	
 	private final IGestureDetectorService.Stub mGesture = new IGestureDetectorService.Stub() {
 
-		@Override
 		public void registerGestureDetection(int detectionType,
 				IGestureDetectorListener listener) throws RemoteException {
 			Log.d("GestureDetectorService", "register: " + detectionType);
@@ -134,7 +133,7 @@ public class GestureDetectorService extends Service {
 			mListeners.get(detectionType).add(listener);
 		}
 
-		@Override
+		
 		public void unregisterGestureDetection(int detectionType,
 				IGestureDetectorListener listener) throws RemoteException {
 			if (mListeners.containsKey(detectionType) && mListeners.get(detectionType) != null) {
