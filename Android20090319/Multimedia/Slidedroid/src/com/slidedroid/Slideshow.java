@@ -32,6 +32,7 @@ public class Slideshow extends Activity {
 	
 	private ImageView mView;
 	
+	private int cnt=0;
 	private ImgInfo [] imgInfo;
 	
     /** Called when the activity is first created. */
@@ -46,7 +47,7 @@ public class Slideshow extends Activity {
         
         showCursorEntries();
         
-        drawImg(0);
+        drawImg(cnt-1);
         
     }
     
@@ -71,7 +72,7 @@ public class Slideshow extends Activity {
     
     private void showCursorEntries() {
     	
-    	int n = imgCursor.getCount();
+    	int n = cnt = imgCursor.getCount();
     	Log.d(TAG, "Got img cursor: " + imgCursor.getCount() + " entires");
     	
     	imgUri = new String[n];
