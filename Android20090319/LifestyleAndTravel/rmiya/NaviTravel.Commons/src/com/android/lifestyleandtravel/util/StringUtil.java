@@ -1,4 +1,4 @@
-package hacathon.android.util;
+package com.android.lifestyleandtravel.util;
 
 public final class StringUtil {
 

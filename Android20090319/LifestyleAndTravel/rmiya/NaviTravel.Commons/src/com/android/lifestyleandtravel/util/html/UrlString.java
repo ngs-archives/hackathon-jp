@@ -1,13 +1,14 @@
-package hacathon.android.util.html;
+package com.android.lifestyleandtravel.util.html;
 
-import hacathon.android.util.ArrayUtil;
-import hacathon.android.util.StringUtil;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import com.android.lifestyleandtravel.util.ArrayUtil;
+import com.android.lifestyleandtravel.util.StringUtil;
 
 public class UrlString {
 

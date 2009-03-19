@@ -1,6 +1,5 @@
 package com.android.lifestyleandtravel.net.transit;
 
-import hacathon.android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,6 +14,7 @@ import com.android.lifestyleandtravel.net.http.CustomHttpException;
 import com.android.lifestyleandtravel.net.http.CustomHttpParseException;
 import com.android.lifestyleandtravel.net.http.CustomHttpResponseHandler;
 import com.android.lifestyleandtravel.net.http.CustomHttpService;
+import com.android.lifestyleandtravel.util.Log;
 
 public class TransitService implements CustomHttpService<TransitRequest, TransitResponse> {
 

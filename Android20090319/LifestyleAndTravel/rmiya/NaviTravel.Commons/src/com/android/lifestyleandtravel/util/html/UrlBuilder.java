@@ -1,4 +1,4 @@
-package hacathon.android.util.html;
+package com.android.lifestyleandtravel.util.html;
 
 import java.net.URI;
 import java.util.Iterator;

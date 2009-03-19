@@ -1,4 +1,4 @@
-package hacathon.android.util;
+package com.android.lifestyleandtravel.util;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

@@ -1,7 +1,12 @@
 package hacathon.android.net.transit;
 
-import hacathon.android.net.http.CustomHttpClient;
-import hacathon.android.net.transit.item.Maps;
+import com.android.lifestyleandtravel.net.http.CustomHttpClient;
+import com.android.lifestyleandtravel.net.transit.TransitRequest;
+import com.android.lifestyleandtravel.net.transit.TransitResponse;
+import com.android.lifestyleandtravel.net.transit.TransitResponseHandler;
+import com.android.lifestyleandtravel.net.transit.TransitService;
+import com.android.lifestyleandtravel.net.transit.item.Maps;
+
 import junit.framework.TestCase;
 
 public class TransitServiceTest extends TestCase {

@@ -1,6 +1,6 @@
-package hacathon.android.util.html;
+package com.android.lifestyleandtravel.util.html;
 
-import hacathon.android.util.ArrayUtil;
+import com.android.lifestyleandtravel.util.ArrayUtil;
 
 public class UrlParameter {
 
