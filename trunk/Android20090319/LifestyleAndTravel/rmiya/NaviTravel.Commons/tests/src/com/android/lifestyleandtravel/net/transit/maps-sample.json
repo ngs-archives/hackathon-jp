@@ -50,7 +50,8 @@ overlays:{
 		geocode:"",
 		latlng:{
 			lat:35.690921000000003,
-			lng:139.70025799999999}
+			lng:139.70025799999999
+			}
 		},
 		{id:"ddw1",
 		image:"/intl/ja_jp/mapfiles/marker_greenB.png",
@@ -105,14 +106,22 @@ transit:{
 			levels:"B???????????@??@????@?????@?@???A??????@?@???A???@???@??@???@B",
 			numLevels:4,
 			zoomFactor:16}],
-points:[{lat:35.690921000000003,
-lng:139.70025799999999},
-{lat:35.630062000000002,
-lng:139.73892499999999},
-{lat:35.630152000000002,
-lng:139.74044000000001,
-arrow:{point:2,
-prevPoint:1}}],
+points:[
+	{
+		lat:35.690921000000003,
+		lng:139.70025799999999
+	},
+	{
+		lat:35.630062000000002,
+		lng:139.73892499999999
+	},
+	{
+		lat:35.630152000000002,
+		lng:139.74044000000001,
+		arrow:{
+			point:2,
+			prevPoint:1}
+		}],
 steps:[{depPoint:0,
 arrPoint:2,
 depMarker:1,
@@ -505,5 +514,7 @@ tm:"depart"},
 driving:{avhwy:false,
 avtoll:false}},
 slayers_trigger:false,
-timeformat:{ampm:false,
-dp:"ymd"}}
+timeformat:{
+	ampm:false,
+	dp:"ymd"}
+}
