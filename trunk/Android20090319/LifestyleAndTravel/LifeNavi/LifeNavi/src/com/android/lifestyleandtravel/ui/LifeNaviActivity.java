@@ -11,7 +11,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
-public class lifestyleandtravel2 extends MapActivity {
+public class LifeNaviActivity extends MapActivity {
     /** Called when the activity is first created. */
 
     @Override
