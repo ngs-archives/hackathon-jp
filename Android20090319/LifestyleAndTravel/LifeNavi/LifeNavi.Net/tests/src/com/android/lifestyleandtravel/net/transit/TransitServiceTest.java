@@ -9,7 +9,7 @@ public class TransitServiceTest extends TestCase {
 
     private CustomHttpClient mHttpClient;
 
-    @Override
+
     protected void setUp() throws Exception {
         mHttpClient = new CustomHttpClient();
     }
@@ -22,7 +22,7 @@ public class TransitServiceTest extends TestCase {
             return mResponse;
         }
 
-        @Override
+
         public void post(final TransitResponse response) {
             mResponse = response;
         }
