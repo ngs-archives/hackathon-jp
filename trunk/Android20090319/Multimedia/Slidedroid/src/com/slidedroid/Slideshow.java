@@ -1,15 +1,23 @@
 package com.slidedroid;
 
+import java.io.IOException;
+import java.util.List;
+
 import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.Media;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.maps.GeoPoint;
 
 public class Slideshow extends Activity {
 	
@@ -21,6 +29,8 @@ public class Slideshow extends Activity {
 	
 	private String [] imgUri;
 	
+	Geocoder gc;
+	
 	private class ImgInfo {
 		int id;
 		 String uri;
@@ -28,6 +38,42 @@ public class Slideshow extends Activity {
 		 String disName;
 		 String decs;
 		 int size;
+		 Double lon;
+		 Double lat;
+		 String location;
+		 Address adr;
+		 String sAdr="default address";
+		 
+		 GeoPoint pt;
+		 
+		 ImgInfo() {
+			 // pt = new GeoPoint();
+		 }
+		 
+		 boolean getAdr() {
+			 
+			 if(gc==null)
+				 return false;
+			 
+			 List<Address> la = null;
+			 adr = null;
+			 boolean b=false;
+			 try {
+				la = gc.getFromLocation(lat, lon, 1);
+				if(la!=null && la.size()>0) {
+					adr = la.get(0);
+					sAdr = adr.toString();
+					b = true;
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return b;
+			 
+		 }
+		 
 	}
 	
 	private ImageView mView;
@@ -40,6 +86,8 @@ public class Slideshow extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        gc = new Geocoder(this);
         
         mView = (ImageView)findViewById(R.id.main);
         
@@ -59,7 +107,9 @@ public class Slideshow extends Activity {
 			Images.Media.DATE_TAKEN,
 			Images.Media.DISPLAY_NAME,
 			Images.Media.DESCRIPTION,
-			Images.Media.SIZE
+			Images.Media.SIZE,
+			Images.Media.LONGITUDE,
+			Images.Media.LATITUDE
 	};
     
     private void setCursor() {
@@ -100,8 +150,15 @@ public class Slideshow extends Activity {
     			imgInfo[i].uri = imgCursor.getString(c[1]);
     			imgInfo[i].taken = imgCursor.getString(c[2]);
     			imgInfo[i].size = imgCursor.getInt(c[5]);
+    			imgInfo[i].lon = imgCursor.getDouble(c[6]);
+    			imgInfo[i].lat = imgCursor.getDouble(c[7]);
     			
     			Log.d(TAG, "id=" + imgInfo[i].id + ", taken=" + imgInfo[i].taken + ", s=" + imgInfo[i].uri);
+    			
+    			boolean b = imgInfo[i].getAdr();
+    			if (b) {
+    				Log.d(TAG, imgInfo[i].sAdr);
+    			}
     			i++;
     			
     		} while (imgCursor.moveToNext());
@@ -124,8 +181,12 @@ public class Slideshow extends Activity {
     	// float rf = (float)bmp.getWidth() / SCR_WIDHT;
     	// int h = (int) (bmp.getHeight() / rf);
     
-    	
     	mView.setImageBitmap(bmp);
+    	
+    	// Toast t = new Toast(this);
+    	Toast.makeText(this, imgInfo[i].sAdr, 10).show();
+    	// t.setText(imgInfo[i].sAdr);
+    	// t.show();
     	
     }
     
