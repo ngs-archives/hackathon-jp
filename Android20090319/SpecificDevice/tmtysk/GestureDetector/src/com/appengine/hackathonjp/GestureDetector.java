@@ -18,14 +18,21 @@ public class GestureDetector extends Activity
 {
 	private static final int NOT_MOVED = 0;
 	private static final int MOVED_UP = 1;
-	private static final int MOVED_RIGHT = 2;
-	private static final int MOVED_DOWN = 3;
-	private static final int MOVED_LEFT = 4;
+	private static final int MOVED_RIGHTUP = 2;
+	private static final int MOVED_RIGHT = 3;
+	private static final int MOVED_RIGHTDOWN = 4;
+	private static final int MOVED_DOWN = 5;
+	private static final int MOVED_LEFTDOWN = 6;
+	private static final int MOVED_LEFT = 7;
+	private static final int MOVED_LEFTUP = 8;
+
+	private static final float ACC_MARGIN = 1.0F;
+	
+	/*
 	private static final int MOVED_APPROACHING = 5;
 	private static final int MOVED_LEAVING = 6;
 	private static final float G = 9.8F;
 	private static final float ACC_THRESHOLD = 1.0F;
-	private static final float ACC_MARGIN = 2.0F;
 	
 	private static final int DEVICETOP_TOP = 11;
 	private static final int DEVICERIGHT_TOP = 12;
@@ -33,8 +40,9 @@ public class GestureDetector extends Activity
 	private static final int DEVICELEFT_TOP = 14;
 	private static final int DISPLAY_TOP = 15;
 	private static final int BACK_TOP = 16;
+	*/
 	
-	private static final int TIMES_RECORDING = 5;
+	private static final int TIMES_RECORDING = 8;
 	
 	/*
 	private final String[7] STR_MOVED = 
@@ -246,13 +254,37 @@ public class GestureDetector extends Activity
 					// Moved X
 					if (accX > 0)
 					{
-						//direction = new String("Moved Right\n");
-						pushDirection(MOVED_RIGHT);
+						// Moved right
+						if (Math.abs(accX-accY) < ACC_MARGIN)
+						{
+							pushDirection(MOVED_RIGHTUP);
+						}
+						else if (Math.abs(accX+accY) < ACC_MARGIN)
+						{
+							pushDirection(MOVED_RIGHTDOWN);
+						}
+						else
+						{
+							//direction = new String("Moved Right\n");
+							pushDirection(MOVED_RIGHT);
+						}
 					}
 					else
 					{
-						//direction = new String("Moved Left\n");
-						pushDirection(MOVED_LEFT);
+						//Moved left
+						if (Math.abs(accX+accY) < ACC_MARGIN)
+						{
+							pushDirection(MOVED_LEFTUP);
+						}
+						else if (Math.abs(accX-accY) < ACC_MARGIN)
+						{
+							pushDirection(MOVED_LEFTDOWN);
+						}
+						else
+						{
+							//direction = new String("Moved Left\n");
+							pushDirection(MOVED_LEFT);
+						}
 					}
 					//sensorValueHistory.append(direction);
 				}
@@ -261,12 +293,36 @@ public class GestureDetector extends Activity
 					// Moved Y
 					if (accY > 0)
 					{
-						//direction = new String("Moved Up\n");
-						pushDirection(MOVED_UP);
+						// Moved up
+						if (Math.abs(accY-accX) < ACC_MARGIN)
+						{
+							pushDirection(MOVED_RIGHTUP);
+						}
+						else if (Math.abs(accY+accX) < ACC_MARGIN)
+						{
+							pushDirection(MOVED_LEFTUP);
+						}
+						else
+						{
+							//direction = new String("Moved Up\n");
+							pushDirection(MOVED_UP);
+						}
 					}
 					else
 					{
-						pushDirection(MOVED_DOWN);
+						// Moved down
+						if (Math.abs(accY-accX) < ACC_MARGIN)
+						{
+							pushDirection(MOVED_LEFTDOWN);
+						}
+						else if (Math.abs(accY+accX) < ACC_MARGIN)
+						{
+							pushDirection(MOVED_RIGHTDOWN);
+						}
+						else
+						{
+							pushDirection(MOVED_DOWN);
+						}
 						//direction = new String("Moved Down\n");
 					}
 					//sensorValueHistory.append(direction);
