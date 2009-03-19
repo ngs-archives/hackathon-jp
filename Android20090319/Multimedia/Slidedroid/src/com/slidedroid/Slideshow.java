@@ -1,9 +1,12 @@
 package com.slidedroid;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -97,6 +100,7 @@ public class Slideshow extends Activity {
         
         drawImg(cnt-1);
         
+       addDescription2(cnt-1, "Nice pic", "It was so hot...");
     }
     
     
@@ -154,6 +158,7 @@ public class Slideshow extends Activity {
     			imgInfo[i].lat = imgCursor.getDouble(c[7]);
     			
     			Log.d(TAG, "id=" + imgInfo[i].id + ", taken=" + imgInfo[i].taken + ", s=" + imgInfo[i].uri);
+    			Log.d(TAG,	", t=" + imgInfo[i].disName + ", d=" + imgInfo[i].decs);
     			
     			boolean b = imgInfo[i].getAdr();
     			if (b) {
@@ -189,5 +194,60 @@ public class Slideshow extends Activity {
     	// t.show();
     	
     }
+    
+    
+    
+    void addDescription(int ix, String title, String desc) {
+    	ContentValues val = new ContentValues(2);
+    	
+    	val.put(proj[3], title);
+    	val.put(proj[4], desc);
+    	
+    	ContentResolver cr = getContentResolver();
+    	String sid; Uri u;
+    	
+    	// throws exception:
+    	// Caused by: java.lang.UnsupportedOperationException: Unknown or unsupported URL: 
+    	// content://media/external/images/media/com.slidedroid.Slideshow$ImgInfo@433e5e58
+    	/*sid = String.valueOf(imgInfo[ix]);
+    	u = Uri.withAppendedPath(Media.EXTERNAL_CONTENT_URI, sid );
+    	sid=null;*/
+    	
+    	// this is like in Sql: WHERE sid
+    	// WHERE "_id=5"
+    	// throws
+    	// 03-19 06:36:15.975: ERROR/AndroidRuntime(1811): Caused by: java.lang.UnsupportedOperationException: 
+    	// Unknown or unsupported URL: content://media/external/images/media
+    	u = Media.EXTERNAL_CONTENT_URI;
+    	sid = proj[0] + "=" + imgInfo[ix].id;   
+    	
+    	cr.update(u, val, sid, null);
+    	
+    }
+    
+    void addDescription2(int ix, String title, String desc) {
+    	
+    	ContentValues values = new ContentValues(3);
+    	values.put(Media.DISPLAY_NAME, title);
+    	values.put(Media.DESCRIPTION, desc);
+    	values.put(Media.MIME_TYPE, "image/jpeg");
+
+    	// Add a new record without the bitmap, but with the values just set.
+    	// insert() returns the URI of the new record.
+    	Uri uri = getContentResolver().insert(Media.EXTERNAL_CONTENT_URI, values);
+
+    	// Now get a handle to the file for that record, and save the data into it.
+    	// Here, sourceBitmap is a Bitmap object representing the file to save to the database.
+    	Bitmap sourceBitmap = BitmapFactory.decodeFile(imgInfo[ix].uri);
+    	try {
+    	    OutputStream outStream = getContentResolver().openOutputStream(uri);
+    	    sourceBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
+    	    outStream.close();
+    	    Log.d(TAG, "Wrote " + title +", " + desc);
+    	} catch (Exception e) {
+    	    Log.e(TAG, "exception while writing image", e);
+    	}
+    }
+    
     
 }
