@@ -5,13 +5,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+import org.apache.http.conn.ManagedClientConnection;
+
+import jp.co.haw.android.example.shake.Application.Apps;
 import jp.co.haw.android.example.shake.worker.TaskSwitcher;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 public class ShakeDetector extends Service implements SensorListener {
@@ -107,18 +113,22 @@ public class ShakeDetector extends Service implements SensorListener {
 					right = !right;
 					tmptime = 0;
 					//右にふられたので、右に振られた時にキックするものがあればキック。
+					startApplication(0);
 				} else if (left && currentAccelerationValues[0]<=-8){
 					left = !left;
 					tmptime = 0;
 					//左にふられたので、左に振られた時にキックするものがあればキック。
+					startApplication(1);
 				} else if (back && currentAccelerationValues[2]<=-8){
 					back = !back;
 					tmptime = 0;
 					//奥にふられたので、奥に振られた時にキックするものがあればキック。
+					startApplication(2);
 				} else if (front && currentAccelerationValues[2]>=8){
 					front = !front;
 					tmptime = 0;
 					//手前にふられたので、手前に振られた時にキックするものがあればキック。
+					startApplication(3);
 				}
 			} else {
 				tmptime = 0;
@@ -138,5 +148,31 @@ public class ShakeDetector extends Service implements SensorListener {
 			taskSwitcher.onShake();
 		}
 	}
-
+	
+	/*
+	 * 毎回DBを読むのは電力がもったいないかもしれない
+	 * 毎回読まないとサービスを再実行しないと更新が反映されない
+	 */
+	public void startApplication(int direction) {
+		String[] proj = {Apps.CLASS};
+		ContentResolver cr = getContentResolver();
+		String[] args = {"" + direction};
+		
+        Cursor cur = cr.query(Apps.CONTENT_URI, proj, Apps.ACTION + " = ?", args, Apps.DEFAULT_SORT_ORDER);
+        int classColumn = cur.getColumnIndexOrThrow(Apps.CLASS); 
+        
+        if (cur.moveToFirst()) {
+        	// Get the field values
+        	String clazz = cur.getString(classColumn);
+        	Log.d("TEST", "clazz is " + clazz);
+        	Intent i;
+			try {
+				i = new Intent(getApplicationContext(), Class.forName(clazz));
+			} catch (ClassNotFoundException e) {
+				return;
+			}
+        	startActivity(i);
+        }
+		
+	}
 }
