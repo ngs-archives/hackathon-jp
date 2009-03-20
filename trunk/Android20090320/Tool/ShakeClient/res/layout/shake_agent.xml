@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+    
+	<Spinner
+		android:id="@+id/SpinnerShake" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+	/>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingLeft="6dip"
+		android:paddingRight="6dip">	
+	
+		<ImageView android:id="@+id/select_app_icon"
+			android:layout_gravity="center_vertical"
+	    	android:layout_marginRight="20px"
+	    	android:layout_marginLeft="20px"
+	        android:layout_width="48dip"
+	        android:layout_height="48dip" />
+        
+	    <TextView 
+	    	android:id="@+id/select_app_title"
+		    android:layout_width="180dip"
+		    android:layout_height="?android:attr/listPreferredItemHeight"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:gravity="center_vertical"
+		    android:paddingLeft="6dip"
+		    android:paddingRight="6dip"
+	         />
+	         
+	    <Button
+			android:id="@+id/ButtonSeelectApp" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:text="@string/button_select_app_text"
+		/>
+	</LinearLayout>
+
+</LinearLayout>
