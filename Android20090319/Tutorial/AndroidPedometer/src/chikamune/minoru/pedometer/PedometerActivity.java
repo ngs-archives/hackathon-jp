@@ -1,6 +1,9 @@
 package chikamune.minoru.pedometer;
 
-import java.util.Arrays;
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+import static java.util.Arrays.fill;
 import android.app.Activity;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
@@ -87,7 +90,6 @@ public class PedometerActivity extends Activity {
                 synchronized (PedometerActivity.class) {
                     if (isStep(values)) {
                         steps++;
-                        //                        vibrator.vibrate(30);
                     }
                 }
             }
@@ -100,7 +102,7 @@ public class PedometerActivity extends Activity {
     float[] shortRecentDatas;
     long previousStep = System.currentTimeMillis();
     protected boolean isStep(float[] values) {
-        float current = (float) Math.pow((power(values[3]) + power(values[4]) + power(values[5])), 1.0 / 3.0);
+        float current = (float) sqrt(pow(values[3], 2) + pow(values[4], 2) + pow(values[5], 2));
         if (longRecentDatas != null) {
             longRecentDatas[longRecentDatasIndex] = current;
             if (longRecentDatasIndex == longRecentDatas.length - 1) {
@@ -110,7 +112,7 @@ public class PedometerActivity extends Activity {
             }
         } else {
             longRecentDatas = new float[5];
-            Arrays.fill(longRecentDatas, current);
+            fill(longRecentDatas, current);
         }
         if (shortRecentDatas != null) {
             shortRecentDatas[shortRecentDatasIndex] = current;
@@ -121,11 +123,11 @@ public class PedometerActivity extends Activity {
             }
         } else {
             shortRecentDatas = new float[2];
-            Arrays.fill(shortRecentDatas, current);
+            fill(shortRecentDatas, current);
         }
         stepsView.setText(+steps + " •à");
-        if (Math.abs(averagePower() - currentPower()) > 0.15 && (System.currentTimeMillis() - previousStep > 300)) {
-            Arrays.fill(longRecentDatas, currentPower());
+        if (abs(averagePower() - currentPower()) > 0.15 && (System.currentTimeMillis() - previousStep > 300)) {
+            fill(longRecentDatas, currentPower());
             previousStep = System.currentTimeMillis();
             return true;
         } else {
@@ -144,8 +146,5 @@ public class PedometerActivity extends Activity {
             sum += value;
         }
         return sum / values.length;
-    }
-    protected static float power(float value) {
-        return value * value;
     }
 }
