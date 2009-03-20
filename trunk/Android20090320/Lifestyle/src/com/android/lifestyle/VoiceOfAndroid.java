@@ -9,13 +9,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class VoiceOfAndroid extends Activity {
 	public String tmpText = "";
-	
+
 
 	/** Called when the activity is first created. */
     @Override
@@ -25,28 +27,47 @@ public class VoiceOfAndroid extends Activity {
         final AlertDialog.Builder ad = new AlertDialog.Builder(this).setMessage("test");
         final EditText text = (EditText)findViewById(R.id.text);
         registerForContextMenu(findViewById(R.id.text));
-        
+
         // 日本語ボタン取得
         final Button jaBtn =(Button)findViewById(R.id.jsave);
         jaBtn.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v) {
-				changeText("jp",text.getText().toString());
+				changeText("ej",text.getText().toString());
 			}
         });
-       
+
         // 英語ボタン取得
         final Button enBtn =(Button)findViewById(R.id.esave);
         enBtn.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v) {
-				changeText("eng",text.getText().toString());
+				changeText("je",text.getText().toString());
 			}
         });
-        
+
+//        // フランス語ボタン取得
+//        final Button frBtn =(Button)findViewById(R.id.fsave);
+//        frBtn.setOnClickListener(new Button.OnClickListener(){
+//			public void onClick(View v) {
+//				changeText("fr",text.getText().toString());
+//			}
+//        });
     }
-    
+
     // 翻訳クラス処理に移動
     public void changeText(String code, String text) {
-    	
+    	final TextView word = (TextView)findViewById(R.id.word);
+
+    	Translation translation = new Translation();
+
+    	WebView view = new WebView(this);
+
+    	translation.work(view ,text, code);
+
+    	setContentView(view);
+
+
+
+//    	word.setText(text);
     }
 
 	@Override
@@ -61,7 +82,7 @@ public class VoiceOfAndroid extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		final EditText text = (EditText)findViewById(R.id.text);
-		
+
 		switch(item.getItemId()) {
 		case 0:
 			changeText("jp",text.getText().toString());
@@ -72,6 +93,6 @@ public class VoiceOfAndroid extends Activity {
 		}
 		return true;
 	}
-	
-	
+
+
 }
