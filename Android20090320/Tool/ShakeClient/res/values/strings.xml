@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shake Agent</string>
+    
+    <string name="app_info">app_infoです</string>
+    <string name="app_url">app_urlです</string>
+    
+    <string name="start_service">start service</string>
+    <string name="stop_service">stop service</string>
+    <string name="shake_agent_started">Shake Agent started</string>
+    <string name="shake_agent_stopped">Stopped</string>
+</resources>
