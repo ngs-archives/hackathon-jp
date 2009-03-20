@@ -122,7 +122,7 @@ public class ShakeAgent extends Activity {
     		
     		for(int i=0; i<4; i++){
 	        	ContentValues v = new ContentValues();
-	        	v.put(Apps.CLASS, ShakeAgent.class.toString());
+	        	v.put(Apps.CLASS, "jp.co.haw.android.example.shake.ShakeAgent");
 	        	v.put(Apps.ACTION, i);        	
 	        	cr.insert(Apps.CONTENT_URI, v);
     		}
@@ -163,7 +163,7 @@ public class ShakeAgent extends Activity {
     	
     	ContentValues v = new ContentValues();
     	System.out.println(componentName.getPackageName());
-    	String app = componentName.getPackageName() + componentName.getClassName();
+    	String app = componentName.getClassName();
     	v.put(Apps.CLASS, app);
     	v.put(Apps.ACTION, shakeInfo.action);
     	
