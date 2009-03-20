@@ -3,6 +3,7 @@ package jp.co.haw.android.example.shake;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 import jp.co.haw.android.example.shake.worker.TaskSwitcher;
 import android.app.Service;
@@ -17,6 +18,9 @@ public class ShakeDetector extends Service implements SensorListener {
 
 	private SensorManager sensorManager;
 	private static DecimalFormat format;
+    static boolean right = false;
+    static boolean left = false;
+    static long tmptime = 0;
 	static {
 		format = new DecimalFormat();
 		format.applyLocalizedPattern("#0.000");
@@ -82,21 +86,27 @@ public class ShakeDetector extends Service implements SensorListener {
             currentAccelerationValues[1] = values[1] - currentOrientationValues[1];
             currentAccelerationValues[2] = values[2] - currentOrientationValues[2];
 
-            float targetValue =
-                Math.abs(currentAccelerationValues[0]) +
-                Math.abs(currentAccelerationValues[1]) +
-                Math.abs(currentAccelerationValues[2]);
-
-            if(targetValue > 12.0f) {
-                if(!waitFlag) {
-                    valueArray.clear();
-                    valueArray.add(targetValue);
-                    waitFlag = true;
-                    processHandler.postDelayed(processRunnable, 300);
-                } else {
-                    valueArray.add(targetValue);
-                }
-            }
+            
+			if (!right && currentAccelerationValues[0]<=-8){
+				right = true;
+				tmptime = new Date().getTime();
+			} else if (!left && currentAccelerationValues[0]>=8){
+				left = true;
+				tmptime = new Date().getTime();
+			}
+			if (tmptime != 0 && new Date().getTime() - tmptime <3000) {
+				if (right && currentAccelerationValues[0]>=8){
+					right = !right;
+					tmptime = 0;
+					//右にふられたので、右に振られた時にキックするものがあればキック。
+				} else if (left && currentAccelerationValues[0]<=-8){
+					left = !left;
+					tmptime = 0;
+					//左にふられたので、左に振られた時にキックするものがあればキック。
+				}
+			} else {
+				tmptime = 0;
+			}
 
             default:
         }
