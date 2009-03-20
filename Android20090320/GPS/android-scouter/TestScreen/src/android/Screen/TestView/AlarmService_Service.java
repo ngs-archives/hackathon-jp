@@ -37,10 +37,6 @@ public class AlarmService_Service extends Service {
 		// Tell the user we stopped.
 		Toast.makeText(this, R.string.alarm_service_finished,
 				Toast.LENGTH_SHORT).show();
-		String st01 = "aaaaa";
-		String st02 = "bbbbb";
-		String st03 = "cccc";
-		// upDateDisplay(st01, st02, st03);
 	}
 
 	/**
