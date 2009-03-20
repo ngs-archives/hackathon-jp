@@ -6,7 +6,11 @@
     <!-- Permissionを定義 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <user-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <provider android:name="jp.co.haw.android.example.shake.ApplicationProvider"
+            android:authorities="jp.co.haw.android.provider.application"
+        />
         <activity android:name=".ShakeAgent"
                   android:label="@string/app_name">
             <intent-filter>
