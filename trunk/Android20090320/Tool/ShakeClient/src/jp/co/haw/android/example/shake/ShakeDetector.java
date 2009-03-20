@@ -20,6 +20,8 @@ public class ShakeDetector extends Service implements SensorListener {
 	private static DecimalFormat format;
     static boolean right = false;
     static boolean left = false;
+    static boolean back = false;
+    static boolean front = false;
     static long tmptime = 0;
 	static {
 		format = new DecimalFormat();
@@ -93,6 +95,12 @@ public class ShakeDetector extends Service implements SensorListener {
 			} else if (!left && currentAccelerationValues[0]>=8){
 				left = true;
 				tmptime = new Date().getTime();
+			} else if (!back && currentAccelerationValues[2]>=8){
+				back = true;
+				tmptime = new Date().getTime();
+			} else if (!front && currentAccelerationValues[2]<=-8){
+				front = true;
+				tmptime = new Date().getTime();
 			}
 			if (tmptime != 0 && new Date().getTime() - tmptime <3000) {
 				if (right && currentAccelerationValues[0]>=8){
@@ -103,6 +111,14 @@ public class ShakeDetector extends Service implements SensorListener {
 					left = !left;
 					tmptime = 0;
 					//左にふられたので、左に振られた時にキックするものがあればキック。
+				} else if (back && currentAccelerationValues[2]<=-8){
+					back = !back;
+					tmptime = 0;
+					//奥にふられたので、奥に振られた時にキックするものがあればキック。
+				} else if (front && currentAccelerationValues[2]>=8){
+					front = !front;
+					tmptime = 0;
+					//手前にふられたので、手前に振られた時にキックするものがあればキック。
 				}
 			} else {
 				tmptime = 0;
