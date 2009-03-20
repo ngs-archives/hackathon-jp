@@ -42,13 +42,6 @@ public class VoiceOfAndroid extends Activity {
 			}
         });
         
-        // フランス語ボタン取得
-        final Button frBtn =(Button)findViewById(R.id.fsave);
-        frBtn.setOnClickListener(new Button.OnClickListener(){
-			public void onClick(View v) {
-				changeText("fr",text.getText().toString());
-			}
-        });
     }
     
     // 翻訳クラス処理に移動
