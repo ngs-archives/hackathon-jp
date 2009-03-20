@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+    <result>OK</result>
+    <timestamp>2009-03-03 15:30:33</timestamp>
+
+    <data>
+        <id>32342420993</id>
+        <name>フリーザ</name> 
+        <geo_x>145.32432332</geo_x>
+        <geo_y>32.32432332</geo_y>
+        <picture>http://stat.ameba.jp/user_images/e7/44/10038816756.jpg</picture>
+        <power>500000</power>
+        <profile>ひみつ</profile>
+        <modified>2009-03-03 15:30:33</modified>
+        <created>2009-02-010 13:33:33</created>
+    </data>
+    <data>
+        <id>32342420993</id>
+        <name>フリーザ</name> 
+        <geo_x>145.32432332</geo_x>
+        <geo_y>32.32432332</geo_y>
+        <picture>http://stat.ameba.jp/user_images/e7/44/10038816756.jpg</picture>
+        <power>500000</power>
+        <profile>ひみつ</profile>
+        <modified>2009-03-03 15:30:33</modified>
+        <created>2009-02-010 13:33:33</created>
+    </data>
+    <data>
+        <id>32342420993</id>
+        <name>フリーザ</name> 
+        <geo_x>145.32432332</geo_x>
+        <geo_y>32.32432332</geo_y>
+        <picture>http://stat.ameba.jp/user_images/e7/44/10038816756.jpg</picture>
+        <power>500000</power>
+        <profile>ひみつ</profile>
+        <modified>2009-03-03 15:30:33</modified>
+        <created>2009-02-010 13:33:33</created>
+    </data>
+
+</response>

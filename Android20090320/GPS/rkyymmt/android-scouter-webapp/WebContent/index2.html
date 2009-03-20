@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+        <!--
+        <meta http-equiv="refresh" content="1">
+        --><title>Android Scouter</title>
+        <script type="text/javascript" src="jquery.js"/>
+        <script type="text/javascript">
+function aaaa(){
+	$.ajax({
+		url: "compass",
+		type: "GET",
+		dataType: "xml",
+		timeout: 1000,
+		cache: false,
+		/* エラー発生時 */
+		error: function(){
+			alert("コンパス情報の読込に失敗");
+		},
+		/* 成功時 */
+		success: function(xml){
+			$(xml).find("item").each(function(){
+				/* 記事リンク */
+				var item_link = $(this).find("link").text();
+				/* 記事タイトル */
+				var item_title = $(this).find("title").text();
+				/* 記事内容 */
+				var item_desc = $(this).find("description").text();
+				/* 公開日 */
+				var item_date = dateParse($(this).find('pubDate').text());
+				/* 属性の値を取得 */
+				//var item_guide=$(this).find("guid").attr("isPermaLink");
+				/* HTML生成 */
+				if (item_title != "")
+					$("<li></li>").html("<dl><dt><span>" + item_date + "</span><a href='" + item_link + "'>" + item_title + "</a></dt><dd>" + item_desc + "</dd></dl>").appendTo("ol");
+			});
+		}
+	});
+}
+
+// 初期化
+$(function(){
+//	dd.elements.power.write('aaaaa');
+}
+        </script>
+    </head>
+    <body bgcolor="0,128,0" text="#FFC800">
+        <script type="text/javascript" src="wz_dragdrop.js">
+        </script>
+        <div align="center">
+            <font size="20pt">
+                <div name="power">22222</div>
+            </font>
+            <br/>
+            <img src="up_cursor.png" name="upcursor">
+            <br/>
+            <img src="center_cursor.png" name="center_cursor">
+            <br/>
+            <br/>
+            <b>テスト中</b>
+        </div>
+    </body>
+    <script type="text/javascript">
+        SET_DHTML('upcursor', 'center_cursor', 'power');
+    </script>
+</html>
