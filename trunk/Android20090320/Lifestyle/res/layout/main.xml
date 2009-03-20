@@ -4,11 +4,7 @@ android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 >
-<LinearLayout
-android:orientation="horizontal"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
->
+
 <TextView
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
@@ -18,7 +14,6 @@ android:text="Word:"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 />
-</LinearLayout>
 <Button android:id="@+id/jsave"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
