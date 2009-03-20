@@ -8,25 +8,35 @@ android:layout_height="fill_parent"
 <TextView
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:text="Word:"
+android:text="Word: 入力してください。"
+android:textSize="20px"
 />
 <EditText android:id="@+id/text"
 android:layout_width="fill_parent"
-android:layout_height="wrap_content"
+android:layout_height="150px"
 />
-<Button android:id="@+id/jsave"
+<LinearLayout
+android:orientation="horizontal"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
-android:text="japanese"
+>
+<Button android:id="@+id/jsave"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Japanese"
 />
 <Button android:id="@+id/esave"
-android:layout_width="fill_parent"
+android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="English"
 />
-<Button android:id="@+id/fsave"
-android:layout_width="fill_parent"
+
+</LinearLayout>
+<TextView
+android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:text="French"
+android:text="翻訳の結果です。"
+android:textSize="20px"
 />
+
 </LinearLayout>
