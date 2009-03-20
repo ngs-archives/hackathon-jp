@@ -19,17 +19,17 @@ android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 />
 </LinearLayout>
-<Button android:id="@+id/save"
+<Button android:id="@+id/jsave"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:text="japanese"
 />
-<Button android:id="@+id/save"
+<Button android:id="@+id/esave"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:text="English"
 />
-<Button android:id="@+id/save"
+<Button android:id="@+id/fsave"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:text="French"
