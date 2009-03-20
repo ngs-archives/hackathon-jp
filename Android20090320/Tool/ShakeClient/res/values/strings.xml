@@ -9,4 +9,6 @@
     <string name="stop_service">stop service</string>
     <string name="shake_agent_started">Shake Agent started</string>
     <string name="shake_agent_stopped">Stopped</string>
+    
+    <string name="button_select_app_text">...</string>
 </resources>
