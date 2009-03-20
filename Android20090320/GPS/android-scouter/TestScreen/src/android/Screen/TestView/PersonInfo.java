@@ -57,16 +57,27 @@ public class PersonInfo extends BaseInfo {
 	private int szIndex = 0;
 	private String range;
 
+	private double user_lat;
+	private double user_lon;
+	private int user_rng;
+	private double user_dID;
+
 	// デフォルトコンストラクタ
 	public PersonInfo() {
 	}
 
 	// GPS情報を保持する
-	public PersonInfo(int latitude, int longitude, String range) {
+	public PersonInfo(double latitude, double longitude, int range,double devID) {
+		this.user_lat = latitude;
+		this.user_lon = longitude;
+		this.user_rng = range;
+		this.user_dID = devID;
+		/*
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.range = range;
+		*/
 	}
 
 	public void setPersonInfoList() {
@@ -76,11 +87,13 @@ public class PersonInfo extends BaseInfo {
 		 * divideE6(longitude + "");
 		 */
 		String url = SERVER_URL;// + lat + "," + lng + ADDRESS_URL_SUFFIX +
+		url = SERVER_URL +"?id="+user_dID+"&geo_x="+user_lat+"&geo_y="+user_lon+"&range="+user_rng;
+
 		String parm = "";
 		/*
 		 * try { st = httpGet(SERVER_URL, parm); } catch (IOException e) { //
 		 * TODO 自動生成された catch ブロック e.printStackTrace(); }
-		 * 
+		 *
 		 * if (st.compareTo(PersonInfo.TAG_RESULT2) == 0) { szIndex =
 		 * st.indexOf(PersonInfo.TAG_RESULT2); }
 		 */// 値を格納する処理

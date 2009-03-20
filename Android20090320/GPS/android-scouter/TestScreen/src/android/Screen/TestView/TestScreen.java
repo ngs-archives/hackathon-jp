@@ -19,6 +19,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.telephony.TelephonyManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class TestScreen extends Activity implements LocationListener {
 	private PendingIntent mAlarmSender; // Alarm用
 	private Location mylocation; // Location保持変数
 	private PersonInfo personInfo; // person情報
-	public String m_range = "1000";
+	public int m_range = 1000;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -65,6 +66,10 @@ public class TestScreen extends Activity implements LocationListener {
 
 		// Alarmを使用して現在値を受信処理　予定\\\\\
 
+        TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        double a=Double.parseDouble(tm.getSimSerialNumber());
+        PersonInfo personInfo=new PersonInfo((double) 35.4324324, (double) 139,  (int) m_range,  (double) a);
+
 		// PersonInfo処理
 		/*
 		 * personInfo = new PersonInfo((int) mylocation.getLatitude(), (int)
@@ -77,15 +82,16 @@ public class TestScreen extends Activity implements LocationListener {
 		 * httpGet(url, param); } catch (IOException e) { // TODO 自動生成された
 		 * catchブロック e.printStackTrace(); }
 		 */
-
+		personInfo.setPersonInfoList();
+/*
 		personInfo = new PersonInfo(); // PersonInfo格納
 		personInfo.setPersonInfoList();
+*/
 		// upDateDisplay練習用
 		String st01 = "aaaaa";
 		String st02 = "bbbbb";
 		String st03 = "cccc";
 		upDateDisplay(st01, st02, st03);
-
 	}
 
 	public void upDateDisplay(String ipAddr, String port, String deviceId) {
