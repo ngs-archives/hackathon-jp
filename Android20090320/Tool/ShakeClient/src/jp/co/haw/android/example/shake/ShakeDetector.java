@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -112,22 +113,22 @@ public class ShakeDetector extends Service implements SensorListener {
 				if (right && currentAccelerationValues[0]>=8){
 					right = !right;
 					tmptime = 0;
-					//‰E‚É‚Ó‚ç‚ê‚½‚Ì‚ÅA‰E‚ÉU‚ç‚ê‚½‚ÉƒLƒbƒN‚·‚é‚à‚Ì‚ª‚ ‚ê‚ÎƒLƒbƒNB
+					//ï¿½Eï¿½É‚Ó‚ï¿½ê‚½ï¿½Ì‚ÅAï¿½Eï¿½ÉUï¿½ï¿½ê‚½ï¿½ï¿½ï¿½ÉƒLï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ÎƒLï¿½bï¿½Nï¿½B
 					startApplication(0);
 				} else if (left && currentAccelerationValues[0]<=-8){
 					left = !left;
 					tmptime = 0;
-					//¶‚É‚Ó‚ç‚ê‚½‚Ì‚ÅA¶‚ÉU‚ç‚ê‚½‚ÉƒLƒbƒN‚·‚é‚à‚Ì‚ª‚ ‚ê‚ÎƒLƒbƒNB
+					//ï¿½ï¿½ï¿½É‚Ó‚ï¿½ê‚½ï¿½Ì‚ÅAï¿½ï¿½ï¿½ÉUï¿½ï¿½ê‚½ï¿½ï¿½ï¿½ÉƒLï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ÎƒLï¿½bï¿½Nï¿½B
 					startApplication(1);
 				} else if (back && currentAccelerationValues[2]<=-8){
 					back = !back;
 					tmptime = 0;
-					//‰œ‚É‚Ó‚ç‚ê‚½‚Ì‚ÅA‰œ‚ÉU‚ç‚ê‚½‚ÉƒLƒbƒN‚·‚é‚à‚Ì‚ª‚ ‚ê‚ÎƒLƒbƒNB
+					//ï¿½ï¿½ï¿½É‚Ó‚ï¿½ê‚½ï¿½Ì‚ÅAï¿½ï¿½ï¿½ÉUï¿½ï¿½ê‚½ï¿½ï¿½ï¿½ÉƒLï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ÎƒLï¿½bï¿½Nï¿½B
 					startApplication(2);
 				} else if (front && currentAccelerationValues[2]>=8){
 					front = !front;
 					tmptime = 0;
-					//è‘O‚É‚Ó‚ç‚ê‚½‚Ì‚ÅAè‘O‚ÉU‚ç‚ê‚½‚ÉƒLƒbƒN‚·‚é‚à‚Ì‚ª‚ ‚ê‚ÎƒLƒbƒNB
+					//ï¿½ï¿½Oï¿½É‚Ó‚ï¿½ê‚½ï¿½Ì‚ÅAï¿½ï¿½Oï¿½ÉUï¿½ï¿½ê‚½ï¿½ï¿½ï¿½ÉƒLï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ÎƒLï¿½bï¿½Nï¿½B
 					startApplication(3);
 				}
 			} else {
@@ -150,8 +151,8 @@ public class ShakeDetector extends Service implements SensorListener {
 	}
 	
 	/*
-	 * –ˆ‰ñDB‚ğ“Ç‚Ş‚Ì‚Í“d—Í‚ª‚à‚Á‚½‚¢‚È‚¢‚©‚à‚µ‚ê‚È‚¢
-	 * –ˆ‰ñ“Ç‚Ü‚È‚¢‚ÆƒT[ƒrƒX‚ğÄÀs‚µ‚È‚¢‚ÆXV‚ª”½‰f‚³‚ê‚È‚¢
+	 * ï¿½ï¿½ï¿½ï¿½DBï¿½ï¿½Ç‚Ş‚Ì‚Í“dï¿½Í‚ï¿½ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½È‚ï¿½
+	 * ï¿½ï¿½ï¿½ï¿½Ç‚Ü‚È‚ï¿½ï¿½ÆƒTï¿½[ï¿½rï¿½Xï¿½ï¿½Äsï¿½ï¿½ï¿½È‚ï¿½ï¿½ÆXï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½È‚ï¿½
 	 */
 	public void startApplication(int direction) {
 		String[] proj = {Apps.CLASS};
@@ -166,12 +167,23 @@ public class ShakeDetector extends Service implements SensorListener {
         	String clazz = cur.getString(classColumn);
         	Log.d("TEST", "clazz is " + clazz);
         	Intent i;
-			try {
-				i = new Intent(getApplicationContext(), Class.forName(clazz));
-			} catch (ClassNotFoundException e) {
-				return;
-			}
+
+				i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+/*				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.addCategory(Intent.CATEGORY_LAUNCHER);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				int idx = clazz.lastIndexOf('.');
+				String pkg = clazz.substring(0, idx);
+				String name = clazz.substring(idx + 1, clazz.length());
+				Log.d("TEST", "pkg = " + pkg);
+				Log.d("TEST", "name = " + name);
+				
+				intent.setClassName(pkg, name);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*/
+
         	startActivity(i);
+
         }
 		
 	}
