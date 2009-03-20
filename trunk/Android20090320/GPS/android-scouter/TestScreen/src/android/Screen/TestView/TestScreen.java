@@ -77,10 +77,15 @@ public class TestScreen extends Activity implements LocationListener {
 		 * httpGet(url, param); } catch (IOException e) { // TODO 自動生成された
 		 * catchブロック e.printStackTrace(); }
 		 */
-		/*
-		 * personInfo = new PersonInfo(); // PersonInfo格納
-		 * personInfo.setPersonInfoList();
-		 *///
+
+		personInfo = new PersonInfo(); // PersonInfo格納
+		personInfo.setPersonInfoList();
+		// upDateDisplay練習用
+		String st01 = "aaaaa";
+		String st02 = "bbbbb";
+		String st03 = "cccc";
+		upDateDisplay(st01, st02, st03);
+
 	}
 
 	public void upDateDisplay(String ipAddr, String port, String deviceId) {
