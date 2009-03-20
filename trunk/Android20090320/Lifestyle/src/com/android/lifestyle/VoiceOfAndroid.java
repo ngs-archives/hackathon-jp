@@ -61,6 +61,7 @@ public class VoiceOfAndroid extends Activity {
 			ContextMenuInfo menuInfo) {
 		menu.add(0,0,Menu.NONE,"Japanese");
 		menu.add(0,1,Menu.NONE,"English");
+		menu.add(0,2,Menu.NONE,"Return");
 		super.onCreateContextMenu(menu, v, menuInfo);
 	}
 
