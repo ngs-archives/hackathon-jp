@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+              android:text="@string/label_accelerometer"
+              android:padding="3dip" />
+            <TextView
+              android:id="@+id/accelerometer_value"
+              android:padding="3dip" />
+        </TableRow>
+        <TableRow>
+            <TextView
+              android:text="@string/label_orientation"
+              android:padding="3dip" />
+            <TextView
+              android:id="@+id/orientation_value"
+              android:padding="3dip" />
+        </TableRow>
+        <TableRow>
+            <TextView
+              android:text=" "
+              android:padding="3dip" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+              android:text="@string/label_filtered_acceleration"
+              android:padding="3dip" />
+            <TextView
+              android:id="@+id/filtered_acceleration_value"
+              android:padding="3dip" />
+        </TableRow>
+        <TableRow>
+            <TextView
+              android:text="@string/label_filtered_orientation"
+              android:padding="3dip" />
+            <TextView
+              android:id="@+id/filtered_orientation_value"
+              android:padding="3dip" />
+        </TableRow>
+    </TableLayout>
+    <TextView
+      android:id="@+id/orientation"
+      android:padding="3dip" 
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_centerHorizontal="true"
+      android:layout_centerVertical="true"
+      android:textSize="140.0sp"/>
+</LinearLayout>
