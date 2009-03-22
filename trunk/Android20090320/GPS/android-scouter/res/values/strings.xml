@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hello">Hello World, TestScreen</string>
+	<string name="app_name">TestScreen</string>
+	<string name="repeating_scheduled">ALARM</string>
+	<string name="alarm_service_started">alarm_service_started</string>
+	<string name="alarm_service_finished">alarm_service_finished</string>
+	<string name="alarm_service_label">alarm_service_label</string>
+	<string name="update_ip_addr">update_ip_addr</string>
+	<string name="update_port">update_port</string>
+	<string name="device_id">update_id</string>
+
+
+</resources>
