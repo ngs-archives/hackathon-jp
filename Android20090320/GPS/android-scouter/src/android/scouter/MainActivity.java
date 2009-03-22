@@ -21,12 +21,12 @@ public class MainActivity extends Activity {
 	private static final String TAG_NAME = "MainActivity";
 	private static final boolean DEBUG_FLG = true;
 
-	private AlarmManager alermManager = null;
+	private AlarmManager _mAlermManager = null;
 	
 	// 画面の構成要素
-	private TextView tvIPAddress;
-	private TextView tvPortNumber;
-	private TextView tvDeviceID;
+	private TextView _mTvIPAddress;
+	private TextView _mTvPortNumber;
+	private TextView _mTvDeviceID;
 
 	/*
 	 * (non-Javadoc)
@@ -40,12 +40,12 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.display_view);
 
 		// 画面の要素の取得
-		tvIPAddress = (TextView) findViewById(R.id.layout_textview01);
-		tvPortNumber = (TextView) findViewById(R.id.layout_textview02);
-		tvDeviceID = (TextView) findViewById(R.id.layout_textview03);
+		_mTvIPAddress = (TextView) findViewById(R.id.layout_textview01);
+		_mTvPortNumber = (TextView) findViewById(R.id.layout_textview02);
+		_mTvDeviceID = (TextView) findViewById(R.id.layout_textview03);
 
 		// AlarmManagerの取得
-		alermManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		_mAlermManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
 		// AlarmManagerが実行するIntnet
 		PendingIntent pendingIntent = PendingIntent.getService( MainActivity.this, 0,
@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
 		long firstTime = SystemClock.elapsedRealtime();
 
 		// アラーム設定
-		alermManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+		_mAlermManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
 				firstTime, 30 * 1000, pendingIntent);
         
 		// Toast 表示 - 起動確認用
@@ -76,9 +76,9 @@ public class MainActivity extends Activity {
 	 * @param deviceId デバイスID
 	 */
 	public void upDateDisplay(String ipAddr, String port, String deviceId) {
-		tvIPAddress.setText(ipAddr);
-		tvPortNumber.setText(port);
-		tvDeviceID.setText(deviceId);
+		_mTvIPAddress.setText(ipAddr);
+		_mTvPortNumber.setText(port);
+		_mTvDeviceID.setText(deviceId);
 
 	}
 
