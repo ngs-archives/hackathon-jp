@@ -27,6 +27,12 @@ public class ServerInterface {
 	private static final String TAG_NAME = "ServerInterface";
 	private static final boolean DEBUG_FLG = true;
 
+	/**
+	 * サーバーとデータを送受信する
+	 * @param personInfo
+	 * @param range
+	 * @return
+	 */
 	public static List<PersonInfo> ping(PersonInfo personInfo, int range) {
 
 		// パラメータの構築

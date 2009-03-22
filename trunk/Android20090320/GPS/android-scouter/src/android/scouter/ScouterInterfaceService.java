@@ -61,7 +61,7 @@ public class ScouterInterfaceService extends Service {
     /**
      * 電話機能管理クラス
      */
-	private TelephonyManager telephonyManager = null;
+	private TelephonyManager _mTelephonyManager = null;
 
 	/**
 	 * 接続待ちポート番号の設定
@@ -81,10 +81,10 @@ public class ScouterInterfaceService extends Service {
         super.onCreate();
 
     	// 電話機能管理クラスの取得
-        telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        _mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
         // 固有IDの取得
-        serialNumber = Double.parseDouble(telephonyManager.getSimSerialNumber());
+        serialNumber = Double.parseDouble(_mTelephonyManager.getSimSerialNumber());
 
         /**
          *  接続待機スレッドの生成
