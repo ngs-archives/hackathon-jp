@@ -6,11 +6,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 
 public class VoiceOfAndroid extends Activity {
 
@@ -52,7 +57,17 @@ public class VoiceOfAndroid extends Activity {
 					TextView res = (TextView)findViewById(R.id.res);
 					res.setText(transResult);
 				} catch (Exception e){
-					Log.d("OnClick", e.getStackTrace().toString());
+				    AlertDialog.Builder ad = new AlertDialog.Builder(VoiceOfAndroid.this);
+				    ad.setTitle("Exception Occurred");
+				    ad.setMessage("probability can't connected Internet");
+				    ad.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+				        public void onClick(DialogInterface dialog,int whichButton) {
+				            setResult(RESULT_OK);
+				        }
+				    });
+				    ad.create();
+				    ad.show();
+					Log.d("VoiceOfAndroid", e.getStackTrace().toString());
 				}
 			}
         });
