@@ -55,7 +55,7 @@ public class VoiceOfAndroid extends Activity {
 
     // 翻訳クラス処理に移動
     public void changeText(String code, String text) {
-    	final TextView word = (TextView)findViewById(R.id.word);
+//    	final TextView word = (TextView)findViewById(R.id.text);
 
     	Translation translation = new Translation();
 
