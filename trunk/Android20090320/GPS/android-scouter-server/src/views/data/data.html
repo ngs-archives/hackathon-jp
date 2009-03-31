@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+    <result>OK</result>
+    <timestamp>2009-03-03 15:30:33</timestamp>
+
+{% for member in member_list %}
+
+    <data>
+        <id>{{member.id}}</id>
+        <name>{{member.name}}</name> 
+        <geo_x>{{member.geo_x}}</geo_x>
+        <geo_y>{{member.geo_y}}</geo_y>
+        <picture>{{member.picture}}</picture>
+        <power>{{member.power}}</power>
+        <profile>{{member.profile}}</profile>
+        <modified>{{member.modified}}</modified>
+    </data>
+
+{% endfor %}
+
+</response>

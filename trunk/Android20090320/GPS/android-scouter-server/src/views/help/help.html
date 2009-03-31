@@ -1,0 +1,111 @@
+<html>
+<!-- あいうえお --&gt-->
+<head>
+<title>android-scouter API仕様</title>
+<body>
+<pre>
+
+本ドメインは、2009/3/20 に Google Tokyo office で行われた Android Hackathon で、
+Nikon UP と Android を組み合わせて、ドラゴンボールのスカウター（＋ドラゴンレーダー）
+を作った際の、戦いの跡地です。
+
+本サイトは未完成です。完成させようと思ったのですが、私の未熟さが原因で、
+つっこみどころが多い作りであることがわかり、別ドメインで汎用的なサイトを
+作り直すことにしました。
+
+ドメインは、<a href="http://gps-open-logger.appspot.com">http://gps-open-logger.appspot.com/</a> です。
+
+今後、AndroidやiPhoneでGPSアプリを作りたい人、よかったら上記ＵＲＬをご自由にお使いいただければ幸いです。
+
+以下は、Hackathonの時に作った本サイトの仕様です。
+
+<hr />
+
+■android-scouter API 本番向けやっつけ仕様（暫定）
+
+○叩き方
+
+http://android-scouter.appspot.com/data/?id=XXXXXX&geo_x=XX.XXXX&geo_y=XX.XXXX&range=1000
+
+id     number device id 
+geo_x  float  経度
+geo_y  float  緯度　
+range  number 知りたい範囲（m）
+
+○戻り
+
+result              string  OK, NG
+timestamp           string  レスポンスを発行した日時
+message             string  エラーメッセージ（resultがNGの場合のみ）
+data                xml     レスポンスデータ
+data/id             number  device id
+data/name           string  ハンドル名
+data/geo_x          float   経度
+data/geo_y          float   緯度
+data/picture        string  アイコン画像URL
+data/power          number  パワー
+data/profile        string  プロフィール
+data/modified       string  最終更新日
+data/created        string  登録日
+
+
+例.NGの場合
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;response&gt;
+    &lt;result&gt;NG&lt;/result&gt;
+    &lt;timestamp&gt;2009-03-03 15:30:33&lt;/timestamp&gt;
+    &lt;message&gt;このidは登録されていません&lt;/message&gt;
+&lt;/response&gt;
+
+
+例.OKの場合
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;response&gt;
+    &lt;result&gt;OK&lt;/result&gt;
+    &lt;timestamp&gt;2009-03-03 15:30:33&lt;/timestamp&gt;
+    &lt;data&gt;
+        &lt;id&gt;32342420993&lt;/id&gt;
+        &lt;name&gt;フリーザ&lt;/name&gt;
+	&lt;geo_x&gt;145.32432332&lt;/geo_x&gt;
+	&lt;geo_y&gt;32.32432332&lt;/geo_y&gt;
+        &lt;picture&gt;http://stat.ameba.jp/user_images/e7/44/10038816756.jpg&lt;/picture&gt;
+	&lt;power&gt;500000&lt;/power&gt;
+	&lt;profile&gt;ひみつ&lt;/profile&gt;
+        &lt;modified&gt;2009-03-03 15:30:33&lt;/modified&gt;
+    &lt;/data&gt;
+    &lt;data&gt;
+        &lt;id&gt;32342420993&lt;/id&gt;
+        &lt;name&gt;フリーザ&lt;/name&gt;
+	&lt;geo_x&gt;145.32432332&lt;/geo_x&gt;
+	&lt;geo_y&gt;32.32432332&lt;/geo_y&gt;
+        &lt;picture&gt;http://stat.ameba.jp/user_images/e7/44/10038816756.jpg&lt;/picture&gt;
+	&lt;power&gt;500000&lt;/power&gt;
+	&lt;profile&gt;ひみつ&lt;/profile&gt;
+        &lt;modified&gt;2009-03-03 15:30:33&lt;/modified&gt;
+    &lt;/data&gt;
+    &lt;data&gt;
+        &lt;id&gt;32342420993&lt;/id&gt;
+        &lt;name&gt;フリーザ&lt;/name&gt;
+	&lt;geo_x&gt;145.32432332&lt;/geo_x&gt;
+	&lt;geo_y&gt;32.32432332&lt;/geo_y&gt;
+        &lt;picture&gt;http://stat.ameba.jp/user_images/e7/44/10038816756.jpg&lt;/picture&gt;
+	&lt;power&gt;500000&lt;/power&gt;
+	&lt;profile&gt;ひみつ&lt;/profile&gt;
+        &lt;modified&gt;2009-03-03 15:30:33&lt;/modified&gt;
+    &lt;/data&gt;
+&lt;/response&gt;
+
+<hr />
+
+
+2009/3/22 
+GPS Team
+Server担当 Syun M.Takamatsu
+
+
+</pre>
+
+</body>
+</html>

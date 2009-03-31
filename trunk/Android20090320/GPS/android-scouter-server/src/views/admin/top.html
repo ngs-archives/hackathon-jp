@@ -1,0 +1,80 @@
+<html>
+<!--あいうえお-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0;">
+<title>Admin Page</title>
+</head>
+<body>
+
+<h1><a href="/admin/">Administrator Page</a></h1>
+
+<h3>*UserList</h3>
+
+<table border=1>
+
+<tr>
+  <th>id</th>
+  <th>name</th>
+  <th>geo_x</th>
+  <th>geo_y</th>
+  <th>picture</th>
+  <th>power</th>
+  <th>profile</th>
+  <th>modified</th>
+  <th></th>
+</tr>
+
+{% for member in member_list %}
+
+<tr>
+  <td>{{member.id}}</td>
+  <td>{{member.name}}</td>
+  <td>{{member.geo_x}}</td>
+  <td>{{member.geo_y}}</td>
+  <td>{{member.picture}}</td>
+  <td>{{member.power}}</td>
+  <td>{{member.profile}}</td>
+  <td>{{member.modified}}</td>
+  <td>
+<!--  
+    <form action="" method="GET">
+      <input type=hidden name="mode" value="delete">
+      <input type=hidden name="id" value="{{member.id}}">
+      <input type=submit value="delete">
+    </form>
+-->    
+  </td>
+</tr>
+
+{% endfor %}
+</table>
+
+
+<h3>*Register</h3>
+
+
+<form action="" method="GET">
+
+<input type="hidden" name="mode" value="register">
+
+<table>
+  <tr><th>id</th><td><input type="text" name="id"></td></tr>
+  <tr><th>name</th><td><input type="text" name="name"></td></tr>
+  <tr><th>geo_x</th><td><input type="text" name="geo_x"></td></tr>
+  <tr><th>geo_y</th><td><input type="text" name="geo_y"></td></tr>
+  <tr><th>picture</th><td><input type="text" name="picture"></td></tr>
+  <tr><th>power</th><td><input type="text" name="power"></td></tr>
+  <tr><th>profile</th><td><input type="text" name="profile"></td></tr>
+</table>
+
+<input type="submit">
+
+</form>
+
+
+
+
+
+</body>
+</html>
