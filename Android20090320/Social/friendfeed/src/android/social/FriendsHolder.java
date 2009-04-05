@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.opensocial.data.OpenSocialPerson;
 
+@SuppressWarnings("serial")
 public class FriendsHolder implements Serializable {
 	
 	private List<OpenSocialPerson> friends;

@@ -1,11 +1,9 @@
 package android.social;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.opensocial.android.OpenSocialChooserActivity;
 import org.opensocial.client.OpenSocialBatch;
 import org.opensocial.client.OpenSocialClient;
 import org.opensocial.client.OpenSocialProvider;
@@ -16,7 +14,6 @@ import org.opensocial.data.OpenSocialPerson;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.social.BackgroundService.WorkingThread;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +23,7 @@ public class FriendFeedActivity extends Activity {
 
 	private static String ANDROID_SCHEME = "x-opensocial-friendfeed-app";
 
-	private static Map<OpenSocialProvider, Token> SUPPORTED_PROVIDERS = new HashMap<OpenSocialProvider, Token>();
+	public static Map<OpenSocialProvider, Token> SUPPORTED_PROVIDERS = new HashMap<OpenSocialProvider, Token>();
 
 	public org.opensocial.android.OpenSocialActivity util;
 	
@@ -84,7 +81,7 @@ public class FriendFeedActivity extends Activity {
 		Intent intent2 = new Intent(FriendFeedActivity.this,
 				BackgroundService.class);
 		intent2.putExtra("waitSec", 5000);
-		intent2.putExtra("client", client);
+//		intent2.putExtra("client", client);
 		intent2.putExtra("friends", new FriendsHolder(friends));
 		startService(intent2);
 	}
