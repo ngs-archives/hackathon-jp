@@ -34,87 +34,98 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- * Prompts the user to choose from one of the supported OpenSocial providers. Once the user has
- * choosen, a request token is fetched, and then the user isredirected to the browser to
- * login with their provider.
- *
+ * Prompts the user to choose from one of the supported OpenSocial providers.
+ * Once the user has choosen, a request token is fetched, and then the user
+ * isredirected to the browser to login with their provider.
+ * 
  * @author Cassandra Doll
  */
 public class OpenSocialChooserActivity extends ListActivity {
-  public static final String ANDROID_SCHEME = "androidScheme";
-  public static final String PROVIDERS = "providers";
-  public static final String CURRENT_PROVIDER_PREF = "currentprovider";
-  public static final String REQUEST_TOKEN_PREF = "requesttoken.publictoken";
-  public static final String REQUEST_TOKEN_SECRET_PREF = "requesttoken.secret";
+	public static final String ANDROID_SCHEME = "androidScheme";
+	public static final String PROVIDERS = "providers";
+	public static final String CURRENT_PROVIDER_PREF = "currentprovider";
+	public static final String REQUEST_TOKEN_PREF = "requesttoken.publictoken";
+	public static final String REQUEST_TOKEN_SECRET_PREF = "requesttoken.secret";
 
-  public ArrayList<String> providers;
-  public Intent intent;
-  private String androidScheme;
+	public ArrayList<String> providers;
+	public Intent intent;
+	private String androidScheme;
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-    intent = getIntent();
-    providers = intent.getStringArrayListExtra(PROVIDERS);
-    androidScheme = intent.getStringExtra(ANDROID_SCHEME);
-    setListAdapter(new ArrayAdapter<String>(this,
-        android.R.layout.simple_list_item_single_choice, providers));
-  }
+		intent = getIntent();
+		providers = intent.getStringArrayListExtra(PROVIDERS);
+		androidScheme = intent.getStringExtra(ANDROID_SCHEME);
+		setListAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_single_choice, providers));
+	}
 
-  @Override
-  protected void onListItemClick(ListView listView, View view, int position, long l) {
-    final String providerString = providers.get(position);
+	@Override
+	protected void onListItemClick(ListView listView, View view, int position,
+			long l) {
+		final String providerString = providers.get(position);
 
-    final OpenSocialClient client = new OpenSocialClient();
-    final OpenSocialProvider provider = OpenSocialProvider.valueOf(providerString.toUpperCase());
+		final OpenSocialClient client = new OpenSocialClient();
+		final OpenSocialProvider provider = OpenSocialProvider
+				.valueOf(providerString.toUpperCase());
 
-    String[] consumerToken = intent.getStringArrayExtra(providerString.toUpperCase());
+		String[] consumerToken = intent.getStringArrayExtra(providerString
+				.toUpperCase());
 
-    if (consumerToken != null && consumerToken.length == 2) {
-      client.setProperty(OpenSocialClient.Properties.CONSUMER_KEY, consumerToken[0]);
-      client.setProperty(OpenSocialClient.Properties.CONSUMER_SECRET, consumerToken[1]);
-    }
+		if (consumerToken != null && consumerToken.length == 2) {
+			client.setProperty(OpenSocialClient.Properties.CONSUMER_KEY,
+					consumerToken[0]);
+			client.setProperty(OpenSocialClient.Properties.CONSUMER_SECRET,
+					consumerToken[1]);
+		}
 
-    final AlertDialog alert = new AlertDialog.Builder(this).create();
-    alert.setMessage("To get started, you will need to login to " + providerString);
+		final AlertDialog alert = new AlertDialog.Builder(this).create();
+		alert.setMessage("To get started, you will need to login to "
+				+ providerString);
 
-    alert.setButton("Login", new DialogInterface.OnClickListener() {
-      public void onClick(DialogInterface dialog, int whichButton) {
-        alert.dismiss();
-        
-        Token token;
-        try {
-          token = client.getRequestToken(provider);
-        } catch (IOException e) {
-          throw new RuntimeException("Error occured fetching request token", e);
-        } catch (URISyntaxException e) {
-          throw new RuntimeException("Error occured fetching request token", e);
-        } catch (OAuthException e) {
-          throw new RuntimeException("Error occured fetching request token", e);
-        }
+		alert.setButton("Login", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				alert.dismiss();
 
-        persistRequestToken(token, providerString);
-        String url = client.getAuthorizationUrl(provider, token, androidScheme + "://");
+				Token token;
+				try {
+					token = client.getRequestToken(provider);
+				} catch (IOException e) {
+					throw new RuntimeException(
+							"Error occured fetching request token", e);
+				} catch (URISyntaxException e) {
+					throw new RuntimeException(
+							"Error occured fetching request token", e);
+				} catch (OAuthException e) {
+					throw new RuntimeException(
+							"Error occured fetching request token", e);
+				}
 
-        // Browse to webpage
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
-      }
-    });
-    alert.show();
-  }
+				persistRequestToken(token, providerString);
+				String url = client.getAuthorizationUrl(provider, token,
+						androidScheme + "://");
 
-  private void persistRequestToken(Token requestToken, String provider) {
-    // TODO: Integration is pretty tight here...
-    SharedPreferences.Editor editor = getSharedPreferences("default", MODE_PRIVATE).edit();
+				// Browse to webpage
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setData(Uri.parse(url));
+				startActivity(i);
+			}
+		});
+		alert.show();
+	}
 
-    editor.putString(CURRENT_PROVIDER_PREF, provider);
-    if (requestToken != null) {
-      editor.putString(REQUEST_TOKEN_PREF, requestToken.token);
-      editor.putString(REQUEST_TOKEN_SECRET_PREF, requestToken.secret);
-    }
-    editor.commit();
-  }
+	private void persistRequestToken(Token requestToken, String provider) {
+		// TODO: Integration is pretty tight here...
+		SharedPreferences.Editor editor = getSharedPreferences("default",
+				MODE_PRIVATE).edit();
+
+		editor.putString(CURRENT_PROVIDER_PREF, provider);
+		if (requestToken != null) {
+			editor.putString(REQUEST_TOKEN_PREF, requestToken.token);
+			editor.putString(REQUEST_TOKEN_SECRET_PREF, requestToken.secret);
+		}
+		editor.commit();
+	}
 }
