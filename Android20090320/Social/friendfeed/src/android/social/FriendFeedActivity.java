@@ -55,6 +55,14 @@ public class FriendFeedActivity extends Activity {
 
 	    final FriendFeedActivity activity = this;
 
+	    Button startButton = new Button(this);
+	    startButton.setText("Start");
+	    startButton.setOnClickListener(new View.OnClickListener() {
+	      public void onClick(View view) {
+	        // TODO
+	      }
+	    });
+
 	    Button clearAuthButton = new Button(this);
 	    clearAuthButton.setText("Clear Auth");
 	    clearAuthButton.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +79,7 @@ public class FriendFeedActivity extends Activity {
 	      }
 	    });
 
+	    linearLayout.addView(startButton);
 	    linearLayout.addView(fetchFriendsButton);
 	    linearLayout.addView(clearAuthButton);
 
@@ -97,8 +106,12 @@ public class FriendFeedActivity extends Activity {
 			//
 			Log.d("FriendFeed", "Authorization succeed.");
 			List<OpenSocialPerson> friends = fetchFriends(client, util.getProvider());
-			Log.d("FriendFeed", "friends.size() = " + friends.size());
-			startBackgroundService(friends, client);
+			if (friends != null) {
+				Log.d("FriendFeed", "friends.size() = " + friends.size());
+				startBackgroundService(friends, client);
+			} else {
+				Log.d("FriendFeed", "friends is null.");
+			}
 		}
 	}
 	
