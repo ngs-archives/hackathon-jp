@@ -7,6 +7,11 @@ div.startup, div.loading {
 	margin: 10px auto;
 }
 
+div.loading {
+	margin-top:40px;
+	font-size:2em;
+}
+
 div.startup input {
 	margin-bottom:20px;
 	font-size:3em;
@@ -15,6 +20,7 @@ div.startup input {
 div#twitterResult,
 div#youtubeResult {
 	width:590px;
+	position:relative;
 }
 
 div.result {
@@ -24,4 +30,7 @@ div.result {
 	overflow:hidden;
 }
 
+div#loginmessage {
+	color:#E33;
+}
 

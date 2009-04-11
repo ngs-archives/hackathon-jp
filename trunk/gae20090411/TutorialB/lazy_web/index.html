@@ -8,8 +8,15 @@
         </script>
         <script type="text/javascript">
             <!--
+			
+			var System = {
+				hasError:false
+			}
+			
             $(function(){
                 $('#twitterId').focus();
+				
+				$('div.result').css('height', (jQuery(document).height() - 10) + 'px');
                 
                 $('#startbtn').click(function(){
                     $('div.startup').fadeOut(200, function(){
@@ -26,15 +33,23 @@
                         timeout: function(){
                             alert('Time out!!')
                         },
-                        complete: getResponse
+//                        success: getResponse,
+						complete: getResponse,
+						error: handleErorr
                     })
                 });
             })
             
             var getResponse = function(response){
+				
+				if(System.hasError) return;
+				
                 $('#twitterResult').html(response.responseText);
+				$('h1').fadeOut(200);
                 $('div.loading').fadeOut(200, function(){
-                    $('#twitterResult').parent().fadeIn(200);
+                    $('#twitterResult').parent().fadeIn(200, function(){
+						new ScrollContents($('#twitterResult'));
+					});
                 });
                 
                 getYoutubeData('testtest');
@@ -62,7 +77,35 @@
                     html += "<p>not found</p>";
                 }
                 $('#youtubeResult').html(html).parent().fadeIn(200);
+				new ScrollContents($('#youtubeResult'));				
             }
+			
+			
+			var ScrollContents = function(obj){
+				this.jqObj = obj;
+				this.top = 0;
+				this.contetnHeight = obj.height();
+				var self = this;
+				this.timer = setInterval(function(){self.scroll()}, 80);
+			}
+			
+			ScrollContents.prototype.scroll = function() {
+				if(this.top * -1 > this.contetnHeight - 200) {
+					clearInterval(this.timer);
+				} else {
+					this.top = this.top - 3;
+					this.jqObj.css('top', this.top + 'px');
+				}
+			}
+			
+			var handleErorr = function(response){
+				System.hasError = true;
+				$('div.loading').fadeOut(200, function(){
+						$('div#loginmessage').show();
+						$('div#handleErorr').html(response.responseText).show();
+                        $('div.startup').fadeIn(200);
+                });
+			}
             
             // -->
         </script>
@@ -71,6 +114,7 @@
     <body>
         <h1>Start lazy internet...</h1>
         <div class="startup">
+        	<div id="loginmessage" style="display:none;">Login failed....</div>
             Your twitter name
             <br/>
             <input type="text" value="" id="twitterId" class="textbox" />
@@ -82,7 +126,7 @@
             <input type="button" value="start" id="startbtn" />
         </div>
         <div class="loading" style="display:none;">
-            <img src="./img/loading.gif" />
+            <img src="./img/loading.gif" />&nbsp;&nbsp;Loading...
         </div>
 		<div class="result" style="display:none;">
 			<div id="youtubeResult"></div>
@@ -90,5 +134,6 @@
 		<div class="result" style="display:none;">
         	<div id="twitterResult"></div>
 		</div>
+		<div id="errorTrace" style="display:none;"></div>
     </body>
 </html>
