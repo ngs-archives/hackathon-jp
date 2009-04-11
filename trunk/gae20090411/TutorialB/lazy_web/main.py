@@ -77,8 +77,8 @@ class TestPage(webapp.RequestHandler):
 
 def main():
   application = webapp.WSGIApplication([('/', MainHandler)
+                                        ,('/main.cgi', MainPage)
                                         ,('/test.cgi', TestPage)],
-                                        ,('/main.cgi', MainPage),
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
