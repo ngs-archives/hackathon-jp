@@ -12,7 +12,16 @@ div.startup input {
 	font-size:3em;
 }
 
-div.result {
-	width:600px;
-	margin: 20px auto;
+div#twitterResult,
+div#youtubeResult {
+	width:590px;
 }
+
+div.result {
+	width:610px;
+	height:400px;
+	float:left;
+	overflow:hidden;
+}
+
+
