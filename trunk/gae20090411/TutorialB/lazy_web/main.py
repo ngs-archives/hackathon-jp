@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 #
-import cgi
-import os
 # Copyright 2007 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,18 +19,20 @@ import os
 
 
 import wsgiref.handlers
-
-
+import cgi
+import os
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
-
+import logging
 from twitter import api
 
 USER_NAME = 'your_name'
 PASSWORD = 'your_password'
+
+logging.getLogger().setLevel(logging.DEBUG)
 class MainHandler(webapp.RequestHandler):
 
   def get(self):
@@ -46,6 +46,7 @@ class MainPage(webapp.RequestHandler):
     # Twitter
     t = api.TwitterClone(id, passwd, 'http://twitter.com/')
     for data in reversed(t.get_friends_timeline()):
+        logging.info(data)
         timeline.append('[t]%-12s : %s' % (data['user']['screen_name'], data['text']))
 
     template_values = {
