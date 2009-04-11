@@ -4,7 +4,7 @@ body {
 	margin: 0px;
 	font-family: 'Helvetica' san-serif;
 	color: #333;
-	background: url(/static/images/background.png);
+	background: url(images/background.png);
 	margin-bottom: 30px;
 	font-size: 14px;
 }
@@ -29,7 +29,7 @@ a img {
 /* content */
 
 #content {
-	margin-top: 40px;
+	margin-top: 25px;
 	width: 740px;
     margin-right: auto;
     margin-left: auto;
@@ -39,12 +39,12 @@ a img {
 /* content header+banner & footer */
 
 #content_header {
-	background: url(/static/images/banner.png) no-repeat top;
+	background: url(images/banner.png) no-repeat top;
 	height: 112px;
 }
 
 #content_footer {
-	background: url(/static/images/content_footer.png) no-repeat bottom;
+	background: url(images/content_footer.png) no-repeat bottom;
 	height: 10px;
 }
 
