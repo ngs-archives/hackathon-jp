@@ -33,15 +33,15 @@
                         timeout: function(){
                             alert('Time out!!')
                         },
-//                        success: getResponse,
+                        //success: function(){console.info('SUccess!!')},
 						complete: getResponse,
-						error: handleErorr
+						//error: handleErorr
                     })
                 });
             })
             
             var getResponse = function(response){
-				
+				console.info('getResponse');
 				if(System.hasError) return;
 				
                 $('#twitterResult').html(response.responseText);
@@ -52,7 +52,10 @@
 					});
                 });
                 
-                getYoutubeData('testtest');
+				var dataJson = eval(response.responseText);
+				console.info('show data --------------------------');
+				console.info(dataJson.length);
+//                getYoutubeData('testtest');
             }
             
             var getYoutubeData = function(keyword){
@@ -99,6 +102,7 @@
 			}
 			
 			var handleErorr = function(response){
+				console.info('handleError');
 				System.hasError = true;
 				$('div.loading').fadeOut(200, function(){
 						$('div#loginmessage').show();
