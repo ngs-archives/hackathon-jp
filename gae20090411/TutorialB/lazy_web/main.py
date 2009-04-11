@@ -31,6 +31,7 @@ from google.appengine.ext.webapp import template
 from yahoo import YahooJLP
 import logging
 from twitter import api
+import re
 
 USER_NAME = 'your_name'
 PASSWORD = 'your_password'
@@ -47,6 +48,7 @@ class MainPage(webapp.RequestHandler):
     passwd = self.request.get('twitterPass')
     timeline = list()
     jlp = YahooJLP()
+    pat = re.compile(r'^\w')
     try:
         # Twitter
         t = api.TwitterClone(id, passwd, 'http://twitter.com/')
@@ -57,7 +59,9 @@ class MainPage(webapp.RequestHandler):
             if (text):
                 words = jlp.parse(text)
                 for word in words:
-                    timeline.append(word['surface'])
+                    w = word['surface']
+                    if (not pat.search(w)):
+                        timeline.append(w)
     except:
         self.error(500)
 
