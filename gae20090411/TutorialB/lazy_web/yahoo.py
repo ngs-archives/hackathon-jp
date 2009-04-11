@@ -1,3 +1,4 @@
+# encoding=utf8
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import cgi
@@ -12,6 +13,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 from google.appengine.api import urlfetch
+import logging
 
 class YahooJLP:    
     
@@ -22,6 +24,7 @@ class YahooJLP:
         url = 'http://jlp.yahooapis.jp/MAService/V1/parse?appid='
         url += key
         url += '&' + urllib.urlencode({"sentence":str})
+        url += '&filter=9'
         result = urlfetch.fetch(url)
         if result.status_code == 200:
             return self.parseYahooXML(result.content)
