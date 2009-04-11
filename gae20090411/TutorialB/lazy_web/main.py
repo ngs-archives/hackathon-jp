@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 #
+import cgi
+import os
 # Copyright 2007 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,17 +23,45 @@
 import wsgiref.handlers
 
 
+from google.appengine.api import users
 from google.appengine.ext import webapp
+from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.ext import db
+from google.appengine.ext.webapp import template
 
+from twitter import api
 
+USER_NAME = 'your_name'
+PASSWORD = 'your_password'
 class MainHandler(webapp.RequestHandler):
 
   def get(self):
     self.response.out.write('Hello world!')
 
 
+class TestPage(webapp.RequestHandler):
+  def get(self):
+    # Wassr
+    w = api.TwitterClone(USER_NAME,PASSWORD, 'http://api.wassr.jp/')
+    timeline = list()
+    for data in reversed(w.get_public_timeline()):
+        timeline.append('[w]%-12s : %s' % (data['user_login_id'], data['text']))
+
+    # Twitter
+    t = api.TwitterClone(USER_NAME, PASSWORD, 'http://twitter.com/')
+    for data in reversed(t.get_public_timeline()):
+        timeline.append('[t]%-12s : %s' % (data['user']['screen_name'], data['text']))
+
+    template_values = {
+      'timeline': timeline,
+      }
+
+    path = os.path.join(os.path.dirname(__file__), 'test.html')
+    self.response.out.write(template.render(path, template_values))
+
 def main():
-  application = webapp.WSGIApplication([('/', MainHandler)],
+  application = webapp.WSGIApplication([('/', MainHandler)
+                                        ,('/test.cgi', TestPage)],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
