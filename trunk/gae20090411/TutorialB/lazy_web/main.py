@@ -65,7 +65,7 @@ class MainPage(webapp.RequestHandler):
       'timeline': timeline,
       }
 
-    path = os.path.join(os.path.dirname(__file__), 'main.html')
+    path = os.path.join(os.path.dirname(__file__), 'result.json')
     self.response.out.write(template.render(path, template_values))
 
 class TestPage(webapp.RequestHandler):
