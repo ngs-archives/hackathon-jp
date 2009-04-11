@@ -1,3 +1,5 @@
+import time
+import datetime
 import StringIO
 import EXIF
 from google.appengine.api import images
@@ -23,8 +25,13 @@ class PostHandler(webapp.RequestHandler):
 #         self.response.out.write("""  </table>
 # </body>
 # </html>""")
-
+        
         image = self.request.get("image")
+        if tags.get('Image DateTime') != None:
+            st = time.strptime(tags['Image DateTime'].values, '%Y:%m:%d %H:%M:%S')
+            imgDateTime =  datetime.datetime(st[0], st[1], st[2], st[3], st[4], st[5])
+        else:
+            imgDateTime = None
         if tags.get('GPS GPSLatitude') != None:
             lat = self.__getDegree(tags['GPS GPSLatitude'].values)
         else:
@@ -34,8 +41,12 @@ class PostHandler(webapp.RequestHandler):
         else:
             lon = 0.0
 
-        pictData = PictureData(picture = image, geo = "%f, %f" % (lat, lon))
+        pictData = PictureData(picture     = image,
+                               geo         = "%f, %f" % (lat, lon),
+                               imgdatetime = imgDateTime)
         PictureCtrls.set(pictData)
+
+        self.redirect('/')
 
     def __getDegree(self, values):
         deg  = values[0].num / values[0].den / 1.0
