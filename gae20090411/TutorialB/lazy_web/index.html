@@ -8,64 +8,74 @@
         </script>
         <script type="text/javascript">
             <!--
-			
-			var System = {
-				hasError:false,
-				currentData:0
-			}
-			var responseData;
-			
-			
+            
+            var System = {
+                hasError: false,
+                currentData: 0
+            }
+            var responseData;
+            
+            
             $(function(){
                 $('#twitterId').focus();
-				
-				$('div.result').css('height', (jQuery(document).height() - 10) + 'px');
+                
+                $('div.result').css('height', (jQuery(document).height() - 10) + 'px');
                 
                 $('#startbtn').click(function(){
                     $('div.startup').fadeOut(200, function(){
                         $('div.loading').fadeIn(200)
                     });
-                    $.ajax({
-                        url: 'main.cgi',
-                        type: 'post',
-                        data: {
-                            twitterId: $('#twitterId').val(),
-                            twitterPass: $('#twitterPass').val()
-                        },
-                        dataType: 'json',
-                        timeout: function(){
-                            alert('Time out!!')
-                        },
-                        //success: function(){console.info('SUccess!!')},
-						complete: getResponse,
-						//error: handleErorr
-                    })
+                    getTwitterword();
                 });
             })
             
+            var getTwitterword = function(){
+                $.ajax({
+                    url: 'main.cgi',
+                    type: 'post',
+                    data: {
+                        twitterId: $('#twitterId').val(),
+                        twitterPass: $('#twitterPass').val()
+                    },
+                    dataType: 'json',
+                    timeout: function(){
+                        alert('Time out!!')
+                    },
+                    //success: function(){console.info('SUccess!!')},
+                    complete: getResponse,
+                    //error: handleErorr
+                })
+                
+            }
+            
             var getResponse = function(response){
-				console.info('getResponse');
-				if(System.hasError) return;
-				
+                if (System.hasError) 
+                    return;
+                
                 $('#twitterResult').html(response.responseText);
-				$('h1').fadeOut(200);
+                $('h1').fadeOut(200);
                 $('div.loading').fadeOut(200, function(){
                     $('#twitterResult').parent().fadeIn(200, function(){
-						new ScrollContents($('#twitterResult'));
-					});
+                        new ScrollContents($('#twitterResult'));
+                    });
                 });
                 
-				//var dataJson;
-				//eval("var dataJson = {"+response.responseText+"}");
-				eval("window.responseData = {"+response.responseText+"}");
-				showData();
+                //var dataJson;
+                //eval("var dataJson = {"+response.responseText+"}");
+                eval("window.responseData = {" + response.responseText + "}");
+                showData();
                 //getYoutubeData(dataJson.words[0]);
             }
-			
-			var showData = function(){
-				getYoutubeData(responseData.words[System.currentData]);
-				System.currentData++;
-			}
+            
+            var showData = function(){
+				if(responseData.words[System.currentData]){
+		            getYoutubeData(responseData.words[System.currentData]);
+		            System.currentData++;					
+				} else {
+					System.currentData = 0;
+					getTwitterword();
+				}
+            }
             
             var getYoutubeData = function(keyword){
                 query = encodeURIComponent(keyword);
@@ -78,7 +88,7 @@
             }
             
             var showYoutubeData = function(data){
-				$('#youtubeResult').html('');
+                $('#youtubeResult').html('');
                 var html = '';
                 if (data.feed.openSearch$totalResults.$t > 0) {
                     var entries = data.feed.entry;
@@ -90,37 +100,39 @@
                     html += "<p>not found</p>";
                 }
                 $('#youtubeResult').html(html).parent().fadeIn(200);
-				new ScrollContents($('#youtubeResult'));				
+                new ScrollContents($('#youtubeResult'));
             }
-			
-			
-			var ScrollContents = function(obj){
-				this.jqObj = obj;
-				this.top = 0;
-				this.contetnHeight = obj.height();
-				var self = this;
-				this.timer = setInterval(function(){self.scroll()}, 80);
-			}
-			
-			ScrollContents.prototype.scroll = function() {
-				if(this.top * -1 > this.contetnHeight - 200) {
-					clearInterval(this.timer);
-					showData();
-				} else {
-					this.top = this.top - 3;
-					this.jqObj.css('top', this.top + 'px');
-				}
-			}
-			
-			var handleErorr = function(response){
-				console.info('handleError');
-				System.hasError = true;
-				$('div.loading').fadeOut(200, function(){
-						$('div#loginmessage').show();
-						$('div#handleErorr').html(response.responseText).show();
-                        $('div.startup').fadeIn(200);
+            
+            
+            var ScrollContents = function(obj){
+                this.jqObj = obj;
+                this.top = 0;
+                this.contetnHeight = obj.height();
+                var self = this;
+                this.timer = setInterval(function(){
+                    self.scroll()
+                }, 80);
+            }
+            
+            ScrollContents.prototype.scroll = function(){
+                if (this.top * -1 > this.contetnHeight - 200) {
+                    clearInterval(this.timer);
+                    showData();
+                }
+                else {
+                    this.top = this.top - 3;
+                    this.jqObj.css('top', this.top + 'px');
+                }
+            }
+            
+            var handleErorr = function(response){
+                System.hasError = true;
+                $('div.loading').fadeOut(200, function(){
+                    $('div#loginmessage').show();
+                    $('div#handleErorr').html(response.responseText).show();
+                    $('div.startup').fadeIn(200);
                 });
-			}
+            }
             
             // -->
         </script>
@@ -129,7 +141,9 @@
     <body>
         <h1>Start lazy internet...</h1>
         <div class="startup">
-        	<div id="loginmessage" style="display:none;">Login failed....</div>
+            <div id="loginmessage" style="display:none;">
+                Login failed....
+            </div>
             Your twitter name
             <br/>
             <input type="text" value="" id="twitterId" class="textbox" />
@@ -143,12 +157,15 @@
         <div class="loading" style="display:none;">
             <img src="./img/loading.gif" />&nbsp;&nbsp;Loading...
         </div>
-		<div class="result" style="display:none;">
-			<div id="youtubeResult"></div>
-		</div>
-		<div class="result" style="display:none;">
-        	<div id="twitterResult"></div>
-		</div>
-		<div id="errorTrace" style="display:none;"></div>
+        <div class="result" style="display:none;">
+            <div id="youtubeResult">
+            </div>
+        </div>
+        <div class="result" style="display:none;">
+            <div id="twitterResult">
+            </div>
+        </div>
+        <div id="errorTrace" style="display:none;">
+        </div>
     </body>
 </html>
