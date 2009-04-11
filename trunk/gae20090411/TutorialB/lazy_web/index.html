@@ -1,53 +1,94 @@
 <html>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>Lazy web [GAE Hack-a-thon disc #3 2009/04/11]</title>
-		<script type="text/javascript" src="./js/jquery-1.3.2.min.js"></script>
-		<script type="text/javascript" src="./js/main.js"></script>
-		<script type="text/javascript">
-		<!--
-		$(function(){			
-			$('#twitterId').focus();
-			
-			$('#startbtn').click(function(){
-				$('div.startup').fadeOut(200, function(){$('div.loading').fadeIn(200)});
-				$.ajax({
-					url:'main.cgi',
-					type:'post',
-					data: {
-						twitterId: $('#twitterId').val(),
-						twitterPass: $('#twitterPass').val()
-					},
-					dataType: 'json',
-					timeout: function(){alert('Time out!!')},
-					complete: getResponse
-				})
-			});
-		})
-		
-		var getResponse = function(response){
-			$('div.result').html(response.responseText);
-			$('div.loading').fadeOut(200, function(){
-				$('div.result').fadeIn(200);
-			});
-			
-		}
-		
-		// -->
-		</script>
-		<link rel="stylesheet" href="./css/main.css" />
-	</head>
-	<body>
-		<h1>Start lazy internet...</h1>		
-		<div class="startup">
-		Your twitter name<br />
-		<input type="text" value="" id="twitterId" class="textbox" /><br />
-		Your twitter Password<br />
-		<input type="password" value="" id="twitterPass" class="textbox" /><br />
-		<input type="button" value="start" id="startbtn" />
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Lazy web [GAE Hack-a-thon disc #3 2009/04/11]</title>
+        <script type="text/javascript" src="./js/jquery-1.3.2.min.js">
+        </script>
+        <script type="text/javascript" src="./js/main.js">
+        </script>
+        <script type="text/javascript">
+            <!--
+            $(function(){
+                $('#twitterId').focus();
+                
+                $('#startbtn').click(function(){
+                    $('div.startup').fadeOut(200, function(){
+                        $('div.loading').fadeIn(200)
+                    });
+                    $.ajax({
+                        url: 'main.cgi',
+                        type: 'post',
+                        data: {
+                            twitterId: $('#twitterId').val(),
+                            twitterPass: $('#twitterPass').val()
+                        },
+                        dataType: 'json',
+                        timeout: function(){
+                            alert('Time out!!')
+                        },
+                        complete: getResponse
+                    })
+                });
+            })
+            
+            var getResponse = function(response){
+                $('#twitterResult').html(response.responseText);
+                $('div.loading').fadeOut(200, function(){
+                    $('#twitterResult').parent().fadeIn(200);
+                });
+                
+                getYoutubeData('testtest');
+            }
+            
+            var getYoutubeData = function(keyword){
+                query = encodeURIComponent(keyword);
+                var jsonpURL = "http://gdata.youtube.com/feeds/videos?vq=" + query + "&max-results=20&alt=json-in-script&callback=showYoutubeData";
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = jsonpURL;
+                var head = document.getElementsByTagName("head")[0];
+                head.appendChild(script);
+            }
+            
+            var showYoutubeData = function(data){
+                var html = '';
+                if (data.feed.openSearch$totalResults.$t > 0) {
+                    var entries = data.feed.entry;
+                    for (var i = 0; i < entries.length; i++) {
+                        html += entries[i].content.$t;
+                    }
+                }
+                else {
+                    html += "<p>not found</p>";
+                }
+                $('#youtubeResult').html(html).parent().fadeIn(200);
+            }
+            
+            // -->
+        </script>
+        <link rel="stylesheet" href="./css/main.css" />
+    </head>
+    <body>
+        <h1>Start lazy internet...</h1>
+        <div class="startup">
+            Your twitter name
+            <br/>
+            <input type="text" value="" id="twitterId" class="textbox" />
+            <br/>
+            Your twitter Password
+            <br/>
+            <input type="password" value="" id="twitterPass" class="textbox" />
+            <br/>
+            <input type="button" value="start" id="startbtn" />
+        </div>
+        <div class="loading" style="display:none;">
+            <img src="./img/loading.gif" />
+        </div>
+		<div class="result" style="display:none;">
+			<div id="youtubeResult"></div>
 		</div>
-		<div class="loading" style="display:none;"><img src="./img/loading.gif" /></div>
-		<div class="result" style="display:block;">
+		<div class="result" style="display:none;">
+        	<div id="twitterResult"></div>
 		</div>
-	</body>
+    </body>
 </html>
