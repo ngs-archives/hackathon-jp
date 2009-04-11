@@ -15,17 +15,14 @@
 # limitations under the License.
 #
 
-
-
 import os
 import wsgiref.handlers
 
-
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from post import PostHandler
-from maps.views import show_map
 
+from post import PostHandler
+from maps import show_map
 
 class MainHandler(webapp.RequestHandler):
   def get(self):

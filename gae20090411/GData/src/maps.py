@@ -8,10 +8,11 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
+import dbclasses
+
 class show_map(webapp.RequestHandler):
   def get(self):
-    marker_list = dummy_data()
-
+    marker_list = get_gdata()
     logging.debug(len(marker_list))
 
     template_values = {
@@ -20,6 +21,21 @@ class show_map(webapp.RequestHandler):
 
     path = os.path.join(os.path.dirname(__file__), 'maps.html')
     self.response.out.write(template.render(path, template_values))
+
+
+def get_gdata():
+  marker_list = []
+  picts = PictureData.all()
+  for pict in picts:
+    author = 'none'
+    geo = pict.geo()
+    keido = geo[:geo.find(',')]
+    ido = geo[geo.find(',')+1:]
+
+    m = Merker(author, keido, ido)
+    marker_list.append(m)
+
+  return marker_list
 
 
 def dummy_data():
