@@ -1,19 +1,8 @@
-# encoding=utf8
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import cgi
-import wsgiref.handlers
-import os
-import xml.parsers.expat
 import urllib
-import re
-import urllib2
-from google.appengine.api import users
-from google.appengine.ext import webapp
-from google.appengine.ext import db
-from google.appengine.ext.webapp import template
+import xml.parsers.expat
 from google.appengine.api import urlfetch
-import logging
 
 class YahooJLP:    
     
