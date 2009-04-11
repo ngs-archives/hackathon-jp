@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>Lazy web for GAE Hack-a-thon </title>
+		<title>Lazy web [GAE Hack-a-thon disc #3 2009/04/11]</title>
 		<script type="text/javascript" src="./js/jquery-1.3.2.min.js"></script>
 		<script type="text/javascript" src="./js/main.js"></script>
 		<script type="text/javascript">
@@ -10,7 +10,7 @@
 			$('#twitterId').focus();
 			
 			$('#startbtn').click(function(){
-				$('div.startup').fadeOut('slow');
+				$('div.startup').fadeOut(200, function(){$('div.loading').fadeIn(200)});
 				$.ajax({
 					url:'main.cgi',
 					type:'post',
@@ -26,8 +26,11 @@
 		})
 		
 		var getResponse = function(response){
-			//alert(response.responseText);
-			$('div.result').fadeIn('slow').html(response.responseText);
+			$('div.result').html(response.responseText);
+			$('div.loading').fadeOut(200, function(){
+				$('div.result').fadeIn(200);
+			});
+			
 		}
 		
 		// -->
@@ -35,16 +38,16 @@
 		<link rel="stylesheet" href="./css/main.css" />
 	</head>
 	<body>
+		<h1>Start lazy internet...</h1>		
 		<div class="startup">
-		<h1>Start lazy internet...</h1>
 		Your twitter name<br />
 		<input type="text" value="" id="twitterId" class="textbox" /><br />
 		Your twitter Password<br />
 		<input type="password" value="" id="twitterPass" class="textbox" /><br />
 		<input type="button" value="start" id="startbtn" />
 		</div>
-		<div class="result" style="display:none;">
-			aaaaa
+		<div class="loading" style="display:none;"><img src="./img/loading.gif" /></div>
+		<div class="result" style="display:block;">
 		</div>
 	</body>
 </html>

@@ -1,6 +1,10 @@
-div.startup {
+h1 {
 	width:600px;
 	margin: 20px auto;
+}
+div.startup, div.loading {
+	width:600px;
+	margin: 10px auto;
 }
 
 div.startup input {
