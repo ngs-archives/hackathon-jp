@@ -51,6 +51,7 @@ class MainPage(webapp.RequestHandler):
     pat = re.compile(r'^\w')
     try:
         # Twitter
+        counter = 0
         t = api.TwitterClone(id, passwd, 'http://twitter.com/')
         for data in reversed(t.get_friends_timeline()):
             #パーサーを使って名詞だけを抽出する
@@ -62,6 +63,9 @@ class MainPage(webapp.RequestHandler):
                     w = word['surface']
                     if (not pat.search(w)):
                         timeline.add(w)
+            counter = counter + 1
+            if counter >= 20:
+                break
     except:
         self.error(500)
 
