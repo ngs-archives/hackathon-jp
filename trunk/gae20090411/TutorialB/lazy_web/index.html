@@ -8,6 +8,12 @@
 		<!--
 		$(function(){
 			$('#test').html('jQuery is enabled');
+			
+			$('#twitterId').focus();
+			
+			$('#startbtn').click(function(){
+				alert('OK click');
+			});
 		})
 		
 		// -->
@@ -15,7 +21,14 @@
 		<link rel="stylesheet" href="./css/main.css" />
 	</head>
 	<body>
-		<h1>Index Page</h1>
 		<div id="test"></div>
+		<div class="startup">
+		<h1>Start lazy internet...</h1>
+		Your twitter name<br />
+		<input type="text" value="" id="twitterId" class="textbox" /><br />
+		Your twitter Password<br />
+		<input type="password" value="" id="twitterPass" class="textbox" /><br />
+		<input type="button" value="start" id="startbtn" />
+		</div>
 	</body>
 </html>
