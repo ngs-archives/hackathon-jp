@@ -17,12 +17,14 @@
 
 
 
-
+import os
 import wsgiref.handlers
 
 
 from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
 from post import PostHandler
+from maps.views import show_map
 
 
 class MainHandler(webapp.RequestHandler):
@@ -33,7 +35,8 @@ class MainHandler(webapp.RequestHandler):
 
 def main():
   application = webapp.WSGIApplication([('/', MainHandler),
-                                        ('/post', PostHandler)],
+                                        ('/post', PostHandler),
+                                        ('/maps', show_map)],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
