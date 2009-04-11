@@ -26,31 +26,49 @@ import twitter
 import configs
 from google.appengine.ext import webapp
 
+api = twitter.Api(username=configs.TWITTER_USER, password=configs.TWITTER_PWD)
 
 class MainHandler(webapp.RequestHandler):
-
   def get(self):
+    statuses = api.GetFriendsTimeline()
     self.response.out.write('<html><body>')
     self.response.out.write("""
-          <form action="/" method="post">
-            <div><textarea name="content" rows="3" cols="60"></textarea></div>
-            <div><input type="submit" value="say"></div>
-          </form>
-        </body>
-      </html>""")
+      <form action="/" method="post">
+        <div><textarea name="content" rows="3" cols="60"></textarea></div>
+        <div><input type="submit" value="say"></div>
+      </form>
+    """)
+    for status in statuses:
+      img = '<img src="' + status.user.profile_image_url + '" />'
+      self.response.out.write('<div>%s %s: %s</div>' % (img, status.user.name, status.text))
+    self.response.out.write("""
+      </body>
+      </html>
+    """)
 
   def post(self):
     message = self.request.get('content')
     self.response.out.write(message)
-
-    api = twitter.Api(username=configs.TWITTER_USER, password=configs.TWITTER_PWD)
     statuses = api.PostUpdate(unicode(message))
-    self.response.out.write('%s' % statuses)
+    self.redirect('/')
 
+class PhotoHandler(webapp.RequestHandler):
+  def get(self):
+    statuses = api.GetPublicTimeline()
+    self.response.out.write('<html><body>')
+    for status in statuses:
+      self.response.out.write('<div>%s: %s</div>' % (status.user.name, status.text))
+    self.response.out.write("""
+      </body>
+      </html>
+    """)
 
 def main():
-  application = webapp.WSGIApplication([('/', MainHandler)],
-                                       debug=True)
+  application = webapp.WSGIApplication([
+    ('/', MainHandler),
+    ('/photo/', PhotoHandler)
+    ],
+    debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
 
