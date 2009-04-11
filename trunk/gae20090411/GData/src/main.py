@@ -26,18 +26,10 @@ from post import PostHandler
 
 
 class MainHandler(webapp.RequestHandler):
-
   def get(self):
-    self.response.out.write('''<html>
-  <body>
-    <form enctype="multipart/form-data" method="POST" action="/post">
-      <input type="file" name="image" /><br />
-      <input type="submit" /><br />
-    </form>
-  </body>
-</html>
-''')
-
+    template_values = {}
+    path = os.path.join(os.path.dirname(__file__), 'index.html')
+    self.response.out.write(template.render(path, template_values))
 
 def main():
   application = webapp.WSGIApplication([('/', MainHandler),
