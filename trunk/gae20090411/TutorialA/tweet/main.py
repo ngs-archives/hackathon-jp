@@ -63,10 +63,20 @@ class PhotoHandler(webapp.RequestHandler):
       </html>
     """)
 
+class SampleXml(webapp.RequestHandler):
+  def get (self):
+    statuses = api.GetFriendsTimeline()
+    self.response.out.write('<tweet>')
+    for status in statuses:
+      self.response.out.write('<img src="%s" name="%s" status="%s" />' % (status.user.profile_image_url, status.user.name, status.text))
+    self.response.out.write('</tweet>')
+
+
 def main():
   application = webapp.WSGIApplication([
     ('/', MainHandler),
-    ('/photo/', PhotoHandler)
+    ('/photo/', PhotoHandler),
+    ('/xml', SampleXml),
     ],
     debug=True)
   wsgiref.handlers.CGIHandler().run(application)
