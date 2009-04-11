@@ -1,4 +1,6 @@
 ﻿from google.appengine.ext import db
+from google.appengine.api import images
+
 import logging
 
 class PictureData(db.Model):
@@ -15,7 +17,9 @@ class PictureCtrls():
     def set(data):
         pic = PictureData()
         if len(data.picture) < (1024*1024):
-            pic.picture = data.picture
+            img = images.resize(data.picture, 300, 300)
+            pic.picture = db.Blob(img)
+            #pic.picture = data.picture
         else:
             pic.picture = None
         pic.imgdatetime = data.imgdatetime
