@@ -47,16 +47,19 @@ class MainPage(webapp.RequestHandler):
     passwd = self.request.get('twitterPass')
     timeline = list()
     jlp = YahooJLP()
-    # Twitter
-    t = api.TwitterClone(id, passwd, 'http://twitter.com/')
-    for data in reversed(t.get_friends_timeline()):
-        #パーサーを使って名詞だけを抽出する
-        #timeline.append('[t]%-12s : %s' % (data['user']['screen_name'], data['text']))
-        text = data['text']
-        if (text):
-            words = jlp.parse(text)
-            for word in words:
-                timeline.append(word['surface'])
+    try:
+        # Twitter
+        t = api.TwitterClone(id, passwd, 'http://twitter.com/')
+        for data in reversed(t.get_friends_timeline()):
+            #パーサーを使って名詞だけを抽出する
+            #timeline.append('[t]%-12s : %s' % (data['user']['screen_name'], data['text']))
+            text = data['text']
+            if (text):
+                words = jlp.parse(text)
+                for word in words:
+                    timeline.append(word['surface'])
+    except Error:
+        self.error(500)
 
     template_values = {
       'timeline': timeline,
