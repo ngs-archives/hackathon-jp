@@ -1410,14 +1410,25 @@ class Api(object):
     Returns:
       A string containing the body of the response.
     """
-    url = self._BuildUrl(url, extra_params=parameters)
+    method = urlfetch.GET
+    data = {}
+    if post_data:
+      method = urlfetch.POST
+      data.update(post_data)
+    params = {}
+    if parameters:
+      params.update(parameters)
+    url = self._BuildUrl(url, extra_params=params)
+    
+    headers = {}
     encoded_post_data = self._EncodePostData(post_data)
 
     base64string = base64.encodestring('%s:%s' % (self._username,
 self._password))[:-1]
     headers = {'Authorization': "Basic %s" % base64string}
-
-    return urlfetch.fetch(url, encoded_post_data, urlfetch.POST,
+    if post_data:
+      headers.update({'Content-type':'application/x-www-form-urlencoded'})
+    return urlfetch.fetch(url, encoded_post_data, method,
 headers, False).content 
 
 
