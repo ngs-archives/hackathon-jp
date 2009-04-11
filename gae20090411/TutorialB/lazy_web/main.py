@@ -46,7 +46,7 @@ class MainPage(webapp.RequestHandler):
   def post(self):
     id = self.request.get('twitterId')
     passwd = self.request.get('twitterPass')
-    timeline = list()
+    timeline = set()
     jlp = YahooJLP()
     pat = re.compile(r'^\w')
     try:
@@ -61,7 +61,7 @@ class MainPage(webapp.RequestHandler):
                 for word in words:
                     w = word['surface']
                     if (not pat.search(w)):
-                        timeline.append(w)
+                        timeline.add(w)
     except:
         self.error(500)
 
