@@ -27,7 +27,7 @@ from maps import show_map
 class MainHandler(webapp.RequestHandler):
   def get(self):
     template_values = {}
-    path = os.path.join(os.path.dirname(__file__), 'index.html')
+    path = os.path.join(os.path.dirname(__file__), 'maps.html')
     self.response.out.write(template.render(path, template_values))
 
 def main():
