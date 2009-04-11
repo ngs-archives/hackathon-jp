@@ -28,6 +28,8 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
+import urllib
+from google.appengine.api import urlfetch
 from yahoo import YahooJLP
 import logging
 from twitter import api
@@ -49,6 +51,7 @@ class MainPage(webapp.RequestHandler):
     timeline = set()
     jlp = YahooJLP()
     pat = re.compile(r'^\w')
+    short_pat = re.compile(r'^.{0,2}$')
     try:
         # Twitter
         counter = 0
@@ -61,11 +64,10 @@ class MainPage(webapp.RequestHandler):
                 words = jlp.parse(text)
                 for word in words:
                     w = word['surface']
-                    if (not pat.search(w)):
+                    if ((not pat.search(w))):
                         timeline.add(w)
-                        counter = counter + 1
-            if counter >= 20:
-                break
+                        if len(timeline) > 20:
+                            break
     except:
         self.error(500)
 
@@ -96,9 +98,24 @@ class TestPage(webapp.RequestHandler):
     path = os.path.join(os.path.dirname(__file__), 'test.html')
     self.response.out.write(template.render(path, template_values))
 
+class Wikipedia(webapp.RequestHandler):
+    def get(self):
+        keyword = self.request.get('keyword')
+        if not keyword:
+            return None
+        url = 'http://wikipedia.simpleapi.net/api?output=json'
+        url += '&' + urllib.urlencode({"keyword":keyword})
+        result = urlfetch.fetch(url)
+        if result.status_code == 200:
+            self.response.out.write(result.content)
+        else:
+            return None
+
+
 def main():
   application = webapp.WSGIApplication([('/', MainHandler)
                                         ,('/main.cgi', MainPage)
+                                        ,('/wikipedia', Wikipedia)
                                         ,('/test.cgi', TestPage)],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
