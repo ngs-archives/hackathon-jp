@@ -30,8 +30,21 @@ from google.appengine.ext import webapp
 class MainHandler(webapp.RequestHandler):
 
   def get(self):
-    api = twitter.Api(username=configs.TWITTER_USER, password=configs.TWITTER_PWD, input_encoding='UTF-8')
-    statuses = api.PostUpdate('hoge')
+    self.response.out.write('<html><body>')
+    self.response.out.write("""
+          <form action="/" method="post">
+            <div><textarea name="content" rows="3" cols="60"></textarea></div>
+            <div><input type="submit" value="say"></div>
+          </form>
+        </body>
+      </html>""")
+
+  def post(self):
+    message = self.request.get('content')
+    self.response.out.write(message)
+
+    api = twitter.Api(username=configs.TWITTER_USER, password=configs.TWITTER_PWD)
+    statuses = api.PostUpdate(unicode(message))
     self.response.out.write('%s' % statuses)
 
 
