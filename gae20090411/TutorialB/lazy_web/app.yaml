@@ -23,3 +23,6 @@ handlers:
   
 - url: /img
   static_dir: img
+
+- url: /wikipedia
+  script: main.py
