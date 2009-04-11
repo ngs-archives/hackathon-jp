@@ -1,0 +1,9 @@
+application: colunet
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /my_proxy2
+  script: osaka_proxy2.py
+
