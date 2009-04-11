@@ -53,12 +53,10 @@ class MainPage(webapp.RequestHandler):
         #パーサーを使って名詞だけを抽出する
         #timeline.append('[t]%-12s : %s' % (data['user']['screen_name'], data['text']))
         text = data['text']
-        logging.info(text)
         if (text):
-            self.response.out.write(text)
             words = jlp.parse(text)
             for word in words:
-                timeline.append(word)
+                timeline.append(word['surface'])
 
     template_values = {
       'timeline': timeline,

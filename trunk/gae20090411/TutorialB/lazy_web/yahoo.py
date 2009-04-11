@@ -23,7 +23,7 @@ class YahooJLP:
         encoding = 'utf-8'
         url = 'http://jlp.yahooapis.jp/MAService/V1/parse?appid='
         url += key
-        url += '&' + urllib.urlencode({"sentence":str})
+        url += '&' + urllib.urlencode({"sentence":str.encode('utf-8')})
         url += '&filter=9'
         result = urlfetch.fetch(url)
         if result.status_code == 200:
@@ -31,7 +31,6 @@ class YahooJLP:
         else:
             return nil;
         
-    #食べログAPI結果SAXパース用ロジック
     words = []
     item = {}
     itemName = ''
@@ -86,8 +85,3 @@ class YahooJLP:
         p.EndElementHandler = self.end_element
         p.Parse(content)
         return self.words
-
-    
-    
-    
-    
