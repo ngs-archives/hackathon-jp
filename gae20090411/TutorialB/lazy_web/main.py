@@ -38,6 +38,22 @@ class MainHandler(webapp.RequestHandler):
   def get(self):
     self.response.out.write('Hello world!')
 
+class MainPage(webapp.RequestHandler):
+  def post(self):
+    id = self.request.get('your_name')
+    passwd = self.request.get('your_password')
+    timeline = list()
+    # Twitter
+    t = api.TwitterClone(id, passwd, 'http://twitter.com/')
+    for data in reversed(t.get_friends_timeline()):
+        timeline.append('[t]%-12s : %s' % (data['user']['screen_name'], data['text']))
+
+    template_values = {
+      'timeline': timeline,
+      }
+
+    path = os.path.join(os.path.dirname(__file__), 'main.html')
+    self.response.out.write(template.render(path, template_values))
 
 class TestPage(webapp.RequestHandler):
   def get(self):
@@ -62,6 +78,7 @@ class TestPage(webapp.RequestHandler):
 def main():
   application = webapp.WSGIApplication([('/', MainHandler)
                                         ,('/test.cgi', TestPage)],
+                                        ,('/main.cgi', MainPage),
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
