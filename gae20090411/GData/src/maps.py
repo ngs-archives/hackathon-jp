@@ -8,13 +8,17 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
-import dbclasses
+from dbclasses import PictureData
+
+class Marker():
+  def __init__(self, author='', keido=0.0, ido=0.0):
+    self.author = author
+    self.keido = keido
+    self.ido = ido
 
 class show_map(webapp.RequestHandler):
   def get(self):
     marker_list = get_gdata()
-    logging.debug(len(marker_list))
-
     template_values = {
       'marker_list': marker_list,
     }
@@ -28,11 +32,14 @@ def get_gdata():
   picts = PictureData.all()
   for pict in picts:
     author = 'none'
-    geo = pict.geo()
-    keido = geo[:geo.find(',')]
-    ido = geo[geo.find(',')+1:]
+    # object -> string
+    geo_obj = pict.geo
+    geo_str = str(geo_obj)
 
-    m = Merker(author, keido, ido)
+    keido = geo_str[:geo_str.find(',')]
+    ido = geo_str[geo_str.find(',')+1:]
+
+    m = Marker(author, keido, ido)
     marker_list.append(m)
 
   return marker_list
@@ -50,12 +57,6 @@ def dummy_data():
 
   return marker_list
 
-
-class Marker():
-  def __init__(self, author='', keido=0.0, ido=0.0):
-    self.author = author
-    self.keido = keido
-    self.ido = ido
 
 # gio encoding
 def giocoding_keido(dd, mm, ss, ms=0):
