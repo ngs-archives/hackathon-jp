@@ -14,7 +14,7 @@ class PictureCtrls():
     @staticmethod
     def set(data):
         pic = PictureData()
-        if len(data.picture) < 1000000:
+        if len(data.picture) < (1024*1024):
             pic.picture = data.picture
         else:
             pic.picture = None
