@@ -2,11 +2,10 @@
 import logging
 
 class PictureData(db.Model):
-    #filename = db.StringProperty()
-    upload = db.DateTimeProperty(auto_now_add=True)
     picture = db.BlobProperty()
     geo = db.GeoPtProperty()  # Format = "緯度, 経度"
-    #description = db.StringProperty()
+    imgdatetime = db.DateTimeProperty(auto_now_add=False)
+    upload = db.DateTimeProperty(auto_now_add=True)
 
 MAX_FILES = 100
 
@@ -15,11 +14,11 @@ class PictureCtrls():
     @staticmethod
     def set(data):
         pic = PictureData()
-        pic.filename = data.filename
         if len(data.picture) < 1000000:
             pic.picture = data.picture
         else:
             pic.picture = None
+        pic.imgdatetime = data.imgdatetime
         pic.geo = data.geo
         pic.put()
     
