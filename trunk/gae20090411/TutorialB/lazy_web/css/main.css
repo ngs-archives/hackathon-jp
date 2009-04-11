@@ -7,3 +7,8 @@ div.startup input {
 	margin-bottom:20px;
 	font-size:3em;
 }
+
+div.result {
+	width:600px;
+	margin: 20px auto;
+}
