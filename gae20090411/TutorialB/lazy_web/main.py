@@ -63,7 +63,7 @@ class MainPage(webapp.RequestHandler):
                     w = word['surface']
                     if (not pat.search(w)):
                         timeline.add(w)
-            counter = counter + 1
+                        counter = counter + 1
             if counter >= 20:
                 break
     except:
