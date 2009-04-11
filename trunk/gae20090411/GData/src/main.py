@@ -22,16 +22,26 @@ import wsgiref.handlers
 
 
 from google.appengine.ext import webapp
+from post import PostHandler
 
 
 class MainHandler(webapp.RequestHandler):
 
   def get(self):
-    self.response.out.write('Hello world!')
+    self.response.out.write('''<html>
+  <body>
+    <form enctype="multipart/form-data" method="POST" action="/post">
+      <input type="file" name="image" /><br />
+      <input type="submit" /><br />
+    </form>
+  </body>
+</html>
+''')
 
 
 def main():
-  application = webapp.WSGIApplication([('/', MainHandler)],
+  application = webapp.WSGIApplication([('/', MainHandler),
+                                        ('/post', PostHandler)],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
