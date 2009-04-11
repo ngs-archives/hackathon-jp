@@ -2,6 +2,7 @@ import StringIO
 import EXIF
 from google.appengine.api import images
 from google.appengine.ext import webapp
+from dbclasses import *
 
 
 class PostHandler(webapp.RequestHandler):
@@ -24,8 +25,17 @@ class PostHandler(webapp.RequestHandler):
 # </html>""")
 
         image = self.request.get("image")
-        lat = self.__getDegree(tags['GPS GPSLatitude'].values)
-        lon = self.__getDegree(tags['GPS GPSLongitude'].values)
+        if tags.get('GPS GPSLatitude') != None:
+            lat = self.__getDegree(tags['GPS GPSLatitude'].values)
+        else:
+            lat = 0.0
+        if tags.get('GPS GPSLongitude') != None:
+            lon = self.__getDegree(tags['GPS GPSLongitude'].values)
+        else:
+            lon = 0.0
+
+        pictData = PictureData(picture = image, geo = "%f, %f" % (lat, lon))
+        PictureCtrls.set(pictData)
 
     def __getDegree(self, values):
         deg  = values[0].num / values[0].den / 1.0
