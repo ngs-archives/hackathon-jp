@@ -40,8 +40,8 @@ class MainHandler(webapp.RequestHandler):
 
 class MainPage(webapp.RequestHandler):
   def post(self):
-    id = self.request.get('your_name')
-    passwd = self.request.get('your_password')
+    id = self.request.get('twitterId')
+    passwd = self.request.get('twitterPass')
     timeline = list()
     # Twitter
     t = api.TwitterClone(id, passwd, 'http://twitter.com/')
