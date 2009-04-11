@@ -10,8 +10,11 @@
             <!--
 			
 			var System = {
-				hasError:false
+				hasError:false,
+				currentData:0
 			}
+			var responseData;
+			
 			
             $(function(){
                 $('#twitterId').focus();
@@ -52,11 +55,17 @@
 					});
                 });
                 
-				var dataJson = eval(response.responseText);
-				console.info('show data --------------------------');
-				console.info(dataJson.length);
-//                getYoutubeData('testtest');
+				//var dataJson;
+				//eval("var dataJson = {"+response.responseText+"}");
+				eval("window.responseData = {"+response.responseText+"}");
+				showData();
+                //getYoutubeData(dataJson.words[0]);
             }
+			
+			var showData = function(){
+				getYoutubeData(responseData.words[System.currentData]);
+				System.currentData++;
+			}
             
             var getYoutubeData = function(keyword){
                 query = encodeURIComponent(keyword);
@@ -69,6 +78,7 @@
             }
             
             var showYoutubeData = function(data){
+				$('#youtubeResult').html('');
                 var html = '';
                 if (data.feed.openSearch$totalResults.$t > 0) {
                     var entries = data.feed.entry;
@@ -95,6 +105,7 @@
 			ScrollContents.prototype.scroll = function() {
 				if(this.top * -1 > this.contetnHeight - 200) {
 					clearInterval(this.timer);
+					showData();
 				} else {
 					this.top = this.top - 3;
 					this.jqObj.css('top', this.top + 'px');
