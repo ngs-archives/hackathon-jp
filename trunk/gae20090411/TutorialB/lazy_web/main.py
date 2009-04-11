@@ -1,5 +1,7 @@
+# encoding=utf8
+
 #!/usr/bin/env python
-#
+# -*- coding: utf-8 -*-
 # Copyright 2007 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +28,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
+from yahoo import YahooJLP
 import logging
 from twitter import api
 
@@ -43,11 +46,19 @@ class MainPage(webapp.RequestHandler):
     id = self.request.get('twitterId')
     passwd = self.request.get('twitterPass')
     timeline = list()
+    jlp = YahooJLP()
     # Twitter
     t = api.TwitterClone(id, passwd, 'http://twitter.com/')
     for data in reversed(t.get_friends_timeline()):
-        logging.info(data)
-        timeline.append('[t]%-12s : %s' % (data['user']['screen_name'], data['text']))
+        #パーサーを使って名詞だけを抽出する
+        #timeline.append('[t]%-12s : %s' % (data['user']['screen_name'], data['text']))
+        text = data['text']
+        logging.info(text)
+        if (text):
+            self.response.out.write(text)
+            words = jlp.parseYahooXML(text)
+            for word in words:
+                timeline.append(word)
 
     template_values = {
       'timeline': timeline,
