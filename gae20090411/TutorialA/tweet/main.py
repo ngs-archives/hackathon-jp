@@ -25,6 +25,7 @@ import sys
 import twitter
 import configs
 from google.appengine.ext import webapp
+from pyamf.remoting.gateway.google import WebAppGateway
 
 api = twitter.Api(username=configs.TWITTER_USER, password=configs.TWITTER_PWD)
 
@@ -63,6 +64,13 @@ class PhotoHandler(webapp.RequestHandler):
       </html>
     """)
 
+def echo(data):
+    statuses = api.GetFriendsTimeline()
+    self.response.out.write('<tweet>')
+    for status in statuses:
+      self.response.out.write('<img src="%s" name="%s" status="%s" />' % (status.user.profile_image_url, status.user.name, status.text))
+    self.response.out.write('</tweet>')
+
 class SampleXml(webapp.RequestHandler):
   def get (self):
     statuses = api.GetFriendsTimeline()
@@ -71,16 +79,18 @@ class SampleXml(webapp.RequestHandler):
       self.response.out.write('<img src="%s" name="%s" status="%s" />' % (status.user.profile_image_url, status.user.name, status.text))
     self.response.out.write('</tweet>')
 
+services = {
+    'echo': echo,
+}
 
 def main():
   application = webapp.WSGIApplication([
     ('/', MainHandler),
-    ('/photo/', PhotoHandler),
-    ('/xml', SampleXml),
+    ('/xml/', SampleXml),
+    ('/flash/', WebAppGateway(services))
     ],
     debug=True)
   wsgiref.handlers.CGIHandler().run(application)
-
 
 if __name__ == '__main__':
   main()
