@@ -12,9 +12,24 @@
 			$('#twitterId').focus();
 			
 			$('#startbtn').click(function(){
-				alert('OK click');
+				$('div.startup').fadeOut('slow');
+				$.ajax({
+					url:'main.cgi',
+					type:'post',
+					data: {
+						twitterId: $('#twitterId').val(),
+						twitterPass: $('#twitterPass').val()
+					},
+					dataType: 'json',
+					timeout: function(){alert('Time out!!')},
+					complete: getResponse
+				})
 			});
 		})
+		
+		var getResponse = function(response){
+			alert(response.responseText);
+		}
 		
 		// -->
 		</script>
