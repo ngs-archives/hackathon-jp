@@ -58,7 +58,7 @@ class MainPage(webapp.RequestHandler):
                 words = jlp.parse(text)
                 for word in words:
                     timeline.append(word['surface'])
-    except Error:
+    except:
         self.error(500)
 
     template_values = {
