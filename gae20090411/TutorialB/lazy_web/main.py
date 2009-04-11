@@ -56,7 +56,7 @@ class MainPage(webapp.RequestHandler):
         logging.info(text)
         if (text):
             self.response.out.write(text)
-            words = jlp.parseYahooXML(text)
+            words = jlp.parse(text)
             for word in words:
                 timeline.append(word)
 
