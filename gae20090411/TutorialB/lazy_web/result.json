@@ -1,0 +1,5 @@
+words :[
+{% for line in timeline %}
+'{{ line }}',
+{% endfor %}
+]
