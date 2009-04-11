@@ -9,7 +9,7 @@ class MainPage(webapp.RequestHandler):
     self.response.headers['Content-Type'] = 'text/html'
     self.response.out.write('Hello, webapp World!<br>')
     self.response.out.write('------------------------------------------<br>')
-    self.response.out.write('UserData: %i <br>' % UserData.all().count())
+    self.response.out.write('UserData.all().count() -> %i <br>' % UserData.all().count())
     self.response.out.write('------------------------------------------<br>')
 
 
