@@ -66,18 +66,30 @@ class PhotoHandler(webapp.RequestHandler):
 
 def echo(data):
     statuses = api.GetFriendsTimeline()
-    self.response.out.write('<tweet>')
+    first = "<tweet>\n"
+    content = ''
     for status in statuses:
-      self.response.out.write('<img src="%s" name="%s" status="%s" />' % (status.user.profile_image_url, status.user.name, status.text))
-    self.response.out.write('</tweet>')
+      content += ('<status>\n')
+      content += ('<img src="%s" />\n' % (status.user.profile_image_url))
+      content += ('<p class="name">%s</p>\n' % (str(status.user.name).strip()))
+      content += ('<p class="status">%s</p>\n' % (status.text))
+      content += ('</status>\n')
+    last = "</tweet>"
+    return first + content + last
 
 class SampleXml(webapp.RequestHandler):
   def get (self):
     statuses = api.GetFriendsTimeline()
-    self.response.out.write('<tweet>')
+    first = "<tweet>\n"
+    content = ''
     for status in statuses:
-      self.response.out.write('<img src="%s" name="%s" status="%s" />' % (status.user.profile_image_url, status.user.name, status.text))
-    self.response.out.write('</tweet>')
+      content += ('<status>\n')
+      content += ('<img src="%s" />\n' % (status.user.profile_image_url))
+      content += ('<p class="name">%s</p>\n' % (str(status.user.name).strip()))
+      content += ('<p class="status">%s</p>\n' % (status.text))
+      content += ('</status>\n')
+    last = "</tweet>"
+    self.response.out.write(first + content + last)
 
 services = {
     'echo': echo,

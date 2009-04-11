@@ -4,5 +4,8 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: /flashPyAMF.swf
+  static_files: flashPyAMF.swf
+  upload: flashPyAMF.swf
 - url: .*
   script: main.py
