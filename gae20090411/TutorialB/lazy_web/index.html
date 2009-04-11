@@ -28,7 +28,8 @@
 		})
 		
 		var getResponse = function(response){
-			alert(response.responseText);
+			//alert(response.responseText);
+			$('div.result').fadeIn('slow').html(response.responseText);
 		}
 		
 		// -->
@@ -44,6 +45,9 @@
 		Your twitter Password<br />
 		<input type="password" value="" id="twitterPass" class="textbox" /><br />
 		<input type="button" value="start" id="startbtn" />
+		</div>
+		<div class="result" style="display:none;">
+			aaaaa
 		</div>
 	</body>
 </html>
