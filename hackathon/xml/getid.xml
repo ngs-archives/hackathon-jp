@@ -13,7 +13,7 @@
 		required="true" /> 
 	<Content type="html" view="canvas" >
 		-->
-	<Content type="html">
+	<Content type="html" view="home, canvas">
 		<![CDATA[
 		<!-- orkut用認証トークン -->
 		<!-- ALm6fM3ZQZ5Vw27I2F7x8ItNB-KivCtfO2e3uarhbuN0f5BuUHaIKWJrK-c3RT5maF0dLG6CODff0uBf6gjdY9mlNFc31xuMk9W6DeJMpsT1a2_k-lrmHaHJ9OyXVUuo7UqM2r2nvRCIqWriiVlde9CReykcdgSt4lQyijtMSH0JxrFCzEXjT3w= -->
