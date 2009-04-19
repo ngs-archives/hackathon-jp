@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+	<ModulePrefs title="test gadget legacy" height="300" scrolling="true" >
+		<Require feature="dynamic-height" />
+		<Require feature="views"/>
+		<Require feature="opensocial-0.7"/>
+	</ModulePrefs>
+	<Content type="html" view="canvas">
+		<![CDATA[
+		<div id="content_div">wait...</div>
+		<script type="text/javascript">
+			function getContents()
+			{
+			//_gel("content_div").innerHTML = remote_modules.length;
+				var date = new Date().getTime();
+				var url = 
+					"http://devel.nissan-carwings.com/test-cgi/test/igoogle/index.cgi";
+
+				url = [ url, "?cachebuster=", date ].join("");
+
+				_IG_FetchContent(url, function (response)
+				{
+					var j = eval("("+response+")");
+					var buf = "";
+					for (var i = 0; i < j.length; i++ )
+					{
+						buf += j[i].chno + ":" + j[i].navi_title + "<br>";
+					}
+					document.getElementById('content_div').innerHTML = buf;
+				});
+			}
+
+			//gadgets.util.registerOnLoadHandler(getContents);
+			_IG_RegisterOnloadHandler(getContents);
+
+		</script>
+			<!--
+<FORM NAME="myform" ACTION="" METHOD="GET"><BR>
+<INPUT TYPE="button" NAME="button" Value="get" onClick="getContents(this.form)">
+</FORM>
+		-->
+		]]>
+	</Content>
+</Module>
