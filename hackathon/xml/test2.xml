@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+	<ModulePrefs title="test gadget" height="400">
+		<Require feature="views"/>
+		<Require feature="dynamic-height"/>
+		<!--
+		<Require feature="opensocial-0.7"/>
+		-->
+	</ModulePrefs>
+	<Content type="html" view="home" >
+		<![CDATA[
+			canvasモードにしてください。
+		]]>
+	</Content>
+	<Content type="html" view="canvas" >
+		<![CDATA[
+		<div id='loading'>
+			<img src='http://www.viphaklay.com/jquery/spinner.gif'/></div>
+		<div id="content_div"></div>
+		<script type="text/javascript">
+			function getContents()
+			{
+				document.getElementById('loading').style.display = 'block';
+				var date = new Date().getTime();
+				var url = 
+					"http://devel.nissan-carwings.com/test-cgi/test/igoogle/index.cgi";
+
+				url = [ url, "?cachebuster=", date ].join("");
+
+				var params = {};
+				params[gadgets.io.RequestParameters.CONTENT_TYPE] = 
+					gadgets.io.ContentType.JSON;  
+
+				params[gadgets.io.RequestParameters.METHOD] = 
+					gadgets.io.MethodType.GET;
+	
+				gadgets.io.makeRequest(url, response, params);
+			}
+			function response(obj)
+			{
+				var j = obj.data;
+				var buf = "";
+				for (var key in j )
+				{
+					buf += j[key].chno + ":" + j[key].navi_title + "<br />";
+				}
+				document.getElementById('content_div').innerHTML = buf;
+				document.getElementById('loading').style.display = 'none';
+			}
+			gadgets.util.registerOnLoadHandler(getContents);
+</script>
+<FORM NAME="myform" ACTION="" METHOD="GET"><BR>
+<INPUT TYPE="button" NAME="button" Value="get" onClick="getContents(this.form)">
+</FORM>
+		]]>
+	</Content>
+</Module>
