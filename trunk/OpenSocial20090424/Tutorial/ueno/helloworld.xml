@@ -4,7 +4,7 @@
 				 description="こんにちは，世界"
 					 author_email="iron.nori@gmail.com">
 	</ModulePrefs>
-	<Content type="html"><![CDATA[
+	<Content type="html" view="home"><![CDATA[
 		Hello, World!!
 	]]></Content>
 </Module>
