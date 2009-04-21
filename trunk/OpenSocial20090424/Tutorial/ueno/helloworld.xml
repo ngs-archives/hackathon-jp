@@ -29,7 +29,7 @@
 				var owner	= dataResponse.get("get_owner").getData();
 				var friends	= dataResponse.get("get_friends").getData();
 
-				html = "";
+				var html = "";
 				html += "<ul>";
 				friends.each(function(person){
 					html += "\n" + "<li>" + person.getDisplayName() + "</li>"
