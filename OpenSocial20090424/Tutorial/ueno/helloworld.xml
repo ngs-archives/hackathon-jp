@@ -33,7 +33,7 @@
 				var friends	= dataResponse.get("get_friends").getData();
 
 				var html = "";
-				html = "<ul>";
+				html = "<ul style='display:inline'>";
 				for(i in opensocial.Person.Field){
 					html +="<li>";
 					html += i;
