@@ -33,10 +33,13 @@
 				var friends	= dataResponse.get("get_friends").getData();
 
 				var html = "";
+				html = "<ul>";
 				for(i in opensocial.Person.Field){
+					html +="<li>";
 					html += i;
-					html += "\n";
+					html +="</li>";
 				}
+				html += "</ul>";
 				html += owner.getDisplayName();
 				html += owner.getField(opensocial.Person.Field.THUMBNAIL_URL)+"";
 				html += "友達" + friends.length +"人"
