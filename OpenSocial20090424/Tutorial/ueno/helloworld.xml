@@ -41,7 +41,7 @@
 					html += "<li>";
 					html += person.getDisplayName();
 					html += " : "
-					html += person.getField(opensocial.Person.Field.NICKNAME);
+					html += person.getField(opensocial.Person.Field.AGE);
 					html += " : "
 					html += "<img href="+person.getField(opensocial.Person.Field.THUMBNAIL_URL)+"/>";
 					html += " : "
