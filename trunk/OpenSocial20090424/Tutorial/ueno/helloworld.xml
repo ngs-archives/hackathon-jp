@@ -34,7 +34,7 @@
 				friends.each(function(person){
 					html += "\n" + "<li>" + person.getDisplayName() + "</li>"
 				}
-				html += "\n</ul>"
+				html += "\n</ul>";
 				document.getElementById("message").innerHTML = html;
 			}
 			gadgets.util.registerOnLoadHandler(request);
