@@ -39,13 +39,13 @@
 					html += "\n";
 					html += "<li>";
 					html += person.getDisplayName();
-					html += " : "
+					html += " : ";
 					html += person.getField(opensocial.Person.Field.AGE) + "";
-					html += " : "
+					html += " : ";
 					html += person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-					html += " : "
+					html += " : ";
 					html += person.getId();
-					html += " : "
+					html += " : ";
 					html += (person.isViewer()?"いる!!": "zzz...")
 					html += "</li>";
 				});
