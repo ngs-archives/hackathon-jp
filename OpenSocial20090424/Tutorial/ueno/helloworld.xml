@@ -26,6 +26,16 @@
 			}
 
 			function response(dataResponse){
+				var owner	= dataResponse.get("get_owner").getData();
+				var friends	= dataResponse.get("get_friends").getData();
+
+				html = "";
+				html += "<ul>";
+				friends.each(function(person){
+					html += "\n" + "<li>" + person.getDisplayName() + "</li>"
+				}
+				html += "\n</ul>"
+				document.getElementById("message").innerHTML = html;
 			}
 			gadgets.util.registerOnLoadHandler(request);
 		</script>
