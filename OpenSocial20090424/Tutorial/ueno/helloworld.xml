@@ -22,7 +22,7 @@
 				var req 	= opensocial.newDataRequest();
 				req.add(req.newFetchPersonRequest("OWNER"),"get_owner");
 				req.add(req.newFetchPeopleRequest(idspec),"get_frieds");
-				req.send(response):
+				req.send(response);
 			}
 
 			function response(dataResponse){
