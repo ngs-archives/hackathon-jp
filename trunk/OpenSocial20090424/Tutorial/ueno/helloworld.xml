@@ -38,11 +38,12 @@
 				friends.each(function(person){
 					html += "\n";
 					html += "<li>";
+					html += " name: ";
 					html += person.getDisplayName();
-					html += " : ";
-					html += person.getField(opensocial.Person.Field.AGE);
-					html += " : ";
-					html += person.getField(opensocial.Person.Field.THUMBNAIL_URL);
+					html += " age: ";
+					html += person.getField(opensocial.Person.Field.AGE)+"";
+					//html += " : ";
+					//html += person.getField(opensocial.Person.Field.THUMBNAIL_URL);
 					html += " : ";
 					html += person.getId();
 					html += " : ";
