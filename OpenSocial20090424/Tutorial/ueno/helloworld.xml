@@ -30,6 +30,7 @@
 				var friends	= dataResponse.get("get_friends").getData();
 
 				var html = "";
+				html += "友達" + friends.length +"人"
 				html += "<ul>";
 				friends.each(function(person){
 					html += "\n" + "<li>" + person.getDisplayName() + "</li>"
