@@ -41,6 +41,10 @@
 					html += "<li>";
 					html += person.getDisplayName();
 					html += " : "
+					html += person.getField(opensocial.PersonField.AGE);
+					html += " : "
+					html += "<img href="+person.getField(opensocial.PersonField.THUMBNAIL_URL)+"/>";
+					html += " : "
 					html += person.getId();
 					html += " : "
 					html += (person.isViewer()?"いる!!": "zzz...")
