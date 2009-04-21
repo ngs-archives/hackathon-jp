@@ -40,7 +40,7 @@
 					html += "<li>";
 					html += person.getDisplayName();
 					html += " : ";
-					html += person.getField(opensocial.Person.Field.AGE) + "";
+					html += person.getField(opensocial.Person.Field.AGE);
 					html += " : ";
 					html += person.getField(opensocial.Person.Field.THUMBNAIL_URL);
 					html += " : ";
