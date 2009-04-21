@@ -34,7 +34,7 @@
 
 				var html = "";
 				html += owner.getDisplayName();
-				html += owner.getField(opensocial.Person.Field.AGE)+"";
+				html += owner.getField(opensocial.Person.Field.THUMBNAIL_URL)+"";
 				html += "友達" + friends.length +"人"
 				html += "<ul>";
 				friends.each(function(person){
