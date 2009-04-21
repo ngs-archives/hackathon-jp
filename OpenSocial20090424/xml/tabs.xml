@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+  <ModulePrefs title="Tabs Devel">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="dynamic-height"/>
+    <Require feature="views"/>
+    <Require feature="tabs"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+    <!-- Load the application-specific css -->
+    <link href="http://opensocial-resources.googlecode.com/svn/samples/orkut_ui/tabs.css" type="text/css" rel="stylesheet">
+    
+    <script type="text/javascript">
+      var tabs = null;
+      
+      gadgets.util.registerOnLoadHandler(onLoadHandler);
+      
+      function onLoadHandler() {
+        init();
+      }
+      
+      function init() {
+			alert(__MODULE_ID__);
+        tabs = new gadgets.TabSet(__MODULE_ID__, null, document.getElementById('tabs_div'));
+        var params = {
+          callback: changeSelectedTab
+        };
+        
+        params.contentContainer = document.getElementById("friends");
+        tabs.addTab("Friends", params);
+        
+        params.contentContainer = document.getElementById("messages");
+        tabs.addTab("Messages", params);
+        
+        tabs.alignTabs("left", 2);
+
+        var tabHeaders = document.getElementById("tabs_div_header").rows[0].cells;
+        var value = null;
+        var html = null;
+        for (var i in tabHeaders) {
+          if (tabHeaders[i].className && tabHeaders[i].className.match(/tablib_selected/)) {
+            value = tabHeaders[i].innerHTML;
+            html = "<span class='tablib_extension_left_selected'></span> " + value;
+            tabHeaders[i].innerHTML = html;
+          }
+          if (tabHeaders[i].className && tabHeaders[i].className.match(/tablib_unselected/)) {
+            value = tabHeaders[i].innerHTML;
+            html = "<span class='tablib_extension_left_unselected'></span> " + value;
+            tabHeaders[i].innerHTML = html;
+          }
+        }
+      }
+      
+      function changeSelectedTab() {
+        if (document.getElementById("tabs_div_header")) {
+          var tabHeaders = document.getElementById("tabs_div_header").rows[0].cells;
+          for (var i in tabHeaders) {
+            if (tabHeaders[i].className && tabHeaders[i].className.match(/tablib_selected/)) {
+              if (tabHeaders[i].childNodes[0].className) {
+                tabHeaders[i].childNodes[0].className = "tablib_extension_left_selected";
+              }
+            }
+            if (tabHeaders[i].className !== undefined && tabHeaders[i].className.match(/tablib_unselected/)) {
+              if (tabHeaders[i].childNodes[0].className) {
+                tabHeaders[i].childNodes[0].className = "tablib_extension_left_unselected";
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <div id="tabs_div"></div>
+    <div id="friends">Hi!</div>
+    <div id="messages">Hey!</div>
+    ]]>
+  </Content>
+</Module>
