@@ -10,4 +10,7 @@
 	<Content type="html" view="profile"><![CDATA[
 		Hello, World!!
 	]]></Content>
+	<Content type="html" view="canvas"><![CDATA[
+		Hello, World!!!!!
+	]]></Content>
 </Module>
