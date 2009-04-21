@@ -3,14 +3,28 @@
 	<ModulePrefs title="HelloWorld!"
 				 description="こんにちは，世界"
 					 author_email="iron.nori@gmail.com">
+					 <Require feature="opensocial-0.8"/>
 	</ModulePrefs>
 	<Content type="html" view="home"><![CDATA[
 		Hello, World!!
+		
 	]]></Content>
 	<Content type="html" view="profile"><![CDATA[
 		Hello, World!!
 	]]></Content>
 	<Content type="html" view="canvas"><![CDATA[
 		Hello, World!!!!!
+
+		<script type="text/javascript">
+			function request(){
+				alert("hello!!");
+			}
+
+			function response(dataResponse){
+			}
+			gadgets.util.registerOnLoadHandler(request);
+		</script>
+		<div id="message">
+		</dev>
 	]]></Content>
 </Module>
