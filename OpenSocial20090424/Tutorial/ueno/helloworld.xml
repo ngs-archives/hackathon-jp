@@ -33,7 +33,7 @@
 				html += "<ul>";
 				friends.each(function(person){
 					html += "\n" + "<li>" + person.getDisplayName() + "</li>"
-				}
+				});
 				html += "\n</ul>";
 				document.getElementById("message").innerHTML = html;
 			}
