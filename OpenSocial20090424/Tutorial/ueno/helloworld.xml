@@ -35,6 +35,7 @@
 				var html = "";
 				for(i in opensocial.Person.Field){
 					html += i;
+					html += "\n";
 				}
 				html += owner.getDisplayName();
 				html += owner.getField(opensocial.Person.Field.THUMBNAIL_URL)+"";
