@@ -40,7 +40,9 @@
 					html += "\n";
 					html += "<li>";
 					html += person.getDisplayName();
+					html += " : "
 					html += person.getId();
+					html += " : "
 					html += (person.isViewer()?"いる!!": "zzz...")
 					html += "</li>";
 				});
