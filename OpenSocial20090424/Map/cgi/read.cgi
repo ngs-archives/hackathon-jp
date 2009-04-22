@@ -6,8 +6,7 @@ use strict;
 use CGI;
 use JSON;
 
-use DBIx::Simple;
-use HTTP::Lite;
+use DBI;
 
 use Encode;
 
@@ -19,15 +18,16 @@ my $q = new CGI();
 
 # DBhandler
 our @dsn = (
-	'dbi:mysql:host=localhost;database=hackathon;',
-	'nobody',
-	'',
-	{RaiseError => 1},
-);
-our $db = DBIx::Simple->connect(@dsn);
-$db->abstract;
+    'dbi:mysql:rhathymia_hack',
+    'rhathymia_hack',
+    'p455w0rd',
+    {RaiseError => 1},
+    );
 
-my $id = $q->param('id');
+our $db = DBI->connect(@dsn);
+my $id = $db->selectrow_array(
+    "SELECT uid FROM idtoken"
+);
 
 if ( $debug )
 {
@@ -44,16 +44,11 @@ if (! (defined $id))
 }
 
 
-my $ret = $db->query("select * from data where toid = ? or uid = ? order by ctime ", $id, $id);
+my $ret = $db->selectall_arrayref("select * from data where uid = ? order by ctime ", {Columns=>{}}, $id);
+my @arr = @$ret;
+
 #print STDERR Dumper $ret;
-my @arr;
-while ( my $r = $ret->hash )
-{
-	push(@arr, $r);
-}
 
-my $json = JSON->new()->encode(\@arr);
+my $json = JSON->new(pretty=>1);
 print "Content-type: text/X-javascript\n\n";
-print encode('utf8', decode('eucjp', $json));
-
-
+print encode('utf8', decode('eucjp', $json->objToJson(\@arr)));
