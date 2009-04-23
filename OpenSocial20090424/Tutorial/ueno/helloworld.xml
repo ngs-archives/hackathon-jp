@@ -34,20 +34,27 @@
 
 				var html = "";
 				html = "<ul style='display:inline'>";
-				for(i in opensocial.Person.Field){
-					html +="<li>";
-					html += i;
-					html +="</li>";
-				}
 				html += "</ul>";
 				html += owner.getDisplayName();
 				html += owner.getField(opensocial.Person.Field.THUMBNAIL_URL)+"";
 				html += "友達" + friends.length +"人"
-				html += "<ul>";
+				html += "<table>";
+				
+			
+				
+				html += "<tr>";
+				for(i in opensocial.Person.Field){
+					html += "<th>";
+					html += i;
+					html += "</th>";
+				}
+				html += "</tr>";
+
 				friends.each(function(person){
-					html += "\n";
-					html += "<li>";
+					/*html += "\n";
+					html += "<tr>";
 					html += " name: ";
+					html += "<th>";
 					html += person.getDisplayName();
 					html += " age: ";
 					html += person.getField(opensocial.Person.Field.AGE)+"";
@@ -59,17 +66,19 @@
 					html += person.getId();
 					html += " : ";
 					html += (person.isViewer()?"いる!!": "zzz...")
-
+					*/
 					html += "{";
 					for(i in opensocial.Person.Field){
-						html+=",'"+i+"'=>";
+						//html+=",'"+i+"'=>";
+						html+= "<td>";
 						html+= person.getField(opensocial.Person.Field[i]);
+						html+= "</td>";
 					}
-					html += "}";
+					//html += "}";
 					
-					html += "</li>";
+					html += "</tr>";
 				});
-				html += "\n</ul>";
+				html += "\n</table>";
 				document.getElementById("message").innerHTML = html;
 			}
 			gadgets.util.registerOnLoadHandler(request);
