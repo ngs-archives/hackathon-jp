@@ -69,9 +69,10 @@
 */
 					for(i in opensocial.Person.Field){
 						html+= "<td>";
-						html+= person.getField(opensocial.Person.Field[i]);
 						if(i == "THUMBNAIL_URL"){
 							html+="<img src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
+						}else{
+							html+= person.getField(opensocial.Person.Field[i]);
 						}
 						html+= "</td>";
 					}
