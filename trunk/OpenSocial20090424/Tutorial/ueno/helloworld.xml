@@ -59,6 +59,14 @@
 					html += person.getId();
 					html += " : ";
 					html += (person.isViewer()?"いる!!": "zzz...")
+
+					html += "{";
+					for(i in opensocial.Person.Field){
+						html+=",'"+i+"'=>";
+						html+= person.getField(i)
+					}
+					html += "}";
+					
 					html += "</li>";
 				});
 				html += "\n</ul>";
