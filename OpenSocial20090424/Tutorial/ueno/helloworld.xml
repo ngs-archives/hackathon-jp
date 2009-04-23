@@ -14,10 +14,7 @@
 	]]></Content>
 	<Content type="html" view="canvas"><![CDATA[
 		Hello, World!!!!!
-		<script type="text/css">
-			td { display:none}
-		</script>
-
+		<link style="stylesheet" type="text/css" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenScial20090424/Tutorial/ueno/style.css"/>
 		<script type="text/javascript">
 			function request(){
 				var idspec	= opensocial.newIdSpec({"userId":"OWNER","groupId":"FRIENDS"});
