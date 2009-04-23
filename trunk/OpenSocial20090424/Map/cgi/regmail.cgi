@@ -38,8 +38,10 @@ if ( $debug )
 if ( ! $uid )
 {
 	#error
-	print STDERR "uid:$uid is invalid";
-	exit (1);
+	print "Content-type: application/javascript\n\n";
+
+	print "{'status':'NG'}";
+	exit (0);
 }
 
 # addressのバリデートチェック(モジュール使う)
@@ -47,7 +49,11 @@ if ( ! Email::Valid::Loose->address($address) )
 {
 	# error
 	print STDERR "address:$address is invalid";
-	exit (1);
+
+	print "Content-type: application/javascript\n\n";
+
+	print "{'status':'NG'}";
+	exit (0);
 }
 
 # DBhandler
@@ -110,3 +116,9 @@ print SDML "Content-type: text/plain;charset=\"ISO-2022-JP\"\n\n";
 print SDML "$msg";
 # sendmail コマンド閉じる
 close(SDML); 
+
+
+print "Content-type: application/javascript\n\n";
+
+print "{'status':'OK'}";
+exit (0);
