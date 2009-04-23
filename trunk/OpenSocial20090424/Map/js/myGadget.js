@@ -106,13 +106,14 @@ function sendEmail()
 {
 	var url = "http://61.193.175.55/test-cgi/test/hackathon/cgi/regmail.cgi";
 	var addr = document.getElementById('maddr').value;
+	var date = new Date().getTime();
 	var param = 
 	{
 		uid : viewerobj.id,
 		address : addr
 	};
 	
-	url = url + "?uid="+viewerobj.id+"&address="+addr;
+	url = url + "?cachebuster="+date+"&uid="+viewerobj.id+"&address="+addr;
 
 //	alert(url);
 
