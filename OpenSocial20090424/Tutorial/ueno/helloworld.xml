@@ -71,7 +71,7 @@
 						html+= "<td>";
 						html+= person.getField(opensocial.Person.Field[i]);
 						if(i == "THUMBNAIL_URL"){
-							html+="<img href="+person.getField(opensocial.Person.Field[i]) +"/>";
+							html+="<img width='20px' href='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
 						}
 						html+= "</td>";
 					}
