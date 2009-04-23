@@ -121,7 +121,7 @@ function sendEmail()
 	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 	gadgets.io.makeRequest(url, callbackEmail, params);
 }
-funciton callbackEmail(obj)
+function callbackEmail(obj)
 {
 	var j = obj.data;
 	if ( j.status != "OK" )
