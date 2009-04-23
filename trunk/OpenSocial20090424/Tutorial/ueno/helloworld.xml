@@ -15,7 +15,7 @@
 	<Content type="html" view="canvas"><![CDATA[
 		Hello, World!!!!!
 		<script type="text/css">
-			tr { font-size:small;}
+			td { font-size:small;}
 		</script>
 
 		<script type="text/javascript">
