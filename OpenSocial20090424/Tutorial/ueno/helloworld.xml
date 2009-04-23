@@ -63,7 +63,7 @@
 					html += "{";
 					for(i in opensocial.Person.Field){
 						html+=",'"+i+"'=>";
-						html+= person.getField(opencosial.Person.Field[i]);
+						html+= person.getField(opensocial.Person.Field[i]);
 					}
 					html += "}";
 					
