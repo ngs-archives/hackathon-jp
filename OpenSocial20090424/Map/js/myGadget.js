@@ -127,7 +127,7 @@ function callbackEmail(obj)
 {
 console.log(obj);
 	var j = obj.data;
-	if ( j.status != "OK" )
+	if ( j.stat != "OK" )
 	{
 		alert("ケータイアドレスが不正かもしれません？？");
 	}
