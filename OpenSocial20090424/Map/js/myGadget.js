@@ -105,7 +105,7 @@ function init()
 function sendEmail()
 {
 	var url = "http://61.193.175.55/test-cgi/test/hackathon/cgi/regmail.cgi";
-	var addr = document.getElementById('mobileaddress').value;
+	var addr = document.getElementById('maddr').value;
 	var param = 
 	{
 		uid : viewerobj.id,
