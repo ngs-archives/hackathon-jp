@@ -105,7 +105,7 @@ function init()
 function sendEmail()
 {
 	var url = "http://61.193.175.55/test-cgi/test/hackathon/cgi/regmail.cgi";
-	var address = $('#mobileaddress').val()
+	var address = $j('#mobileaddress').val()
 	var param = 
 	{
 		uid : viewerobj.id,
