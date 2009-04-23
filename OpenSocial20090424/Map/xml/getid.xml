@@ -81,7 +81,7 @@
 						<div id="tabs_div"></div>
 						<div id="friend_div" style="width: 500px; height:100px"></div>
 						<!--
-						<div id="carwings_div" style="width: 500px; height:100px"></div>
+						<div id="carwings_div" style="width: 550px; height:80px"></div>
 						-->
 					</td>
 				</tr>
@@ -92,7 +92,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div id="myDrop" style="width: 500px; height:50px"></div>
+						<div id="myDrop" style="width: 550px; height:40px"></div>
 					</td>
 					<td>
 						<div id="myDrop2">
