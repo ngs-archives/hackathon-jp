@@ -87,7 +87,7 @@
 				</tr>
 				<tr>
 					<td>
-						<div id="myDrop"></div>
+						<div id="myDrop" style="width: 500px; height:100px"></div>
 					</td>
 					<td>
 						<div id="myDrop2">
@@ -102,8 +102,8 @@
 			<tbody>
 				<tr>
 					<a href="#" onclick="saveData()">送信する</a><br>
-					<a href="#" onclick="getAlbum()">アルバム</a>
 					<!--
+					<a href="#" onclick="getAlbum()">アルバム</a>
 					<a href="#" onclick="_loadFromFriends()">ともだち</a>
 					<a href="#" onclick="getFriends()">ともだち</a>
 					<a href="#" onclick="showFriends()">ともだち</a>
