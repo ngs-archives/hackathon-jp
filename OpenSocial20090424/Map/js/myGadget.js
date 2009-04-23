@@ -89,6 +89,9 @@ function init()
 
 	showAlbum();
 
+	gadgets.window.adjustHeight();
+
+
 	/*
 	var searchControl = new GSearchControl();
 	searchControl.addSearcher(new GimageSearch());

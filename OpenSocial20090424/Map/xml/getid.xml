@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Map Community" scrolling="true" description="地図でコミュニケーション">
+  <ModulePrefs title="Map Community" scrolling="true" description="地図でコミュニケーション" height="600">
     <Require feature="opensocial-0.8"/>
     <Require feature="dynamic-height"/>
     <Require feature="views"/>
