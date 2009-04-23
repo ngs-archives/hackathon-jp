@@ -51,6 +51,8 @@
 					html += person.getDisplayName();
 					html += " age: ";
 					html += person.getField(opensocial.Person.Field.AGE)+"";
+					html += " profile_url: ";
+					html += person.getField(opensocial.Person.Field.PROFILE_URL)+"";
 					//html += " : ";
 					//html += person.getField(opensocial.Person.Field.THUMBNAIL_URL);
 					html += " : ";
