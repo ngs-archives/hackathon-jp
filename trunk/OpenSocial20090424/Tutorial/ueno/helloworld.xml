@@ -43,7 +43,7 @@
 			
 				
 				html += "<tr>";
-				for(i in friend){
+				for(i in friends){
 					html += "<th>";
 					html += i;
 					html += "</th>";
