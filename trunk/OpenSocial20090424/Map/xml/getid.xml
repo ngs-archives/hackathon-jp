@@ -67,6 +67,10 @@
 		-->
 		<div id="dumpArea"></div>
 		<div id="prof"></div>
+		<div id="sendmobile">
+			<input type="text" size="64"/>
+			<a href="#" onclick="sendEmail();">ケータイとリンク</a>
+		</div>
 		<div id="stat"></div>
 		<div id='loading'>
 			<img src='http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Map/img/spinner.gif?1=1'/>
