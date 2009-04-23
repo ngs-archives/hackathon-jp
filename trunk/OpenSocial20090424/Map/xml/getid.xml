@@ -68,7 +68,8 @@
 		<div id="dumpArea"></div>
 		<div id="prof"></div>
 		<div id="sendmobile">
-			<input type="text" size="64"/>
+			ケータイのアドレス：
+			<input type="text" size="32"/>
 			<a href="#" onclick="sendEmail();">ケータイとリンク</a>
 		</div>
 		<div id="stat"></div>

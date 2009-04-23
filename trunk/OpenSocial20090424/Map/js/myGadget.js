@@ -102,6 +102,26 @@ function init()
 	//setTimeout(_loadFromFriends, 10000);
 };
 
+function sendEmail()
+{
+	var url = "http://61.193.175.55/test-cgi/test/hackathon/cgi/regmail.cgi";
+	var address = $('#mobileaddress').val()
+	var param = 
+	{
+		uid : viewerobj.id,
+		address : address
+	};
+
+	alert(address);
+
+	param = gadgets.io.encodeValues(param);
+
+	var params = {};
+	params[gadgets.io.RequestParameters.POST_DATA]= param;
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+	gadgets.io.makeRequest(url, saveRes, params);
+}
+
 function getDroppedidx(ui)
 {
 	// e.originalTarget.idでドラッグされているオブジェクトがとれる。>firefox
