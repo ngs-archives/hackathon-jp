@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <Module>
+   <ModulePrefs title="Hello, World"     description="テスト用のガジェットです">
+   </ModulePrefs>
+   <Content type="html" view="home">
+    <![CDATA[     <p>Hello World!!</p>    ]]>
+   </Content>
+  </Module>  
