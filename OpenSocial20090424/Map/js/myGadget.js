@@ -105,14 +105,14 @@ function init()
 function sendEmail()
 {
 	var url = "http://61.193.175.55/test-cgi/test/hackathon/cgi/regmail.cgi";
-	var address = $j('#mobileaddress').value;
+	var addr = document.getElementById('mobileaddress').value;
 	var param = 
 	{
 		uid : viewerobj.id,
-		address : address
+		address : addr
 	};
 
-	alert(address);
+	alert(addr);
 
 	param = gadgets.io.encodeValues(param);
 
