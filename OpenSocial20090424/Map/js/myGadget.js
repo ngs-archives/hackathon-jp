@@ -122,7 +122,8 @@ function sendEmail()
 }
 function callbackEmail(obj)
 {
-//console.log(obj);
+console.log(obj);
+console.log(obj.status);
 	if ( obj.status != "OK" )
 	{
 		alert("ケータイアドレスが不正かもしれません？？");
