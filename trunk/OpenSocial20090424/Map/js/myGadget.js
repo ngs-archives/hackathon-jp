@@ -112,8 +112,6 @@ function sendEmail()
 		address : addr
 	};
 
-	alert(addr);
-
 	param = gadgets.io.encodeValues(param);
 
 	var params = {};
@@ -124,6 +122,7 @@ function sendEmail()
 function callbackEmail(obj)
 {
 	var j = obj.data;
+console.log(j);
 	if ( j.status != "OK" )
 	{
 		alert("ケータイアドレスが不正かもしれません？？");
