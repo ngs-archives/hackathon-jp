@@ -20,8 +20,8 @@ use Email::Valid::Loose;
 
 use JSON;
 
-my $okmes = {status=>"OK"};
-my $ngmes = {status=>"NG"};
+my $okmes = {stat=>"OK"};
+my $ngmes = {stat=>"NG"};
 
 our $debug = 1;
 
