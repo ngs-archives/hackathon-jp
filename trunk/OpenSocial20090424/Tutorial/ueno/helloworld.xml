@@ -43,11 +43,13 @@
 			
 				
 				html += "<tr>";
+/*
 				for(i in friends){
 					html += "<th>";
 					html += i;
 					html += "</th>";
 				}
+*/
 				for(i in opensocial.Person.Field){
 					html += "<th>";
 					html += i;
@@ -58,11 +60,13 @@
 				friends.each(function(person){
 
 					html += "<tr>";
+/*
 					for(i in person){
 						html+= "<td>";
-					//	html+= person[i];
+						html+= person[i];
 						html+= "</td>";
 					}
+*/
 					for(i in opensocial.Person.Field){
 						html+= "<td>";
 						html+= person.getField(opensocial.Person.Field[i]);
