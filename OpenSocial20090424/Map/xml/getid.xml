@@ -74,12 +74,12 @@
 		<table>
 			<tbody>
 				<tr>
-					<td width=500>
+					<td width=550px>
 						<!--
-						<div id="tabs_div" style="width: 500px; height:100px"></div>
+						<div id="tabs_div" style="width: 550px; height:100px"></div>
 						-->
 						<div id="tabs_div"></div>
-						<div id="friend_div" style="width: 500px; height:100px"></div>
+						<div id="friend_div" style="width: 550px; height:100px"></div>
 						<!--
 						<div id="carwings_div" style="width: 550px; height:80px"></div>
 						-->
@@ -118,9 +118,9 @@
 				</tr>
 				<tr height=600>
 					<td valign="top">
-						<div id="maptabs_div" style="width: 500px; height:400px"></div>
-						<div id="map" style="width: 500px; height: 400px;"></div>
-						<div id="album" style="width: 500px; height: 400px;"></div>
+						<div id="maptabs_div" style="width: 550px; height:400px"></div>
+						<div id="map" style="width: 550px; height: 400px;"></div>
+						<div id="album" style="width: 550px; height: 400px;"></div>
 					</td>
 					<td valign="top">
 						<table valign="top"><tbody id="tableview" ></tbody></table>
