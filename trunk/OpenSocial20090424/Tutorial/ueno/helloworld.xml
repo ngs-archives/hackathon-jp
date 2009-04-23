@@ -43,39 +43,31 @@
 			
 				
 				html += "<tr>";
+				for(i in person){
+					html += "<th>";
+					html += i;
+					html += "</th>";
+				}
 				for(i in opensocial.Person.Field){
 					html += "<th>";
 					html += i;
 					html += "</th>";
 				}
 				html += "</tr>";
-
+				
 				friends.each(function(person){
-					/*html += "\n";
 					html += "<tr>";
-					html += " name: ";
-					html += "<th>";
-					html += person.getDisplayName();
-					html += " age: ";
-					html += person.getField(opensocial.Person.Field.AGE)+"";
-					html += " profile_url: ";
-					html += person.getField(opensocial.Person.Field.PROFILE_URL)+"";
-					//html += " : ";
-					//html += person.getField(opensocial.Person.Field.THUMBNAIL_URL);
-					html += " : ";
-					html += person.getId();
-					html += " : ";
-					html += (person.isViewer()?"いる!!": "zzz...")
-					*/
-					//html += "{";
+					for(i in person){
+						html+= "<td>";
+						html+= person[i]();
+						html+= "</td>";
+						
+					}
 					for(i in opensocial.Person.Field){
-						//html+=",'"+i+"'=>";
 						html+= "<td>";
 						html+= person.getField(opensocial.Person.Field[i]);
 						html+= "</td>";
 					}
-					//html += "}";
-					
 					html += "</tr>";
 				});
 				html += "\n</table>";
