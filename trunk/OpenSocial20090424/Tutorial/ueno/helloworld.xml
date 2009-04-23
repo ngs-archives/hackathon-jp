@@ -67,7 +67,7 @@
 					html += " : ";
 					html += (person.isViewer()?"いる!!": "zzz...")
 					*/
-					html += "{";
+					//html += "{";
 					for(i in opensocial.Person.Field){
 						//html+=",'"+i+"'=>";
 						html+= "<td>";
