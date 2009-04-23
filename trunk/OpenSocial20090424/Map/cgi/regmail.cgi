@@ -18,6 +18,11 @@ use Digest::MD5  qw(md5 md5_hex md5_base64);
 
 use Email::Valid::Loose;
 
+use JSON;
+
+my $okmes = {status=>"OK"};
+my $ngmes = {status=>"NG"};
+
 our $debug = 0;
 
 my $path = "/test-cgi/hogehoge";
@@ -40,7 +45,7 @@ if ( ! $uid )
 	#error
 	print "Content-type: application/javascript\n\n";
 
-	print "{'status':'NG'}";
+	print JSON->new()->encode($ngmes);
 	exit (0);
 }
 
@@ -52,7 +57,7 @@ if ( ! Email::Valid::Loose->address($address) )
 
 	print "Content-type: application/javascript\n\n";
 
-	print "{'status':'NG'}";
+	print JSON->new()->encode($ngmes);
 	exit (0);
 }
 
@@ -120,5 +125,5 @@ close(SDML);
 
 print "Content-type: application/javascript\n\n";
 
-print "{'status':'OK'}";
+print JSON->new()->encode($okmes);
 exit (0);
