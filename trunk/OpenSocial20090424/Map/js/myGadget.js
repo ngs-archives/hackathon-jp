@@ -125,9 +125,8 @@ function sendEmail()
 }
 function callbackEmail(obj)
 {
-console.log(obj);
-console.log(obj.status);
-	if ( obj.status != "OK" )
+	var j = obj.data;
+	if ( j.status != "OK" )
 	{
 		alert("ケータイアドレスが不正かもしれません？？");
 	}
@@ -889,7 +888,7 @@ function loadData()
 
 function showData(obj)
 {
-console.log(obj);
+//console.log(obj);
 	var i = 0;
 	var j = obj.data;
 	for (var key in j )
