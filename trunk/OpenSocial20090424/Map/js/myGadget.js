@@ -114,7 +114,7 @@ function sendEmail()
 	
 	url = url + "?uid="+viewerobj.id+"&address="+addr;
 
-	alert(url);
+//	alert(url);
 
 	var params = {};
 	//params[gadgets.io.RequestParameters.POST_DATA]= param;
@@ -879,17 +879,16 @@ function loadData()
 	"?cachebuster=" + date + "&id="+ viewerobj.id;
 
 	var params = {};
-	params[gadgets.io.RequestParameters.CONTENT_TYPE] = 
-	gadgets.io.ContentType.JSON;  
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;  
 
-	params[gadgets.io.RequestParameters.METHOD] = 
-	gadgets.io.MethodType.GET;
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 
 	gadgets.io.makeRequest(url, showData, params);
 }
 
 function showData(obj)
 {
+console.log(obj);
 	var i = 0;
 	var j = obj.data;
 	for (var key in j )
