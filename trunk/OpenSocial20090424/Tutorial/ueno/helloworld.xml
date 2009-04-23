@@ -60,7 +60,7 @@
 					html += "<tr>";
 					for(i in person){
 						html+= "<td>";
-						html+= (person[i])();
+						html+= i;
 						html+= "</td>";
 					}
 					for(i in opensocial.Person.Field){
