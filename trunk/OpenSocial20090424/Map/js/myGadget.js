@@ -119,7 +119,15 @@ function sendEmail()
 	var params = {};
 	params[gadgets.io.RequestParameters.POST_DATA]= param;
 	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
-	gadgets.io.makeRequest(url, saveRes, params);
+	gadgets.io.makeRequest(url, callbackEmail, params);
+}
+funciton callbackEmail(obj)
+{
+	var j = obj.data;
+	if ( j.status != "OK" )
+	{
+		alert("ケータイアドレスが不正かもしれません？？");
+	}
 }
 
 function getDroppedidx(ui)
