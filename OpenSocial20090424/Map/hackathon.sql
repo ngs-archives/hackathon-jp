@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `comment` (
+  `pid` int(11) NOT NULL,
+  `seq` int(11) NOT NULL,
+  `uid` char(32) NOT NULL,
+  `comment` text,
+  `ctime` datetime NOT NULL,
+  PRIMARY KEY  (`pid`,`seq`)
+) ENGINE=MyISAM DEFAULT CHARSET=ujis;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping data for table `comment`
+--
+
+LOCK TABLES `comment` WRITE;
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `data`
 --
 
@@ -80,4 +106,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-04-21 12:56:55
+-- Dump completed on 2009-04-23 10:48:26
