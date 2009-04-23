@@ -57,11 +57,11 @@
 				
 				friends.each(function(person){
 					html += "<tr>";
+					alert(person);
 					for(i in person){
 						html+= "<td>";
 						html+= i;
 						html+= "</td>";
-						
 					}
 					for(i in opensocial.Person.Field){
 						html+= "<td>";
