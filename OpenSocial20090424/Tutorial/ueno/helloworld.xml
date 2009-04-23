@@ -43,7 +43,7 @@
 			
 				
 				html += "<tr>";
-				for(i in person){
+				for(i in friend){
 					html += "<th>";
 					html += i;
 					html += "</th>";
@@ -57,7 +57,6 @@
 				
 				friends.each(function(person){
 
-					alert(person);
 					html += "<tr>";
 					for(i in person){
 						html+= "<td>";
