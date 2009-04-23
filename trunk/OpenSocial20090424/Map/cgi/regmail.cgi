@@ -23,7 +23,7 @@ use JSON;
 my $okmes = {status=>"OK"};
 my $ngmes = {status=>"NG"};
 
-our $debug = 0;
+our $debug = 1;
 
 my $path = "/test-cgi/hogehoge";
 
@@ -42,8 +42,7 @@ if ( $debug )
 
 if ( ! $uid )
 {
-	#error
-	print "Content-type: application/javascript\n\n";
+	showHeader();
 
 	print JSON->new()->encode($ngmes);
 	exit (0);
@@ -55,7 +54,7 @@ if ( ! Email::Valid::Loose->address($address) )
 	# error
 	print STDERR "address:$address is invalid";
 
-	print "Content-type: application/javascript\n\n";
+	showHeader();
 
 	print JSON->new()->encode($ngmes);
 	exit (0);
@@ -123,7 +122,12 @@ print SDML "$msg";
 close(SDML); 
 
 
-print "Content-type: application/javascript\n\n";
+showHeader();
 
 print JSON->new()->encode($okmes);
 exit (0);
+
+sub showHeader
+{
+	print "Content-type: text/X-javascript\n\n";
+}
