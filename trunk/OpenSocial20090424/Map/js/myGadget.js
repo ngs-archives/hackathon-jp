@@ -111,12 +111,14 @@ function sendEmail()
 		uid : viewerobj.id,
 		address : addr
 	};
+	
+	url = url + "?uid="+viewerobj.id+"&address="+addr;
 
-	param = gadgets.io.encodeValues(param);
+	alert(url);
 
 	var params = {};
-	params[gadgets.io.RequestParameters.POST_DATA]= param;
-	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+	//params[gadgets.io.RequestParameters.POST_DATA]= param;
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;  
 	gadgets.io.makeRequest(url, callbackEmail, params);
 }
