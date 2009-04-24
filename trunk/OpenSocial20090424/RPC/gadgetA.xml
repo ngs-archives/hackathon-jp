@@ -20,7 +20,7 @@ jQuery(function($) {
   })
 
   $('#button').click(function(e) {
-  console.log(arguments);
+  alert(1111);
     gadgets.pubsub.publish('RPC', 'woooo');
   })
 
@@ -28,7 +28,7 @@ jQuery(function($) {
 </script>
 <style type="text/css">
 </style>
-<div id="result">waiting message...!</div>
+<div id="result">waiting message...</div>
 <input type="button" id="button" value="Hello">
 ]]></Content>
 </Module>
