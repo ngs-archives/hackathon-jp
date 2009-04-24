@@ -27,7 +27,7 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      if (data.results.apartments.length == 0)
+      if (data.results.apartment.length == 0)
         return apartments.text('物件が見つかりません。')
 
       apartments.empty();
@@ -63,7 +63,7 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      if (data.results.apartments.length == 0)
+      if (data.results.apartment.length == 0)
         return apartments.text('物件が見つかりません。')
 
       apartments.empty();
