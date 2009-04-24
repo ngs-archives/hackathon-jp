@@ -91,7 +91,8 @@ console.log(url);
 $.postData('/activities/@me', {
   title: 'ごめんちゃいテストです。',
   mediaItems: [{
-    type: 'image', url: url, mimeType: 'image/jpeg'
+    //type: 'image', url: url, mimeType: 'image/jpeg'
+    type: 'image', url: shop.photo.pc.l, mimeType: 'image/jpeg'
   }]
 });
 
