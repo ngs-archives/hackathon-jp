@@ -32,15 +32,17 @@ ToDoApp.data = {
 		var stickies = [{ stickies:ToDoApp.data.stickies,person:jQuery.opensocial.person("viewer") }];
 		var cnt = 0;
 		function ge() {
-			if(cnt==p.length) ToDoApp.data.onGetAllStickes();
+			if(cnt==p.length) return ToDoApp.data.onGetAllStickes(stickies);
 			var obj = { person:p[cnt] };
 			jQuery.opensocial.data.get([ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.PrefKey.VISIBLE_FRIENDS],p[cnt].getId(),function(d){
 				var st = obj[ToDoApp.data.PrefKey.STICKIES];
 				if(st) {
 					obj.stickies = st;
+					stickies.push(obj);
 				}
 				ge();
 			});
+			cnt++;
 		}
 	},
 	onGetAllStickes : function(stickies) {
