@@ -22,7 +22,7 @@ body {
 google.load("maps", "2.x");
 google.setOnLoadCallback(init);
 
-var map, geocoder, hash;
+var map, geocoder, hash, marker;
 function init() {
   map = new google.maps.Map2(document.getElementById('map'));
   map.addControl(new google.maps.SmallMapControl());
@@ -42,7 +42,12 @@ function init() {
       var lat = parseFloat(p[0]);
       var lng = parseFloat(p[1]);
       latlng = new google.maps.LatLng(lat, lng);
-      map.addOverlay(new google.maps.Marker(latlng));
+      if (!marker) {
+        marker = new google.maps.Marker(latlng);
+        map.addOverlay(marker);
+      } else {
+        marker.setLatLng(latlng);
+      }
       map.setCenter(latlng, 16);
     }
   }, 100)
