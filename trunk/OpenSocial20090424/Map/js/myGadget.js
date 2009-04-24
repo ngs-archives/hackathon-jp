@@ -513,7 +513,7 @@ function printProfileScreen(data)
 	//console.log("address:"+address);
 
 	viewerobj = 
-		{"name":name, "gender":gender, "id":id, "address": address, "thumbnail": thumbnailUrl};
+		{"name":name, "gender":gender, "id":id, "address": address, "thumbnail": _thumbnailUrl};
 	/*
 	*/
 console.log(viewerobj);
