@@ -18,6 +18,7 @@
         req.add(req.newFetchPeopleRequest(idspec), "get_friends");
         req.add(
         req.send(response);
+        alert(test);
       };
 
       /**
