@@ -18,12 +18,15 @@ ToDoApp.data = {
 	},
 	getFriends : function(callback) {
 		jQuery.opensocial.person("OWNER",function(d){
-			var prm = {};
-			prm[opensocial.DataRequest.PeopleRequestFields.FILTER] = opensocial.DataRequest.FilterType.HAS_APP;
-			prm[opensocial.DataRequest.PeopleRequestFields.MAX] = 4;
-			jQuery.opensocial.getPeople(d.getId(),prm,function(p){
-				ToDoApp.data.onGetFriends(p,callback);
-			});
+			jQuery.opensocial.data.get(ToDoApp.data.PrefKey.STICKIES,d.getId(),function(s){
+				ToDoApp.data.stickies = s||[];
+				var prm = {};
+				prm[opensocial.DataRequest.PeopleRequestFields.FILTER] = opensocial.DataRequest.FilterType.HAS_APP;
+				prm[opensocial.DataRequest.PeopleRequestFields.MAX] = 4;
+				jQuery.opensocial.getPeople(d.getId(),prm,function(p){
+					ToDoApp.data.onGetFriends(p,callback);
+				});
+			})
 		});
 	},
 	onGetFriends : function(p,callback) {
