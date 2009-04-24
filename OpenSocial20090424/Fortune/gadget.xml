@@ -9,19 +9,19 @@
     </ModulePrefs>
 
 
-
     <Content type="html" view="canvas"><![CDATA[
 <script type='text/javascript' src='/gaget_test/canvas.js'></script>
 <script type='text/javascript'>init();</script>
 
 <div>
   <div>
-    <img src="/gaget_test/logo.gif" border="0" />
+    <img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
   </div>
   <ul id='contents'></ul>
   <div id='friend_view'>
     <input type='text' id='todo_content' style="width:600px; font-size:30px; border:2px solid #993333; color:#ff9966;" /><br><br>
-    <input type='image' onclick='addTodo();' src="/gaget_test/image/happy_big.jpg" />
+    <input type='image' onclick='addTodo();' src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/happy_big.jpg
+" />
     <div id='result_appdata'></div>
   </div>
 </div>
@@ -39,12 +39,12 @@
 
 <div>
   <div>
-    <img src="/gaget_test/logo.gif" border="0" />
+    <img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
   </div>
   <ul id='contents'></ul>
   <div id='friend_view'>
     <input type='text' id='todo_content' style="width:300px; font-size:30px; border:2px solid #993333; color:#ff9966;" /><br><br>
-    <input type='image' onclick='addTodo();' src="/gaget_test/image/pushme.gif" />
+    <input type='image' onclick='addTodo();' src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/pushme.gif" />
     <div id='result_appdata'></div>
   </div>
 </div>
@@ -59,7 +59,7 @@
 
     <Content type="html" view="preview"><![CDATA[
 
-<img src="/gaget_test/logo.gif" border="0" />
+<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
 
 ]]></Content>
 
@@ -68,7 +68,7 @@
 
     <Content type="html" view="home"><![CDATA[
 
-<img src="/gaget_test/logo.gif" border="0" />
+<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
 
 ]]></Content>
 
