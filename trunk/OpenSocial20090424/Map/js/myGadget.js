@@ -385,14 +385,14 @@ function mapinit()
 function addEventMap()
 {
 	GEvent.addListener(map, 'click', function(overlay, point)
+	{
+		geocoder.getLocations(point, function(addr)
+		{
+			var name;
+			var description;
+			var phone;
+			if (geocode)
 			{
-			geocoder.getLocations(point, function(addr)
-				{
-				var name;
-				var description;
-				var phone;
-				if (geocode)
-				{
 				name =  geocode.titleNoFormatting;
 				if ( "phoneNumbers" in geocode) 
 				{
@@ -401,34 +401,35 @@ function addEventMap()
 				description =  geocode.streetAddress;
 				//alert(name + phone + description );
 				geocode = undefined;
-				}
-				else if (addr.Status.code == G_GEO_SUCCESS)
-				{
+			}
+			else if (addr.Status.code == G_GEO_SUCCESS)
+			{
 				var place = addr.Placemark[0];
 				name =  place.address;
-				}
-				else
+			}
+			else
 				{
 				name = '地点'+childid;
-				}
+			}
 
-				var m = new GMarker(point);
-				children[childid] = {
-					'marker': m, 
-					'point': point, 
-					'visible': true, 
-				};
-				setValuesToDic(childid, {
-						'name':name,
-						'phone': phone,
-						'description':description
-						});
-				map.addOverlay(m);
-
-				addRow(childid);
-				childid++;
-				});
+			var m = new GMarker(point);
+			children[childid] = {
+				'marker': m, 
+				'point': point, 
+				'visible': true, 
+			};
+			setValuesToDic(childid, {
+				'name':name,
+				'phone': phone,
+				'description':description,
+				'pid':j[key].pid
 			});
+			map.addOverlay(m);
+
+			addRow(childid);
+			childid++;
+		});
+	});
 }
 
 function printProfileScreen(data) 
@@ -735,8 +736,38 @@ function delRow(idx)
 		map.removeOverlay(children[idx].marker);
 		// 無効にする
 		children[idx].visible = false;
+		deleteRow(idx);
 	}
 }
+
+function deleteRow(idx)
+{
+	var date = new Date().getTime();
+	var url = 
+		"http://61.193.175.55/test-cgi/test/hackathon/cgi/delete.cgi"+
+		"?cachebuster=" + date + "&pid="+idx+"&uid="+viewerobj.id;
+
+	var params = {};
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;  
+
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+
+	gadgets.io.makeRequest(url, callbackDelete, params);
+}
+
+function callbackDelete(obj)
+{
+	var j = obj.data;
+	if ( j.stat != "OK" )
+	{
+		alert("削除に失敗しました");
+	}
+	else
+	{
+		alert("削除しました");
+	}
+}
+
 function editdiv(idx)
 {
 
@@ -833,6 +864,7 @@ function setValuesToDic(id, o)
 	children[id].phone = o.phone;
 	children[id].description = o.description;
 	children[id].img = o.img;
+	children[id].pid = o.pid;
 }
 function setValuesToDOM(idx, o)
 {
@@ -892,7 +924,7 @@ function showData(obj)
 //console.log(obj);
 	var i = 0;
 	var j = obj.data;
-console.log(j);
+//console.log(j);
 	for (var key in j )
 	{
 		//if ( key >= 0 && key < 10 )
@@ -909,7 +941,8 @@ console.log(j);
 					'name':j[key].name,
 					'phone':j[key].phone,
 					'description':j[key].description,
-					'img':j[key].img
+					'img':j[key].img,
+					'pid':j[key].pid
 					});
 			addRow(key);
 			map.addOverlay(m);
