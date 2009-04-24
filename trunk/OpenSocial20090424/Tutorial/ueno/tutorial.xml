@@ -68,11 +68,12 @@
 							str+= "</td>";
 							continue;
 						}
-						if(person.getField(field)['getDisplayField']){
+					/*	if(person.getField(field)['getDisplayField']){
 							str+=person.getField(field)['getDisplyField'];
 							str+= "</td>";
 							continue;
 						}
+*/
 
 						str+= person.getField(field);
 						
