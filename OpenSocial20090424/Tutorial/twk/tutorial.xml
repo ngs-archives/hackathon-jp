@@ -3,19 +3,158 @@
 	<ModulePrefs
 		title="チュートリアル"
 		description="desc">
-		<Require feature="opensocial-0.8" />
-		<Require feature="dynamic-height" />
+        <Require feature="opensocial-0.8" />
+        <Require feature="dynamic-height" />
 	</ModulePrefs>
 	<Content type="html" view="home,profile,canvas"><![CDATA[<script type="text/javascript">
-	</script>
-	<div id="area" style="width: 930px; height: 200px; overflow:scroll;">
+if (typeof console == 'undefined') {
+	this.console = {
+		// debug:alert
+		debug:function(){}
+		, error:alert
+	};
+}
+
+function GetSupportedFields()
+{
+	var env = opensocial.getEnvironment();
+	
+	var objectType = opensocial.Environment.ObjectType.PERSON;
+	
+	var fields = [];
+	for(fieldName in opensocial.Person.Field)
+	{
+		if (env.supportsField(objectType, opensocial.Person.Field[fieldName]))
+		{
+			// alert(fieldName);
+			fields.push(opensocial.Person.Field[fieldName]);
+		}
+	}
+	
+	return fields;
+}
+
+function LazyAdjustHeight()
+{
+	setTimeout(function (){
+		if (typeof gadgets != 'undefined')
+			gadgets.window.adjustHeight();
+	}, 100);
+}
+ 
+
+function GeneratePersonInfo(person) {
+	var html = '';
+	
+		console.debug(person);
+		/* @var person Person */
+		html += '<h2>' + person.getDisplayName() + '</h2>';
+		html += 'id:' + person.getId() + '<br />';
+		
+		html += 'isOwner:' + person.isOwner() + '<br />';
+		html += 'isViewer:' + person.isViewer() + '<br />';
+		
+		for(i in opensocial.Person.Field){
+			var env = opensocial.getEnvironment();
+			var objectType = opensocial.Environment.ObjectType.PERSON;
+			if (!env.supportsField(objectType, opensocial.Person.Field[i]))
+				continue;
+		
+			var info = person.getField(opensocial.Person.Field[i]);
+			if (typeof info == 'undefined')
+				continue;
+			
+			if (i == "THUMBNAIL_URL")
+				info = "<img src='" + info + "' />";
+			else if (info['getDisplayValue'])
+				info = info.getDisplayValue();
+			else if (i == 'NAME')
+				info = info.getField(opensocial.Name.Field.UNSTRUCTURED);
+			else if (i == 'URLS')
+			{
+				var urlstr = ''; 
+				for (var j = 0; j < i.length; ++j)
+				{
+					var url = info[j];
+					if (!url) continue;
+					urlstr += url.getField(opensocial.Url.Field.ADDRESS)
+						+ ' ' + url.getField(opensocial.Url.Field.LINK_TEXT)
+						+ ' ' + url.getField(opensocial.Url.Field.TYPE);
+				}
+				info = urlstr;
+			}
+			else if (typeof info != 'string')
+			{
+				console.debug(i);
+				console.debug(info);
+			}	
+			
+			if (!info) continue;
+			
+			html += i + ':' + info + '<br />';
+		}
+		
+		document.getElementById('result_data').innerHTML += html;
+		
+} // GeneratePersonInfo
+
+
+function Tutorial_fetchOwner(){
+	try{
+		var req = opensocial.newDataRequest();
+		
+		var params = {}; 
+		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
+			= GetSupportedFields();
+			
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
+		req.send(function(data) {
+			var owner = dataResponse.get('get_owner').getData();
+			/* @var owner_friends Collection<Person> */ 
+			
+			console.debug(owner);
+			var html = '';
+			html += '<h1>オーナー情報</h1>';
+			if (owner)
+			{
+				html += owner.getDisplayName();
+				document.getElementById('result_data').innerHTML += html;
+				GeneratePersonInfo(owner);
+			}
+			else
+			{
+				html += '取得できませんでした';
+			}
+			
+			
+		});
+	} catch(e) {
+		console.error(e.message);
+	}
+}
+
+function Tutorial_env(){
+	try {
+		var env = opensocial.getEnvironment();
+		var html = '';
+		html += 'domain: ' + env.getDomain() + '<br />';
+		document.getElementById('result_data').innerHTML = html;
+		LazyAdjustHeight();
+	}catch(e){
+		console.error(e.message);
+	}
+}
+</script>
+
+<div id="area" style="width: 930px; height: 200px; overflow:scroll;">
+	
+<div>
+<button onclick="Tutorial_env();">Environment</button>
+</div>
+
 <!-- Fetching People and Friends -->
 <div>
-  <button onclick='fetchPeople();'>ユーザー情報の取得</button>
-  <div>
-    <span id='viewer'></span>
-    <ul id='friends'></ul>
-  </div>
+  <button onclick='Tutorial_fetchOwner();'>オーナー情報</button>
 </div>
 
 <!-- Posting activity -->
@@ -43,6 +182,8 @@
   <ul id='contents'></ul>
 </div>
 	
+<div id="result_data">
+</div>
 
 	</div>]]></Content>
 </Module>
