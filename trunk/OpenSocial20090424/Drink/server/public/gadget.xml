@@ -60,7 +60,7 @@ function getParty() {
       $($("#info dd")[2]).html(party.max + "人");
       //console.log($("#info dd"));
     }, params);
-	}
+	});
 }
 
 function joinParty() {
