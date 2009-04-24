@@ -6,7 +6,7 @@ class CreateParties < ActiveRecord::Migration
       t.column :place, :string
       t.column :description, :text
       t.column :owner_name, :string
-      t.column :owner_id, :integer
+      t.column :owner_id, :string
       t.column :start_date, :datetime
       t.timestamps
     end
