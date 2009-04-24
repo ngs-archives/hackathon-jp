@@ -43,11 +43,11 @@
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer");
 
-		req.add(req.newUpdatePersonAppDataRequest("VIEWER","counter","1"));
-		//req.add(req.newFetchPersonAppDataRequest("VIEWER",["counter"]),"cntData");
+		//req.add(req.newUpdatePersonAppDataRequest("VIEWER","counter","1"));
+		req.add(req.newFetchPersonAppDataRequest("VIEWER",["counter"]),"cntData");
 		req.send(function(data){
-			//var mydata = data.get("cntData").getData();
-			alert("wa-");
+			var mydata = data.get("cntData").getData();
+			document.getElementById("result_appdata").innerHTML = mydata;
 		});
 	}
 </script>
