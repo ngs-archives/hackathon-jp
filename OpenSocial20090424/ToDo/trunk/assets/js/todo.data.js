@@ -6,7 +6,7 @@ ToDoApp.data = {
 		VISIBLE_FRIENDS : "visible_friends"
 	},
 	getStickies : function(callback) {
-		jQuery.opensocial.data.get(ToDoApp.data.PrefKey.STICKIES,"viewer",callback,false);
+		jQuery.opensocial.data.get(ToDoApp.data.PrefKey.STICKIES,"OWNER",callback,false);
 	},
 	save : function() {
 		var ar = [];
@@ -17,25 +17,27 @@ ToDoApp.data = {
 		console.log(ar);
 		jQuery.opensocial.data.set(ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.stickies);
 	},
-	getFriends : function() {
-		jQuery.opensocial.person("viewer",function(d){
+	getFriends : function(callback) {
+		jQuery.opensocial.person("OWNER",function(d){
 			var prm = {};
 			prm[opensocial.DataRequest.PeopleRequestFields.FILTER] = opensocial.DataRequest.FilterType.HAS_APP;
 			prm[opensocial.DataRequest.PeopleRequestFields.MAX] = 4;
 			jQuery.opensocial.getPeople(d.getId(),prm,function(p){
-				ToDoApp.data.onGetFriends(p);
+				ToDoApp.data.onGetFriends(p,callback);
 			});
 		});
 	},
-	onGetFriends : function(p) {
+	onGetFriends : function(p,callback) {
+		console.log(p);
 		if(!p||!p.length) return ToDoApp.ui.message.show(ToDoApp.Message.NO_FRIENDS);
-		var stickies = [{ stickies:ToDoApp.data.stickies,person:jQuery.opensocial.person("viewer") }];
+		var stickies = [{ stickies:ToDoApp.data.stickies,person:jQuery.opensocial.person("OWNER") }];
 		var cnt = 0;
 		function ge() {
-			if(cnt==p.length) return ToDoApp.data.onGetAllStickes(stickies);
+			if(!p[cnt]) return ToDoApp.data.onGetAllStickes(stickies,callback);
 			var obj = { person:p[cnt] };
 			jQuery.opensocial.data.get([ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.PrefKey.VISIBLE_FRIENDS],p[cnt].getId(),function(d){
-				var st = obj[ToDoApp.data.PrefKey.STICKIES];
+				if(!d||!d[ToDoApp.data.PrefKey.STICKIES]) return ge(); 
+				var st = d[ToDoApp.data.PrefKey.STICKIES];
 				if(st) {
 					obj.stickies = st;
 					stickies.push(obj);
@@ -44,8 +46,9 @@ ToDoApp.data = {
 			});
 			cnt++;
 		}
+		ge();
 	},
-	onGetAllStickes : function(stickies) {
-		console.log(stickies);
+	onGetAllStickes : function(stickies,callback) {
+		if(typeof(callback)=="function") callback(stickies);
 	}
 }

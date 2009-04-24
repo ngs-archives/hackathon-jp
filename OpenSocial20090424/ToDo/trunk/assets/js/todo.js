@@ -6,7 +6,10 @@ var ToDoApp = {
 		NO_FRIENDS : "no friends has app"
 	},
 	init : function() {
-		ToDoApp.data.getStickies(ToDoApp.onGetStickes);
+		if(jQuery.gadgets.view().getName()=="canvas")
+			ToDoApp.data.getFriends(ToDoApp.onGetFriends);
+		else
+			ToDoApp.data.getStickies(ToDoApp.onGetStickes);
 	},
 	onGetStickes : function(d) {
 		d = d||[];
@@ -16,6 +19,9 @@ var ToDoApp = {
 		}
 		$j("#stickies").html(ToDoApp.ui.list.getHTML(d));
 		jQuery.gadgets.height("auto");
+	},
+	onGetFriends : function(d) {
+		console.log(d);
 	},
 	create : function() {
 		ToDoApp.ui.message.hide();
