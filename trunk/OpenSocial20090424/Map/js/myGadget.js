@@ -412,18 +412,19 @@ function addEventMap()
 				name = '地点'+childid;
 			}
 
+			// 地図クリックした地点はpid = -1で区別する。
 			var m = new GMarker(point);
 			children[childid] = {
 				'marker': m, 
 				'point': point, 
 				'visible': true, 
-//				'pid' : j[key].pid
+				'pid' : -1
 			};
 			setValuesToDic(childid, {
 				'name':name,
 				'phone': phone,
 				'description':description,
-//				'pid':j[key].pid,
+				'pid': -1,
 //				'toid':j[key].toid
 			});
 			map.addOverlay(m);
@@ -1020,7 +1021,8 @@ function prepareData()
 	var n = 0;
 	for (i in children)
 	{
-		if ( children[i].visible == true )
+		// 地図クリックのデータのみ登録対象とする　
+		if ( children[i].visible == true && children[i].pid == -1 )
 		{
 			arr.push(getValuesFromDic(i));
 		}
@@ -1085,6 +1087,7 @@ function saveData()
 }
 function saveRes(obj)
 {
+	loadData();
 }
 
 function _loadFromFriends()
