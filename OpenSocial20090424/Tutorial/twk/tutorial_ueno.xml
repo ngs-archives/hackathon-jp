@@ -44,12 +44,10 @@
 		req.add(req.newFetchPersonAppDataRequest("OWNER",["counter"]),"count");
 		req.send(function(data){
 			var mydata = data.get("count").getData();
-			alert(mydata)
-			
-	});
-		}
-
+			alert(mydata);
+		});
 	}
+	
 </script>
 <div>
   <input type='text' id='counter' value="0" />
