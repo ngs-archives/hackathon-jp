@@ -46,8 +46,8 @@
 		req.add(req.newUpdatePersonAppDataRequest("VIEWER","counter","1"));
 		//req.add(req.newFetchPersonAppDataRequest("VIEWER",["counter"]),"cntData");
 		req.send(function(data){
-			var mydata = data.get("cntData").getData();
-			alert(mydata);
+			//var mydata = data.get("cntData").getData();
+			alert("wa-");
 		});
 	}
 </script>
