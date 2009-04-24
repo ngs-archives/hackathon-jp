@@ -2,10 +2,12 @@
 <Module>
   <ModulePrefs title="drink" author_email="yasunnobutya@gmail.com" description="OpenSocial Hackathon 2009-04">
     <Require feature="opensocial-0.8" />
+    <Require feature="jquery"/>
     <Require feature="dynamic-height" />
   </ModulePrefs>
   <Content type="html" view="profile"><![CDATA[
-
+<!-- jopensocial -->
+<script type="text/javascript" src="http://opensocial02.machu.jp/javascripts/jopensocial/jopensocial.js"></script>
 <!-- Fetching People and Friends -->
 <div>
   <button onclick='fetchPeople();'>Fetch people and friends</button>
@@ -61,7 +63,8 @@ function postActivity() {
 
   ]]></Content>
   <Content type="html" view="home"><![CDATA[
-
+<!-- jopensocial -->
+<script type="text/javascript" src="http://opensocial02.machu.jp/javascripts/jopensocial/jopensocial.js"></script>
 <!-- Fetching People and Friends -->
 <div>
   <button onclick='fetchPeople();'>Fetch people and friends</button>
