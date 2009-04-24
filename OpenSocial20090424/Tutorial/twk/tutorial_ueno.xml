@@ -105,10 +105,10 @@
      //Data is indexed by user id, and represents an object where keys 
      //correspond with the app data fields.
      var mydata = data[me.getId()];
+	alert("x");
      var div = document.getElementById('result_appdata');
      htmlout += "My AppField1 data is: " + mydata["AppField1"] + "<br />";
      div.innerHTML = htmlout;
-	alert(htmlout);
    }
 
 </script>
