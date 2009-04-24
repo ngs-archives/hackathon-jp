@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="ja">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>accordion menu - triplexxx</title>
+
+<script type='text/javascript' src='jquery-1.3.2.min.js'></script>
+
+<script type="text/javascript">
+<!--
+	var j$ = jQuery;
+
+	j$(function(){
+
+	function setBackground() {
+		var $last = j$(".acc > li:last > a");
+		if($last.hasClass("close"))
+			$last.css("background-position", "left bottom");
+		else
+			$last.css("background-position", "left -30px");
+	}
+
+	j$(".acc").each(function(){
+		j$("li > ul"            , this).wrap("<div></div>");
+		j$("li > div:not(:last)", this).append("<div class='notlast'>&nbsp;</div>");
+		j$("li > div:last"      , this).append("<div class='last'>&nbsp;</div>");
+
+		j$("li > a", this).each(function(index){
+			var $this = j$(this);
+
+			if(index > 0) 
+				$this.addClass("close").next().hide();
+			else
+				$this.css("background-position", "left top");
+
+			setBackground();
+
+			var prms = {height:"toggle", opacity:"toggle"};
+			$this.click(function(){
+				j$(this).toggleClass("close").next().animate(prms, {duration:"fast"})
+					.parent().siblings().children("div:visible").animate(prms, {duration:"fast"}).prev().addClass("close");
+				setBackground();
+				return false;
+			});
+		});
+	});
+});
+//-->
+</script>
+
+<style type="text/css">
+ul.acc {
+	width: 150px;
+}
+
+ul.acc li div ul {
+	height: 200px;
+}
+
+ul.acc, ul.acc li ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.acc a{
+	color: #feffff;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 10px;
+	text-decoration: none;
+	outline: none;
+}
+
+ul.acc li a {
+  background: url(acc_bg.png) left -30px no-repeat;
+}
+
+ul.acc li div ul li a { 
+  background: none; 
+}
+
+ul.acc li div ul li a:hover { 
+  background-color: #185AAC; 
+}
+
+ul.acc li div ul,
+ul.acc li div div.notlast {
+	background-color: #A6B5E2;
+}
+
+ul.acc li div div {
+	height: 10px;
+}
+
+ul.acc li div div.last {
+	background: transparent url(acc_menu_last.png) left bottom no-repeat;
+}
+</style>
+</head>
+<body>
+<ul class="acc">
+	<li><a href="1">category1</a>
+		<ul> 
+			<li><a href="11">menu 1-1</a></li>
+			<li><a href="12">menu 1-2</a></li>
+			<li><a href="13">menu 1-3</a></li>
+		</ul>
+	</li>
+	<li><a href="2">category2</a>
+		<ul> 
+			<li><a href="21">menu 2-1</a></li>
+			<li><a href="22">menu 2-2</a></li>
+			<li><a href="23">menu 2-3</a></li>
+			<li><a href="24">menu 2-4</a></li>
+		</ul>
+	</li>
+	<li><a href="3">category3</a>
+		<ul> 
+			<li><a href="31">menu 3-1</a></li>
+			<li><a href="32">menu 3-2</a></li>
+			<li><a href="33">menu 3-3</a></li>
+			<li><a href="34">menu 3-4</a></li>
+			<li><a href="35">menu 3-5</a></li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>
