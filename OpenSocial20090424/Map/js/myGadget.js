@@ -743,6 +743,7 @@ function delRow(idx)
 function deleteRow(idx)
 {
 	var date = new Date().getTime();
+	var pid = getValuesFromDic(idx).pid;
 	var url = 
 		"http://61.193.175.55/test-cgi/test/hackathon/cgi/delete.cgi"+
 		"?cachebuster=" + date + "&pid="+idx+"&uid="+viewerobj.id;
@@ -885,7 +886,8 @@ function getValuesFromDic(id)
 			name: c.name,
 			phone: c.phone,
 			description: c.description,
-			img: c.img
+			img: c.img,
+			pid: c.pid
 	};
 }
 function getValuesFromDOM(idx)
