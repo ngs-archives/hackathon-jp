@@ -9,42 +9,20 @@
 <Require feature="opensocial-0.8" />
 <Require feature="pubsub" />
 </ModulePrefs>
-<Content type="html" view="home,profile"><![CDATA[
+<Content type="html" view="home,profile,canvas"><![CDATA[
 <script type="text/javascript" src="http://d1lzci7p8hi5b7.cloudfront.net/opensocial-jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(function($) {
 
-  var mapUrl = 'http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/RPC/gmap.html'
-
-  $.sub('geo', function(sender, point) {
+  gadgets.pubsub.subscribe('geo', function(sender, point) {
     console.log(point);
-    $('#mapframe').get(0).contentWindow.location.href = mapUrl + '#' + point.lat + ',' + point.lng;
-  });
+    gadgets.rpc.call('mapframe', 'map_geo', null, point);
+  })
 
-  var latlng = '35.689649,139.694338';
-  $('#mapframe').get(0).contentWindow.name = window.location.href.split('#')[0];
-  $('#mapframe').attr('src', mapUrl + '#' + latlng);
-
-  /**
   gadgets.rpc.register('map_geo', function(point) {
     console.log(point);
-    $.pub('geo', point);
+    gadgets.pubsub.publish('geo', point);
   });
-  */
-
-  var hash = latlng;
-  setInterval(function() {
-    var h = window.location.hash.substring(1);
-    if (h != latlng) {
-      var p = h.split(',');
-      var lat = parseFloat(p[0]);
-      var lng = parseFloat(p[1]);
-      if (isNaN(lat) || isNaN(lng)) return;
-      latlng = lat + ',' + lng;
-      $.pub('geo', { lat : lat, lng : lng }); 
-    }
-  }, 100)
-
 
 });
 </script>
@@ -55,6 +33,6 @@ width:100%;
 height:100%;
 }
 </style>
-<iframe id="mapframe"></iframe>
+<iframe id="mapframe" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/RPC/gmap.html"/>
 ]]></Content>
 </Module>
