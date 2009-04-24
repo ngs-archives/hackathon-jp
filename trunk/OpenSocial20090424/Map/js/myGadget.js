@@ -336,6 +336,7 @@ function _showFriends()
 					});
 		 });
 	}
+console.log(friendobj);
 }
 
 function triggerClick()
