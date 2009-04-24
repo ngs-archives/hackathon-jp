@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs
+            title="Twitter Gadget"
+            author_email="robert@gravina.com"
+            description="A gadget which displays the most recent tweets of the owner.">
+        <Require feature="opensocial-0.8" />
+    </ModulePrefs>
+    <Content type="html" view="canvas"><![CDATA[<script type="text/javascript" src="http://localhost:8080/twitter-gadget/canvas.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Canvas view is here. -->
+<div id="canvas">
+
+<span id="username">username</span> on Twitter.  <span id="friends"></span>
+
+<ul id="tweets">
+<li>blah blah blah blah blah. blah blah blah blah blah. blah blah blah blah blah.</li>
+<li>blah blah blah blah blah. blah blah blah blah blah. blah blah blah blah blah.</li>
+<li>blah blah blah blah blah. blah blah blah blah blah. blah blah blah blah blah.</li>
+<li>blah blah blah blah blah. blah blah blah blah blah. blah blah blah blah blah.</li>
+<li>blah blah blah blah blah. blah blah blah blah blah. blah blah blah blah blah.</li>
+</ul>
+
+</div>]]></Content>
+    <Content type="html" view="profile"><![CDATA[<script type="text/javascript" src="http://localhost:8080/twitter-gadget/profile.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Profile view is here. -->
+<div>Profile view for Twitter Gadget.</div>]]></Content>
+    <Content type="html" view="preview"><![CDATA[<script type="text/javascript" src="http://localhost:8080/twitter-gadget/preview.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Preview view is here. -->
+<div>Preview view for Twitter Gadget.</div>]]></Content>
+    <Content type="html" view="home"><![CDATA[<script type="text/javascript" src="http://localhost:8080/twitter-gadget/home.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Home view is here. -->
+<div>Home view for Twitter Gadget.</div>]]></Content>
+</Module>
