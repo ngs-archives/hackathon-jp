@@ -39,7 +39,21 @@
 	var htmlout = ""
 	var me ="";
 	function CouterInc(){
-		populateMyAppData();
+         var params = {};
+         var body = "きてやったよ!!";
+         params[opensocial.Message.Field.TITLE] = "きたよ!";
+         params[opensocial.Message.Field.TYPE] = opensocial.Message.Type.PRIVATE_MESSAGE;
+         var msg = opensocial.newMessage(body,params);
+
+         opensocial.requestSendMessage("VIEWER_FRIENDS",msg,function(status){
+             if(status.hadError()){
+                 var errorCode=status.getErrorDCode();
+                 var errorMessage = status.getErrorMessage();
+             }else{
+                 alert("メッセージおくりました");
+             }
+             });
+
 	}
 	function getCountNum(){
 
