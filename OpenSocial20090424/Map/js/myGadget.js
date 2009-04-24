@@ -978,6 +978,7 @@ function showData(obj)
 			map.addOverlay(m);
 		}
 	}
+console.log(children);
 	childid = i;
 	//alert("end of getpoint childid:"+childid);
 	addEventMap();
