@@ -78,7 +78,7 @@ jQuery(function($) {
     });
   };
 
-  $.sub('RPC', function(sender, message) {
+  $.sub('geo', function(sender, message) {
 console.log(sender, message.lat, message.lng);
     if ($.pref('url') != sender)
       byLatLng(message.lat, message.lng);
