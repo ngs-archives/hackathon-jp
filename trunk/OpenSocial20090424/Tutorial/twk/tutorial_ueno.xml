@@ -36,6 +36,8 @@
 	
 <!-- counter -->
 <script type="text/javascript">
+	var htmlout = ""
+	var me ="";
 	function CouterInc(){
 		populateMyAppData();
 	}
