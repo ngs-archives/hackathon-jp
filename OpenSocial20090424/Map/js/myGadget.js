@@ -1091,6 +1091,7 @@ function saveRes(obj)
 	el.innerHTML = "";
 	loadData();
 console.log(children);
+	children = "";
 }
 
 function _loadFromFriends()
