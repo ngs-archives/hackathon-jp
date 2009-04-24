@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="List Friends Example" description="—F’Bˆê——">
+  <ModulePrefs title="List Friends Example" description="å‹é”ä¸€è¦§">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
