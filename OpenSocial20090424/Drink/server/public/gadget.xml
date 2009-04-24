@@ -36,7 +36,7 @@ div {
 			<button onclick='joinParty();'>飲み会に参加する</button>
 		</div>
 		<div id="members">参加者一覧
-			<ul>
+			<ul id='member_deta'>
 				<li><img src="http://sandbox.home.goo.ne.jp/img/common/noimage60_p.gif">京和: よろしくお願いします。</li>
 				<li>佐々木</li>
 				<li>まちゅ</li>
@@ -69,6 +69,7 @@ function getParty() {
       $('#viewer').show();
     }, params);
 	});
+	getMember(party.id);
 }
 
 function joinParty() {
@@ -93,6 +94,35 @@ function joinParty() {
 		}
 	);
 }
+
+function getMember(party_id) {
+//party_id=1;
+var url_get_member ="http://opensocial.machu.jp/member/list?party_id="+party_id;
+ //メンバー情報取得用リクエスト送信    
+var params = [];
+params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+gadgets.io.makeRequest(url_get_member, function(response) {
+
+  //alert("1"+response.text);
+  party_id=response.id;
+  
+  var members =response.data;
+  console.log(members);
+$(members).each(
+    function(member) {
+    console.log(this);
+    //alert(member.name+member.comment); 
+    $('#member_deta').html("<li>"+this.name+": "+this.comment+"</li>");
+    }
+    );
+
+}, params);
+
+}
+
+
+
+
 </script>
   ]]></Content>
   <Content type="html" view="home"><![CDATA[
