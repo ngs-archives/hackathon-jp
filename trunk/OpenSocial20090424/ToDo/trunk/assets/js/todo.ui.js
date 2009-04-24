@@ -51,6 +51,19 @@ ToDoApp.ui = {
 				"<\/div>"
 			].join("");
 	},
+    getCanvasHTML : function( friendList ){
+        var html = '';
+        
+        for( var i = 0; i < friendList.length; i++ ){
+            var data = friendList[i];
+            html  = '<div>';
+            html += '<p>' + data.person.getDisplayName() + '</p>';
+            for( var j = 0; j < data.stickies.length; j++ ){
+                html += ToDoApp.getStickies( j, data.stickies[j], false );
+            }
+            html += '</div>';   
+        }
+    }
 	friendsControl : {
 		show : function() {
 			$j("#friends").css("display","block");
@@ -74,21 +87,29 @@ ToDoApp.ui = {
 			if(!d||!d.length) return "";
 			var ht = [];
 			for(var i=0;i<d.length;i++) {
-				ht.push(ToDoApp.ui.getSticky(i,d[i]));
+				ht.push(ToDoApp.ui.getSticky(i,d[i],true));
 			}
 			return ht.join("");
 		}
 	},
-	getSticky : function(id,text) {
+	getSticky : function(id,text, edit) {
 		text = text || "";
 		ToDoApp.data.stickies = ToDoApp.data.stickies || [];
 		if(isNaN(id)) id = ToDoApp.data.stickies.length;
-		return [
-			"<div class=\"sticky\">",
-				"<textarea onchange=\"ToDoApp.data.save()\" rows=\"3\" cols=\"25\" style=\"background-color:#FFFF95;border:none;\">", text, "<\/textarea>",
-				"<span class=\"del\" onclick=\"ToDoApp.remove(this);\">X<\/span>",
-			"<\/div>"
-		].join("");
+		
+        if( edit ){
+            return [
+			    "<div class=\"sticky\">",
+				    "<textarea onchange=\"ToDoApp.data.save()\" rows=\"3\" cols=\"25\" style=\"background-color:#FFFF95;border:none;\">", text, "<\/textarea>",
+				    "<span class=\"del\" onclick=\"ToDoApp.remove(this);\">X<\/span>",
+			    "<\/div>"
+		    ].join("");
+        }else{
+            return [
+			    "<div class=\"sticky\">",text,"<\/div>"
+            ].join("");
+        }
+        
 	}
 }
 
