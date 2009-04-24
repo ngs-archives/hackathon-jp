@@ -24,6 +24,9 @@ google.setOnLoadCallback(init);
 
 var map, geocoder, hash, marker;
 function init() {
+  
+  var purl = window.name || '';
+
   map = new google.maps.Map2(document.getElementById('map'));
   map.addControl(new google.maps.SmallMapControl());
   map.addControl(new google.maps.MapTypeControl());
@@ -33,9 +36,9 @@ function init() {
     var center = map.getCenter();
 //    gadgets.rpc.call('', 'map_geo', null, { lat : center.lat(), lng : center.lng() });
     try {
-    window.parent.location.hash = center.lat() + ',' + center.lng();
+      window.parent.location.replace(purl + '#' + center.lat() + ',' + center.lng());
     } catch(e) {
-    console.log(e);
+      console.log(e);
     }
   });
 
