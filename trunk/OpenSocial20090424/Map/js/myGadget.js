@@ -703,6 +703,7 @@ function addRow(idx)
 	photo.style.width = 40;
  
 	var toid = getValuesFromDic(idx).toid;
+	alert(toid);
 	if ( toid )
 	{
 		rcv.src = friendobj[toid].thumbnail;
