@@ -95,12 +95,17 @@
        */
       function request() {
       try{
+      
+      /*
+      var reason = 'test';
+      opensocial.requestPermission([opensocial.Permission.VIEWER], reason,function(
+      */
+      
 		var env = opensocial.getEnvironment();
 		
 		var html = '';
 		html += 'domain is :' + env.getDomain() + '<br />';
       
-        var idspec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
         var req = opensocial.newDataRequest();
         var params = {}; 
 		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
@@ -114,7 +119,13 @@
 		*/  
         req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
         req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "get_viewer");
-        req.add(req.newFetchPeopleRequest(idspec, params), "get_friends");
+        
+        var ownerIdSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+        req.add(req.newFetchPeopleRequest(ownerIdSpec, params), "get_owner_friends");
+        
+        var viewerIdSpec = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+        req.add(req.newFetchPeopleRequest(viewerIdSpec, params), "get_viewer_friends");
+        
         req.send(response);
       }catch(e){
       	console.error(e.message);
@@ -130,14 +141,19 @@
        */
       function response(dataResponse) {
       try {
+      /*
+        var response = dataResponse.get('response');
+        if (response.hasError)
+        opensocial.ResponseItem.Error.Unauthori
+        haspermission
+        requestPermission
+        */
+      
         var owner = dataResponse.get('get_owner').getData();
         /* @var owner Map< PersonId, Map<String, Object>> */
         
         var viewer = dataResponse.get('get_viewer').getData();
         /* @var viewer Map< PersonId, Map<String, Object>> */
-        
-        var friends = dataResponse.get('get_friends').getData();
-        /* @var friends Collection<Person> */ 
         
         console.debug(owner);
         var html = '';
@@ -166,19 +182,39 @@
 	    	html += '取得できませんでした';
 	    }
         
+        
+        var owner_friends = dataResponse.get('get_owner_friends').getData();
+        /* @var owner_friends Collection<Person> */ 
+        
         html = '';
-        html += '<h1>友人情報 </h1>';
-        if (friends)
+        html += '<h1>オーナー友人情報 </h1>';
+        if (owner_friends)
         {
-	        html += friends.size() + '人';
+	        html += owner_friends.size() + '人';
 	        document.getElementById('message').innerHTML += html;
-	        friends.each(GeneratePersonInfo); // each
+	        owner_friends.each(GeneratePersonInfo); // each
 	    }
 	    else
 	    {
 	    	html += '取得できませんでした';
 	    }
      
+
+        var viewer_friends = dataResponse.get('get_owner_friends').getData();
+        /* @var viewer_friends Collection<Person> */ 
+        
+        html = '';
+        html += '<h1>ビューワー友人情報 </h1>';
+        if (viewer_friends)
+        {
+	        html += viewer_friends.size() + '人';
+	        document.getElementById('message').innerHTML += html;
+	        viewer_friends.each(GeneratePersonInfo); // each
+	    }
+	    else
+	    {
+	    	html += '取得できませんでした';
+	    }
         
         setTimeout(function (){
         	if (typeof gadgets != 'undefined')
