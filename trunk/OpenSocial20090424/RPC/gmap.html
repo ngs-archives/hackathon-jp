@@ -39,8 +39,9 @@ function init() {
     var h = window.location.hash.substring(1);
     if (h!=hash) {
       hash = h;
-      console.log(hash);
       var latlng = hash.split(',');
+      console.log(latlng);
+      console.log(parseFloat(latlng[0]), parseFloat(latlng[1]));
       map.setCenter(new google.maps.LatLng(parseFloat(latlng[0]), parseFloat(latlng[1]), 13));
     }
   }, 100)
