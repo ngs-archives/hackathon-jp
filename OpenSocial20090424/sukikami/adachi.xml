@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="sukikami-friends" author_email="hueihon@gmail.com" description="sample">
+    <Require feature="opensocial-0.8" />
+    <Require feature="minimessage" />
+  </ModulePrefs>
+  <Content type="html" view="canvas"><![CDATA[
+
+<script type="text/javascript" src="http://onsoku.sakura.ne.jp/opensocial/honma.js/canvas.js"></script>
+<script src="http://onsoku.sakura.ne.jp/opensocial/honma.js?nocache=15"></script>
+<script type="text/javascript">
+		function _init(){
+				var parameters = {};
+				parameters[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+				parameters[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+				parameters[opensocial.IdSpec.Field.NETWORK_DISTANCE] = 1;
+
+				var idSpec = opensocial.newIdSpec(parameters);
+		var params = {};
+		params[opensocial.DataRequest.PeopleRequestFields] = [
+			opensocial.Person.Field.ID,
+				opensocial.Person.Field.NAME,
+				opensocial.Person.Field.THUMBNAIL_URL,
+				opensocial.Person.Field.PROFILE_URL,
+				opensocial.Person.Field.CURRENT_LOCATION,
+				opensocial.Person.Field.ADDRESSES,
+				opensocial.Person.Field.ABOUT_ME,
+				opensocial.Person.Field.STATUS,
+				opensocial.Person.Field.GENDER,
+				opensocial.Person.Field.RELATIONSHIP_STATUS,
+   			opensocial.Person.Field.LIVING_ARRANGEMENT,
+				opensocial.Person.Field.LANGUAGES_SPOKEN,
+				opensocial.Person.Field.JOB_INTERESTS,
+				opensocial.Person.Field.INTERESTS,
+				opensocial.Person.Field.URLS,
+				opensocial.Person.Field.MUSIC,
+				opensocial.Person.Field.MOVIES,
+				opensocial.Person.Field.TV_SHOWS,
+				opensocial.Person.Field.BOOKS,
+				opensocial.Person.Field.ACTIVITIES,
+				opensocial.Person.Field.SPORTS,
+				opensocial.Person.Field.FOOD,
+				opensocial.Person.Field.TURN_ONS,
+				opensocial.Person.Field.TURN_OFFS,
+				opensocial.Person.Field.ROMANCE,
+				opensocial.Person.Field.FASHION,
+				opensocial.Person.Field.HUMOR,
+				opensocial.Person.Field.LOOKING_FOR,
+				opensocial.Person.Field.RELIGION,
+				opensocial.Person.Field.POLITICAL_VIEWS,
+			opensocial.Person.Field.DATE_OF_BIRTH];
+
+
+				var req = opensocial.newDataRequest();
+				req.add(req.newFetchPeopleRequest(idSpec,params),"friends");
+
+				req.send(function(data){
+						if(data.hadError()){
+								var msg = data.getErrorMessage();
+								alert(msg);
+						}else{
+								var item = data.get("friends");
+								if(item.hadError()){
+										var code = item.getErrorCode();
+										var msg = item.getErrorMessage();
+										alert(code + " : " + msg);
+								}else{
+										var friends = item.getData();
+										var req2 = opensocial.newDataRequest();
+										req2.add(req2.newFetchPersonRequest())
+
+										var target = document.getElementById("target");
+										friends.each(function(friend){
+						var maker = new socialquest.CharacterMaker();
+						var p = maker.make(friend);
+												var thumbnailUrl  = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
+						//var NameValue = friend.getField(opensocial.Person.Field.BIRTH_OF_DATE);
+						//alert("NameValues=" + NameValue.getDay());
+												var userName = friend.getDisplayName();
+												var jobNameValue = p.job;
+												target.innerHTML += "<div><input type='checkbox' value=''><img src='" + thumbnailUrl + "'></img>"+ userName + ")<br />" + jobNameValue + "</div><br />";
+										});
+								}
+						}
+				});
+		}gadgets.util.registerOnLoadHandler(_init);
+</script>
+
+<!-- The code for Canvas view is here. -->
+<div>Canvas view for sukikami-friends.</div>
+
+  ]]></Content>
+</Module>
