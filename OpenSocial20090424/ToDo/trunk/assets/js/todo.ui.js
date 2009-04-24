@@ -56,8 +56,7 @@ ToDoApp.ui = {
         
         for( var i = 0; i < friendList.length; i++ ){
             var data = friendList[i];
-            console.log( data );
-            html  = '<div>';
+            html += '<div>';
             html += '<p>' + data.person.getDisplayName() + '</p>';
             for( var j = 0; j < data.stickies.length; j++ ){
                 html += ToDoApp.ui.getSticky( j, data.stickies[j], false );
