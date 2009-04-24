@@ -1,4 +1,4 @@
-
+//
 ToDoApp.ui = {
     getFriendsHTML : function(friendIDs, friendNames) {
         var text = '';
@@ -26,6 +26,7 @@ ToDoApp.ui = {
 		if(jQuery.gadgets.view().getName()=="canvas")
 			return [
 				"<div id=\"todo-canvas\" class=\"wrapper\">",
+					"<div id=\"message\" style=\"display:none\"><\/div>",
 					"<div id=\"stickies\"><\/div>",
 					"<div id=\"pagenates\"><\/div>",
 				"<\/div>"
