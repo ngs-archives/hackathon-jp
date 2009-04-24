@@ -5,7 +5,8 @@
             description="desc">
         <Require feature="opensocial-0.8" />
     </ModulePrefs>
-    <Content type="html" view="home,profile,canvas"><![CDATA[<script type="text/javascript" src="friendlist.js">
+    <Content type="html" view="home,profile,canvas"><![CDATA[<script type="text/javascript" 
+    	src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Tutorial/twk/friendlist.js">
     </script>
     <div id="message"> </div>]]></Content>
 </Module>
