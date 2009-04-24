@@ -25,12 +25,9 @@ jQuery(function($) {
   $('#mapframe').get(0).contentWindow.name = window.location.href.split('#')[0];
   $('#mapframe').attr('src', mapUrl + '#' + latlng);
 
-  /**
-  gadgets.rpc.register('map_geo', function(point) {
-    console.log(point);
-    $.pub('geo', point);
+  gadgets.rpc.register('pubsub', function() {
+    console.log(arguments);
   });
-  */
 
   var hash = latlng;
   setInterval(function() {
