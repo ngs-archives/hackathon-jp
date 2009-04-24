@@ -48,6 +48,28 @@
 			document.getElementById("result_appdata").innerHTML = mydata;
 		});
 	}
+
+
+   /**
+    * Set user data
+    */
+   function populateMyAppData() {
+     var req = opensocial.newDataRequest();
+     var data1 = Math.random() * 5;
+     var data2 = Math.random() * 100;
+     var data3 = new Date().getTime();
+     htmlout += "Setting AppField1 to " + data1 + "<br />";
+     req.add(req.newUpdatePersonAppDataRequest("VIEWER", "AppField1", data1)) + "<br />";
+     htmlout += "Setting AppField2 to " + data2 + "<br />";
+     req.add(req.newUpdatePersonAppDataRequest("VIEWER", "AppField2", data2)) + "<br />";
+     htmlout += "Setting AppField3 to " + data3 + "<br />";
+     req.add(req.newUpdatePersonAppDataRequest("VIEWER", "AppField3", data3)) + "<br />";
+     req.send(function(data){
+		document.getElementById("result_appdata").innerHTML = "hello" ;
+	});
+   }
+
+
 </script>
 <div>
   <input type='text' id='counter' value="0" />
