@@ -19,7 +19,15 @@ function FormatUrl(url, text)
 {
 	if (!text) text = url;
 	var url = url.replace(/"/g, '&quot;').replace('<', "&lt;");
-	return '<img src="http://img.simpleapi.net/small/' + url + '" />' + '<a class="previewlink" href="' + url + '">' + text + '</a>';
+	
+	var html = '';
+
+	if (!url.match(/^http:\/\/sandbox\.home\.goo\.ne\.jp/))
+		html += '<img src="http://img.simpleapi.net/small/' + url + '" />';
+	
+	html += '<a class="previewlink" href="' + url + '">' + text + '</a>';
+	
+	return html;
 }
 
 function GetSupportedFields()
