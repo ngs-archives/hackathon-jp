@@ -44,10 +44,10 @@
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer");
 
 		req.add(req.newFetchPersonAppDataRequest("VIEWER",["counter"]),"viewer_data");
-		req.send(function(data){
+		/*req.send(function(data){
 			var mydata = data.get("count").getData();
 			alert(mydata);
-		});
+		});*/
 	}
 </script>
 <div>
