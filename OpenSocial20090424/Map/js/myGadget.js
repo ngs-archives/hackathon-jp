@@ -39,6 +39,7 @@ function init()
 	maptabs.alignTabs("left", 3);
 
 	mapinit();
+	addEventMap();
 
 	// jqueryの読み込み
 	// ここで宣言しておけば$jでどこからでも呼び出せるらしい。
@@ -384,7 +385,6 @@ function mapinit()
 }
 function addEventMap()
 {
-	GEvent.removeListener(map, 'click');
 	GEvent.addListener(map, 'click', function(overlay, point)
 	{
 alert("hogehoge");
@@ -985,7 +985,7 @@ function showData(obj)
 console.log(children);
 	childid = i;
 	//alert("end of getpoint childid:"+childid);
-	addEventMap();
+	//addEventMap();
 }
 /*
 	 チャンネルリスト取得
