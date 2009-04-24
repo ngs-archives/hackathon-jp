@@ -132,5 +132,5 @@
       // Execute the request function when the application is finished loading.
       gadgets.util.registerOnLoadHandler(request);
     </script>
-    <div id="message" style="overflow:scroll;"> </div>]]></Content>
+    <div id="message" style="height: 100px; overflow:scroll;"> </div>]]></Content>
 </Module>
