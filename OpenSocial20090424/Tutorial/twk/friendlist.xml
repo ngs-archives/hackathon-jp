@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
     <ModulePrefs
-            title="List Friends Example"
+            title="友人情報テスト"
             description="desc">
         <Require feature="opensocial-0.8" />
         <Require feature="dynamic-height" />
@@ -15,6 +15,42 @@
     		, error:alert
     	};
     }
+    
+    function GeneratePersonInfo(person) {
+        
+          console.debug(person);
+          /* @var person Person */
+          html += '<li>' + person.getDisplayName() + '<br />';
+          html += 'id:' + person.getId();
+          
+          
+          /*
+          html += 'isOwner:' + person.isOwner();
+          html += 'isViewer:' + person.isViewer();
+			*/
+		/*          
+			for(i in opensocial.Person.Field){
+				var env = opensocial.getEnvironment();
+				var objectType = opensocial.Environment.ObjectType.PERSON;
+				if (!env.supportsField(objectType, opensocial.Person.Field[i]))
+					continue;
+			
+				html += i;
+				if(i == "THUMBNAIL_URL"){
+					html+="<img src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
+				}else{
+					html+= person.getField(opensocial.Person.Field[i]);
+				}
+				html += '<br />';
+			}
+			*/
+	          html += '</li>';
+	
+	        html += '</ul>';
+	        
+	        document.getElementById('message').innerHTML += html;
+	        
+    } // GeneratePersonInfo
     
     function GetSupportedFields()
     {
@@ -85,7 +121,7 @@
         console.debug(owner);
         html += 'オーナー情報<br />';
         html += owner.getDisplayName();
-        
+        html += GeneratePersonInfo(owner);
         html += '<br>';
         
         
@@ -93,41 +129,7 @@
         html += friends.size() + '人です';
         html += '<ul>';
         
-        friends.each(function(person) {
-        
-          console.debug(person);
-          /* @var person Person */
-          html += '<li>' + person.getDisplayName() + '<br />';
-          html += 'id:' + person.getId();
-          
-          
-          /*
-          html += 'isOwner:' + person.isOwner();
-          html += 'isViewer:' + person.isViewer();
-			*/
-		/*          
-			for(i in opensocial.Person.Field){
-				var env = opensocial.getEnvironment();
-				var objectType = opensocial.Environment.ObjectType.PERSON;
-				if (!env.supportsField(objectType, opensocial.Person.Field[i]))
-					continue;
-			
-				html += i;
-				if(i == "THUMBNAIL_URL"){
-					html+="<img src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
-				}else{
-					html+= person.getField(opensocial.Person.Field[i]);
-				}
-				html += '<br />';
-			}
-			*/
-	          html += '</li>';
-	
-	        html += '</ul>';
-	        
-	        document.getElementById('message').innerHTML += html;
-	        
-      }); // each
+        friends.each(GeneratePersonInfo); // each
      
         // gadgets.window.adjustHeight();
      
