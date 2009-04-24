@@ -384,6 +384,7 @@ function mapinit()
 }
 function addEventMap()
 {
+	GEvent.removeListner(map, 'click');
 	GEvent.addListener(map, 'click', function(overlay, point)
 	{
 alert("hogehoge");
