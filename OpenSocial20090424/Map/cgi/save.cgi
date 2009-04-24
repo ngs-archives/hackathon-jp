@@ -13,7 +13,7 @@ use Encode;
 
 use Data::Dumper;
 
-our $debug = 1;
+our $debug = 0;
 
 my $q = new CGI;
 
