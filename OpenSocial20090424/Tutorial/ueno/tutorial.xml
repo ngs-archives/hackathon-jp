@@ -38,28 +38,40 @@
 
 
 			function request(){
-				var idspec	= opensocial.newIdSpec({"userId":"OWNER","groupId":"FRIENDS"});
-				var req 	= opensocial.newDataRequest();
-				req.add(req.newFetchPersonRequest("OWNER"),"get_owner");
-				
-				var params = {}
-
-				params[opensocial.DataRequest.PeopleRequestFields.MAX] = 200;
-
 				var allFields = [];
 				for(field in opensocial.Person.Field){
 					allFields.push(opensocial.Person.Field[field]);
 				}
-			//	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = allFields;
-			//	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = GetSupportedFields();
-				params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
-					opensocial.Person.Field.AGE,
-					opensocial.Person.Field.GENDER,
-					opensocial.Person.Field.CURRENT_LOCATION
-				];
+
+				var idspec	= opensocial.newIdSpec({"userId":"OWNER","groupId":"FRIENDS"});
+				var req 	= opensocial.newDataRequest();
+				req.add(req.newFetchPersonRequest("OWNER",allFields),"get_owner");
+				
+				var params = {}
+
+				params[opensocial.DataRequest.PeopleRequestFields.MAX] = 200;
+				params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = allFields;
 
 				req.add(req.newFetchPeopleRequest(idspec,params),"get_friends");
 				req.send(response);
+			}
+
+
+			function drawPerson(person){
+					var str = ""
+					str += "<tr>";
+					for(i in opensocial.Person.Field){
+						str+= "<td>";
+						if(i == "THUMBNAIL_URL"){
+							str+="<img width='30px' src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
+						}else{
+							str+= person.getField(opensocial.Person.Field[i]);
+						}
+						str+= "</td>";
+					}
+					str += "</tr>";
+
+					return str;
 			}
 
 			function response(dataResponse){
@@ -84,17 +96,7 @@
 				html += "</tr>";
 				
 				friends.each(function(person){
-					html += "<tr>";
-					for(i in opensocial.Person.Field){
-						html+= "<td>";
-						if(i == "THUMBNAIL_URL"){
-							html+="<img width='30px' src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
-						}else{
-							html+= person.getField(opensocial.Person.Field[i]);
-						}
-						html+= "</td>";
-					}
-					html += "</tr>";
+					html += drawPerson(person);
 				});
 				html += "\n</table>";
 				document.getElementById("message").innerHTML = html;
