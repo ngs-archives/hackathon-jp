@@ -4,6 +4,7 @@
 				 description="こんにちは，世界"
 					 author_email="iron.nori@gmail.com">
 					 <Require feature="opensocial-0.8"/>
+					 <Require feature="dynamic-height"/>
 	</ModulePrefs>
 	<Content type="html" view="home"><![CDATA[
 		PersonList
@@ -12,7 +13,7 @@
 	<Content type="html" view="profile"><![CDATA[
 		PersonList
 	]]></Content>
-	<Content type="html" view="canvas"><![CDATA[
+	<Content type="html" view="canvas" ><![CDATA[
 		<link style="stylesheet" type="text/css" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Tutorial/ueno/style.css"/>
 		<script type="text/javascript">
 			gadgets.util.registerOnLoadHandler(request);
@@ -87,7 +88,7 @@
 					for(i in opensocial.Person.Field){
 						html+= "<td>";
 						if(i == "THUMBNAIL_URL"){
-							html+="<img width="30px" src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
+							html+="<img width='30px' src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
 						}else{
 							html+= person.getField(opensocial.Person.Field[i]);
 						}
@@ -99,6 +100,7 @@
 				document.getElementById("message").innerHTML = html;
 			};
 			
+gadgets.util.registerOnLoadHandler(init);
 
 		</script>
 		<div id="message">
