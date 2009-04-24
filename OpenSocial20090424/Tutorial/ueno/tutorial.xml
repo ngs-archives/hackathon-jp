@@ -50,12 +50,12 @@
 					allFields.push(opensocial.Person.Field[field]);
 				}
 			//	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = allFields;
-				//params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = GetSupportedFields();
+			//	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = GetSupportedFields();
 				params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
 					opensocial.Person.Field.AGE,
 					opensocial.Person.Field.GENDER,
 					opensocial.Person.Field.CURRENT_LOCATION
-];
+				];
 
 				req.add(req.newFetchPeopleRequest(idspec,params),"get_friends");
 				req.send(response);
@@ -87,7 +87,7 @@
 					for(i in opensocial.Person.Field){
 						html+= "<td>";
 						if(i == "THUMBNAIL_URL"){
-							html+="<img src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
+							html+="<img width="30px" src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
 						}else{
 							html+= person.getField(opensocial.Person.Field[i]);
 						}
