@@ -9,10 +9,14 @@
 <Require feature="minimessage" />
 <Require feature="opensocial-0.8" />
 <Require feature="opensocial-jquery" />
+<Require feature="pubsub" />
 </ModulePrefs>
 <Content type="html" view="home,profile"><![CDATA[
 <script type="text/javascript">
 jQuery(function($) {
+  $('#form").submit(function() {
+    $.pub('RPC', this.message.value);
+  });
 });
 </script>
 <style type="text/css">
@@ -26,6 +30,9 @@ body {
 
 -->
 </style>
-<div id="cycle">読み込み中 ...</div>
+<form id="form">
+<input name="message" type="text" />
+<input type="submit" />
+</form>
 ]]></Content>
 </Module>
