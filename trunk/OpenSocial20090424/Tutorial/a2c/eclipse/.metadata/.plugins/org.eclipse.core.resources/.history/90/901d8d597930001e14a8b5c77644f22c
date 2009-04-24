@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs
+            title="test01"
+            author_email="a2c@hoge.com">
+        <Require feature="opensocial-0.8" />
+    </ModulePrefs>
+    <Content type="html" view="canvas"><![CDATA[
+
+<script type="text/javascript" src="http://localhost:8080/a01/canvas.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Canvas view is here. -->
+<div>Canvas view for test01.</div>
+
+  ]]></Content>
+    <Content type="html" view="home" />
+</Module>

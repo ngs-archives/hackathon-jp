@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Module><ModulePrefs author_email="a2c@hoge.com" author="a2c" title="hoge world"><Require feature="opensocial-0.8"/></ModulePrefs><Content view="canvas" type="html">
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;http://localhost:8080/a01/canvas.js?rnd=110136924&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+gadgets.util.registerOnLoadHandler(init);
+&lt;/script&gt;
+
+&lt;!-- The code for Canvas view is here. --&gt;
+&lt;div&gt;Hello world!&lt;/div&gt;
+
+  </Content><Content view="home" type="html"></Content></Module>
