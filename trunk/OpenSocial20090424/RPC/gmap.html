@@ -40,8 +40,9 @@ function init() {
     if (h!=hash) {
       hash = h;
       var latlng = hash.split(',');
-      map.setCenter(new google.maps.LatLng(parseFloat(latlng[0]), parseFloat(latlng[1]), 13));
-      console.log(latlng);
+      var lat = parseFloat(latlng[0]);
+      var lng = parseFloat(latlng[1]);
+      map.setCenter(new google.maps.LatLng(lat, lng), 13);
     }
   }, 100)
 }
