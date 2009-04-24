@@ -17,11 +17,9 @@ if (typeof console == 'undefined') {
 
 function FormatUrl(url, text)
 {
-/*
 	if (!text) text = url;
 	var url = url.replace(/"/g, '&quot;').replace('/', "\\/");
 	return '<a href="' + url + '">' + text + '</a>';
-	*/
 	return 'fads';
 }
 
@@ -103,8 +101,8 @@ function GeneratePersonInfo(person) {
 			}
 			
 			// XXX
-//			if (info.match(/^http:/))
-	//			info = FormatUrl(info);
+			if (info.match(/^http:/))
+				info = FormatUrl(info);
 			
 			if (!info) continue;
 			
