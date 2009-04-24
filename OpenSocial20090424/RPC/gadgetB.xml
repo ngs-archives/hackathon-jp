@@ -23,7 +23,7 @@ console.log(this.message.value);
 
     $.getJSON(url, data, function(data) {
       $.each(data.results.shop, function(i, shop) {
-console.log(shop.name, shop.lat, shop.lng);
+console.log(shop.name, shot.photo.pc.s, shop.lat, shop.lng);
       });
     });
 
