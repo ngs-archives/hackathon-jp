@@ -25,7 +25,7 @@ my $ngmes = {"stat"=>"NG"};
 
 our $debug = 1;
 
-my $path = "/test-cgi/hogehoge";
+my $path = "/map/mobile.cgi";
 
 my $host = url(-base=>1);
 
@@ -37,7 +37,7 @@ my $address = $c->param('address');
 if ( $debug )
 {
 	$uid = "wtake4";
-	$address = 'wtake4@di.pdx.ne.jp';
+	$address = 'rhathymia@docomo.ne.jp';
 }
 
 if ( ! $uid )
