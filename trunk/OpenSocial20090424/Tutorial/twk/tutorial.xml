@@ -314,7 +314,9 @@ td { border: solid 1px; vertical-align: top; }
 	<button onclick='Tutorial_fetchViewer();'>閲覧者情報</button>
 	<button onclick='Tutorial_fetchOwnerFriends();'>オーナー友人情報</button>
 	<button onclick='Tutorial_fetchViewerFriends();'>閲覧者友人情報</button>
-	<input type='text' id='title' /><button onclick='postActivity();'>アクティビティー送信!</button>
+	<div>
+		<input type='text' id='title' /><button onclick='postActivity();'>アクティビティー送信!</button>
+	</div>
 </div>
 
 <!-- Sharing data with friends -->
