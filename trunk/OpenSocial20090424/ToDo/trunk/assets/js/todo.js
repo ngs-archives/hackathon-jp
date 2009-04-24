@@ -22,6 +22,8 @@ var ToDoApp = {
 	},
 	onGetFriends : function(d) {
 		console.log(d);
+        $j("#stickies").html(ToDoApp.ui.getCanvasHTML( d ) );
+        jQuery.gadgets.height("auto");          
 	},
 	create : function() {
 		ToDoApp.ui.message.hide();

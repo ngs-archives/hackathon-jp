@@ -63,7 +63,8 @@ ToDoApp.ui = {
             }
             html += '</div>';   
         }
-    }
+        return html;
+    },
 	friendsControl : {
 		show : function() {
 			$j("#friends").css("display","block");
