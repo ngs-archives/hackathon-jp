@@ -210,8 +210,8 @@ td { border: solid 1px; vertical-align: top; }
   <ul id='contents'></ul>
 </div>
 	
-<td id="result_data" style="width: 930px; height: 200px; overflow:scroll;">
-</td>
+<td ><div id="result_data" style="width: 930px; height: 200px; overflow:scroll;">
+</div></td>
 </tr></table>
 
 	</div>]]></Content>
