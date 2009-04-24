@@ -22,6 +22,7 @@ jQuery(function($) {
   });
 
   var latlng = '35.689649,139.694338';
+  $('#mapframe').get(0).contentWindow.name = window.location.href.split('#')[0];
   $('#mapframe').attr('src', mapUrl + '#' + latlng);
 
   /**
@@ -54,6 +55,6 @@ width:100%;
 height:100%;
 }
 </style>
-<iframe id="mapframe" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/RPC/gmap.html" ></iframe>
+<iframe id="mapframe"></iframe>
 ]]></Content>
 </Module>
