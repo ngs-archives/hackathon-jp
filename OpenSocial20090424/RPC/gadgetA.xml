@@ -27,10 +27,10 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      if (data.results.apartment.length == 0)
-        return apartments.text('物件が見つかりません。')
-
       apartments.empty();
+
+      if (data.results.apartment.length == 0)
+        apartments.text('物件が見つかりません。')
 
       $.each(data.results.apartment, function(i, apartment) {
 
@@ -63,10 +63,10 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
+      apartments.empty();
+
       if (data.results.apartment.length == 0)
         return apartments.text('物件が見つかりません。')
-
-      apartments.empty();
 
       $.each(data.results.apartment, function(i, apartment) {
 
@@ -82,6 +82,7 @@ jQuery(function($) {
           .appendTo(apartments);
       });
 
+      $(window).adjustHeight();
     });
   };
 
