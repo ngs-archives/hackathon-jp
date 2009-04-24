@@ -15,6 +15,7 @@
 jQuery(function($) {
 
   $.sub('RPC', function(sender, message) {
+  console.log(arguments);
     $('#result').text('Hello, ' + message);
   })
 
