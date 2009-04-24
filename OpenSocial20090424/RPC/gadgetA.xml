@@ -31,11 +31,14 @@ jQuery(function($) {
 
       $.each(data.results.apartment, function(i, apartment) {
 
-        var s = $('<div class="apartment"/>')
+        var a = $('<a class="apartment"/>')
           .text(apartment.name)
           .click(function() {
             $.pub('geo', { lat: parseFloat(apartment.lat), lng: parseFloat(apartment.lng) });
-          })
+          });
+          
+        $('<li/>')
+          .append(a);
           .appendTo(apartments);
 
       });
@@ -98,7 +101,7 @@ body {
   margin: 5px;
 }
 
-#apartments div.apartment {
+#apartments ul.apartment {
 }
 
 -->
@@ -107,7 +110,7 @@ body {
 <input type="text" name="keyword" value="新橋" />
 <input type="submit" value="検索" />
 </form>
-<div id="apartments"></div>
+<ul id="apartments"></ul>
 
 ]]></Content>
 </Module>
