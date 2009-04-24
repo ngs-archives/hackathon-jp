@@ -705,6 +705,8 @@ function addRow(idx)
 		rcv.src = friendobj[toid].thumbnail;
 	}
 
+	snd.src = viewerobj.thumbnail;
+
 	var el = document.getElementById('tableview');
 	im.src = "http://www.image-seed.com/data/button/standard/shut_01.gif";
 	im.setAttribute ("onclick", "delRow('"+idx+"')");
