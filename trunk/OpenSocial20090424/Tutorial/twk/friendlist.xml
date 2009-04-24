@@ -17,6 +17,7 @@
     }
     
     function GeneratePersonInfo(person) {
+        var html = '';
         
           console.debug(person);
           /* @var person Person */
