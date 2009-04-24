@@ -1,27 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
 <ModulePrefs
-  title="Gadget A"
-  description="Gadget A (Test)"
+  title="[RPC] goo×スマッチ！"
+  description="[RPC] goo×スマッチ！"
 >
 <Require feature="dynamic-height" />
 <Require feature="minimessage" />
 <Require feature="opensocial-0.8" />
 <Require feature="pubsub" />
 </ModulePrefs>
-<Content type="html" view="home,profile"><![CDATA[
+<Content type="html" view="home,profile,canvas"><![CDATA[
 <script type="text/javascript" src="http://d1lzci7p8hi5b7.cloudfront.net/opensocial-jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(function($) {
 
-  $.sub('RPC', function(sender, message) {
-    $('#result').text('Hello, ' + message);
-  })
+  // byKeyword
+  function byKeyword(keyword) {
+
+    var shops = $('#shops')
+      .text('読み込み中 ...');
+
+    var url = 'http://api.smatch.jp/apartment/';
+    var data = { 
+      key: 'b23f89f420f6b18b', format: 'json', keyword: keyword
+    };
+
+    $.getJSON(url, data, function(data) {
+
+      shops.empty();
+
+      $.each(data.results.apartment, function(i, apartment) {
+
+        var s = $('<div class="shop"/>')
+          .text(apartment.name)
+          .click(function() {
+            $.pub('geo', { lat: parseFloat(apartment.lat), lng: parseFloat(apartment.lng) });
+          });
+
+      });
+
+    });
+  };
+
+  // byLatLng
+  function byLatLng(lat, lng) {
+
+    var shops = $('#shops')
+      .text('読み込み中 ...');
+
+    var url = 'http://api.smatch.jp/apartment/';
+    var data = { 
+      key: 'b23f89f420f6b18b', format: 'json', lat_to: lat, lat_to: lng
+    };
+
+    $.getJSON(url, data, function(data) {
+
+      shops.empty();
+
+      $.each(data.results.shop, function(i, shop) {
+
+        var s = $('<img/>')
+          .attr('alt', shop.name)
+          .attr('src', shop.photo.pc.s)
+          .click(function() {
+            $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
+          });
+          
+        $('<div class="shop"/>')
+          .append(s)
+          .appendTo(shops);
+      });
+
+    });
+  };
+
+  $.sub('geo', function(sender, message) {
+console.log(sender, message.lat, message.lng);
+    if ($.pref('url') != sender)
+      byLatLng(message.lat, message.lng);
+  });
+
+  $('#form').submit(function() {
+    byKeyword(this.keyword.value);
+    return false;
+  }).submit();
 
 });
 </script>
 <style type="text/css">
+<!--
+
+body {
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: .8em;
+  margin: 5px;
+}
+
+#shops div.shop {
+}
+
+-->
 </style>
-<div id="result">waiting message...</div>
+<form id="form">
+<input type="text" name="keyword" value="新橋" />
+<input type="submit" value="検索" />
+</form>
+<div id="shops"></div>
+
 ]]></Content>
 </Module>
