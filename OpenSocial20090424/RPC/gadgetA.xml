@@ -29,7 +29,7 @@ jQuery(function($) {
 
       apartments.empty();
 
-      if (data.results.apartment.length == 0)
+      if (data.results.error)
         apartments.text('物件が見つかりません。')
 
       $.each(data.results.apartment, function(i, apartment) {
@@ -58,14 +58,14 @@ jQuery(function($) {
 
     var url = 'http://api.smatch.jp/apartment/';
     var data = { 
-      key: 'b23f89f420f6b18b', format: 'json', lat_to: lat, lat_to: lng
+      key: 'b23f89f420f6b18b', format: 'json', lat_to: lat, lng_to: lng
     };
 
     $.getJSON(url, data, function(data) {
 
       apartments.empty();
 
-      if (data.results.apartment.length == 0)
+      if (data.results.error)
         return apartments.text('物件が見つかりません。')
 
       $.each(data.results.apartment, function(i, apartment) {
