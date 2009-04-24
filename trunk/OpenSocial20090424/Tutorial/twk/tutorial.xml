@@ -235,7 +235,6 @@ function Tutorial_compare(){
 					html += '<br />';
 					
 					document.getElementById('result_data').innerHTML += html;
-					GeneratePersonInfo(owner);
 				}
 				else
 				{
@@ -393,6 +392,7 @@ td { border: solid 1px; vertical-align: top; }
 -->
 	
 <!-- counter -->
+<!--
 <div>
   <input type='text' id='counter' value="0" style="width: 5em;" />
   <button onclick='CouterInc();'>カウントアップ!</button>
@@ -400,6 +400,7 @@ td { border: solid 1px; vertical-align: top; }
   <div id='result_appdata'></div>
   <ul id='contents'></ul>
 </div>
+	-->
 	
 <td ><div id="result_data" style="font-size: 77%; height: 200px; overflow:scroll;">
 </div></td>
