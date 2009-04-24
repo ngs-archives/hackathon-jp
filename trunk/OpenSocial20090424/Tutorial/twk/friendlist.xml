@@ -69,7 +69,8 @@
         var req = opensocial.newDataRequest();
         var params = {}; 
 		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
-[opensocial.Person.Field.GENDER,
+ = [
+ opensocial.Person.Field.GENDER,
  opensocial.Person.Field.DATE_OF_BIRTH
 
 ];  
