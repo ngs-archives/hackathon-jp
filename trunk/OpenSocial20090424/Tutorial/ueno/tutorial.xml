@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-	<ModulePrefs title="HelloWorld!"
+	<ModulePrefs title="PersonList"
 				 description="こんにちは，世界"
 					 author_email="iron.nori@gmail.com">
 					 <Require feature="opensocial-0.8"/>
 	</ModulePrefs>
 	<Content type="html" view="home"><![CDATA[
-		Hello, World!!
+		PersonList
 		
 	]]></Content>
 	<Content type="html" view="profile"><![CDATA[
-		Hello, World!!
+		PersonList
 	]]></Content>
 	<Content type="html" view="canvas"><![CDATA[
-		Hello, World!!!!!
 		<link style="stylesheet" type="text/css" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Tutorial/ueno/style.css"/>
 		<script type="text/javascript">
 			gadgets.util.registerOnLoadHandler(request);
