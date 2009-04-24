@@ -36,7 +36,7 @@ function init() {
     var center = map.getCenter();
 //    gadgets.rpc.call('', 'map_geo', null, { lat : center.lat(), lng : center.lng() });
     try {
-      window.parent.location.replace(purl + '#' + center.lat() + ',' + center.lng());
+      window.parent.location.href = purl + '#' + center.lat() + ',' + center.lng();
     } catch(e) {
       console.log(e);
     }
