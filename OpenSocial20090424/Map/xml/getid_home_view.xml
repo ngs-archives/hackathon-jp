@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Map Community"
+		scrolling="true"
+		description="地図でコミュニケーション"
+		height="600"
+		screenshot="http://dl.getdropbox.com/u/255963/screenshot.jpg"
+		thumbnail="http://dl.getdropbox.com/u/255963/thumbnail.png">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="dynamic-height"/>
+    <Require feature="views"/>
+    <Require feature="tabs"/>
+	<Icon>http://dl.getdropbox.com/u/255963/favicon.ico</Icon>
+  </ModulePrefs>
+<!--
+	<UserPref name="loc" 
+		display_name="Location" 
+		datatype="location" 
+		required="true" /> 
+	<Content type="html" view="canvas" >
+		-->
+
+	<Content type="html" view="canvas"><![CDATA[
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAh7IewiAULz1WhqLxtQfl8xSi-ZGapsFlzk6XFxUpkqloktkEVxTuAX35kFiOpU37-YWbFH5VgUJhcQ" type="text/javascript"></script>
+
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Map/js/objectdump.js" /type="text/javascript"></script>
+
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Map/js/jquery-1.3.1.js" /type="text/javascript"></script>
+
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Map/js/jquery-ui-personalized-1.6rc6.min.js" /type="text/javascript"></script>
+
+		<script src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Map/js/myGadget.js?439=31" /type="text/javascript"></script>
+		<script type="text/javascript">
+			gadgets.util.registerOnLoadHandler(init);
+		</script>
+
+		<style type="text/css">
+			#myDrag { 
+				width   : 100px   ; 
+				height  : 100px   ; 
+				padding : 10px    ; 
+				background-color : #B9FF04 ; 
+			}
+			#myDrop2 { 
+				width   : 50   ; 
+				height  : 40   ; 
+				padding : 5px    ; 
+				//background-color : #eee ; 
+				//float   : right;
+			}
+			#myDrop { 
+				width   : 450px   ; 
+				height  : 40px   ; 
+				padding : 5px    ; 
+				background-color : #eee ; 
+				//float   : left;
+			}
+		</style>
+
+		<!--
+		<div id="myDrag">drag me!</div>
+		-->
+		<div id="dumpArea"></div>
+		<div id="prof"></div>
+		<div id="sendmobile">
+			ケータイのアドレス：
+			<input id="maddr" type="text" size="32"/>
+			<a href="#" onclick="sendEmail();">ケータイにURLを送る</a>
+		</div>
+		<div id="stat"></div>
+		<div id='loading'>
+			<img src='http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Map/img/spinner.gif?1=1'/>
+		</div>
+		<table>
+			<tbody>
+				<tr>
+					<td width=550px>
+						<!--
+						<div id="tabs_div" style="width: 550px; height:100px"></div>
+						-->
+						<div id="tabs_div"></div>
+						<div id="friend_div" style="width: 550px; height:100px"></div>
+						<!--
+						<div id="carwings_div" style="width: 550px; height:60"></div>
+						-->
+					</td>
+				</tr>
+				<tr>
+					<td>
+						送信先
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="myDrop" style="width: 550px; height:40px"></div>
+					</td>
+					<td valign="center">
+						<div id="myDrop2">
+							<img width=50px height=50px src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Map/img/trashempty.png"></img>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="content_div"></div>
+		<table border=0>
+			<tbody>
+				<tr>
+					<a href="#" onclick="saveData()">送信する</a><br>
+					<!--
+					<a href="#" onclick="getAlbum()">アルバム</a>
+					<a href="#" onclick="_loadFromFriends()">ともだち</a>
+					<a href="#" onclick="getFriends()">ともだち</a>
+					<a href="#" onclick="showFriends()">ともだち</a>
+					<iframe id="main" frameBorder=0 width=100% height=100%></iframe>
+					<iframe id="main" width="300" height="100" align="center" border="0" leftmargin="0" topmargin="0">
+					-->
+				</tr>
+				<tr height=400>
+					<td valign="top">
+						<div id="maptabs_div" style="width: 550px; height:400px"></div>
+						<div id="map" style="width: 550px; height: 400px;"></div>
+						<div id="album" style="width: 550px; height: 400px;"></div>
+					</td>
+					<td valign="top">
+						<table valign="top"><tbody id="tableview" ></tbody></table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="searchcontrol"></div>
+
+		]]></Content>
+
+
+	<Content type="html" view="home"><![CDATA[
+	<script type="text/javascript">
+var viewer;
+var endpoint = "http://www.plants-web.jp/map/";
+
+function initHome()
+{
+  var req = opensocial.newDataRequest();
+  req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+  req.send(function(data) {
+    viewer = data.get('viewer').getData();
+	loadDataToHome();
+  });
+}
+
+function createPostForm()
+{
+	var date = new Date().getTime();
+	var url = endpoint + "save.cgi";
+
+	var html = new Array();
+	html.push("<b>form</b>");
+	document.getElementById("form_home").innerHTML = html.join('');
+}
+
+function loadDataToHome()
+{
+	var date = new Date().getTime();
+	var url = endpoint + "read.cgi?cachebuster=" + date + "&id="+ 9; //viewer.getId();
+	
+	var params = {};
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+
+	gadgets.io.makeRequest(url, showDataToHome, params);
+}
+
+function showDataToHome(obj)
+{
+	var json = obj.data;
+	var html = new Array();
+	html.push('<ul>');
+	for (var key in json )
+	{
+		html.push("<li>");
+		html.push(json[key].uid + " visits " + json[key].name);
+		html.push("</li>");
+	}
+	html.push('<ul>');
+	document.getElementById("result_home").innerHTML = html.join('');
+	
+	onLoadComplete();
+}
+
+function onLoadComplete()
+{
+    createPostForm();
+    gadgets.window.adjustHeight();
+}
+
+gadgets.util.registerOnLoadHandler(initHome);
+
+	</script>
+	<div id="result_home"></div>
+	<div id="form_home"></div>
+	]]></Content>
+	
+	<Content type="html" view="profile"><![CDATA[
+	profile
+	]]></Content>
+	
+	<Content type="html" view="preview"><![CDATA[
+	preview
+	]]></Content>
+
+</Module>
