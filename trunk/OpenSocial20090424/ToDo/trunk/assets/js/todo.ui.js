@@ -53,19 +53,19 @@ ToDoApp.ui = {
 	},
 	friendsControl : {
 		show : function() {
-			$("friends").style.display = "block";
+			$j("#friends").css("display","block");
 		},
 		hide : function() {
-			$("friends").style.display = "none";
+			$j("#friends").css("display","none");
 		}
 	},
 	message : {
 		show : function(msg) {
-			$("message").style.display = "block";
+			$j("#message").css("display","block");
 			$("message").innerHTML = msg;
 		},
 		hide : function(msg) {
-			$("message").style.display = "none";
+			$j("#message").css("display","none");
 			$("message").innerHTML = "";
 		}
 	},
