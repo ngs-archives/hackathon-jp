@@ -200,7 +200,7 @@
 	    }
      
 
-        var viewer_friends = dataResponse.get('get_owner_friends').getData();
+        var viewer_friends = dataResponse.get('get_viewer_friends').getData();
         /* @var viewer_friends Collection<Person> */ 
         
         html = '';
