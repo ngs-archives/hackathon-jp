@@ -1,6 +1,6 @@
 
 ToDoApp.data = {
-	stickes : [],
+	stickies : [],
 	PrefKey : {
 		STICKIES : "stickies",
 		VISIBLE_FRIENDS : "visible_friends"
@@ -10,8 +10,8 @@ ToDoApp.data = {
 	},
 	onChangeText : function(id) {
 		ToDoApp.data.stickies = ToDoApp.data.stickies||[];
-		ToDoApp.data.stickies[id] = $j("#sticky"+id).val();
-		jQuery.opensocial.data.set(ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.stickes);
+		ToDoApp.data.stickies[id] = $j("#sticky"+id+" textarea").val()||"";
+		jQuery.opensocial.data.set(ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.stickies);
 	},
 	getFriends : function() {
 		
