@@ -19,7 +19,7 @@
 			var owner = dataResponse.get('get_owner').getData();
 			var friends = dataResponse.get('get_friends').getData();
 			var html = 'Friends of ' + owner.getDisplayName();
-			html += "(" + friends.length  + ")";
+			html += "(" + friends.length()  + ")";
 			html += ':<br/><ul>';
 			friends.each(function(person){
 				html += '<li>' + person.getDisplayName()+ '</li>';
