@@ -16,6 +16,10 @@ console.log(this.message.value);
     gadgets.pubsub.publish('RPC', this.message.value);
     return false;
   });
+
+  gadgets.pubsub.subscribe('RPC', function() {
+    console.log(arguments);
+  });
 });
 </script>
 <style type="text/css">
