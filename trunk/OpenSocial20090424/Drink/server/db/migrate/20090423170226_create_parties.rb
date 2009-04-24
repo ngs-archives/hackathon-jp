@@ -4,8 +4,9 @@ class CreateParties < ActiveRecord::Migration
       t.column :name, :string
       t.column :max, :integer
       t.column :place, :string
-      t.column :kanji, :string
       t.column :description, :text
+      t.column :owner_name, :string
+      t.column :owner_id, :integer
       t.column :start_date, :datetime
       t.timestamps
     end

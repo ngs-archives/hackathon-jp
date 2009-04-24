@@ -5,7 +5,8 @@ class PartyController < ApplicationController
       :max => params[:max].to_i,
       :place => params[:place],
       :description => params[:description],
-      :kanji => params[:kanji],
+      :owner_name => params[:owner_name],
+      :owner_id => params[:owner_id],
       :start_date => params[:date].to_datetime
     )
     
