@@ -21,8 +21,10 @@ console.log(this.message.value);
       address: this.message.value
     };
 
-    $.getJSON(url, data, function(res) {
-console.log(res);
+    $.getJSON(url, data, function(data) {
+      $.each(data.results.shop, function(i, shop) {
+console.log(shop);
+      });
     });
 
     gadgets.pubsub.publish('RPC', this.message.value);
