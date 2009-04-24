@@ -67,12 +67,13 @@
 							str+="<img width='30px' src='"+field+"'></img>";
 							str+= "</td>";
 							continue;
-						}
+						}/*
 						if(field['getDisplayValue']){
 							str+=field['getDisplyField'];
 							str+= "</td>";
 							continue;
 						}
+*/
 
 						str+= field;
 						str+= "</td>";
