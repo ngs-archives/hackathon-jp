@@ -24,6 +24,14 @@ console.log(this.message.value);
     $.getJSON(url, data, function(data) {
       $.each(data.results.shop, function(i, shop) {
 console.log(shop.name, shop.photo.pc.s, shop.lat, shop.lng);
+
+        var shops = $('#shops').empty();
+
+        $('<img/>')
+          .attr('alt', shop.name)
+          .attr('src', shop.photo.pc.s)
+          .appendTo(shops);
+
       });
     });
 
@@ -52,5 +60,7 @@ body {
 <input name="message" type="text" />
 <input type="submit" />
 </form>
+<div id="shops">読み込み中 ...</div>
+
 ]]></Content>
 </Module>
