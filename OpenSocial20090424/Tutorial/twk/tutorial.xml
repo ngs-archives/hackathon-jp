@@ -457,6 +457,24 @@ function Tutorial_SendMessage(){
          });
 }
 
+function Tutorial_SendShareMessage(){
+     var params = {};
+     var body = "きたよ!!";
+     params[opensocial.Message.Field.TITLE] = "きたよ!";
+     params[opensocial.Message.Field.TYPE] = opensocial.Message.Type.PRIVATE_MESSAGE;
+     var msg = opensocial.newMessage(body,params);
+
+     opensocial.requestShareApp("VIEWER_FRIENDS",msg,function(status){
+         if(status.hadError()){
+             var errorCode=status.getErrorCode();
+             var errorMessage = status.getErrorMessage();
+			alert(errorMessage);
+         }else{
+             alert("メッセージおくりました");
+         }
+         });
+}
+
 </script>
 <style type="text/css">
 td { border: solid 1px; vertical-align: top; }
@@ -472,6 +490,7 @@ td { border: solid 1px; vertical-align: top; }
 	<button onclick='Tutorial_fetchViewerFriends();'>閲覧者友人情報</button>
 	<button onclick='Tutorial_compare();'>比べてみる</button>
 	<button onclick='Tutorial_SendMessage();'>メッセージを送る</button>
+	<button onclick='Tutorial_SendShareMessage();'>メッセージを送る</button>
 	<div>
 		<input type='text' id='title' style="width: 20em;" /><button onclick='Tutorial_activity();'>アクティビティー送信!</button>
 	</div>
