@@ -29,6 +29,9 @@ jQuery(function($) {
 
       shops.empty();
 
+      if (data.results.shop.length == 0)
+        return shops.text('お店が見つかりません。')
+
       $.each(data.results.shop, function(i, shop) {
 
         var s = $('<img/>')
@@ -60,6 +63,9 @@ jQuery(function($) {
     $.getJSON(url, data, function(data) {
 
       shops.empty();
+
+      if (data.results.shop.length == 0)
+        shops.text('お店が見つかりません。')
 
       $.each(data.results.shop, function(i, shop) {
 
