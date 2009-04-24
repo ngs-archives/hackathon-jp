@@ -72,14 +72,13 @@ jQuery(function($) {
     });
   };
 
+  $.sub('RPC', function(sender, message) {
+    byLatLng(message.lat, message.lng);
+  });
+
   $('#form').submit(function() {
     byAddress(this.address.value);
     return false;
-  });
-
-  gadgets.pubsub.subscribe('RPC', function(sender, message) {
-    console.log(arguments);
-    byLatLng(message.lat, message.lng);
   });
 
 });
@@ -108,7 +107,7 @@ body {
 -->
 </style>
 <form id="form">
-<input type="text" name="address" />
+<input type="text" name="address" value="新橋" />
 <input type="submit" value="検索" />
 </form>
 <div id="shops">読み込み中 ...</div>
