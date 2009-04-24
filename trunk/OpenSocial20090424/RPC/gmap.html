@@ -35,11 +35,11 @@ function init() {
   google.maps.Event.addListener(map, "moveend", function() {
     var center = map.getCenter();
 //    gadgets.rpc.call('', 'map_geo', null, { lat : center.lat(), lng : center.lng() });
-    try {
-      window.parent.location = purl + '#' + center.lat() + ',' + center.lng();
-    } catch(e) {
-      console.log(e);
-    }
+//    try {
+//      window.parent.location = purl + '#' + center.lat() + ',' + center.lng();
+//    } catch(e) {
+//      console.log(e);
+//    }
   });
 
   setInterval(function() {
