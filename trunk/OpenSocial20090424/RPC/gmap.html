@@ -39,6 +39,7 @@ function init() {
   
   setInterval(function() {
     var h = location.hash.substring(1);
+    console.log(h);
     if (h!=hash) {
       hash = h;
       var latlng = hash.split(',');
