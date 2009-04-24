@@ -68,11 +68,13 @@
 							str+= "</td>";
 							continue;
 						}
+/*
 						if(typeof(field) != "String" && field['getDisplayValue']){
 							str+=field['getDisplyField'];
 							str+= "</td>";
 							continue;
 						}
+*/
 
 						str+= field;
 						str+= "</td>";
