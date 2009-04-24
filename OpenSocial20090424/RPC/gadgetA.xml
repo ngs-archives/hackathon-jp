@@ -10,24 +10,20 @@
 <Require feature="pubsub" />
 </ModulePrefs>
 <Content type="html" view="home,profile"><![CDATA[
-<script type="text/javascript" src="http://d1lzci7p8hi5b7.cloudfront.net/opensocial-jquery.min.js"></scirpt>
+<script type="text/javascript" src="http://d1lzci7p8hi5b7.cloudfront.net/opensocial-jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(function($) {
-  alert('jquery started');
 
   gadgets.pubsub.subscribe('RPC', function(sender, message) {
     console.log(arguments);
     $('#result').text('Hello, ' + message);
   })
 
-  alert('jquery middle');
-
   $('#button').click(function(e) {
   alert(1111);
     gadgets.pubsub.publish('RPC', 'woooo');
   })
 
-  alert('jquery end');
 });
 </script>
 <style type="text/css">
