@@ -178,9 +178,12 @@ function postActivity() {
 }
 
 </script>
+<style type="text/css">
+td { border: solid 1px; vertical-align: top; }
+</style>
 
-<div id="area" xstyle="width: 930px; height: 200px; overflow:scroll;">
-	
+<table><tr><td style="width:500px;">
+
 <div>
 	<button onclick="Tutorial_env();">環境情報</button>
 	<button onclick='Tutorial_fetchOwner();'>オーナー情報</button>
@@ -188,6 +191,7 @@ function postActivity() {
 </div>
 
 <!-- Sharing data with friends -->
+<!--
 <div>
   <input type='text' id='content' />
   <button onclick='shareData();'>データ保存</button>
@@ -195,6 +199,7 @@ function postActivity() {
   <div id='result_appdata'></div>
   <ul id='contents'></ul>
 </div>
+-->
 	
 <!-- counter -->
 <div>
@@ -205,8 +210,9 @@ function postActivity() {
   <ul id='contents'></ul>
 </div>
 	
-<div id="result_data">
-</div>
+<td id="result_data" style="width: 930px; height: 200px; overflow:scroll;">
+</td>
+</tr></table>
 
 	</div>]]></Content>
 </Module>
