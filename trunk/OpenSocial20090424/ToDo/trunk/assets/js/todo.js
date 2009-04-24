@@ -9,7 +9,8 @@ var ToDoApp = {
 	},
 	onGetStickes : function(d) {
 		d = d||[];
-		ToDoApp.data.stickes = d;
+		console.log(d);
+		ToDoApp.data.stickies = d;
 		if(!d.length) {
 			return ToDoApp.ui.message.show(ToDoApp.Message.NO_STICKES);
 		}
