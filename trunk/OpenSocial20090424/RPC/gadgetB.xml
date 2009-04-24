@@ -32,7 +32,7 @@ console.log(shop.name, shop.photo.pc.s, shop.lat, shop.lng);
           .attr('alt', shop.name)
           .attr('src', shop.photo.pc.s)
           .click(function() {
-            $.pubh('RPC', { lat: shop.lat, lng: shop.lng });
+            $.pub('RPC', { lat: shop.lat, lng: shop.lng });
           });
           
         $('<div class="shop"/>')
