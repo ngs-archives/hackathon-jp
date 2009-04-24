@@ -35,7 +35,7 @@ jQuery(function($) {
           .attr('alt', shop.name)
           .attr('src', shop.photo.pc.s)
           .click(function() {
-            $.pub('RPC', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
+            $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
           });
           
         $('<div class="shop"/>')
@@ -67,7 +67,7 @@ jQuery(function($) {
           .attr('alt', shop.name)
           .attr('src', shop.photo.pc.s)
           .click(function() {
-            $.pub('RPC', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
+            $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
           });
           
         $('<div class="shop"/>')
