@@ -25,7 +25,7 @@
 		{
 			if (env.supportsField(objectType, opensocial.Person.Field[fieldName]))
 			{
-				alert(fieldName);
+				// alert(fieldName);
 				fields.push(opensocial.Person.Field[fieldName]);
 			}
 		}
@@ -72,7 +72,7 @@
         req.add(req.newFetchPeopleRequest(idspec, params), "get_friends");
         req.send(response);
       }catch(e){
-        console.error(e);
+      	console.error(e.message);
       }
       	return;
 
@@ -91,10 +91,8 @@
         /* @var friends Collection<Person> */ 
         
         var html = '';
-        html += 'domain: ' + domain + '<br />';
         html += owner.getDisplayName() + 'の友達は' + friends.size() + '人です';
         html += ':<br><ul>';
-        return;
         friends.each(function(person) {
           console.debug(person);
           /* @var person Person */
@@ -104,6 +102,12 @@
           html += 'isViewer:' + person.isViewer();
           
 			for(i in opensocial.Person.Field){
+				var env = opensocial.getEnvironment();
+				var objectType = opensocial.Environment.ObjectType.PERSON;
+				if (!env.supportsField(objectType, opensocial.Person.Field[i]))
+					continue;
+			
+				html += i;
 				if(i == "THUMBNAIL_URL"){
 					html+="<img src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
 				}else{
@@ -119,8 +123,9 @@
       }); // each
       
       } catch(e) {
-      	console.error(e);
-     	}
+      	console.error(e.message);
+     }
+     } // response
       
       } // request
 
