@@ -30,7 +30,7 @@
         var owner = dataResponse.get('get_owner').getData();
         var friends = dataResponse.get('get_friends').getData(); 
         var html = 'Friends of ' + owner.getDisplayName();
-        html +=owner.getField(opensocial.Person.Field.GENDER);
+        html +=getDisplayValue(owner.getField(opensocial.Person.Field.GENDER));
         html += ':<br><ul>';
         friends.each(function(person) {
           html += '<li>' + person.getDisplayName() + '</li>';
