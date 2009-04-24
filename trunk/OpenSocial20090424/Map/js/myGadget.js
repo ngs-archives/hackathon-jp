@@ -1096,6 +1096,7 @@ function saveRes(obj)
 	var el = document.getElementById('tableview');
 	el.innerHTML = "";
 	loadData();
+	map.clearOverlays();
 	children = [];
 }
 
