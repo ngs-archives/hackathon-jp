@@ -21,7 +21,7 @@
         
           console.debug(person);
           /* @var person Person */
-          html += '<li>' + person.getDisplayName() + '<br />';
+          html += '<h2>' + person.getDisplayName() + '</h2>';
           html += 'id:' + person.getId() + '<br />';
           
           html += 'isOwner:' + person.isOwner() + '<br />';
@@ -65,9 +65,6 @@
 				
 				html += i + ':' + info + '<br />';
 			}
-	          html += '</li>';
-	
-	        html += '</ul>';
 	        
 	        document.getElementById('message').innerHTML += html;
 	        
@@ -156,7 +153,6 @@
         
         html += '友人情報<br />';
         html += friends.size() + '人です';
-        html += '<ul>';
         
         friends.each(GeneratePersonInfo); // each
      
