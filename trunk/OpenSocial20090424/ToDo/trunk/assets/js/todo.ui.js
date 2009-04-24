@@ -4,6 +4,27 @@ var ListData = [];
 var draggables = [];
 
 var ToDoApp = {
+    getFriendsHTML : function(friendIDs, friendNames) {
+        var text = '';
+        text += '<div id="afriendlist">';
+        for(i=0; i<friendNames.length; i++){
+            text += '<div id="afriend">' + friendNames[i] + ' <input class="checkbox" type="checkbox" id="friend_visible_' + friendIDs[i] + '"> Visible';
+        }
+        text += '</div">';
+        return text;
+    },
+    testgetFriendsHTML : function() {
+        var howManyFriends = 3;
+        var friendIDs = new Array(howManyFriends);
+        friendIDs[0] = 'person0id';
+        friendIDs[1] = 'person1id';
+        friendIDs[2] = 'person2id';
+        var friendNames = new Array(howManyFriends);
+        friendNames[0] = 'person0';
+        friendNames[1] = 'person1';
+        friendNames[2] = 'person2';
+        return ToDoApp.getFriendsHTML(friendIDs, friendNames);
+    },
     getHTML : function() {
        return [
         "<div id=\"dropzone\" style=\"width:100px;height:100px;background-color:lightgray;color:white\">TrashArea</div>",
@@ -28,7 +49,8 @@ var ToDoApp = {
           "<div id=\"existfriendlist\"><\/div>",
           "<div id=\"friendlist\"><\/div>",
         "<\/form>",
-        "<div id=\"todo_list_area\"><\/div>"
+        "<div id=\"todo_list_area\"><\/div>",
+           "<h1>333bbbb</h1>"
        ].join("");
     },
     init : function(){
