@@ -59,8 +59,9 @@ jQuery(function($) {
     var url = 'http://api.smatch.jp/apartment/';
     var data = { 
       key: 'b23f89f420f6b18b', format: 'json',
-      lat_from: lat - 30/3600, lat_to: lat + 30/3600,
-      lng_from: lng - 30/3600, lng_to: lng + 30/3600
+      //lat_from: lat - 30/3600, lat_to: lat + 30/3600,
+      //lng_from: lng - 30/3600, lng_to: lng + 30/3600
+      lat: lat, lng: lng
     };
 
     $.getJSON(url, data, function(data) {
