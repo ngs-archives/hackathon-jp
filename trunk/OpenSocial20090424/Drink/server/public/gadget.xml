@@ -3,6 +3,7 @@
   <ModulePrefs title="drink" author_email="yasunnobutya@gmail.com" description="OpenSocial Hackathon 2009-04">
     <Require feature="opensocial-0.8" />
     <Require feature="jquery"/>
+    <Require feature="views"/>
     <Require feature="dynamic-height" />
   </ModulePrefs>
   <Content type="html" view="profile"><![CDATA[
@@ -66,15 +67,53 @@ function postActivity() {
 <!-- jopensocial -->
 <script type="text/javascript" src="http://opensocial02.machu.jp/javascripts/jopensocial/jopensocial.js"></script>
 <!-- Fetching People and Friends -->
+<table>
+	<tr>
+	 <td>
+	  飲み会名
+	 </td>
+	 <td>
+	  <input type="text" id="name"/> 
+	 </td>
+	</tr>
+	<tr>
+	 <td>
+	  人数
+	 </td>
+	 <td>
+	  <input type="text" id="max"/>  
+	 </td>
+	</tr>
+	<tr>
+	 <td>
+	  場所
+	 </td>
+	 <td>
+	  <input type="text" id="place"/> 
+	 </td>
+	</tr>
+	<tr>
+	 <td>
+	  概要
+	 </td>
+	 <td>
+	  <input type="text" id="description"/> 
+	 </td>
+	</tr>
+	<tr>
+	 <td>
+	  日時
+	 </td>
+	 <td>
+	  <input type="text" id="date"/> 
+	 </td>
+</table>
+<!-- submit -->
 <div>
-  <button onclick='fetchPeople();'>Fetch people and friends</button>
-  <div>
-    <span id='viewer'></span>
-    <ul id='friends'></ul>
-  </div>
+  <button onclick='submit();'>飲み会を企画する</button>
 </div>
 <script type='text/javascript'>
-function fetchPeople() {
+function submit() {
   var req = opensocial.newDataRequest();
   req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
   var params = {};
@@ -83,38 +122,40 @@ function fetchPeople() {
   var idSpec = opensocial.newIdSpec(params);
   req.add(req.newFetchPeopleRequest(idSpec), 'friends');
   req.send(function(data) {
+  
+  
     var viewer = data.get('viewer').getData();
-    document.getElementById('viewer').innerHTML = viewer.getId();
-    var friends = data.get('friends').getData();
-    document.getElementById('friends').innerHTML = '';
-    friends.each(function(friend) {
-      document.getElementById('friends').innerHTML += '<li>' + friend.getId() + '</li>';
-    });
+    
+    
+
+    
+    var name = $("#name").val(); 
+    var max = $("#max").val(); 
+    var place = $("#place").val(); 
+    var description = $("#description").val(); 
+    var date = $("#date").val(); 
+    var owner_id=viewer.getId();
+    var owner_name=viewer.getDisplayName();
+    
+    var req_url ="http://opensocial.machu.jp/party/create?"+
+    "name="+name+"&"+
+    "max="+max+"&"+
+    "place="+place+"&"+
+    "description="+description+"&"+
+    "owner_name="+owner_name+"&"+
+    "owner_id="+owner_id+"&"+
+    "date="+date;
+    
+    
+    
+    var params = [];
+params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+gadgets.io.makeRequest(req_url, function(response) {
+  alert(response.text);
+}, params);
+
     gadgets.window.adjustHeight();
   });
-}
-</script>
-
-<!-- Posting activity -->
-<div>
-  <input type='text' id='title' />
-  <button onclick='postActivity();'>Post activity</button>
-  <div id='result_activity'></div>
-</div>
-<script type='text/javascript'>
-function postActivity() {
-  var params = {};
-  params[opensocial.Activity.Field.TITLE] = document.getElementById('title').value;
-  var activity = opensocial.newActivity(params);
-  opensocial.requestCreateActivity(
-      activity, opensocial.CreateActivityPriority.HIGH, function(response) {
-        if (response.hadError()) {
-          document.getElementById('result_activity').innerHTML = response.getErrorCode();
-        } else {
-          document.getElementById('result_activity').innerHTML = 'Succeeded!';
-        }
-        gadgets.window.adjustHeight();
-      });
 }
 </script>
 
