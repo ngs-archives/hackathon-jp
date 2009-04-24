@@ -938,6 +938,7 @@ function loadData()
 		"http://61.193.175.55/test-cgi/test/hackathon/cgi/read.cgi"+
 		"?cachebuster=" + date + "&id="+ viewerobj.id;
 
+
 	var params = {};
 	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;  
 
@@ -1091,7 +1092,8 @@ function saveRes(obj)
 	el.innerHTML = "";
 	loadData();
 console.log(children);
-	children = "";
+	children = [];
+console.log(children);
 }
 
 function _loadFromFriends()
