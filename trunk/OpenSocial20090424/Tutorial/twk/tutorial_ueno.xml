@@ -52,7 +52,7 @@
 </script>
 <div>
   <input type='text' id='counter' value="0" />
-  <button onclick='CouterInc();'>カウントアップ!</button>
+  <button onclick='CouterInc();'>カウントアップ</button>
   <button onclick='CouterReset();'>リセット</button>
   <div id='result_appdata'></div>
   <ul id='contents'></ul>
