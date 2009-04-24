@@ -1087,6 +1087,8 @@ function saveData()
 }
 function saveRes(obj)
 {
+	var el = document.getElementById('tableview');
+	el.innerHTML = "";
 	loadData();
 }
 
