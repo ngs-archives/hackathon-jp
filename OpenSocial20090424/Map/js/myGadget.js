@@ -708,6 +708,11 @@ function addRow(idx)
 	{
 		rcv.src = friendobj[toid].thumbnail;
 	}
+	else
+	{
+		rcv = document.createElement('div');
+		rcv.innerHTML = "未送信";
+	}
 
 	snd.src = viewerobj.thumbnail;
 
