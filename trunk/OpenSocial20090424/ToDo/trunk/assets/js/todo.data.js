@@ -14,7 +14,6 @@ ToDoApp.data = {
 			ar.push($j(this).val());
 		});
 		ToDoApp.data.stickies = ar;
-		console.log(ar);
 		jQuery.opensocial.data.set(ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.stickies);
 	},
 	getFriends : function(callback) {
@@ -28,7 +27,6 @@ ToDoApp.data = {
 		});
 	},
 	onGetFriends : function(p,callback) {
-		console.log(p);
 		if(!p||!p.length) return ToDoApp.ui.message.show(ToDoApp.Message.NO_FRIENDS);
 		var stickies = [{ stickies:ToDoApp.data.stickies,person:jQuery.opensocial.person("OWNER") }];
 		var cnt = 0;
