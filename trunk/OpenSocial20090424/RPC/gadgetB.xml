@@ -4,6 +4,8 @@
   title="[RPC] goo×ホットペッパー (開発中)"
   description="[RPC] goo×ホットペッパー (開発中)"
 >
+<Require feature="dynamic-height" />
+<Require feature="minimessage" />
 <Require feature="opensocial-0.8" />
 <Require feature="pubsub" />
 </ModulePrefs>
@@ -15,6 +17,9 @@ jQuery(function($) {
   // byAddress
   function byAddress(address) {
 
+    var shops = $('#shops')
+      .text('読み込み中 ...');
+
     var url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
     var data = { 
       key: 'b23f89f420f6b18b', format: 'json', address: address
@@ -22,8 +27,7 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      var shops = $('#shops')
-        .empty();
+      shops.empty();
 
       $.each(data.results.shop, function(i, shop) {
 
@@ -45,6 +49,9 @@ jQuery(function($) {
   // byLatLng
   function byLatLng(lat, lng) {
 
+    var shops = $('#shops')
+      .text('読み込み中 ...');
+
     var url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
     var data = { 
       key: 'b23f89f420f6b18b', format: 'json', lat: lat, lng: lng
@@ -52,8 +59,7 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      var shops = $('#shops')
-        .empty();
+      shops.empty();
 
       $.each(data.results.shop, function(i, shop) {
 
@@ -111,7 +117,7 @@ body {
 <input type="text" name="address" value="新橋" />
 <input type="submit" value="検索" />
 </form>
-<div id="shops">読み込み中 ...</div>
+<div id="shops"></div>
 
 ]]></Content>
 </Module>
