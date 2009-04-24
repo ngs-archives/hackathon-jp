@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<!--
+opensocial-jquery
+http://code.google.com/p/opensocial-jquery/
+
+Copyright(C) 2009 LEARNING RESOURCE LAB
+http://friendfeed.com/nakajiman
+http://hp.submit.ne.jp/d/16750/
+
+Dual licensed under the MIT and GPL licenses:
+http://www.opensource.org/licenses/mit-license.php
+http://www.gnu.org/licenses/gpl.html
+-->
+<ModulePrefs
+  title="わたしの友達"
+  title_url="http://code.google.com/p/opensocial-jquery/"
+  description="わたしの友達をスライドショーで紹介します。(by opensocial-jquery)"
+  height="190"
+>
+<Require feature="dynamic-height" />
+<Require feature="minimessage" />
+<Require feature="opensocial-0.8" />
+<Require feature="opensocial-jquery" />
+<Icon>http://developmentor.lrlab.to/favicon.ico</Icon>
+</ModulePrefs>
+<UserPref name="fx" datatype="enum" required="true" display_name="効果" default_value="zoom">
+<EnumValue value="blindX"></EnumValue>
+<EnumValue value="blindY"></EnumValue>
+<EnumValue value="blindZ"></EnumValue>
+<EnumValue value="cover"></EnumValue>
+<EnumValue value="curtainX"></EnumValue>
+<EnumValue value="curtainY"></EnumValue>
+<EnumValue value="fade"></EnumValue>
+<EnumValue value="fadeZoom"></EnumValue>
+<EnumValue value="growX"></EnumValue>
+<EnumValue value="growY"></EnumValue>
+<EnumValue value="scrollUp"></EnumValue>
+<EnumValue value="scrollDown"></EnumValue>
+<EnumValue value="scrollLeft"></EnumValue>
+<EnumValue value="scrollRight"></EnumValue>
+<EnumValue value="scrollHorz"></EnumValue>
+<EnumValue value="scrollVert"></EnumValue>
+<EnumValue value="shuffle"></EnumValue>
+<EnumValue value="slideX"></EnumValue>
+<EnumValue value="slideY"></EnumValue>
+<EnumValue value="toss"></EnumValue>
+<EnumValue value="turnUp"></EnumValue>
+<EnumValue value="turnDown"></EnumValue>
+<EnumValue value="turnLeft"></EnumValue>
+<EnumValue value="turnRight"></EnumValue>
+<EnumValue value="uncover"></EnumValue>
+<EnumValue value="wipe"></EnumValue>
+<EnumValue value="zoom"></EnumValue>
+</UserPref>
+<Content type="html" view="home,profile"><![CDATA[
+<script type="text/javascript" src="http://developmentor.lrlab.to/opensocial-jquery/samples/jquery.cycle.all.min.js"></script>
+<script type="text/javascript">
+jQuery(function($) {
+
+	// people
+  $.getData(
+    '/people/@owner/@friends', { count: 100, sortBy: 'random' }
+  ).next(function(people) {
+	
+	var cycle = $('#cycle').empty();
+	  
+    $.each(people, function(i, person) {
+	    
+	  var img = $('<img />')
+		.attr('alt', person.displayName)
+		.attr('src', goohome.util.convertThumbnailSize(
+		  person.thumbnailUrl, goohome.ThumbnailUrl.Size.EXTRA_LARGE
+		))
+		.click(function() {
+		  window.open(person.profileUrl, '_top');
+		})
+	    .appendTo(cycle);
+	});
+	
+	cycle.cycle({
+	  fx: $.pref('fx')
+	});
+	
+  // error
+  }).error(function(e) {
+	  
+    $('<span/>')
+	  .text('An unexpected error occurred: ' + e)
+	  .minimessage();
+  });
+
+});
+</script>
+<style type="text/css">
+<!--
+
+body {
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: .8em;
+  margin: 5px;
+}
+
+#cycle img {
+  width: 180px;
+  height: 180px;
+  cursor: pointer; 
+}
+
+-->
+</style>
+<div id="cycle">読み込み中 ...</div>
+]]></Content>
+</Module>
