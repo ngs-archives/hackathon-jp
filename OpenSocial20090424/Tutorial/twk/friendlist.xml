@@ -31,11 +31,11 @@
 		var html = '';
 		html += 'domain is :' + env.getDomain() + '<br />';
 		var objectType = opensocial.Environment.ObjectType.PERSON;
-		html += 'objectType:' + 'PERSON'; 
+		html += 'objectType:' + 'PERSON<br />'; 
 		for (fieldName in opensocial.Person.Field)
 		{
 			html += 'fieldName ' + fieldName + ' is supported? : ' 
-				+ env.supportsField(objectType, fieldName) + '<br />';
+				+ env.supportsField(objectType, opensocial.Person.Field[fieldName]) + '<br />';
 		}
 		
         document.getElementById('message').innerHTML += html;
