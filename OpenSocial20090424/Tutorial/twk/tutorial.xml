@@ -103,7 +103,7 @@ function GeneratePersonInfo(person) {
 			if (!info) continue;
 			
 			// XXX
-			if (info.match(/^http\:/))
+			if (info['match'] && info.match(/^http\:/))
 				info = FormatUrl(info);
 			
 			html += i + ':' + info + '<br />';
