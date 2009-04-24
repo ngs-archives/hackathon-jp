@@ -141,19 +141,18 @@
         var html = '';
         
         console.debug(owner);
-        html += 'オーナー情報<br />';
+        html += '<h1>オーナー情報</h1>';
         html += owner.getDisplayName();
-        html += GeneratePersonInfo(owner);
-        html += '<br>';
+        document.getElementById('message').innerHTML += html;
+        GeneratePersonInfo(owner);
         
-        html += 'ビューワー情報<br />';
+        html += '<h1>ビューワー情報</h1>';
         html += viewer.getDisplayName();
-        html += GeneratePersonInfo(viewer);
-        html += '<br>';
+        document.getElementById('message').innerHTML += html;
+        GeneratePersonInfo(viewer);
         
-        html += '友人情報<br />';
-        html += friends.size() + '人です';
-        
+        html += '<h1>友人情報 (' + friends.size() + '人)</h1>';
+        document.getElementById('message').innerHTML += html;
         friends.each(GeneratePersonInfo); // each
      
         gadgets.window.adjustHeight();
