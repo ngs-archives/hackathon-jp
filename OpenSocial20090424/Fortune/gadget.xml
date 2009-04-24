@@ -15,29 +15,34 @@
   <div>
     <img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
   </div>
-  <ul id='contents'></ul>
   <div id='friend_view'>
     <input type='text' id='todo_content' style="width:600px; font-size:30px; border:2px solid #993333; color:#ff9966;" /><br><br>
     <input type='image' onclick='addTodo();' src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/happy_big.jpg
 " />
     <div id='result_appdata'></div>
   </div>
+  <ul id='contents'></ul>
 </div>
 
 <script type='text/javascript'>showTodoList();</script>]]></Content>
-    <Content type="html" view="profile"><![CDATA[<script type='text/javascript' src='/gaget_test/canvas.js'></script>
+
+
+
+
+
+  <Content type="html" view="profile"><![CDATA[<script type='text/javascript' src='/gaget_test/canvas.js'></script>
 <script type='text/javascript'>init();</script>
 
 <div>
   <div>
     <img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
   </div>
-  <ul id='contents'></ul>
   <div id='friend_view'>
     <input type='text' id='todo_content' style="width:300px; font-size:30px; border:2px solid #993333; color:#ff9966;" /><br><br>
     <input type='image' onclick='addTodo();' src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/pushme.gif" />
     <div id='result_appdata'></div>
   </div>
+  <ul id='contents'></ul>
 </div>
 
 <script type='text/javascript'>showTodoList();</script>]]></Content>
