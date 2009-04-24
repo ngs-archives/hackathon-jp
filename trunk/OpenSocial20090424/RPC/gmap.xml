@@ -21,11 +21,11 @@ jQuery(function($) {
     $('#mapframe').get(0).contentWindow.location.href = mapUrl + '#' + point.lat + ',' + point.lng;
   });
 
-  $('#mapframe').attr('src', mapUrl + '#35.5,139.7');
+  $('#mapframe').attr('src', mapUrl + '#35.689649,139.694338');
 
   gadgets.rpc.register('map_geo', function(point) {
     console.log(point);
-    gadgets.pubsub.publish('geo', point);
+    $.pub('geo', point);
   });
 
 });
