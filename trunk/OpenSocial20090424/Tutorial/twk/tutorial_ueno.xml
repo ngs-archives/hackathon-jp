@@ -44,9 +44,9 @@
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer");
 
 		req.add(req.newUpdatePersonAppDataRequest("VIEWER","counter","1"));
-		//req.add(req.newFetchPersonAppDataRequest("VIEWER",["counter"]),"viewer_data");
+		//req.add(req.newFetchPersonAppDataRequest("VIEWER",["counter"]),"cntData");
 		req.send(function(data){
-			var mydata = data.get("viewer_data").getData();
+			var mydata = data.get("cntData").getData();
 			alert(mydata);
 		});
 	}
