@@ -751,12 +751,15 @@ function delRow(idx)
 	var r = document.getElementById(_getTrId(idx));
 	d.removeChild(r);
 
+	alert(idx);
+
 	// アイコンを消す
 	if ( idx != undefined )
 	{
 		map.removeOverlay(children[idx].marker);
 		// 無効にする
 		children[idx].visible = false;
+		//サーバから消す
 		deleteRow(idx);
 	}
 }
