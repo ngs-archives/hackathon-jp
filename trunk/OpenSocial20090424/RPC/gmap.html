@@ -31,7 +31,6 @@ function init() {
 
   google.maps.Event.addListener(map, "moveend", function() {
     var center = map.getCenter();
-    console.log(center);
     gadgets.rpc.call('..', 'map_geo', null, 'remote', { lat : center.lat(), lng : center.lng() })
   });
 
