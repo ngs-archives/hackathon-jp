@@ -417,14 +417,14 @@ function addEventMap()
 				'marker': m, 
 				'point': point, 
 				'visible': true, 
-				'pid' : j[key].pid
+//				'pid' : j[key].pid
 			};
 			setValuesToDic(childid, {
 				'name':name,
 				'phone': phone,
 				'description':description,
-				'pid':j[key].pid,
-				'toid':j[key].toid
+//				'pid':j[key].pid,
+//				'toid':j[key].toid
 			});
 			map.addOverlay(m);
 
