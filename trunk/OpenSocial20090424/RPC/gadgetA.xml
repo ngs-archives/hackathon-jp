@@ -73,16 +73,16 @@ jQuery(function($) {
 
       $.each(data.results.apartment, function(i, apartment) {
 
-        var s = $('<img/>')
-          .attr('alt', apartment.name)
-          .attr('src', apartment.photo.pc.s)
+        var a = $('<a class="apartment"/>')
+          .text(apartment.name)
           .click(function() {
             $.pub('geo', { lat: parseFloat(apartment.lat), lng: parseFloat(apartment.lng) });
           });
           
-        $('<div class="apartment"/>')
-          .append(s)
+        $('<li/>')
+          .append(a)
           .appendTo(apartments);
+
       });
 
       $(window).adjustHeight();
