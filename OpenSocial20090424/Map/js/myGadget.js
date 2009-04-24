@@ -472,8 +472,11 @@ function printProfileScreen(data)
 		name = gname;
 	}
 
+	// サムネイルURL
+	var _thumbnailUrl = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
 
 
+	// 住所
 	var address;
 	var _age = viewer.getField(opensocial.Person.Field.AGE);
 	var _gender = viewer.getField(opensocial.Person.Field.GENDER);
@@ -509,9 +512,11 @@ function printProfileScreen(data)
 
 	//console.log("address:"+address);
 
-	viewerobj = {"name":name, "gender":gender, "id":id, "address": address};
+	viewerobj = 
+		{"name":name, "gender":gender, "id":id, "address": address, "thumbnail": thumbnailUrl};
 	/*
 	*/
+console.log(viewerobj);
 
 	showProf();
 
@@ -669,9 +674,11 @@ function addRow(idx)
 	var td2 = document.createElement('td');
 	var td3 = document.createElement('td');
 	var td4 = document.createElement('td');
+	var td5 = document.createElement('td');
 	var photo = document.createElement('img');
 	var div = document.createElement('div');
 	var rcv = document.createElement('img');
+	var snd = document.createElement('img');
 	var o = getValuesFromDic(idx);
 
 //objectdump(o, document.getElementById("dumpArea"));
@@ -703,9 +710,10 @@ function addRow(idx)
 	im.setAttribute ("onclick", "delRow('"+idx+"')");
 
 	el.appendChild(tr).appendChild(td1).appendChild(im); // 削除ボタン
+	el.appendChild(tr).appendChild(td5).appendChild(snd); // 送信者
+	el.appendChild(tr).appendChild(td4).appendChild(rcv); // 受信者
 	el.appendChild(tr).appendChild(td3).appendChild(photo); // 写真
 	el.appendChild(tr).appendChild(td2).appendChild(div); // 名前
-	el.appendChild(tr).appendChild(td4).appendChild(rcv); // 受信者
 
 	$j(function($) {
 		$('#'+tr.id).droppable({
