@@ -9,3 +9,16 @@ textarea {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
+
+.sticky {
+	position:absolute;
+	top:0; left:0;
+	width:210px; height:80px;
+}
+
+.sticky .del {
+	display:block;
+	cursor:pointer;
+	position:absolute;
+	top:0; right:0;
+}
