@@ -12,6 +12,7 @@
 <script type="text/javascript">
 jQuery(function($) {
 
+  // byAddress
   function byAddress(address) {
 
     var url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
@@ -21,7 +22,8 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      var shops = $('#shops')
+      var shops = $('#shops
+      ')
         .empty();
 
       $.each(data.results.shop, function(i, shop) {
@@ -41,7 +43,35 @@ jQuery(function($) {
     });
   };
 
+  // byLatLng
   function byLatLng(lat, lng) {
+
+    var url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
+    var data = { 
+      key: 'b23f89f420f6b18b', format: 'json', lat: lat, lng: lng
+    };
+
+    $.getJSON(url, data, function(data) {
+
+      var shops = $('#shops
+      ')
+        .empty();
+
+      $.each(data.results.shop, function(i, shop) {
+
+        var s = $('<img/>')
+          .attr('alt', shop.name)
+          .attr('src', shop.photo.pc.s)
+          .click(function() {
+            $.pub('RPC', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
+          });
+          
+        $('<div class="shop"/>')
+          .append(s)
+          .appendTo(shops);
+      });
+
+    });
   };
 
   $('#form').submit(function() {
@@ -49,8 +79,9 @@ jQuery(function($) {
     return false;
   });
 
-  gadgets.pubsub.subscribe('RPC', function() {
+  gadgets.pubsub.subscribe('RPC', function(sender, message) {
     console.log(arguments);
+    byLatLng(message.lat, message.lng);
   });
 
 });
