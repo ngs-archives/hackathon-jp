@@ -49,8 +49,8 @@
 				for(field in opensocial.Person.Field){
 					allFields.push(opensocial.Person.Field[field]);
 				}
-				//params[opensocial.DataRequest.PeopleRequestFields.PROFIEL_DITAILS] = allFields;
-				params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = GetSupportedFields();
+				params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = allFields;
+				//params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = GetSupportedFields();
 
 				req.add(req.newFetchPeopleRequest(idspec,params),"get_friends");
 				req.send(response);
@@ -94,58 +94,6 @@
 				document.getElementById("message").innerHTML = html;
 			};
 			
-			function populateMyAppData(){
-					var req = opensocial.newDataRequest();
-					var data1 = Math.random() * 5;
-					var data2 = Math.random() * 100;
-					var data3 = new Date().getTime();
-					
-					htmlout += "AppField1 <- " + data1 +"<br/>";
-					req.add(req.newUpdatePersonAppDataRequest("VIEWER","AppField1",data1));
-					htmlout += "AppField2 <- " + data2 +"<br/>";
-					req.add(req.newUpdatePersonAppDataRequest("VIEWER","AppField2",data2));
-					htmlout += "AppField3 <- " + data3 +"<br/>";
-					req.add(req.newUpdatePersonAppDataRequest("VIEWER","AppField3",data3));
-					req.send(handlePopulateMyAppData);
-					
-			}
-
-			function handlePopulateMyAppData(data){
-				if(data.hadError()){
-					htmlout += data.getErrorMessage();
-				}
-				requestMyData();
-			}
-
-			function requestMyData(){
-				var req = opensocial.newDataRequest();
-				var fields = ["AppField1","AppField2","AppField3"];
-
-				req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer");
-				req.add(req.newFetchPersonAppDataRequest("VIEWER",fields),"viewer_data");
-				req.send(handleRequestMyData);
-			}
-
-			function handleRequestMyData(data){
-				var mydata = data.get("viewer_data");
-				var viewer = data.get("viewer");
-				me = viewer.getData();
-
-				if(mydata.hadError()){
-					htmlout += data.getErrorMessage();
-					return;
-				}
-				doSomethingWithMyData(mydata.getData());
-			}
-
-			function doSomethingWithMyData(data){
-				var mydata = data[me.getId()];
-				var div = document.getElementById('content_div');
-				htmlout += "AppField1 ->" + mydata["AppField1"] +"<br/>";
-				htmlout += "AppField2 ->" + mydata["AppField2"] +"<br/>";
-				htmlout += "AppField3 ->" + mydata["AppField3"] +"<br/>";
-				div.innerHTML = htmlout;
-			}
 
 		</script>
 		<div id="message">
