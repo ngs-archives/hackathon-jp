@@ -35,11 +35,9 @@ function init() {
     gadgets.rpc.call('', 'map_geo', null, { lat : center.lat(), lng : center.lng() });
   });
 
-  map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
-  
   setInterval(function() {
-    var h = location.hash.substring(1);
-    console.log(h);
+    console.log(location.hash);
+    var h = window.location.hash.substring(1);
     if (h!=hash) {
       hash = h;
       var latlng = hash.split(',');
