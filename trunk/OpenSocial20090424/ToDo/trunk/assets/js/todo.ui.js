@@ -85,8 +85,8 @@ ToDoApp.ui = {
 		if(isNaN(id)) id = ToDoApp.data.stickies.length;
 		return [
 			"<div class=\"sticky\" id=\"sticky",id,"\">",
-				"<textarea onchange=\"ToDoApp.data.onChangeText(",id,")\" rows=\"3\" cols=\"25\" style=\"background-color:#FFFF95;border:none;\">", text, "<\/textarea>",
-				"<span class=\"del\" onclick=\"ToDoApp.remove(",id,");\">X<\/span>",
+				"<textarea onchange=\"ToDoApp.data.onChangeText()\" rows=\"3\" cols=\"25\" style=\"background-color:#FFFF95;border:none;\">", text, "<\/textarea>",
+				"<span class=\"del\" onclick=\"ToDoApp.remove(this);\">X<\/span>",
 			"<\/div>"
 		].join("");
 	}
