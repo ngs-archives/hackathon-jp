@@ -68,8 +68,12 @@
         var idspec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
         var req = opensocial.newDataRequest();
         var params = {}; 
-		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] 
-			= GetSupportedFields();
+		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
+[opensocial.Person.Field.GENDER,
+ opensocial.Person.Field.DATE_OF_BIRTH
+
+];  
+//			= GetSupportedFields();
         req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
         req.add(req.newFetchPeopleRequest(idspec, params), "get_friends");
         req.send(response);
@@ -95,6 +99,7 @@
         var html = '';
         html += owner.getDisplayName() + 'の友達は' + friends.size() + '人です';
         html += ':<br><ul>';
+        
         friends.each(function(person) {
           console.debug(person);
           /* @var person Person */
