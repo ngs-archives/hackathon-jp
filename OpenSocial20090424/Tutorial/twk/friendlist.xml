@@ -1,236 +1,255 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-    <ModulePrefs
-            title="友人情報テスト"
-            description="desc">
-        <Require feature="opensocial-0.8" />
-        <Require feature="dynamic-height" />
-        
-    </ModulePrefs>
-    <Content type="html" view="home,profile,canvas"><![CDATA[<script type="text/javascript">
-    if (typeof console == 'undefined') {
-    	this.console = {
-    		// debug:alert
-    		debug:function(){}
-    		, error:alert
-    	};
-    }
-    
-    function GeneratePersonInfo(person) {
-        var html = '';
-        
-          console.debug(person);
-          /* @var person Person */
-          html += '<h2>' + person.getDisplayName() + '</h2>';
-          html += 'id:' + person.getId() + '<br />';
-          
-          html += 'isOwner:' + person.isOwner() + '<br />';
-          html += 'isViewer:' + person.isViewer() + '<br />';
-			
-			for(i in opensocial.Person.Field){
-				var env = opensocial.getEnvironment();
-				var objectType = opensocial.Environment.ObjectType.PERSON;
-				if (!env.supportsField(objectType, opensocial.Person.Field[i]))
-					continue;
-			
-				var info = person.getField(opensocial.Person.Field[i]);
-				if (typeof info == 'undefined')
-					continue;
-				
-				if (i == "THUMBNAIL_URL")
-					info = "<img src='" + info + "' />";
-				else if (info['getDisplayValue'])
-					info = info.getDisplayValue();
-				else if (i == 'NAME')
-					info = info.getField(opensocial.Name.Field.UNSTRUCTURED);
-				else if (i == 'URLS')
-				{
-					var urlstr = ''; 
-					for (var j = 0; j < i.length; ++j)
-					{
-						var url = info[j];
-						if (!url) continue;
-						urlstr += url.getField(opensocial.Url.Field.ADDRESS)
-							+ ' ' + url.getField(opensocial.Url.Field.LINK_TEXT)
-							+ ' ' + url.getField(opensocial.Url.Field.TYPE);
-					}
-					info = urlstr;
-				}
-				else if (typeof info != 'string')
-				{
-					console.debug(i);
-					console.debug(info);
-				}	
-				
-				if (!info) continue;
-				
-				html += i + ':' + info + '<br />';
-			}
-	        
-	        document.getElementById('message').innerHTML += html;
-	        
-    } // GeneratePersonInfo
-    
-    function GetSupportedFields()
-    {
-		var env = opensocial.getEnvironment();
+	<ModulePrefs
+		title="友人情報テスト"
+		description="desc">
+		<Require feature="opensocial-0.8" />
+		<Require feature="dynamic-height" />
+	</ModulePrefs>
+	<Content type="html" view="home,profile,canvas"><![CDATA[<script type="text/javascript">
+if (typeof console == 'undefined') {
+	this.console = {
+		// debug:alert
+		debug:function(){}
+		, error:alert
+	};
+}
+	
+function GeneratePersonInfo(person) {
+	var html = '';
+	
+		console.debug(person);
+		/* @var person Person */
+		html += '<h2>' + person.getDisplayName() + '</h2>';
+		html += 'id:' + person.getId() + '<br />';
 		
-		var objectType = opensocial.Environment.ObjectType.PERSON;
+		html += 'isOwner:' + person.isOwner() + '<br />';
+		html += 'isViewer:' + person.isViewer() + '<br />';
 		
-		var fields = [];
-		for(fieldName in opensocial.Person.Field)
-		{
-			if (env.supportsField(objectType, opensocial.Person.Field[fieldName]))
+		for(i in opensocial.Person.Field){
+			var env = opensocial.getEnvironment();
+			var objectType = opensocial.Environment.ObjectType.PERSON;
+			if (!env.supportsField(objectType, opensocial.Person.Field[i]))
+				continue;
+		
+			var info = person.getField(opensocial.Person.Field[i]);
+			if (typeof info == 'undefined')
+				continue;
+			
+			if (i == "THUMBNAIL_URL")
+				info = "<img src='" + info + "' />";
+			else if (info['getDisplayValue'])
+				info = info.getDisplayValue();
+			else if (i == 'NAME')
+				info = info.getField(opensocial.Name.Field.UNSTRUCTURED);
+			else if (i == 'URLS')
 			{
-				// alert(fieldName);
-				fields.push(opensocial.Person.Field[fieldName]);
+				var urlstr = ''; 
+				for (var j = 0; j < i.length; ++j)
+				{
+					var url = info[j];
+					if (!url) continue;
+					urlstr += url.getField(opensocial.Url.Field.ADDRESS)
+						+ ' ' + url.getField(opensocial.Url.Field.LINK_TEXT)
+						+ ' ' + url.getField(opensocial.Url.Field.TYPE);
+				}
+				info = urlstr;
+			}
+			else if (typeof info != 'string')
+			{
+				console.debug(i);
+				console.debug(info);
+			}	
+			
+			if (!info) continue;
+			
+			html += i + ':' + info + '<br />';
+		}
+		
+		document.getElementById('message').innerHTML += html;
+		
+} // GeneratePersonInfo
+
+function GetSupportedFields()
+{
+	var env = opensocial.getEnvironment();
+	
+	var objectType = opensocial.Environment.ObjectType.PERSON;
+	
+	var fields = [];
+	for(fieldName in opensocial.Person.Field)
+	{
+		if (env.supportsField(objectType, opensocial.Person.Field[fieldName]))
+		{
+			// alert(fieldName);
+			fields.push(opensocial.Person.Field[fieldName]);
+		}
+	}
+	
+	return fields;
+}
+
+/**
+ * Request the OWNER and OWNER's friends.
+ */
+function request() {
+	try{
+
+	/*
+	var reason = 'test';
+	opensocial.requestPermission([opensocial.Permission.VIEWER], reason,function(
+	*/
+	
+	var env = opensocial.getEnvironment();
+	
+	var html = '';
+	html += 'domain is :' + env.getDomain() + '<br />';
+	
+	var req = opensocial.newDataRequest();
+	var params = {}; 
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
+		= GetSupportedFields();
+	/*
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
+	 = [
+	 opensocial.Person.Field.GENDER,
+	 opensocial.Person.Field.DATE_OF_BIRTH
+	];
+	*/	
+	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
+	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "get_viewer");
+	
+	var ownerIdSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+	req.add(req.newFetchPeopleRequest(ownerIdSpec, params), "get_owner_friends");
+	
+	var viewerIdSpec = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+	req.add(req.newFetchPeopleRequest(viewerIdSpec, params), "get_viewer_friends");
+	
+	req.send(response);
+	}catch(e){
+		console.error(e.message);
+	}
+	return;
+
+
+/**
+ * Parses the response and generates html to list the names of the owner and
+ * his or her friends.
+ *
+ * @param {Object} dataResponse Friend information that was requested.
+ */
+function response(dataResponse) {
+	try {
+		/*
+		var response = dataResponse.get('response');
+		if (response.hasError)
+		opensocial.ResponseItem.Error.Unauthori
+		haspermission
+		requestPermission
+		*/
+		
+		var owner = dataResponse.get('get_owner').getData();
+		/* @var owner Map< PersonId, Map<String, Object>> */
+		
+		var viewer = dataResponse.get('get_viewer').getData();
+		/* @var viewer Map< PersonId, Map<String, Object>> */
+		
+		GenerateOwnerInfo();
+		GenerateViewerInfo();
+		GenerateOwnerFriendsInfo();
+		GenerateViewerFriendsInfo();
+		LazyAdjustHeight();
+	} catch(e) {
+		console.error(e.message);
+	}
+ 
+	 return;
+
+		function GenerateOwnerInfo()
+		{
+			console.debug(owner);
+			var html = '';
+			html += '<h1>オーナー情報</h1>';
+			if (owner)
+			{
+				html += owner.getDisplayName();
+				document.getElementById('message').innerHTML += html;
+				GeneratePersonInfo(owner);
+			}
+			else
+			{
+				html += '取得できませんでした';
 			}
 		}
 		
-		return fields;
-    }
-    
-      /**
-       * Request the OWNER and OWNER's friends.
-       */
-      function request() {
-      try{
-      
-      /*
-      var reason = 'test';
-      opensocial.requestPermission([opensocial.Permission.VIEWER], reason,function(
-      */
-      
-		var env = opensocial.getEnvironment();
-		
-		var html = '';
-		html += 'domain is :' + env.getDomain() + '<br />';
-      
-        var req = opensocial.newDataRequest();
-        var params = {}; 
-		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
-			= GetSupportedFields();
-        /*
-		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
-		 = [
-		 opensocial.Person.Field.GENDER,
-		 opensocial.Person.Field.DATE_OF_BIRTH
-		];
-		*/  
-        req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
-        req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "get_viewer");
-        
-        var ownerIdSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
-        req.add(req.newFetchPeopleRequest(ownerIdSpec, params), "get_owner_friends");
-        
-        var viewerIdSpec = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
-        req.add(req.newFetchPeopleRequest(viewerIdSpec, params), "get_viewer_friends");
-        
-        req.send(response);
-      }catch(e){
-      	console.error(e.message);
-      }
-      	return;
+		function GenerateViewerInfo()
+		{
+			html = '';
+			html += '<h1>ビューワー情報</h1>';
+			if (viewer)
+			{
+				html += viewer.getDisplayName();
+				document.getElementById('message').innerHTML += html;
+				GeneratePersonInfo(viewer);
+			}
+			else
+			{
+				html += '取得できませんでした';
+			}
+		}
+	
+		function LazyAdjustHeight()
+		{
+			setTimeout(function (){
+				if (typeof gadgets != 'undefined')
+					gadgets.window.adjustHeight();
+			}, 100);
+		}
+	 
+	 	function GenerateViewerFriendsInfo()
+	 	{
+			var viewer_friends = dataResponse.get('get_viewer_friends').getData();
+			/* @var viewer_friends Collection<Person> */ 
+			
+			html = '';
+			html += '<h1>ビューワー友人情報 </h1>';
+			if (viewer_friends)
+			{
+				html += viewer_friends.size() + '人';
+				document.getElementById('message').innerHTML += html;
+				viewer_friends.each(GeneratePersonInfo); // each
+			}
+			else
+			{
+				html += '取得できませんでした';
+			}
+	 	}
+ 	
+		function GenerateOwnerFriendsInfo()
+		{
+			var owner_friends = dataResponse.get('get_owner_friends').getData();
+			/* @var owner_friends Collection<Person> */ 
+			
+			html = '';
+			html += '<h1>オーナー友人情報 </h1>';
+			if (owner_friends)
+			{
+				html += owner_friends.size() + '人';
+				document.getElementById('message').innerHTML += html;
+				owner_friends.each(GeneratePersonInfo); // each
+			}
+			else
+			{
+				html += '取得できませんでした';
+			}
+		} //
+ 
+	} // response
+	
+} // request
 
-
-      /**
-       * Parses the response and generates html to list the names of the owner and
-       * his or her friends.
-       *
-       * @param {Object} dataResponse Friend information that was requested.
-       */
-      function response(dataResponse) {
-      try {
-      /*
-        var response = dataResponse.get('response');
-        if (response.hasError)
-        opensocial.ResponseItem.Error.Unauthori
-        haspermission
-        requestPermission
-        */
-      
-        var owner = dataResponse.get('get_owner').getData();
-        /* @var owner Map< PersonId, Map<String, Object>> */
-        
-        var viewer = dataResponse.get('get_viewer').getData();
-        /* @var viewer Map< PersonId, Map<String, Object>> */
-        
-        console.debug(owner);
-        var html = '';
-        html += '<h1>オーナー情報</h1>';
-        if (owner)
-        {
-	        html += owner.getDisplayName();
-	        document.getElementById('message').innerHTML += html;
-	        GeneratePersonInfo(owner);
-	    }
-	    else
-	    {
-	    	html += '取得できませんでした';
-	    }
-        
-        html = '';
-        html += '<h1>ビューワー情報</h1>';
-        if (viewer)
-        {
-	        html += viewer.getDisplayName();
-	        document.getElementById('message').innerHTML += html;
-	        GeneratePersonInfo(viewer);
-	    }
-	    else
-	    {
-	    	html += '取得できませんでした';
-	    }
-        
-        
-        var owner_friends = dataResponse.get('get_owner_friends').getData();
-        /* @var owner_friends Collection<Person> */ 
-        
-        html = '';
-        html += '<h1>オーナー友人情報 </h1>';
-        if (owner_friends)
-        {
-	        html += owner_friends.size() + '人';
-	        document.getElementById('message').innerHTML += html;
-	        owner_friends.each(GeneratePersonInfo); // each
-	    }
-	    else
-	    {
-	    	html += '取得できませんでした';
-	    }
-     
-
-        var viewer_friends = dataResponse.get('get_viewer_friends').getData();
-        /* @var viewer_friends Collection<Person> */ 
-        
-        html = '';
-        html += '<h1>ビューワー友人情報 </h1>';
-        if (viewer_friends)
-        {
-	        html += viewer_friends.size() + '人';
-	        document.getElementById('message').innerHTML += html;
-	        viewer_friends.each(GeneratePersonInfo); // each
-	    }
-	    else
-	    {
-	    	html += '取得できませんでした';
-	    }
-        
-        setTimeout(function (){
-        	if (typeof gadgets != 'undefined')
-	        	gadgets.window.adjustHeight();
-        }, 100);
-      
-      } catch(e) {
-      	console.error(e.message);
-     }
-     
-     } // response
-      
-      } // request
-
-      // Execute the request function when the application is finished loading.
-      gadgets.util.registerOnLoadHandler(request);
-    </script>
-    <div id="message" style="height: 170px; overflow:scroll;"> </div>]]></Content>
+// Execute the request function when the application is finished loading.
+gadgets.util.registerOnLoadHandler(request);
+	</script>
+	<div id="message" style="height: 170px; overflow:scroll;"> </div>]]></Content>
 </Module>
