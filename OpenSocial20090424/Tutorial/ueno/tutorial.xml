@@ -98,9 +98,12 @@
 				});
 				html += "\n</table>";
 				document.getElementById("message").innerHTML = html;
+
+				gadgets.window.adjustHeight();
 			};
 			
-gadgets.util.registerOnLoadHandler(init);
+			gadgets.util.registerOnLoadHandler(init);
+
 
 		</script>
 		<div id="message">
