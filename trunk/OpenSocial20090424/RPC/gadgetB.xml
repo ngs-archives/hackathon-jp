@@ -87,6 +87,7 @@ var url = 'http://maps.google.com/staticmap?' + $.param({
   key: 'ABQIAAAA38HauxeH3H_8yAPzIR8sIhTWXXMYE4ppnS2SSu35FiE-qXf6lxTOJsiw7W4KW9AnLiv5lKRqxVAx1A'
 });
 console.log(url);
+console.log(shop.photo.pc.l);
 
 $.postData('/activities/@me', {
   title: '「<a href="'+shop.urls.pc+'">'+shop.name+'</a>」が気になります。',
