@@ -32,9 +32,8 @@ function init() {
   google.maps.Event.addListener(map, "moveend", function() {
     var center = map.getCenter();
     console.log(center.lat(), center.lng());
-    gadgets.rpc.call('', 'map_geo', cb, { lat : center.lat(), lng : center.lng() })
-    console.log(111);
-    function cb () { alert(1) }
+    console.log(gadgets.rpc);
+    gadgets.rpc.call('', 'map_geo', null, { lat : center.lat(), lng : center.lng() })
   });
 
   map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
