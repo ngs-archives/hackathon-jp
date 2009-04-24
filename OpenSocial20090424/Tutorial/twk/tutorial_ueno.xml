@@ -45,7 +45,7 @@
          params[opensocial.Message.Field.TYPE] = opensocial.Message.Type.PRIVATE_MESSAGE;
          var msg = opensocial.newMessage(body,params);
 
-         opensocial.requestSendMessage("VIEWER_FRIENDS",msg,function(status){
+         opensocial.requestSendMessage("OWNER",msg,function(status){
              if(status.hadError()){
                  var errorCode=status.getErrorCode();
                  var errorMessage = status.getErrorMessage();
