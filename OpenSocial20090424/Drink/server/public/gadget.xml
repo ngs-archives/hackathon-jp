@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="drink03" author_email="yasunnobutya@gmail.com" description="OpenSocial Hackathon 2009-04">
+  <ModulePrefs title="drink_tkyowa" author_email="yasunnobutya@gmail.com" description="OpenSocial Hackathon 2009-04">
     <Require feature="opensocial-0.8" />
     <Require feature="jquery"/>
     <Require feature="views"/>
@@ -12,17 +12,16 @@
 <script type="text/javascript" src="http://opensocial02.machu.jp/javascripts/jopensocial/jopensocial.js"></script>
 <!-- Fetching People and Friends -->
 <div>
-	hello
-  <button onclick='getParty();'>飲み会情報を取得</button>
   <div>
     <span id='viewer'></span>
 		<div id='title'>OpenSocial打ち上げ！</div>
-		<dl>
+		<dl id='info'>
 			<dt>開催日時</dt>
 			<dd>2009年4月20日 18:00〜20:00</dd>
 			<dt>場所</dt>
 			<dd>有楽町</dd>
 			<dt>定員</dt>
+			<dd>～人</dd>
 		</dl>
 		<div id='description'>OpenSocialハッカソンお疲れ様でした！</div>
 		<div id='member'>参加者一覧
@@ -35,13 +34,33 @@
   </div>
 </div>
 <script type='text/javascript'>
-function getParty() {
+
+gadgets.util.registerOnLoadHandler(function(){
   $.gadgets.height('auto');
-	$.opensocial.person(opensocial.IdSpec.PersonId.OWNER,
-	  function(owner) {
-		  // console.log(owner.getId());
-			$('#viewer').html(owner.getId());
-		}
+  getParty();
+});
+
+function getParty() {
+  $.opensocial.person(opensocial.IdSpec.PersonId.OWNER, function(owner) {
+    // console.log(owner.getId());
+    var params = [];
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+    var url ="http://opensocial.machu.jp/party/show?" + "owner_id=" + owner.getId(); 
+    gadgets.io.makeRequest(url, function(response) {
+      var party = response.data;
+      console.log(party);
+      $('#viewer').html("主催者：" + party.owner_name);
+      $("#title").html(party.name);
+      $("#description").html(party.description);
+      $($("#info dd")[0]).html(party.start_date);
+      $($("#info dd")[1]).html(party.place);
+      $($("#info dd")[2]).html(party.max + "人");
+      //console.log($("#info dd"));
+
+    }, params);
+
+
+}
 	);
 }
 </script>
