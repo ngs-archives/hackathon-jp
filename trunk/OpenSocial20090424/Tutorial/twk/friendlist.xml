@@ -49,6 +49,7 @@
 					for (var j = 0; j < i.length; ++j)
 					{
 						var url = info[j];
+						if (!url) continue;
 						urlstr += url.getField(opensocial.Url.Field.ADDRESS)
 							+ ' ' + url.getField(opensocial.Url.Field.LINK_TEXT)
 							+ ' ' + url.getField(opensocial.Url.Field.TYPE);
