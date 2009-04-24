@@ -29,7 +29,7 @@
 				for(field in opensocial.Person.Field){
 					allFields.push(opensocial.Person.Field[field]);
 				}
-				params[opensocial.DataRequest.PeopleRequestFields.PROFIEL_DITAILS] = allfields;
+				params[opensocial.DataRequest.PeopleRequestFields.PROFIEL_DITAILS] = allFields;
 
 				req.add(req.newFetchPeopleRequest(idspec,params),"get_friends");
 				req.send(response);
