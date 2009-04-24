@@ -68,7 +68,7 @@
 							str+= "</td>";
 							continue;
 						}
-						if(field['getDisplayField']){
+						if(field['getDisplayValue']){
 							str+=field['getDisplyField'];
 							str+= "</td>";
 							continue;
