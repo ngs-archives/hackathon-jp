@@ -17,12 +17,11 @@ body {
 }
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAYtWO2s_klJQZgGk9oArIARSV3547x-Cvj5k5rPxPCk6svugtYhSa8ViEODBbG_b3h4c2LesCzim4MQ"></script>
-    <script src="http://sandbox.ig.gmodules.com/gadgets/js/rpc.js"></script>
     <script type="text/javascript">//<![CDATA[
 google.load("maps", "2.x");
 google.setOnLoadCallback(init);
 
-var map, geocoder;
+var map, geocoder, hash;
 function init() {
   map = new google.maps.Map2(document.getElementById('map'));
   map.addControl(new google.maps.SmallMapControl());
@@ -31,13 +30,20 @@ function init() {
 
   google.maps.Event.addListener(map, "moveend", function() {
     var center = map.getCenter();
-    console.log(center.lat(), center.lng());
-    console.log(gadgets.rpc);
-    gadgets.rpc.call('', 'map_geo', null, { lat : center.lat(), lng : center.lng() })
+    hash = center.lat()+','+center.lng();
+    location.hash = hash;
   });
 
   map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
   
+  setInterval(function() {
+    var h = location.hash.substring(1);
+    if (h!=hash) {
+      hash = h;
+      var latlng = hash.split(',');
+      map.setCenter(new google.maps.LatLng(parseFloat(latlng[0]), parseFloat(latlng[1]), 13));
+    }
+  }, 100)
 }
 //]]>
     </script>
