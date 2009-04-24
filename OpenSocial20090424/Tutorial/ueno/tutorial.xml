@@ -95,7 +95,7 @@
 				}
 				html += "</tr>";
 				
-				drawPerson(owner);
+				html+=drawPerson(owner);
 				friends.each(function(person){
 					html += drawPerson(person);
 				});
