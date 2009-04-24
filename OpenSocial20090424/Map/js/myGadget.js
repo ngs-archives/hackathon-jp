@@ -704,7 +704,7 @@ function addRow(idx)
  
 	var toid = getValuesFromDic(idx).toid;
 	alert(toid);
-	if ( toid )
+	if ( toid != null && toid != "null" && toid != undefined )
 	{
 		rcv.src = friendobj[toid].thumbnail;
 	}
