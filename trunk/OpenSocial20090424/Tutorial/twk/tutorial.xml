@@ -55,11 +55,12 @@ function GeneratePersonInfo(person) {
 	
 		console.debug(person);
 		/* @var person Person */
-		html += '<h2>' + person.getDisplayName() + '</h2>';
-		html += 'id:' + person.getId() + '<br />';
+		html += '<div><b>' + person.getDisplayName() + '</b></div>';
+		html += '<dl>';
+		html += '<dt>id</dt><dd>' + person.getId() + '</dd>';
 		
-		html += 'isOwner:' + person.isOwner() + '<br />';
-		html += 'isViewer:' + person.isViewer() + '<br />';
+		html += '<dt>isOwner</dt><dd>' + person.isOwner() + '</dd>';
+		html += '<dt>isViewer</dt><dd>' + person.isViewer() + '</dd>';
 		
 		for(i in opensocial.Person.Field){
 			var env = opensocial.getEnvironment();
@@ -99,14 +100,15 @@ function GeneratePersonInfo(person) {
 				console.debug(info);
 			}
 			
-			if (!info) continue;
+			if (!info) info = '';
 			
 			// XXX
 			if (info['match'] && info.match(/^http\:/))
 				info = FormatUrl(info);
 			
-			html += i + ':' + info + '<br />';
+			html += '<dt>' + i + '</dt><dd>' + info + '</dd>';
 		}
+		html += '</dl>';
 		
 		document.getElementById('result_data').innerHTML += html;
 		
