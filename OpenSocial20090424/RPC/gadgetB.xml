@@ -89,7 +89,7 @@ var url = 'http://maps.google.com/staticmap?' + $.param({
 console.log(url);
 
 $.postData('/activities/@me', {
-  title: 'ごめんちゃいテストです。',
+  title: '「<a href="'+shop.urls.pc+'">'+shop.name+'</a>」が気になります。',
   mediaItems: [{
     //type: 'image', url: url, mimeType: 'image/jpeg'
     type: 'image', url: shop.photo.pc.l, mimeType: 'image/jpeg'
