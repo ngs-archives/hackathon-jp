@@ -19,7 +19,7 @@ function FormatUrl(url, text)
 {
 	if (!text) text = url;
 	var url = url.replace(/"/g, '&quot;').replace('<', "&lt;");
-	return '<a href="' + url + '">' + text + '</a>';
+	return '<a class="previewlink" href="' + url + '">' + text + '</a>';
 }
 
 function GetSupportedFields()
