@@ -370,9 +370,11 @@ function Tutorial_activity() {
 	);
 }
 
+var gCounter = 0;
+
 function Tutorial_counterInc(){
 try {
-  var content = parseInt(document.getElementById('content').value) + 1;
+  var content = gCounter + 1;
   var req = opensocial.newDataRequest();
   req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'content', content));
   req.send(function(response) {
@@ -380,7 +382,7 @@ try {
       document.getElementById('result_data').innerHTML = response.getErrorCode();
     } else {
       document.getElementById('result_data').innerHTML = 'カウント更新しました' + content;
-      document.getElementById('content').value = content;
+		gCounter = content;
     }
     gadgets.window.adjustHeight();
   });
@@ -398,7 +400,7 @@ function Tutorial_counterReset(){
 	      document.getElementById('result_data').innerHTML = response.getErrorCode();
 	    } else {
 	      document.getElementById('result_data').innerHTML = 'カウント初期化しました';
-	      document.getElementById('content').value = content;
+	      gCounter = 0;
 	    }
 	    gadgets.window.adjustHeight();
 	  });
@@ -438,9 +440,8 @@ td { border: solid 1px; vertical-align: top; }
 	
 <!-- counter -->
 <div>
-  <input type='text' id='counter' value="0" style="width: 5em;" />
+  <button onclick='Tutorial_couterReset();'>カウンター初期化</button>
   <button onclick='Tutorial_couterInc();'>カウントアップ!</button>
-  <button onclick='Tutorial_couterReset();'>リセット</button>
   <div id='result_appdata'></div>
   <ul id='contents'></ul>
 </div>
