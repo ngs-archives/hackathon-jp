@@ -53,10 +53,11 @@ function init() {
       if (!marker) {
         marker = new google.maps.Marker(latlng);
         map.addOverlay(marker);
+        map.setCenter(latlng, 16);
       } else {
         marker.setLatLng(latlng);
+        map.panTo(latlng);
       }
-      map.setCenter(latlng, 16);
     }
   }, 100)
 }
