@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="drink_tkyowa" author_email="yasunnobutya@gmail.com" description="OpenSocial Hackathon 2009-04">
+  <ModulePrefs title="drink" author_email="yasunnobutya@gmail.com" description="OpenSocial Hackathon 2009-04">
     <Require feature="opensocial-0.8" />
     <Require feature="jquery"/>
     <Require feature="views"/>
@@ -66,10 +66,11 @@ function getParty() {
       $($("#info dd")[1]).html(party.place);
       $($("#info dd")[2]).html(party.max + "人");
       //console.log($("#info dd"));
-      $('#viewer').show();
+       getMember(party.id);
+      
     }, params);
 	});
-	getMember(party.id);
+	
 }
 
 function joinParty() {
@@ -115,7 +116,7 @@ $(members).each(
     $('#member_deta').html("<li>"+this.name+": "+this.comment+"</li>");
     }
     );
-
+$('#viewer').show();
 }, params);
 
 }
