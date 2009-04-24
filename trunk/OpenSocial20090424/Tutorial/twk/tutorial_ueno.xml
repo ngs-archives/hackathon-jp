@@ -58,7 +58,6 @@
      var data1 = Math.random() * 5;
      htmlout += "Setting AppField1 to " + data1 + "<br />";
      req.add(req.newUpdatePersonAppDataRequest("VIEWER", "AppField1", data1)) + "<br />";
-	alert("x");
      req.send(handlePopulateMyAppData);
    }
 
@@ -76,6 +75,7 @@
     * Fetch app data
     */
    function requestMyData() {
+	alert("x");
      var req = opensocial.newDataRequest();
      var fields = [ "AppField1" ];
      req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
