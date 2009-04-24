@@ -18,7 +18,8 @@
       function response(dataResponse) {
         var owner = dataResponse.get('get_owner').getData();
         var friends = dataResponse.get('get_friends').getData(); 
-        var html = owner.getDisplayName() + '日本語';
+        var html = owner.getDisplayName() + 'の友達は' + friends.size() + '人です';
+        
         html += ':<br><ul>';
         friends.each(function(person) {
           html += '<li>' + person.getDisplayName() + '</li>';
