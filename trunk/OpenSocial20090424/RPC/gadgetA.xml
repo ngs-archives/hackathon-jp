@@ -35,7 +35,8 @@ jQuery(function($) {
           .text(apartment.name)
           .click(function() {
             $.pub('geo', { lat: parseFloat(apartment.lat), lng: parseFloat(apartment.lng) });
-          });
+          })
+          .appendTo(shops);
 
       });
 
