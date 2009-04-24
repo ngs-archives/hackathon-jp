@@ -28,6 +28,7 @@ jQuery(function($) {
 </script>
 <style type="text/css">
 #mapframe {
+border:0px none;
 width:100%;
 height:100%;
 }
