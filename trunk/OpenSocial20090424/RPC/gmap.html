@@ -17,6 +17,7 @@ body {
 }
     </style>
     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAYtWO2s_klJQZgGk9oArIARSV3547x-Cvj5k5rPxPCk6svugtYhSa8ViEODBbG_b3h4c2LesCzim4MQ"></script>
+    <script src="http://sandbox.ig.gmodules.com/gadgets/js/rpc.js"></script>
     <script type="text/javascript">//<![CDATA[
 google.load("maps", "2.x");
 google.setOnLoadCallback(init);
@@ -27,34 +28,15 @@ function init() {
   map.addControl(new google.maps.SmallMapControl());
   map.addControl(new google.maps.MapTypeControl());
   geocoder = new google.maps.ClientGeocoder();
-  setInterval(pollHashChange, 100);
-}
 
-var hash;
-function pollHashChange() {
-  var h = location.href.split('#');
-  if (h.length>1 && h[1]!=hash) {
-    var address = hash = h[1];
-    try { address = decodeURIComponent(address); } catch(e) {};
-    changeLoc(address);
-  }
-}
-
-var centerMarker;
-function changeLoc(address) {
-  geocoder.getLatLng(address, function(latlng) {
-    if (latlng) {
-　　　if (!centerMarker) {
-        map.setCenter(latlng, 13);
-        centerMarker = new google.maps.Marker(latlng);
-        map.addOverlay(centerMarker);
-      } else {
-　　　　map.panTo(latlng)
-        centerMarker.setLatLng(latlng);
-      }
-      // marker.openInfoWindowHtml(address);
-    }
+  google.maps.Event.addListener(map, "moveend", function() {
+    var center = map.getCenter();
+    console.log(center);
+    gadgets.rpc.call('..', 'map_geo', null, 'remote', { lat : center.lat(), lng : center.lng() })
   });
+
+  map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
+  
 }
 //]]>
     </script>
