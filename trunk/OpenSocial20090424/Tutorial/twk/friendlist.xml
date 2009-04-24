@@ -25,11 +25,9 @@
           html += 'id:' + person.getId();
           
           
-          /*
           html += 'isOwner:' + person.isOwner();
           html += 'isViewer:' + person.isViewer();
-			*/
-		/*          
+			
 			for(i in opensocial.Person.Field){
 				var env = opensocial.getEnvironment();
 				var objectType = opensocial.Environment.ObjectType.PERSON;
@@ -44,7 +42,6 @@
 				}
 				html += '<br />';
 			}
-			*/
 	          html += '</li>';
 	
 	        html += '</ul>';
