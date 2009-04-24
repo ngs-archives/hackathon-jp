@@ -16,6 +16,7 @@ class MemberController < ApplicationController
   end
   
   def list
-    render :json => Attender.find(:all).map{|party| party.attributes}.to_json
+    attenders = Attender.find(:all, :conditions => ["party_id = ?", params[:party_id]])
+    render :json => attenders.map{|attender| (a = attender.attributes).each{|k, v| a[k] = v.to_s if v.is_a?(Time)}}
   end
 end

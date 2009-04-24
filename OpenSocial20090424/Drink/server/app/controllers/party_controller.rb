@@ -15,7 +15,24 @@ class PartyController < ApplicationController
     render :json => {:error => $!.message}
   end
 
+  def show
+    includes = []
+    conds = case
+      when params[:owner_id]
+        ["owner_id = ?", params[:owner_id]]
+      when params[:attender_id]
+        ["attenders.member_id = ?", params[:attender_id]]
+        includes << :attenders
+      when params[:party_id]
+        ["id = ?", params[:party_id]]
+      else
+        nil
+      end
+    party = Party.find(:first, :conditions => conds, :include => includes)
+    render :json => (a = party.attributes).each{|k, v| a[k] = v.to_s if v.is_a?(Time)}
+  end
+
   def list
-    render :json => Party.find(:all).map{|party| party.attributes}.to_json
+    render :json => Party.find(:all).map{|party| (a = party.attributes).each{|k, v| a[k] = v.to_s if v.is_a?(Time)}}
   end
 end
