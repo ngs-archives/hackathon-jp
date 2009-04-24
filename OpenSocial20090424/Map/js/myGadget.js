@@ -387,7 +387,7 @@ function addEventMap()
 {
 	GEvent.addListener(map, 'click', function(overlay, point)
 	{
-alert("hogehoge");
+//alert("hogehoge");
 		geocoder.getLocations(point, function(addr)
 		{
 			var name;
