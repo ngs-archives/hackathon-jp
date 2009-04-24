@@ -75,10 +75,14 @@ jQuery(function($) {
           .attr('src', shop.photo.pc.s)
           .click(function() {
 
+var lat = shop.lat;
+var lng = shop.lng;
+var alt = 15;
+
 var url = 'http://maps.google.com/staticmap?' + $.param({  
   center: lat + ',' + lng,
   zoom: alt,
-  size: width + 'x' + height,
+  size: '120x120',
   markers: lat + ',' + lng,
   key: 'ABQIAAAA38HauxeH3H_8yAPzIR8sIhTWXXMYE4ppnS2SSu35FiE-qXf6lxTOJsiw7W4KW9AnLiv5lKRqxVAx1A'
 });
