@@ -62,19 +62,20 @@
 					str += "<tr>";
 					for(i in opensocial.Person.Field){
 						str+= "<td>";
-						var field = opensocial.Person.Field[i];
+						var field = person.getField(opensocial.Person.Field[i]);
 						if(i == "THUMBNAIL_URL"){
-							str+="<img width='30px' src='"+person.getField(field)+"'></img>";
+							str+="<img width='30px' src='"+field+"'></img>";
 							str+= "</td>";
 							continue;
 						}
-						if(person.getField(field)['getDisplayField']){
-							str+=person.getField(field)['getDisplyField'];
+						if(field['getDisplayField']){
+							str+=field['getDisplyField'];
 							str+= "</td>";
 							continue;
 						}
 
-						str+= person.getField(field);
+						str+= field;
+						str+= "</td>";
 						
 					}
 					str += "</tr>";
