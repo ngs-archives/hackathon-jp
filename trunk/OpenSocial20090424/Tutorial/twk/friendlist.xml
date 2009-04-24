@@ -142,20 +142,42 @@
         console.debug(owner);
         var html = '';
         html += '<h1>オーナー情報</h1>';
-        html += owner.getDisplayName();
-        document.getElementById('message').innerHTML += html;
-        GeneratePersonInfo(owner);
+        if (owner)
+        {
+	        html += owner.getDisplayName();
+	        document.getElementById('message').innerHTML += html;
+	        GeneratePersonInfo(owner);
+	    }
+	    else
+	    {
+	    	html += '取得できませんでした';
+	    }
         
         html = '';
         html += '<h1>ビューワー情報</h1>';
-        html += viewer.getDisplayName();
-        document.getElementById('message').innerHTML += html;
-        GeneratePersonInfo(viewer);
+        if (viewer)
+        {
+	        html += viewer.getDisplayName();
+	        document.getElementById('message').innerHTML += html;
+	        GeneratePersonInfo(viewer);
+	    }
+	    else
+	    {
+	    	html += '取得できませんでした';
+	    }
         
         html = '';
-        html += '<h1>友人情報 (' + friends.size() + '人)</h1>';
-        document.getElementById('message').innerHTML += html;
-        friends.each(GeneratePersonInfo); // each
+        html += '<h1>友人情報 </h1>';
+        if (friends)
+        {
+	        html += friends.size() + '人';
+	        document.getElementById('message').innerHTML += html;
+	        friends.each(GeneratePersonInfo); // each
+	    }
+	    else
+	    {
+	    	html += '取得できませんでした';
+	    }
      
         gadgets.window.adjustHeight();
       
