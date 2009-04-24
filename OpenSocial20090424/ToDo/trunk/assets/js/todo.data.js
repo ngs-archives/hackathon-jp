@@ -8,13 +8,6 @@ ToDoApp.data = {
 	getStickies : function(callback) {
 		jQuery.opensocial.data.get(ToDoApp.data.PrefKey.STICKIES,"viewer",callback,false);
 	},
-	onChangeText : function() {
-		ToDoApp.data.save();
-	},
-	remove : function(ele) {
-		$j(ele).remove();
-		ToDoApp.data.save();
-	},
 	save : function() {
 		var ar = [];
 		$j("#stickies .sticky textarea").each(function(d){
