@@ -13,7 +13,7 @@ use Encode;
 
 use Data::Dumper;
 
-our $debug = 0;
+our $debug = 1;
 
 my $q = new CGI;
 
@@ -47,8 +47,11 @@ print STDERR "json:",$json, "\n";
 if ( !(defined $uid))
 {
 	# エラー
-	print STDERR "uid is invalid\n";
-	exit;
+	showHeader();
+	my $buf = {"stat"=>"NG", "pid"=>''};
+
+	print JSON->new()->encode($buf);
+	exit 0;
 }
 
 if ( ! $toid )
@@ -59,6 +62,7 @@ if ( ! $toid )
 
 my $obj = JSON->new()->decode($json);
 
+my $lastid;
 foreach my $v (@{$obj})
 {
 	my $ret = $db->query(
@@ -69,14 +73,24 @@ foreach my $v (@{$obj})
     encode("eucjp", decode("utf8", $v->{'description'})), $v->{'img'},
 		$uid, $toid, 
 	);
+	$lastid = $db->query("select last_insert_id()")->list;
 	#print STDERR Dumper $ret;
 }
 
-print "Content-type: text/X-javascript\n\n";
+my $buf = {"stat"=>"OK", "pid"=>$lastid};
+
+showHeader();
+
+print JSON->new()->encode($buf);
+
 
 sub url_decode($) {
 	my $str = shift;
 	$str =~ tr/+/ /;
 	$str =~ s/%([0-9A-Fa-f][0-9A-Fa-f])/pack('H2', $1)/eg;
 	return $str;
+}
+sub showHeader
+{
+	print "Content-type: text/X-javascript\n\n";
 }
