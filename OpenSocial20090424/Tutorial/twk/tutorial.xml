@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+	<ModulePrefs
+		title="チュートリアル"
+		description="desc">
+		<Require feature="opensocial-0.8" />
+		<Require feature="dynamic-height" />
+	</ModulePrefs>
+	<Content type="html" view="home,profile,canvas"><![CDATA[<script type="text/javascript">
+	</script>
+	<div id="area" style="width: 930px; height: 200px; overflow:scroll;">
+<!-- Fetching People and Friends -->
+<div>
+  <button onclick='fetchPeople();'>ユーザー情報の取得</button>
+  <div>
+    <span id='viewer'></span>
+    <ul id='friends'></ul>
+  </div>
+</div>
+
+<!-- Posting activity -->
+<div>
+  <input type='text' id='title' />
+  <button onclick='postActivity();'>アクティビティー送信!</button>
+  <div id='result_activity'></div>
+</div>
+
+<!-- Sharing data with friends -->
+<div>
+  <input type='text' id='content' />
+  <button onclick='shareData();'>データ保存</button>
+  <button onclick='fetchFriendData();'>友人のデータを取得</button>
+  <div id='result_appdata'></div>
+  <ul id='contents'></ul>
+</div>
+	
+<!-- counter -->
+<div>
+  <input type='text' id='counter' value="0" />
+  <button onclick='CouterInc();'>カウントアップ!</button>
+  <button onclick='CouterReset();'>リセット</button>
+  <div id='result_appdata'></div>
+  <ul id='contents'></ul>
+</div>
+	
+
+	</div>]]></Content>
+</Module>
