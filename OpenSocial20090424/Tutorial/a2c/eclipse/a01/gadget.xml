@@ -3,7 +3,8 @@
     <ModulePrefs
             title="hoge world"
             author="a2c"
-            author_email="a2c@hoge.com">
+            author_email="a2c@hoge.com"
+            description="My first gadget!! ">
         <Require feature="opensocial-0.8" />
     </ModulePrefs>
     <Content type="html" view="canvas"><![CDATA[
