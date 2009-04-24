@@ -17,7 +17,7 @@ jQuery(function($) {
   // byKeyword
   function byKeyword(keyword) {
 
-    var shops = $('#shops')
+    var apartments = $('#apartments')
       .text('読み込み中 ...');
 
     var url = 'http://api.smatch.jp/apartment/';
@@ -27,26 +27,27 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      shops.empty();
+      apartments.empty();
 
       $.each(data.results.apartment, function(i, apartment) {
 
-        var s = $('<div class="shop"/>')
+        var s = $('<div class="apartment"/>')
           .text(apartment.name)
           .click(function() {
             $.pub('geo', { lat: parseFloat(apartment.lat), lng: parseFloat(apartment.lng) });
           })
-          .appendTo(shops);
+          .appendTo(apartments);
 
       });
 
+      $(window).adjustHeight();
     });
   };
 
   // byLatLng
   function byLatLng(lat, lng) {
 
-    var shops = $('#shops')
+    var apartments = $('#apartments')
       .text('読み込み中 ...');
 
     var url = 'http://api.smatch.jp/apartment/';
@@ -56,20 +57,20 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      shops.empty();
+      apartments.empty();
 
-      $.each(data.results.shop, function(i, shop) {
+      $.each(data.results.apartment, function(i, apartment) {
 
         var s = $('<img/>')
-          .attr('alt', shop.name)
-          .attr('src', shop.photo.pc.s)
+          .attr('alt', apartment.name)
+          .attr('src', apartment.photo.pc.s)
           .click(function() {
-            $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
+            $.pub('geo', { lat: parseFloat(apartment.lat), lng: parseFloat(apartment.lng) });
           });
           
-        $('<div class="shop"/>')
+        $('<div class="apartment"/>')
           .append(s)
-          .appendTo(shops);
+          .appendTo(apartments);
       });
 
     });
@@ -97,7 +98,7 @@ body {
   margin: 5px;
 }
 
-#shops div.shop {
+#apartments div.apartment {
 }
 
 -->
@@ -106,7 +107,7 @@ body {
 <input type="text" name="keyword" value="新橋" />
 <input type="submit" value="検索" />
 </form>
-<div id="shops"></div>
+<div id="apartments"></div>
 
 ]]></Content>
 </Module>
