@@ -40,7 +40,7 @@
 	var me ="";
 	function CouterInc(){
          var params = {};
-         var body = "きてやったよ!!";
+         var body = "きたよ!!";
          params[opensocial.Message.Field.TITLE] = "きたよ!";
          params[opensocial.Message.Field.TYPE] = opensocial.Message.Type.PRIVATE_MESSAGE;
          var msg = opensocial.newMessage(body,params);
@@ -49,6 +49,7 @@
              if(status.hadError()){
                  var errorCode=status.getErrorCode();
                  var errorMessage = status.getErrorMessage();
+				alert(errorMessage);
              }else{
                  alert("メッセージおくりました");
              }
