@@ -2,7 +2,7 @@
   <Module>
    <ModulePrefs title="Hello, World"     description="テスト用のガジェットです">
    </ModulePrefs>
-   <Content type="html" view="canvas">
+   <Content type="html" view="home">
     <![CDATA[     <p>Hello World!!</p>    ]]>
    </Content>
   </Module>  
