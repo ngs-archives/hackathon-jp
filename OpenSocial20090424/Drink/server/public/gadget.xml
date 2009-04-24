@@ -5,16 +5,23 @@
     <Require feature="jquery"/>
     <Require feature="views"/>
     <Require feature="dynamic-height" />
-    <Require feature="views" />
   </ModulePrefs>
   <Content type="html" view="profile"><![CDATA[
 <!-- jopensocial -->
 <script type="text/javascript" src="http://opensocial02.machu.jp/javascripts/jopensocial/jopensocial.js"></script>
 <!-- Fetching People and Friends -->
+<style type="text/css">
+div {
+	font-size: small;
+	color: #333;
+}
+#viewer {
+	display: none;
+}
+</style>
 <div>
-  <div>
-    <span id="viewer"></span>
-		<div id="title">OpenSocial打ち上げ！</div>
+  <div id="viewer">
+		<div id="title"></div>
 		<dl id='info'>
 			<dt>開催日時</dt>
 			<dd id="date">2009年4月20日 18:00〜20:00</dd>
@@ -59,6 +66,7 @@ function getParty() {
       $($("#info dd")[1]).html(party.place);
       $($("#info dd")[2]).html(party.max + "人");
       //console.log($("#info dd"));
+      $('#viewer').show();
     }, params);
 	});
 }
