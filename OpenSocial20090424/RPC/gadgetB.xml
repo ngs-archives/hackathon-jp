@@ -22,8 +22,7 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      var shops = $('#shops
-      ')
+      var shops = $('#shops')
         .empty();
 
       $.each(data.results.shop, function(i, shop) {
@@ -53,8 +52,7 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      var shops = $('#shops
-      ')
+      var shops = $('#shops')
         .empty();
 
       $.each(data.results.shop, function(i, shop) {
