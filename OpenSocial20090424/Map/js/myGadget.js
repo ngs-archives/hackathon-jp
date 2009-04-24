@@ -417,6 +417,7 @@ function addEventMap()
 				'marker': m, 
 				'point': point, 
 				'visible': true, 
+				'pid' : j[key].pid
 			};
 			setValuesToDic(childid, {
 				'name':name,
@@ -744,6 +745,8 @@ function deleteRow(idx)
 {
 	var date = new Date().getTime();
 	var pid = getValuesFromDic(idx).pid;
+console.log(idx);
+console.log(getValuesFromDic(idx));
 	var url = 
 		"http://61.193.175.55/test-cgi/test/hackathon/cgi/delete.cgi"+
 		"?cachebuster=" + date + "&pid="+idx+"&uid="+viewerobj.id;
@@ -938,6 +941,7 @@ function showData(obj)
 				'marker': m, 
 				'point': gl,
 				'visible': true,
+				'pid':j[key].pid
 			};
 			setValuesToDic(i++, {
 					'name':j[key].name,
