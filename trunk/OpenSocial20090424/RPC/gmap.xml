@@ -16,11 +16,16 @@ jQuery(function($) {
 
   var mapUrl = 'http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/RPC/gmap.html'
 
-  gadgets.pubsub.subscribe('geo', function(sender, point) {
+  console.log(mapUrl);
+
+  $.sub('geo', function(sender, point) {
     console.log(point);
     $('#mapframe').get(0).contentWindow.location.href = mapUrl + '#' + point.lat + ',' + point.lng;
   })
-  $('#mapframe').attr('src', mapUrl);
+
+  $('#mapframe').attr('src', mapUrl + '#35,142');
+
+  console.log($('#mapframe').attr('src'))
 
   /*
   gadgets.rpc.register('map_geo', function(point) {
