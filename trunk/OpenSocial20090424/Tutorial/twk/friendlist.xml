@@ -4,6 +4,8 @@
             title="List Friends Example"
             description="desc">
         <Require feature="opensocial-0.8" />
+        <Require feature="dynamic-height" />
+        
     </ModulePrefs>
     <Content type="html" view="home,profile,canvas"><![CDATA[<script type="text/javascript">
     if (typeof console == 'undefined') {
@@ -120,11 +122,16 @@
 	        html += '</ul>';
 	        
 	        document.getElementById('message').innerHTML += html;
+	        
       }); // each
+     
+        // gadgets.window.adjustHeight();
+     
       
       } catch(e) {
       	console.error(e.message);
      }
+     
      } // response
       
       } // request
@@ -132,5 +139,5 @@
       // Execute the request function when the application is finished loading.
       gadgets.util.registerOnLoadHandler(request);
     </script>
-    <div id="message" style="height: 100px; overflow:scroll;"> </div>]]></Content>
+    <div id="message" style="height: 160px; overflow:scroll;"> </div>]]></Content>
 </Module>
