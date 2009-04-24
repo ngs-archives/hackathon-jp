@@ -11,5 +11,8 @@ ToDoApp.data = {
 	onChangeText : function(id) {
 		ToDoApp.data.stickies[id] = $j("#sticky"+id).val();
 		jQuery.opensocial.data.set(ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.stickes);
+	},
+	getFriends : function() {
+		
 	}
 }
