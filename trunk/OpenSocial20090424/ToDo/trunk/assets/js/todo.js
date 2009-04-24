@@ -27,7 +27,7 @@ var ToDoApp = {
 	},
 	create : function() {
 		ToDoApp.ui.message.hide();
-		$j("#stickies").prepend(ToDoApp.ui.getSticky());
+		$j("#stickies").prepend(ToDoApp.ui.getSticky(null,null,true));
 		jQuery.gadgets.height("auto");
 	},
 	remove : function(ele) {
