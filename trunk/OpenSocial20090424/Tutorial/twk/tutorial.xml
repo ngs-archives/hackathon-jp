@@ -392,20 +392,30 @@ try {
 }
 
 function Tutorial_counterGet(){
+try{
   var req = opensocial.newDataRequest();
   var params = {};
   params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
   params[opensocial.IdSpec.Field.GROUP_ID] = 'FRIENDS';
-  req.add(req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, ['content']), 'stored');
+  var idSpec = opensocial.newIdSpec(params);
+  req.add(req.newFetchPersonAppDataRequest(idSpec, ['content']), 'stored');
   req.send(function(data) {
-    var stored = data.get('stored').getData();
-    for(var id in stored) {
-      var obj = stored[id];
-      document.getElementById('result_data').innerHTML
-          += '<li>' + id + ': ' + obj['content'] + '</li>';
-    }
-    gadgets.window.adjustHeight();
+	try{
+	    var stored = data.get('stored').getData();
+	    console.debug(stored);
+	    for(var id in stored) {
+	      var obj = stored[id];
+	      document.getElementById('result_data').innerHTML
+	          += '<li>' + id + ': ' + obj['content'] + '</li>';
+	    }
+	    gadgets.window.adjustHeight();
+	} catch(e) {
+		console.error(e.message);
+	}
   });
+	} catch(e) {
+		console.error(e.message);
+	}
 }
 
 function Tutorial_counterReset(){
