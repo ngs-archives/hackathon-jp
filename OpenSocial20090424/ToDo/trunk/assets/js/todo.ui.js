@@ -59,7 +59,7 @@ ToDoApp.ui = {
             html  = '<div>';
             html += '<p>' + data.person.getDisplayName() + '</p>';
             for( var j = 0; j < data.stickies.length; j++ ){
-                html += ToDoApp.ui.getStickie( j, data.stickies[j], false );
+                html += ToDoApp.ui.getSticky( j, data.stickies[j], false );
             }
             html += '</div>';   
         }
