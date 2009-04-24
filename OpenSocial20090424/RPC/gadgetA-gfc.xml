@@ -9,7 +9,7 @@
 <Require feature="opensocial-0.8" />
 <Require feature="pubsub" />
 </ModulePrefs>
-<Content type="html"><![CDATA[
+<Content type="html" view="home,profile,canvas"><![CDATA[
 <script type="text/javascript" src="http://d1lzci7p8hi5b7.cloudfront.net/opensocial-jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(function($) {
@@ -17,7 +17,7 @@ jQuery(function($) {
   // byKeyword
   function byKeyword(keyword) {
 
-    var shops = $('#shops')
+    var apartments = $('#apartments')
       .text('読み込み中 ...');
 
     var url = 'http://api.smatch.jp/apartment/';
@@ -27,50 +27,65 @@ jQuery(function($) {
 
     $.getJSON(url, data, function(data) {
 
-      shops.empty();
+      apartments.empty();
+
+      if (data.results.error)
+        apartments.text('物件が見つかりません。')
 
       $.each(data.results.apartment, function(i, apartment) {
 
-        var s = $('<div class="shop"/>')
+        var a = $('<a class="apartment"/>')
           .text(apartment.name)
           .click(function() {
             $.pub('geo', { lat: parseFloat(apartment.lat), lng: parseFloat(apartment.lng) });
           });
+          
+        $('<li/>')
+          .append(a)
+          .appendTo(apartments);
 
       });
 
+      $(window).adjustHeight();
     });
   };
 
   // byLatLng
   function byLatLng(lat, lng) {
 
-    var shops = $('#shops')
+    var apartments = $('#apartments')
       .text('読み込み中 ...');
 
     var url = 'http://api.smatch.jp/apartment/';
     var data = { 
-      key: 'b23f89f420f6b18b', format: 'json', lat_to: lat, lat_to: lng
+      key: 'b23f89f420f6b18b', format: 'json',
+      //lat_from: lat - 30/3600, lat_to: lat + 30/3600,
+      //lng_from: lng - 30/3600, lng_to: lng + 30/3600
+      lat: lat, lng: lng
     };
 
     $.getJSON(url, data, function(data) {
 
-      shops.empty();
+      apartments.empty();
 
-      $.each(data.results.shop, function(i, shop) {
+      if (data.results.error)
+        return apartments.text('物件が見つかりません。')
 
-        var s = $('<img/>')
-          .attr('alt', shop.name)
-          .attr('src', shop.photo.pc.s)
+      $.each(data.results.apartment, function(i, apartment) {
+
+        var a = $('<a class="apartment"/>')
+          .text(apartment.name)
           .click(function() {
-            $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
+            $.pub('geo', { lat: parseFloat(apartment.lat), lng: parseFloat(apartment.lng) });
           });
           
-        $('<div class="shop"/>')
-          .append(s)
-          .appendTo(shops);
+        $('<li/>')
+          .append(a)
+          .appendTo(apartments);
+
       });
 
+      $(window).adjustHeight();
     });
   };
 
@@ -96,7 +111,7 @@ body {
   margin: 5px;
 }
 
-#shops div.shop {
+#apartments ul.apartment {
 }
 
 -->
@@ -105,7 +120,7 @@ body {
 <input type="text" name="keyword" value="新橋" />
 <input type="submit" value="検索" />
 </form>
-<div id="shops"></div>
+<ul id="apartments"></ul>
 
 ]]></Content>
 </Module>
