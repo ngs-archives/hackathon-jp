@@ -19,15 +19,7 @@ function FormatUrl(url, text)
 {
 	if (!text) text = url;
 	var url = url.replace(/"/g, '&quot;').replace('<', "&lt;");
-	
-	var html = '';
-
-	if (!url.match(/^http:\/\/sandbox\.home\.goo\.ne\.jp/))
-		html += '<img src="http://img.simpleapi.net/small/' + url + '" />';
-	
-	html += '<a class="previewlink" href="' + url + '">' + text + '</a>';
-	
-	return html;
+	return '<img src="http://img.simpleapi.net/small/' + url + '" />' + '<a class="previewlink" href="' + url + '">' + text + '</a>';
 }
 
 function GetSupportedFields()
@@ -370,6 +362,43 @@ function Tutorial_activity() {
 	);
 }
 
+function Tutorial_counterInc(){
+try {
+  var content = parseInt(document.getElementById('content').value) + 1;
+  var req = opensocial.newDataRequest();
+  req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'content', content));
+  req.send(function(response) {
+    if (response.hadError()) {
+      document.getElementById('result_data').innerHTML = response.getErrorCode();
+    } else {
+      document.getElementById('result_data').innerHTML = 'カウント更新しました' + content;
+      document.getElementById('content').value = content;
+    }
+    gadgets.window.adjustHeight();
+  });
+	} catch(e) {
+		console.error(e.message);
+	}
+}
+function Tutorial_counterReset(){
+  try {
+	  var content = '0';
+	  var req = opensocial.newDataRequest();
+	  req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, 'content', content));
+	  req.send(function(response) {
+	    if (response.hadError()) {
+	      document.getElementById('result_data').innerHTML = response.getErrorCode();
+	    } else {
+	      document.getElementById('result_data').innerHTML = 'カウント初期化しました';
+	      document.getElementById('content').value = content;
+	    }
+	    gadgets.window.adjustHeight();
+	  });
+	} catch(e) {
+		console.error(e.message);
+	}
+}
+
 </script>
 <style type="text/css">
 td { border: solid 1px; vertical-align: top; }
@@ -400,15 +429,13 @@ td { border: solid 1px; vertical-align: top; }
 -->
 	
 <!-- counter -->
-<!--
 <div>
   <input type='text' id='counter' value="0" style="width: 5em;" />
-  <button onclick='CouterInc();'>カウントアップ!</button>
-  <button onclick='CouterReset();'>リセット</button>
+  <button onclick='Tutorial_couterInc();'>カウントアップ!</button>
+  <button onclick='Tutorial_couterReset();'>リセット</button>
   <div id='result_appdata'></div>
   <ul id='contents'></ul>
 </div>
-	-->
 	
 <td ><div id="result_data" style="font-size: 77%; height: 200px; overflow:scroll;">
 </div></td>
