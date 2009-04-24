@@ -88,6 +88,13 @@ var url = 'http://maps.google.com/staticmap?' + $.param({
 });
 console.log(url);
 
+$.postData('/activities/@me', {
+  title: 'ごめんちゃいテストです。',
+  mediaItems: [{
+    type: 'image', url: url, mimeType: 'image/jpeg'
+  }]
+});
+
             $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
           });
           
