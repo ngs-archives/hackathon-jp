@@ -4,6 +4,7 @@ class CreateParties < ActiveRecord::Migration
       t.column :name, :string
       t.column :max, :integer
       t.column :place, :string
+      t.column :kanji, :string
       t.column :description, :text
       t.column :start_date, :datetime
       t.timestamps
