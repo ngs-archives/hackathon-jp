@@ -381,7 +381,7 @@ try {
     if (response.hadError()) {
       document.getElementById('result_data').innerHTML = response.getErrorCode();
     } else {
-      document.getElementById('result_data').innerHTML = 'カウント更新しました' + content;
+      document.getElementById('result_data').innerHTML = 'カウント更新しました。現在の値 = ' + content;
 		gCounter = content;
     }
     gadgets.window.adjustHeight();
@@ -390,6 +390,24 @@ try {
 		console.error(e.message);
 	}
 }
+
+function Tutorial_counterGet(){
+  var req = opensocial.newDataRequest();
+  var params = {};
+  params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+  params[opensocial.IdSpec.Field.GROUP_ID] = 'FRIENDS';
+  req.add(req.newFetchPersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, ['content']), 'stored');
+  req.send(function(data) {
+    var stored = data.get('stored').getData();
+    for(var id in stored) {
+      var obj = stored[id];
+      document.getElementById('result_data').innerHTML
+          += '<li>' + id + ': ' + obj['content'] + '</li>';
+    }
+    gadgets.window.adjustHeight();
+  });
+}
+
 function Tutorial_counterReset(){
   try {
 	  var content = '0';
@@ -399,7 +417,7 @@ function Tutorial_counterReset(){
 	    if (response.hadError()) {
 	      document.getElementById('result_data').innerHTML = response.getErrorCode();
 	    } else {
-	      document.getElementById('result_data').innerHTML = 'カウント初期化しました';
+	      document.getElementById('result_data').innerHTML = 'カウント初期化しました。現在の値 = 0';
 	      gCounter = 0;
 	    }
 	    gadgets.window.adjustHeight();
@@ -439,6 +457,7 @@ td { border: solid 1px; vertical-align: top; }
 <!-- counter -->
 <div>
   <button onclick='Tutorial_counterReset();'>カウンター初期化</button>
+  <button onclick='Tutorial_counterGet();'>カウント取得</button>
   <button onclick='Tutorial_counterInc();'>カウントアップ!</button>
 </div>
 	
