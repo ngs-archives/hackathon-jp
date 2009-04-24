@@ -22,7 +22,7 @@ var ToDoApp = {
 		jQuery.gadgets.height("auto");
 	},
 	remove : function(id) {
-		if(ToDoApp.stickies.length>=id) return;
+		if(ToDoApp.data.stickies.length>=id) return;
 		ToDoApp.data.remove(id);
 	}
 };
