@@ -13,7 +13,7 @@ var ToDoApp = {
 		if(!d.length) {
 			return ToDoApp.ui.message.show(ToDoApp.Message.NO_STICKES);
 		}
-		$j("#stickes").html(ToDoApp.ui.list.getHTML(d));
+		$j("#stickies").html(ToDoApp.ui.list.getHTML(d));
 	},
 	create : function() {
 		ToDoApp.ui.message.hide();
