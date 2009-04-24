@@ -427,7 +427,6 @@ function addEventMap()
 				'pid': -1,
 //				'toid':j[key].toid
 			});
-console.log(m);
 			map.addOverlay(m);
 
 			addRow(childid);
@@ -979,6 +978,7 @@ function showData(obj)
 					});
 			addRow(key);
 			map.addOverlay(m);
+console.log(m);
 		}
 	}
 console.log(children);
