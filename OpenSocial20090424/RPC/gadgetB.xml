@@ -31,6 +31,9 @@ console.log(shop.name, shop.photo.pc.s, shop.lat, shop.lng);
         var s = $('<img/>')
           .attr('alt', shop.name)
           .attr('src', shop.photo.pc.s);
+          .click(function() {
+            $.pubh('RPC', { lat: shop.lat, lng: shop.lng });
+          });
           
         $('<div class="shop"/>')
           .append(s)
@@ -39,7 +42,6 @@ console.log(shop.name, shop.photo.pc.s, shop.lat, shop.lng);
       });
     });
 
-    gadgets.pubsub.publish('RPC', this.message.value);
     return false;
   });
 
@@ -64,6 +66,10 @@ body {
   width: 64px;
   height: 64px;
   float: left;
+}
+
+#shops div.shop img {
+  cursor: pointer;
 }
 
 -->
