@@ -437,6 +437,26 @@ function Tutorial_counterReset(){
 	}
 }
 
+var htmlout = ""
+var me ="";
+function Tutorial_SendMessage(){
+     var params = {};
+     var body = "きたよ!!";
+     params[opensocial.Message.Field.TITLE] = "きたよ!";
+     params[opensocial.Message.Field.TYPE] = opensocial.Message.Type.PRIVATE_MESSAGE;
+     var msg = opensocial.newMessage(body,params);
+
+     opensocial.requestSendMessage("OWNER",msg,function(status){
+         if(status.hadError()){
+             var errorCode=status.getErrorCode();
+             var errorMessage = status.getErrorMessage();
+			alert(errorMessage);
+         }else{
+             alert("メッセージおくりました");
+         }
+         });
+}
+
 </script>
 <style type="text/css">
 td { border: solid 1px; vertical-align: top; }
@@ -451,6 +471,7 @@ td { border: solid 1px; vertical-align: top; }
 	<button onclick='Tutorial_fetchOwnerFriends();'>オーナー友人情報</button>
 	<button onclick='Tutorial_fetchViewerFriends();'>閲覧者友人情報</button>
 	<button onclick='Tutorial_compare();'>比べてみる</button>
+	<button onclick='Tutorial_SendMessage();'>メッセージを送る</button>
 	<div>
 		<input type='text' id='title' style="width: 20em;" /><button onclick='Tutorial_activity();'>アクティビティー送信!</button>
 	</div>
@@ -465,11 +486,13 @@ td { border: solid 1px; vertical-align: top; }
 -->
 	
 <!-- counter -->
+<!--
 <div>
   <button onclick='Tutorial_counterReset();'>カウンター初期化</button>
   <button onclick='Tutorial_counterGet();'>カウント取得</button>
   <button onclick='Tutorial_counterInc();'>カウントアップ!</button>
 </div>
+-->
 	
 <td ><div id="result_data" style="font-size: 77%; height: 200px; overflow:scroll;">
 </div></td>
