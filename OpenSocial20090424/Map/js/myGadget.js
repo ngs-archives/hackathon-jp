@@ -386,6 +386,7 @@ function addEventMap()
 {
 	GEvent.addListener(map, 'click', function(overlay, point)
 	{
+alert("hogehoge");
 		geocoder.getLocations(point, function(addr)
 		{
 			var name;
@@ -978,7 +979,6 @@ function showData(obj)
 					});
 			addRow(key);
 			map.addOverlay(m);
-console.log(m);
 		}
 	}
 console.log(children);
