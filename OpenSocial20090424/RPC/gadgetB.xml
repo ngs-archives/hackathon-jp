@@ -12,6 +12,7 @@
 <script type="text/javascript">
 jQuery(function($) {
   $('#form').submit(function() {
+console.log(this.message.value);
     $.pub('RPC', this.message.value);
     return false;
   });
