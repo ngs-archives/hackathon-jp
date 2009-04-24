@@ -236,6 +236,8 @@ function Tutorial_compare(){
 					
 					var owner_gender = owner.getField(opensocial.Person.Field.GENDER);
 					var viewer_gender = viewer.getField(opensocial.Person.Field.GENDER);
+					console.debug(owner_gender);
+					console.debug(viewer_gender);
 					if (owner_gender.getDisplayValue() == viewer_gender.getDisplayValue())
 						html += '性別同じですね。';
 					else
