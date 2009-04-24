@@ -19,7 +19,6 @@ textarea {
 .sticky textarea {
 	width:100%;
 	height:70px;
-	overflow:hidden;
 }
 
 .sticky .del {
