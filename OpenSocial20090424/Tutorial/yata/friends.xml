@@ -3,7 +3,7 @@
   <ModulePrefs title="List Friends Example" description="友達一覧">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
-  <Content type="html">
+  <Content type="html" view="home,profile,canvas">
   <![CDATA[
     <script type="text/javascript">
       /**
