@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
 <ModulePrefs
-  title="[RPC] goo×ホットペッパー (開発中)"
-  description="[RPC] goo×ホットペッパー (開発中)"
+  title="[RPC] goo×ホットペッパー"
+  description="[RPC] goo×ホットペッパー"
 >
 <Require feature="dynamic-height" />
 <Require feature="minimessage" />
