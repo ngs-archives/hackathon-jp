@@ -16,6 +16,26 @@
 		<link style="stylesheet" type="text/css" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Tutorial/ueno/style.css"/>
 		<script type="text/javascript">
 			gadgets.util.registerOnLoadHandler(request);
+
+    function GetSupportedFields()
+    {
+		var env = opensocial.getEnvironment();
+		
+		var objectType = opensocial.Environment.ObjectType.PERSON;
+		
+		var fields = [];
+		
+		for(fieldName in opensocial.Person.Field)
+		{
+			if (env.supportsField(objectType, opensocial.Person.Field[fieldName]))
+				fields.push(opensocial.Person.Field[fieldName]);
+		}
+		
+		return fields;
+    }
+
+
+
 			function request(){
 				var idspec	= opensocial.newIdSpec({"userId":"OWNER","groupId":"FRIENDS"});
 				var req 	= opensocial.newDataRequest();
@@ -29,7 +49,8 @@
 				for(field in opensocial.Person.Field){
 					allFields.push(opensocial.Person.Field[field]);
 				}
-				params[opensocial.DataRequest.PeopleRequestFields.PROFIEL_DITAILS] = allFields;
+				//params[opensocial.DataRequest.PeopleRequestFields.PROFIEL_DITAILS] = allFields;
+				params[opensocial.DataRequest.PeopleRequestFields.PROFIEL_DITAILS] = GetSupportedFields();
 
 				req.add(req.newFetchPeopleRequest(idspec,params),"get_friends");
 				req.send(response);
