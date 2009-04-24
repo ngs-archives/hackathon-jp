@@ -39,6 +39,8 @@
 	function CouterInc(){
 	}
 	function getCountNum(){
+		populateMyAppData();
+/*
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer");
 
@@ -46,7 +48,7 @@
 		req.send(function(data){
 			var mydata = data.get("cntData");
 			document.getElementById("result_appdata").innerHTML = mydata;
-		});
+		});*/
 	}
 
 
