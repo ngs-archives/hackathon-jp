@@ -13,4 +13,8 @@ class PartyController < ApplicationController
   rescue
     render :json => {:error => $!.message}
   end
+
+  def list
+    render :json => Party.find(:all).map{|party| party.attributes}.to_json
+  end
 end
