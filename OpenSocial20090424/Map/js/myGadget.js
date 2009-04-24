@@ -1090,6 +1090,7 @@ function saveRes(obj)
 	var el = document.getElementById('tableview');
 	el.innerHTML = "";
 	loadData();
+console.log(children);
 }
 
 function _loadFromFriends()
