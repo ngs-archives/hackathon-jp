@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="友達情報サンプル" description="goo Developer's Kitchen掲載の「友達情報を取得する」のサンプルコードです" author="Eiji Kitamura" author_email="e-kita@nttr.co.jp" >
+    <Require feature="opensocial-0.8" />
+    <Require feature="dynamic-height" />
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+    <script type="text/javascript">
+    function fetchPeople() {
+      // IdSpecオブジェクトを生成し、誰の、どのグループを、どこまで取得したいか指定します。
+      // このサンプルではオーナーの友達を指定しています。
+      var _friends = {};
+      _friends[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+      _friends[opensocial.IdSpec.Field.GROUP_ID] = opensocial.IdSpec.GroupId.FRIENDS;
+      var idspec = opensocial.newIdSpec(_friends);
+      // データリクエストオブジェクトを生成
+      var req = opensocial.newDataRequest();
+      // 友達一覧の取得リクエストを生成
+      req.add(req.newFetchPeopleRequest(idspec), 'friends');
+      // リクエストを送信し、コールバック関数を定義
+      req.send(function(response){
+        // 友達一覧の取得リクエスト生成時に指定したfriendsというキーで結果を取得
+        var friends = response.get('friends')
+        // エラーチェック
+        if (friends.hadError()) {
+          alert(friends.getErrorMessage());
+        } else {
+          var html = document.createElement('ul')
+          // 結果のデータを取り出し、Collectionオブジェクトのeachメソッドでイテレート
+          friends.getData().each(function(friend){
+            li = document.createElement('li');
+            // 表示名を挿入
+            var thumbnailUrl = friend.getField(opensocial.Person.Field.THUMBNAIL_URL);
+            li.innerHTML = '<img src="'+thumbnailUrl+'" />'+friend.getDisplayName();
+            html.appendChild(li);
+          });
+          // domというidを持つDOMオブジェクトに結果を追記
+          document.getElementById('dom').appendChild(html);
+          gadgets.window.adjustHeight();
+        };
+      });
+    }
+    function fetchPerson() {
+      // データリクエストオブジェクトを生成
+      var req = opensocial.newDataRequest();
+      // オプションパラメータを準備
+      var params = {};
+      // 基本情報に加えて、個人情報である年齢と性別を返すよう指定
+      params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+        opensocial.Person.Field.AGE,
+        opensocial.Person.Field.GENDER
+      ];
+      // ガジェット所有者の情報の取得リクエストを生成
+      req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), 'owner');
+      // リクエストを送信し、コールバック関数を定義
+      req.send(function(response){
+        // 友達情報の取得リクエスト生成時に指定したownerというキーで結果を取得
+        var owner = response.get('owner');
+        // エラーチェック
+        if (owner.hadError()) {
+          alert(owner.getErrorMessage());
+        } else {
+          var html = document.createElement('ul');
+          var profile = owner.getData();
+          var name = document.createElement('li');
+          // ニックネームをHTMLに差し込む
+          name.innerHTML = profile.getDisplayName();
+          html.appendChild(name);
+          // 性別が取得できたかをチェック。
+          // gooホームでは全公開の情報しか取得できず、取得できなかったものはオブジェクトに含まれない。
+          if (profile.getField(opensocial.Person.Field.GENDER)) {
+            var gender = document.createElement('li');
+            // 性別をHTMLに差し込む
+            gender.innerHTML = 
+              profile.getField(opensocial.Person.Field.GENDER).getDisplayValue();
+            html.appendChild(gender);
+          }
+          // 年齢が取得できたかをチェック。
+          if (profile.getField(opensocial.Person.Field.AGE)) {
+            var age = document.createElement('li');
+            // 年齢をHTMLに差し込む
+            age.innerHTML = 
+              profile.getField(opensocial.Person.Field.AGE).getDisplayValue();
+            html.appendChild(age);
+          }
+          document.getElementById('dom').appendChild(html);
+          gadgets.window.adjustHeight();
+        };
+      });
+    }
+    </script>
+    <input type="button" value="友達情報を取得" onclick="fetchPeople()" /><br />
+    <input type="button" value="個人情報を取得" onclick="fetchPerson()" /><br />
+    <br />
+    <div id="dom"></div>
+    ]]>
+  </Content>
+</Module>
