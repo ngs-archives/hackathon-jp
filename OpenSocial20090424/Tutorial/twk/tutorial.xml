@@ -433,17 +433,13 @@ td { border: solid 1px; vertical-align: top; }
   <input type='text' id='content' />
   <button onclick='shareData();'>データ保存</button>
   <button onclick='fetchFriendData();'>データ取得</button>
-  <div id='result_appdata'></div>
-  <ul id='contents'></ul>
 </div>
 -->
 	
 <!-- counter -->
 <div>
-  <button onclick='Tutorial_couterReset();'>カウンター初期化</button>
-  <button onclick='Tutorial_couterInc();'>カウントアップ!</button>
-  <div id='result_appdata'></div>
-  <ul id='contents'></ul>
+  <button onclick='Tutorial_counterReset();'>カウンター初期化</button>
+  <button onclick='Tutorial_counterInc();'>カウントアップ!</button>
 </div>
 	
 <td ><div id="result_data" style="font-size: 77%; height: 200px; overflow:scroll;">
