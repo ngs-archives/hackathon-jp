@@ -703,7 +703,7 @@ function addRow(idx)
 	photo.style.width = 40;
  
 	var toid = getValuesFromDic(idx).toid;
-	alert(toid);
+	//alert(toid);
 	if ( toid != null && toid != "null" && toid != undefined )
 	{
 		rcv.src = friendobj[toid].thumbnail;
@@ -759,7 +759,7 @@ function delRow(idx)
 	var r = document.getElementById(_getTrId(idx));
 	d.removeChild(r);
 
-	alert(idx);
+	//alert(idx);
 
 	// アイコンを消す
 	if ( idx != undefined )
