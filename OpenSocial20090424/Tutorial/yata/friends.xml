@@ -17,7 +17,6 @@
         req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER,params), "get_owner");
         req.add(req.newFetchPeopleRequest(idspec), "get_friends");
         req.send(response);
-        alert("test");
       };
 
       /**
@@ -30,7 +29,7 @@
         var owner = dataResponse.get('get_owner').getData();
         var friends = dataResponse.get('get_friends').getData(); 
         var html = 'Friends of ' + owner.getDisplayName();
-      //  html +=owner.getField(opensocial.Person.Field.GENDER);
+        html +=owner.getField(opensocial.Person.Field.GENDER);
         html += ':<br><ul>';
         friends.each(function(person) {
           html += '<li>' + person.getDisplayName() + '</li>';
