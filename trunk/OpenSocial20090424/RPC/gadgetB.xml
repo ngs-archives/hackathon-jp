@@ -74,6 +74,16 @@ jQuery(function($) {
           .attr('alt', shop.name)
           .attr('src', shop.photo.pc.s)
           .click(function() {
+
+var url = 'http://maps.google.com/staticmap?' + $.param({  
+  center: lat + ',' + lng,
+  zoom: alt,
+  size: width + 'x' + height,
+  markers: lat + ',' + lng,
+  key: 'ABQIAAAA38HauxeH3H_8yAPzIR8sIhTWXXMYE4ppnS2SSu35FiE-qXf6lxTOJsiw7W4KW9AnLiv5lKRqxVAx1A'
+});
+console.log(url);
+
             $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
           });
           
