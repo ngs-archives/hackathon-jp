@@ -75,7 +75,6 @@
     * Fetch app data
     */
    function requestMyData() {
-	alert("x");
      var req = opensocial.newDataRequest();
      var fields = [ "AppField1" ];
      req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
@@ -109,6 +108,7 @@
      var div = document.getElementById('result_appdata');
      htmlout += "My AppField1 data is: " + mydata["AppField1"] + "<br />";
      div.innerHTML = htmlout;
+	alert(htmlout);
    }
 
 </script>
