@@ -20,6 +20,7 @@ jQuery(function($) {
   })
 
   $('#button').click(function(e) {
+  console.log(arguments);
     gadgets.pubsub.publish('RPC', 'woooo');
   })
 
