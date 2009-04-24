@@ -15,6 +15,16 @@ if (typeof console == 'undefined') {
 	};
 }
 
+function FormatUrl(url, text)
+{
+/*
+	if (!text) text = url;
+	var url = url.replace(/"/g, '&quot;').replace('/', "\\/");
+	return '<a href="' + url + '">' + text + '</a>';
+	*/
+	return 'fads';
+}
+
 function GetSupportedFields()
 {
 	var env = opensocial.getEnvironment();
@@ -77,8 +87,11 @@ function GeneratePersonInfo(person) {
 				{
 					var url = info[j];
 					if (!url) continue;
-					urlstr += url.getField(opensocial.Url.Field.ADDRESS)
-						+ ' ' + url.getField(opensocial.Url.Field.LINK_TEXT)
+					urlstr +=
+						FormatUrl(
+							url.getField(opensocial.Url.Field.ADDRESS), 
+							url.getField(opensocial.Url.Field.LINK_TEXT)
+						)
 						+ ' ' + url.getField(opensocial.Url.Field.TYPE);
 				}
 				info = urlstr;
@@ -87,7 +100,11 @@ function GeneratePersonInfo(person) {
 			{
 				console.debug(i);
 				console.debug(info);
-			}	
+			}
+			
+			// XXX
+//			if (info.match(/^http:/))
+	//			info = FormatUrl(info);
 			
 			if (!info) continue;
 			
@@ -108,7 +125,7 @@ function Tutorial_fetchOwner(){
 			= GetSupportedFields();
 			
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
-		req.send(function(data) {
+		req.send(function(dataResponse) {
 			var owner = dataResponse.get('get_owner').getData();
 			/* @var owner_friends Collection<Person> */ 
 			
@@ -149,7 +166,7 @@ function Tutorial_env(){
 <div id="area" style="width: 930px; height: 200px; overflow:scroll;">
 	
 <div>
-<button onclick="Tutorial_env();">Environment</button>
+<button onclick="Tutorial_env();">環境情報</button>
 </div>
 
 <!-- Fetching People and Friends -->
