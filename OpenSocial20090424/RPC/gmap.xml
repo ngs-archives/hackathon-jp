@@ -16,6 +16,7 @@ jQuery(function($) {
 
   alert(1);
 
+  /*
   var mapUrl = 'http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/RPC/gmap.html'
 
   console.log(mapUrl);
@@ -28,6 +29,7 @@ jQuery(function($) {
   $('#mapframe').attr('src', mapUrl + '#35,142');
 
   console.log($('#mapframe').attr('src'))
+  */
 
   /*
   gadgets.rpc.register('map_geo', function(point) {
@@ -46,6 +48,8 @@ width:100%;
 height:100%;
 }
 </style>
+<!--
 <iframe id="mapframe" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/RPC/gmap.html" />
+-->
 ]]></Content>
 </Module>
