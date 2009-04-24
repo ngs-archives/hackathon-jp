@@ -18,6 +18,13 @@ ToDoApp.data = {
 		jQuery.opensocial.data.set(ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.stickies);
 	},
 	getFriends : function() {
-		
+		jQuery.opensocial.person("viewer",function(d){
+			var prm = {};
+			prm[opensocial.DataRequest.PeopleRequestFields.FILTER] = opensocial.DataRequest.FilterType.HAS_APP;
+			prm[opensocial.DataRequest.PeopleRequestFields.MAX] = 4;
+			jQuery.opensocial.getPeople(d.getId(),function(p){
+				console.log(p);
+			});
+		});
 	}
 }
