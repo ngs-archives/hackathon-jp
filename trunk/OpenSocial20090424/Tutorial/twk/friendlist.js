@@ -17,12 +17,21 @@
        */
       function response(dataResponse) {
         var owner = dataResponse.get('get_owner').getData();
-        var friends = dataResponse.get('get_friends').getData(); 
-        var html = owner.getDisplayName() + 'の友達は' + friends.size() + '人です';
+        /* @var owner Map< PersonId, Map<String, Object>> */
+        var friends = dataResponse.get('get_friends').getData();
+        /* @var friends Collection<Person> */ 
         
+        var html = owner.getDisplayName() + 'の友達は' + friends.size() + '人です';
         html += ':<br><ul>';
         friends.each(function(person) {
-          html += '<li>' + person.getDisplayName() + '</li>';
+          console.debug(person);
+          /* @var person Person */
+          html += '<li>' + person.getDisplayName() + '<br />';
+          html += 'id:' + person.getId();
+          html += 'isOwner:' + person.isOwner();
+          html += 'isViewer:' + person.isViewer();
+          html += '</li>';
+//          person.getField(key, opt_params);
         });
         html += '</ul>';
         document.getElementById('message').innerHTML = html;
