@@ -423,7 +423,8 @@ function addEventMap()
 				'name':name,
 				'phone': phone,
 				'description':description,
-				'pid':j[key].pid
+				'pid':j[key].pid,
+				'toid':j[key].toid
 			});
 			map.addOverlay(m);
 
@@ -667,8 +668,10 @@ function addRow(idx)
 	var td1 = document.createElement('td');
 	var td2 = document.createElement('td');
 	var td3 = document.createElement('td');
+	var td4 = document.createElement('td');
 	var photo = document.createElement('img');
 	var div = document.createElement('div');
+	var rcv = document.createElement('img');
 	var o = getValuesFromDic(idx);
 
 //objectdump(o, document.getElementById("dumpArea"));
@@ -689,14 +692,20 @@ function addRow(idx)
 	}
 	photo.style.width = 40;
  
+	var toid = getValuesFromDic(idx).toid;
+	if ( toid )
+	{
+		rcv.src = friendobj[toid].thumbnail;
+	}
 
 	var el = document.getElementById('tableview');
 	im.src = "http://www.image-seed.com/data/button/standard/shut_01.gif";
 	im.setAttribute ("onclick", "delRow('"+idx+"')");
 
-	el.appendChild(tr).appendChild(td1).appendChild(im);
-	el.appendChild(tr).appendChild(td3).appendChild(photo);
-	el.appendChild(tr).appendChild(td2).appendChild(div);
+	el.appendChild(tr).appendChild(td1).appendChild(im); // 削除ボタン
+	el.appendChild(tr).appendChild(td3).appendChild(photo); // 写真
+	el.appendChild(tr).appendChild(td2).appendChild(div); // 名前
+	el.appendChild(tr).appendChild(td4).appendChild(rcv); // 受信者
 
 	$j(function($) {
 		$('#'+tr.id).droppable({
@@ -766,10 +775,10 @@ function callbackDelete(obj)
 	{
 		alert("削除に失敗しました");
 	}
-	else
-	{
-		alert("削除しました");
-	}
+//	else
+//	{
+//		alert("削除しました");
+//	}
 }
 
 function editdiv(idx)
@@ -869,6 +878,7 @@ function setValuesToDic(id, o)
 	children[id].description = o.description;
 	children[id].img = o.img;
 	children[id].pid = o.pid;
+	children[id].toid = o.toid;
 }
 function setValuesToDOM(idx, o)
 {
@@ -890,7 +900,8 @@ function getValuesFromDic(id)
 			phone: c.phone,
 			description: c.description,
 			img: c.img,
-			pid: c.pid
+			pid: c.pid,
+			toid: c.toid
 	};
 }
 function getValuesFromDOM(idx)
@@ -948,7 +959,8 @@ function showData(obj)
 					'phone':j[key].phone,
 					'description':j[key].description,
 					'img':j[key].img,
-					'pid':j[key].pid
+					'pid':j[key].pid,
+					'toid':j[key].toid
 					});
 			addRow(key);
 			map.addOverlay(m);
