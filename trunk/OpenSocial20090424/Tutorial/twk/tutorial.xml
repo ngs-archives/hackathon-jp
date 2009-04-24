@@ -2,7 +2,7 @@
 <Module>
 	<ModulePrefs
 		title="チュートリアル"
-		description="desc">
+		description="チュートリアルチーム1のサンプルアプリです">
         <Require feature="opensocial-0.8" />
         <Require feature="dynamic-height" />
 	</ModulePrefs>
@@ -489,8 +489,8 @@ td { border: solid 1px; vertical-align: top; }
 	<button onclick='Tutorial_fetchOwnerFriends();'>オーナー友人情報</button>
 	<button onclick='Tutorial_fetchViewerFriends();'>閲覧者友人情報</button>
 	<button onclick='Tutorial_compare();'>比べてみる</button>
-	<button onclick='Tutorial_SendMessage();'>メッセージを送る</button>
-	<button onclick='Tutorial_SendShareMessage();'>メッセージを送る</button>
+	<button onclick='Tutorial_SendMessage();'>オーナーにメッセージを送る</button>
+	<button onclick='Tutorial_SendShareMessage();'>友人にメッセージを送る</button>
 	<div>
 		<input type='text' id='title' style="width: 20em;" /><button onclick='Tutorial_activity();'>アクティビティー送信!</button>
 	</div>
