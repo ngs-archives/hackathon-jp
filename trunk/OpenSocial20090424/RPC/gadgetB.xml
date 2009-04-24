@@ -46,6 +46,7 @@ jQuery(function($) {
           .appendTo(shops);
       });
 
+      $(window).adjustHeight();
     });
   };
 
@@ -81,6 +82,7 @@ jQuery(function($) {
           .appendTo(shops);
       });
 
+      $(window).adjustHeight();
     });
   };
 
