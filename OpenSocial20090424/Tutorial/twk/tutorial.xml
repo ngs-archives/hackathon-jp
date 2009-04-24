@@ -278,9 +278,16 @@ function Tutorial_env(){
 }
 
 function postActivity() {
+	var value = document.getElementById('title').value;
+	if (!value)
+	{
+		alert('入力してください。');
+		return;
+	}
+
 	var id = 'result_data';
 	var params = {};
-	params[opensocial.Activity.Field.TITLE] = document.getElementById('title').value;
+	params[opensocial.Activity.Field.TITLE] = value;
 	var activity = opensocial.newActivity(params);
 	opensocial.requestCreateActivity(
 		activity, opensocial.CreateActivityPriority.HIGH, function(response) {
@@ -330,7 +337,7 @@ td { border: solid 1px; vertical-align: top; }
   <ul id='contents'></ul>
 </div>
 	
-<td ><div id="result_data" style="font-size: 77%; width: 930px; height: 200px; overflow:scroll;">
+<td ><div id="result_data" style="font-size: 77%; height: 200px; overflow:scroll;">
 </div></td>
 </tr></table>
 
