@@ -82,7 +82,7 @@ ToDoApp.ui = {
 		text = text || "";
 		ToDoApp.data.stickies = ToDoApp.data.stickies || [];
 		if(isNaN(id)) id = ToDoApp.data.stickies.length;
-		ToDoApp.data.onGetStickes(id,"");
+		ToDoApp.data.onChangeText(id,"");
 		return [
 			"<div class=\"sticky\" id=\"sticky",id,"\">",
 				"<textarea onchange=\"ToDoApp.data.onChangeText(",id,")\">", text, "<\/textarea>",
