@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+html {
+  height : 100%;
+}
+body {
+  margin : 0;
+  padding : 0;
+  height : 100%;
+}
+#map {
+  width : 100%;
+  height : 100%;
+}
+    </style>
+    <script type="text/javascript" src="http://www.google.com/jsapi?key="></script>
+    <script type="text/javascript">//<![CDATA[
+google.load("maps", "2.x");
+google.setOnLoadCallback(init);
+
+var map, geocoder;
+function init() {
+  map = new google.maps.Map2(document.getElementById('map'));
+  map.addControl(new google.maps.SmallMapControl());
+  map.addControl(new google.maps.MapTypeControl());
+  geocoder = new google.maps.ClientGeocoder();
+  setInterval(pollHashChange, 100);
+}
+
+var hash;
+function pollHashChange() {
+  var h = location.href.split('#');
+  if (h.length>1 && h[1]!=hash) {
+    var address = hash = h[1];
+    try { address = decodeURIComponent(address); } catch(e) {};
+    changeLoc(address);
+  }
+}
+
+var centerMarker;
+function changeLoc(address) {
+  geocoder.getLatLng(address, function(latlng) {
+    if (latlng) {
+　　　if (!centerMarker) {
+        map.setCenter(latlng, 13);
+        centerMarker = new google.maps.Marker(latlng);
+        map.addOverlay(centerMarker);
+      } else {
+　　　　map.panTo(latlng)
+        centerMarker.setLatLng(latlng);
+      }
+      // marker.openInfoWindowHtml(address);
+    }
+  });
+}
+//]]>
+    </script>
+  </head>
+
+  <body>
+    <div height="100%" id="map"></div>
+  </body>
+</html>
+
