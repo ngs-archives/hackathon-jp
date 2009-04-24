@@ -179,7 +179,11 @@
 	    	html += '取得できませんでした';
 	    }
      
-        gadgets.window.adjustHeight();
+        
+        setTimeout(function (){
+        	if (typeof gadgets != 'undefined')
+	        	gadgets.window.adjustHeight();
+        }, 100);
       
       } catch(e) {
       	console.error(e.message);
