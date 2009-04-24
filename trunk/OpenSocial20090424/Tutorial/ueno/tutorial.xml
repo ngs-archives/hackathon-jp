@@ -27,7 +27,7 @@
 
 				var allFields = [];
 				for(field in opensocial.Person.Field){
-					allFields.push(opensocial.Person.Fiels[field]);
+					allFields.push(opensocial.Person.Field[field]);
 				}
 				params[opensocial.DataRequest.PeopleRequestFields.PROFIEL_DITAILS] = allfields;
 
