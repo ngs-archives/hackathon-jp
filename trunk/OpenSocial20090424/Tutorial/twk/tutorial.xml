@@ -197,7 +197,7 @@ function Tutorial_compare(){
 			= GetSupportedFields();
 			
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
-		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "get_owner");
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "get_viewer");
 		var ownerIdSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
 		req.add(req.newFetchPeopleRequest(ownerIdSpec, params), "get_owner_friends");
 		var viewerIdSpec = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
