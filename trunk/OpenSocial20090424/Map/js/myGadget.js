@@ -745,11 +745,11 @@ function deleteRow(idx)
 {
 	var date = new Date().getTime();
 	var pid = getValuesFromDic(idx).pid;
-console.log(idx);
-console.log(getValuesFromDic(idx));
+//console.log(idx);
+//console.log(getValuesFromDic(idx));
 	var url = 
 		"http://61.193.175.55/test-cgi/test/hackathon/cgi/delete.cgi"+
-		"?cachebuster=" + date + "&pid="+idx+"&uid="+viewerobj.id;
+		"?cachebuster=" + date + "&pid="+pid+"&uid="+viewerobj.id;
 
 	var params = {};
 	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;  
