@@ -516,7 +516,7 @@ function printProfileScreen(data)
 		{"name":name, "gender":gender, "id":id, "address": address, "thumbnail": _thumbnailUrl};
 	/*
 	*/
-console.log(viewerobj);
+//console.log(viewerobj);
 
 	showProf();
 
