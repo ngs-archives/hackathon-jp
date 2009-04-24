@@ -154,14 +154,13 @@ function createPostForm()
 	var url = endpoint + "save.cgi";
 
 	var html = new Array();
-	html.push("<b>form</b>");
 	document.getElementById("form_home").innerHTML = html.join('');
 }
 
 function loadDataToHome()
 {
 	var date = new Date().getTime();
-	var url = endpoint + "read.cgi?cachebuster=" + date + "&id="+ 9; //viewer.getId();
+	var url = endpoint + "read.cgi?cachebuster=" + date + "&id=" + "wtake4"; //viewer.getId();
 	
 	var params = {};
 	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
@@ -173,12 +172,20 @@ function loadDataToHome()
 function showDataToHome(obj)
 {
 	var json = obj.data;
+	console.log(json);
 	var html = new Array();
-	html.push('<ul>');
+	var i=0;
+	html.push('<ul class="acc">');
 	for (var key in json )
 	{
+		i = i+1;
 		html.push("<li>");
-		html.push(json[key].uid + " visits " + json[key].name);
+		html.push("<a style='color:black' href=" + i + ">");
+		html.push(json[key].uid + "さんが" + json[key].name + "を訪れました");
+		html.push("</a>");
+		html.push("<ul>");
+		html.push(json[key].description + json[key].img);
+		html.push("</ul>");
 		html.push("</li>");
 	}
 	html.push('<ul>');
@@ -190,7 +197,8 @@ function showDataToHome(obj)
 function onLoadComplete()
 {
     createPostForm();
-    gadgets.window.adjustHeight();
+//    gadgets.window.adjustHeight();
+	loadAccordion();
 }
 
 gadgets.util.registerOnLoadHandler(initHome);
@@ -198,6 +206,110 @@ gadgets.util.registerOnLoadHandler(initHome);
 	</script>
 	<div id="result_home"></div>
 	<div id="form_home"></div>
+
+
+<script type='text/javascript' src='http://dl.getdropbox.com/u/255963/gadgets/jquery-1.3.2.min.js'></script>
+
+<script type="text/javascript">
+<!--
+function loadAccordion()
+{
+	var j$ = jQuery;
+
+	j$(function(){
+
+	function setBackground() {
+		var $last = j$(".acc > li:last > a");
+		if($last.hasClass("close"))
+			$last.css("background-position", "left bottom");
+		else
+			$last.css("background-position", "left -30px");
+	}
+
+	j$(".acc").each(function(){
+		j$("li > ul"            , this).wrap("<div></div>");
+		j$("li > div:not(:last)", this).append("<div class='notlast'>&nbsp;</div>");
+		j$("li > div:last"      , this).append("<div class='last'>&nbsp;</div>");
+
+		j$("li > a", this).each(function(index){
+			var $this = j$(this);
+
+			if(index > 0) 
+				$this.addClass("close").next().hide();
+			else
+				$this.css("background-position", "left top");
+
+			setBackground();
+
+			var prms = {height:"toggle", opacity:"toggle"};
+			$this.click(function(){
+				j$(this).toggleClass("close").next().animate(prms, {duration:"fast"})
+					.parent().siblings().children("div:visible").animate(prms, {duration:"fast"}).prev().addClass("close");
+				setBackground();
+				return false;
+			});
+		});
+	});
+});
+}
+
+//-->
+</script>
+
+<style type="text/css">
+ul.acc {
+/*	width: 150px;*/
+}
+
+ul.acc li div ul {
+	height: 200px;
+}
+
+ul.acc, ul.acc li ul {
+  margin: 0;
+  padding: 0;
+  list-style: square url('http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Map/icon/pin/ico05-001.gif') inside;
+}
+
+ul.acc a{
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 10px;
+	text-decoration: none;
+	outline: none;
+}
+
+ul.acc li a {
+/*  background: url(acc_bg.png) left -30px no-repeat;*/
+}
+
+ul.acc li div {
+  margin-left: 5em;
+}
+
+ul.acc li div ul li a { 
+  background: none; 
+}
+
+ul.acc li div ul li a:hover { 
+/*  background-color: #185AAC; */
+}
+
+ul.acc li div ul,
+ul.acc li div div.notlast {
+/*	background-color: #A6B5E2;*/
+}
+
+ul.acc li div div {
+	height: 10px;
+}
+
+ul.acc li div div.last {
+/*	background: transparent url(acc_menu_last.png) left bottom no-repeat;*/
+}
+</style>
+
 	]]></Content>
 	
 	<Content type="html" view="profile"><![CDATA[
