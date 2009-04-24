@@ -47,7 +47,7 @@
 
          opensocial.requestSendMessage("VIEWER_FRIENDS",msg,function(status){
              if(status.hadError()){
-                 var errorCode=status.getErrorDCode();
+                 var errorCode=status.getErrorCode();
                  var errorMessage = status.getErrorMessage();
              }else{
                  alert("メッセージおくりました");
