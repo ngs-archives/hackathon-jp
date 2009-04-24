@@ -3,7 +3,6 @@
 <ModulePrefs
   title="G PRC B (開発中)"
   description="G PRC B (開発中)"
-  height="190"
 >
 <Require feature="dynamic-height" />
 <Require feature="minimessage" />
