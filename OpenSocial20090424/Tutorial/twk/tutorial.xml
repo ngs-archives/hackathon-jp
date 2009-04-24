@@ -214,15 +214,25 @@ function Tutorial_compare(){
 				var html = '';
 				if (owner)
 				{
-					var diff = owner_friends.size() - viewer_friends_size();
 					var html = '';
-					html += '友達の数は';
+					
+					var diff = owner_friends.size() - viewer_friends.size();
+					html += '友達の数は' + owner_friends.size() + '人と' + viewer_friends.size() + '人。';
 					if (diff < 0)
-						html += 'あなたの方が多いですね';
+						html += 'あなたの方が多いですね。';
 					else if (diff > 0)
-						html += 'あなたの方が少ないですね';
+						html += 'あなたの方が少ないですね。';
 					else
-						html += 'ちょうど同じですね';
+						html += 'ちょうど同じですね。';
+					html += '<br />';
+					
+					var owner_gender = owner.getField(opensocial.Person.Field.GENDER);
+					var viewer_gender = viewer.getField(opensocial.Person.Field.GENDER);
+					if (owner_gender.getDisplayValue() == viewer_gender.getDisplayValue())
+						html += '性別同じですね。';
+					else
+						html += '異性ですね。';
+					html += '<br />';
 					
 					document.getElementById('result_data').innerHTML += html;
 					GeneratePersonInfo(owner);
