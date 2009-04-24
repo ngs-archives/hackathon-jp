@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
     <ModulePrefs
-            title="kamiya_gaget"
+            title="って田中さんが言ってました。"
             author_email="yusuke.kamiya@drecom.co.jp"
-            description="test gaget by kamiya">
+            description="みんなで田中さんのフリをしてアプリ利用者を幸せにしてあげよう！！">
         <Require feature="opensocial-0.8" />
         <Require feature="dynamic-height" />
     </ModulePrefs>
-
-
-    <Content type="html" view="canvas"><![CDATA[
-<script type='text/javascript' src='/gaget_test/canvas.js'></script>
+    <Content type="html" view="canvas"><![CDATA[<script type='text/javascript' src='/gaget_test/canvas.js'></script>
 <script type='text/javascript'>init();</script>
 
 <div>
@@ -26,15 +23,8 @@
   </div>
 </div>
 
-<script type='text/javascript'>showTodoList();</script>
-]]></Content>
-
-
-
-
-
-    <Content type="html" view="profile"><![CDATA[
-<script type='text/javascript' src='/gaget_test/canvas.js'></script>
+<script type='text/javascript'>showTodoList();</script>]]></Content>
+    <Content type="html" view="profile"><![CDATA[<script type='text/javascript' src='/gaget_test/canvas.js'></script>
 <script type='text/javascript'>init();</script>
 
 <div>
@@ -49,28 +39,7 @@
   </div>
 </div>
 
-<script type='text/javascript'>showTodoList();</script>
-]]></Content>
-
-
-
-
-
-
-    <Content type="html" view="preview"><![CDATA[
-
-<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
-
-]]></Content>
-
-
-
-
-    <Content type="html" view="home"><![CDATA[
-
-<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
-
-]]></Content>
-
-
+<script type='text/javascript'>showTodoList();</script>]]></Content>
+    <Content type="html" view="preview"><![CDATA[<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />]]></Content>
+    <Content type="html" view="home"><![CDATA[<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />]]></Content>
 </Module>
