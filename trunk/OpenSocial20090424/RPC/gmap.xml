@@ -21,12 +21,29 @@ jQuery(function($) {
     $('#mapframe').get(0).contentWindow.location.href = mapUrl + '#' + point.lat + ',' + point.lng;
   });
 
-  $('#mapframe').attr('src', mapUrl + '#35.689649,139.694338');
+  var latlng = '35.689649,139.694338';
+  $('#mapframe').attr('src', mapUrl + '#' + latlng);
 
+  /**
   gadgets.rpc.register('map_geo', function(point) {
     console.log(point);
     $.pub('geo', point);
   });
+  */
+
+  var hash = latlng;
+  setInterval(function() {
+    var h = window.location.hash.substring(1);
+    if (h != latlng) {
+      var p = h.split(',');
+      var lat = parseFloat(p[0]);
+      var lng = parseFloat(p[1]);
+      if (isNaN(lat) || isNaN(lng)) return;
+      latlng = lat + ',' + lng;
+      $.pub('geo', { lat : lat, lng : lng }); 
+    }
+  }, 100)
+
 
 });
 </script>
