@@ -64,7 +64,7 @@ ToDoApp.ui = {
 			$j("#message").css("display","block");
 			$("message").innerHTML = msg;
 		},
-		hide : function(msg) {
+		hide : function() {
 			$j("#message").css("display","none");
 			$("message").innerHTML = "";
 		}
@@ -86,8 +86,8 @@ ToDoApp.ui = {
 		return [
 			"<div class=\"sticky\" id=\"sticky",id,"\">",
 				"<textarea onchange=\"ToDoApp.data.onChangeText(",id,")\">", text, "<\/textarea>",
-				"<span class=\"del\" onclick=\"ToDoApp.remove(",id,");\">X<\/span>"
-			"<\/div>",
+				"<span class=\"del\" onclick=\"ToDoApp.remove(",id,");\">X<\/span>",
+			"<\/div>"
 		].join("");
 	}
 }
