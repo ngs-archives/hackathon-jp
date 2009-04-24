@@ -41,9 +41,9 @@
 	}
 	function getCountNum(){
 		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer");
 
-		req.add(req.newFetchPersonAppDataRequest("OWNER",["counter"]),"count");
+		req.add(req.newFetchPersonAppDataRequest("VIEWER",["counter"]),"viewer_data");
 		req.send(function(data){
 			var mydata = data.get("count").getData();
 			alert(mydata);
