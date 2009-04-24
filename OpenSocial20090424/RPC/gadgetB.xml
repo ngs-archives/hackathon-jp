@@ -14,7 +14,7 @@
 <Content type="html" view="home,profile"><![CDATA[
 <script type="text/javascript">
 jQuery(function($) {
-  $('#form").submit(function() {
+  $('#form').submit(function() {
     $.pub('RPC', this.message.value);
     return false;
   });
