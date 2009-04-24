@@ -2,10 +2,10 @@ var init_listing_tab_id;
 
 function init_listing_friend(targetId) {
 	init_listing_tab_id = targetId;
-	liadFriends();
+	listing_friend_loadFriends();
 }
 
-function loadFriends() {
+function listing_friend_loadFriends() {
 	var req = opensocial.newDataRequest();
 	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
 
@@ -14,10 +14,10 @@ function loadFriends() {
 	opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
 	req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
 
-	req.send(onLoadFriends);
+	req.send(listing_friend_onLoadFriends);
 }
 
-function onLoadFriends(data) {
+function listing_friend_onLoadFriends(data) {
 	var viewer = data.get('viewer').getData();
 	var viewerFriends = data.get('viewerFriends').getData();
 	
