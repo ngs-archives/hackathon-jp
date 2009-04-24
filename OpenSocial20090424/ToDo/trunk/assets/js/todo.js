@@ -2,7 +2,8 @@
 
 var ToDoApp = {
 	Message : {
-		NO_STICKES : "no stickies"
+		NO_STICKES : "no stickies",
+		NO_FRIENDS : "no friends has app"
 	},
 	init : function() {
 		ToDoApp.data.getStickies(ToDoApp.onGetStickes);
