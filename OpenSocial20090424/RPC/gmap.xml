@@ -46,7 +46,7 @@ width:100%;
 height:100%;
 }
 </style>
-<iframe id="mapframe"/>
+<iframe id="mapframe" >
 <!--
 src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/RPC/gmap.html" />
 -->
