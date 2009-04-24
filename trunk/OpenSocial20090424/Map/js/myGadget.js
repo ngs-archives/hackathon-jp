@@ -954,7 +954,7 @@ function showData(obj)
 //console.log(obj);
 	var i = 0;
 	var j = obj.data;
-console.log(j);
+//console.log(j);
 	for (var key in j )
 	{
 		//if ( key >= 0 && key < 10 )

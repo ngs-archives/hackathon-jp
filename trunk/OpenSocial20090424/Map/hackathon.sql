@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES ujis */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -29,7 +29,7 @@ CREATE TABLE `comment` (
   `comment` text,
   `ctime` datetime NOT NULL,
   PRIMARY KEY  (`pid`,`seq`)
-) ENGINE=MyISAM DEFAULT CHARSET=ujis;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -61,7 +61,7 @@ CREATE TABLE `data` (
   `img` varchar(512) default NULL,
   PRIMARY KEY  (`pid`),
   UNIQUE KEY `uid` (`uid`,`toid`,`seq`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=ujis;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -70,7 +70,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `data` WRITE;
 /*!40000 ALTER TABLE `data` DISABLE KEYS */;
-INSERT INTO `data` VALUES (9,'wtake4','ofuku3f',1,35.4987340837887,139.566879272461,'√œ≈¿2','','2009-04-23 21:04:18',''),(23,'wtake4','hogehoge',0,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:00:49','http://hogehoge'),(11,'wtake4','rkanbe',0,35.5068394296263,139.643783569336,'√œ≈¿1','','2009-04-23 21:04:18',''),(12,'wtake4','rkanbe',1,35.4987340837887,139.566879272461,'√œ≈¿2','','2009-04-23 21:04:18',''),(13,'wtake4','rkanbe',2,35.5009701229595,139.601898193359,'√œ≈¿3','','2009-04-23 21:04:18',''),(14,'wtake4','googlewtake4',0,35.5068394296263,139.643783569336,'√œ≈¿1','','2009-04-23 21:04:18',''),(15,'wtake4','googlewtake4',1,35.4987340837887,139.566879272461,'√œ≈¿2','','2009-04-23 21:04:18',''),(16,'wtake4','googlewtake4',2,35.5009701229595,139.601898193359,'√œ≈¿3','','2009-04-23 21:04:18',''),(17,'wtake4','ofuku3f',3,35.457943,139.621997,'•È°º•·•Ûﬂ¿…˜','ø¿∆‡¿Ó∏©≤£…Õª‘¿æ∂Ë∏Õ…ÙÀ‹ƒÆ£≥£∏°›£∑','2009-04-24 01:37:07',''),(18,'wtake4','rkanbe',3,35.457943,139.621997,'•È°º•·•Ûﬂ¿…˜','ø¿∆‡¿Ó∏©≤£…Õª‘¿æ∂Ë∏Õ…ÙÀ‹ƒÆ£≥£∏°›£∑','2009-04-24 01:37:07',''),(19,'wtake4','googlewtake4',3,35.457943,139.621997,'•È°º•·•Ûﬂ¿…˜','ø¿∆‡¿Ó∏©≤£…Õª‘¿æ∂Ë∏Õ…ÙÀ‹ƒÆ£≥£∏°›£∑','2009-04-24 01:37:07',''),(20,'wtake4','ofuku3f',4,35.457943,139.621997,'•È°º•·•Ûﬂ¿…˜','ø¿∆‡¿Ó∏©≤£…Õª‘¿æ∂Ë∏Õ…ÙÀ‹ƒÆ£≥£∏°›£∑','2009-04-24 08:26:15',''),(21,'wtake4','rkanbe',4,35.457943,139.621997,'•È°º•·•Ûﬂ¿…˜','ø¿∆‡¿Ó∏©≤£…Õª‘¿æ∂Ë∏Õ…ÙÀ‹ƒÆ£≥£∏°›£∑','2009-04-24 08:26:15',''),(22,'wtake4','googlewtake4',4,35.457943,139.621997,'•È°º•·•Ûﬂ¿…˜','ø¿∆‡¿Ó∏©≤£…Õª‘¿æ∂Ë∏Õ…ÙÀ‹ƒÆ£≥£∏°›£∑','2009-04-24 08:26:15',''),(24,'wtake4','hogehoge',1,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:00:52','http://hogehoge'),(25,'wtake4','hogehoge',2,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:00:53','http://hogehoge'),(26,'wtake4','hogehoge',3,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:00:53','http://hogehoge'),(27,'wtake4','hogehoge',4,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:03:15','http://hogehoge'),(28,'wtake4','hogehoge',5,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:05:28','http://hogehoge');
+INSERT INTO `data` VALUES (9,'wtake4','ofuku3f',1,35.4987340837887,139.566879272461,'Âú∞ÁÇπ2','','2009-04-23 21:04:18',''),(23,'wtake4','hogehoge',0,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:00:49','http://hogehoge'),(11,'wtake4','rkanbe',0,35.5068394296263,139.643783569336,'Âú∞ÁÇπ1','','2009-04-23 21:04:18',''),(12,'wtake4','rkanbe',1,35.4987340837887,139.566879272461,'Âú∞ÁÇπ2','','2009-04-23 21:04:18',''),(13,'wtake4','rkanbe',2,35.5009701229595,139.601898193359,'Âú∞ÁÇπ3','','2009-04-23 21:04:18',''),(14,'wtake4','googlewtake4',0,35.5068394296263,139.643783569336,'Âú∞ÁÇπ1','','2009-04-23 21:04:18',''),(15,'wtake4','googlewtake4',1,35.4987340837887,139.566879272461,'Âú∞ÁÇπ2','','2009-04-23 21:04:18',''),(16,'wtake4','googlewtake4',2,35.5009701229595,139.601898193359,'Âú∞ÁÇπ3','','2009-04-23 21:04:18',''),(17,'wtake4','ofuku3f',3,35.457943,139.621997,'„É©„Éº„É°„É≥Êø±È¢®','Á•ûÂ•àÂ∑ùÁúåÊ®™ÊµúÂ∏ÇË•øÂå∫Êà∏ÈÉ®Êú¨Áî∫ÔºìÔºò‚àíÔºó','2009-04-24 01:37:07',''),(18,'wtake4','rkanbe',3,35.457943,139.621997,'„É©„Éº„É°„É≥Êø±È¢®','Á•ûÂ•àÂ∑ùÁúåÊ®™ÊµúÂ∏ÇË•øÂå∫Êà∏ÈÉ®Êú¨Áî∫ÔºìÔºò‚àíÔºó','2009-04-24 01:37:07',''),(19,'wtake4','googlewtake4',3,35.457943,139.621997,'„É©„Éº„É°„É≥Êø±È¢®','Á•ûÂ•àÂ∑ùÁúåÊ®™ÊµúÂ∏ÇË•øÂå∫Êà∏ÈÉ®Êú¨Áî∫ÔºìÔºò‚àíÔºó','2009-04-24 01:37:07',''),(20,'wtake4','ofuku3f',4,35.457943,139.621997,'„É©„Éº„É°„É≥Êø±È¢®','Á•ûÂ•àÂ∑ùÁúåÊ®™ÊµúÂ∏ÇË•øÂå∫Êà∏ÈÉ®Êú¨Áî∫ÔºìÔºò‚àíÔºó','2009-04-24 08:26:15',''),(21,'wtake4','rkanbe',4,35.457943,139.621997,'„É©„Éº„É°„É≥Êø±È¢®','Á•ûÂ•àÂ∑ùÁúåÊ®™ÊµúÂ∏ÇË•øÂå∫Êà∏ÈÉ®Êú¨Áî∫ÔºìÔºò‚àíÔºó','2009-04-24 08:26:15',''),(22,'wtake4','googlewtake4',4,35.457943,139.621997,'„É©„Éº„É°„É≥Êø±È¢®','Á•ûÂ•àÂ∑ùÁúåÊ®™ÊµúÂ∏ÇË•øÂå∫Êà∏ÈÉ®Êú¨Áî∫ÔºìÔºò‚àíÔºó','2009-04-24 08:26:15',''),(24,'wtake4','hogehoge',1,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:00:52','http://hogehoge'),(25,'wtake4','hogehoge',2,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:00:53','http://hogehoge'),(26,'wtake4','hogehoge',3,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:00:53','http://hogehoge'),(27,'wtake4','hogehoge',4,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:03:15','http://hogehoge'),(28,'wtake4','hogehoge',5,35.123,139.123,'taitoru','desukuripusyon','2009-04-24 13:05:28','http://hogehoge');
 /*!40000 ALTER TABLE `data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ CREATE TABLE `idtoken` (
   `uid` char(32) NOT NULL,
   `token` char(32) NOT NULL,
   PRIMARY KEY  (`uid`)
-) ENGINE=MyISAM DEFAULT CHARSET=ujis;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
