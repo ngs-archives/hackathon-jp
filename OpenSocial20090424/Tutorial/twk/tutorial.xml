@@ -117,6 +117,7 @@ function GeneratePersonInfo(person) {
 
 function Tutorial_fetchOwner(){
 	try{
+		document.getElementById('result_data').innerHTML = '';
 		var req = opensocial.newDataRequest();
 		
 		var params = {}; 
@@ -125,31 +126,147 @@ function Tutorial_fetchOwner(){
 			
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
 		req.send(function(dataResponse) {
-			var owner = dataResponse.get('get_owner').getData();
-			/* @var owner_friends Collection<Person> */ 
-			
-			console.debug(owner);
-			var html = '';
-			if (owner)
-			{
-				html += owner.getDisplayName();
-				document.getElementById('result_data').innerHTML += html;
-				GeneratePersonInfo(owner);
+			try{
+				var owner = dataResponse.get('get_owner').getData();
+				/* @var owner_friends Collection<Person> */ 
+				
+				console.debug(owner);
+				var html = '';
+				if (owner)
+				{
+					html += owner.getDisplayName();
+					document.getElementById('result_data').innerHTML += html;
+					GeneratePersonInfo(owner);
+				}
+				else
+				{
+					html += '取得できませんでした';
+				}
+			} catch(e) {
+				console.error(e.message);
 			}
-			else
-			{
-				html += '取得できませんでした';
-			}
-			
-			
 		});
 	} catch(e) {
 		console.error(e.message);
 	}
 }
 
+function Tutorial_fetchViewer(){
+	try{
+		document.getElementById('result_data').innerHTML = '';
+		var req = opensocial.newDataRequest();
+		
+		var params = {}; 
+		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
+			= GetSupportedFields();
+			
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "get_owner");
+		req.send(function(dataResponse) {
+			try{
+				var owner = dataResponse.get('get_owner').getData();
+				/* @var owner_friends Collection<Person> */ 
+				
+				console.debug(owner);
+				var html = '';
+				if (owner)
+				{
+					html += owner.getDisplayName();
+					document.getElementById('result_data').innerHTML += html;
+					GeneratePersonInfo(owner);
+				}
+				else
+				{
+					html += '取得できませんでした';
+				}
+			} catch(e) {
+				console.error(e.message);
+			}
+		});
+	} catch(e) {
+		console.error(e.message);
+	}
+}
+
+function Tutorial_fetchViewerFriends()
+{
+	try{
+		document.getElementById('result_data').innerHTML = '';
+		var req = opensocial.newDataRequest();
+
+		var params = {}; 
+		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
+			= GetSupportedFields();
+			
+		var viewerIdSpec = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+		req.add(req.newFetchPeopleRequest(viewerIdSpec, params), "get_viewer_friends");
+	
+		req.send(function(dataResponse) {
+			try{
+				var viewer_friends = dataResponse.get('get_viewer_friends').getData();
+				/* @var viewer_friends Collection<Person> */ 
+				
+				html = '';
+				if (viewer_friends)
+				{
+					html += viewer_friends.size() + '人';
+					document.getElementById('result_data').innerHTML += html;
+					viewer_friends.each(GeneratePersonInfo); // each
+				}
+				else
+				{
+					html += '取得できませんでした';
+				}
+			} catch(e) {
+				console.error(e.message);
+			}
+		});
+	} catch(e) {
+		console.error(e.message);
+	}
+}
+ 	
+function Tutorial_fetchOwnerFriends()
+{
+	try{
+		document.getElementById('result_data').innerHTML = '';
+		var req = opensocial.newDataRequest();
+
+		var params = {}; 
+		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
+			= GetSupportedFields();
+			
+		var ownerIdSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+		req.add(req.newFetchPeopleRequest(ownerIdSpec, params), "get_owner_friends");
+		
+		req.send(function(dataResponse) {
+			try{
+				var owner_friends = dataResponse.get('get_owner_friends').getData();
+				/* @var owner_friends Collection<Person> */ 
+				
+				html = '';
+				if (owner_friends)
+				{
+					html += owner_friends.size() + '人';
+					document.getElementById('result_data').innerHTML += html;
+					owner_friends.each(GeneratePersonInfo); // each
+				}
+				else
+				{
+					html += '取得できませんでした';
+				}
+			} catch(e) {
+				console.error(e.message);
+			}
+		}); // send
+	} catch(e) {
+		console.error(e.message);
+	}
+} //
+ 
+
 function Tutorial_env(){
 	try {
+		document.getElementById('result_data').innerHTML = '';
 		var env = opensocial.getEnvironment();
 		var html = '';
 		html += 'domain: ' + env.getDomain() + '<br />';
@@ -187,6 +304,9 @@ td { border: solid 1px; vertical-align: top; }
 <div>
 	<button onclick="Tutorial_env();">環境情報</button>
 	<button onclick='Tutorial_fetchOwner();'>オーナー情報</button>
+	<button onclick='Tutorial_fetchViewer();'>閲覧者情報</button>
+	<button onclick='Tutorial_fetchOwnerFriends();'>オーナー友人情報</button>
+	<button onclick='Tutorial_fetchViewerFriends();'>閲覧者友人情報</button>
 	<input type='text' id='title' /><button onclick='postActivity();'>アクティビティー送信!</button>
 </div>
 
@@ -210,7 +330,7 @@ td { border: solid 1px; vertical-align: top; }
   <ul id='contents'></ul>
 </div>
 	
-<td ><div id="result_data" style="width: 930px; height: 200px; overflow:scroll;">
+<td ><div id="result_data" style="font-size: 77%; width: 930px; height: 200px; overflow:scroll;">
 </div></td>
 </tr></table>
 
