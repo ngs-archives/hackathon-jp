@@ -8,9 +8,31 @@
     <Content type="html" view="home,profile,canvas"><![CDATA[<script type="text/javascript">
     if (typeof console == 'undefined') {
     	this.console = {
-    		debug:alert
+    		// debug:alert
+    		debug:function(){}
+    		, error:alert
     	};
     }
+    
+    function GetSupportedFields()
+    {
+		var env = opensocial.getEnvironment();
+		
+		var objectType = opensocial.Environment.ObjectType.PERSON;
+		
+		var fields = [];
+		for(fieldName in opensocial.Person.Field)
+		{
+			if (env.supportsField(objectType, opensocial.Person.Field[fieldName]))
+			{
+				alert(fieldName);
+				fields.push(opensocial.Person.Field[fieldName]);
+			}
+		}
+		
+		return fields;
+    }
+    
       /**
        * Request the OWNER and OWNER's friends.
        */
@@ -19,17 +41,18 @@
 		var env = opensocial.getEnvironment();
 		
 		var html = '';
-		/*
+		html += 'domain is :' + env.getDomain() + '<br />';
+
+/*
 		var allFields = [];
-		for(field in opensocial.Person.Field)
+		for(fieldName in opensocial.Person.Field)
 		{
-			html += field + '<br />';
-			allFields.push(field);
+			// html += fieldName + '<br />';
+			allFields.push(opensocial.Person.Field[fieldName]);
 		}
-		*/
 		
 		var html = '';
-		html += 'domain is :' + env.getDomain() + '<br />';
+		
 		var objectType = opensocial.Environment.ObjectType.PERSON;
 		html += 'objectType:' + 'PERSON<br />'; 
 		for (fieldName in opensocial.Person.Field)
@@ -37,23 +60,19 @@
 			html += 'fieldName ' + fieldName + ' is supported? : ' 
 				+ env.supportsField(objectType, opensocial.Person.Field[fieldName]) + '<br />';
 		}
-		
         document.getElementById('message').innerHTML += html;
-
-
+*/
       
         var idspec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
         var req = opensocial.newDataRequest();
         var params = {}; 
 		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] 
-			= [
-				opensocial.Person.Field.PROFILE_URL
-			]; 
+			= GetSupportedFields();
         req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
-        req.add(req.newFetchPeopleRequest(idspec), "get_friends");
+        req.add(req.newFetchPeopleRequest(idspec, params), "get_friends");
         req.send(response);
       }catch(e){
-        alert(e);
+        console.error(e);
       }
       	return;
 
@@ -65,6 +84,7 @@
        * @param {Object} dataResponse Friend information that was requested.
        */
       function response(dataResponse) {
+      try {
         var owner = dataResponse.get('get_owner').getData();
         /* @var owner Map< PersonId, Map<String, Object>> */
         var friends = dataResponse.get('get_friends').getData();
@@ -74,6 +94,7 @@
         html += 'domain: ' + domain + '<br />';
         html += owner.getDisplayName() + 'の友達は' + friends.size() + '人です';
         html += ':<br><ul>';
+        return;
         friends.each(function(person) {
           console.debug(person);
           /* @var person Person */
@@ -81,13 +102,25 @@
           html += 'id:' + person.getId();
           html += 'isOwner:' + person.isOwner();
           html += 'isViewer:' + person.isViewer();
-          html += '</li>';
-//          person.getField(key, opt_params);
-        });
-        html += '</ul>';
-        
-        document.getElementById('message').innerHTML += html;
-      }
+          
+			for(i in opensocial.Person.Field){
+				if(i == "THUMBNAIL_URL"){
+					html+="<img src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
+				}else{
+					html+= person.getField(opensocial.Person.Field[i]);
+				}
+				html += '<br />';
+			}
+	          html += '</li>';
+	
+	        html += '</ul>';
+	        
+	        document.getElementById('message').innerHTML += html;
+      }); // each
+      
+      } catch(e) {
+      	console.error(e);
+     	}
       
       } // request
 
