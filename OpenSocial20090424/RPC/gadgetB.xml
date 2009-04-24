@@ -28,9 +28,12 @@ console.log(this.message.value);
       $.each(data.results.shop, function(i, shop) {
 console.log(shop.name, shop.photo.pc.s, shop.lat, shop.lng);
 
-        $('<img/>')
+        var s = $('<img/>')
           .attr('alt', shop.name)
-          .attr('src', shop.photo.pc.s)
+          .attr('src', shop.photo.pc.s);
+          
+        $('<div class="shop"/>')
+          .append(s)
           .appendTo(shops);
 
       });
@@ -53,6 +56,10 @@ body {
   font-family: Verdana,Arial,Helvetica,sans-serif;
   font-size: .8em;
   margin: 5px;
+}
+
+#shops div.shop {
+  width: 60px;
 }
 
 -->
