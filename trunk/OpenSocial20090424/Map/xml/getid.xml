@@ -121,8 +121,8 @@
 				</tr>
 				<tr height=400>
 					<td valign="top">
-						<div id="maptabs_div" style="width: 550px; height:400px"></div>
-						<div id="map" style="width: 550px; height: 400px;"></div>
+						<div id="maptabs_div" style="width: 450px; height:400px"></div>
+						<div id="map" style="width: 450px; height: 400px;"></div>
 						<div id="album" style="width: 550px; height: 400px;"></div>
 					</td>
 					<td valign="top">
