@@ -161,8 +161,7 @@
         
         friends.each(GeneratePersonInfo); // each
      
-        // gadgets.window.adjustHeight();
-     
+        gadgets.window.adjustHeight();
       
       } catch(e) {
       	console.error(e.message);
@@ -175,5 +174,5 @@
       // Execute the request function when the application is finished loading.
       gadgets.util.registerOnLoadHandler(request);
     </script>
-    <div id="message" style="height: 160px; overflow:scroll;"> </div>]]></Content>
+    <div id="message" style="height: 170px; overflow:scroll;"> </div>]]></Content>
 </Module>
