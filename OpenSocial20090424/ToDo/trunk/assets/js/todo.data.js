@@ -8,16 +8,20 @@ ToDoApp.data = {
 	getStickies : function(callback) {
 		jQuery.opensocial.data.get(ToDoApp.data.PrefKey.STICKIES,"viewer",callback,false);
 	},
-	onChangeText : function(id) {
-		ToDoApp.data.stickies = ToDoApp.data.stickies||[];
-		ToDoApp.data.stickies[id] = $j("#sticky"+id+" textarea").val()||"";
+	onChangeText : function() {
 		ToDoApp.data.save();
 	},
-	remove : function(id) {
-		ToDoApp.data.stickies = ToDoApp.data.stickies.splice(id,1);
+	remove : function(ele) {
+		$j(ele).remove();
 		ToDoApp.data.save();
 	},
 	save : function() {
+		var ar = [];
+		$j("#stickies .sticky textarea").each(function(d){
+			ar.push($(this).val());
+		});
+		ToDoApp.data.stickies = ar;
+		console.log(ar);
 		jQuery.opensocial.data.set(ToDoApp.data.PrefKey.STICKIES,ToDoApp.data.stickies);
 	},
 	getFriends : function() {
