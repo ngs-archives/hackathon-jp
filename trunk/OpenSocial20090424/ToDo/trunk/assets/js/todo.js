@@ -22,6 +22,8 @@ var ToDoApp = {
 		jQuery.gadgets.height("auto");
 	},
 	remove : function(ele) {
+		$j(ele).remove();
+		ToDoApp.data.save();
 	}
 };
 
