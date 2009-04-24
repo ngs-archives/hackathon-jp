@@ -876,8 +876,8 @@ function loadData()
 {
 	var date = new Date().getTime();
 	var url = 
-	"http://61.193.175.55/test-cgi/test/hackathon/cgi/read.cgi"+
-	"?cachebuster=" + date + "&id="+ viewerobj.id;
+		"http://61.193.175.55/test-cgi/test/hackathon/cgi/read.cgi"+
+		"?cachebuster=" + date + "&id="+ viewerobj.id;
 
 	var params = {};
 	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;  
@@ -892,6 +892,7 @@ function showData(obj)
 //console.log(obj);
 	var i = 0;
 	var j = obj.data;
+console.log(j);
 	for (var key in j )
 	{
 		//if ( key >= 0 && key < 10 )
