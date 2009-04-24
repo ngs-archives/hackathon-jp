@@ -20,7 +20,7 @@
         <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/ToDo/trunk/assets/js/libs/prototype.js?a=2"></script>
         <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/ToDo/trunk/assets/js/libs/effects.js"></script>
         <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/ToDo/trunk/assets/js/libs/dragdrop.js"></script>
-        <script type="text/javascript" src="http://test.ngsdev.org/hackathon/todo/assets/js/todo.js" ></script>
+        <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/ToDo/trunk/assets/js/todo.js" ></script>
         <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/ToDo/trunk/assets/js/todo.ui.js" ></script>
         <script type="text/javascript" src="http://test.ngsdev.org/hackathon/todo/assets/js/todo.data.js" ></script>
         <script type="text/javascript">
