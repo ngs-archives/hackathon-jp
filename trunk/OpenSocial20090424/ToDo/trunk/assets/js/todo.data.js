@@ -11,7 +11,7 @@ ToDoApp.data = {
 	save : function() {
 		var ar = [];
 		$j("#stickies .sticky textarea").each(function(d){
-			ar.push($(this).val());
+			ar.push($j(this).val());
 		});
 		ToDoApp.data.stickies = ar;
 		console.log(ar);
