@@ -13,20 +13,24 @@
 <!-- Fetching People and Friends -->
 <div>
   <div>
-    <span id='viewer'></span>
-		<div id='title'>OpenSocial打ち上げ！</div>
+    <span id="viewer"></span>
+		<div id="title">OpenSocial打ち上げ！</div>
 		<dl id='info'>
 			<dt>開催日時</dt>
-			<dd>2009年4月20日 18:00〜20:00</dd>
+			<dd id="date">2009年4月20日 18:00〜20:00</dd>
 			<dt>場所</dt>
-			<dd>有楽町</dd>
+			<dd id="place">有楽町</dd>
 			<dt>定員</dt>
 			<dd>～人</dd>
 		</dl>
-		<div id='description'>OpenSocialハッカソンお疲れ様でした！</div>
-		<div id='member'>参加者一覧
+		<div id="description">OpenSocialハッカソンお疲れ様でした！</div>
+		<div id="joinform">
+			ヒトコト: <input type="text" name="comment" id="comment" />
+			<button onclick='joinParty();'>飲み会に参加する</button>
+		</div>
+		<div id="members">参加者一覧
 			<ul>
-				<li>京和</li>
+				<li><img src="http://sandbox.home.goo.ne.jp/img/common/noimage60_p.gif">京和: よろしくお願いします。</li>
 				<li>佐々木</li>
 				<li>まちゅ</li>
 			</ul>
@@ -34,7 +38,6 @@
   </div>
 </div>
 <script type='text/javascript'>
-
 gadgets.util.registerOnLoadHandler(function(){
   $.gadgets.height('auto');
   getParty();
@@ -56,38 +59,33 @@ function getParty() {
       $($("#info dd")[1]).html(party.place);
       $($("#info dd")[2]).html(party.max + "人");
       //console.log($("#info dd"));
-
     }, params);
-
-
+	}
 }
+
+function joinParty() {
+	$.opensocial.person(opensocial.IdSpec.PersonId.VIEWER,
+	  function(viewer) {
+		  // console.log(owner.getId());
+			$('#viewer').html(viewer.getId());
+			var req_url ="http://opensocial.machu.jp/member/create";
+			var req_data = {
+				party_id: 12345,
+				member_id: viewer.getId(),
+				name: viewer.getDisplayName(),
+				gender: 1,
+				age: 20,
+				comment: $('#comment').value
+			};
+			$.gadgets.post(
+				req_url,
+				req_data,
+				function(d) { console.log(d); },
+		  "JSON");
+		}
 	);
 }
 </script>
-
-<!-- Posting activity -->
-<div>
-  <input type='text' id='title' />
-  <button onclick='postActivity();'>Post activity</button>
-  <div id='result_activity'></div>
-</div>
-<script type='text/javascript'>
-function postActivity() {
-  var params = {};
-  params[opensocial.Activity.Field.TITLE] = document.getElementById('title').value;
-  var activity = opensocial.newActivity(params);
-  opensocial.requestCreateActivity(
-      activity, opensocial.CreateActivityPriority.HIGH, function(response) {
-        if (response.hadError()) {
-          document.getElementById('result_activity').innerHTML = response.getErrorCode();
-        } else {
-          document.getElementById('result_activity').innerHTML = 'Succeeded!';
-        }
-        gadgets.window.adjustHeight();
-      });
-}
-</script>
-
   ]]></Content>
   <Content type="html" view="home"><![CDATA[
 <!-- jopensocial -->
