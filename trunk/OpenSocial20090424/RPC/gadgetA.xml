@@ -22,6 +22,6 @@ jQuery(function($) {
 </script>
 <style type="text/css">
 </style>
-<div id="result">waiting message...</div>
+<div id="result">waiting message...!</div>
 ]]></Content>
 </Module>
