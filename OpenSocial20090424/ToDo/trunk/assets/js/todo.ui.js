@@ -57,7 +57,7 @@ ToDoApp.ui = {
         for( var i = 0; i < friendList.length; i++ ){
             var data = friendList[i];
             html += '<div style="width:200px;background-color:lightgray;">';
-            html += '<p>' + data.person.getDisplayName() + '</p>';
+            html += '<p><b>' + data.person.getDisplayName() + '</b><img src="'+ data.person.getField(opensocial.Person.Field.THUMBNAIL_URL) + '"/></p>';
             for( var j = 0; j < data.stickies.length; j++ ){
                 html += ToDoApp.ui.getSticky( j, data.stickies[j], false );
             }
