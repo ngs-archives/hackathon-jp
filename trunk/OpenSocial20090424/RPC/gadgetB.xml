@@ -22,10 +22,11 @@ console.log(this.message.value);
     };
 
     $.getJSON(url, data, function(data) {
+
+      var shops = $('#shops').empty();
+
       $.each(data.results.shop, function(i, shop) {
 console.log(shop.name, shop.photo.pc.s, shop.lat, shop.lng);
-
-        var shops = $('#shops').empty();
 
         $('<img/>')
           .attr('alt', shop.name)
