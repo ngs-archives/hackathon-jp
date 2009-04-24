@@ -59,8 +59,8 @@ function init() {
       hiddenHappyButton();
     }
    }
-  });
   gadgets.window.adjustHeight();
+  });
 }
 
 
@@ -102,7 +102,7 @@ function addTodo() {
 	  showTodoList();
     }
     gadgets.window.adjustHeight();
-	  init();
+    init();
   });
 }
 
