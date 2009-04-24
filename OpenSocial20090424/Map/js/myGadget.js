@@ -336,7 +336,7 @@ function _showFriends()
 					});
 		 });
 	}
-console.log(friendobj);
+//console.log(friendobj);
 }
 
 function triggerClick()
@@ -938,7 +938,7 @@ function getValuesFromDOM(idx)
 	var phone = document.getElementById(phoneid).value;
 	var img = $j('#photo_'+idx+'>img')[0].src;
 
-	return {name:name, description:description, phone:phone};//, img:img};
+	return {name:name, description:description, phone:phone, pid:-1};//, img:img};
 }
 /*
 	 地点一覧取得
