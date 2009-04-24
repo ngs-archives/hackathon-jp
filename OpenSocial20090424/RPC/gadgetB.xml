@@ -16,6 +16,7 @@
 jQuery(function($) {
   $('#form").submit(function() {
     $.pub('RPC', this.message.value);
+    return false;
   });
 });
 </script>
