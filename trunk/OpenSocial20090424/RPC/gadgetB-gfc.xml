@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs
+  title="[RPC] goo×ホットペッパー"
+  description="[RPC] goo×ホットペッパー"
+>
+<Require feature="dynamic-height" />
+<Require feature="minimessage" />
+<Require feature="opensocial-0.8" />
+<Require feature="pubsub" />
+</ModulePrefs>
+<Content type="html"><![CDATA[
+<script type="text/javascript" src="http://d1lzci7p8hi5b7.cloudfront.net/opensocial-jquery.min.js"></script>
+<script type="text/javascript">
+jQuery(function($) {
+
+  // byAddress
+  function byAddress(address) {
+
+    var shops = $('#shops')
+      .text('読み込み中 ...');
+
+    var url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
+    var data = { 
+      key: 'b23f89f420f6b18b', format: 'json', address: address
+    };
+
+    $.getJSON(url, data, function(data) {
+
+      shops.empty();
+
+      if (data.results.shop.length == 0)
+        return shops.text('お店が見つかりません。')
+
+      $.each(data.results.shop, function(i, shop) {
+
+        var s = $('<img/>')
+          .attr('alt', shop.name)
+          .attr('src', shop.photo.pc.s)
+          .click(function() {
+            $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
+          });
+          
+        $('<div class="shop"/>')
+          .append(s)
+          .appendTo(shops);
+      });
+
+      $(window).adjustHeight();
+    });
+  };
+
+  // byLatLng
+  function byLatLng(lat, lng) {
+
+    var shops = $('#shops')
+      .text('読み込み中 ...');
+
+    var url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
+    var data = { 
+      key: 'b23f89f420f6b18b', format: 'json', lat: lat, lng: lng
+    };
+
+    $.getJSON(url, data, function(data) {
+
+      shops.empty();
+
+      if (data.results.shop.length == 0)
+        shops.text('お店が見つかりません。')
+
+      $.each(data.results.shop, function(i, shop) {
+
+        var s = $('<img/>')
+          .attr('alt', shop.name)
+          .attr('src', shop.photo.pc.s)
+          .click(function() {
+
+var lat = shop.lat;
+var lng = shop.lng;
+var alt = 15;
+
+var url = 'http://maps.google.com/staticmap?' + $.param({  
+  center: lat + ',' + lng,
+  zoom: alt,
+  size: '120x120',
+  markers: lat + ',' + lng,
+  key: 'ABQIAAAA38HauxeH3H_8yAPzIR8sIhTWXXMYE4ppnS2SSu35FiE-qXf6lxTOJsiw7W4KW9AnLiv5lKRqxVAx1A'
+});
+console.log(url);
+
+$.postData('/activities/@me', {
+  title: 'ごめんちゃいテストです。',
+  mediaItems: [{
+    //type: 'image', url: url, mimeType: 'image/jpeg'
+    type: 'image', url: shop.photo.pc.l, mimeType: 'image/jpeg'
+  }]
+});
+
+            $.pub('geo', { lat: parseFloat(shop.lat), lng: parseFloat(shop.lng) });
+          });
+          
+        $('<div class="shop"/>')
+          .append(s)
+          .appendTo(shops);
+      });
+
+      $(window).adjustHeight();
+    });
+  };
+
+  $.sub('geo', function(sender, message) {
+console.log(sender, message.lat, message.lng);
+    if ($.pref('url') != sender)
+      byLatLng(message.lat, message.lng);
+  });
+
+  $('#form').submit(function() {
+    byAddress(this.address.value);
+    return false;
+  }).submit();
+
+});
+</script>
+<style type="text/css">
+<!--
+
+body {
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: .8em;
+  margin: 5px;
+}
+
+#shops div.shop {
+/*border: 1px solid black;*/
+  text-align: center;
+  width: 64px;
+  height: 64px;
+  float: left;
+}
+
+#shops div.shop img {
+  cursor: pointer;
+}
+
+-->
+</style>
+<form id="form">
+<input type="text" name="address" value="新橋" />
+<input type="submit" value="検索" />
+</form>
+<div id="shops"></div>
+
+]]></Content>
+</Module>
