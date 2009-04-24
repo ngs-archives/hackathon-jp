@@ -35,9 +35,28 @@
 					continue;
 			
 				var info = person.getField(opensocial.Person.Field[i]);
+				if (typeof info == 'undefined')
+					continue;
+				
 				if (i == "THUMBNAIL_URL")
 					info = "<img src='" + info + "' />";
-				if (typeof info != 'string')
+				else if (info['getDisplayValue'])
+					info = info.getDisplayValue();
+				else if (i == 'NAME')
+					info = info.getField(opensocial.Name.Field.UNSTRUCTURED);
+				else if (typeof info == 'array')
+				{
+					var urlstr = ''; 
+					for (var j = 0; j < i.length; ++j)
+					{
+						var url = info[j];
+						urlstr += url.getField(opensocial.Url.Field.ADDRESS)
+							+ ' ' + url.getField(opensocial.Url.Field.LINK_TEXT)
+							+ ' ' + url.getField(opensocial.Url.Field.TYPE);
+					}
+					info = urlstr;
+				}
+				else if (typeof info != 'string')
 				{
 					console.debug(i);
 					console.debug(info);
