@@ -135,9 +135,9 @@
 			function doSomethingWithMyData(data){
 				var mydata = data[me.getId()];
 				var div = document.getElementById('content_div');
-				htmlout += "AppField1 ->" + mydata["AppField1"] +"<br/>;
-				htmlout += "AppField2 ->" + mydata["AppField2"] +"<br/>;
-				htmlout += "AppField3 ->" + mydata["AppField3"] +"<br/>;
+				htmlout += "AppField1 ->" + mydata["AppField1"] +"<br/>";
+				htmlout += "AppField2 ->" + mydata["AppField2"] +"<br/>";
+				htmlout += "AppField3 ->" + mydata["AppField3"] +"<br/>";
 				div.innerHTML = htmlout;
 			}
 
