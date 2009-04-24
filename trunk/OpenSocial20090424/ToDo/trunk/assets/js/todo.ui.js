@@ -108,7 +108,7 @@ ToDoApp.ui = {
 		    ].join("");
         }else{
             return [
-			    "<div class=\"sticky\"><b>",text,"</b><\/div>"
+			    text,"</br>"
             ].join("");
         }
         
