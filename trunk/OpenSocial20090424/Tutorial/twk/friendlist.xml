@@ -44,7 +44,7 @@
 					info = info.getDisplayValue();
 				else if (i == 'NAME')
 					info = info.getField(opensocial.Name.Field.UNSTRUCTURED);
-				else if (typeof info == 'array')
+				else if (i == 'URLS')
 				{
 					var urlstr = ''; 
 					for (var j = 0; j < i.length; ++j)
