@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
 <ModulePrefs
-  title="G PRC B (開発中)"
-  description="G PRC B (開発中)"
+  title="[RPC] goo×ホットペッパー (開発中)"
+  description="[RPC] goo×ホットペッパー (開発中)"
 >
 <Require feature="opensocial-0.8" />
 <Require feature="pubsub" />
@@ -11,8 +11,20 @@
 <script type="text/javascript" src="http://d1lzci7p8hi5b7.cloudfront.net/opensocial-jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(function($) {
+
   $('#form').submit(function() {
 console.log(this.message.value);
+
+    var url = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
+    var data = { 
+      key: 'b23f89f420f6b18b', format: 'json',
+      address: this.message.value
+    };
+
+    $.getJSON(url, data, function(res) {
+console.log(res);
+    });
+
     gadgets.pubsub.publish('RPC', this.message.value);
     return false;
   });
@@ -20,6 +32,7 @@ console.log(this.message.value);
   gadgets.pubsub.subscribe('RPC', function() {
     console.log(arguments);
   });
+
 });
 </script>
 <style type="text/css">
