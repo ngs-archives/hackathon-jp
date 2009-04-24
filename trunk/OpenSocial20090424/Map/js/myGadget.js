@@ -1021,6 +1021,7 @@ function prepareData()
 {
 	var arr = [];
 	var n = 0;
+console.log(children);
 	for (i in children)
 	{
 		// 地図クリックのデータのみ登録対象とする　
@@ -1092,9 +1093,7 @@ function saveRes(obj)
 	var el = document.getElementById('tableview');
 	el.innerHTML = "";
 	loadData();
-console.log(children);
 	children = [];
-console.log(children);
 }
 
 function _loadFromFriends()
