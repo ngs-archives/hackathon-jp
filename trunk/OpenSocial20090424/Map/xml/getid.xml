@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Map Community" scrolling="true" description="地図でコミュニケーション" height="600">
+  <ModulePrefs title="Map Community" scrolling="true" description="地図でコミュニケーション" height="600" screenshot="http://dl.getdropbox.com/u/255963/screenshot.jpg" thumbnail="http://dl.getdropbox.com/u/255963/thumbnail.png">
     <Require feature="opensocial-0.8"/>
     <Require feature="dynamic-height"/>
     <Require feature="views"/>
     <Require feature="tabs"/>
+    <Icon>http://dl.getdropbox.com/u/255963/favicon.ico</Icon>
   </ModulePrefs>
 <!--
 	<UserPref name="loc" 
@@ -134,4 +135,76 @@
 		<div id="searchcontrol"></div>
 
 		]]></Content>
+  <Content type="html" view="home"><![CDATA[
+	<script type="text/javascript">
+var viewer;
+var endpoint = "http://www.plants-web.jp/map/";
+
+function initHome()
+{
+  var req = opensocial.newDataRequest();
+  req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+  req.send(function(data) {
+    viewer = data.get('viewer').getData();
+	loadDataToHome();
+  });
+}
+
+function createPostForm()
+{
+	var date = new Date().getTime();
+	var url = endpoint + "save.cgi";
+
+	var html = new Array();
+	html.push("<b>form</b>");
+	document.getElementById("form_home").innerHTML = html.join('');
+}
+
+function loadDataToHome()
+{
+	var date = new Date().getTime();
+	var url = endpoint + "read.cgi?cachebuster=" + date + "&id="+ 9; //viewer.getId();
+	
+	var params = {};
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+
+	gadgets.io.makeRequest(url, showDataToHome, params);
+}
+
+function showDataToHome(obj)
+{
+	var json = obj.data;
+	var html = new Array();
+	html.push('<ul>');
+	for (var key in json )
+	{
+		html.push("<li>");
+		html.push(json[key].uid + " visits " + json[key].name);
+		html.push("</li>");
+	}
+	html.push('<ul>');
+	document.getElementById("result_home").innerHTML = html.join('');
+	
+	onLoadComplete();
+}
+
+function onLoadComplete()
+{
+    createPostForm();
+    gadgets.window.adjustHeight();
+}
+
+gadgets.util.registerOnLoadHandler(initHome);
+
+	</script>
+	<div id="result_home"></div>
+	<div id="form_home"></div>
+	]]></Content>
+  <Content type="html" view="profile"><![CDATA[
+	profile
+	]]></Content>
+  <Content type="html" view="preview"><![CDATA[
+	preview
+	]]></Content>
 </Module>
