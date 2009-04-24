@@ -3,7 +3,8 @@
     <ModulePrefs
             title="って田中さんが言ってました。"
             author_email="yusuke.kamiya@drecom.co.jp"
-            description="みんなで田中さんのフリをしてアプリ利用者を幸せにしてあげよう！！">
+            description="みんなで田中さんのフリをしてアプリ利用者を幸せにしてあげよう！！"
+            height="900" scrolling="true">
         <Require feature="opensocial-0.8" />
         <Require feature="dynamic-height" />
     </ModulePrefs>
