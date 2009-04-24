@@ -12,6 +12,9 @@
     <Content type="html" view="canvas"><![CDATA[<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" src="http://localhost:8080/Tutorial/canvas.js"></script>
 <script type="text/javascript" src="http://localhost:8080/Tutorial/hello_world.js"></script>
+<script type="text/javascript" src="http://localhost:8080/Tutorial/listing_friend.js"></script>
+<script rype="text/javascript" src="http://localhost:8080/Tutorial/giving_gift.js"></script>
+
 <script type="text/javascript">
 google.load("jquery", "1.3.2");
 google.load("jqueryui", "1.7.1");
@@ -20,5 +23,15 @@ gadgets.util.registerOnLoadHandler(init);
 </script>
 
 <!-- The code for Canvas view is here. -->
-<div id="tutorial_tab"></div>]]></Content>
+<div id="tutorial_tab"></div>
+
+<div id="give_gift_main">
+	<div id='give_gift'>
+		<form id='give_gift_form'>
+			Give <span id='give_gift_gifts'></span> to <span id='give_gift_friends'></span>. <a href='javascript:void(0);' onclick='giving_gift_giveGift();'>Give!</a>
+		</form>
+	</div>
+	<div id='give_gift_given'></div>
+	<div id='give_gift_received'></div>
+</div>]]></Content>
 </Module>

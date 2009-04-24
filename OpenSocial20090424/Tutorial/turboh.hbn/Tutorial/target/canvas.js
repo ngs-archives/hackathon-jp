@@ -21,6 +21,13 @@ function init() {
 	var listingFriendId = tabs.addTab("Listing Friends");
 	init_listing_friend(listingFriendId);
 	
+	/*
+	 * Giving gift
+	 */
+	var givingGiftId = tabs.addTab("Giving Gift");
+	init_giving_gift(givingGiftId);
+	
+//	gadgets.window.adjustHeight();
 }
 
 // TODO: Write the code for Canvas view.
