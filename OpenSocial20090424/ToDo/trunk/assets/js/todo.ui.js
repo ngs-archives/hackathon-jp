@@ -86,6 +86,7 @@ ToDoApp.ui = {
 		return [
 			"<div class=\"sticky\" id=\"sticky",id,"\">",
 				"<textarea onchange=\"ToDoApp.data.onChangeText(",id,")\">", text, "<\/textarea>",
+				"<span class=\"del\" onclick=\"ToDoApp.remove(",id,");\">X<\/span>"
 			"<\/div>",
 		].join("");
 	}
