@@ -14,7 +14,7 @@
         var req = opensocial.newDataRequest();
         var params = {};
         params[opensocial.Person.Field.AGE,opensocial.Person.Field.GENDER,opensocial.Person.Field.CURRENT_LOCATION];
-        req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER,params), "get_owner");
+        req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "get_owner");
         req.add(req.newFetchPeopleRequest(idspec), "get_friends");
         req.add(
         req.send(response);
