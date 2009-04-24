@@ -3,12 +3,12 @@
     <ModulePrefs
             title="って田中さんが言ってました。"
             author_email="yusuke.kamiya@drecom.co.jp"
-            description="みんなで田中さんのフリをしてアプリ利用者を幸せにしてあげよう！！"
-            height="900" scrolling="true">
+            description="">
         <Require feature="opensocial-0.8" />
         <Require feature="dynamic-height" />
     </ModulePrefs>
-    <Content type="html" view="canvas"><![CDATA[<script type='text/javascript' src='/gaget_test/canvas.js'></script>
+    <Content type="html" view="canvas"><![CDATA[<!-- canvas -->
+<script type='text/javascript' src='/gaget_test/canvas.js'></script>
 <script type='text/javascript'>init();</script>
 
 <div>
@@ -24,13 +24,15 @@
   <ul id='contents'></ul>
 </div>
 
-<script type='text/javascript'>showTodoList();</script>]]></Content>
+<script type='text/javascript'>showTodoList();</script>
+<!-- canvas -->]]></Content>
 
 
 
 
 
-  <Content type="html" view="profile"><![CDATA[<script type='text/javascript' src='/gaget_test/canvas.js'></script>
+  <Content type="html" view="profile"><![CDATA[<!-- profile -->
+<script type='text/javascript' src='/gaget_test/canvas.js'></script>
 <script type='text/javascript'>init();</script>
 
 <div>
@@ -45,7 +47,12 @@
   <ul id='contents'></ul>
 </div>
 
-<script type='text/javascript'>showTodoList();</script>]]></Content>
-    <Content type="html" view="preview"><![CDATA[<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />]]></Content>
-    <Content type="html" view="home"><![CDATA[<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />]]></Content>
+<script type='text/javascript'>showTodoList();</script>
+<!-- profile -->]]></Content>
+    <Content type="html" view="preview"><![CDATA[<!-- preview -->
+<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
+<!-- preview -->]]></Content>
+    <Content type="html" view="home"><![CDATA[<!-- home -->
+<img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Fortune/image/logo.gif" border="0" />
+<!-- home -->]]></Content>
 </Module>
