@@ -34,13 +34,18 @@
 				if (!env.supportsField(objectType, opensocial.Person.Field[i]))
 					continue;
 			
-				html += i;
-				if(i == "THUMBNAIL_URL"){
-					html+="<img src='"+person.getField(opensocial.Person.Field[i]) +"'></img>";
-				}else{
-					html+= person.getField(opensocial.Person.Field[i]);
-				}
-				html += '<br />';
+				var info = person.getField(opensocial.Person.Field[i]);
+				if (i == "THUMBNAIL_URL")
+					info = "<img src='" + info + "' />";
+				if (typeof info != 'string')
+				{
+					console.debug(i);
+					console.debug(info);
+				}	
+				
+				if (!info) continue;
+				
+				html += i + info + '<br />';
 			}
 	          html += '</li>';
 	
@@ -92,6 +97,7 @@
 		];
 		*/  
         req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
+        req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "get_viewer");
         req.add(req.newFetchPeopleRequest(idspec, params), "get_friends");
         req.send(response);
       }catch(e){
@@ -111,6 +117,9 @@
         var owner = dataResponse.get('get_owner').getData();
         /* @var owner Map< PersonId, Map<String, Object>> */
         
+        var viewer = dataResponse.get('get_viewer').getData();
+        /* @var viewer Map< PersonId, Map<String, Object>> */
+        
         var friends = dataResponse.get('get_friends').getData();
         /* @var friends Collection<Person> */ 
         
@@ -122,6 +131,10 @@
         html += GeneratePersonInfo(owner);
         html += '<br>';
         
+        html += 'ビューワー情報<br />';
+        html += viewer.getDisplayName();
+        html += GeneratePersonInfo(viewer);
+        html += '<br>';
         
         html += '友人情報<br />';
         html += friends.size() + '人です';
