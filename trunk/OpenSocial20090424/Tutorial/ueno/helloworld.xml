@@ -16,8 +16,8 @@
 		Hello, World!!!!!
 		<link style="stylesheet" type="text/css" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/Tutorial/ueno/style.css"/>
 		<script type="text/javascript">
-			//gadgets.util.registerOnLoadHandler(request);
-			gadgets.util.registerOnLoadHandler(populateMyAppData);
+			gadgets.util.registerOnLoadHandler(request);
+			//gadgets.util.registerOnLoadHandler(populateMyAppData);
 			var htmlout ="";
 			var me = null;
 			function request(){
@@ -30,7 +30,7 @@
 
 				req.add(req.newFetchPeopleRequest(idspec,params),"get_friends");
 				req.send(response);
-			};
+			}
 
 			function response(dataResponse){
 				var owner	= dataResponse.get("get_owner").getData();
