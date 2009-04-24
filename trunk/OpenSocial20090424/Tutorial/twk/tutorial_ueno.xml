@@ -58,6 +58,7 @@
      var data1 = Math.random() * 5;
      htmlout += "Setting AppField1 to " + data1 + "<br />";
      req.add(req.newUpdatePersonAppDataRequest("VIEWER", "AppField1", data1)) + "<br />";
+	alert("x");
      req.send(handlePopulateMyAppData);
    }
 
