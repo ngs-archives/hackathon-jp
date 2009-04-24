@@ -22,11 +22,13 @@ jQuery(function($) {
   })
   $('#mapframe').attr('src', mapUrl);
 
+  /*
   gadgets.rpc.register('map_geo', function(point) {
     alert(11111);
     console.log(point);
     gadgets.pubsub.publish('geo', point);
   });
+  */
 
 });
 </script>
