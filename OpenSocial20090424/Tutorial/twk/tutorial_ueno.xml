@@ -36,8 +36,8 @@
 	
 <!-- counter -->
 <script type="text/javascript">
-	function CounterInc(){
-	
+	function CouterInc(){
+		getCountNum();
 	}
 	function getCountNum(){
 		var req = opensocial.newDataRequest();
@@ -47,7 +47,6 @@
 			alert(mydata);
 		});
 	}
-	
 </script>
 <div>
   <input type='text' id='counter' value="0" />
