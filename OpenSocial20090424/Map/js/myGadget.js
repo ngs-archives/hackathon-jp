@@ -125,7 +125,7 @@ function sendEmail()
 }
 function callbackEmail(obj)
 {
-console.log(obj);
+//console.log(obj);
 	var j = obj.data;
 	if ( j.stat != "OK" )
 	{
