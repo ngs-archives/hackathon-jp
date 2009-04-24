@@ -4,13 +4,11 @@
   title="G PRC B (開発中)"
   description="G PRC B (開発中)"
 >
-<Require feature="dynamic-height" />
-<Require feature="minimessage" />
 <Require feature="opensocial-0.8" />
-<Require feature="opensocial-jquery" />
 <Require feature="pubsub" />
 </ModulePrefs>
 <Content type="html" view="home,profile"><![CDATA[
+<scirpt type="text/javascript" src="http://d1lzci7p8hi5b7.cloudfront.net/opensocial-jquery.min.js"></scirpt>
 <script type="text/javascript">
 jQuery(function($) {
   $('#form').submit(function() {
