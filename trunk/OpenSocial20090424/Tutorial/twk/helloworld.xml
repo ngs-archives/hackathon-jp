@@ -1,9 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Module>
-    <ModulePrefs
-            title="Hello World!"
-            description="ですくりぷしょん">
-        <Require feature="opensocial-0.8" />
-    </ModulePrefs>
-    <Content type="html"><![CDATA[Hello, world!]]></Content>
+<?xml version="1.0" encoding="utf-8" ?>  
+<Module>  
+ <ModulePrefs title="twkからこんにちは"  
+   description="twkのテスト用のガジェットです">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="dynamic-height"/>
+    <Require feature="tabs"/>
+    <Require feature="settitle"/>
+    <Require feature="minimessage"/>
+    <Require feature="emoji" />
+ </ModulePrefs>  
+
+<Content type="html" view="profile,home,canvas">
+    <!-- 全てのビューで使用される内容(1) -->
+  <![CDATA[ 
+   <p>こんにちは!!</p> 
+  ]]>  
+</Content>
+<Content type="html" view="home">
+    <!-- homeビューで使用される内容 -->
+  <![CDATA[ 
+   <p>ここはhome!!</p> 
+  ]]>  
+</Content>
+<Content type="html" view="canvas">
+    <!-- canvasビューで使用される内容 -->
+  <![CDATA[ 
+   <p>ここはcanvas!!</p> 
+  ]]>  
+
+</Content>
+<Content type="html" view="profile">
+    <!-- profileビューで使用される内容 -->
+  <![CDATA[ 
+   <p>ここはprofile!!</p> 
+  ]]>  
+</Content>
+<Content type="html" view="profile,home,canvas">
+    <!-- 全てのビューで使用される内容(2) -->
+  <![CDATA[ 
+   <p>こんにちは?!</p> 
+   <script type="text/javascript">
+gadgets.util.registerOnLoadHandler(function(){
+
+var _owner_friends = {};
+_owner_friends[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+_owner_friends[opensocial.IdSpec.Field.GROUP_ID] = opensocial.IdSpec.GroupId.FRIENDS;
+var owner_friends = opensocial.newIdSpec(_owner_friends);
+//   	console.debug(owner_friends);
+
+var req = opensocial.newDataRequest();
+
+// プロフィール情報に関連URLを追加
+var opt_params = {};
+opt_params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [opensocial.Person.Field.URLS];
+// オーナーのプロフィール情報を取得するリクエストを生成
+var person_request = req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, opt_params);
+// オーナーのプロフィール情報を取得するリクエストをリクエストオブジェクトに追加
+req.add(person_request, 'owner_self');
+
+req.send(function(response) {
+	console.debug(response);
+});
+
+}); // registerOnLoadHandler
+   </script>
+  ]]>  
+</Content> 
 </Module>
