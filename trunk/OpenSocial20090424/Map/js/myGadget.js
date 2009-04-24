@@ -105,7 +105,7 @@ function init()
 
 function sendEmail()
 {
-	var url = "http://61.193.175.55/test-cgi/test/hackathon/cgi/regmail.cgi";
+	var url = "http://www.plants-web.jp/map/regmail.cgi";
 	var addr = document.getElementById('maddr').value;
 	var date = new Date().getTime();
 	var param = 
@@ -773,7 +773,7 @@ function deleteRow(idx)
 //console.log(idx);
 //console.log(getValuesFromDic(idx));
 	var url = 
-		"http://61.193.175.55/test-cgi/test/hackathon/cgi/delete.cgi"+
+		"http://www.plants-web.jp/map/delete.cgi"+
 		"?cachebuster=" + date + "&pid="+pid+"&uid="+viewerobj.id;
 
 	var params = {};
@@ -940,7 +940,7 @@ function loadData()
 {
 	var date = new Date().getTime();
 	var url = 
-		"http://61.193.175.55/test-cgi/test/hackathon/cgi/read.cgi"+
+		"http://www.plants-web.jp/map/read.cgi"+
 		"?cachebuster=" + date + "&id="+ viewerobj.id;
 
 	var params = {};
@@ -1068,7 +1068,7 @@ function saveData()
 	j = encodeURI(j);
 	var date = new Date().getTime();
 
-	var url = "http://61.193.175.55/test-cgi/test/hackathon/cgi/save.cgi";
+	var url = "http://www.plants-web.jp/map/save.cgi";
 	for ( var v in dropped )
 	{
 		var param = 
