@@ -73,13 +73,14 @@ jQuery(function($) {
   };
 
   $.sub('RPC', function(sender, message) {
-    byLatLng(message.lat, message.lng);
+    if ($.pref('url') != sender)
+      byLatLng(message.lat, message.lng);
   });
 
   $('#form').submit(function() {
     byAddress(this.address.value);
     return false;
-  });
+  }).submit();
 
 });
 </script>
