@@ -16,6 +16,11 @@ textarea {
 	width:210px; height:80px;
 }
 
+.sticky textarea {
+	width:100%;
+	height:70px;
+}
+
 .sticky .del {
 	display:block;
 	cursor:pointer;
