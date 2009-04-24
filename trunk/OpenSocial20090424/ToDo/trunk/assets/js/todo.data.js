@@ -14,7 +14,7 @@ ToDoApp.data = {
 		ToDoApp.data.save();
 	},
 	remove : function(id) {
-		ToDoApp.stickies = ToDoApp.stickies.splice(id,1);
+		ToDoApp.data.stickies = ToDoApp.data.stickies.splice(id,1);
 		ToDoApp.data.save();
 	},
 	save : function() {
