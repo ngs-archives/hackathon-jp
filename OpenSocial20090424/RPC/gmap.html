@@ -39,10 +39,11 @@ function init() {
     var h = window.location.hash.substring(1);
     if (h!=hash) {
       hash = h;
-      var latlng = hash.split(',');
-      var lat = parseFloat(latlng[0]);
-      var lng = parseFloat(latlng[1]);
-      map.setCenter(new google.maps.LatLng(lat, lng), 13);
+      var p = hash.split(',');
+      var lat = parseFloat(p[0]);
+      var lng = parseFloat(p[1]);
+      latlng = new google.maps.LatLng(lat, lng);
+      map.setCenter(latlng, 12);
     }
   }, 100)
 }
