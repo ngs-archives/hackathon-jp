@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="drink" author_email="yasunnobutya@gmail.com">
+  <ModulePrefs title="drink" author_email="yasunnobutya@gmail.com" description="OpenSocial Hackathon 2009-04">
     <Require feature="opensocial-0.8" />
     <Require feature="dynamic-height" />
   </ModulePrefs>
