@@ -18,7 +18,7 @@
       function response(dataResponse) {
         var owner = dataResponse.get('get_owner').getData();
         var friends = dataResponse.get('get_friends').getData(); 
-        var html = owner.getDisplayName() + '‚Ì—F’Bˆê——';
+        var html = owner.getDisplayName() + 'æ—¥æœ¬èªž';
         html += ':<br><ul>';
         friends.each(function(person) {
           html += '<li>' + person.getDisplayName() + '</li>';
