@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="クイズ研" width="320" height="356"
+	directory_title="クイズ研"
+	description="クイズしようよ！"
+	title_url="http://quizken.jp/"
+	screenshot="http://quizken.jp/images/opensocial/screenshot.png"
+	thumbnail="http://quizken.jp/images/opensocial/thumbnail.png"
+	author="クイズ研"
+	author_email="quizken_opensocial@atamasoft.jp"
+	author_link="http://atamasoft.jp/"
+	author_affiliation="あたまソフト"
+	author_location="Tokyo, Japan"
+	author_photo="http://quizken.jp/images/opensocial/author_photo.png"
+	author_aboutme="あたまソフトは、みんなでクイズを楽しむサイト、クイズ研を運営しています。その他、Webアプリケーション、Webサイトのコンサルティングおよび開発も行っています。"
+	author_quote="ALL YOUR QUIZ ARE BELONG TO US."
+	>
+	<Require feature="opensocial-0.7"/>
+	<Require feature="dynamic-height"/>
+</ModulePrefs>
+<Content type="html" view="home,profile,canvas"><![CDATA[
+<div id="container" style="margin: 0px auto; text-align: center;">
+<script type="text/javascript">var quizken = {"baseUrl": "http://quizken.jp", "panel_theme": "brain", "genre_name": "all"};</script>
+<script type="text/javascript">
+try {
+	if (document.getElementById('container').offsetWidth < 300)
+		quizken.panel_theme = 'shoulder';
+}catch(e){}
+</script>
+<noscript><div><em><a href="http://quizken.jp/">クイズ研</a>すべてのクイズ</em></div></noscript><script type="text/javascript" src="http://quizken.jp/js/badge.js?20080423"></script>
+</div>
+<script type="text/javascript">
+if (gadgets.window) gadgets.window.adjustHeight();
+else if (typeof _IG_AdjustIFrameHeight != 'undefined') _IG_AdjustIFrameHeight();
+</script>
+]]></Content>
+</Module>
