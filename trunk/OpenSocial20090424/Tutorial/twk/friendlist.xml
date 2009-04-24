@@ -22,11 +22,10 @@
           console.debug(person);
           /* @var person Person */
           html += '<li>' + person.getDisplayName() + '<br />';
-          html += 'id:' + person.getId();
+          html += 'id:' + person.getId() + '<br />';
           
-          
-          html += 'isOwner:' + person.isOwner();
-          html += 'isViewer:' + person.isViewer();
+          html += 'isOwner:' + person.isOwner() + '<br />';
+          html += 'isViewer:' + person.isViewer() + '<br />';
 			
 			for(i in opensocial.Person.Field){
 				var env = opensocial.getEnvironment();
@@ -64,7 +63,7 @@
 				
 				if (!info) continue;
 				
-				html += i + info + '<br />';
+				html += i + ':' + info + '<br />';
 			}
 	          html += '</li>';
 	
