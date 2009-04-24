@@ -187,6 +187,59 @@ function Tutorial_fetchViewer(){
 	}
 }
 
+function Tutorial_compare(){
+	try{
+		document.getElementById('result_data').innerHTML = '';
+		var req = opensocial.newDataRequest();
+		
+		var params = {}; 
+		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS]
+			= GetSupportedFields();
+			
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), "get_owner");
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "get_owner");
+		var ownerIdSpec = opensocial.newIdSpec({ "userId" : "OWNER", "groupId" : "FRIENDS" });
+		req.add(req.newFetchPeopleRequest(ownerIdSpec, params), "get_owner_friends");
+		var viewerIdSpec = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+		req.add(req.newFetchPeopleRequest(viewerIdSpec, params), "get_viewer_friends");
+		
+		req.send(function(dataResponse) {
+			try{
+				var owner = dataResponse.get('get_owner').getData();
+				var viewer = dataResponse.get('get_viewer').getData();
+				var owner_friends = dataResponse.get('get_owner_friends').getData();
+				var viewer_friends = dataResponse.get('get_viewer_friends').getData();
+				
+				console.debug(owner);
+				var html = '';
+				if (owner)
+				{
+					var diff = owner_friends.size() - viewer_friends_size();
+					var html = '';
+					html += '友達の数は';
+					if (diff < 0)
+						html += 'あなたの方が多いですね';
+					else if (diff > 0)
+						html += 'あなたの方が少ないですね';
+					else
+						html += 'ちょうど同じですね';
+					
+					document.getElementById('result_data').innerHTML += html;
+					GeneratePersonInfo(owner);
+				}
+				else
+				{
+					html += '取得できませんでした';
+				}
+			} catch(e) {
+				console.error(e.message);
+			}
+		});
+	} catch(e) {
+		console.error(e.message);
+	}
+}
+
 function Tutorial_fetchViewerFriends()
 {
 	try{
@@ -262,7 +315,6 @@ function Tutorial_fetchOwnerFriends()
 		console.error(e.message);
 	}
 } //
- 
 
 function Tutorial_env(){
 	try {
@@ -277,7 +329,7 @@ function Tutorial_env(){
 	}
 }
 
-function postActivity() {
+function Tutorial_activity() {
 	var value = document.getElementById('title').value;
 	if (!value)
 	{
@@ -314,17 +366,17 @@ td { border: solid 1px; vertical-align: top; }
 	<button onclick='Tutorial_fetchViewer();'>閲覧者情報</button>
 	<button onclick='Tutorial_fetchOwnerFriends();'>オーナー友人情報</button>
 	<button onclick='Tutorial_fetchViewerFriends();'>閲覧者友人情報</button>
+	<button onclick='Tutorial_compare();'>比べてみる</button>
 	<div>
-		<input type='text' id='title' /><button onclick='postActivity();'>アクティビティー送信!</button>
+		<input type='text' id='title' style="width: 20em;" /><button onclick='Tutorial_activity();'>アクティビティー送信!</button>
 	</div>
 </div>
 
-<!-- Sharing data with friends -->
 <!--
 <div>
   <input type='text' id='content' />
   <button onclick='shareData();'>データ保存</button>
-  <button onclick='fetchFriendData();'>友人のデータを取得</button>
+  <button onclick='fetchFriendData();'>データ取得</button>
   <div id='result_appdata'></div>
   <ul id='contents'></ul>
 </div>
@@ -332,7 +384,7 @@ td { border: solid 1px; vertical-align: top; }
 	
 <!-- counter -->
 <div>
-  <input type='text' id='counter' value="0" />
+  <input type='text' id='counter' value="0" style="width: 5em;" />
   <button onclick='CouterInc();'>カウントアップ!</button>
   <button onclick='CouterReset();'>リセット</button>
   <div id='result_appdata'></div>
