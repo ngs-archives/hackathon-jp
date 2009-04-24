@@ -37,13 +37,9 @@
 <!-- counter -->
 <script type="text/javascript">
 	function CouterInc(){
-		getCountNum();
-	}
-	function getCountNum(){
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer");
 
-		//req.add(req.newUpdatePersonAppDataRequest("VIEWER","counter","1"));
 		req.add(req.newFetchPersonAppDataRequest("VIEWER",["counter"]),"cntData");
 		req.send(function(data){
 			var mydata = data.get("cntData");
