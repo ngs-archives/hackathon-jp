@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-    <ModulePrefs title="ToDo" description="todo">
+      <ModulePrefs title="ToDo" description="todo" icon="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/ToDo/trunk/assets/img/todo.png">
         <Require feature="opensocial-0.8" />
         <Require feature="dynamic-height" />
         <Require feature="views" />
+        <Icon>http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090424/ToDo/trunk/assets/img/todo.ico</Icon>
         <Optional feature="content-rewrite">
           <Param name="include-urls"></Param>
           <Param name="exclude-urls">.*</Param>
