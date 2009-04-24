@@ -14,9 +14,13 @@
 <script type="text/javascript">
 jQuery(function($) {
 
-  $.sub('RPC', function(sender, message) {
+  gadgets.pubsub.subscribe('RPC', function(sender, message) {
     console.log(arguments);
     $('#result').text('Hello, ' + message);
+  })
+
+  $('#button').click(function(e) {
+    gadgets.pubsub.publish('RPC', 'woooo');
   })
 
 });
@@ -24,5 +28,6 @@ jQuery(function($) {
 <style type="text/css">
 </style>
 <div id="result">waiting message...!</div>
+<input type="button" id="button" value="Hello">
 ]]></Content>
 </Module>
