@@ -33,6 +33,7 @@ function init() {
     var center = map.getCenter();
     console.log(center.lat(), center.lng());
     gadgets.rpc.call('', 'map_geo', cb, { lat : center.lat(), lng : center.lng() })
+    console.log(111);
     function cb () { alert(1) }
   });
 
