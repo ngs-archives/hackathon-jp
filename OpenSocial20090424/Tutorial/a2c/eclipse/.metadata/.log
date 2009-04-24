@@ -1,0 +1,169 @@
+!SESSION 2009-04-24 11:29:50.852 -----------------------------------------------
+eclipse.buildId=M20090211-1700
+java.version=1.5.0_16
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=carbon, NL=ja_JP
+Framework arguments:  -keyring /Users/atusi/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws carbon -arch x86 -data /Users/atusi/Dropbox/repos/google_code/hackathon-jp_os_tutorial/a2c/eclipse -keyring /Users/atusi/.eclipse_keyring -consoleLog -showlocation
+
+!ENTRY com.google.gdt.eclipse.suite 1 0 2009-04-24 11:29:57.219
+!MESSAGE Registering: com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334
+
+!ENTRY com.google.gdt.eclipse.suite 1 0 2009-04-24 11:29:57.345
+!MESSAGE Registering: com.google.gwt.eclipse.sdkbundle.macosx_1.6.4.v200904062334
+
+!ENTRY org.eclipse.core.net 1 0 2009-04-24 11:29:59.570
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16|cg.brd.tv-asahi.co.jp|*.cg.brd.tv-asahi.co.jp by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 2 0 2009-04-24 11:31:36.084
+!MESSAGE Error parsing metadata repository
+!SUBENTRY 1 org.eclipse.equinox.p2.core 2 0 2009-04-24 11:31:36.084
+!MESSAGE Error at line 9, column 99: Missing required attribute in "repository": url
+!SUBENTRY 1 org.eclipse.equinox.p2.core 2 0 2009-04-24 11:31:36.085
+!MESSAGE Error at line 9, column 99: Illegal value for attribute "url" of element "repository": null
+!SUBENTRY 1 org.eclipse.equinox.p2.core 2 0 2009-04-24 11:31:36.085
+!MESSAGE Error at line 10, column 99: Missing required attribute in "repository": url
+!SUBENTRY 1 org.eclipse.equinox.p2.core 2 0 2009-04-24 11:31:36.085
+!MESSAGE Error at line 10, column 99: Illegal value for attribute "url" of element "repository": null
+!SUBENTRY 1 org.eclipse.equinox.p2.core 2 0 2009-04-24 11:31:36.086
+!MESSAGE Error at line 11, column 97: Missing required attribute in "repository": url
+!SUBENTRY 1 org.eclipse.equinox.p2.core 2 0 2009-04-24 11:31:36.086
+!MESSAGE Error at line 11, column 97: Illegal value for attribute "url" of element "repository": null
+!SUBENTRY 1 org.eclipse.equinox.p2.core 2 0 2009-04-24 11:31:36.086
+!MESSAGE Error at line 12, column 97: Missing required attribute in "repository": url
+!SUBENTRY 1 org.eclipse.equinox.p2.core 2 0 2009-04-24 11:31:36.086
+!MESSAGE Error at line 12, column 97: Illegal value for attribute "url" of element "repository": null
+
+!ENTRY org.eclipse.ui 4 0 2009-04-24 11:37:30.989
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable (org.hibernate.exception.GenericJDBCException: Cannot open connection)
+	at org.eclipse.swt.SWT.error(SWT.java:3777)
+	at org.eclipse.swt.SWT.error(SWT.java:3695)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:136)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3342)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3071)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2384)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2348)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2200)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:495)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:288)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:490)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:113)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:193)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:386)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:549)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:504)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1236)
+Caused by: org.hibernate.exception.GenericJDBCException: Cannot open connection
+	at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:103)
+	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:91)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:43)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:29)
+	at org.hibernate.jdbc.ConnectionManager.openConnection(ConnectionManager.java:424)
+	at org.hibernate.jdbc.ConnectionManager.getConnection(ConnectionManager.java:144)
+	at org.hibernate.jdbc.AbstractBatcher.prepareQueryStatement(AbstractBatcher.java:139)
+	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:1538)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:661)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:224)
+	at org.hibernate.loader.Loader.doList(Loader.java:2211)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2095)
+	at org.hibernate.loader.Loader.list(Loader.java:2090)
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:375)
+	at org.hibernate.hql.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:338)
+	at org.hibernate.engine.query.HQLQueryPlan.performList(HQLQueryPlan.java:172)
+	at org.hibernate.impl.SessionImpl.list(SessionImpl.java:1121)
+	at org.hibernate.impl.QueryImpl.list(QueryImpl.java:79)
+	at jp.eisbahn.eclipse.plugins.osde.internal.shindig.PersonService.getPeople(PersonService.java:41)
+	at jp.eisbahn.eclipse.plugins.osde.internal.ui.views.people.PersonView.loadPeople(PersonView.java:108)
+	at jp.eisbahn.eclipse.plugins.osde.internal.ui.views.people.PersonView.connectedDatabase(PersonView.java:119)
+	at jp.eisbahn.eclipse.plugins.osde.internal.Activator$2$1.run(Activator.java:296)
+	at org.eclipse.ui.internal.UILockListener.doPendingWork(UILockListener.java:155)
+	at org.eclipse.ui.internal.UISynchronizer$3.run(UISynchronizer.java:158)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:133)
+	... 22 more
+Caused by: org.h2.jdbc.JdbcSQLException: 接続が壊れています
+Connection is broken [90067-104]
+	at org.h2.message.Message.getSQLException(Message.java:103)
+	at org.h2.message.Message.getSQLException(Message.java:114)
+	at org.h2.message.Message.getSQLException(Message.java:77)
+	at org.h2.message.Message.getSQLException(Message.java:149)
+	at org.h2.engine.SessionRemote.checkClosed(SessionRemote.java:479)
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:347)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:235)
+	at org.h2.engine.SessionRemote.createSession(SessionRemote.java:229)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:111)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:95)
+	at org.h2.Driver.connect(Driver.java:54)
+	at java.sql.DriverManager.getConnection(DriverManager.java:525)
+	at java.sql.DriverManager.getConnection(DriverManager.java:140)
+	at org.hibernate.connection.DriverManagerConnectionProvider.getConnection(DriverManagerConnectionProvider.java:110)
+	at org.hibernate.jdbc.ConnectionManager.openConnection(ConnectionManager.java:421)
+	... 43 more
+
+!ENTRY org.eclipse.ui 4 0 2009-04-24 11:37:35.072
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.hibernate.exception.GenericJDBCException: Cannot open connection
+	at org.hibernate.exception.SQLStateConverter.handledNonSpecificException(SQLStateConverter.java:103)
+	at org.hibernate.exception.SQLStateConverter.convert(SQLStateConverter.java:91)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:43)
+	at org.hibernate.exception.JDBCExceptionHelper.convert(JDBCExceptionHelper.java:29)
+	at org.hibernate.jdbc.ConnectionManager.openConnection(ConnectionManager.java:424)
+	at org.hibernate.jdbc.ConnectionManager.getConnection(ConnectionManager.java:144)
+	at org.hibernate.jdbc.JDBCContext.connection(JDBCContext.java:119)
+	at org.hibernate.transaction.JDBCTransaction.begin(JDBCTransaction.java:57)
+	at org.hibernate.impl.SessionImpl.beginTransaction(SessionImpl.java:1326)
+	at jp.eisbahn.eclipse.plugins.osde.internal.shindig.ApplicationService.storeAppInfo(ApplicationService.java:43)
+	at jp.eisbahn.eclipse.plugins.osde.internal.runtime.RunAction.launch(RunAction.java:100)
+	at jp.eisbahn.eclipse.plugins.osde.internal.runtime.RunAction.access$1(RunAction.java:96)
+	at jp.eisbahn.eclipse.plugins.osde.internal.runtime.RunAction$1.run(RunAction.java:86)
+	at org.eclipse.swt.widgets.Display.runTimers(Display.java:3568)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3045)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2384)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2348)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2200)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:495)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:288)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:490)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:113)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:193)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:386)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:549)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:504)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1236)
+Caused by: org.h2.jdbc.JdbcSQLException: 接続が壊れています
+Connection is broken [90067-104]
+	at org.h2.message.Message.getSQLException(Message.java:103)
+	at org.h2.message.Message.getSQLException(Message.java:114)
+	at org.h2.message.Message.getSQLException(Message.java:77)
+	at org.h2.message.Message.getSQLException(Message.java:149)
+	at org.h2.engine.SessionRemote.checkClosed(SessionRemote.java:479)
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:347)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:235)
+	at org.h2.engine.SessionRemote.createSession(SessionRemote.java:229)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:111)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:95)
+	at org.h2.Driver.connect(Driver.java:54)
+	at java.sql.DriverManager.getConnection(DriverManager.java:525)
+	at java.sql.DriverManager.getConnection(DriverManager.java:140)
+	at org.hibernate.connection.DriverManagerConnectionProvider.getConnection(DriverManagerConnectionProvider.java:110)
+	at org.hibernate.jdbc.ConnectionManager.openConnection(ConnectionManager.java:421)
+	... 30 more

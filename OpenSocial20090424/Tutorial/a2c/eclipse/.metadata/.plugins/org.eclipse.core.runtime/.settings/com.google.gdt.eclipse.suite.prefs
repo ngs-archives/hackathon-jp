@@ -1,0 +1,5 @@
+#Fri Apr 24 11:31:06 JST 2009
+eclipse.preferences.version=1
+SdkRegistrants=com.google.appengine.eclipse.sdkbundle_1.2.0.v200904062334,com.google.gwt.eclipse.sdkbundle.macosx_1.6.4.v200904062334
+addedNewWizardActionsorg.eclipse.jdt.ui.JavaPerspective=true
+addedNewWizardActionsjp.eisbahn.eclipse.plugins.osde.perspective=true

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs
+            title="タイトルヒア"
+            author="a2c"
+            author_email="a2c@hoge.com">
+        <Require feature="opensocial-0.8" />
+    </ModulePrefs>
+    <Content type="html" view="canvas"><![CDATA[
+
+<script type="text/javascript" src="http://localhost:8080/a01/canvas.js"></script>
+
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(init);
+</script>
+
+<!-- The code for Canvas view is here. -->
+<div>Hello world!</div>
+
+  ]]></Content>
+    <Content type="html" view="home" />
+</Module>
