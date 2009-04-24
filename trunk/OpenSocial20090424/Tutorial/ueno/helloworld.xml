@@ -30,7 +30,7 @@
 
 				req.add(req.newFetchPeopleRequest(idspec,params),"get_friends");
 				req.send(response);
-			}
+			};
 
 			function response(dataResponse){
 				var owner	= dataResponse.get("get_owner").getData();
@@ -84,7 +84,7 @@
 				});
 				html += "\n</table>";
 				document.getElementById("message").innerHTML = html;
-			}
+			};
 			
 			function populateMyAppData(){
 					var req = opensocial.newDataRequest();
