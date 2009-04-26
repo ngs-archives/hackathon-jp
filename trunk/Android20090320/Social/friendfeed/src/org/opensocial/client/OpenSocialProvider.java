@@ -56,7 +56,14 @@ public enum OpenSocialProvider {
       "http://www.partuza.nl/oauth/access_token",
       "http://modules.partuza.nl/social/rest",
       null,
-      "Partuza", true);
+      "Partuza", true),
+
+  LOCAL("http://partuza/oauth/request_token",
+      "http://partuza/oauth/authorize",
+      "http://partuza/oauth/access_token",
+      "http://shindig/social/rest",
+      null,
+      "Local", true);
 
   static {
     GOOGLE.requestTokenParams = new HashMap<String, String>();

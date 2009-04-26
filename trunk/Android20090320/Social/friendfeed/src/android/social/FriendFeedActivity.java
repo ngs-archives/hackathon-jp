@@ -26,11 +26,13 @@ public class FriendFeedActivity extends Activity {
 	public static Map<OpenSocialProvider, Token> SUPPORTED_PROVIDERS = new HashMap<OpenSocialProvider, Token>();
 
 	public org.opensocial.android.OpenSocialActivity util;
-	
+
 	static {
 		SUPPORTED_PROVIDERS.put(OpenSocialProvider.PARTUZA, new Token(
 				"d2c8f5c9-d1d8-c8c0-9bd4-d8c4d5f8ddd3",
 				"af9f51a5d596b0a1baf585c9165ecbd8"));
+//				"decde8c2-c3f4-c8e9-8ac6-ccd0cdd5c3f6 ",
+//				"b501779da71e40a3f8a8cde35534b993"));
 		// SUPPORTED_PROVIDERS.put(OpenSocialProvider.PLAXO, new
 		// Token("anonymous", ""));
 		// SUPPORTED_PROVIDERS.put(OpenSocialProvider.MYSPACE, new
@@ -41,62 +43,63 @@ public class FriendFeedActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setupClient();
+		// setupClient();
 		createUI();
 	}
 
 	private void createUI() {
-//		setContentView(R.layout.main);
-	    LinearLayout linearLayout = new LinearLayout(this);
-	    linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
-	        LinearLayout.LayoutParams.FILL_PARENT,
-	        LinearLayout.LayoutParams.FILL_PARENT));
-	    linearLayout.setOrientation(LinearLayout.VERTICAL);
+		// setContentView(R.layout.main);
+		LinearLayout linearLayout = new LinearLayout(this);
+		linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.FILL_PARENT));
+		linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-	    final FriendFeedActivity activity = this;
+		final FriendFeedActivity activity = this;
 
-	    Button startButton = new Button(this);
-	    startButton.setText("Start");
-	    startButton.setOnClickListener(new View.OnClickListener() {
-	      public void onClick(View view) {
-	        // TODO
-	      }
-	    });
+		Button startButton = new Button(this);
+		startButton.setText("Start");
+		startButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				setupClient();
+			}
+		});
 
-	    Button clearAuthButton = new Button(this);
-	    clearAuthButton.setText("Clear Auth");
-	    clearAuthButton.setOnClickListener(new View.OnClickListener() {
-	      public void onClick(View view) {
-	        util.clearSavedAuthentication();
-	      }
-	    });
+		Button clearAuthButton = new Button(this);
+		clearAuthButton.setText("Clear Auth");
+		clearAuthButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				util.clearSavedAuthentication();
+			}
+		});
 
-	    Button fetchFriendsButton = new Button(this);
-	    fetchFriendsButton.setText("Fetch Friends");
-	    fetchFriendsButton.setOnClickListener(new View.OnClickListener() {
-	      public void onClick(View view) {
-	        activity.setupClient();
-	      }
-	    });
+		Button fetchFriendsButton = new Button(this);
+		fetchFriendsButton.setText("Fetch Friends");
+		fetchFriendsButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				activity.setupClient();
+			}
+		});
 
-	    linearLayout.addView(startButton);
-	    linearLayout.addView(fetchFriendsButton);
-	    linearLayout.addView(clearAuthButton);
+		linearLayout.addView(startButton);
+		linearLayout.addView(fetchFriendsButton);
+		linearLayout.addView(clearAuthButton);
 
-	    setContentView(linearLayout);
+		setContentView(linearLayout);
 	}
 
-	private void startBackgroundService(List<OpenSocialPerson> friends, OpenSocialClient client) {
-		Intent intent2 = new Intent(FriendFeedActivity.this,
-				BackgroundService.class);
-		intent2.putExtra("waitSec", 5000);
-//		intent2.putExtra("client", client);
-		intent2.putExtra("friends", new FriendsHolder(friends));
-		startService(intent2);
+	private void startBackgroundService(List<OpenSocialPerson> friends,
+			OpenSocialClient client) {
+		Intent intent = new Intent(FriendFeedActivity.this, BackgroundService.class);
+		intent.putExtra("waitSec", 5000);
+		// intent2.putExtra("client", client);
+		intent.putExtra("friends", new FriendsHolder(friends));
+		startService(intent);
 	}
 
 	private void setupClient() {
-		util = new org.opensocial.android.OpenSocialActivity(this, SUPPORTED_PROVIDERS, ANDROID_SCHEME);
+		util = new org.opensocial.android.OpenSocialActivity(this,
+				SUPPORTED_PROVIDERS, ANDROID_SCHEME);
 		OpenSocialClient client = util.getOpenSocialClient();
 
 		// If the client is null the OpenSocialChooserActivity will be started
@@ -105,7 +108,8 @@ public class FriendFeedActivity extends Activity {
 			// showContacts(client, util.getProvider());
 			//
 			Log.d("FriendFeed", "Authorization succeed.");
-			List<OpenSocialPerson> friends = fetchFriends(client, util.getProvider());
+			List<OpenSocialPerson> friends = fetchFriends(client, util
+					.getProvider());
 			if (friends != null) {
 				Log.d("FriendFeed", "friends.size() = " + friends.size());
 				startBackgroundService(friends, client);
@@ -114,7 +118,7 @@ public class FriendFeedActivity extends Activity {
 			}
 		}
 	}
-	
+
 	private List<OpenSocialPerson> fetchFriends(OpenSocialClient client,
 			OpenSocialProvider provider) {
 		List<OpenSocialPerson> friends = null;
