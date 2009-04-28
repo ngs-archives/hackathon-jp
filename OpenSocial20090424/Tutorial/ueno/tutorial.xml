@@ -36,7 +36,7 @@
 			}
 
 
-			function drawPerson(person){
+			function drawPersonTr(person){
 					var str = ""
 					str += "<tr>";
 					for(i in opensocial.Person.Field){
@@ -81,9 +81,9 @@
 				}
 				html += "</tr>";
 				
-				html+=drawPerson(owner);
+				html+=drawPersonTr(owner);
 				friends.each(function(person){
-					html += drawPerson(person);
+					html += drawPersonTr(person);
 				});
 				html += "\n</table>";
 				document.getElementById("message").innerHTML = html;
