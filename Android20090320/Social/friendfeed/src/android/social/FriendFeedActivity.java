@@ -28,9 +28,9 @@ public class FriendFeedActivity extends Activity {
 	public org.opensocial.android.OpenSocialActivity util;
 
 	static {
-		SUPPORTED_PROVIDERS.put(OpenSocialProvider.PARTUZA, new Token(
-				"d2c8f5c9-d1d8-c8c0-9bd4-d8c4d5f8ddd3",
-				"af9f51a5d596b0a1baf585c9165ecbd8"));
+		SUPPORTED_PROVIDERS.put(OpenSocialProvider.EISBAHN, new Token(
+				"d4fac4e5-c7ff-c3c1-b7e5-cee1d5c1c5f6",
+				"567e816290f754646b36e11787bbf7d2"));
 //				"decde8c2-c3f4-c8e9-8ac6-ccd0cdd5c3f6 ",
 //				"b501779da71e40a3f8a8cde35534b993"));
 		// SUPPORTED_PROVIDERS.put(OpenSocialProvider.PLAXO, new
