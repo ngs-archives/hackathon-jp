@@ -58,12 +58,12 @@ public enum OpenSocialProvider {
       null,
       "Partuza", true),
 
-  LOCAL("http://partuza/oauth/request_token",
-      "http://partuza/oauth/authorize",
-      "http://partuza/oauth/access_token",
-      "http://shindig/social/rest",
+  EISBAHN("http://partuza.eisbahn.jp/oauth/request_token",
+      "http://partuza.eisbahn.jp/oauth/authorize",
+      "http://partuza.eisbahn.jp/oauth/access_token",
+      "http://shindig.eisbahn.jp/social/rest",
       null,
-      "Local", true);
+      "Eisbahn", true);
 
   static {
     GOOGLE.requestTokenParams = new HashMap<String, String>();
