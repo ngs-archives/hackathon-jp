@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="/Users/yoichiro/Documents/osde/friendfeed/libs/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="/Users/yoichiro/Documents/osde/friendfeed/libs/javax.servlet_2.4.0.v200806031604.jar"/>
-	<classpathentry kind="lib" path="/Users/yoichiro/Documents/osde/friendfeed/libs/oauth-20081115.jar"/>
+	<classpathentry kind="lib" path="libs/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="libs/javax.servlet_2.4.0.v200806031604.jar"/>
+	<classpathentry kind="lib" path="libs/oauth-20081115.jar"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

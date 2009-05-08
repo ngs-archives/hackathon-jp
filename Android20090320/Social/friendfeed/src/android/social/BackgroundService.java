@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.opensocial.android.OpenSocialChooserActivity;
 import org.opensocial.client.OpenSocialClient;
 import org.opensocial.client.OpenSocialRequestException;
 import org.opensocial.data.OpenSocialActivity;
@@ -82,6 +83,9 @@ public class BackgroundService extends Service {
 				//
 				mHandler.post(new UIUpdater(BackgroundService.this, holder));
 			}
+			//
+			clearSavedAuthentication();
+			//
 			BackgroundService.this.stopSelf();
 		}
 
@@ -101,5 +105,20 @@ public class BackgroundService extends Service {
 		}
 
 	};
+	
+	public void clearSavedAuthentication() {
+		SharedPreferences prefs = getSharedPreferences("default", Activity.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		
+		editor.remove(OpenSocialChooserActivity.CURRENT_PROVIDER_PREF);
+		editor.remove(OpenSocialChooserActivity.REQUEST_TOKEN_PREF);
+		editor.remove(OpenSocialChooserActivity.REQUEST_TOKEN_SECRET_PREF);
+		
+		editor.remove(org.opensocial.android.OpenSocialActivity.ACCESS_TOKEN_PREF);
+		editor.remove(org.opensocial.android.OpenSocialActivity.ACCESS_TOKEN_SECRET_PREF);
+		editor.remove(OpenSocialChooserActivity.CURRENT_PROVIDER_PREF);
+
+		editor.commit();
+	}
 
 }

@@ -44,8 +44,8 @@ import java.util.Map;
  * @author Cassandra Doll
  */
 public class OpenSocialActivity {
-	private static final String ACCESS_TOKEN_PREF = "accessToken";
-	private static final String ACCESS_TOKEN_SECRET_PREF = "accessTokenSecret";
+	public static final String ACCESS_TOKEN_PREF = "accessToken";
+	public static final String ACCESS_TOKEN_SECRET_PREF = "accessTokenSecret";
 
 	private OpenSocialProvider provider;
 	private Context context;
@@ -183,7 +183,11 @@ public class OpenSocialActivity {
 
 	public void clearSavedAuthentication() {
 		SharedPreferences.Editor editor = prefs.edit();
-
+		
+		editor.remove(OpenSocialChooserActivity.CURRENT_PROVIDER_PREF);
+		editor.remove(OpenSocialChooserActivity.REQUEST_TOKEN_PREF);
+		editor.remove(OpenSocialChooserActivity.REQUEST_TOKEN_SECRET_PREF);
+		
 		editor.remove(ACCESS_TOKEN_PREF);
 		editor.remove(ACCESS_TOKEN_SECRET_PREF);
 		editor.remove(OpenSocialChooserActivity.CURRENT_PROVIDER_PREF);
