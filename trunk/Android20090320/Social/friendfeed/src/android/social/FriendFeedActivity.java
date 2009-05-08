@@ -69,7 +69,7 @@ public class FriendFeedActivity extends Activity {
 		clearAuthButton.setText("Clear Auth");
 		clearAuthButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				util.clearSavedAuthentication();
+				clearAuthentication();
 			}
 		});
 
@@ -86,6 +86,12 @@ public class FriendFeedActivity extends Activity {
 		linearLayout.addView(clearAuthButton);
 
 		setContentView(linearLayout);
+	}
+	
+	private void clearAuthentication() {
+		util = new org.opensocial.android.OpenSocialActivity(this,
+				SUPPORTED_PROVIDERS, ANDROID_SCHEME);
+		util.clearSavedAuthentication();
 	}
 
 	private void startBackgroundService(List<OpenSocialPerson> friends,
