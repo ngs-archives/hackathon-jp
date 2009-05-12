@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
   <Module>
-   <ModulePrefs title="Hello, World"     description="テスト用のガジェットです">
+   <ModulePrefs title="Hello, World"     
+				description="テスト用のガジェットです"
+				screenshot="http://example.com/OpenSocial/img/screenshot.png">
    </ModulePrefs>
    <Content type="html" view="home,profile,canvas">
     <![CDATA[     <p>Hello World!!</p>    ]]>
