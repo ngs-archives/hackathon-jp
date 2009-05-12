@@ -1,0 +1,103 @@
+-- MySQL dump 10.10
+--
+-- Host: localhost    Database: hackathon0515
+-- ------------------------------------------------------
+-- Server version	5.0.22-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES ujis */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `friend`
+--
+
+DROP TABLE IF EXISTS `friend`;
+CREATE TABLE `friend` (
+  `qid` int(11) NOT NULL,
+  `uid` char(32) NOT NULL,
+  `mail` varchar(64) default NULL,
+  `result` int(11) default NULL,
+  PRIMARY KEY  (`qid`,`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `friend`
+--
+
+
+/*!40000 ALTER TABLE `friend` DISABLE KEYS */;
+LOCK TABLES `friend` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `friend` ENABLE KEYS */;
+
+--
+-- Table structure for table `question`
+--
+
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE `question` (
+  `qid` int(11) NOT NULL auto_increment,
+  `uid` char(32) NOT NULL,
+  `lat` double default NULL,
+  `lon` double default NULL,
+  `URL` varchar(128) default NULL,
+  `enddate` datetime default NULL,
+  `name` varchar(128) default NULL,
+  PRIMARY KEY  (`qid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `question`
+--
+
+
+/*!40000 ALTER TABLE `question` DISABLE KEYS */;
+LOCK TABLES `question` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `question` ENABLE KEYS */;
+
+--
+-- Table structure for table `response`
+--
+
+DROP TABLE IF EXISTS `response`;
+CREATE TABLE `response` (
+  `qid` int(11) NOT NULL,
+  `uid` char(32) NOT NULL,
+  `seq` int(11) NOT NULL auto_increment,
+  `ctime` datetime default NULL,
+  `lat` double default NULL,
+  `lon` double default NULL,
+  `comment` text,
+  `URL` varchar(128) default NULL,
+  `distance` double default NULL,
+  PRIMARY KEY  (`qid`,`uid`,`seq`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `response`
+--
+
+
+/*!40000 ALTER TABLE `response` DISABLE KEYS */;
+LOCK TABLES `response` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `response` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
