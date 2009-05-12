@@ -2,7 +2,8 @@
   <Module>
    <ModulePrefs title="Hello, World"     
 				description="テスト用のガジェットです"
-				screenshot="http://example.com/OpenSocial/img/screenshot.png">
+				screenshot="http://example.com/OpenSocial/img/screenshot.png"
+				thumbnail="http://example.com/OpenSocial/img/thumbnail.png">
    </ModulePrefs>
    <Content type="html" view="home,profile,canvas">
     <![CDATA[     <p>Hello World!!</p>    ]]>
