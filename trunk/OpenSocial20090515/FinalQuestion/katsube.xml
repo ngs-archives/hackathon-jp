@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-	<ModulePrefs title="FinalQuestion">
+	<ModulePrefs title="FinalQuestion" height="600">
 		<Require feature="dynamic-height"/>
 	</ModulePrefs>
 	<Content type="html" view="canvas">
@@ -124,7 +124,7 @@
 				Status.write('Final Questionへようこそ');
 				
 				//高さ変更
-				gadgets.window.adjustHeight();
+				//gadgets.window.adjustHeight();
 			});
 		</script>
 	]]>
