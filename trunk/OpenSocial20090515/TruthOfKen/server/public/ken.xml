@@ -5,7 +5,7 @@
 		<Require feature="dynamic-height" />
 	</ModulePrefs>
 	<Content type="html" view="canvas"><![CDATA[
-	
+		<div id="wrapper"></div>
     	<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jquery-1.2.6.js"></script>
 		<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jquery.inc-5.js"></script>
 		<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jsdeferred.js"></script>
