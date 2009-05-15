@@ -79,7 +79,7 @@
 				//ステータスに表示
 				//------------------------------
 				, 'write':function(msg){
-					$(Status.write).html(msg);
+					$(Status.id).html(msg);
 				}
 			 };
 
