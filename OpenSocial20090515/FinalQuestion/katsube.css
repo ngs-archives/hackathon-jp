@@ -18,6 +18,9 @@ body{
 	text-align:center;
 }
 #mainmenu-in ul{
+	width: 750px;
+	height: 250px;
+
 	/* センタリング用 */
 	text-align:left; margin-left:auto;margin-right:auto;
 }
