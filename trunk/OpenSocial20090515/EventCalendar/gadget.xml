@@ -28,15 +28,16 @@
     ]]></Content>
 
   <Content type="html" view="home, profile"><![CDATA[
-<script type="text/javascript" src="/EventCalendar/js/lib/jquery-1.3.2.js"></script>
-<script type="text/javascript" src="/EventCalendar/js/home.js"></script>
-<script type="text/javascript" src="/EventCalendar/js/data.js"></script>
+  <link href="/EventCalendar/css/event_cal.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript">
-  $(document).ready(function(){ request(); });
-//gadgets.util.registerOnLoadHandler(init);
-</script>
-22aaaaaaaaaaa
-<div id="events"/>
+  <script type="text/javascript" src="/EventCalendar/js/lib/jquery-1.3.2.js"></script>
+  <script type="text/javascript" src="/EventCalendar/js/data.js"></script>
+  <script type="text/javascript" src="/EventCalendar/js/home.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){ request(); });
+  </script>
+  <div id="events"/>
+
   ]]></Content>
 </Module>

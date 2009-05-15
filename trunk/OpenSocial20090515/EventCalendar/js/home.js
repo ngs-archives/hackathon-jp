@@ -23,16 +23,13 @@ function response(dataResponse) {
 
     var events = evtCal.dao.getEventsByOwerUserId("test");
 
-    var html = 'イベント： ' + owner.getDisplayName();
-    html += ':<br><ul>';
-
-    alert(events[0].id+ events[0].title);
+    var html = owner.getDisplayName() + 'の予定： ';
+    html += '<br><ul>';
 
     jQuery.each(events, function(index, e) {
-        html += '<li>' + e.id + ':' + e.title;
+        html += '<li>' + e.title;
     });
     html += '</ul>';
-    alert(html);
 
     $('#events').append(html);
 };
