@@ -6,7 +6,11 @@
 	<Require feature="dynamic-height" />
 </ModulePrefs>
 
-<Content type="html" view="home,profile,canvas">
+<Content type="html" view="home">
 <![CDATA[
+    <script type="text/javascript" src="http://localhost:8080/mixitest/jquery-1.2.6.js"></script>
+	<script type="text/javascript" src="http://localhost:8080/mixitest/jquery.inc-5.js"></script>
+	<div class="inc:http%3A%2F%2Fec2-174-129-131-70.compute-1.amazonaws.com%2Fcanvas.html"></div>
+	
 ]]>
 </Content>
