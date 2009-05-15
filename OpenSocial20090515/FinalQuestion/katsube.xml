@@ -19,7 +19,9 @@
 				<li id="castle">城</li>
 				<li id="item">アイテム</li>
 			</ul>
-			<div id="status" style="clear:both"></div>
+			<div id="status" style="clear:both">
+				<div id="status-in"></div>
+			</div>
 		</div>
 		<!-- [/メニュー] -->
 
@@ -74,7 +76,7 @@
 				//------------------------------
 				//HTMLのIDリスト
 				//------------------------------
-				'id': '#status'
+				'id': '#status-in'
 
 				//------------------------------
 				//ステータスに表示
