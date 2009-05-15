@@ -1,0 +1,4 @@
+        		var fContents = contents["contents"];
+        	    var jsonTxt =  gadgets.util.unescapeString(fContents);
+        		allContents  = gadgets.json.parse(jsonTxt);
+        		result.push(allContents);
