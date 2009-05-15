@@ -78,7 +78,7 @@ var DummyDao = {
 	
 	getEventById: function(eventId){
 		var events = this.getEventsByOwerUserId("test");
-		return events[0];
+		return (eventId == 1) ? events[1] : events[0];
 	},
 	
 	addEntry: function(eventId, entry){
