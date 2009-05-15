@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8" ?>  
+<?xml version="1.0" encoding="UTF-8" ?>  
 <Module>  
- <ModulePrefs title="twkからこんにちは"  
-   description="twkのテスト用のガジェットです">
-    <Require feature="opensocial-0.8"/>
-    <Require feature="dynamic-height"/>
-    <Require feature="tabs"/>
-    <Require feature="settitle"/>
-    <Require feature="minimessage"/>
- </ModulePrefs>
+<ModulePrefs title="FinalQuestion" height="800"
+	description="Final Question">
+	<Require feature="opensocial-0.8"/>
+	<Require feature="dynamic-height"/>
+	<Require feature="tabs"/>
+	<Require feature="settitle"/>
+	<Require feature="minimessage"/>
+</ModulePrefs>
 
 <Content type="html" view="profile,home,canvas"><![CDATA[ 
 <!--
@@ -44,22 +44,154 @@ jQuery(function($) {
 
 <Content type="html" view="profile">
   <![CDATA[ 
-   <p>ここはprofile!!</p> 
   ]]>  
 </Content><!-- profile -->
 
 <Content type="html" view="canvas"><![CDATA[ 
-   <p>ここはcanvas!!</p> 
+<script>document.write('<link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090515/FinalQuestion/katsube.css?rand=' + Math.random() + '" type="text/css" />');</script>
+<style type="text/css">
+#battleField { display: none; }
+#quizArea { border: solid 1px; }
+.answer { width: display: none; cursor: default; }
+#question { border: solid 1px; }
+.badgeJudge { display: none; position: absolute; top: 0px; left: 0px;} 
+</style>
+		<h1>FinalQuestion</h1>
+
+		<!-- [メイン画面] -->
+		<div id="main"></div>
+
+		<!-- [メニュー] -->
+		<div id="mainmenu" style="display:none">
+			<div id="mainmenu-in">
+				<ul id="menulist">
+					<li id="battle">バトル</li>
+					<li id="castle">城</li>
+					<li id="item">アイテム</li>
+				</ul>
+				<div id="status" style="clear:both"></div>
+			</div>
+		</div>
+		<!-- [/メニュー] -->
+
+		<script type="text/javascript">
+			/*----------------------------------------------------
+			 * ■メインメニュー
+			 *----------------------------------------------------*/
+			var MainMenu = {
+				//------------------------------
+				//HTMLのIDリスト
+				//------------------------------
+				'id':{
+					  'canvas':'#main'
+					,   'menu':'#mainmenu'
+					
+					, 'battleField':'#battleField'
+
+					, 'battle':'#battle'
+					, 'castle':'#castle'
+					,   'item':'#item'
+				}
+
+				//------------------------------
+				//初期化(onLoad時に呼び出し)
+				//------------------------------
+				, 'init' : function(){
+					//メニュー表示
+					MainMenu.disp(
+						  MainMenu.id.canvas
+						, MainMenu.id.menu
+					);
+					
+					//イベント設定
+					$(MainMenu.id.battle).click( Battle.start );
+					$(MainMenu.id.castle).click( Castle.start );
+					$(MainMenu.id.item).click( Item.start );
+					
+				}
+
+				//------------------------------
+				//メニュー表示
+				//------------------------------
+				, 'disp' : function(canvas, menu){
+					var source = $(menu).html();
+					$(canvas).html(source);
+				}
+			};
+
+			/*----------------------------------------------------
+			 * ■ステータス
+			 *----------------------------------------------------*/
+			 var Status = {
+				//------------------------------
+				//HTMLのIDリスト
+				//------------------------------
+				'id': '#status'
+
+				//------------------------------
+				//ステータスに表示
+				//------------------------------
+				, 'write':function(msg){
+					$(Status.id).html(msg);
+				}
+			 };
+
+			/*----------------------------------------------------
+			 * ■バトルスタート
+			 *----------------------------------------------------*/
+			 var Battle = {
+				'start':function(){
+					MainMenu.disp(
+						  MainMenu.id.canvas
+						, MainMenu.id.battleField
+					);
+					FinalQuestion.startBattle();
+				}
+			 };
+			 
+			/*----------------------------------------------------
+			 * ■城
+			 *----------------------------------------------------*/
+			 var Castle = {
+				'start':function(){
+					alert('castle start');
+					
+				}
+			 };
+			 
+			/*----------------------------------------------------
+			 * ■アイテム
+			 *----------------------------------------------------*/
+			 var Item = {
+				'start':function(){
+					alert('item start');
+				}
+			 };
+			
+			/*----------------------------------------------------
+			 * ■onLoad イベントハンドラ
+			 *----------------------------------------------------*/
+			gadgets.util.registerOnLoadHandler(function(){
+				//メニュー表示
+				MainMenu.init();
+				
+				//ステータス更新
+				Status.write('Final Questionへようこそ');
+				
+				//高さ変更
+				//gadgets.window.adjustHeight();
+			});
+		</script>
+
+
 <script type="text/javascript">
-jQuery(function($) {
+// 岩崎作成部分
+//jQuery(function($) {
 	// 定数的なもの
 	var loadQuizzesUrl = 'http://quizken.jp/quiz/index/api_key/20090515finalquestion/count/1';
 	// [{"question_key":"eyJkIjoiNFFDQlkwQ3Y2WmM9In0","question":"\u4eba\u6c17\u306e\u713c\u914e\u300c\u3044\u3044\u3061\u3053\u300d\u306e\u7523\u5730\u306f?","genre_name":"variety","answers":["\u5927\u5206\u770c","\u798f\u5ca1\u770c","\u5bae\u5d0e\u770c","\u9e7f\u5150\u5cf6\u770c"]}]
 	var answerQuizUrl = 'http://quizken.jp/quiz/index/api_key/20090515finalquestion/question_key/eyJkIjoiSjh5WHZJdGxzYXM9In0/answer/%C3%97';
 	var maxAnswerCount = 4;
-	
-	$.deferred.define();
-	
 	
 	// main
 	var quizRecord = [];
@@ -67,12 +199,33 @@ jQuery(function($) {
 	var correctAnswer = null;
 	// class
 	var FinalQuestion = {
-		init: function (){
+		startBattle: function (){
+			$.deferred.define();
+	
+			$('#exit').click(FinalQuestion.exit);
+	
 			for (var i = 0; i < maxAnswerCount; ++i)
 			{
 				$('#answer' + i).click(FinalQuestion.answer);
 			}
 			FinalQuestion.loadNextQuiz();
+		}
+		, exit: function(){
+			if (confirm('酒場に逃げ帰るのですか？'))
+			{
+//			$('<span/>')
+//			    .text('メニューに戻ります')
+//			    .minimessage(function() { 
+//			    	FinalQuestion.gotoMenu();
+//			});
+		    	FinalQuestion.gotoMenu();
+		    }
+		}
+		, gotoMenu : function() {
+			MainMenu.disp(
+				  MainMenu.id.canvas
+				, MainMenu.id.menu
+			);
 		}
 		, loadQuizzes: function (callback){
 			var params = {};
@@ -108,23 +261,21 @@ jQuery(function($) {
 			FinalQuestion.loadNextQuiz();
 		}
 	};
-	FinalQuestion.init();
-}); // jQuery
+	
+//	FinalQuestion.startBattle();
+//}); // jQuery
 </script>
-<style type="text/css">
-#quizArea { border: solid 1px; }
-.answer { width: display: none; cursor: default; }
-#question { border: solid 1px; }
-.badgeJudge { display: none; position: absolute; top: 0px; left: 0px;} 
-</style>
-<div id="quizArea" style="position: relative;">
-	<div id="question">question_area</div>
-	<div id="answer0" class="answer">answe0</div>
-	<div id="answer1" class="answer">answe0</div>
-	<div id="answer2" class="answer">answe0</div>
-	<div id="answer3" class="answer">answe0</div>
-	<div class="badgeJudge" id="badgeJudgeCorrect"><img src="images/correct.png" /></div>
-	<div class="badgeJudge" id="badgeJudgeWrong"><img src="images/wrong.png" /></div>
+<div id="battleField">
+	<div id="quizArea" style="position: relative;">
+		<div id="question">question_area</div>
+		<div id="answer0" class="answer">answe0</div>
+		<div id="answer1" class="answer">answe0</div>
+		<div id="answer2" class="answer">answe0</div>
+		<div id="answer3" class="answer">answe0</div>
+		<div class="badgeJudge" id="badgeJudgeCorrect"><img src="images/correct.png" alt="○" /></div>
+		<div class="badgeJudge" id="badgeJudgeWrong"><img src="images/wrong.png" alt="×" /></div>
+	</div>
+	<div id="exit">酒場に戻る</div>
 </div>
 ]]></Content><!-- /canvas -->
 
