@@ -55,15 +55,18 @@
 					
 					//イベント設定
 					$(MainMenu.id.battle)
-						.mouseover( function(){ Status.write('キラー○シンとクイズでバトル！') } )
+						.mouseover( function(){ $(this).css('font-size:','150%'); Status.write('キラー○シンとクイズでバトル！') } )
+						.mouseout( function(){ $(this).css('font-size:','130%'); )
 						.click( Battle.start );
 					
 					$(MainMenu.id.castle)
-						.mouseover( function(){  Status.write('お姫様に会いに行こう')} )
+						.mouseover( function(){ $(this).css('font-size:','150%'); Status.write('お姫様に会いに行こう') } )
+						.mouseout( function(){ $(this).css('font-size:','130%'); )
 						.click( Castle.start );
 
 					$(MainMenu.id.item)
-						.mouseover( function(){  Status.write('アイテムについてのアレコレ')} )
+						.mouseover( function(){ $(this).css('font-size:','150%'); Status.write('アイテムについてのアレコレ')} )
+						.mouseout( function(){ $(this).css('font-size:','130%'); )
 						.click( Item.start );
 					
 				}
