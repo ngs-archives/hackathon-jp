@@ -146,7 +146,70 @@
 						+ '<span style="font-weight:bold">姫「・・・あら、貢ぎ物？」</span><br />\n'
 						+ '<br />\n'
 						+ '　姫はけだるそうに貢ぎ物を見定めた！'
+						+ '<a href="#" id="castle-next1">次へ</a>'
 					);
+
+					//------------------------
+					//イベント登録
+					//------------------------
+					$('#castle-next1').click(function(){
+						Status.write(
+							  '<span style="font-weight:bold">姫「ふん。あなたにしては良くがんばったじゃない」</span><br />\n'
+							+ '<br />\n'
+							+ '　姫はかったるそうに語り出した<br />\n'
+							+ '<br />\n'
+							  '<span style="font-weight:bold">姫「私の出す質問に答えられたら少し見直してあげるわ。もし答えられなかったら死んでもらうけどよろしいかしら？」</span><br />\n'
+							+ '<a href="#" id="castle-next2">よろしくないが…これも運命とあきらめて次へ</a>'
+						);
+					});
+					$('#castle-next2').click(function(){
+						Status.write(
+							  '<span style="font-weight:bold">姫「わたしが幼少の頃に育てていたペットの好物は？」</span><br />\n'
+							+ '  <br />\n'
+							+ '　<a href="#" id="castle-next3">ラーメン</a>\n'
+							+ '　<a href="#" id="castle-next4">つけ麺</a>\n'
+							+ '　<a href="#" id="castle-next5">イケメン</a>\n'
+						);
+					});
+					$('#castle-next3').click(function(){
+						Status.write(
+							  '<span style="font-weight:bold">死にました</span><br />\n'
+							+ '  <br />\n'
+							+ '<a href="#" id="castle-next6">次へ</a>'
+						);
+					});
+					$('#castle-next4').click(function(){
+						Status.write(
+							  '<span style="font-weight:bold">死にました</span><br />\n'
+							+ '  <br />\n'
+							+ '<a href="#" id="castle-next7">次へ</a>'
+						);
+					});
+					$('#castle-next5').click(function(){
+						Status.write(
+							  '<span style="font-weight:bold; color:red">姫「何で知ってるの！このストーカー！！」</span><br />\n'
+							+ '  <br />\n'
+							+ '　姫は少しほほを赤らめながら<br />\n'
+							+ '<br />\n'
+							+ '<span style="font-weight:bold">姫「しかし、約束は守りましょう。よくぞ試練に耐え活躍してくれました。次も期待していますよ」</span><br />\n'
+							+ '<br />\n'
+							+ '　姫の言葉を胸に、プレイヤーの次の冒険が始まる！'
+							+ '<a href="#" id="castle-next99">次へ</a>'
+						);
+					});
+
+					$('#castle-next6').click(function(){
+						MainMenu.init();
+						Status.write('次がありますよ。がんばってください！');
+					});
+					$('#castle-next7').click(function(){
+						MainMenu.init();
+						Status.write('次がありますよ。がんばってください！');
+					});
+					$('#castle-next99').click(function(){
+						Ending.start();
+					});
+
 				}
 
 				//------------------------------
@@ -158,6 +221,26 @@
 				}
 			 };
 			 
+			/*----------------------------------------------------
+			 * ■エンディング
+			 *----------------------------------------------------*/
+			 var Castle = {
+				//------------------------------
+				//HTMLのIDリスト
+				//------------------------------
+				'id':{
+					  'canvas':'#main'
+					, 'castle':'#maincastle'
+				}
+
+				//------------------------------
+				//初期処理
+				//------------------------------
+				, 'start':function(){
+					alert('ちょっとまて');
+				}
+			};
+
 			/*----------------------------------------------------
 			 * ■アイテム
 			 *----------------------------------------------------*/
