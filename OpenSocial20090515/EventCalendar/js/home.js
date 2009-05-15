@@ -8,3 +8,5 @@ function init() {
 }
 
 // TODO: Write the code for Home view.
+$hoge = $('<table></table>');
+$hoge.append('<tr></tr>');
