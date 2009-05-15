@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="みんと〜" author_email="kentaro.matsumae@gmail.com">
+  <ModulePrefs title="みんと～" author_email="kentaro.matsumae@gmail.com">
     <Require feature="opensocial-0.8" />
     <Require feature="dynamic-height" />
   </ModulePrefs>
@@ -114,7 +114,7 @@ function insertData(key, value){
 			}
 		</style>
 
-		<div><span id="ownerName"></span>さんの投稿</div>
+		<div><span id="ownerName"></span>さんの友達の投稿</div>
 		<div id="prevButton"><a href="javascript:void(0);" onclick="prevContent()">前へ</a></div>
 		<div id="contentBody">
 			<div id="contentLeft" class="content"></div>
@@ -126,12 +126,14 @@ function insertData(key, value){
 
 		<div id="Error"></div>
 		<script type="text/javascript">
-			var data;
+			var contents;
 			var no = 0;
  			
-			function showMyContent() {
+			function showMyContent(r) {
+				contents = r[0];
+			
 				var request = opensocial.newDataRequest();
-				request.add(request.newFetchPersonRequest("yamashita"), "viewer_data");
+				request.add(request.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer_data");
 	 
 				request.send(function (response) {
 					var item = response.get("viewer_data");
@@ -147,32 +149,21 @@ function insertData(key, value){
 					
 					$('ownerName').update(nickname);
 					
-					data = getData(person.getId());
-					$('contentLeft').update(data[0].contents[no]['body']);
+					$('contentLeft').update(contents[no]['body']);
 				});
 			}
 
-			function getData(userId) {
-				var data = [{"contents":[{"contentsID":"1234", "body":"AAAAA"},{"contentsID":"2345", "body":"BBBB"}]}];
- 				
- 				return data;
- 				
-  				
-				//data[0].contents.each(function(content){
-				//	$('contentBody').update(content['body']);
-				//});
-			}
-				
+			
 			function nextContent() {
 				no += 1;
 				
 				$('contentLeft').update($('contentRight').innerHTML);
-				$('contentRight').update(data[0].contents[no]['body']);
+				$('contentRight').update(contents[no]['body']);
 				effectNextContent();
 				
 				$('prevButton').show();	
 				
-				if (data[0].contents.length == no) {
+				if (contents.length == no) {
 					$('nextButton').hide();
 				}
 			}
@@ -180,7 +171,7 @@ function insertData(key, value){
  			function prevContent() {
 				no = no - 1;
 
-				$('contentLeft').update(data[0].contents[no]['body']);
+				$('contentLeft').update(contents[no]['body']);
 				effectPrevContent();
 				
 				if (no <= 0) {
@@ -290,7 +281,10 @@ function getFriendsContents(friendIdList, callback) {
 
 ///////////////
   
-			gadgets.util.registerOnLoadHandler(showMyContent);
+			//gadgets.util.registerOnLoadHandler(getMyFriendContents(function(r){showMyContent(r)}));
+			gadgets.util.registerOnLoadHandler(getMyFriendContents(
+				function(r){showMyContent(r)}
+			));
   
  		</script>
 
