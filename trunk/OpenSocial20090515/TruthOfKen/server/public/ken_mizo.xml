@@ -8,27 +8,40 @@
 
 <Content type="html" view="home,profile,canvas">
 <![CDATA[
-<script type="text/javascript" src="http://mizoochi.com/apps/common/opensocial-jquery.min.js"></script>
+<script type="text/javascript" src="http://opensocial-jquery.googlecode.com/svn/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
 ]]>
 </Content>
 
 <Content type="html" view="canvas">
 <![CDATA[
 <script type="text/javascript">
-$.ajax({
-	url: '/people/@owner/@self',
-	data: {},
-	dataType: 'data',
-	success : function(people){
-		var person = people[0];
-		$("#viewer").html(person.addresses.unstructured_address);
-	},
-	error : function(xhr, status,e){
-		console.info(xhr,status,e);
-	}
+	//http://mizoochi.com/apps/ken/test.json
+ $.getJSON('')
+	.next(function(data){
+	console.log('next', foo);
+	
+	return $.ajax({
+		url: '/people/@viewer/@self',
+		data: {},
+		dataType: 'data'})
+	.next(function(people){
+		console.log('bar', bar);
+		return [data, people[0].addresses.unstructured_address];
+	});
+}).next(function(datas) {
+	datas[0]
+	$("#ques").(datas[1]);
+	console.log('foobar', foobar[0], foobar[1]);
+	$("#map").html()
+	$("#question").html();
+}).error(function(status) { // -- (4)
+	console.log('error', status);
 });
 </script>
-<div id="viewer"></div>
+<div id="viewer">
+	<div id="map"></div>
+	<p id="question"></p>
+</div>
 ]]>
 </Content>
 
