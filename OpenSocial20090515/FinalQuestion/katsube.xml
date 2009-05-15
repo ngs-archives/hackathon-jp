@@ -38,7 +38,7 @@
 					, 'battle':'#battle'
 					, 'castle':'#castle'
 					,   'item':'#item'
-				};
+				}
 
 				//------------------------------
 				//初期化(onLoad時に呼び出し)
