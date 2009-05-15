@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+	
+<ModulePrefs title="トゥルースオブ県" description="県民ガジェット">
+	<Require feature="opensocial-0.8"/>
+	<Require feature="dynamic-height" />
+</ModulePrefs>
+
+<Content type="html" view="home,profile,canvas">
+<![CDATA[
+<script type="text/javascript" src="http://mizoochi.com/apps/common/opensocial-jquery.min.js"></script>
+]]>
+</Content>
+
+<Content type="html" view="canvas">
+<![CDATA[
+<script type="text/javascript">
+$.ajax({
+	url: '/people/@owner/@self',
+	data: {},
+	dataType: 'data',
+	success : function(people){
+		var person = people[0];
+		$("#viewer").html(person.addresses.unstructured_address);
+	},
+	error : function(xhr, status,e){
+		console.info(xhr,status,e);
+	}
+});
+</script>
+<div id="viewer"></div>
+]]>
+</Content>
+
+</Module>
