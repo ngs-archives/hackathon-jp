@@ -162,7 +162,7 @@ function insertData(key, value){
 				
 				$('prevButton').show();	
 				
-				if (contents.length == no) {
+				if (contents.length == (no + 1)) {
 					$('nextButton').hide();
 				}
 			}
