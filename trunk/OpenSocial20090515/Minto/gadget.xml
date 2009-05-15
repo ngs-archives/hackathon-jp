@@ -228,6 +228,67 @@ function insertData(key, value){
 					}
 				);
 			}
+
+///////////////
+//
+// 友達の投稿を取得する
+//
+function getMyFriendContents(callback){
+	var key = "contents";
+    var request = opensocial.newDataRequest();
+    var param = {};
+    param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    param[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+    var idSpec = opensocial.newIdSpec(param);
+    request.add(request.newFetchPeopleRequest(idSpec), "friends_data");
+   	request.send(function (response) {
+		var item = response.get("friends_data");
+		if (item.hadError()) {
+		    alert("err");
+		    return;
+		}
+		var people = item.getData();
+		var friendIdList = [];
+		people.each(function (person) {
+		    var fid = person.getId();
+		    friendIdList.push(fid);
+		});
+		getFriendsContents(friendIdList, callback);
+    });
+}
+function getFriendsContents(friendIdList, callback) {
+	var request = opensocial.newDataRequest();
+    var params = [];
+    params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+    var idSpec = opensocial.newIdSpec(params); 
+    request.add(request.newFetchPersonAppDataRequest(idSpec, ["contents"]), "viewer_data");
+    request.send(function (response) {
+        if (response.hadError()) {
+        	alert(response.getErrorMessage());
+            return;
+        }
+        var data = response.get("viewer_data").getData();
+        
+        for (var property in data){
+ 			//alert(property + ' = ' + data[property])
+ 		}
+ 		
+ 		var result = [];
+ 		alert(friendIdList);
+        for(var i=0; i<friendIdList.length; i++){
+        	var fid = friendIdList[i];
+        	var contents = data[fid];
+        	if(contents){
+        		var fContents = contents["contents"];
+        		result.push(fContents);
+        	}
+        }
+        //TODO callbackを実行
+    });
+}
+
+///////////////
   
 			gadgets.util.registerOnLoadHandler(showMyContent);
   
