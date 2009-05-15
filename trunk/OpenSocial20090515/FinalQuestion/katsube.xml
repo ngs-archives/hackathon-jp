@@ -55,15 +55,15 @@
 					
 					//イベント設定
 					$(MainMenu.id.battle)
-						.onmouse( Status.write('キラー○シンとクイズでバトル！') )
+						.mouseover( function(){ Status.write('キラー○シンとクイズでバトル！') } )
 						.click( Battle.start );
 					
 					$(MainMenu.id.castle)
-						.onmouse( Status.write('お姫様に会いに行こう') )
+						.mouseover( function(){  Status.write('お姫様に会いに行こう')} )
 						.click( Castle.start );
 
 					$(MainMenu.id.item)
-						.onmouse( Status.write('アイテムについてのアレコレ') )
+						.mouseover( function(){  Status.write('アイテムについてのアレコレ')} )
 						.click( Item.start );
 					
 				}
