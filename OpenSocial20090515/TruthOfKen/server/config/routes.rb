@@ -1,4 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :prefectures
+
+  map.resources :answers
+
+  map.resources :questions
+
   map.activate '/activate/:activation_code', :controller => 'accounts', :action => 'activate'
   map.resources :accounts, :member => { :suspend => :put, :unsuspend => :put, :purge => :delete }
   map.forgot_password '/forgot_password', :controller => 'passwords', :action => 'new'
