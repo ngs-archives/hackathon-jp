@@ -1,0 +1,20 @@
+<p>
+  <b>Login:</b>
+  <%=h @account.login %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @account.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @account.email %>
+</p>
+
+<%= link_to 'Add Talent', :action => 'new', :controller => 'talents', :id => @account.id %>
+<%= link_to 'Show Talents', :action => 'index', :controller => 'talents', :account_id => @account.id %>
+<%= link_to 'Show UserInfo', :action => 'show', :controller => 'user_infos', :account_id => @account.id %>
+<%= if_authorized?(:edit,    @account) do link_to('Edit your account', edit_account_path(@account)) end %> |
+<%= link_to 'Back', accounts_path %>

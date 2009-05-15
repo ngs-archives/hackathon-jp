@@ -1,0 +1,35 @@
+ChangeEmail
+=======
+
+change email generator for restful-authentication 
+
+
+Required
+=======
+
+ruby script/plugin install git://github.com/kusakari/valid_attributes.git
+
+
+Usage
+=======
+
+ruby script/generate change_email <email-model-name> <user-model-name>
+
+
+Example
+=======
+
+ruby script/generate change_email email user
+
+
+*link
+<% if logged_in? -%>
+  <%= link_to "change_email", change_email_path %>
+<% end -%>
+
+
+Copyright
+=======
+Copyright (c) 2008 Kei Kusakari
+http://imishin.com
+

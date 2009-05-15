@@ -1,0 +1,25 @@
+ja: 
+  activerecord: 
+    models: 
+      account: "口座"  #g
+      password: "パスワード"  #g
+
+    attributes: 
+      account: 
+        login: "ログイン"  #g
+        name: "名前"  #g
+        email: "Eメール"  #g
+        crypted_password: "暗号化パスワード"  #g
+        salt: "塩"  #g
+        remember_token: "覚えてトークン"  #g
+        remember_token_expires_at: "トークンの有効期限が切れる忘れないで"  #g
+        activation_code: "活性化コード"  #g
+        activated_at: "でアクティブ"  #g
+        state: "状態"  #g
+        deleted_at: "で削除"  #g
+
+      password: 
+        reset_code: "リセットコード"  #g
+        expiration_date: "有効期限"  #g
+        account: "口座"  #g
+
