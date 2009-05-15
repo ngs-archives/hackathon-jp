@@ -8,7 +8,12 @@
 	
     	<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jquery-1.2.6.js"></script>
 		<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jquery.inc-5.js"></script>
-		<div class="inc:http%3A%2F%2Fec2%2D174%2D129%2D131%2D70%2Ecompute%2D1%2Eamazonaws%2Ecom%2Fcanvas%2Ehtml"></div>
+		<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jsdeferred.js"></script>
+		<script type="text/javascript" src="http://opensocial-jquery.googlecode.com/svn/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
+		<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/question.js"></script>
+		<script type="text/javascript">
+			gadgets.util.registerOnLoadHandler(init);
+		</script>
 	
 	]]></Content>
 </Module>
