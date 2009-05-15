@@ -28,7 +28,7 @@ body{
 	font-size: 130%;
 	float:left;
 	border: 3px solid white;
-	cursor:point;
+	cursor:pointer;
 
 }
 #mainmenu-in #status{
