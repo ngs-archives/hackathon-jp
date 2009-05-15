@@ -5,6 +5,15 @@
     <Require feature="dynamic-height" />
   </ModulePrefs>
   <Content type="html" view="canvas"><![CDATA[
+  
+  <script type="text/javascript" src="/EventCalendar/js/lib/jquery-1.3.2.js"></script>
+  <script type="text/javascript" src="/EventCalendar/canvas.js"></script>
+  
+  <script type="text/javascript">
+  
+    $(document).ready(function(){ init(); });
+  </script>
+  
   ]]></Content>
   <Content type="html" view="home, profile"><![CDATA[
   ]]></Content>
