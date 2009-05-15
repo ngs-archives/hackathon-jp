@@ -131,7 +131,6 @@ function insertData(key, value){
  			
 			function showMyContent(r) {
 				contents = r[0];
-			
 				var request = opensocial.newDataRequest();
 				request.add(request.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),"viewer_data");
 	 
@@ -266,27 +265,32 @@ function getFriendsContents(friendIdList, callback) {
  		}
  		
  		var result = [];
- 		alert(friendIdList);
-        for(var i=0; i<friendIdList.length; i++){
+ 		for(var i=0; i<friendIdList.length; i++){
         	var fid = friendIdList[i];
         	var contents = data[fid];
         	if(contents){
         		var fContents = contents["contents"];
-        		result.push(fContents);
+        	    var jsonTxt =  gadgets.util.unescapeString(fContents);
+        		allContents  = gadgets.json.parse(jsonTxt);
+        		result.push(allContents);
         	}
         }
-        //TODO callbackを実行
+        callback(result);
     });
 }
 
 ///////////////
   
 			//gadgets.util.registerOnLoadHandler(getMyFriendContents(function(r){showMyContent(r)}));
-			gadgets.util.registerOnLoadHandler(getMyFriendContents(
-				function(r){showMyContent(r)}
-			));
-  
- 		</script>
+			gadgets.util.registerOnLoadHandler(
+				getMyFriendContents(
+					function(r){
+						showMyContent(r);
+					}
+				)
+			);
+			
+  		</script>
 
   ]]></Content>
 
