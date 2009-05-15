@@ -248,7 +248,7 @@
 							+ '<br />'
 							+ 'Thank you for your play!<br />'
 							+ '<h2 style="font-size:150%">ゲームチームの次回作にご期待ください！</h2>'
-						'</div>'
+						+ '</div>'
 					);
 				}
 			};
