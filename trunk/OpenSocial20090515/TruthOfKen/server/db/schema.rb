@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090317042321) do
+ActiveRecord::Schema.define(:version => 20090515042136) do
 
   create_table "accounts", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -29,10 +29,33 @@ ActiveRecord::Schema.define(:version => 20090317042321) do
 
   add_index "accounts", ["login"], :name => "index_accounts_on_login", :unique => true
 
+  create_table "answers", :force => true do |t|
+    t.integer  "question_id"
+    t.string   "ans"
+    t.integer  "prefecture_id"
+    t.integer  "rate"
+    t.integer  "mixi_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "passwords", :force => true do |t|
     t.integer  "account_id"
     t.string   "reset_code"
     t.datetime "expiration_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prefectures", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "questions", :force => true do |t|
+    t.string   "quest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
