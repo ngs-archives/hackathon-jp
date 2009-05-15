@@ -1,17 +1,24 @@
 
 var data = {
 	dao: {},
+	
+	// 定数
+	// イベントのステータス
 	status: {
 		CREATING: "creating",
 		FIX: "fix",
 		CANCEL: "cancel"
 	},
+	// エントリの種類
 	entryType: {
 		WHEN: "いつ",
 		WHERE: "どこで",
 		WHAT: "何を",
 		WHO: "誰と"		
 	},
+	
+	// 以下、ファクトリーメソッド
+	
 	createUser: function(id, nickname){
 		var user = {
 			id: id,
@@ -43,6 +50,9 @@ var data = {
 	}
 };
 
+/**
+ * DAOのダミー実装
+ */
 var DummyDao = {
 	// __private以下は非公開メソッド
 	__private: {
@@ -59,7 +69,8 @@ var DummyDao = {
 	getEventsByOwerUserId: function(userId){
 		var events = [];
 		var user = data.createUser(userId, "sugimori");
-		events.push(data.createEvent(0, "花見", user, [user], data.status.CRIATING));
+		events.push(data.createEvent("花見", user, [user], data.status.CRIATING));
+		events.push(data.createEvent("Hackathon", user, [user], data.status.CRIATING));
 		return events;
 	},
 	
