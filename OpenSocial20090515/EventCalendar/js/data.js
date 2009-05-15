@@ -1,5 +1,5 @@
-
-var data = {
+//alert("test");
+var evtCal = {
 	dao: {},
 	
 	// 定数
@@ -28,7 +28,7 @@ var data = {
 	},
 	createEntry: function(type, user, postedAt, content, comment){
 		var entry = {
-			id: data.dao.__private.getNextEntryId(),
+			id: evtCal.dao.__private.getNextEntryId(),
 			type: type,
 			user: user,
 			postedAt: postedAt,
@@ -39,7 +39,7 @@ var data = {
 	},
 	createEvent: function(title, creator, participants, status){
 		var event = {
-			id: data.dao.__private.getNextEventId(),
+			id: evtCal.dao.__private.getNextEventId(),
 			title: title,
 			creator: creator,
 			participants: participants,
@@ -68,9 +68,9 @@ var DummyDao = {
 	
 	getEventsByOwerUserId: function(userId){
 		var events = [];
-		var user = data.createUser(userId, "sugimori");
-		events.push(data.createEvent("花見", user, [user], data.status.CRIATING));
-		events.push(data.createEvent("Hackathon", user, [user], data.status.CRIATING));
+		var user = evtCal.createUser(userId, "sugimori");
+		events.push(evtCal.createEvent("花見", user, [user], evtCal.status.CRIATING));
+		events.push(evtCal.createEvent("Hackathon", user, [user], evtCal.status.CRIATING));
 		return events;
 	},
 	
@@ -89,4 +89,12 @@ var DummyDao = {
 	}
 };
 
-data.dao = DummyDao;
+var CouchXHRRequester = {
+	findAllEvents: function(url){
+		$.get(url, function(obj){
+			alert(obj);
+		});
+	}
+};
+
+evtCal.dao = DummyDao;
