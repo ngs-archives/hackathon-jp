@@ -145,7 +145,7 @@
 						+ '<br />\n'
 						+ '<span style="font-weight:bold">姫「・・・あら、貢ぎ物？」</span><br />\n'
 						+ '<br />\n'
-						+ '　姫はけだるそうに貢ぎ物を見定めた！<a href="#" id="castle-next1">次へ</a>'
+						+ '　<a href="#" id="castle-next1">姫はけだるそうに貢ぎ物を見定めた!</a>'
 					);
 
 					//------------------------
