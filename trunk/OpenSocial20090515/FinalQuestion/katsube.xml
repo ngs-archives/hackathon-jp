@@ -3,7 +3,7 @@
 	<ModulePrefs title="FinalQuestion"></ModulePrefs>
 	<Content type="html" view="canvas">
 	<![CDATA[
-		<link rel="stylesheet" href="/" type="text/css" />
+		<link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090515/FinalQuestion/katsube.css" type="text/css" />
 		<h1>FinalQuestion</h1>
 
 		<!-- [メイン画面] -->
