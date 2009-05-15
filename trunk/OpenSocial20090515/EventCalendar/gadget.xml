@@ -21,9 +21,9 @@
     
     </script>
     
-    <div id="main"></div>
+    <div id="view"></div>
     
-    <div id="detail"></div>
+    <div id="register"></div>
     
     ]]></Content>
 
