@@ -86,4 +86,90 @@ function insertData(key, value){
 </script>
 
   ]]></Content>
+
+ <Content type="html" view="home,profile"><![CDATA[
+		<script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
+
+		<div><span id="ownerName"></span>さんの投稿</div>
+		<div id="prevButton"><a href="javascript:void(0);" onclick="prevContent()">前へ</a></div>
+		<div id="contentBody"></div>
+		<div id="nextButton"><a href="javascript:void(0);" onclick="nextContent()">次へ</a></div>
+		<div id="rateButton">評価する</div>
+		<div id="rate">星</div>
+
+		<div id="Error"></div>
+		<script type="text/javascript">
+			var data;
+			var no = 0;
+ 			
+  		function showMyContent() {
+ 			var request = opensocial.newDataRequest();
+ 			request.add(request.newFetchPersonRequest("yamashita"), "viewer_data");
+ 
+ 			request.send(function (response) {
+ 				var item = response.get("viewer_data");
+ 				if (item.hadError()) {
+					// エラー処理。item.getError() で詳細情報を取得
+					$('Error').update(item.getError());
+					return;
+				}
+
+				// 実行ユーザのプロフィールを参照
+				var person = item.getData();
+				var nickname = person.getDisplayName();
+				
+				$('ownerName').update(nickname);
+				
+				data = getData(person.getId());
+				showContent();
+			});
+		}
+
+			function getData(userId) {
+				var data = [{"contents":[{"contentsID":"1234", "body":"AAAAA"},{"contentsID":"2345", "body":"BBBB"}]}];
+ 				
+ 				return data;
+ 				
+  				
+				//data[0].contents.each(function(content){
+				//	$('contentBody').update(content['body']);
+				//});
+			}
+				
+  			function showContent() {
+				$('contentBody').update(data[0].contents[no]['body']);
+				
+				if (data[0].contents.length > 1) {
+					$('nextButton').show();
+				} else {
+					$('nextButton').hide();
+				}
+			}
+			
+			function nextContent() {
+				no += 1;
+				showContent();
+				
+				$('prevButton').show();	
+				
+				if (data[0].contents.length == no) {
+					$('nextButton').hide();
+				}
+			}
+ 
+ 			function prevContent() {
+				no = no - 1;
+				showContent();
+				
+				if (no <= 0) {
+					$('prevButton').hide();	
+				}
+			}
+  
+			gadgets.util.registerOnLoadHandler(showMyContent);
+  
+ 		</script>
+
+  ]]></Content>
+
 </Module>
