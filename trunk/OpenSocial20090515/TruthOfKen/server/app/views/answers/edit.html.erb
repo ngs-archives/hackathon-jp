@@ -1,0 +1,32 @@
+<h1>Editing answer</h1>
+
+<% form_for(@answer) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :question_id %><br />
+    <%= f.text_field :question_id %>
+  </p>
+  <p>
+    <%= f.label :ans %><br />
+    <%= f.text_field :ans %>
+  </p>
+  <p>
+    <%= f.label :prefecture_id %><br />
+    <%= f.text_field :prefecture_id %>
+  </p>
+  <p>
+    <%= f.label :rate %><br />
+    <%= f.text_field :rate %>
+  </p>
+  <p>
+    <%= f.label :mixi_id %><br />
+    <%= f.text_field :mixi_id %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @answer %> |
+<%= link_to 'Back', answers_path %>

@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%=h @prefecture.name %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%=h @prefecture.url %>
+</p>
+
+
+<%= link_to 'Edit', edit_prefecture_path(@prefecture) %> |
+<%= link_to 'Back', prefectures_path %>
