@@ -3,6 +3,6 @@ address: 0.0.0.0
 cwd: /var/ugatta/current
 log_file: log/mongrel.log
 port: "80"
-environment: production
+environment: development
 pid_file: tmp/pids/mongrel.pid
 servers: 1
