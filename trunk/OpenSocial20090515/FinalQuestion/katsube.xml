@@ -124,7 +124,7 @@
 				Status.write('Final Questionへようこそ');
 				
 				//高さ変更
-				//gadgets.window.adjustHeight();
+				gadgets.window.adjustHeight();
 			});
 		</script>
 	]]>
