@@ -1,0 +1,15 @@
+table.tbl_event thead tr th {
+	background-color: #FFAF00;
+	border: 1px solid #FFAF00;
+	-webkit-border-radius: 5px;
+	padding: 2px 20px;
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+table.tbl_event tbody tr td {
+	background-color: #FFD700;
+	border: 1px solid #FFD700;
+	-webkit-border-radius: 5px;
+	padding: 2px 20px;
+}
