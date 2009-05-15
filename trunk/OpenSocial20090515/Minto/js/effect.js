@@ -1,604 +1,1130 @@
-/*
-2001.3.13-2008.6.6 Satoshi Koyama(koyama@cc.hirosaki-u.ac.jp), Hirosaki Univ.
-エフェクト満載ライブラリ
-http://siva.cc.hirosaki-u.ac.jp/usr/koyama/effect/
+// script.aculo.us effects.js v1.8.2, Tue Nov 18 18:30:58 +0100 2008
 
-このライブラリはNetscape社の "Drag and Drop Component" を拡充して作成しました。
-このページの旧URLは下記ですが、現在は閲覧できません。
-http://developer.netscape.com/docs/examples/dynhtml/dragable/index.html
+// Copyright (c) 2005-2008 Thomas Fuchs (http://script.aculo.us, http://mir.aculo.us)
+// Contributors:
+//  Justin Palmer (http://encytemedia.com/)
+//  Mark Pilgrim (http://diveintomark.org/)
+//  Martin Bialasinki
+//
+// script.aculo.us is freely distributable under the terms of an MIT-style license.
+// For details, see the script.aculo.us web site: http://script.aculo.us/
 
-使い方:
-	D=putObj(x,y,html)		(x,y)にObjのインスタンスを生成する
-	D=new Obj(x,y,html)		(x,y)にObjのインスタンスを生成する
-	D.layer					レイヤーID または スタイルID
-	D.ondrop=function ...	ondropイベントハンドラ
-	D.onmove=function ...	onmoveイベントハンドラ
-	D.ondrag=function ...	ondragイベントハンドラ
-	D.ondown=function ...	ondownイベントハンドラ
+// converts rgb() and #xxx to #xxxxxx format,
+// returns self (or first argument) if not convertable
+String.prototype.parseColor = function() {
+  var color = '#';
+  if (this.slice(0,4) == 'rgb(') {
+    var cols = this.slice(4,this.length-1).split(',');
+    var i=0; do { color += parseInt(cols[i]).toColorPart() } while (++i<3);
+  } else {
+    if (this.slice(0,1) == '#') {
+      if (this.length==4) for(var i=1;i<4;i++) color += (this.charAt(i) + this.charAt(i)).toLowerCase();
+      if (this.length==7) color = this.toLowerCase();
+    }
+  }
+  return (color.length==7 ? color : (arguments[0] || this));
+};
 
-	D.bgColor(color)		Dの背景色をcolorにする
-	D.dragable()			Dをドラッグ可能にする
-	D.show()/D.hide()		Dを見せる/隠す
-	D.clip(x1,y1,x2,y2)		DをDの相対座標(x1,y1),(x2,y2)でクリップする
-	D.bound(x1,y1,x2,y2)	Dの移動範囲を(x1,y1),(x2,y2)の範囲に制約する
-	D.bind(b)				Dをオブジェクトbにバインドする
-	D.moveBy(x,y)			Dを(x,y)だけ移動する
-	D.moveBy(x,y,x1,y1,x2,y2)	移動後のDを(x1,y1),(x2,y2)でクリップ
-	D.moveTo(x,y)			Dを(x,y)に移動する
-	D.forced(t)				Dがtの外周上にあった場合、tの内部/外部に移動する
-	D.inside(x,y)			(x,y)がD上にあるかチェック...true/false
-	D.dragability			Dのドラッグ有効/無効...true(/false)
-	D.x, D.y				Dの位置
-	D.width, D.height		Dの幅と高さ
-	D.Z						trueならばDをマウス操作した時に最も上のレイヤにする
-	dstartX, dstartY		ドラッグ開始時のマウスポインタの位置
-	droppedX, droppedY		ドロップ時のマウスポインタの位置
+/*--------------------------------------------------------------------------*/
 
-	D.wipein(1～4[,s])		Dをモード1～4で(s秒で)ワイプインする
-	D.wipeout(1～4[,s])		Dをモード1～4で(s秒で)ワイプアウトする
-	D.slidein(1～4[,s]) 	Dをモード1～4で(s秒で)スライドインする
-	D.slideout(1～4[,s])	Dをモード1～4で(s秒で)スライドアウトする
-	D.slideBy(x,y)			Dを(x,y)だけスライドする
-	D.slideTo(x,y)			Dを(x,y)にスライドする
+Element.collectTextNodes = function(element) {
+  return $A($(element).childNodes).collect( function(node) {
+    return (node.nodeType==3 ? node.nodeValue :
+      (node.hasChildNodes() ? Element.collectTextNodes(node) : ''));
+  }).flatten().join('');
+};
 
-プログラムの例(sample.htm):
-	--- ここから ---
-	<script src=effect.js></script>
-	<script>
-	A=new Obj(80,80,"<H1>Drag me.</H1>");
-	A.dragable();	A.ondrop=droppedA
-	B=new Obj(20,20,"<H1>What happened!</H1>");
-	B.dragable();	B.ondrop=droppedB
-	B.hide()
-	function droppedA(){B.show();	A.hide()}
-	function droppedB(){A.show();	B.hide()}
-	</script>
-	--- ここまで ---
-*/
+Element.collectTextNodesIgnoreClass = function(element, className) {
+  return $A($(element).childNodes).collect( function(node) {
+    return (node.nodeType==3 ? node.nodeValue :
+      ((node.hasChildNodes() && !Element.hasClassName(node,className)) ?
+        Element.collectTextNodesIgnoreClass(node, className) : ''));
+  }).flatten().join('');
+};
 
-SNDSTATUS="STOP"
+Element.setContentZoom = function(element, percent) {
+  element = $(element);
+  element.setStyle({fontSize: (percent/100) + 'em'});
+  if (Prototype.Browser.WebKit) window.scrollBy(0,0);
+  return element;
+};
 
-var agt=navigator.userAgent.toLowerCase();
-var is_major= parseInt(navigator.appVersion);
-var is_nav	= ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('compatible')==-1))
-var is_nav4 = (is_nav && (is_major==4));
-var is_nav4up=(is_nav && (is_major>=4));
-var is_nav5up=(is_nav && (is_major>=5));
-var is_ie   = (agt.indexOf("msie")!=-1);
-var is_ie3  = (is_ie && (is_major< 4));
-var is_ie4  = (is_ie && (is_major==4) && (agt.indexOf("msie 5.0")==-1) );
-var is_ie4up= (is_ie && (is_major>=4));
-var is_ie5up= (is_ie && !is_ie3 && !is_ie4);
+Element.getInlineOpacity = function(element){
+  return $(element).style.opacity || '';
+};
 
-if(document==top.document)	DFrame=top;
-else						DFrame=top.frames[1];
-if(is_nav5up)	DFrame.document.write("<SPAN>　</SPAN>");
+Element.forceRerendering = function(element) {
+  try {
+    element = $(element);
+    var n = document.createTextNode(' ');
+    element.appendChild(n);
+    element.removeChild(n);
+  } catch(e) { }
+};
 
-var droppedX, droppedY, DID=1;
+/*--------------------------------------------------------------------------*/
 
-var PRESETACTION="", PRESETTIME=0;
-var DRAGABLE=new Array();
+var Effect = {
+  _elementDoesNotExistError: {
+    name: 'ElementDoesNotExistError',
+    message: 'The specified DOM element does not exist, but is required for this effect to operate'
+  },
+  Transitions: {
+    linear: Prototype.K,
+    sinoidal: function(pos) {
+      return (-Math.cos(pos*Math.PI)/2) + .5;
+    },
+    reverse: function(pos) {
+      return 1-pos;
+    },
+    flicker: function(pos) {
+      var pos = ((-Math.cos(pos*Math.PI)/4) + .75) + Math.random()/4;
+      return pos > 1 ? 1 : pos;
+    },
+    wobble: function(pos) {
+      return (-Math.cos(pos*Math.PI*(9*pos))/2) + .5;
+    },
+    pulse: function(pos, pulses) {
+      return (-Math.cos((pos*((pulses||5)-.5)*2)*Math.PI)/2) + .5;
+    },
+    spring: function(pos) {
+      return 1 - (Math.cos(pos * 4.5 * Math.PI) * Math.exp(-pos * 6));
+    },
+    none: function(pos) {
+      return 0;
+    },
+    full: function(pos) {
+      return 1;
+    }
+  },
+  DefaultOptions: {
+    duration:   1.0,   // seconds
+    fps:        100,   // 100= assume 66fps max.
+    sync:       false, // true for combining
+    from:       0.0,
+    to:         1.0,
+    delay:      0.0,
+    queue:      'parallel'
+  },
+  tagifyText: function(element) {
+    var tagifyStyle = 'position:relative';
+    if (Prototype.Browser.IE) tagifyStyle += ';zoom:1';
 
-//timint()
+    element = $(element);
+    $A(element.childNodes).each( function(child) {
+      if (child.nodeType==3) {
+        child.nodeValue.toArray().each( function(character) {
+          element.insertBefore(
+            new Element('span', {style: tagifyStyle}).update(
+              character == ' ' ? String.fromCharCode(160) : character),
+              child);
+        });
+        Element.remove(child);
+      }
+    });
+  },
+  multiple: function(element, effect) {
+    var elements;
+    if (((typeof element == 'object') ||
+        Object.isFunction(element)) &&
+       (element.length))
+      elements = element;
+    else
+      elements = $(element).childNodes;
 
-function presetTimeout(action,t){PRESETACTION=action;	PRESETTIME=t}
+    var options = Object.extend({
+      speed: 0.1,
+      delay: 0.0
+    }, arguments[2] || { });
+    var masterDelay = options.delay;
 
-function timint(){				// 10msタイマー割込み
-	var i,j,dx0,dy0,dl0,dl;
-// 全てのObjオブジェクトについて
-	for(j=i=0;i<DRAGABLE.length;i++) with(DRAGABLE[i]){
-// 現在位置(x,y)から目的位置(xd,yd)までdx,dyずつ動かす(スライド)
-		dx0=xd-x;	dy0=yd-y;
-		if(dx0!=0 || dy0!=0){
-			dl0=Math.sqrt(dx0*dx0+dy0*dy0)
-			dl=Math.sqrt(dx*dx+dy*dy)
-			if(dl0<dl)	moveTo(xd,yd)
-			else slideBy(Math.round(dx0*dx/dl0),Math.round(dy0*dy/dl0))
-			j++;
-		}else{
-// 現在位置(x1,y1)から目的位置(xd1,yd1)までdx,dyずつ動かす(ワイプ)
-			if(x1!=xd1){
-				if(x1<xd1){	if(xd1-x1<dx)	x1=xd1;
-							else			x1+=dx;
-				}else{		if(x1-xd1<dx)	x1=xd1;
-							else			x1-=dx;
-				}
-				j++;
-			}
-			if(y1!=yd1){
-				if(y1<yd1){	if(yd1-y1<dy)	y1=yd1;
-							else			y1+=dy;
-				}else{		if(y1-yd1<dy)	y1=yd1;
-							else			y1-=dy;
-				}
-				j++;
-			}
-// 現在位置(x2,y2)から目的位置(xd2,yd2)までdx,dyずつ動かす(ワイプ)
-			if(x2!=xd2){
-				if(x2<xd2){	if(xd2-x2<dx)	x2=xd2;
-							else			x2+=dx;
-				}else{		if(x2-xd2<dx)	x2=xd2;
-							else			x2-=dx;
-				}
-				j++;
-			}
-			if(y2!=yd2){
-				if(y2<yd2){	if(yd2-y2<dy)	y2=yd2;
-							else			y2+=dy;
-				}else{		if(y2-yd2<dy)	y2=yd2;
-							else			y2-=dy;
-				}
-				j++;
-			}
-			clip(x1,y1,x2,y2);
-		}
-	}
-	if(j==0 && SNDSTATUS=="STOP"){	// スライドもワイプも無くかつSTOP
-		if(PRESETACTION!="")	setTimeout(PRESETACTION,PRESETTIME);
-		PRESETACTION="";	PRESETTIME=0;
-	}
-	setTimeout("timint()",10);
+    $A(elements).each( function(element, index) {
+      new effect(element, Object.extend(options, { delay: index * options.speed + masterDelay }));
+    });
+  },
+  PAIRS: {
+    'slide':  ['SlideDown','SlideUp'],
+    'blind':  ['BlindDown','BlindUp'],
+    'appear': ['Appear','Fade']
+  },
+  toggle: function(element, effect) {
+    element = $(element);
+    effect = (effect || 'appear').toLowerCase();
+    var options = Object.extend({
+      queue: { position:'end', scope:(element.id || 'global'), limit: 1 }
+    }, arguments[2] || { });
+    Effect[element.visible() ?
+      Effect.PAIRS[effect][1] : Effect.PAIRS[effect][0]](element, options);
+  }
+};
+
+Effect.DefaultOptions.transition = Effect.Transitions.sinoidal;
+
+/* ------------- core effects ------------- */
+
+Effect.ScopedQueue = Class.create(Enumerable, {
+  initialize: function() {
+    this.effects  = [];
+    this.interval = null;
+  },
+  _each: function(iterator) {
+    this.effects._each(iterator);
+  },
+  add: function(effect) {
+    var timestamp = new Date().getTime();
+
+    var position = Object.isString(effect.options.queue) ?
+      effect.options.queue : effect.options.queue.position;
+
+    switch(position) {
+      case 'front':
+        // move unstarted effects after this effect
+        this.effects.findAll(function(e){ return e.state=='idle' }).each( function(e) {
+            e.startOn  += effect.finishOn;
+            e.finishOn += effect.finishOn;
+          });
+        break;
+      case 'with-last':
+        timestamp = this.effects.pluck('startOn').max() || timestamp;
+        break;
+      case 'end':
+        // start effect after last queued effect has finished
+        timestamp = this.effects.pluck('finishOn').max() || timestamp;
+        break;
+    }
+
+    effect.startOn  += timestamp;
+    effect.finishOn += timestamp;
+
+    if (!effect.options.queue.limit || (this.effects.length < effect.options.queue.limit))
+      this.effects.push(effect);
+
+    if (!this.interval)
+      this.interval = setInterval(this.loop.bind(this), 15);
+  },
+  remove: function(effect) {
+    this.effects = this.effects.reject(function(e) { return e==effect });
+    if (this.effects.length == 0) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+  },
+  loop: function() {
+    var timePos = new Date().getTime();
+    for(var i=0, len=this.effects.length;i<len;i++)
+      this.effects[i] && this.effects[i].loop(timePos);
+  }
+});
+
+Effect.Queues = {
+  instances: $H(),
+  get: function(queueName) {
+    if (!Object.isString(queueName)) return queueName;
+
+    return this.instances.get(queueName) ||
+      this.instances.set(queueName, new Effect.ScopedQueue());
+  }
+};
+Effect.Queue = Effect.Queues.get('global');
+
+Effect.Base = Class.create({
+  position: null,
+  start: function(options) {
+    function codeForEvent(options,eventName){
+      return (
+        (options[eventName+'Internal'] ? 'this.options.'+eventName+'Internal(this);' : '') +
+        (options[eventName] ? 'this.options.'+eventName+'(this);' : '')
+      );
+    }
+    if (options && options.transition === false) options.transition = Effect.Transitions.linear;
+    this.options      = Object.extend(Object.extend({ },Effect.DefaultOptions), options || { });
+    this.currentFrame = 0;
+    this.state        = 'idle';
+    this.startOn      = this.options.delay*1000;
+    this.finishOn     = this.startOn+(this.options.duration*1000);
+    this.fromToDelta  = this.options.to-this.options.from;
+    this.totalTime    = this.finishOn-this.startOn;
+    this.totalFrames  = this.options.fps*this.options.duration;
+
+    this.render = (function() {
+      function dispatch(effect, eventName) {
+        if (effect.options[eventName + 'Internal'])
+          effect.options[eventName + 'Internal'](effect);
+        if (effect.options[eventName])
+          effect.options[eventName](effect);
+      }
+
+      return function(pos) {
+        if (this.state === "idle") {
+          this.state = "running";
+          dispatch(this, 'beforeSetup');
+          if (this.setup) this.setup();
+          dispatch(this, 'afterSetup');
+        }
+        if (this.state === "running") {
+          pos = (this.options.transition(pos) * this.fromToDelta) + this.options.from;
+          this.position = pos;
+          dispatch(this, 'beforeUpdate');
+          if (this.update) this.update(pos);
+          dispatch(this, 'afterUpdate');
+        }
+      };
+    })();
+
+    this.event('beforeStart');
+    if (!this.options.sync)
+      Effect.Queues.get(Object.isString(this.options.queue) ?
+        'global' : this.options.queue.scope).add(this);
+  },
+  loop: function(timePos) {
+    if (timePos >= this.startOn) {
+      if (timePos >= this.finishOn) {
+        this.render(1.0);
+        this.cancel();
+        this.event('beforeFinish');
+        if (this.finish) this.finish();
+        this.event('afterFinish');
+        return;
+      }
+      var pos   = (timePos - this.startOn) / this.totalTime,
+          frame = (pos * this.totalFrames).round();
+      if (frame > this.currentFrame) {
+        this.render(pos);
+        this.currentFrame = frame;
+      }
+    }
+  },
+  cancel: function() {
+    if (!this.options.sync)
+      Effect.Queues.get(Object.isString(this.options.queue) ?
+        'global' : this.options.queue.scope).remove(this);
+    this.state = 'finished';
+  },
+  event: function(eventName) {
+    if (this.options[eventName + 'Internal']) this.options[eventName + 'Internal'](this);
+    if (this.options[eventName]) this.options[eventName](this);
+  },
+  inspect: function() {
+    var data = $H();
+    for(property in this)
+      if (!Object.isFunction(this[property])) data.set(property, this[property]);
+    return '#<Effect:' + data.inspect() + ',options:' + $H(this.options).inspect() + '>';
+  }
+});
+
+Effect.Parallel = Class.create(Effect.Base, {
+  initialize: function(effects) {
+    this.effects = effects || [];
+    this.start(arguments[1]);
+  },
+  update: function(position) {
+    this.effects.invoke('render', position);
+  },
+  finish: function(position) {
+    this.effects.each( function(effect) {
+      effect.render(1.0);
+      effect.cancel();
+      effect.event('beforeFinish');
+      if (effect.finish) effect.finish(position);
+      effect.event('afterFinish');
+    });
+  }
+});
+
+Effect.Tween = Class.create(Effect.Base, {
+  initialize: function(object, from, to) {
+    object = Object.isString(object) ? $(object) : object;
+    var args = $A(arguments), method = args.last(),
+      options = args.length == 5 ? args[3] : null;
+    this.method = Object.isFunction(method) ? method.bind(object) :
+      Object.isFunction(object[method]) ? object[method].bind(object) :
+      function(value) { object[method] = value };
+    this.start(Object.extend({ from: from, to: to }, options || { }));
+  },
+  update: function(position) {
+    this.method(position);
+  }
+});
+
+Effect.Event = Class.create(Effect.Base, {
+  initialize: function() {
+    this.start(Object.extend({ duration: 0 }, arguments[0] || { }));
+  },
+  update: Prototype.emptyFunction
+});
+
+Effect.Opacity = Class.create(Effect.Base, {
+  initialize: function(element) {
+    this.element = $(element);
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    // make this work on IE on elements without 'layout'
+    if (Prototype.Browser.IE && (!this.element.currentStyle.hasLayout))
+      this.element.setStyle({zoom: 1});
+    var options = Object.extend({
+      from: this.element.getOpacity() || 0.0,
+      to:   1.0
+    }, arguments[1] || { });
+    this.start(options);
+  },
+  update: function(position) {
+    this.element.setOpacity(position);
+  }
+});
+
+Effect.Move = Class.create(Effect.Base, {
+  initialize: function(element) {
+    this.element = $(element);
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({
+      x:    0,
+      y:    0,
+      mode: 'relative'
+    }, arguments[1] || { });
+    this.start(options);
+  },
+  setup: function() {
+    this.element.makePositioned();
+    this.originalLeft = parseFloat(this.element.getStyle('left') || '0');
+    this.originalTop  = parseFloat(this.element.getStyle('top')  || '0');
+    if (this.options.mode == 'absolute') {
+      this.options.x = this.options.x - this.originalLeft;
+      this.options.y = this.options.y - this.originalTop;
+    }
+  },
+  update: function(position) {
+    this.element.setStyle({
+      left: (this.options.x  * position + this.originalLeft).round() + 'px',
+      top:  (this.options.y  * position + this.originalTop).round()  + 'px'
+    });
+  }
+});
+
+// for backwards compatibility
+Effect.MoveBy = function(element, toTop, toLeft) {
+  return new Effect.Move(element,
+    Object.extend({ x: toLeft, y: toTop }, arguments[3] || { }));
+};
+
+Effect.Scale = Class.create(Effect.Base, {
+  initialize: function(element, percent) {
+    this.element = $(element);
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({
+      scaleX: true,
+      scaleY: true,
+      scaleContent: true,
+      scaleFromCenter: false,
+      scaleMode: 'box',        // 'box' or 'contents' or { } with provided values
+      scaleFrom: 100.0,
+      scaleTo:   percent
+    }, arguments[2] || { });
+    this.start(options);
+  },
+  setup: function() {
+    this.restoreAfterFinish = this.options.restoreAfterFinish || false;
+    this.elementPositioning = this.element.getStyle('position');
+
+    this.originalStyle = { };
+    ['top','left','width','height','fontSize'].each( function(k) {
+      this.originalStyle[k] = this.element.style[k];
+    }.bind(this));
+
+    this.originalTop  = this.element.offsetTop;
+    this.originalLeft = this.element.offsetLeft;
+
+    var fontSize = this.element.getStyle('font-size') || '100%';
+    ['em','px','%','pt'].each( function(fontSizeType) {
+      if (fontSize.indexOf(fontSizeType)>0) {
+        this.fontSize     = parseFloat(fontSize);
+        this.fontSizeType = fontSizeType;
+      }
+    }.bind(this));
+
+    this.factor = (this.options.scaleTo - this.options.scaleFrom)/100;
+
+    this.dims = null;
+    if (this.options.scaleMode=='box')
+      this.dims = [this.element.offsetHeight, this.element.offsetWidth];
+    if (/^content/.test(this.options.scaleMode))
+      this.dims = [this.element.scrollHeight, this.element.scrollWidth];
+    if (!this.dims)
+      this.dims = [this.options.scaleMode.originalHeight,
+                   this.options.scaleMode.originalWidth];
+  },
+  update: function(position) {
+    var currentScale = (this.options.scaleFrom/100.0) + (this.factor * position);
+    if (this.options.scaleContent && this.fontSize)
+      this.element.setStyle({fontSize: this.fontSize * currentScale + this.fontSizeType });
+    this.setDimensions(this.dims[0] * currentScale, this.dims[1] * currentScale);
+  },
+  finish: function(position) {
+    if (this.restoreAfterFinish) this.element.setStyle(this.originalStyle);
+  },
+  setDimensions: function(height, width) {
+    var d = { };
+    if (this.options.scaleX) d.width = width.round() + 'px';
+    if (this.options.scaleY) d.height = height.round() + 'px';
+    if (this.options.scaleFromCenter) {
+      var topd  = (height - this.dims[0])/2;
+      var leftd = (width  - this.dims[1])/2;
+      if (this.elementPositioning == 'absolute') {
+        if (this.options.scaleY) d.top = this.originalTop-topd + 'px';
+        if (this.options.scaleX) d.left = this.originalLeft-leftd + 'px';
+      } else {
+        if (this.options.scaleY) d.top = -topd + 'px';
+        if (this.options.scaleX) d.left = -leftd + 'px';
+      }
+    }
+    this.element.setStyle(d);
+  }
+});
+
+Effect.Highlight = Class.create(Effect.Base, {
+  initialize: function(element) {
+    this.element = $(element);
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({ startcolor: '#ffff99' }, arguments[1] || { });
+    this.start(options);
+  },
+  setup: function() {
+    // Prevent executing on elements not in the layout flow
+    if (this.element.getStyle('display')=='none') { this.cancel(); return; }
+    // Disable background image during the effect
+    this.oldStyle = { };
+    if (!this.options.keepBackgroundImage) {
+      this.oldStyle.backgroundImage = this.element.getStyle('background-image');
+      this.element.setStyle({backgroundImage: 'none'});
+    }
+    if (!this.options.endcolor)
+      this.options.endcolor = this.element.getStyle('background-color').parseColor('#ffffff');
+    if (!this.options.restorecolor)
+      this.options.restorecolor = this.element.getStyle('background-color');
+    // init color calculations
+    this._base  = $R(0,2).map(function(i){ return parseInt(this.options.startcolor.slice(i*2+1,i*2+3),16) }.bind(this));
+    this._delta = $R(0,2).map(function(i){ return parseInt(this.options.endcolor.slice(i*2+1,i*2+3),16)-this._base[i] }.bind(this));
+  },
+  update: function(position) {
+    this.element.setStyle({backgroundColor: $R(0,2).inject('#',function(m,v,i){
+      return m+((this._base[i]+(this._delta[i]*position)).round().toColorPart()); }.bind(this)) });
+  },
+  finish: function() {
+    this.element.setStyle(Object.extend(this.oldStyle, {
+      backgroundColor: this.options.restorecolor
+    }));
+  }
+});
+
+Effect.ScrollTo = function(element) {
+  var options = arguments[1] || { },
+  scrollOffsets = document.viewport.getScrollOffsets(),
+  elementOffsets = $(element).cumulativeOffset();
+
+  if (options.offset) elementOffsets[1] += options.offset;
+
+  return new Effect.Tween(null,
+    scrollOffsets.top,
+    elementOffsets[1],
+    options,
+    function(p){ scrollTo(scrollOffsets.left, p.round()); }
+  );
+};
+
+/* ------------- combination effects ------------- */
+
+Effect.Fade = function(element) {
+  element = $(element);
+  var oldOpacity = element.getInlineOpacity();
+  var options = Object.extend({
+    from: element.getOpacity() || 1.0,
+    to:   0.0,
+    afterFinishInternal: function(effect) {
+      if (effect.options.to!=0) return;
+      effect.element.hide().setStyle({opacity: oldOpacity});
+    }
+  }, arguments[1] || { });
+  return new Effect.Opacity(element,options);
+};
+
+Effect.Appear = function(element) {
+  element = $(element);
+  var options = Object.extend({
+  from: (element.getStyle('display') == 'none' ? 0.0 : element.getOpacity() || 0.0),
+  to:   1.0,
+  // force Safari to render floated elements properly
+  afterFinishInternal: function(effect) {
+    effect.element.forceRerendering();
+  },
+  beforeSetup: function(effect) {
+    effect.element.setOpacity(effect.options.from).show();
+  }}, arguments[1] || { });
+  return new Effect.Opacity(element,options);
+};
+
+Effect.Puff = function(element) {
+  element = $(element);
+  var oldStyle = {
+    opacity: element.getInlineOpacity(),
+    position: element.getStyle('position'),
+    top:  element.style.top,
+    left: element.style.left,
+    width: element.style.width,
+    height: element.style.height
+  };
+  return new Effect.Parallel(
+   [ new Effect.Scale(element, 200,
+      { sync: true, scaleFromCenter: true, scaleContent: true, restoreAfterFinish: true }),
+     new Effect.Opacity(element, { sync: true, to: 0.0 } ) ],
+     Object.extend({ duration: 1.0,
+      beforeSetupInternal: function(effect) {
+        Position.absolutize(effect.effects[0].element);
+      },
+      afterFinishInternal: function(effect) {
+         effect.effects[0].element.hide().setStyle(oldStyle); }
+     }, arguments[1] || { })
+   );
+};
+
+Effect.BlindUp = function(element) {
+  element = $(element);
+  element.makeClipping();
+  return new Effect.Scale(element, 0,
+    Object.extend({ scaleContent: false,
+      scaleX: false,
+      restoreAfterFinish: true,
+      afterFinishInternal: function(effect) {
+        effect.element.hide().undoClipping();
+      }
+    }, arguments[1] || { })
+  );
+};
+
+Effect.BlindDown = function(element) {
+  element = $(element);
+  var elementDimensions = element.getDimensions();
+  return new Effect.Scale(element, 100, Object.extend({
+    scaleContent: false,
+    scaleX: false,
+    scaleFrom: 0,
+    scaleMode: {originalHeight: elementDimensions.height, originalWidth: elementDimensions.width},
+    restoreAfterFinish: true,
+    afterSetup: function(effect) {
+      effect.element.makeClipping().setStyle({height: '0px'}).show();
+    },
+    afterFinishInternal: function(effect) {
+      effect.element.undoClipping();
+    }
+  }, arguments[1] || { }));
+};
+
+Effect.SwitchOff = function(element) {
+  element = $(element);
+  var oldOpacity = element.getInlineOpacity();
+  return new Effect.Appear(element, Object.extend({
+    duration: 0.4,
+    from: 0,
+    transition: Effect.Transitions.flicker,
+    afterFinishInternal: function(effect) {
+      new Effect.Scale(effect.element, 1, {
+        duration: 0.3, scaleFromCenter: true,
+        scaleX: false, scaleContent: false, restoreAfterFinish: true,
+        beforeSetup: function(effect) {
+          effect.element.makePositioned().makeClipping();
+        },
+        afterFinishInternal: function(effect) {
+          effect.element.hide().undoClipping().undoPositioned().setStyle({opacity: oldOpacity});
+        }
+      });
+    }
+  }, arguments[1] || { }));
+};
+
+Effect.DropOut = function(element) {
+  element = $(element);
+  var oldStyle = {
+    top: element.getStyle('top'),
+    left: element.getStyle('left'),
+    opacity: element.getInlineOpacity() };
+  return new Effect.Parallel(
+    [ new Effect.Move(element, {x: 0, y: 100, sync: true }),
+      new Effect.Opacity(element, { sync: true, to: 0.0 }) ],
+    Object.extend(
+      { duration: 0.5,
+        beforeSetup: function(effect) {
+          effect.effects[0].element.makePositioned();
+        },
+        afterFinishInternal: function(effect) {
+          effect.effects[0].element.hide().undoPositioned().setStyle(oldStyle);
+        }
+      }, arguments[1] || { }));
+};
+
+Effect.Shake = function(element) {
+  element = $(element);
+  var options = Object.extend({
+    distance: 20,
+    duration: 0.5
+  }, arguments[1] || {});
+  var distance = parseFloat(options.distance);
+  var split = parseFloat(options.duration) / 10.0;
+  var oldStyle = {
+    top: element.getStyle('top'),
+    left: element.getStyle('left') };
+    return new Effect.Move(element,
+      { x:  distance, y: 0, duration: split, afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x: -distance*2, y: 0, duration: split*2,  afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x:  distance*2, y: 0, duration: split*2,  afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x: -distance*2, y: 0, duration: split*2,  afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x:  distance*2, y: 0, duration: split*2,  afterFinishInternal: function(effect) {
+    new Effect.Move(effect.element,
+      { x: -distance, y: 0, duration: split, afterFinishInternal: function(effect) {
+        effect.element.undoPositioned().setStyle(oldStyle);
+  }}); }}); }}); }}); }}); }});
+};
+
+Effect.SlideDown = function(element) {
+  element = $(element).cleanWhitespace();
+  // SlideDown need to have the content of the element wrapped in a container element with fixed height!
+  var oldInnerBottom = element.down().getStyle('bottom');
+  var elementDimensions = element.getDimensions();
+  return new Effect.Scale(element, 100, Object.extend({
+    scaleContent: false,
+    scaleX: false,
+    scaleFrom: window.opera ? 0 : 1,
+    scaleMode: {originalHeight: elementDimensions.height, originalWidth: elementDimensions.width},
+    restoreAfterFinish: true,
+    afterSetup: function(effect) {
+      effect.element.makePositioned();
+      effect.element.down().makePositioned();
+      if (window.opera) effect.element.setStyle({top: ''});
+      effect.element.makeClipping().setStyle({height: '0px'}).show();
+    },
+    afterUpdateInternal: function(effect) {
+      effect.element.down().setStyle({bottom:
+        (effect.dims[0] - effect.element.clientHeight) + 'px' });
+    },
+    afterFinishInternal: function(effect) {
+      effect.element.undoClipping().undoPositioned();
+      effect.element.down().undoPositioned().setStyle({bottom: oldInnerBottom}); }
+    }, arguments[1] || { })
+  );
+};
+
+Effect.SlideUp = function(element) {
+  element = $(element).cleanWhitespace();
+  var oldInnerBottom = element.down().getStyle('bottom');
+  var elementDimensions = element.getDimensions();
+  return new Effect.Scale(element, window.opera ? 0 : 1,
+   Object.extend({ scaleContent: false,
+    scaleX: false,
+    scaleMode: 'box',
+    scaleFrom: 100,
+    scaleMode: {originalHeight: elementDimensions.height, originalWidth: elementDimensions.width},
+    restoreAfterFinish: true,
+    afterSetup: function(effect) {
+      effect.element.makePositioned();
+      effect.element.down().makePositioned();
+      if (window.opera) effect.element.setStyle({top: ''});
+      effect.element.makeClipping().show();
+    },
+    afterUpdateInternal: function(effect) {
+      effect.element.down().setStyle({bottom:
+        (effect.dims[0] - effect.element.clientHeight) + 'px' });
+    },
+    afterFinishInternal: function(effect) {
+      effect.element.hide().undoClipping().undoPositioned();
+      effect.element.down().undoPositioned().setStyle({bottom: oldInnerBottom});
+    }
+   }, arguments[1] || { })
+  );
+};
+
+// Bug in opera makes the TD containing this element expand for a instance after finish
+Effect.Squish = function(element) {
+  return new Effect.Scale(element, window.opera ? 1 : 0, {
+    restoreAfterFinish: true,
+    beforeSetup: function(effect) {
+      effect.element.makeClipping();
+    },
+    afterFinishInternal: function(effect) {
+      effect.element.hide().undoClipping();
+    }
+  });
+};
+
+Effect.Grow = function(element) {
+  element = $(element);
+  var options = Object.extend({
+    direction: 'center',
+    moveTransition: Effect.Transitions.sinoidal,
+    scaleTransition: Effect.Transitions.sinoidal,
+    opacityTransition: Effect.Transitions.full
+  }, arguments[1] || { });
+  var oldStyle = {
+    top: element.style.top,
+    left: element.style.left,
+    height: element.style.height,
+    width: element.style.width,
+    opacity: element.getInlineOpacity() };
+
+  var dims = element.getDimensions();
+  var initialMoveX, initialMoveY;
+  var moveX, moveY;
+
+  switch (options.direction) {
+    case 'top-left':
+      initialMoveX = initialMoveY = moveX = moveY = 0;
+      break;
+    case 'top-right':
+      initialMoveX = dims.width;
+      initialMoveY = moveY = 0;
+      moveX = -dims.width;
+      break;
+    case 'bottom-left':
+      initialMoveX = moveX = 0;
+      initialMoveY = dims.height;
+      moveY = -dims.height;
+      break;
+    case 'bottom-right':
+      initialMoveX = dims.width;
+      initialMoveY = dims.height;
+      moveX = -dims.width;
+      moveY = -dims.height;
+      break;
+    case 'center':
+      initialMoveX = dims.width / 2;
+      initialMoveY = dims.height / 2;
+      moveX = -dims.width / 2;
+      moveY = -dims.height / 2;
+      break;
+  }
+
+  return new Effect.Move(element, {
+    x: initialMoveX,
+    y: initialMoveY,
+    duration: 0.01,
+    beforeSetup: function(effect) {
+      effect.element.hide().makeClipping().makePositioned();
+    },
+    afterFinishInternal: function(effect) {
+      new Effect.Parallel(
+        [ new Effect.Opacity(effect.element, { sync: true, to: 1.0, from: 0.0, transition: options.opacityTransition }),
+          new Effect.Move(effect.element, { x: moveX, y: moveY, sync: true, transition: options.moveTransition }),
+          new Effect.Scale(effect.element, 100, {
+            scaleMode: { originalHeight: dims.height, originalWidth: dims.width },
+            sync: true, scaleFrom: window.opera ? 1 : 0, transition: options.scaleTransition, restoreAfterFinish: true})
+        ], Object.extend({
+             beforeSetup: function(effect) {
+               effect.effects[0].element.setStyle({height: '0px'}).show();
+             },
+             afterFinishInternal: function(effect) {
+               effect.effects[0].element.undoClipping().undoPositioned().setStyle(oldStyle);
+             }
+           }, options)
+      );
+    }
+  });
+};
+
+Effect.Shrink = function(element) {
+  element = $(element);
+  var options = Object.extend({
+    direction: 'center',
+    moveTransition: Effect.Transitions.sinoidal,
+    scaleTransition: Effect.Transitions.sinoidal,
+    opacityTransition: Effect.Transitions.none
+  }, arguments[1] || { });
+  var oldStyle = {
+    top: element.style.top,
+    left: element.style.left,
+    height: element.style.height,
+    width: element.style.width,
+    opacity: element.getInlineOpacity() };
+
+  var dims = element.getDimensions();
+  var moveX, moveY;
+
+  switch (options.direction) {
+    case 'top-left':
+      moveX = moveY = 0;
+      break;
+    case 'top-right':
+      moveX = dims.width;
+      moveY = 0;
+      break;
+    case 'bottom-left':
+      moveX = 0;
+      moveY = dims.height;
+      break;
+    case 'bottom-right':
+      moveX = dims.width;
+      moveY = dims.height;
+      break;
+    case 'center':
+      moveX = dims.width / 2;
+      moveY = dims.height / 2;
+      break;
+  }
+
+  return new Effect.Parallel(
+    [ new Effect.Opacity(element, { sync: true, to: 0.0, from: 1.0, transition: options.opacityTransition }),
+      new Effect.Scale(element, window.opera ? 1 : 0, { sync: true, transition: options.scaleTransition, restoreAfterFinish: true}),
+      new Effect.Move(element, { x: moveX, y: moveY, sync: true, transition: options.moveTransition })
+    ], Object.extend({
+         beforeStartInternal: function(effect) {
+           effect.effects[0].element.makePositioned().makeClipping();
+         },
+         afterFinishInternal: function(effect) {
+           effect.effects[0].element.hide().undoClipping().undoPositioned().setStyle(oldStyle); }
+       }, options)
+  );
+};
+
+Effect.Pulsate = function(element) {
+  element = $(element);
+  var options    = arguments[1] || { },
+    oldOpacity = element.getInlineOpacity(),
+    transition = options.transition || Effect.Transitions.linear,
+    reverser   = function(pos){
+      return 1 - transition((-Math.cos((pos*(options.pulses||5)*2)*Math.PI)/2) + .5);
+    };
+
+  return new Effect.Opacity(element,
+    Object.extend(Object.extend({  duration: 2.0, from: 0,
+      afterFinishInternal: function(effect) { effect.element.setStyle({opacity: oldOpacity}); }
+    }, options), {transition: reverser}));
+};
+
+Effect.Fold = function(element) {
+  element = $(element);
+  var oldStyle = {
+    top: element.style.top,
+    left: element.style.left,
+    width: element.style.width,
+    height: element.style.height };
+  element.makeClipping();
+  return new Effect.Scale(element, 5, Object.extend({
+    scaleContent: false,
+    scaleX: false,
+    afterFinishInternal: function(effect) {
+    new Effect.Scale(element, 1, {
+      scaleContent: false,
+      scaleY: false,
+      afterFinishInternal: function(effect) {
+        effect.element.hide().undoClipping().setStyle(oldStyle);
+      } });
+  }}, arguments[1] || { }));
+};
+
+Effect.Morph = Class.create(Effect.Base, {
+  initialize: function(element) {
+    this.element = $(element);
+    if (!this.element) throw(Effect._elementDoesNotExistError);
+    var options = Object.extend({
+      style: { }
+    }, arguments[1] || { });
+
+    if (!Object.isString(options.style)) this.style = $H(options.style);
+    else {
+      if (options.style.include(':'))
+        this.style = options.style.parseStyle();
+      else {
+        this.element.addClassName(options.style);
+        this.style = $H(this.element.getStyles());
+        this.element.removeClassName(options.style);
+        var css = this.element.getStyles();
+        this.style = this.style.reject(function(style) {
+          return style.value == css[style.key];
+        });
+        options.afterFinishInternal = function(effect) {
+          effect.element.addClassName(effect.options.style);
+          effect.transforms.each(function(transform) {
+            effect.element.style[transform.style] = '';
+          });
+        };
+      }
+    }
+    this.start(options);
+  },
+
+  setup: function(){
+    function parseColor(color){
+      if (!color || ['rgba(0, 0, 0, 0)','transparent'].include(color)) color = '#ffffff';
+      color = color.parseColor();
+      return $R(0,2).map(function(i){
+        return parseInt( color.slice(i*2+1,i*2+3), 16 );
+      });
+    }
+    this.transforms = this.style.map(function(pair){
+      var property = pair[0], value = pair[1], unit = null;
+
+      if (value.parseColor('#zzzzzz') != '#zzzzzz') {
+        value = value.parseColor();
+        unit  = 'color';
+      } else if (property == 'opacity') {
+        value = parseFloat(value);
+        if (Prototype.Browser.IE && (!this.element.currentStyle.hasLayout))
+          this.element.setStyle({zoom: 1});
+      } else if (Element.CSS_LENGTH.test(value)) {
+          var components = value.match(/^([\+\-]?[0-9\.]+)(.*)$/);
+          value = parseFloat(components[1]);
+          unit = (components.length == 3) ? components[2] : null;
+      }
+
+      var originalValue = this.element.getStyle(property);
+      return {
+        style: property.camelize(),
+        originalValue: unit=='color' ? parseColor(originalValue) : parseFloat(originalValue || 0),
+        targetValue: unit=='color' ? parseColor(value) : value,
+        unit: unit
+      };
+    }.bind(this)).reject(function(transform){
+      return (
+        (transform.originalValue == transform.targetValue) ||
+        (
+          transform.unit != 'color' &&
+          (isNaN(transform.originalValue) || isNaN(transform.targetValue))
+        )
+      );
+    });
+  },
+  update: function(position) {
+    var style = { }, transform, i = this.transforms.length;
+    while(i--)
+      style[(transform = this.transforms[i]).style] =
+        transform.unit=='color' ? '#'+
+          (Math.round(transform.originalValue[0]+
+            (transform.targetValue[0]-transform.originalValue[0])*position)).toColorPart() +
+          (Math.round(transform.originalValue[1]+
+            (transform.targetValue[1]-transform.originalValue[1])*position)).toColorPart() +
+          (Math.round(transform.originalValue[2]+
+            (transform.targetValue[2]-transform.originalValue[2])*position)).toColorPart() :
+        (transform.originalValue +
+          (transform.targetValue - transform.originalValue) * position).toFixed(3) +
+            (transform.unit === null ? '' : transform.unit);
+    this.element.setStyle(style, true);
+  }
+});
+
+Effect.Transform = Class.create({
+  initialize: function(tracks){
+    this.tracks  = [];
+    this.options = arguments[1] || { };
+    this.addTracks(tracks);
+  },
+  addTracks: function(tracks){
+    tracks.each(function(track){
+      track = $H(track);
+      var data = track.values().first();
+      this.tracks.push($H({
+        ids:     track.keys().first(),
+        effect:  Effect.Morph,
+        options: { style: data }
+      }));
+    }.bind(this));
+    return this;
+  },
+  play: function(){
+    return new Effect.Parallel(
+      this.tracks.map(function(track){
+        var ids = track.get('ids'), effect = track.get('effect'), options = track.get('options');
+        var elements = [$(ids) || $$(ids)].flatten();
+        return elements.map(function(e){ return new effect(e, Object.extend({ sync:true }, options)) });
+      }).flatten(),
+      this.options
+    );
+  }
+});
+
+Element.CSS_PROPERTIES = $w(
+  'backgroundColor backgroundPosition borderBottomColor borderBottomStyle ' +
+  'borderBottomWidth borderLeftColor borderLeftStyle borderLeftWidth ' +
+  'borderRightColor borderRightStyle borderRightWidth borderSpacing ' +
+  'borderTopColor borderTopStyle borderTopWidth bottom clip color ' +
+  'fontSize fontWeight height left letterSpacing lineHeight ' +
+  'marginBottom marginLeft marginRight marginTop markerOffset maxHeight '+
+  'maxWidth minHeight minWidth opacity outlineColor outlineOffset ' +
+  'outlineWidth paddingBottom paddingLeft paddingRight paddingTop ' +
+  'right textIndent top width wordSpacing zIndex');
+
+Element.CSS_LENGTH = /^(([\+\-]?[0-9\.]+)(em|ex|px|in|cm|mm|pt|pc|\%))|0$/;
+
+String.__parseStyleElement = document.createElement('div');
+String.prototype.parseStyle = function(){
+  var style, styleRules = $H();
+  if (Prototype.Browser.WebKit)
+    style = new Element('div',{style:this}).style;
+  else {
+    String.__parseStyleElement.innerHTML = '<div style="' + this + '"></div>';
+    style = String.__parseStyleElement.childNodes[0].style;
+  }
+
+  Element.CSS_PROPERTIES.each(function(property){
+    if (style[property]) styleRules.set(property, style[property]);
+  });
+
+  if (Prototype.Browser.IE && this.include('opacity'))
+    styleRules.set('opacity', this.match(/opacity:\s*((?:0|1)?(?:\.\d*)?)/)[1]);
+
+  return styleRules;
+};
+
+if (document.defaultView && document.defaultView.getComputedStyle) {
+  Element.getStyles = function(element) {
+    var css = document.defaultView.getComputedStyle($(element), null);
+    return Element.CSS_PROPERTIES.inject({ }, function(styles, property) {
+      styles[property] = css[property];
+      return styles;
+    });
+  };
+} else {
+  Element.getStyles = function(element) {
+    element = $(element);
+    var css = element.currentStyle, styles;
+    styles = Element.CSS_PROPERTIES.inject({ }, function(results, property) {
+      results[property] = css[property];
+      return results;
+    });
+    if (!styles.opacity) styles.opacity = element.getOpacity();
+    return styles;
+  };
 }
 
-//----------------------------------------------------------------------
-function DFopen(w,h){
-	DFrame=window.open("","","titlebar=0,toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0,width="+w+",height="+h);
-}
+Effect.Methods = {
+  morph: function(element, style) {
+    element = $(element);
+    new Effect.Morph(element, Object.extend({ style: style }, arguments[2] || { }));
+    return element;
+  },
+  visualEffect: function(element, effect, options) {
+    element = $(element);
+    var s = effect.dasherize().camelize(), klass = s.charAt(0).toUpperCase() + s.substring(1);
+    new Effect[klass](element, options);
+    return element;
+  },
+  highlight: function(element, options) {
+    element = $(element);
+    new Effect.Highlight(element, options);
+    return element;
+  }
+};
 
-//----------------------------------------------------------------------
-Obj.mdown=function(e){
-if(this.ref.dragability==true){
-	if(is_nav4){
-		this.memoX=dstartX=e.pageX;
-		this.memoY=dstartY=e.pageY;
-		if(this.ref.ondown)	this.ref.ondown(this.ref);
-		DFrame.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
-		if(this.ref.Z&&this!=DFrame.document.layers[DFrame.document.layers.length-1])
-			this.moveAbove(DFrame.document.layers[DFrame.document.layers.length-1]);
-		this.savemousemove=DFrame.onmousemove;
-		this.savemouseup  =DFrame.onmouseup;
-		DFrame.onmousemove=Obj.mdrag;
-		DFrame.onmouseup  =Obj.mup;
-	}else if(is_nav5up){
-		this.memoX=dstartX=e.pageX;
-		this.memoY=dstartY=e.pageY;
-		if(this.ref.ondown)	this.ref.ondown(this.ref);
-		if(this.ref.Z){
-			this.style.zIndex=++DID;
-			for(var i=0;i<this.ref.bindlist.length;i++)	this.ref.bindlist[i].layer.style.zIndex=++DID;
-		}
-		this.savemousemove=DFrame.document.onmousemove;
-		this.savemouseup=DFrame.document.onmouseup;
-		DFrame.document.onmousemove=Obj.mdrag;
-		DFrame.document.onmouseup=Obj.mup;
-	}else if(is_ie4up){
-		this.memoX=dstartX=DFrame.event.clientX;
-		this.memoY=dstartY=DFrame.event.clientY;
-		if(this.ref.ondown)	this.ref.ondown(this.ref);
-		if(this.ref.Z){
-			this.style.zIndex=++DID;
-			for(var i=0;i<this.ref.bindlist.length;i++)	this.ref.bindlist[i].layer.style.zIndex=++DID;
-		}
-		this.savemousemove=DFrame.document.onmousemove;
-		this.savemouseup=DFrame.document.onmouseup;
-		DFrame.document.onmousemove=Obj.mdrag;
-		DFrame.document.onmouseup=Obj.mup;
-	}
-	Obj.current=this;
-}
-	return false;
-}
+$w('fade appear grow shrink fold blindUp blindDown slideUp slideDown '+
+  'pulsate shake puff squish switchOff dropOut').each(
+  function(effect) {
+    Effect.Methods[effect] = function(element, options){
+      element = $(element);
+      Effect[effect.charAt(0).toUpperCase() + effect.substring(1)](element, options);
+      return element;
+    };
+  }
+);
 
-//----------------------------------------------------------------------
-Obj.mmove=function(e){
-	if(this.ref.onmove)	this.ref.onmove(this.ref);
-	return false;
-}
+$w('getInlineOpacity forceRerendering setContentZoom collectTextNodes collectTextNodesIgnoreClass getStyles').each(
+  function(f) { Effect.Methods[f] = Element[f]; }
+);
 
-//----------------------------------------------------------------------
-Obj.mdrag=function(e){
-	var DX, DY, newX, newY, that=Obj.current;
-	if(is_nav4 || is_nav5up){
-		DX=e.pageX-that.memoX;	that.memoX=e.pageX;
-		DY=e.pageY-that.memoY;	that.memoY=e.pageY;
-	}else if(is_ie4up){
-		DX=DFrame.event.clientX-that.memoX;	that.memoX=DFrame.event.clientX;
-		DY=DFrame.event.clientY-that.memoY;	that.memoY=DFrame.event.clientY;
-	}
-	if(that.ref.boundX2||that.ref.boundY2){
-		if((that.ref.boundX2-that.ref.boundX1)>that.ref.width){
-			DX=Math.max(DX,that.ref.boundX1-that.ref.x);
-			DX=Math.min(DX,that.ref.boundX2-that.ref.width-that.ref.x);
-		}else{
-			DX=Math.min(DX,that.ref.boundX1-that.ref.x);
-			DX=Math.max(DX,that.ref.boundX2-that.ref.width-that.ref.x);
-		}
-		if((that.ref.boundY2-that.ref.boundY1)>that.ref.height){
-			DY=Math.max(DY,that.ref.boundY1-that.ref.y);
-			DY=Math.min(DY,that.ref.boundY2-that.ref.height-that.ref.y);
-		}else{
-			DY=Math.min(DY,that.ref.boundY1-that.ref.y);
-			DY=Math.max(DY,that.ref.boundY2-that.ref.height-that.ref.y);
-		}
-	}
-// that.refはDrag中のObjオブジェクト
-	that.ref.moveBy(DX,DY,that.ref.boundX1,that.ref.boundY1,that.ref.boundX2,that.ref.boundY2);
-	if(that.ref.ondrag)	that.ref.ondrag(that.ref);
-	return false;
-}
-
-//----------------------------------------------------------------------
-Obj.mup=function(e){
-	var that=Obj.current, mask=0;
-	if(is_nav4){
-		droppedX=e.pageX;	droppedY=e.pageY;
-		if(!DFrame.onmousemove) mask|=Event.MOUSEMOVE;
-		if(!DFrame.onmouseup)   mask|=Event.MOUSEUP;
-		DFrame.releaseEvents(mask);
-		DFrame.onmousemove=that.savemousemove;
-		DFrame.onmouseup=that.savemouseup;
-	}else if(is_nav5up){
-		droppedX=e.pageX;	droppedY=e.pageY;
-		DFrame.document.onmousemove=that.savemousemove;
-		DFrame.document.onmouseup=that.savemouseup;
-	}else if(is_ie4up){
-		droppedX=DFrame.event.clientX;	droppedY=DFrame.event.clientY;
-		DFrame.document.onmousemove=that.savemousemove;
-		DFrame.document.onmouseup=that.savemouseup;
-	}
-	if(that.ref.ondrop)	that.ref.ondrop(that.ref);
-	return false;
-}
-
-//----------------------------------------------------------------------
-// Objオブジェクトの定義
-function putObj(x,y,html){	return new Obj(x,y,html);	}
-function Obj(x,y,html){
-	var d;
-	if(is_nav4){
-		DFrame.document.write("<LAYER id=DRAG left="+x+" top="+y+">"+html+"</LAYER>");
-		d=DFrame.document.layers.DRAG;
-		d.captureEvents(Event.MOUSEMOVE | Event.MOUSEDOWN);
-	}else if(is_nav5up){
-		DFrame.document.write("<SPAN id=D"+DID+" style='position:absolute; left:"+x+"; top:"+y+"'>"+html+"</SPAN>");
-		d=DFrame.document.getElementById("D"+DID);
-		DID++;
-	}else if(is_ie4up){
-		DFrame.document.write("<SPAN id=D"+DID+" style='position:absolute; left:"+x+"; top:"+y+"'>"+html+"</SPAN>");
-		eval("d=DFrame.D"+DID);
-		DID++;
-	}
-	d.onmousemove=Obj.mmove;
-	d.onmousedown=Obj.mdown;
-	this.layer=d;						// layer ID
-	d.ref=this;							// Objオブジェクト
-	this.bindlist=new Array();			// 初めはバインド無し
-// NN7(nav5)は大きな画像をスクロール表示させた場合にoffsetWidthが正しく取得できないので注意
-	if(is_nav4){	   this.width=d.clip.width;	 this.height=d.clip.height;}
-	else if(is_nav5up){this.width=d.offsetWidth; this.height=d.offsetHeight;}
-	else if(is_ie4up){ this.width=d.clientWidth; this.height=d.clientHeight;}
-	this.xd=this.x=x;					// x,xdは現在位置と目的位置(スライド)
-	this.yd=this.y=y;					// y,ydは現在位置と目的位置(スライド)
-	this.x1=this.xd1=0;					// x1,xd1はxを原点とする位置(ワイプ)
-	this.y1=this.yd1=0;					// y1,yd1はxを原点とする位置(ワイプ)
-	this.x2=this.xd2=this.width;		// x2,xd2はxを原点とする位置(ワイプ)
-	this.y2=this.yd2=this.height;		// y2,yd2はxを原点とする位置(ワイプ)
-	this.dx=this.dy=10;					// ワイプ/スライドの移動量の暫定値
-	this.dragability=false;				// デフォルトはドラッグ不可
-	this.visibility="show";				// デフォルトは見せる
-	this.Z=true;						// デフォルトはZ入れ替え可
-//----------------------------------------------------------------------
-// 背景色をcolorにする
-	this.bgColor=function(color){
-		if(is_nav4) 					this.layer.bgColor=color;
-		else if(is_nav5up || is_ie4up)	this.layer.style.backgroundColor=color;
-	}
-//----------------------------------------------------------------------
-// ドラッグ可能にする
-	this.dragable=function(){
-		this.dragability=true;
-		this.layer.onmousemove=Obj.mmove;
-		this.layer.onmousedown=Obj.mdown;
-	}
-//----------------------------------------------------------------------
-// オブジェクトを見せる
-	this.show=function(){
-		this.visibility="show";
-		if(is_nav4)						d.visibility="show";
-		else if(is_nav5up || is_ie4up)	d.style.visibility="visible";
-	}
-//----------------------------------------------------------------------
-// オブジェクトを隠す
-	this.hide=function(){
-		this.visibility="hidden";
-		if(is_nav4)						d.visibility="hidden";
-		else if(is_nav5up || is_ie4up)	d.style.visibility="hidden";
-	}
-//----------------------------------------------------------------------
-// (x,y)を原点とする(x1,y1),(x2,y2)の矩形でクリップする
-	this.clip=function(x1,y1,x2,y2){
-		if(is_nav4){
-			d.clip.left=x1; d.clip.top=y1;
-			d.clip.right=x2;d.clip.bottom=y2;
-		}else if(is_nav5up || is_ie4up){
-			d.style.clip="rect("+y1+"px "+x2+"px "+y2+"px "+x1+"px)"
-		}
-		d.clipX1=x1;	d.clipY1=y1;	d.clipX2=x2;	d.clipY2=y2;
-	}
-//----------------------------------------------------------------------
-// ドラッグの範囲を(x1,y1),(x2,y2)に制限する
-	this.bound=function(x1,y1,x2,y2){
-		if(y2){				// ドラッグ操作の範囲を(x1,y1),(x2,y2)に制限する
-			this.boundX1=x1; this.boundY1=y1; this.boundX2=x2; this.boundY2=y2;
-		}else{				// ドラッグ操作の範囲をt上に制限する
-			var t=x1;
-			if(is_nav4){
-				var tx=t.layer.pageX, ty=t.layer.pageY, tw=t.layer.clip.width, th=t.layer.clip.height;
-				var dx=d.pageX, dy=d.pageY, dw=d.clip.width, dh=d.clip.height;
-			}else if(is_nav5up){
-				var tx=t.layer.style.left, ty=t.layer.style.top
-				var tw=t.layer.width, th=t.layer.height
-				var dx=d.style.left, dy=d.style.top
-				var dw=d.width, dh=d.height
-			}else if(is_ie4up){
-				var tx=t.layer.style.pixelLeft, ty=t.layer.style.pixelTop
-				var tw=t.layer.clientWidth, th=t.layer.clientHeight
-				var dx=d.style.pixelLeft, dy=d.style.pixelTop
-				var dw=d.clientWidth, dh=d.clientHeight
-			}
-			this.boundX1=tx;	this.boundX2=tx+tw-dw;
-			this.boundY1=ty;	this.boundY2=ty+th-dh;
-		}
-		var newX=this.x, newY=this.y;
-		if((this.boundX2-this.boundX1)>this.width){
-			newX=Math.max(newX,this.boundX1);
-			newX=Math.min(newX,this.boundX2-this.width);
-		}else{
-			newX=Math.min(newX,this.boundX1);
-			newX=Math.max(newX,this.boundX2-this.width);
-			if(is_nav4){
-				d.clip.left  =this.boundX1-newX;
-				d.clip.top   =this.boundY1-newY;
-				d.clip.right =this.boundX2-newX;
-				d.clip.bottom=this.boundY2-newY;
-			}else if(is_nav5up || is_ie4up){
-				d.style.clip="rect("+(this.boundY1-newY)+"px "+(this.boundX2-newX)+"px "+(this.boundY2-newY)+"px "+(this.boundX1-newX)+"px)";
-			}
-		}
-		if((this.boundY2-this.boundY1)>this.height){
-			newY=Math.max(newY,this.boundY1);
-			newY=Math.min(newY,this.boundY2-this.height);
-		}else{
-			newY=Math.min(newY,this.boundY1);
-			newY=Math.max(newY,this.boundY2-this.height);
-		}
-		this.xd=this.x=newX;	this.yd=this.y=newY;
-// バインドされているすべてのオブジェクトをバウンドする
-		for(var i=0;i<this.bindlist.length;i++)	this.bindlist[i].moveBy(0,0,x1,y1,x2,y2);
-	}
-//----------------------------------------------------------------------
-// オブジェクトbのバインドに追加する
-	this.bind=function(b){	b.bindlist[b.bindlist.length]=this;	}
-//----------------------------------------------------------------------
-// 現在位置と目的位置を(x,y)だけ移動する
-	this.moveBy=function(x,y,boundx1,boundy1,boundx2,boundy2){
-		var newX=this.x+x, newY=this.y+y;
-		if(boundy2){
-			if(is_nav4){
-				d.clip.left =Math.max(boundx1-newX,0);
-				d.clip.right=Math.min(boundx2-newX,this.width);
-			}else if(is_nav5up || is_ie4up){
-				d.style.clip="rect("+(boundy1-newY)+"px "+(boundx2-newX)+"px "+(boundy2-newY)+"px "+(boundx1-newX)+"px)"
-			}
-			this.clipX1=boundx1-newX;
-			this.clipX2=boundx2-newX;
-			if(is_nav4){
-				d.clip.top	 =Math.max(boundy1-newY,0);
-				d.clip.bottom=Math.min(boundy2-newY,this.height);
-			}else if(is_nav5up || is_ie4up){
-				d.style.clip="rect("+(boundy1-newY)+"px "+(boundx2-newX)+"px "+(boundy2-newY)+"px "+(boundx1-newX)+"px)"
-			}
-			this.clipY1=boundy1-newY;
-			this.clipY2=boundy2-newY;
-		}
-		if(is_nav4){		d.pageX=newX;			d.pageY=newY}
-		else if(is_nav5up){	d.style.left=newX;		d.style.top=newY}
-		else if(is_ie4up){	d.style.pixelLeft=newX;d.style.pixelTop=newY}
-		this.xd=this.x=newX;	this.yd=this.y=newY;
-// バインドされているすべてのオブジェクトを移動する
-		for(var i=0;i<this.bindlist.length;i++)	this.bindlist[i].moveBy(x,y,boundx1,boundy1,boundx2,boundy2);
-	}
-//----------------------------------------------------------------------
-// 現在位置と目的位置を(x,y)にする
-	this.moveTo=function(x,y){
-		if(is_nav4){		d.pageX=x;			d.pageY=y}
-		else if(is_nav5up){	d.style.left=x;		d.style.top=y}
-		else if(is_ie4up){	d.style.pixelLeft=x;d.style.pixelTop=y}
-		this.xd=this.x=x;	this.yd=this.y=y	//position
-	}
-//----------------------------------------------------------------------
-// オブジェクトtの周辺境界上にあるObjオブジェクトを内部または外部にずらす
-	this.forced=function(t){	//move forced inside/outside of t
-		if(is_nav4){
-			var tx=t.layer.pageX, ty=t.layer.pageY, tw=t.layer.clip.width, th=t.layer.clip.height;
-			var dx=d.pageX, dy=d.pageY, dw=d.clip.width, dh=d.clip.height;
-			if(t.inside(droppedX,droppedY)){
-				if(tx>dx && tx<(dx+dw))				d.pageX=tx;
-				if((tx+tw)>dx && (tx+tw)<(dx+dw))	d.pageX=tx+tw-dw;
-				if(ty>dy && ty<(dy+dh))				d.pageY=ty;
-				if((ty+th)>dy && (ty+th)<(dy+dh))	d.pageY=ty+th-dh;
-			}else{
-				if(tx>dx && tx<(dx+dw))				d.pageX=tx-dw;
-				if((tx+tw)>dx && (tx+tw)<(dx+dw))	d.pageX=tx+tw;
-				if(ty>dy && ty<(dy+dh))				d.pageY=ty-dh;
-				if((ty+th)>dy && (ty+th)<(dy+dh))	d.pageY=ty+th;
-			}
-		}else if(is_nav5up){
-			var tx=parseInt(t.layer.style.left),ty=parseInt(t.layer.style.top);
-			var tw=t.layer.width, th=t.layer.height;
-			var dx=parseInt(d.style.left), dy=parseInt(d.style.top);
-			var dw=d.width, dh=d.height;
-			if(t.inside(droppedX,droppedY)){
-				if(tx>dx && tx<(dx+dw))				d.style.left=tx;
-				if((tx+tw)>dx && (tx+tw)<(dx+dw))	d.style.left=tx+tw-dw;
-				if(ty>dy && ty<(dy+dh))				d.style.top=tx;
-				if((ty+th)>dy && (ty+th)<(dy+dh))	d.style.top=ty+th-dh;
-			}else{
-				if(tx>dx && tx<(dx+dw))				d.style.left=tx-dw;
-				if((tx+tw)>dx && (tx+tw)<(dx+dw))	d.style.left=tx+tw;
-				if(ty>dy && ty<(dy+dh))				d.style.top=ty-dh;
-				if((ty+th)>dy && (ty+th)<(dy+dh))	d.style.top=ty+th;
-			}
-		}else if(is_ie4up){
-			var tx=t.layer.style.pixelLeft, ty=t.layer.style.pixelTop;
-			var tw=t.layer.clientWidth, th=t.layer.clientHeight;
-			var dx=d.style.pixelLeft, dy=d.style.pixelTop;
-			var dw=d.clientWidth, dh=d.clientHeight;
-			if(t.inside(droppedX,droppedY)){
-				if(tx>dx && tx<(dx+dw))				d.style.pixelLeft=tx;
-				if((tx+tw)>dx && (tx+tw)<(dx+dw))	d.style.pixelLeft=tx+tw-dw;
-				if(ty>dy && ty<(dy+dh))				d.style.pixelTop=tx;
-				if((ty+th)>dy && (ty+th)<(dy+dh))	d.style.pixelTop=ty+th-dh;
-			}else{
-				if(tx>dx && tx<(dx+dw))				d.style.pixelLeft=tx-dw;
-				if((tx+tw)>dx && (tx+tw)<(dx+dw))	d.style.pixelLeft=tx+tw;
-				if(ty>dy && ty<(dy+dh))				d.style.pixelTop=ty-dh;
-				if((ty+th)>dy && (ty+th)<(dy+dh))	d.style.pixelTop=ty+th;
-			}
-		}
-	}
-//----------------------------------------------------------------------
-// (x,y)がObjオブジェクトの上にあればtrueを返す
-	this.inside=function(x,y){
-		if(is_nav4)			return (this.visibility=="show" && x>d.pageX && y>d.pageY && x<d.pageX+d.clip.width && y<d.pageY+d.clip.height);
-		else if(is_nav5up)	return (this.visibility=="show" && x>parseInt(d.style.left) && y>parseInt(d.style.top)&&x<parseInt(d.style.left)+d.offsetWidth&&y<parseInt(d.style.top)+d.offsetHeight);
-		else if(is_ie4up)	return (this.visibility=="show" && x>d.style.pixelLeft && y>d.style.pixelTop&&x<d.style.pixelLeft+d.clientWidth&&y<d.style.pixelTop+d.clientHeight);
-	}
-//----------------------------------------------------------------------
-// wipemodeに応じてワイプインする
-	this.wipein=function(wipemode,sec){
-		this.visibility="show";
-		if(is_nav4)						d.visibility="show";
-		else if(is_nav5up || is_ie4up)	d.style.visibility="visible";
-		if(!sec)	sec=1;
-		this.dx=parseInt(this.width/sec/100);
-		this.dy=parseInt(this.height/sec/100);
-		if(wipemode==1){						// 左からワイプイン
-			this.x1=this.xd1=this.x2=0;	this.xd2=this.width;
-			this.y1=this.yd1=0;	this.y2=this.yd2=this.height;
-		}else if(wipemode==2){					// 右からワイプイン
-			this.xd1=0;	this.x1=this.x2=this.xd2=this.width;
-			this.y1=this.yd1=0;	this.y2=this.yd2=this.height;
-		}else if(wipemode==3){					// 上からワイプイン
-			this.x1=this.xd1=0;	this.x2=this.xd2=this.width;
-			this.y1=this.yd1=this.y2=0;	this.yd2=this.height;
-		}else if(wipemode==4){					// 下からワイプイン
-			this.x1=this.xd1=0;	this.x2=this.xd2=this.width;
-			this.yd1=0;	this.y1=this.y2=this.yd2=this.height;
-		}
-		if(is_nav4){		d.pageX=this.x;			d.pageY=this.y;}
-		else if(is_nav5up){	d.style.left=this.x;	d.style.top=this.y;}
-		else if(is_ie4up){	d.style.pixelLeft=this.x;d.style.pixelTop=this.y;}
-	}
-//----------------------------------------------------------------------
-// wipemodeに応じてワイプアウトする
-	this.wipeout=function(wipemode,sec){
-		this.visibility="show";
-		if(is_nav4)						d.visibility="show";
-		else if(is_nav5up || is_ie4up)	d.style.visibility="visible";
-		if(!sec)	sec=1;
-		this.dx=parseInt(this.width/sec/100);
-		this.dy=parseInt(this.height/sec/100);
-		if(wipemode==1){						// 右へワイプアウト
-			this.x1=this.x;
-			this.xd1=this.x2=this.xd2=this.x+this.width;
-			this.y1=this.yd1=this.y;
-			this.y2=this.yd2=this.y+this.height;
-		}else if(wipemode==2){					// 左へワイプアウト
-			this.x1=this.xd1=this.xd2=this.x;
-			this.x2=this.x+this.width;
-			this.y1=this.yd1=this.y;
-			this.y2=this.yd2=this.y+this.height;
-		}else if(wipemode==3){					// 下へワイプアウト
-			this.x1=this.xd1=this.x;
-			this.x2=this.xd2=this.x+this.width;
-			this.y1=this.y;
-			this.yd1=this.y2=this.yd2=this.y+this.height;
-		}else if(wipemode==4){					// 上へワイプアウト
-			this.x1=this.xd1=this.x;
-			this.x2=this.xd2=this.x+this.width;
-			this.y1=this.yd1=this.yd2=this.y;
-			this.y2=this.y+this.height;
-		}
-		if(is_nav4){		d.pageX=this.x;			d.pageY=this.y;}
-		else if(is_nav5up){	d.style.left=this.x;	d.style.top=this.y;}
-		else if(is_ie4up){	d.style.pixelLeft=this.x;d.style.pixelTop=this.y;}
-	}
-//----------------------------------------------------------------------
-// slmodeに応じてスライドインする
-	this.slidein=function(slmode,sec){
-		this.visibility="show"
-		if(is_nav4)						d.visibility="show"
-		else if(is_nav5up || is_ie4up)	d.style.visibility="visible"
-		if(!sec)	sec=1;
-// 目的位置xd,ydを現在位置x,yにする
-		this.xd=this.x;	this.yd=this.y
-// 現在位置x,yをslmodeに応じた位置にする
-		if(slmode==1){							// 左からスライドイン
-			this.dx=parseInt((this.x+this.width)/sec/100);
-			this.x=-this.width
-		}else if(slmode==2){					// 右からスライドイン
-			this.dx=parseInt((screen.width-this.x)/sec/100);
-			this.x=screen.width
-		}else if(slmode==3){					// 上からスライドイン
-			this.dy=parseInt((this.y+this.height)/sec/100);
-			this.y=-this.height
-		}else if(slmode==4){					// 下へスライドイン
-			this.dy=parseInt((screen.height-this.y)/sec/100);
-			this.y=screen.height
-		}
-		if(is_nav4){		d.pageX=this.x;			d.pageY=this.y}
-		else if(is_nav5up){	d.style.left=this.x;	d.style.top=this.y}
-		else if(is_ie4up){	d.style.pixelLeft=this.x;d.style.pixelTop=this.y}
-	}
-//----------------------------------------------------------------------
-// slmodeに応じてスライドアウトする
-	this.slideout=function(slmode,sec){
-		this.visibility="show"
-		if(is_nav4)						d.visibility="show"
-		else if(is_nav5up || is_ie4up)	d.style.visibility="visible"
-		if(!sec)	sec=1;
-// 目的位置xd,ydを現在位置x,yにする
-		this.xd=this.x;	this.yd=this.y
-// 目的位置xd,ydをslmodeに応じた位置に調整する
-		if(slmode==1){							// 左へスライドアウト
-			this.dx=parseInt((this.x+this.width)/sec/100);
-			this.xd=-this.width
-		}else if(slmode==2){					// 右へスライドアウト
-			this.dx=parseInt((screen.width-this.x)/sec/100);
-			this.xd=screen.width
-		}else if(slmode==3){					// 上へスライドアウト
-			this.dy=parseInt((this.y+this.height)/sec/100);
-			this.yd=-this.height
-		}else if(slmode==4){					// 下へスライドアウト
-			this.dy=parseInt((screen.height-this.y)/sec/100);
-			this.yd=screen.height
-		}
-		if(is_nav4){		d.pageX=this.x;			d.pageY=this.y}
-		else if(is_nav5up){	d.style.left=this.x;	d.style.top=this.y}
-		else if(is_ie4up){	d.style.pixelLeft=this.x;d.style.pixelTop=this.y}
-	}
-//----------------------------------------------------------------------
-// 現在位置をx,yずらす
-	this.slideBy=function(x,y){
-		if(is_nav4){		d.pageX+=x;			d.pageY+=y}
-		else if(is_nav5up){	d.style.left+=x;	d.style.top+=y}
-		else if(is_ie4up){	d.style.pixelLeft+=x;d.style.pixelTop+=y}
-		this.x+=x;	this.y+=y	//position
-	}
-//----------------------------------------------------------------------
-// 目的位置xd,ydをセットする
-	this.slideTo=function(x,y){this.xd=x;	this.yd=y}
-
-	DRAGABLE[DRAGABLE.length]=this
-}
+Element.addMethods(Effect.Methods);
