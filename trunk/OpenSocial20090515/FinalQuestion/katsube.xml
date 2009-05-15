@@ -14,13 +14,13 @@
 
 		<!-- [メニュー] -->
 		<div id="mainmenu" style="display:none">
-			<ul id="menulist">
-				<li id="battle">バトル</li>
-				<li id="castle">城</li>
-				<li id="item">アイテム</li>
-			</ul>
-			<div id="status" style="clear:both">
-				<div id="status-in"></div>
+			<div id="mainmenu-in">
+				<ul id="menulist">
+					<li id="battle">バトル</li>
+					<li id="castle">城</li>
+					<li id="item">アイテム</li>
+				</ul>
+				<div id="status" style="clear:both"></div>
 			</div>
 		</div>
 		<!-- [/メニュー] -->
@@ -76,7 +76,7 @@
 				//------------------------------
 				//HTMLのIDリスト
 				//------------------------------
-				'id': '#status-in'
+				'id': '#status'
 
 				//------------------------------
 				//ステータスに表示

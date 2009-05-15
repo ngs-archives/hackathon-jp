@@ -14,7 +14,14 @@ body{
 	color: white;
 }
 
-ul#menulist li{
+#mainmenu-in{
+	text-align:center;
+}
+#mainmenu-in ul{
+	/* センタリング用 */
+	text-align:left; margin-left:auto;margin-right:auto;
+}
+#mainmenu-in ul#menulist li{
 	width: 250px;
 	height: 250px;
 	font-weight: bold;
@@ -24,15 +31,13 @@ ul#menulist li{
 	cursor:point;
 
 }
-
-#status{
-	text-align: center;
-}
-#status #status-in{
-	text-align:left;
-	margin-left:auto;margin-right:auto;
-
+#mainmenu-in #status{
+	margin-top:20px;
+	margin-bottom:20px;
 	width: 500px;
 	height: 250px;
 	border: 3px solid white;
+
+	/* センタリング用 */
+	text-align:left; margin-left:auto;margin-right:auto;
 }
