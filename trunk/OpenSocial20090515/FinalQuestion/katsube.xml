@@ -139,13 +139,13 @@
 					);
 					
 					Status.write(
-						  '<span style="font-weight:bold">姫「あなた如き豚が私に何のようなの？」</span><br />\n'
+						  '<span style="font-weight:bold">姫「あなた如き豚が私に何のご用かしら？」</span><br />\n'
 						+ '<br />\n'
-						+ '　姫はさげすんだ視線をプレイヤーに浴びせた！<br />\n'
+						+ '　姫はさげすんだ視線を浴びせた！<br />\n'
 						+ '<br />\n'
 						+ '<span style="font-weight:bold">姫「・・・あら、貢ぎ物？」</span><br />\n'
 						+ '<br />\n'
-						+ '　　姫は貢ぎ物を見定めた！'
+						+ '　姫はけだるそうに貢ぎ物を見定めた！'
 					);
 				}
 
