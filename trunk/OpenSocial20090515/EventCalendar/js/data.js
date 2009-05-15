@@ -69,7 +69,9 @@ var DummyDao = {
 	getEventsByOwerUserId: function(userId){
 		var events = [];
 		var user = evtCal.createUser(userId, "sugimori");
-		events.push(evtCal.createEvent("花見", user, [user], evtCal.status.CRIATING));
+		var evt0 = evtCal.createEvent("花見", user, [user], evtCal.status.CRIATING);
+		evt0.entries.push(evtCal.createEntry(evtCal.entryType.WHEN, user, new Date(), "5/15 10:00 から", "遅れないように"));
+		events.push(evt0);
 		events.push(evtCal.createEvent("Hackathon", user, [user], evtCal.status.CRIATING));
 		return events;
 	},
@@ -89,10 +91,10 @@ var DummyDao = {
 	}
 };
 
-var CouchXHRRequester = {
+var CouchRequester = {
 	findAllEvents: function(url){
-		$.get(url, function(obj){
-			alert(obj);
+		gadgets.io.makeRequest(url, function(obj){
+			obj;
 		});
 	}
 };
