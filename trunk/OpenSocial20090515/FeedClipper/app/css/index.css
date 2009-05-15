@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+#container {
+margin  : 5px auto;
+width   : 800px;
+}
+
+#view {
+margin  : 5px auto;
+width   : 100%;
+}
+
+#form {
+margin  : 30px 0 0 0;
+width   : 100%;
+border  : double 3px #066;
+}
+
+.t450 {
+width : 450px;
+}
+
+.ta300_300 {
+width  : 450px;
+height : 200px;
+}
+
+table {
+margin : 0 auto;
+width  : 100%;
+}
+
+.ctr {
+width : 90%;
+border : solid 1px #FF00FF;
+clear:both;
+}
