@@ -53,6 +53,7 @@ jQuery(function($) {
 #battleField { display: none; }
 #quizArea { border: solid 1px; }
 .answer { width: display: none; cursor: default; }
+#exit { cursor: default; }
 #question { border: solid 1px; }
 .badgeJudge { display: none; position: absolute; top: 0px; left: 0px;} 
 </style>
@@ -211,15 +212,10 @@ jQuery(function($) {
 			FinalQuestion.loadNextQuiz();
 		}
 		, exit: function(){
-			if (confirm('酒場に逃げ帰るのですか？'))
-			{
-//			$('<span/>')
-//			    .text('メニューに戻ります')
-//			    .minimessage(function() { 
-//			    	FinalQuestion.gotoMenu();
-//			});
-		    	FinalQuestion.gotoMenu();
-		    }
+			if (!confirm('酒場に逃げ帰るのですか？'))
+				return;
+			
+			MainMenu.init();
 		}
 		, gotoMenu : function() {
 			MainMenu.disp(
