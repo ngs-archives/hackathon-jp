@@ -259,9 +259,9 @@
 			 var Item = {
 				'start':function(){
 					$('#main').html(
-						  '<h2>獲得済みのアイテム</h2>'
-						+ '<ul>'
-						+ '	<li><b style="font-weight:bold">ゴ○ィバのチョコ</b> (姫の機嫌が回復します)</li>'
+						  '<h2 style="font-size:150%; font-weight:bold">獲得済みのアイテム</h2>'
+						+ '<ul style="margin-left:30px; list-style-type:square;">'
+						+ '	<li><b style="font-weight:bold">ゴディ○のチョコ</b> (姫の機嫌が回復します)</li>'
 						+ '	<li><b style="font-weight:bold">伝説の剣</b> (値札をつけて渡すと姫が喜びます)</li>'
 						+ '	<li><b style="font-weight:bold">伝説のイケメン</b> (姫が喜びますが、あなたへのフラグがおれます)</li>'
 						+ '	<li>？</li>'
