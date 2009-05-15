@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="みんと〜" author_email="kentaro.matsumae@gmail.com">
+    <Require feature="opensocial-0.8" />
+    <Require feature="dynamic-height" />
+  </ModulePrefs>
+  <Content type="html" view="canvas"><![CDATA[
+
+<!-- Fetching People and Friends -->
+<div>
+	<div>
+		<span id="notice"></span>
+	</div>
+	<div>
+		<form>
+			メッセージ:
+			<input type="text" name="message" id="message" size="75">
+  			<button type="submit" onclick='postMsg(); return false;'>投稿</button>
+  		</form>
+  	</div>
+  	<div>
+  		<h2>私の投稿</h2>
+  		
+  	</div>
+</div>
+<script type='text/javascript'>
+function postMsg() {
+	var msg = document.getElementById('message').value;
+    var request = opensocial.newDataRequest();
+    var param = {};
+    param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    var viewer = opensocial.newIdSpec(param);
+    request.add(request.newFetchPeopleRequest(viewer), "viewer");
+    request.send(function (response) {
+        var item = response.get("viewer");
+        if (item.hadError()) {
+            // エラー処理。item.getError() で詳細情報を取得
+            return;
+        }
+        var people = item.getData();
+        var person = people.asArray()[0];
+        var uid = person.getId();
+        var date = new Date();
+        contentID = uid + date.getTime();
+        var inData = {"contentID": contentID, "body": msg };
+        getData("contents", inData);
+	});
+}
+function getData(key, inData){
+    var request = opensocial.newDataRequest();
+    var param = {};
+    request.add(request.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
+    param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+    var idSpec = opensocial.newIdSpec(param);
+    request.add(request.newFetchPersonAppDataRequest(idSpec, [key]), "viewer_data");
+    request.send(function (response) {
+        if (response.hadError()) {
+            return;
+        }
+        var viewer = response.get("viewer").getData();
+        var data   = response.get("viewer_data").getData();
+        var viewer_data = data[viewer.getId()];
+        
+        var allContents = null;
+        if(viewer_data == null){
+        	allContents = [];
+        }else{
+        	var jsonTxt =  gadgets.util.unescapeString(viewer_data[key]);
+        	allContents  = gadgets.json.parse(jsonTxt);
+        }
+        allContents.push(inData);
+        
+        var value = gadgets.json.stringify(allContents);
+        insertData("contents", value);
+    });
+}
+function insertData(key, value){
+	var request = opensocial.newDataRequest();
+    request.add(request.newUpdatePersonAppDataRequest(
+            opensocial.IdSpec.PersonId.VIEWER, key, value));
+    request.send();
+    
+    var notice = document.getElementById('notice');
+    notice.innerHTML = "投稿しました！";
+}
+</script>
+
+  ]]></Content>
+</Module>
