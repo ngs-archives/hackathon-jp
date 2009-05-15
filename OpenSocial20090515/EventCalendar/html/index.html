@@ -1,8 +1,14 @@
 <html>
 <head>
 	<style type="text/css">
-	div#main { width: 640px; float: left; }
-	div#form { width: 280px; float: left; height: 200px; background-color: green; }
+	div#main { width: 630px; margin-right: 20px; float: left; }
+	div#form {
+		width: 270px; float: left; margin-top: 1px;
+		background-color: #A0FF00;
+		border: 1px solid #A0FF00;
+		-webkit-border-radius: 5px;
+		height: 300px;
+	}
 
 	table.tbl_event thead tr th {
 		background-color: #FFAF00;
@@ -13,8 +19,8 @@
 		font-weight: bold;
 	}
 
-	table.tbl_event thead tr th.title { width: 280px; }
-	table.tbl_event thead tr th.participants { width: 240px; }
+	table.tbl_event thead tr th.title { width: 320px; }
+	table.tbl_event thead tr th.participants { width: 200px; }
 	table.tbl_event thead tr th.status { width: 120px; }
 
 	table.tbl_event tbody tr td {
@@ -23,6 +29,11 @@
 		-webkit-border-radius: 5px;
 		padding: 2px 20px;
 	}
+
+	h3.new_event { font-size: 14pt; font-weight: bold; text-align: center; color: #004B00; }
+	table.tbl_input tr td.name { font-size: 10pt; text-align: right; }
+	table.tbl_input tr td.input input,  { margin: 2px 5px; width: 160px; }
+	table.tbl_input tr td.input textarea { margin: 2px 5px; width: 160px; height: 180px; }
 	</style>
 </head>
 <body>
@@ -30,10 +41,20 @@
 		<table class="tbl_event">
 			<thead><tr><th class="title">タイトル</th><th class="participants">参加者</th><th class="status">状態</th></tr></thead>
 			<tbody>
-				<tr><td><a href="#">お花見</a></td><td>高木、潮、鈴木...</td><td>意見募集中</td></tr>
+				<tr><td><a href="#">お花見行きたい、みんな集まれ！</a></td><td>高木、潮、鈴木...</td><td>決定済み</td></tr>
+				<tr><td><a href="#">バーペキューやろう！</a></td><td>今村、吉川...</td><td>決定済み</td></tr>
+				<tr><td><a href="#">飲みに行きたいよ〜</a></td><td>高橋、吉田...</td><td>意見募集中</td></tr>
+				<tr><td><a href="#">ホームパーティやります</a></td><td>竹野、品川、山本...</td><td>決定済み</td></tr>
+				<tr><td><a href="#">カラオケ行こうぜ！</a></td><td>潮、今村...</td><td>意見募集中</td></tr>
 			</tbody>
 		</table>
 	</div>
-	<div id="form"></div>
+	<div id="form">
+		<h3 class="new_event">新しいイベントを提案する！</h3>
+		<table class="tbl_input">
+			<tr><td class="name">イベント名：</td><td class="input"><input type="textfield" /></td></tr>
+			<tr><td class="name">概要：</td><td class="input"><textarea id="event_description"></textarea></td></tr>
+		</table>
+	</div>
 </body>
 </html>
