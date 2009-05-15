@@ -2,11 +2,25 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.xml
   def index
-    @questions = Question.find(:all)
-
+    #@Answer = Answer.find(:first, :conditions => ['mixi_id != ?', params[:mixi_id]], :order => "updated_at DESC")
+    @questions = Question.find_by_sql(["select * from questions where id not in (select question_id from answers where mixi_id = :mid) order by updated_at DESC limit 1",{ :mid => params[:mixi_id]}] );
+    json = @questions.to_json;
+    
+    #json.gsub(/\\([\\\/]|u[[:xdigit:]]{4})/) do
+    #            ustr = $1
+    #            if ustr.starts_with?('u')
+    #              [ustr[1..-1].to_i(16)].pack("U")
+    #            elsif ustr == '\\'
+    #              '\\\\'
+    #            else
+    #              ustr
+    #            end
+    #        end
+    p json    
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @questions }
+      #format.html # index.html.erb
+      format.json { render :json => json }
+      #format.xml  { render :xml => @questions }
     end
   end
 
