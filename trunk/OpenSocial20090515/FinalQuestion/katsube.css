@@ -10,6 +10,8 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
 
 
 body{
+	background-color: black;
+	color: white;
 }
 
 ul#menulist li{
@@ -24,8 +26,13 @@ ul#menulist li{
 }
 
 #status{
+	text-align: center;
+}
+#status #status-in{
+	text-align:left;
+	margin-left:auto;margin-right:auto;
+
+	width: 500px;
 	height: 250px;
 	border: 3px solid white;
-	background-color: black;
-	color: white;
 }
