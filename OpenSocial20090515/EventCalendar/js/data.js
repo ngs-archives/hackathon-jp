@@ -6,6 +6,12 @@ var data = {
 		FIX: "fix",
 		CANCEL: "cancel"
 	},
+	entryType: {
+		WHEN: "いつ",
+		WHERE: "どこで",
+		WHAT: "何を",
+		WHO: "誰と"		
+	},
 	createUser: function(id, nickname){
 		var user = {
 			id: id,
@@ -68,7 +74,7 @@ var DummyDao = {
 	updateEvent: function(event){
 	},
 	
-	createEvent: function(event){
+	registerEvent: function(event){
 	}
 };
 
