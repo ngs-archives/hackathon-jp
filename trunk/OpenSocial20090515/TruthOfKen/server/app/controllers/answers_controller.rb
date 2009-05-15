@@ -2,11 +2,11 @@ class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.xml
   def index
-    @answers = Answer.find(:all)
+    @answers = Answer.find(:all, :conditions => ['prefecture_id = ? and question_id = ? ', params[:prefecture],params[:question_id]], :order => "rate DESC")
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @answers }
+      #format.html # index.html.erb
+      format.json  { render :json => @answers }
     end
   end
 
