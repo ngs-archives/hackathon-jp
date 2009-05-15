@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>  
+<Module>  
+ <ModulePrefs title="twkからこんにちは"  
+   description="twkのテスト用のガジェットです">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="dynamic-height"/>
+    <Require feature="tabs"/>
+    <Require feature="settitle"/>
+    <Require feature="minimessage"/>
+ </ModulePrefs>
+
+<Content type="html" view="profile,home,canvas"><![CDATA[ 
+<!--
+-->
+<script type="text/javascript" src="js/json_sans_eval.js"></script>
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/opensocial-jquery.min.js"></script>
+<script type="text/javascript" src="js/jsdeferred.jquery.js"></script>
+<script type="text/javascript">
+// @see http://la.ma.la/blog/diary_200608300350.htm
+Array.prototype.shuffle = function() {
+    var i = this.length;
+    while(i){
+        var j = Math.floor(Math.random()*i);
+        var t = this[--i];
+        this[i] = this[j];
+        this[j] = t;
+    }
+    return this;
+}
+
+jQuery(function($) {
+});
+</script>
+]]></Content>
+
+<Content type="html" view="home">
+  <![CDATA[ 
+<script type="text/javascript">
+</script>
+   <p>ここはhome!!</p>
+  ]]>  
+</Content>
+
+<Content type="html" view="profile">
+  <![CDATA[ 
+   <p>ここはprofile!!</p> 
+  ]]>  
+</Content><!-- profile -->
+
+<Content type="html" view="canvas"><![CDATA[ 
+   <p>ここはcanvas!!</p> 
+<script type="text/javascript">
+jQuery(function($) {
+	// 定数的なもの
+	var loadQuizzesUrl = 'http://quizken.jp/quiz/index/api_key/20090515finalquestion/count/1';
+	// [{"question_key":"eyJkIjoiNFFDQlkwQ3Y2WmM9In0","question":"\u4eba\u6c17\u306e\u713c\u914e\u300c\u3044\u3044\u3061\u3053\u300d\u306e\u7523\u5730\u306f?","genre_name":"variety","answers":["\u5927\u5206\u770c","\u798f\u5ca1\u770c","\u5bae\u5d0e\u770c","\u9e7f\u5150\u5cf6\u770c"]}]
+	var answerQuizUrl = 'http://quizken.jp/quiz/index/api_key/20090515finalquestion/question_key/eyJkIjoiSjh5WHZJdGxzYXM9In0/answer/%C3%97';
+	var maxAnswerCount = 4;
+	
+	$.deferred.define();
+	
+	
+	// main
+	var quizRecord = [];
+	var quizzes = null;
+	var correctAnswer = null;
+	// class
+	var FinalQuestion = {
+		init: function (){
+			for (var i = 0; i < maxAnswerCount; ++i)
+			{
+				$('#answer' + i).click(FinalQuestion.answer);
+			}
+			FinalQuestion.loadNextQuiz();
+		}
+		, loadQuizzes: function (callback){
+			var params = {};
+			params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.SIGNED;
+			gadgets.io.makeRequest(loadQuizzesUrl, callback, params);
+		}
+		, loadNextQuiz: function (){
+			FinalQuestion.loadQuizzes(function(response) {
+				quizzes = jsonParse(response.text);
+				// console.debug(quizzes);
+				var quiz = quizzes[0];
+				// console.debug(quiz.question);
+				
+				$('#question').text(quiz.question);
+				correctAnswer = quiz.answers[0];
+				var shuffledAnswers = quiz.quiz_type == 'truefalse' ? ['○', '×'] : quiz.answers.shuffle();
+				$.each(shuffledAnswers, function(index, answer){
+					var answer$ = $('#answer' + index);
+					answer$.text(answer);
+				});
+				for (var i = 0; i < maxAnswerCount; ++i){
+					$('#answer' + i)[i < shuffledAnswers.length ? 'show' : 'hide']();
+				}
+			});
+		}
+		, answer: function (){
+			// console.debug($(this));
+			var image$ = $(correctAnswer == $(this).text() ? '#badgeJudgeCorrect' : '#badgeJudgeWrong');
+			image$.show().hide('slow');
+
+			// TODO スコアを送信?
+
+			FinalQuestion.loadNextQuiz();
+		}
+	};
+	FinalQuestion.init();
+}); // jQuery
+</script>
+<style type="text/css">
+#quizArea { border: solid 1px; }
+.answer { width: display: none; cursor: default; }
+#question { border: solid 1px; }
+.badgeJudge { display: none; position: absolute; top: 0px; left: 0px;} 
+</style>
+<div id="quizArea" style="position: relative;">
+	<div id="question">question_area</div>
+	<div id="answer0" class="answer">answe0</div>
+	<div id="answer1" class="answer">answe0</div>
+	<div id="answer2" class="answer">answe0</div>
+	<div id="answer3" class="answer">answe0</div>
+	<div class="badgeJudge" id="badgeJudgeCorrect"><img src="images/correct.png" /></div>
+	<div class="badgeJudge" id="badgeJudgeWrong"><img src="images/wrong.png" /></div>
+</div>
+]]></Content><!-- /canvas -->
+
+<Content type="html" view="profile,home,canvas"><![CDATA[ 
+<script type="text/javascript">
+</script>
+]]></Content> 
+
+</Module>
