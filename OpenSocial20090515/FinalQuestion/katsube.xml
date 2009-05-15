@@ -129,11 +129,16 @@
 					, 'castle':'#maincastle'
 				}
 
+				//------------------------------
+				//初期処理
+				//------------------------------
 				, 'start':function(){
 					Castle.disp(
 						  Castle.id.canvas
 						, Castle.id.castle
 					);
+					
+					Status.write('姫「私に何のようなの？」')
 				}
 
 				//------------------------------
