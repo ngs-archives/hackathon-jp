@@ -129,7 +129,7 @@
 					, 'castle':'#maincastle'
 				}
 
-				'start':function(){
+				, 'start':function(){
 					Castle.disp(
 						  Castle.id.canvas
 						, Castle.id.castle
