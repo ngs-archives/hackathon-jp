@@ -241,7 +241,7 @@
 					$('#main').html(
 						'<div style="font-size:130%; text-align:center">'
 							+ 'スタッフ<br />'
-							+ '<br />
+							+ '<br />'
 							+ '岩崎<br />'
 							+ '神部<br />'
 							+ '勝部<br />'
