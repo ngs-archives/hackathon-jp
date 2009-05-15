@@ -28,6 +28,9 @@ function response(dataResponse) {
 
     jQuery.each(events, function(index, e) {
         html += '<li>' + e.title + "：　5/10";
+	if(index % 2 == 0) {
+	    html += '（新）';
+	}
     });
     html += '</ul>';
 
