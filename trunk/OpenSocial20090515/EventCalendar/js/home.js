@@ -27,7 +27,7 @@ function response(dataResponse) {
     html += '<br><ul>';
 
     jQuery.each(events, function(index, e) {
-        html += '<li>' + e.title;
+        html += '<li>' + e.title + "：　5/10";
     });
     html += '</ul>';
 
