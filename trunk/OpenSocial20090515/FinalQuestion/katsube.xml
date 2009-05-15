@@ -54,9 +54,17 @@
 					);
 					
 					//イベント設定
-					$(MainMenu.id.battle).click( Battle.start );
-					$(MainMenu.id.castle).click( Castle.start );
-					$(MainMenu.id.item).click( Item.start );
+					$(MainMenu.id.battle)
+						.onmouse( Status.write('キラー○シンとクイズでバトル！') )
+						.click( Battle.start );
+					
+					$(MainMenu.id.castle)
+						.onmouse( Status.write('お姫様に会いに行こう') )
+						.click( Castle.start );
+
+					$(MainMenu.id.item)
+						.onmouse( Status.write('アイテムについてのアレコレ') )
+						.click( Item.start );
 					
 				}
 
