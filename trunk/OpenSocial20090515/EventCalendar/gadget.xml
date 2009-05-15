@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Event Calendar" author_email="takekazu@reedrex.co.jp">
-    <Require feature="opensocial-0.8" />
-    <Require feature="dynamic-height" />
-  </ModulePrefs>
-  <Content type="html" view="canvas"><![CDATA[
-  
-  <script type="text/javascript" src="/EventCalendar/js/lib/jquery-1.3.2.js"></script>
+    <ModulePrefs
+            title="Event Calendar"
+            author_email="takekazu@reedrex.co.jp">
+        <Require feature="opensocial-0.8" />
+        <Require feature="views" />
+        <Require feature="dynamic-height" />
+        <Require feature="tabs" />
+    </ModulePrefs>
+    <Content type="html" view="canvas"><![CDATA[<script type="text/javascript" src="/EventCalendar/js/lib/jquery-1.3.2.js"></script>
   <script type="text/javascript" src="/EventCalendar/canvas.js"></script>
   
   <script type="text/javascript">
   
     $(document).ready(function(){ init(); });
-  </script>
-  
-  ]]></Content>
-  <Content type="html" view="home, profile"><![CDATA[
-  ]]></Content>
+  </script>]]></Content>
+    <Content type="html" view="home, profile" />
 </Module>
