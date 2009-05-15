@@ -3,7 +3,7 @@
 	<ModulePrefs title="FinalQuestion"></ModulePrefs>
 	<Content type="html" view="canvas">
 	<![CDATA[
-		<script>dosument.write('<link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090515/FinalQuestion/katsube.css?rand=' + Math.random() + '" type="text/css" />');</script>
+		<script>document.write('<link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090515/FinalQuestion/katsube.css?rand=' + Math.random() + '" type="text/css" />');</script>
 
 		<h1>FinalQuestion</h1>
 
