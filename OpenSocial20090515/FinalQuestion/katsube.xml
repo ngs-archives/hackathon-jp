@@ -55,18 +55,18 @@
 					
 					//イベント設定
 					$(MainMenu.id.battle)
-						.mouseover( function(){ $(this).css('font-size:','150%'); Status.write('キラー○シンとクイズでバトル！') } )
-						.mouseout( function(){ $(this).css('font-size:','130%');} )
+						.mouseover( function(){ $(this).css('font-size','150%'); Status.write('キラー○シンとクイズでバトル！') } )
+						.mouseout( function(){ $(this).css('font-size','130%');} )
 						.click( Battle.start );
 					
 					$(MainMenu.id.castle)
-						.mouseover( function(){ $(this).css('font-size:','150%'); Status.write('お姫様に会いに行こう') } )
-						.mouseout( function(){ $(this).css('font-size:','130%');} )
+						.mouseover( function(){ $(this).css('font-size','150%'); Status.write('お姫様に会いに行こう') } )
+						.mouseout( function(){ $(this).css('font-size','130%');} )
 						.click( Castle.start );
 
 					$(MainMenu.id.item)
-						.mouseover( function(){ $(this).css('font-size:','150%'); Status.write('アイテムについてのアレコレ')} )
-						.mouseout( function(){ $(this).css('font-size:','130%');} )
+						.mouseover( function(){ $(this).css('font-size','150%'); Status.write('アイテムについてのアレコレ')} )
+						.mouseout( function(){ $(this).css('font-size','130%');} )
 						.click( Item.start );
 					
 				}
