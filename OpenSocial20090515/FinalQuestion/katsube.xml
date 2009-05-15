@@ -3,7 +3,8 @@
 	<ModulePrefs title="FinalQuestion"></ModulePrefs>
 	<Content type="html" view="canvas">
 	<![CDATA[
-		<link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090515/FinalQuestion/katsube.css?nocache=1" type="text/css" />
+		<script>dosument.write('<link rel="stylesheet" href="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090515/FinalQuestion/katsube.css?rand=' + Math.random() + '" type="text/css" />');</script>
+
 		<h1>FinalQuestion</h1>
 
 		<!-- [メイン画面] -->
@@ -11,7 +12,7 @@
 
 		<!-- [メニュー] -->
 		<div id="mainmenu" style="display:none">
-			<ul>
+			<ul id="menulist">
 				<li id="battle">バトル</li>
 				<li id="castle">城</li>
 				<li id="item">アイテム</li>
