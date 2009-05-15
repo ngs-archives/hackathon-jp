@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
+	<ModulePrefs title="トゥルースオブ県" description="県民ガジェット">
+		<Require feature="opensocial-0.8"/>
+		<Require feature="dynamic-height" />
+	</ModulePrefs>
+	<Content type="html" view="canvas"><![CDATA[
 	
-<ModulePrefs title="トゥルースオブ県" description="県民ガジェット">
-	<Require feature="opensocial-0.8"/>
-	<Require feature="dynamic-height" />
-</ModulePrefs>
-
-<Content type="html" view="canvas">
-<![CDATA[
-    <script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jquery-1.2.6.js"></script>
-	<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jquery.inc-5.js"></script>
-	<div class="inc:http%3A%2F%2Fec2-174-129-131-70.compute-1.amazonaws.com%2Fcanvas.html"></div>
+    	<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jquery-1.2.6.js"></script>
+		<script type="text/javascript" src="http://ec2-174-129-131-70.compute-1.amazonaws.com/jquery.inc-5.js"></script>
+		<div class="inc:http%3A%2F%2Fec2%2D174%2D129%2D131%2D70%2Ecompute%2D1%2Eamazonaws%2Ecom%2Fcanvas%2Ehtml"></div>
 	
-]]>
-</Content>
+	]]></Content>
 </Module>
