@@ -4,10 +4,7 @@ require 'aasm'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   include AuthenticatedSystem
-  require 'json'
-  require 'json/ext'
-  require 'json/add/rails'
-
+  
 
   #before_filter :login_required
 
