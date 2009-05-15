@@ -74,7 +74,7 @@ function handleRequestMe(data) {
 		  tbl += "<td><a href=\"javascript:view_detail(" + event.id + ");\">" + event.title + "</a></td>";
 		  tbl += "<td>" + event.creator.nickname + "</td>";
 		  tbl += "<td>" + event.participants.length + "</td>";
-		  tbl += "<td>" + evtCal.status.CREATING + "</td>";
+		  tbl += "<td>" + event.status + "</td>";
 		  tbl += "<td>" + event.entries.length + "</td>";
 		  tbl += "</tr>";
 	  });
@@ -84,6 +84,8 @@ function handleRequestMe(data) {
 	  tbl += "<div id=\"detail\"></div>";
 
 	  $("#view").append(tbl);
+	  
+	  gadgets.window.adjustHeight();
 }
 
 function view_detail(event_id) {
@@ -95,27 +97,34 @@ function view_detail(event_id) {
 		  
 	  tbl += "<table class=\"tbl_event\"><tbody>";
 		          
+	 
+	  event.participants[0]
+
+	  var participants = [];
+	  
+   	  jQuery.each(event.participants, function(idx, participant) {
+   		  participants.push(participant.nickname);
+   	  });
+	               	  
 	  tbl += "<tr><td>件名</td><td>" + event.title + "</td></tr>";
 	  tbl += "<tr><td>作成者</td><td>" + event.creator.nickname + "</td></tr>";
-	  tbl += "<tr><td>参加者</td><td>" + event.participants.join("、") + "</td></tr>";
+	  tbl += "<tr><td>参加者</td><td>" + participants.join("、") + "</td></tr>";
 	  tbl += "<tr><td>状態</td><td>" + evtCal.status.CREATING + "</td></tr>";
 	  
 	  tbl += "</tbody></table>";
 
 	  tbl += "<table class=\"tbl_event\"><tbody>";
-
+	  
 	  tbl += "<tr><td>投稿:" + event.entries.length + "件</td></tr>";
 	  
+	  tbl += "</tbody></table>";
+	  
+	  tbl += "<table class=\"tbl_event\"><tbody>";
+
 	  jQuery.each(event.entries, function(idx, entry) {
-		  tbl += "<tr>";
-		  tbl += "<td>" + entry.type + "</td>";
-		  tbl += "<td>" + entry.user.nickname + "</td>";
-		  tbl += "<td>" + entry.postedAt + "</td>";
-		  tbl += "<td>" + entry.content + "</td>";
-		  tbl += "</tr>";
-		  
-		  tbl += "<tr colspan=\4\>";
-		  tbl += "<td>" + entry.comment + "</td>";
+		  tbl += "<tr><td>" + entry.user.nickname + " の投稿  " + entry.postedAt + "</td></tr>";
+		  tbl += "<tr><td>" + entry.type + "：" + entry.content + "</td></tr>";
+		  tbl += "<tr><td>コメント：" + entry.comment + "</td>";
 		  tbl += "</tr>";
 	  });
 
