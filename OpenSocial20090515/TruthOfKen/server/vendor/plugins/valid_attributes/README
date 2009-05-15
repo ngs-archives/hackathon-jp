@@ -1,0 +1,14 @@
+= valid_attributes
+This plugin provides the ActiveRecord validations with individual Attribute. 
+
+== Author
+Kei Kusakari
+
+== Copyright
+Copyright (c) 2008 Kei Kusakari
+http://imishin.com
+
+== License
+MIT license(included)
+
+
