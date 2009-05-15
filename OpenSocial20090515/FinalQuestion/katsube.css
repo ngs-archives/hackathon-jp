@@ -15,7 +15,7 @@ body{
 	color: white;
 }
 
-#battle{
+ul#menulist li{
 	width: 250px;
 	height: 250px;
 	font-weight: bold;
@@ -23,24 +23,7 @@ body{
 	float:left;
 	border: 3px solid white;
 	cursor:point;
-	
-}
-#castle{
-	width: 250px;
-	height: 250px;
-	font-weight: bold;
-	font-size: 130%;
-	float:left;
-	border: 3px solid white;
-	cursor:point;
-}
-#item{
-	width: 250px;
-	height: 250px;
-	font-weight: bold;
-	font-size: 130%;
-	border: 3px solid white;
-	cursor:point;
+
 }
 
 #status{
