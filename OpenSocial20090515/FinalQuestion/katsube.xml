@@ -17,7 +17,7 @@
 				<li id="castle">城</li>
 				<li id="item">アイテム</li>
 			</ul>
-			<div id="status"></div>
+			<div id="status" style="clear:both"></div>
 		</div>
 		<!-- [/メニュー] -->
 
