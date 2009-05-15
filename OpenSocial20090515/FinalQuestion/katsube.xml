@@ -1,9 +1,101 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="FinalQuestion"></ModulePrefs>
-  <Content type="html">
-  <![CDATA[
-      <h1>Hello Social World!</h1>
-  ]]>
-  </Content>
+	<ModulePrefs title="FinalQuestion"></ModulePrefs>
+	<Content type="html" view="canvas">
+	<![CDATA[
+		<h1>FinalQuestion</h1>
+
+		<!-- [メイン画面] -->
+		<div id="main"></div>
+
+		<!-- [メニュー] -->
+		<div id="mainmenu" style="display:none">
+			<ul>
+				<li id="battle">バトル</li>
+				<li id="castle">城</li>
+				<li id="item">アイテム</li>
+			</ul>
+			<div id="status"></div>
+		</div>
+		<!-- [/メニュー] -->
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			/*----------------------------------------------------
+			 * ■メインメニュー
+			 *----------------------------------------------------*/
+			var MainMenu = {
+				//------------------------------
+				//HTMLのIDリスト
+				//------------------------------
+				'id':{
+					  'canvas':'#main'
+					,   'menu':'#mainmenu'
+
+					, 'battle':'#battle'
+					, 'castle':'#castle'
+					,   'item':'#item'
+				}
+				//------------------------------
+				//初期化(onLoad時に呼び出し)
+				//------------------------------
+				, 'init' : function(){
+					//メニュー表示
+					MainMenu.disp(
+						  MainMenu.id.canvas
+						, MainMenu.id.menu
+					);
+					
+					//イベント設定
+					$(MainMenu.id.battle).click( Battle.start );
+					$(MainMenu.id.castle).click( Castle.start );
+					$(MainMenu.id.item).click( Item.start );
+					
+				}
+				//------------------------------
+				//メニュー表示
+				//------------------------------
+				, 'disp' : function(canvas, menu){
+					var source = $(menu).html();
+					$(canvas).html(source);
+				}
+			};
+
+			/*----------------------------------------------------
+			 * ■バトルスタート
+			 *----------------------------------------------------*/
+			 var Battle = {
+				'start':function(){
+					alert('battle start');
+				}
+			 };
+			 
+			/*----------------------------------------------------
+			 * ■城
+			 *----------------------------------------------------*/
+			 var Castle = {
+				'start':function(){
+					alert('castle start');
+				}
+			 };
+			 
+			/*----------------------------------------------------
+			 * ■アイテム
+			 *----------------------------------------------------*/
+			 var Item = {
+				'start':function(){
+					alert('item start');
+				}
+			 };
+			
+			/*----------------------------------------------------
+			 * ■onLoad イベントハンドラ
+			 *----------------------------------------------------*/
+			gadgets.util.registerOnLoadHandler(function(){
+				//メニュー表示
+				MainMenu.init();
+			});
+		</script>
+	]]>
+	</Content>
 </Module>
