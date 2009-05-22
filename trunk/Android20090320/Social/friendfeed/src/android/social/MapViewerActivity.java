@@ -3,6 +3,7 @@ package android.social;
 import java.util.StringTokenizer;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -28,15 +29,16 @@ public class MapViewerActivity extends MapActivity
       int index = lat.indexOf(".");
       if (index != -1)
       {
-      	lat = lat.substring(0, index - 1) + lat.substring(index + 1, lat.length()); 
+      	lat = lat.substring(0, index) + lat.substring(index + 1, lat.length()); 
       }
       index = lon.indexOf(".");
       if (index != -1)
       {
-      	lon = lon.substring(0, index - 1) + lon.substring(index + 1, lon.length()); 
+      	lon = lon.substring(0, index) + lon.substring(index + 1, lon.length()); 
       }
       int latitude = Integer.valueOf(lat).intValue();
       int longitude = Integer.valueOf(lon).intValue();
+      Log.d("FriendFeed", latitude + " , " + longitude);
       mapCtrl.setCenter(new GeoPoint(latitude, longitude));
   }
 
