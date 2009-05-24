@@ -10,11 +10,7 @@ import org.opensocial.data.OpenSocialActivity;
 import org.opensocial.data.OpenSocialField;
 import org.opensocial.data.OpenSocialPerson;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -27,11 +23,13 @@ class UIUpdater extends Thread {
 	
 	private BackgroundService service;
 	private List<ActivityHolder> holders;
+	private NotificationGenerator notificationGenerator;
 
 	UIUpdater(BackgroundService service, List<ActivityHolder> holders) {
 		super();
 		this.service = service;
 		this.holders = holders;
+		notificationGenerator = new NotificationGenerator(service);
 	}
 
 	synchronized public void run() {
@@ -79,23 +77,8 @@ class UIUpdater extends Thread {
 			toast.setView(view);
 			toast.setDuration(Toast.LENGTH_LONG);
 			toast.show();
-
-            NotificationManager mNM;
-            mNM = (NotificationManager)this.service.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            Notification notification;
-            notification = new Notification(R.drawable.stat_sample,  "Notification From Social Site", System.currentTimeMillis());
-
-            PendingIntent contentIntent = PendingIntent.getActivity(this.service, 0,
-                           new Intent(this.service, MapViewerActivity.class),
-                           Intent.FLAG_ACTIVITY_NEW_TASK);
-            notification.setLatestEventInfo(this.service,
-                           "Friend Feed Service", 
-                           activity.getTitle(), contentIntent);
-
-            int notificationId = 1; // Žb’è
-
-            mNM.notify(notificationId, notification);
+			// show the notification
+			notificationGenerator.add(activity);
 		}
 	}
 
