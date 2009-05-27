@@ -37,17 +37,17 @@ public class NotificationGenerator {
 	private Intent createIntent(OpenSocialActivity activity) {
 		Intent intent = null;
 		int index;
-		index = activity.getBody().indexOf("http:");
+		index = activity.getUrl().indexOf("http:");
 		if (index != -1) {
 			intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(activity.getBody().substring(index)));
 			return intent;
 		}
-		index = activity.getBody().indexOf("https:");
+		index = activity.getUrl().indexOf("https:");
 		if (index != -1) {
 			intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(activity.getBody().substring(index)));
 			return intent;
 		}
-		index = activity.getBody().indexOf("geo:");
+		index = activity.getUrl().indexOf("geo:");
 		if (index != -1) {
 			intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(activity.getBody().substring(index)));
 			return intent;
