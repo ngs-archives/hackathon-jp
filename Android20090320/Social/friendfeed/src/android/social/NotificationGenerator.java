@@ -36,21 +36,23 @@ public class NotificationGenerator {
 	
 	private Intent createIntent(OpenSocialActivity activity) {
 		Intent intent = null;
-		int index;
-		index = activity.getUrl().indexOf("http:");
-		if (index != -1) {
-			intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(activity.getBody().substring(index)));
-			return intent;
-		}
-		index = activity.getUrl().indexOf("https:");
-		if (index != -1) {
-			intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(activity.getBody().substring(index)));
-			return intent;
-		}
-		index = activity.getUrl().indexOf("geo:");
-		if (index != -1) {
-			intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(activity.getBody().substring(index)));
-			return intent;
+		String body = activity.getBody();
+		if (body != null) {
+			int index = body.indexOf("http:");
+			if (index != -1) {
+				intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(body.substring(index)));
+				return intent;
+			}
+			index = body.indexOf("https:");
+			if (index != -1) {
+				intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(body.substring(index)));
+				return intent;
+			}
+			index = body.indexOf("geo:");
+			if (index != -1) {
+				intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(body.substring(index)));
+				return intent;
+			}
 		}
 		return null;
 	}
