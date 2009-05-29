@@ -53,7 +53,7 @@ public class BackgroundService extends Service {
 
 		@Override
 		public void run() {
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 10; i++) {
 				try {
 					WorkingThread.sleep(waitSec.intValue());
 				} catch (InterruptedException e) {
