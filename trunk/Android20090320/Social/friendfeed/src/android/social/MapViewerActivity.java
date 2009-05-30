@@ -1,14 +1,8 @@
 package android.social;
 
 import java.util.StringTokenizer;
-
 import android.os.Bundle;
-import android.util.Log;
-
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
 
 public class MapViewerActivity extends MapActivity
 {
@@ -18,28 +12,16 @@ public class MapViewerActivity extends MapActivity
       super.onCreate(savedInstanceState);
       setContentView(R.layout.map);
       
-      MapView mapView = (MapView)findViewById(R.id.mapview);
-      MapController mapCtrl = mapView.getController();
-
+      MapLocationViewer mapViewer = (MapLocationViewer)findViewById(R.id.mapviewer);
       Bundle extras = getIntent().getExtras();
       String position = extras.getString("position");
+      position = position.substring("geo:".length());
       StringTokenizer st = new StringTokenizer(position,",");
       String lat = st.nextToken();
       String lon = st.nextToken();
-      int index = lat.indexOf(".");
-      if (index != -1)
-      {
-      	lat = lat.substring(0, index) + lat.substring(index + 1, lat.length()); 
-      }
-      index = lon.indexOf(".");
-      if (index != -1)
-      {
-      	lon = lon.substring(0, index) + lon.substring(index + 1, lon.length()); 
-      }
-      int latitude = Integer.valueOf(lat).intValue();
-      int longitude = Integer.valueOf(lon).intValue();
-      Log.d("FriendFeed", latitude + " , " + longitude);
-      mapCtrl.setCenter(new GeoPoint(latitude, longitude));
+      double latitude  = Double.valueOf(lat).doubleValue();
+      double longitude = Double.valueOf(lon).doubleValue();
+      mapViewer.setInfo(extras.getString("comment"), latitude, longitude);      
   }
 
 	@Override
