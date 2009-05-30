@@ -25,9 +25,6 @@ public class NotificationGenerator {
         Notification notification;
         notification = new Notification(R.drawable.stat_sample,  "Notification From Social Site", System.currentTimeMillis());
 
-//        PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0,
-//                       new Intent(mContext, MapViewerActivity.class),
-//                       Intent.FLAG_ACTIVITY_NEW_TASK);
         Intent intent = createIntent(activity);
         PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
         notification.setLatestEventInfo(mContext, "Friend Feed Service", activity.getTitle(), contentIntent);
@@ -50,7 +47,10 @@ public class NotificationGenerator {
 			}
 			index = body.indexOf("geo:");
 			if (index != -1) {
-				intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(body.substring(index)));
+//				intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(body.substring(index)));
+				intent = new Intent(mContext, MapViewerActivity.class);
+				intent.putExtra("comment", body.substring(0, index));
+				intent.putExtra("position", body.substring(index));
 				return intent;
 			}
 		}
