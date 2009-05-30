@@ -73,28 +73,8 @@ public class FriendFeedActivity extends Activity {
 			}
 		});
 
-		Button fetchFriendsButton = new Button(this);
-		fetchFriendsButton.setText("Fetch Friends");
-		fetchFriendsButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				activity.setupClient();
-			}
-		});
-
-		Button startMapButton = new Button(this);
-		startMapButton.setText("Launch Maps");
-		startMapButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				Intent intent = new Intent(getApplicationContext(), MapViewerActivity.class);
-				intent.putExtra("position", "34.70148,135.618241");
-				startActivity(intent);
-			}
-		});
-
 		linearLayout.addView(startButton);
-		linearLayout.addView(fetchFriendsButton);
 		linearLayout.addView(clearAuthButton);
-		linearLayout.addView(startMapButton);
 
 		setContentView(linearLayout);
 	}
