@@ -27,6 +27,8 @@ public class MapLocationViewer extends LinearLayout {
 		setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 
 		mapView = new MapView(getContext(),"06xfgZvJ10ywRmkahoUWE5wKOdiS_A0-i2qEhaQ");
+//		mapView = new MapView(getContext(),"0yxW-iQsfNvmUR8fZff23iyg5BUeIcHpH2qx3Qg"); // for Yoichiro
+
 		mapView.setEnabled(true);
 		mapView.setClickable(true);
 		addView(mapView);
