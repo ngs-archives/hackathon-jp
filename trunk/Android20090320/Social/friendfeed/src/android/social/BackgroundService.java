@@ -15,6 +15,7 @@ import org.opensocial.data.OpenSocialField;
 import org.opensocial.data.OpenSocialPerson;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +24,9 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class BackgroundService extends Service {
+	
+	public static final String STOP_FLAG = "stop_flag";
+	
 	private Integer waitSec;
 	private List<OpenSocialPerson> friends;
 	private OpenSocialClient client;
@@ -36,6 +40,11 @@ public class BackgroundService extends Service {
 		waitSec = intent.getExtras().getInt("waitSec");
 		client = OpenSocialClientFactory.getClient(this, FriendFeedActivity.SUPPORTED_PROVIDERS);
 		friends = ((FriendsHolder) intent.getExtras().getSerializable("friends")).getFriends();
+		//
+		SharedPreferences prefs = getSharedPreferences("default", Activity.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean(BackgroundService.STOP_FLAG, false);
+		editor.commit();
 		//
 		Thread t = new WorkingThread();
 		t.start();
@@ -53,18 +62,18 @@ public class BackgroundService extends Service {
 
 		@Override
 		public void run() {
-			for (int i = 0; i < 10; i++) {
-				try {
-					WorkingThread.sleep(waitSec.intValue());
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-					Log.d("Error", "-");
+			mHandler.post(new MessageUIUpdater(BackgroundService.this, "BackgroundService started."));
+			//
+			while(true) {
+				SharedPreferences prefs = getSharedPreferences("default", Activity.MODE_PRIVATE);
+				if (prefs.getBoolean(STOP_FLAG, true)) {
+					Log.d("FriendFeed", "Stopping BackgroundService thread.");
+					break;
 				}
 				//
 				Map<OpenSocialPerson, List<OpenSocialActivity>> activitiesMap = fetchActivities();
 				Set<OpenSocialPerson> keySet = activitiesMap.keySet();
 				List<ActivityHolder> holder = new ArrayList<ActivityHolder>();
-				SharedPreferences prefs = getSharedPreferences("default", Activity.MODE_PRIVATE);
 				long lastFetchedTime = prefs.getLong(LAST_FETCHED_TIME, Long.MIN_VALUE); // TODO
 				for (OpenSocialPerson person : keySet) {
 					List<OpenSocialActivity> activities = activitiesMap.get(person);
@@ -81,12 +90,20 @@ public class BackgroundService extends Service {
 				editor.putLong(LAST_FETCHED_TIME, System.currentTimeMillis());
 				editor.commit();
 				//
-				mHandler.post(new UIUpdater(BackgroundService.this, holder));
+				mHandler.post(new ActivityUIUpdater(BackgroundService.this, holder));
+				//
+				try {
+					WorkingThread.sleep(waitSec.intValue());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					Log.d("Error", "-");
+				}
 			}
 			//
 			clearSavedAuthentication();
-			//
 			BackgroundService.this.stopSelf();
+			//
+			mHandler.post(new MessageUIUpdater(BackgroundService.this, "BackgroundService stopped."));
 		}
 
 		private Map<OpenSocialPerson, List<OpenSocialActivity>> fetchActivities() {

@@ -19,13 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-class UIUpdater extends Thread {
+class ActivityUIUpdater extends Thread {
 	
 	private BackgroundService service;
 	private List<ActivityHolder> holders;
 	private NotificationGenerator notificationGenerator;
 
-	UIUpdater(BackgroundService service, List<ActivityHolder> holders) {
+	ActivityUIUpdater(BackgroundService service, List<ActivityHolder> holders) {
 		super();
 		this.service = service;
 		this.holders = holders;

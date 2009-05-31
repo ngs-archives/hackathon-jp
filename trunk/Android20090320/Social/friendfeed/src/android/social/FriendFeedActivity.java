@@ -13,6 +13,7 @@ import org.opensocial.data.OpenSocialPerson;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +22,7 @@ import android.widget.LinearLayout;
 
 public class FriendFeedActivity extends Activity {
 
-	private static String ANDROID_SCHEME = "x-opensocial-friendfeed-app";
+	private static final String ANDROID_SCHEME = "x-opensocial-friendfeed-app";
 
 	public static Map<OpenSocialProvider, Token> SUPPORTED_PROVIDERS = new HashMap<OpenSocialProvider, Token>();
 
@@ -55,13 +56,22 @@ public class FriendFeedActivity extends Activity {
 				LinearLayout.LayoutParams.FILL_PARENT));
 		linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-		final FriendFeedActivity activity = this;
-
 		Button startButton = new Button(this);
 		startButton.setText("Start");
 		startButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				setupClient();
+			}
+		});
+
+		Button stopButton = new Button(this);
+		stopButton.setText("Stop");
+		stopButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				SharedPreferences prefs = getSharedPreferences("default", Activity.MODE_PRIVATE);
+				SharedPreferences.Editor editor = prefs.edit();
+				editor.putBoolean(BackgroundService.STOP_FLAG, true);
+				editor.commit();
 			}
 		});
 
@@ -74,6 +84,7 @@ public class FriendFeedActivity extends Activity {
 		});
 
 		linearLayout.addView(startButton);
+		linearLayout.addView(stopButton);
 		linearLayout.addView(clearAuthButton);
 
 		setContentView(linearLayout);
