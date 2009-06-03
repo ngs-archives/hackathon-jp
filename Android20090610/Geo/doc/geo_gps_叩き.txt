@@ -22,6 +22,9 @@ GPSのデータと接続可能な無線LANのスポット名・電波強度を�
 1.SQLiteに保存して自分ツールか、サーバ保存か
 2.起動時だけ収集(ログ取りモード、1分おきとか)か、バックグラウンドで収集か
 3.野良無線情報を共有した場合、プライバシーとか絡みそうだ
+4.一度取得済みのwifiを重複して取るか？毎日通る場所ではデータ増えすぎる。
+　位置別で電波強度は欲しいが位置が近すぎる場合はデータ上書きでもよさそう。
+5.電波が取得できなかった場所は記録しておくか
 など。
 
 ■画面構成案
@@ -33,5 +36,5 @@ http://developer.android.com/reference/android/net/wifi/WifiManager.html
 http://groups.google.co.jp/group/android-sdk-japan/browse_thread/thread/7b1c1c2acf357c2b
 http://www.adakoda.com/adakoda/2009/03/android-wi-fiip-address.html
 
-エミュレータではwifiないらしい。
+エミュレータではwifiないらしい。実機手に入るかが重要になってきた。
 
