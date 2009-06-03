@@ -1,4 +1,6 @@
-GPSチーム
+GPSチーム仕様叩き用
+
+思いついたことをどうぞ。
 
 ■メンバー
 和田　
@@ -24,4 +26,12 @@ GPSのデータと接続可能な無線LANのスポット名・電波強度を�
 
 ■画面構成案
 
+
+■参考URL
+http://developer.android.com/reference/android/net/wifi/ScanResult.html
+http://developer.android.com/reference/android/net/wifi/WifiManager.html
+http://groups.google.co.jp/group/android-sdk-japan/browse_thread/thread/7b1c1c2acf357c2b
+http://www.adakoda.com/adakoda/2009/03/android-wi-fiip-address.html
+
+エミュレータではwifiないらしい。
 
