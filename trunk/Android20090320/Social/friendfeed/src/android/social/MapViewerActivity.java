@@ -11,7 +11,12 @@ public class MapViewerActivity extends MapActivity
   public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.map);
-      
+  }
+  
+  @Override
+  public void onStart()
+  {
+      super.onStart();
       MapLocationViewer mapViewer = (MapLocationViewer)findViewById(R.id.mapviewer);
       Bundle extras = getIntent().getExtras();
       String position = extras.getString("position");

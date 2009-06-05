@@ -2,6 +2,8 @@ package android.social;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.google.android.maps.GeoPoint;
@@ -25,6 +27,7 @@ public class MapLocationViewer extends LinearLayout {
 	public void init() {		
 		setOrientation(VERTICAL);
 		setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+        setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
 
 		mapView = new MapView(getContext(),"06xfgZvJ10yyoRUHIUa53fOpREru9suUixCLiDQ"); // for Nao
 //		mapView = new MapView(getContext(),"0yxW-iQsfNvmUR8fZff23iyg5BUeIcHpH2qx3Qg"); // for Yoichiro
@@ -36,6 +39,9 @@ public class MapLocationViewer extends LinearLayout {
 
 		overlay = new MapLocationOverlay(this);
 		mapView.getOverlays().add(overlay);
+		LinearLayout zoomControls = (LinearLayout)mapView.getZoomControls();
+		zoomControls.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        mapView.addView(zoomControls);
 	}
 
 	public void setInfo(String comment, double latitude, double longitude) {
