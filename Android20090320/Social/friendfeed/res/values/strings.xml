@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="auth_succeed">Authorization succeed.</string>
-    <string name="app_name">Friend Feed</string>
+    <string name="app_name">Friend Sync</string>
 </resources>
