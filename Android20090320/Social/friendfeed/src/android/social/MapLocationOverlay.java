@@ -49,7 +49,7 @@ public class MapLocationOverlay  extends Overlay {
 			mapView.getProjection().toPixels(location.getPoint(), selDestinationOffset);
 	    	
 	    	//  Setup the info window with the right size & location
-			int INFO_WINDOW_WIDTH = 300;
+			int INFO_WINDOW_WIDTH = 240;
 			int INFO_WINDOW_HEIGHT = 25;
 			RectF infoWindowRect = new RectF(0,0,INFO_WINDOW_WIDTH,INFO_WINDOW_HEIGHT);				
 			int infoWindowOffsetX = selDestinationOffset.x-INFO_WINDOW_WIDTH/2;

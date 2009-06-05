@@ -32,6 +32,8 @@ public class FriendFeedActivity extends Activity {
 		SUPPORTED_PROVIDERS.put(OpenSocialProvider.EISBAHN, new Token(
 				"d4fac4e5-c7ff-c3c1-b7e5-cee1d5c1c5f6",
 				"567e816290f754646b36e11787bbf7d2"));
+//				"fed3d0d4-dcd4-c5c6-bdf9-cdc1dde2cbc9",
+//				"b8051851912204c03c998f800c054731"));
 //				"decde8c2-c3f4-c8e9-8ac6-ccd0cdd5c3f6 ",
 //				"b501779da71e40a3f8a8cde35534b993"));
 		// SUPPORTED_PROVIDERS.put(OpenSocialProvider.PLAXO, new

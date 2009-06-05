@@ -26,7 +26,7 @@ public class MapLocationViewer extends LinearLayout {
 		setOrientation(VERTICAL);
 		setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 
-		mapView = new MapView(getContext(),"06xfgZvJ10ywRmkahoUWE5wKOdiS_A0-i2qEhaQ");
+		mapView = new MapView(getContext(),"06xfgZvJ10yyoRUHIUa53fOpREru9suUixCLiDQ"); // for Nao
 //		mapView = new MapView(getContext(),"0yxW-iQsfNvmUR8fZff23iyg5BUeIcHpH2qx3Qg"); // for Yoichiro
 
 		mapView.setEnabled(true);
