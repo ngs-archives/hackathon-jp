@@ -27,7 +27,7 @@ public class NotificationGenerator {
 
         Intent intent = createIntent(activity);
         PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
-        notification.setLatestEventInfo(mContext, "Friend Feed Service", activity.getTitle(), contentIntent);
+        notification.setLatestEventInfo(mContext, "Friend Sync Service", activity.getTitle(), contentIntent);
         notificationManager.notify(Integer.parseInt(activity.getId()), notification);
 	}
 	
