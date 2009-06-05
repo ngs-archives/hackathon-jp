@@ -15,7 +15,6 @@ import org.opensocial.data.OpenSocialField;
 import org.opensocial.data.OpenSocialPerson;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
