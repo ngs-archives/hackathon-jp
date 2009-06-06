@@ -25,13 +25,10 @@ public class MapLocationViewer extends LinearLayout {
 	}
 
 	public void init() {		
-		setOrientation(VERTICAL);
-		setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
-        setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-
 		mapView = new MapView(getContext(),"06xfgZvJ10yyoRUHIUa53fOpREru9suUixCLiDQ"); // for Nao
 //		mapView = new MapView(getContext(),"0yxW-iQsfNvmUR8fZff23iyg5BUeIcHpH2qx3Qg"); // for Yoichiro
 
+        mapView.setLayoutParams(new MapView.LayoutParams(MapView.LayoutParams.FILL_PARENT, MapView.LayoutParams.FILL_PARENT, 0, 0, MapView.LayoutParams.BOTTOM));
 		mapView.setEnabled(true);
 		mapView.setClickable(true);
 		addView(mapView);
@@ -40,7 +37,8 @@ public class MapLocationViewer extends LinearLayout {
 		overlay = new MapLocationOverlay(this);
 		mapView.getOverlays().add(overlay);
 		LinearLayout zoomControls = (LinearLayout)mapView.getZoomControls();
-		zoomControls.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		zoomControls.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+		zoomControls.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
         mapView.addView(zoomControls);
 	}
 
