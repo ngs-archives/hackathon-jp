@@ -9,7 +9,7 @@ public class DxfLoader {
 	private static final String TAG = "DxfLoader" ;
 	Pattern splitDxfStruct = Pattern.compile("[\r\n]");
 	
-	static private final String[] keyWoordList = {"SECTION","3DFACE"};
+	static private final String[] keyWoordList = {"SECTION","3DFACE","ENDSEC","EOF"};
 	
 	public static PanMesh DxfMeshLoader (File file){
 		FileReader fis;
@@ -62,7 +62,7 @@ public class DxfLoader {
 				tmp = tmp.replaceAll("[\r\n\t ]+", "");
 				for(int i=0; i < keyWoordList.length ;i++){
 					if(tmp.equalsIgnoreCase(keyWoordList[i])){
-						Log.d(TAG,"get convert:" +No + " :\""+ tmp +"\"");
+						//Log.d(TAG,"get convert:" +No + " :\""+ tmp +"\"");
 						
 						switch(i){
 						case 0:
@@ -71,6 +71,8 @@ public class DxfLoader {
 						case 1:
 							get3Dfase(panPrigon);
 							break;
+						default:
+								Log.d(TAG,"get convert:" +No + " :\""+ tmp +"\"");
 						}
 					}
 				}
@@ -80,7 +82,7 @@ public class DxfLoader {
 		}
 	}
 
-	private static void get3Dfase(PanPrigon panMesh) throws IOException {
+	private static void get3Dfase(PanPrigon panPrigon) throws IOException {
 		String tmp;
 		while(dxfReader.ready()){
 			if(dxfReader.markSupported())
@@ -111,11 +113,13 @@ public class DxfLoader {
 			case 31:
 			case 32:
 			case 33:
-				panMesh.setParam((No/10),(No%10),dxfReader.readLine());
+				panPrigon.setParam((No/10),(No%10),dxfReader.readLine());
 				break;
 			case 8:
-				panMesh.Name = dxfReader.readLine();
+				panPrigon.Name = dxfReader.readLine();
 				break;
+			case 64:
+				panPrigon.setColorCode(dxfReader.readLine());
 			default :
 				Log.d(TAG,"get3Dfase convert:" +No + " :\""+ dxfReader.readLine()+"\"");
 				break;
