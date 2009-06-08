@@ -11,7 +11,7 @@ public class MeshLoader extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        PanMesh mesh = DxfLoader.DxfMeshLoader(new File("/sdcard/test.dxf"));
+        PanMesh mesh = DxfLoader.DxfMeshLoader(new File("/sdcard/test2.dxf"));
         mesh.printMesh();
           
     }
