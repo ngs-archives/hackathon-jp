@@ -57,7 +57,7 @@ public class DxfLoader {
 			}
 			
 			if(No == 0){
-				PanPrigon panPrigon =panMesh.newPrigon();
+				PanPrigon panPrigon =null;
 				tmp = dxfReader.readLine();
 				tmp = tmp.replaceAll("[\r\n\t ]+", "");
 				for(int i=0; i < keyWoordList.length ;i++){
@@ -69,6 +69,7 @@ public class DxfLoader {
 							getSection(panPrigon);
 							break;
 						case 1:
+							panPrigon =panMesh.newPrigon();
 							get3Dfase(panPrigon);
 							break;
 						default:
@@ -120,6 +121,7 @@ public class DxfLoader {
 				break;
 			case 62:
 				panPrigon.setColorCode(dxfReader.readLine());
+				break;
 			default :
 				Log.d(TAG,"get3Dfase unkown No:" +No + " :\""+ dxfReader.readLine()+"\"");
 				break;
