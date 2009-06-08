@@ -118,10 +118,10 @@ public class DxfLoader {
 			case 8:
 				panPrigon.Name = dxfReader.readLine();
 				break;
-			case 64:
+			case 62:
 				panPrigon.setColorCode(dxfReader.readLine());
 			default :
-				Log.d(TAG,"get3Dfase convert:" +No + " :\""+ dxfReader.readLine()+"\"");
+				Log.d(TAG,"get3Dfase unkown No:" +No + " :\""+ dxfReader.readLine()+"\"");
 				break;
 			}
 		}
