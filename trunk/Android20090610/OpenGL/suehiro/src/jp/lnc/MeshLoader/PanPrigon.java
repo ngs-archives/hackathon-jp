@@ -4,13 +4,19 @@ import android.util.Log;
 
 public class PanPrigon {
 	private static final String TAG = "PanMesh";
-	double[][] top = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
+	float[][] top = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 	int colorCode ;
 	public String Name = "";
 	public void setParam(int i, int j, String readLine) {
 
 		//Log.d(TAG,"i=" +i +" j=" +j + " :\""+ readLine+"\"");
-		top[j][i-1] = Double.valueOf(readLine);
+		
+		String repTmp = readLine.replaceAll("[\r\n\t ]+", "");
+		try {
+			top[j][i-1] = Float.valueOf(repTmp);
+		} catch (Exception e) {
+			top[j][i-1] = -1.0f;
+		}
 		
 	}
 	public void setColorCode(String readLine){
@@ -22,7 +28,10 @@ public class PanPrigon {
 		}
 	}
 	public void printPrigon(){
-		//Log.d(TAG,"i=" +i +" j=" +j + " :\""+ readLine+"\"");
+		for(int i=0;i<4;i++){
+			Log.d(TAG,"i=" +i + " :x=\""+ top[i][0]+"\"" + " :y=\""+ top[i][1]+"\""+" :z=\""+ top[i][2]+"\"");
+		}
+		
 	}
 
 }
