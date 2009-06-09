@@ -87,6 +87,7 @@ public class DirectXMeshLoder {
 			tmplateCompile();
 			
 			genMesh(panMesh);
+			panMesh.printMesh();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

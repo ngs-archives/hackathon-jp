@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import jp.lnc.MeshLoader.PanMesh;
+import jp.lnc.MeshLoader.PanPrigon;
 
 
 public class XfileMeshTree {
@@ -29,7 +30,9 @@ public class XfileMeshTree {
 		//System.out.println(subSequence);
 		subSequence = repCRpttern.matcher(subSequence).replaceAll(" ");
 		String tmp = (String) subSequence;
-		string.add(tmp.trim());
+		tmp= tmp.trim();
+		if(tmp.length()!=0)
+		string.add(tmp);
 	}
 	
 	public void addSubTree(XfileMeshTree sub){
@@ -44,23 +47,22 @@ public class XfileMeshTree {
 	}
 	
 	public void meshCompile(int tabNum, PanMesh panMesh){
-	      // ArrayList
-		System.out.println(xType.getString());
 
 		for(int i=0 ; i<subTree.size() ; i++){
 			XfileMeshTree bean = subTree.get(i);
 			switch(bean.xType.typeNo ){
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
 				case 6:
-					
 					break;
 				case 7:
 					bean.createPrigon(panMesh);
 					break;
-				case 8:
-					break;
-				case 9:
-					break;
 				default:
+					System.out.println(bean.xType.getString());
 			}
 			bean.meshCompile(tabNum+1,panMesh);
 		}
@@ -68,22 +70,39 @@ public class XfileMeshTree {
 	
 	private void createPrigon(PanMesh panMesh) {
 		//System.out.println(string.get(0));
+		List<float[]> tops=new ArrayList<float[]>();
+		//System.out.println(xType.getString());
 		int meshNum = Integer.valueOf(((String) string.get(0)).replaceAll(";", ""));
 		int index = 0;
-		float[] newTops= panMesh.newTop();
+		float[] newTop= panMesh.newTop();
 		for(index++ ; index<(meshNum*4+1) ; index++){
 			if(index%4 != 0){
 				float top = Float.valueOf(((String) string.get(index)).replace(";", ""));
 				//System.out.println(string.get(index));
 				//System.out.println(top);
-				newTops[(index%4 -1)] = top;
+				newTop[(index%4 -1)] = top;
 			}else{
-				newTops= panMesh.newTop();
+				//System.out.println("x="+newTop[0]+"y="+newTop[1]+"z="+newTop[2]);
+				tops.add(newTop);
+				newTop= panMesh.newTop();
 			}
 		} 
-		for(; index<string.size() ; index++){
-			String bean = (String) string.get(index);
-			System.out.println(bean);
+		int prigonNum = Integer.valueOf(((String) string.get(index++)).replaceAll(";", ""));
+		int i;
+		int topMax = 0;
+		for(i=0; i<prigonNum*3 ; i++){
+			String bean = (String) string.get(index+i);
+			if(i%3 == 1){
+				PanPrigon Prigon = panMesh.newPrigon();
+				String[] strings = bean.split("[,;]");
+				for(int j=0;j<topMax;j++){
+					int num = Integer.valueOf(strings[j]);
+					newTop=tops.get(num);
+					Prigon.setParam(j,newTop);
+				}
+			}else if(i%3 == 0){
+				topMax = Integer.valueOf(bean.replace(";", ""));
+			}
 		} 
 	}
 
