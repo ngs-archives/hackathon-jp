@@ -52,6 +52,21 @@ public class DirectXMeshLoder {
 		return ret;
 		
 	}
+
+	private static void genMesh(PanMesh panMesh) {
+		topMesh.meshCompile(panMesh);
+		
+	}
+	/**
+	 * テンプレートを読み取りやすい形式に
+	 */
+	private static void tmplateCompile() {
+		for(int i=0 ; i<templateList.size() ; i++){
+			XfileMeshTree bean = templateList.get(i);
+			bean.compile();
+		}
+	}
+	
 	public static BufferedReader XReader;
 	/**
 	 * ReaderからPanMeshを作成
@@ -69,7 +84,9 @@ public class DirectXMeshLoder {
 			/* ファイルからオブジェクト構造へ  */
 			paeseSection(panMesh);
 			/* オブジェクト構造をPanMesh構造へ*/
+			tmplateCompile();
 			
+			genMesh(panMesh);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,8 +117,7 @@ public class DirectXMeshLoder {
 			
 			if(matcher.group().equalsIgnoreCase("}")){
 				mesh.addString(str.subSequence(startIndex,matcher.start()));
-				mesh = mesh.getUp();
-				
+				mesh = mesh.getUp();	
 			}else if(matcher.group().equalsIgnoreCase("{")){
 				xType = new XType();
 				xType.setTypeFromString(str.subSequence(startIndex,matcher.start()));
