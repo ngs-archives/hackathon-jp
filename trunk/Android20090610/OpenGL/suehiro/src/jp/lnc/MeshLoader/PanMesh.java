@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PanMesh {
-	List<PanPrigon> panPrigonList = new ArrayList();
+	List<PanPrigon> panPrigonList = new ArrayList<PanPrigon>();
 
 	public PanPrigon newPrigon() {
 		PanPrigon newIns = new PanPrigon();
