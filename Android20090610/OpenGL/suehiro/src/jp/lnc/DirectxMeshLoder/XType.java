@@ -23,8 +23,26 @@ public class XType {
 
 	public void setName(CharSequence charSequence) {
 		Name = (String) charSequence;
-		String[] strings = Name.split(" ");
 		
+	}
+	/**
+	 * 未処理キャラクタからタイプ名へ変換する
+	 * @param charSequence 未処理キャラクタ
+	 */
+	public void setTypeFromString(CharSequence charSequence) {
+		String tmpName = (String) charSequence;
+		String[] strings = tmpName.split(" ");
+		for(int i=0;i< strings.length ;i++){
+			for(int j = 0;j<sToken.length;j++){
+				if(strings[i].equalsIgnoreCase(sToken[j])){
+					setType(sToken[j], j);
+					if((i+1)< strings.length)Name =strings[i+1];
+					return;
+				}
+			}
+			Name += strings[i];
+		}
+		return ;
 	}
 
 	public String getName() {

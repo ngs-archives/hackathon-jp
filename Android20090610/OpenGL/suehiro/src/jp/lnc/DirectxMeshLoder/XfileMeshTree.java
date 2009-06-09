@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 public class XfileMeshTree {
 	List<CharSequence> string =new ArrayList<CharSequence>();
 	List<XfileMeshTree> subTree = new ArrayList<XfileMeshTree>();
+	public List<XfileMeshTree> TemplateList ;
 	XfileMeshTree mainTree = null;
 	Pattern repCRpttern = Pattern.compile("[ \t\n]+");
 	public XType xType;
@@ -47,6 +48,18 @@ public class XfileMeshTree {
 		} 
 		for(int i=0 ; i<subTree.size() ; i++){
 			XfileMeshTree bean = subTree.get(i);
+			if(bean.xType.typeNo != 2)bean.printTree(tabNum+1);
+		}
+	}
+	
+	public void printTemplate(){
+		printTemplate(0);
+	}
+	
+	public void printTemplate(int tabNum){
+	      // ArrayList
+		for(int i=0 ; i<TemplateList.size() ; i++){
+			XfileMeshTree bean = TemplateList.get(i);
 			bean.printTree(tabNum+1);
 		}
 	}
@@ -54,7 +67,14 @@ public class XfileMeshTree {
 	public XfileMeshTree addNewSubTree(XType type) {
 		
 		XfileMeshTree sub = new XfileMeshTree(this,type);
+		sub.addTmplateList(this.TemplateList);
 		addSubTree(sub);
+		if(type.typeNo == 2)TemplateList.add(sub);
 		return sub;
+	}
+
+	public void addTmplateList(List<XfileMeshTree> templateList2) {
+		this.TemplateList = templateList2;
+		
 	}
 }
