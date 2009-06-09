@@ -12,7 +12,7 @@ public class MeshLoader extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         PanMesh mesh = DxfLoader.DxfMeshLoader(new File("/sdcard/cube.dxf"));
-        mesh.printMesh();
+        //mesh.printMesh();
           
     }
 }

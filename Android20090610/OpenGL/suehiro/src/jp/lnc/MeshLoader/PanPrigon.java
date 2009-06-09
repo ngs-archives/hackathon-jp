@@ -19,6 +19,9 @@ public class PanPrigon {
 		}
 		
 	}
+	public void setParam(int i,float[] p1){
+		top[i] = p1;
+	}
 	public void setColorCode(String readLine){
 		String repTmp = readLine.replaceAll("[\r\n\t ]+", "");
 		try {
@@ -29,7 +32,8 @@ public class PanPrigon {
 	}
 	public void printPrigon(){
 		for(int i=0;i<4;i++){
-			Log.d(TAG,"i=" +i + " :x=\""+ top[i][0]+"\"" + " :y=\""+ top[i][1]+"\""+" :z=\""+ top[i][2]+"\"");
+			//Log.d(TAG,"i=" +i + " :x=\""+ top[i][0]+"\"" + " :y=\""+ top[i][1]+"\""+" :z=\""+ top[i][2]+"\"");
+			System.out.println("i=" +i + " :x=\""+ top[i][0]+"\"" + " :y=\""+ top[i][1]+"\""+" :z=\""+ top[i][2]+"\"");
 		}
 		
 	}
