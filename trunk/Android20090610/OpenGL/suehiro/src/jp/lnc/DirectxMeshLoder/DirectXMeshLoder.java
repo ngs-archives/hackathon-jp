@@ -17,7 +17,7 @@ import jp.lnc.MeshLoader.PanMesh;
 public class DirectXMeshLoder {
 	static Matcher matcher;
 	public static XfileMeshTree topMesh = new XfileMeshTree();
-	List<XfileMeshTree> templateList = new ArrayList<XfileMeshTree>();
+	static List<XfileMeshTree> templateList = new ArrayList<XfileMeshTree>();
 	protected Pattern spSplit = Pattern.compile(" ");
 	protected final Pattern repCRpttern = Pattern.compile("[ \n\r\t]+");
 	protected final Pattern keyWord = Pattern.compile("Frame|template|FrameTransformMatrix|AnimationKey|template");
@@ -28,7 +28,12 @@ public class DirectXMeshLoder {
 	protected enum eTypeNo {Frame,template,FrameTransformMatrix,AnimationKey};
 	
 	public static XType xType = new XType();
-	
+	/**
+	 * ファイルクラスからPanMeshを作成
+	 * 実体はPanMesh XMeshLoader (Reader input)
+	 * @param file 読み込みファイル
+	 * @return PanMesh
+	 */
 	public static PanMesh XMeshLoader (File file){
 		FileReader fis;
 		PanMesh ret = null;
@@ -48,12 +53,21 @@ public class DirectXMeshLoder {
 		
 	}
 	public static BufferedReader XReader;
-	
+	/**
+	 * ReaderからPanMeshを作成
+	 * 
+	 * @param file 読み込みファイル
+	 * @return PanMesh
+	 */
 	public static PanMesh XMeshLoader (Reader input){
 		XReader = new BufferedReader(input);
 		PanMesh panMesh = new PanMesh();
 		try {
+			topMesh.addTmplateList(templateList);
+			/* ファイルからオブジェクト構造へ  */
 			paeseSection(panMesh);
+			/* オブジェクト構造をPanMesh構造へ*/
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,7 +102,7 @@ public class DirectXMeshLoder {
 				
 			}else if(matcher.group().equalsIgnoreCase("{")){
 				xType = new XType();
-				xType.setName(str.subSequence(startIndex,matcher.start()));
+				xType.setTypeFromString(str.subSequence(startIndex,matcher.start()));
 				mesh = mesh.addNewSubTree(xType);
 			}else if(matcher.group().equalsIgnoreCase(";")){
 				mesh.addString(str.subSequence(startIndex,matcher.end()));
