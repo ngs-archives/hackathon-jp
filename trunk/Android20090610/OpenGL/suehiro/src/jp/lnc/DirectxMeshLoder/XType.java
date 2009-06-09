@@ -5,8 +5,8 @@ public class XType {
 	private String Type = "";
 	private String Name = "";
 	public int typeNo = 999;
-	static protected final String[] sToken = {"Frame","template","FrameTransformMatrix","AnimationKey"};
-	
+	static protected final String[] sToken = {"Frame","template","FrameTransformMatrix","AnimationKey","aaaaaaaaaaaaaa",
+		"Header","Mesh","MeshMaterialList","Material"};
 	
 	public void setType(String string, int j) {
 		Type = string;
@@ -44,6 +44,7 @@ public class XType {
 		}
 		return ;
 	}
+	
 
 	public String getName() {
 		// TODO Auto-generated method stub
