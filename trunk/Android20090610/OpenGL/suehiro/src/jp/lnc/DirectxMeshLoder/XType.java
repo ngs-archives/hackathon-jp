@@ -4,7 +4,7 @@ public class XType {
 
 	private String Type = "";
 	private String Name = "";
-	public int typeNo = 0;
+	public int typeNo = 999;
 	static protected final String[] sToken = {"Frame","template","FrameTransformMatrix","AnimationKey"};
 	
 	

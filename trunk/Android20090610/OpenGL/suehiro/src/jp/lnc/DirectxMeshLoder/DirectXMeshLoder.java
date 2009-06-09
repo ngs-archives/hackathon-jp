@@ -64,6 +64,8 @@ public class DirectXMeshLoder {
 		PanMesh panMesh = new PanMesh();
 		try {
 			topMesh.addTmplateList(templateList);
+			topMesh.xType.typeNo = 0;
+			topMesh.xType.setName("Top");
 			/* ファイルからオブジェクト構造へ  */
 			paeseSection(panMesh);
 			/* オブジェクト構造をPanMesh構造へ*/
