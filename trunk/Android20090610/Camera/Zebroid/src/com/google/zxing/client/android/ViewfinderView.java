@@ -82,6 +82,7 @@ public final class ViewfinderView extends View {
       canvas.drawBitmap(mResultBitmap, frame.left, frame.top, mPaint);
     } else {
       // Draw a two pixel solid black border inside the framing rect
+    	/*
       mPaint.setColor(mFrameColor);
       mBox.set(frame.left, frame.top, frame.right + 1, frame.top + 2);
       canvas.drawRect(mBox, mPaint);
@@ -91,7 +92,7 @@ public final class ViewfinderView extends View {
       canvas.drawRect(mBox, mPaint);
       mBox.set(frame.left, frame.bottom - 1, frame.right + 1, frame.bottom + 1);
       canvas.drawRect(mBox, mPaint);
-
+	*/
       // Draw a red "laser scanner" line through the middle to show decoding is active
       mPaint.setColor(mLaserColor);
       //mPaint.setAlpha(SCANNER_ALPHA[mScannerAlpha]);

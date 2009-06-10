@@ -93,7 +93,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private String service = "AWSECommerceService";
   private String versino = "2008-10-29";
-  private String accessKeyId = "NTAES0993VXGKMGRM02";
+  private String accessKeyId = "0NTAES0993VXGKMGRM02";
   private String operation = "ItemLookup";
   private String resGroup = "Small,Reviews,OfferFull,SalesRank";
   private String itemId = "4822283712";
@@ -127,7 +127,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private final OnCompletionListener mBeepListener = new BeepListener();
 
   private boolean isFukidashiShowed;
-  Document amazonDoc;
+  private String amazonDoc;
+  private int salesRank;
+  private int totalReview;
 
   @Override
   public void onCreate(Bundle icicle) {
@@ -361,9 +363,24 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     mLastResult = rawResult;
     playBeepSoundAndVibrate();
 
-    Intent i = new Intent(this, WebActivity.class);
-    startActivity(i);
-    /*
+
+
+	try{
+	    amazonDoc = requester.searchByISBN("4822283712");
+    }catch(IOException ex){
+
+    }catch(SAXException ex){
+
+    }catch(ParserConfigurationException ex){
+
+    }
+
+    salesRank = Integer.valueOf(amazonDoc.substring(amazonDoc.indexOf("<SalesRank>") + "<SalesRank>".length(),
+    		amazonDoc.indexOf("</SalesRank>")));
+    totalReview = Integer.valueOf(amazonDoc.substring(amazonDoc.indexOf("<TotalReviews>") + "<TotalReviews>".length(),
+    		amazonDoc.indexOf("</TotalReviews>")));
+    showAmazonInfo();
+
     drawResultPoints(barcode, rawResult);
 
     if (mScanIntent) {
@@ -413,7 +430,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         clipboard.setText(displayContents);
       }
-    }*/
+    }
   }
 
   /**
@@ -575,5 +592,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
   }
 
+  
 
 }
