@@ -1,6 +1,8 @@
 package org.toss.janken;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,22 @@ public class Janken extends Activity {
 	    }
 	};
 	
+	private OnClickListener mButton04Listener = new OnClickListener() {
+	    public void onClick(View v) {
+	    	AlertDialog.Builder builder = new AlertDialog.Builder(Janken.this);
+	    	builder.setMessage(R.string.thanks)
+	    	.setCancelable(false)
+	    	.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	    		public void onClick(DialogInterface dialog, int id) {
+	    			dialog.cancel();
+	    		}
+	    	}
+	    	);
+	    	AlertDialog alert = builder.create();
+	    	alert.show();
+	    }
+	};
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +40,8 @@ public class Janken extends Activity {
         setContentView(R.layout.main);
         Button button = (Button)findViewById(R.id.Button01);
         button.setOnClickListener(mButton01Listener);
+        button = (Button)findViewById(R.id.Button04);
+        button.setOnClickListener(mButton04Listener);
     }
-    
+	
 }
