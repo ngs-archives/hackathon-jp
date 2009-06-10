@@ -9,100 +9,100 @@ import edu.union.GLTutorialBase;
 
 public class GLCubeView extends GLTutorialBase {
     float box[]=new float[] {
-            //‘O–Ê
+            //å‰é¢
             -0.5f, -0.5f,  0.5f,
              0.5f, -0.5f,  0.5f,
             -0.5f,  0.5f,  0.5f,
              0.5f,  0.5f,  0.5f,
-            //”w–Ê
+            //èƒŒé¢
             -0.5f, -0.5f, -0.5f,
             -0.5f,  0.5f, -0.5f,
              0.5f, -0.5f, -0.5f,
              0.5f,  0.5f, -0.5f,
-            //¶–Ê
+            //å·¦é¢
             -0.5f, -0.5f,  0.5f,
             -0.5f,  0.5f,  0.5f,
             -0.5f, -0.5f, -0.5f,
             -0.5f,  0.5f, -0.5f,
-            //‰E–Ê
+            //å³é¢
              0.5f, -0.5f, -0.5f,
              0.5f,  0.5f, -0.5f,
              0.5f, -0.5f,  0.5f,
              0.5f,  0.5f,  0.5f,
-            //ã–Ê
+            //ä¸Šé¢
             -0.5f,  0.5f,  0.5f,
              0.5f,  0.5f,  0.5f,
              -0.5f,  0.5f, -0.5f,
              0.5f,  0.5f, -0.5f,
-            //‰º–Ê
+            //ä¸‹é¢
             -0.5f, -0.5f,  0.5f,
             -0.5f, -0.5f, -0.5f,
              0.5f, -0.5f,  0.5f,
              0.5f, -0.5f, -0.5f,
         };
 
-    FloatBuffer cubeBuff;//’¸“_À•Wƒoƒbƒtƒ@
+    FloatBuffer cubeBuff;//é ‚ç‚¹åº§æ¨™ãƒãƒƒãƒ•ã‚¡
     
-    float xrot=0.0f;//X²‰ñ“]—Ê
-    float yrot=0.0f;//Y²‰ñ“]—Ê
+    float xrot=0.0f;//Xè»¸å›è»¢é‡
+    float yrot=0.0f;//Yè»¸å›è»¢é‡
     
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     public GLCubeView(Context c) {
         super(c,20);
         
-        //ƒoƒbƒtƒ@‚Ì¶¬
+        //ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ
         cubeBuff=makeFloatBuffer(box);
     }
         
-    //‰Šú‰»
+    //åˆæœŸåŒ–
     protected void init(GL10 gl) {
-        //”w–Ê“h‚è’×‚µF‚Ìw’è
+        //èƒŒé¢å¡—ã‚Šæ½°ã—è‰²ã®æŒ‡å®š
         gl.glClearColor(0.0f,0.0f,0.0f,1.0f);
         
-        //ƒfƒvƒXƒoƒbƒtƒ@
+        //ãƒ‡ãƒ—ã‚¹ãƒãƒƒãƒ•ã‚¡
         gl.glEnable(GL10.GL_DEPTH_TEST);
         gl.glEnable(GL10.GL_CULL_FACE);
         gl.glDepthFunc(GL10.GL_LEQUAL);
         gl.glClearDepthf(1.0f);
         
-        //ƒVƒF[ƒfƒBƒ“ƒO
+        //ã‚·ã‚§ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
         gl.glShadeModel(GL10.GL_SMOOTH);
     }
     
-    //•`‰æ
+    //æç”»
     protected void drawFrame(GL10 gl) {
-        //”w–Ê“h‚è’×‚µ
+        //èƒŒé¢å¡—ã‚Šæ½°ã—
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT|GL10.GL_DEPTH_BUFFER_BIT);
         
-        //ƒ‚ƒfƒ‹ƒrƒ…[s—ñ‚Ìw’è
+        //ãƒ¢ãƒ‡ãƒ«ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã®æŒ‡å®š
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
         GLU.gluLookAt(gl,0,0,3,0,0,0,0,1,0);
     
-        //’¸“_”z—ñ‚Ìw’è
+        //é ‚ç‚¹é…åˆ—ã®æŒ‡å®š
         gl.glVertexPointer(3,GL10.GL_FLOAT,0,cubeBuff);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
     
-        //‰ñ“]‚Ìw’è
+        //å›è»¢ã®æŒ‡å®š
         gl.glRotatef(xrot,1,0,0);
         gl.glRotatef(yrot,0,1,0);
     
-        //‘O–Ê‚Æ”w–Ê‚ÌƒvƒŠƒ~ƒeƒBƒu‚Ì•`‰æ
+        //å‰é¢ã¨èƒŒé¢ã®ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ã®æç”»
         gl.glColor4f(1.0f,0,0,1.0f);
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,0,4);
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,4,4);
     
-        //¶–Ê‚Æ‰E–Ê‚ÌƒvƒŠƒ~ƒeƒBƒu‚Ì•`‰æ
+        //å·¦é¢ã¨å³é¢ã®ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ã®æç”»
         gl.glColor4f(0,1.0f,0,1.0f);
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,8,4);
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,12,4);
         
-        //ã–Ê‚Æ‰º–Ê‚ÌƒvƒŠƒ~ƒeƒBƒu‚Ì•`‰æ
+        //ä¸Šé¢ã¨ä¸‹é¢ã®ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ã®æç”»
         gl.glColor4f(0,0,1.0f,1.0f);
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,16,4);
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,20,4);
     
-        //‰ñ“]
+        //å›è»¢
 //        xrot+=1.0f;
 //        yrot+=0.5f;
     }

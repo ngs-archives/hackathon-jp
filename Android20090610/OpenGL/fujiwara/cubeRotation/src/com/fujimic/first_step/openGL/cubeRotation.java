@@ -31,8 +31,8 @@ public class cubeRotation extends Activity {
         setContentView(mView);
         
         mView.setOnTouchListener(sheetTouchListener);
-        InputStream input = this.getResources().openRawResource(R.raw.sample1);
-        
+        InputStream input = this.getResources().openRawResource(R.raw.cube);
+        //File file = new File(this.getResources().openRawResource(R.raw.cube));
         PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
         mesh.printMesh();
     
