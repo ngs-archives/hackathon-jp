@@ -25,12 +25,14 @@ public class OpenGlDemo  implements ActionListener {
 		}
 	}
 	
-	public static void setRotation(float x, float y, float z)
+	public static boolean setRotation(float x, float y, float z)
 	{
 		if (renderer != null)
 		{
 			renderer.setRotation(x, y, z);
+			return true;
 		}
+		return false;
 	}
 
 }
