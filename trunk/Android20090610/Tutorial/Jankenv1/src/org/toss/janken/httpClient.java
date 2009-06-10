@@ -168,7 +168,7 @@ public class httpClient {
 	
 	private static HttpEntity DoRequest(HttpUriRequest method) throws ClientProtocolException, IOException {
 		DefaultHttpClient client = new DefaultHttpClient();
-		client.getParams().setParameter("http.useragent", "mapTrap/0.0.1");
+		client.getParams().setParameter("http.useragent", "network janken client/0.0.1");
 		// BASIC認証用のユーザ名が設定されていれば、BASIC認証を行う
 		if(!basicAuthUsername.equals("")){
 			URI uri = method.getURI();
