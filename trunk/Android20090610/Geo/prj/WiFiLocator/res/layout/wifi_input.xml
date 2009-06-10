@@ -16,7 +16,7 @@
     android:id="@+id/wifi_input_zoom"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignBottom="@id/map_view"
+    android:layout_alignBottom="@id/wifi_input_map"
     android:layout_centerHorizontal="true"/>
     
     <Button
@@ -24,6 +24,6 @@
         android:text="中心を記録する"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/map_view"/>
+        android:layout_alignTop="@id/wifi_input_map"/>
 
 </RelativeLayout>

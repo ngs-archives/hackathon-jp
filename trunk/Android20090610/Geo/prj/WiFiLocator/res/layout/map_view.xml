@@ -1,22 +1,30 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/map_parent"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    
-    <com.google.android.maps.MapView
-        android:id="@+id/map_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"
-        android:apiKey="0lyrYtd-Je85vzBifgb_u78F7SL3TJoDjgQb-Sg"/>
-    
-    <LinearLayout
-    android:id="@+id/zoomview"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignBottom="@id/map_view"
-    android:layout_centerHorizontal="true"/>
-        
-</RelativeLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<RelativeLayout android:id="@+id/RelativeLayout01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<com.google.android.maps.MapView
+			android:id="@+id/geoMap" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:apiKey="0LH1BWaz3e0GseWTfepBG250Px-BPFksFjQMzGw" />
+		<Button android:id="@+id/btZin" android:text="+"
+			android:layout_alignTop="@+id/geoMap" android:layout_height="40px"
+			android:layout_width="40px">
+		</Button>
+		<Button android:id="@+id/btZout" android:text="-"
+			android:layout_alignBottom="@+id/geoMap" android:layout_width="40px"
+			android:layout_height="40px">
+		</Button>
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_alignTop="@+id/geoMap" android:layout_alignRight="@+id/geoMap"
+			android:layout_height="fill_parent" android:layout_width="wrap_content"
+			android:orientation="horizontal">
+			<Button android:id="@+id/btMap" android:text="map"
+				android:layout_width="50px" android:layout_height="40px">
+			</Button>
+			<Button android:id="@+id/btSat" android:text="sat"
+				android:layout_height="40px" android:layout_width="50px">
+			</Button>
+		</LinearLayout>
+	</RelativeLayout>
+</LinearLayout>

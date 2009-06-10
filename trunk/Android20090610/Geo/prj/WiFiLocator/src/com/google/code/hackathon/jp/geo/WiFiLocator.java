@@ -34,7 +34,6 @@ public class WiFiLocator extends Activity {
 		Button button = (Button) this.findViewById(R.id.Button01);
 		button.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
 				List<WiFiLog> logs = mProvider.getWiFiLog(50, 30, 145, 120);
 				if (logs.size() > 0) {

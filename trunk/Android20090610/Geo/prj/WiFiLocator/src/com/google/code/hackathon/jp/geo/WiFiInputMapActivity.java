@@ -39,7 +39,6 @@ public class WiFiInputMapActivity extends MapActivity {
 		Button addLogButton = (Button) this.findViewById(R.id.add_wifi_log);
 		addLogButton.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
 				saveLog();
 			}
