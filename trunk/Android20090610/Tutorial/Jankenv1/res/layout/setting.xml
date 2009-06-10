@@ -19,7 +19,7 @@
 	    android:layout_height="wrap_content" 
 		android:layout_gravity="center"
 		android:textSize="24.5sp"
-	    android:text="Host IP"
+	    android:text="Server Address"
 	    />
     
     <EditText
