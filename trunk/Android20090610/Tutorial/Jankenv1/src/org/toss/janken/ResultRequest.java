@@ -27,6 +27,10 @@ public class ResultRequest implements Runnable {
 			}
 			retry--;
 		}
+		if (result==null) {
+			//Ÿ‚Á‚½‚±‚Æ‚É‚µ‚Æ‚­
+			result = "W";
+		}
 		Message msg = new Message();
 		msg.obj = result;
 		mHandler.sendMessage(msg);
