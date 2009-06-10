@@ -12,6 +12,8 @@ import java.net.*;
 
 import javax.swing.JButton;
 
+import com.android.demo.gl.OpenGlDemo;
+
 class UDPServer implements ActionListener
 {
 	private ReceiverThread rThread;
@@ -148,7 +150,7 @@ class UDPServer implements ActionListener
 
 				//set SensorData
 				PackManager.deserialize(sensorData, receivePacket.getData());
-				//setRotation(sensorData.getX(),sensorData.getY(), sensorData.getZ());
+				OpenGlDemo.setRotation(sensorData.getX(),sensorData.getY(), sensorData.getZ());
 				//remoteGUI.Log("RECEIVED: " + sensorData.toString());
 				
 				/* sending response is not necessary
