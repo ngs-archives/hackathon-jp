@@ -61,6 +61,12 @@ public class XfileMeshTree {
 				case 7:
 					bean.createPrigon(panMesh);
 					break;
+				case 8:
+					bean.createMaterialList(panMesh);
+					break;					
+				case 9:
+					bean.createMaterial(panMesh);
+					break;
 				default:
 					System.out.println(bean.xType.getString());
 			}
@@ -68,6 +74,19 @@ public class XfileMeshTree {
 		}
 	}
 	
+	private void createMaterial(PanMesh panMesh) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void createMaterialList(PanMesh panMesh) {
+		int materialNum = Integer.valueOf(((String) string.get(0)).replaceAll(";", ""));
+		int machNum = Integer.valueOf(((String) string.get(1)).replaceAll(";", ""));
+		for(int i=0;i<machNum;i++){
+			int mach = Integer.valueOf(((String) string.get(i + 2)).replaceAll("[;,]", ""));
+		}
+	}
+
 	private void createPrigon(PanMesh panMesh) {
 		System.out.println(string.get(0));
 		List<float[]> tops=new ArrayList<float[]>();
@@ -151,7 +170,6 @@ public class XfileMeshTree {
 	
 	public void compile() {
 		TmplateFuctry.getFactory(string,templateFactryList);
-		
 	}
 
 }
