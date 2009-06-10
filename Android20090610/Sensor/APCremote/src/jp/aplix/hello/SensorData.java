@@ -73,6 +73,7 @@ public class SensorData {
 	private void FloatToBytes(Float f, byte[] ba, int start)
 	{
 		//fixme
+		
 	}
 	
 	public byte[] getBytes()
