@@ -1,0 +1,16 @@
+//import
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.Overlay;
+
+//var
+public mapIcon myoverlay;
+
+//code
+myMap = (MapView) findViewById(R.id.geoMap);
+Bitmap bmpMe = BitmapFactory.decodeResource(getResources(), R.drawable.opin);
+overlay= new mapIcon(bmpMe, new GeoPoint(0, 0));
+List<Overlay> list = myMap.getOverlays();
+list.add(overlay);
