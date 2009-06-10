@@ -21,6 +21,10 @@ public class WiFiLocator extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		showTextView();
+	}
+	
+	private void showTextView() {
 		setContentView(R.layout.main);
 
 		textArea = (TextView) this.findViewById(R.id.textArea);
