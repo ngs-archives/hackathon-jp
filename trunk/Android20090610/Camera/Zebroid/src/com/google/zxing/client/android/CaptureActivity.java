@@ -56,6 +56,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.google.hackathon.reviewgetter.AmazonECSTask;
 import com.google.hackathon.reviewgetter.AmazonRequester;
 import com.google.hackathon.reviewgetter.WebActivity;
 import com.google.zxing.Result;
@@ -134,7 +135,48 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private boolean isFukidashiShowed;
   private String amazonDoc = null;
-  private String bookDetailURL = null;
+
+  public String getAmazonDoc() {
+	return amazonDoc;
+}
+
+public void setAmazonDoc(String amazonDoc) {
+	this.amazonDoc = amazonDoc;
+}
+
+public String getBookDetailURL() {
+	return bookDetailURL;
+}
+
+public void setBookDetailURL(String bookDetailURL) {
+	this.bookDetailURL = bookDetailURL;
+}
+
+public int getSalesRank() {
+	return salesRank;
+}
+
+public void setSalesRank(int salesRank) {
+	this.salesRank = salesRank;
+}
+
+public int getTotalReview() {
+	return totalReview;
+}
+
+public void setTotalReview(int totalReview) {
+	this.totalReview = totalReview;
+}
+
+public boolean isReviewHasDot() {
+	return isReviewHasDot;
+}
+
+public void setReviewHasDot(boolean isReviewHasDot) {
+	this.isReviewHasDot = isReviewHasDot;
+}
+
+private String bookDetailURL = null;
   private int salesRank;
   private int totalReview;
   private boolean isReviewHasDot = false;
@@ -259,6 +301,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       return true;
     } else if( keyCode == KeyEvent.KEYCODE_DPAD_CENTER){
     	mFukidashiLayoutView.setVisibility(View.GONE);
+        mHandler.sendEmptyMessage(R.id.restart_preview);
     }
     return super.onKeyDown(keyCode, event);
   }
@@ -357,8 +400,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     mLastResult = rawResult;
     playBeepSoundAndVibrate();
 
+    AmazonECSTask task = new AmazonECSTask(this, requester);
+    task.execute();
 
-
+    /*
 	try{
 		String barcodeStr = rawResult.getText().toString();
 	    amazonDoc = requester.searchByISBN(barcodeStr);
@@ -369,6 +414,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }catch(ParserConfigurationException ex){
 
     }
+
+
+
     if((salesRank = amazonDoc.indexOf("<SalesRank>")) != -1){
 
 	    String salesRankStr = amazonDoc.substring(amazonDoc.indexOf("<SalesRank>") + "<SalesRank>".length(),
@@ -386,11 +434,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
     if(amazonDoc.indexOf("<DetailPageURL>") != -1){
     	bookDetailURL = amazonDoc.substring(amazonDoc.indexOf("<DetailPageURL>") + "<DetailPageURL>".length(),
-	    		amazonDoc.indexOf("<DetailPageURL>"));
+	    		amazonDoc.indexOf("</DetailPageURL>"));
 
     }
 
     showAmazonInfo();
+    */
 
     /*
     drawResultPoints(barcode, rawResult);
@@ -604,7 +653,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
   }
 
-  private void showAmazonInfo(){
+  public void showAmazonInfo(){
 	  for(int i=0;i<5;i++){
 		  switch(i){
 		  	case	0:
@@ -655,5 +704,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	  mSalesRankView.setText("Rank : " + String.valueOf(salesRank));
 	  mFukidashiLayoutView.setVisibility(View.VISIBLE);
   }
+
+  public void stopActivityIndicator(){
+
+  }
+
+
 
 }
