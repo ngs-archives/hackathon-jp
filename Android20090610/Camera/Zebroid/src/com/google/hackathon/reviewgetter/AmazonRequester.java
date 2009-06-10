@@ -25,7 +25,7 @@ public class AmazonRequester {
     private static final String ECS_ACCESSKEYID = "&AWSAccessKeyId=";
     private static final String ECS_OPERATION = "&Operation=";
     private static final String ECS_RESGROUP = "&ResponseGroup=";
-    private static final String ECS_ITEMID = "&itemId=";
+    private static final String ECS_ITEMID = "&ItemId=";
     private static final String ECS_CONTENTTYPE = "&ContentType=";
 
     private String requestStr = null;
@@ -50,13 +50,14 @@ public class AmazonRequester {
     }
 
 
-    public Document searchByISBN(String isbn) throws ParserConfigurationException,
+    public String searchByISBN(String isbn) throws ParserConfigurationException,
         SAXException, IOException{
         itemId = isbn;
         generateRequestStr();
         factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
-        return RestfulClient.Get(requestStr, null, builder);
+        return RestfulClient.Get(requestStr, null);
+        //return RestfulClient.Get(requestStr, null, builder);
     }
 
     public void generateRequestStr(){
