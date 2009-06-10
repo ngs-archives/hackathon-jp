@@ -7,6 +7,11 @@
     <!-- Shake画面 -->
     <string name="pleaseShake">PleaseShake!</string>
     <string name="cancel_label">Cancel</string>
+
+    <string name="label_accelerometer">accelerometer</string>
+    <string name="label_orientation">orientation</string>
+    <string name="label_filtered_acceleration">filtered acceleration</string>
+    <string name="label_filtered_orientation">filtered orientation</string>
     <string name="thanks">Thanks</string>
     <!--  -->
     <string name="login_name_title">Input Login Name</string>
