@@ -40,7 +40,7 @@
             	android:layout_height="fill_parent"
    	            android:orientation="vertical"
 			android:layout_marginTop="-200px"
-			android:layout_marginLeft="300px"
+			android:layout_marginLeft="330px"
 			android:visibility="gone"
 		  >
     	  <ImageView android:id="@+id/fukidashi_image_view"
