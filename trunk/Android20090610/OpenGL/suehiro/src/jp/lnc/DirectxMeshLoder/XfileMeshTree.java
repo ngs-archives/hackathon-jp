@@ -69,7 +69,7 @@ public class XfileMeshTree {
 	}
 	
 	private void createPrigon(PanMesh panMesh) {
-		//System.out.println(string.get(0));
+		System.out.println(string.get(0));
 		List<float[]> tops=new ArrayList<float[]>();
 		//System.out.println(xType.getString());
 		int meshNum = Integer.valueOf(((String) string.get(0)).replaceAll(";", ""));
@@ -103,7 +103,7 @@ public class XfileMeshTree {
 			}else if(i%3 == 0){
 				topMax = Integer.valueOf(bean.replace(";", ""));
 			}
-		} 
+		}
 	}
 
 	public void printTree(){
