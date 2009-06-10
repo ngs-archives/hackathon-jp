@@ -100,6 +100,15 @@ versionName is 2.31, 2.4, or 3.0. -->
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
+        <activity android:name="com.google.hackathon.reviewgetter.WebActivity"
+              android:label="@string/web_name"
+              android:screenOrientation="user">
+      <intent-filter>
+        <action android:name="com.google.hackathon.reviewgetter.WEBACTIVITY"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+
   </application>
   <uses-permission android:name="android.permission.CAMERA"/>
   <uses-permission android:name="android.permission.READ_CONTACTS"/>

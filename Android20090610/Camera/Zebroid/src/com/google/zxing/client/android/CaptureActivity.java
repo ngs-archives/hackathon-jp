@@ -18,6 +18,7 @@ package com.google.zxing.client.android;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -95,7 +96,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private String service = "AWSECommerceService";
   private String versino = "2008-10-29";
-  private String accessKeyId = "0NTAES0993VXGKMGRM02";
+  private String accessKeyId = "AKIAIZENGPAOXZM5I4XQ";
   private String operation = "ItemLookup";
   private String resGroup = "Small,Reviews,OfferFull,SalesRank";
   private String itemId = "4822283712";
@@ -135,6 +136,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private boolean isFukidashiShowed;
   private String amazonDoc = null;
+  private ProgressDialog progressDialog;
 
   public String getAmazonDoc() {
 	return amazonDoc;
@@ -200,6 +202,7 @@ private String bookDetailURL = null;
     mFukidashiView.setOnClickListener(new View.OnClickListener(){
     	public void onClick(View v){
     	    Intent i = new Intent(CaptureActivity.this, WebActivity.class);
+    	    i = i.putExtra("DetailUrl",bookDetailURL);
     	    startActivity(i);
     	}
     });
@@ -400,8 +403,10 @@ private String bookDetailURL = null;
     mLastResult = rawResult;
     playBeepSoundAndVibrate();
 
+    showActivityIndicator();
+
     AmazonECSTask task = new AmazonECSTask(this, requester);
-    task.execute();
+    task.execute(rawResult.getText().toString());
 
     /*
 	try{
@@ -705,8 +710,18 @@ private String bookDetailURL = null;
 	  mFukidashiLayoutView.setVisibility(View.VISIBLE);
   }
 
-  public void stopActivityIndicator(){
+  private void showActivityIndicator(){
+	  progressDialog = new ProgressDialog(this);
 
+	  progressDialog.setTitle("問い合わせ中...");
+	  progressDialog.setIndeterminate(false);
+	  progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+	  progressDialog.setCancelable(false);
+	  progressDialog.show();
+  }
+
+  public void stopActivityIndicator(){
+	  progressDialog.cancel();
   }
 
 
