@@ -82,16 +82,13 @@ class OpenGlRender implements GLEventListener {
         gl.glVertex3f(-unit, unit2, -unit3);
         gl.glEnd();
 
-        //xrot += 0.3f;
-        //yrot += 0.2f;
-        //zrot += 0.4f;
     }
 
     public void setRotation(float x , float y , float z)
     {
-    	 xrot = x;
-         //yrot = y;
-         //zrot = z;
+    	 xrot = -y;
+         yrot = z;
+         zrot = -x;
     }
     
 
