@@ -31,7 +31,7 @@ public class testSensors extends Activity implements SensorEventListener {
 		super.onResume();
 
 		List<Sensor> sensors = mSensorManager
-				.getSensorList(Sensor.TYPE_ORIENTATION);
+				.getSensorList(Sensor.TYPE_ACCELEROMETER);
 		if (sensors.size() > 0) {
 			Sensor sensor = sensors.get(0);
 			mRegisteredSensor = mSensorManager.registerListener(this, sensor,
@@ -59,30 +59,29 @@ public class testSensors extends Activity implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
+		StringBuffer buff = new StringBuffer();
+
 		if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
-			// values[0]:
-			// Azimuth, angle between the magnetic north direction and the Y
-			// axis,
-			// around the Z axis (0 to 359). 0=North, 90=East, 180=South,
-			// 270=West
-			// values[1]:
-			// Pitch, rotation around X axis (-180 to 180),
-			// with positive values when the z-axis moves toward the y-axis.
-			// values[2]:
-			// Roll, rotation around Y axis (-90 to 90),
-			// with positive values when the x-axis moves away from the z-axis.
 			Log.v("ORIENTATION", String.valueOf(event.values[0]) + ", "
 					+ String.valueOf(event.values[1]) + ", "
 					+ String.valueOf(event.values[2]));
-			StringBuffer buff = new StringBuffer();
-			buff.append("ORIENTATION\n");
 			
-			buff.append("Azimuth, angle between the magnetic north direction and the Y axis").append(event.values[0]).append("\n");
+			buff.append("ORIENTATION\n");			
+			buff.append("Azimuth,rotation the Y axis").append(event.values[0]).append("\n");
 			buff.append("Pitch, rotation around X axis (-180 to 180)").append(event.values[1]).append("\n");
 			buff.append("Roll, rotation around Y axis (-90 to 90)").append(event.values[2]).append("\n");
-			TextView tv = (TextView) findViewById(R.id.counters);
+			TextView tv = (TextView) findViewById(R.id.orient_counters);
 			tv.setText(buff.toString());
 
+		} 
+		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+			buff.append("ACCELEROMETER\n");			
+			buff.append("X-axis").append(event.values[0]).append("\n");
+			buff.append("Y-axis").append(event.values[1]).append("\n");
+			buff.append("Z-axis").append(event.values[2]).append("\n");
+			TextView tv = (TextView) findViewById(R.id.accero_counters);
+			tv.setText(buff.toString());
+			
 		}
 
 	}

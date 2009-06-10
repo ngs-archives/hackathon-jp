@@ -5,5 +5,7 @@
 	<TextView android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:id="@+id/sensors" />
 	<TextView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:id="@+id/counters" />
+		android:layout_height="wrap_content" android:id="@+id/orient_counters" />
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:id="@+id/accero_counters" />
 </LinearLayout>
