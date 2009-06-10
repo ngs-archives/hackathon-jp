@@ -1,0 +1,32 @@
+//import
+import android.view.Menu;
+import android.view.MenuItem;
+
+//var
+private Menu myMenu;
+
+//code
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+	myMenu = menu;
+	super.onCreateOptionsMenu(menu);
+	menu.add(0, 1, Menu.NONE, "make new alarm").setIcon(android.R.drawable.ic_menu_add);
+	menu.add(0, 0, Menu.NONE, "show track list").setIcon(android.R.drawable.ic_menu_agenda);
+	return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+	switch (item.getItemId()) {
+	case 0:
+		startActivity(new Intent(Intent.ACTION_EDIT, null));
+		return true;
+	case 1:
+		startActivity(new Intent(Intent.ACTION_INSERT_OR_EDIT, null));
+		return true;
+	case 2:
+		Log.w("onMenuSel", "2");
+		return true;
+	}
+	return super.onOptionsItemSelected(item);
+}
