@@ -65,6 +65,7 @@ import com.google.zxing.client.android.result.ResultHandler;
 import com.google.zxing.client.android.result.ResultHandlerFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -98,18 +99,23 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private String resGroup = "Small,Reviews,OfferFull,SalesRank";
   private String itemId = "4822283712";
   private String contentType = "text/html";
+  private String searchIndex = "Books";
+  private String idType = "ISBN";
 
   public CaptureActivityHandler mHandler;
 
   private ViewfinderView mViewfinderView;
   private View mStatusView;
   private View mResultView;
+  private View mFukidashiLayoutView;
   private ImageView mFukidashiView;
   private ImageView mStar1View;
   private ImageView mStar2View;
   private ImageView mStar3View;
   private ImageView mStar4View;
   private ImageView mStar5View;
+  private ImageView[] starViews;
+  private TextView mSalesRankView;
 
   private TextView mTextView;
   private MediaPlayer mMediaPlayer;
@@ -127,9 +133,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private final OnCompletionListener mBeepListener = new BeepListener();
 
   private boolean isFukidashiShowed;
-  private String amazonDoc;
+  private String amazonDoc = null;
+  private String bookDetailURL = null;
   private int salesRank;
   private int totalReview;
+  private boolean isReviewHasDot = false;
 
   @Override
   public void onCreate(Bundle icicle) {
@@ -142,8 +150,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     CameraManager.init(getApplication());
     mViewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
+    mFukidashiLayoutView = findViewById(R.id.fukidashi_layout);
     mResultView = findViewById(R.id.result_view);
     //mTextView = (TextView)findViewById(R.id.type_text_view);
+
     mFukidashiView = (ImageView)findViewById(R.id.fukidashi_image_view);
     mFukidashiView.setOnClickListener(new View.OnClickListener(){
     	public void onClick(View v){
@@ -159,6 +169,15 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     mStar4View.setImageResource(R.drawable.star_half);
     mStar5View = (ImageView)findViewById(R.id.star_iamge_view5);
     mStar5View.setImageResource(R.drawable.star_half);
+    mSalesRankView = (TextView)findViewById(R.id.sales_rank);
+
+    /*
+    starViews.add(mStar1View);
+    starViews.add(mStar2View);
+    starViews.add(mStar3View);
+    starViews.add(mStar4View);
+    starViews.add(mStar5View);
+	*/
     //mFukidashiView.setImageResource(R.drawable.fukidashi);
     //setContentView(mFukidashiView);
     //mStatusView = findViewById(R.id.status_view);
@@ -167,17 +186,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     mHasSurface = false;
     isFukidashiShowed = false;
 
-	try{
+
 	    requester = new AmazonRequester(versino, accessKeyId, operation, resGroup
-	            , itemId, contentType);
-	    amazonDoc = requester.searchByISBN("4822283712");
-    }catch(IOException ex){
+	            , itemId, contentType, searchIndex, idType);
 
-    }catch(SAXException ex){
-
-    }catch(ParserConfigurationException ex){
-
-    }
 
     showHelpOnFirstLaunch();
   }
@@ -246,25 +258,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       // Handle these events so they don't launch the Camera app
       return true;
     } else if( keyCode == KeyEvent.KEYCODE_DPAD_CENTER){
-        if(isFukidashiShowed){
-            isFukidashiShowed = false;
-            mFukidashiView.setVisibility(View.VISIBLE);
-            mStar1View.setVisibility(View.VISIBLE);
-            mStar2View.setVisibility(View.VISIBLE);
-            mStar3View.setVisibility(View.VISIBLE);
-            mStar4View.setVisibility(View.VISIBLE);
-            mStar5View.setVisibility(View.VISIBLE);
-            //mTextView.setVisibility(View.VISIBLE);
-        }else{
-            isFukidashiShowed = true;
-            mFukidashiView.setVisibility(View.GONE);
-            mStar1View.setVisibility(View.GONE);
-            mStar2View.setVisibility(View.GONE);
-            mStar3View.setVisibility(View.GONE);
-            mStar4View.setVisibility(View.GONE);
-            mStar5View.setVisibility(View.GONE);
-            //mTextView.setVisibility(View.GONE);
-        }
+    	mFukidashiLayoutView.setVisibility(View.GONE);
     }
     return super.onKeyDown(keyCode, event);
   }
@@ -366,7 +360,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
 
 	try{
-	    amazonDoc = requester.searchByISBN("4822283712");
+		String barcodeStr = rawResult.getText().toString();
+	    amazonDoc = requester.searchByISBN(barcodeStr);
     }catch(IOException ex){
 
     }catch(SAXException ex){
@@ -374,13 +369,30 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }catch(ParserConfigurationException ex){
 
     }
+    if((salesRank = amazonDoc.indexOf("<SalesRank>")) != -1){
 
-    salesRank = Integer.valueOf(amazonDoc.substring(amazonDoc.indexOf("<SalesRank>") + "<SalesRank>".length(),
-    		amazonDoc.indexOf("</SalesRank>")));
-    totalReview = Integer.valueOf(amazonDoc.substring(amazonDoc.indexOf("<TotalReviews>") + "<TotalReviews>".length(),
-    		amazonDoc.indexOf("</TotalReviews>")));
+	    String salesRankStr = amazonDoc.substring(amazonDoc.indexOf("<SalesRank>") + "<SalesRank>".length(),
+	    		amazonDoc.indexOf("</SalesRank>"));
+	    salesRank = Integer.valueOf(salesRankStr);
+    }
+    if((totalReview = amazonDoc.indexOf("<TotalReviews>"))!=-1){
+	    String reviewStr = amazonDoc.substring(amazonDoc.indexOf("<TotalReviews>") + "<TotalReviews>".length(),
+	    		amazonDoc.indexOf("</TotalReviews>"));
+	    if(reviewStr.length() > 1){
+	    	isReviewHasDot = true;
+	    }
+	    totalReview = Integer.valueOf(amazonDoc.substring(amazonDoc.indexOf("<TotalReviews>") + "<TotalReviews>".length(),
+	    		amazonDoc.indexOf("</TotalReviews>")));
+    }
+    if(amazonDoc.indexOf("<DetailPageURL>") != -1){
+    	bookDetailURL = amazonDoc.substring(amazonDoc.indexOf("<DetailPageURL>") + "<DetailPageURL>".length(),
+	    		amazonDoc.indexOf("<DetailPageURL>"));
+
+    }
+
     showAmazonInfo();
 
+    /*
     drawResultPoints(barcode, rawResult);
 
     if (mScanIntent) {
@@ -430,7 +442,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         clipboard.setText(displayContents);
       }
-    }
+    }*/
   }
 
   /**
@@ -592,6 +604,56 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
   }
 
-  
+  private void showAmazonInfo(){
+	  for(int i=0;i<5;i++){
+		  switch(i){
+		  	case	0:
+				  if(i < totalReview){
+					  mStar1View.setImageResource(R.drawable.star_full);
+				  }else if((i == totalReview) && (isReviewHasDot)){
+					  mStar1View.setImageResource(R.drawable.star_half);
+				  }else{
+					  mStar1View.setImageResource(R.drawable.star_brank);
+				  }
+		  	case	1:
+				  if(i < totalReview){
+					  mStar2View.setImageResource(R.drawable.star_full);
+				  }else if((i == totalReview) && (isReviewHasDot)){
+					  mStar2View.setImageResource(R.drawable.star_half);
+				  }else{
+					  mStar2View.setImageResource(R.drawable.star_brank);
+				  }
+		  	case	2:
+				  if(i < totalReview){
+					  mStar3View.setImageResource(R.drawable.star_full);
+				  }else if((i == totalReview) && (isReviewHasDot)){
+					  mStar3View.setImageResource(R.drawable.star_half);
+				  }else{
+					  mStar3View.setImageResource(R.drawable.star_brank);
+				  }
+		  	case 	3:
+				  if(i < totalReview){
+					  mStar4View.setImageResource(R.drawable.star_full);
+				  }else if((i == totalReview) && (isReviewHasDot)){
+					  mStar4View.setImageResource(R.drawable.star_half);
+				  }else{
+					  mStar4View.setImageResource(R.drawable.star_brank);
+				  }
+		  	case 	4:
+				  if(i < totalReview){
+					  mStar5View.setImageResource(R.drawable.star_full);
+				  }else if((i == totalReview) && (isReviewHasDot)){
+					  mStar5View.setImageResource(R.drawable.star_half);
+				  }else{
+					  mStar5View.setImageResource(R.drawable.star_brank);
+				  }
+		  	default:
+		  		break;
+		  }
+
+	  }
+	  mSalesRankView.setText("Rank : " + String.valueOf(salesRank));
+	  mFukidashiLayoutView.setVisibility(View.VISIBLE);
+  }
 
 }
