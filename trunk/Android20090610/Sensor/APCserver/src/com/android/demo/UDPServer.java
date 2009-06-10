@@ -19,7 +19,7 @@ class UDPServer implements ActionListener
 	private ReceiverThread rThread;
 	private ARemoteGUI remoteGUI;
 	private String hostname;
-	
+
 	SensorData sensorData;
 	Robot      robot;
 	PointerInfo pointerInfo;
@@ -27,21 +27,21 @@ class UDPServer implements ActionListener
 
 	public UDPServer(ARemoteGUI remoteGUI) {
 		this.remoteGUI = remoteGUI;
-		
+
 		sensorData = new SensorData();
 		try {
 			robot = new Robot();
 		} catch (AWTException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		//get the ip adress for log purpose
 		try {
-	        InetAddress addr = InetAddress.getLocalHost();
-	        hostname = addr.getHostAddress();
-	    } catch (UnknownHostException e) {
-	    	remoteGUI.Log("Unknown host :" +e.getMessage());
-	    }
+			InetAddress addr = InetAddress.getLocalHost();
+			hostname = addr.getHostAddress();
+		} catch (UnknownHostException e) {
+			remoteGUI.Log("Unknown host :" +e.getMessage());
+		}
 
 	}
 
@@ -94,7 +94,7 @@ class UDPServer implements ActionListener
 			}
 		}
 	}
-	
+
 	private class ReceiverThread extends Thread
 	{
 		private boolean listen;
@@ -141,23 +141,54 @@ class UDPServer implements ActionListener
 				pointerInfo = MouseInfo.getPointerInfo();
 				point = pointerInfo.getLocation();
 
-				
 				//remove this afterward
 				//String sentence = new String( receivePacket.getData());
 				//remoteGUI.Log("RECEIVED: " + sentence);
 
 				//set SensorData
 				PackManager.deserialize(sensorData, receivePacket.getData());
-				OpenGlDemo.setRotation(sensorData.getX(),sensorData.getY(), sensorData.getZ());
+				if (!OpenGlDemo.setRotation(sensorData.getX(),sensorData.getY(), sensorData.getZ()))
+				{
+					// move mouse location
+					//robot.mouseMove(point.x + (int)sensorData.getY(), point.y);
+
+					int x=0;
+					if (sensorData.getY() > 20)
+					{
+						x =1;
+					}
+					if (sensorData.getY() < -20)
+					{
+						x = -1;
+					}
+
+					int y= 0;
+					/*if ((int)sensorData.getX() > 50)
+					{
+						y = -1;
+					}
+					if ((int)sensorData.getX() < -50)
+					{
+						y = 1;
+					}
+					*/
+					if ((x != 0) || (y != 0)){
+						//remoteGUI.Log(""+sensorData.getY()+" "+point.x +" "+ x+" "+ point.y +" "+y);
+						robot.mouseMove(point.x + x, point.y +y);
+					}
+				}
+
+
+
 				//remoteGUI.Log("RECEIVED: " + sensorData.toString());
 
 				// move mouse location
-//				int x = (int)sensorData.getX();
-//				int y = (int)sensorData.getY();
-//				robot.mouseMove(point.x + x, point.y + y);
+				//				int x = (int)sensorData.getX();
+				//				int y = (int)sensorData.getY();
+				//				robot.mouseMove(point.x + x, point.y + y);
 
-				
-				
+
+
 				/* sending response is not necessary
 				InetAddress IPAddress = receivePacket.getAddress();
 				int port = receivePacket.getPort();
