@@ -18,7 +18,14 @@
 		android:layout_gravity="center"
 		android:textSize="24.5sp"
 	    android:text="@string/pleaseShake"
+	    	android:layout_marginBottom="25dip"
 	    />
+		<Button
+			android:id="@+id/cancel_button"
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content"
+		    android:text="@string/cancel_label"
+		    />
 
 	</LinearLayout>
 </LinearLayout>
