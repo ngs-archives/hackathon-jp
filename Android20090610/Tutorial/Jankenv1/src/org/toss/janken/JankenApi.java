@@ -17,7 +17,7 @@ public class JankenApi {
 		map.put("command","login");
 		map.put("nickname",nickname);
 		try {
-			result = httpClient.Get("http://janken-srv.appspot.com/", map);
+			result = httpClient.Get("http://janken-srv.appspot.com/janeknsvr", map);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -30,7 +30,7 @@ public class JankenApi {
 		String result = null;
 		map.put("command","memberlist");
 		try {
-			result = httpClient.Get("http://janken-srv.appspot.com/", map);
+			result = httpClient.Get("http://janken-srv.appspot.com/janeknsvr", map);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -46,7 +46,7 @@ public class JankenApi {
 		map.put("userid",userid);
 		map.put("janken",janken);
 		try {
-			result = httpClient.Get("http://janken-srv.appspot.com/", map);
+			result = httpClient.Get("http://janken-srv.appspot.com/janeknsvr", map);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -62,7 +62,7 @@ public class JankenApi {
 		map.put("command","result");
 		map.put("userid",userid);
 		try {
-			result = httpClient.Get("http://janken-srv.appspot.com/", map);
+			result = httpClient.Get("http://janken-srv.appspot.com/janeknsvr", map);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -77,7 +77,7 @@ public class JankenApi {
 		map.put("command","cancel");
 		map.put("userid",userid);
 		try {
-			result = httpClient.Get("http://janken-srv.appspot.com/", map);
+			result = httpClient.Get("http://janken-srv.appspot.com/janeknsvr", map);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
