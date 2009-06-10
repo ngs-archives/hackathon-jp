@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import android.app.Activity;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +25,7 @@ public class GameView extends Activity implements SensorListener{
     SensorManager sensorManager;
     Button startButton;
     Button cancelButton;
+    MediaPlayer start_voice;
     static DecimalFormat format;
     static {
         format = new DecimalFormat();
@@ -40,8 +42,14 @@ public class GameView extends Activity implements SensorListener{
         cancelButton = (Button) findViewById(R.id.Button02);
         orientationValue=(TextView) findViewById(R.id.TextView01);
         toss = (ImageView)findViewById(R.id.ImageView01);
+
+        start_voice = MediaPlayer.create(this, R.raw.out2);
+        
         startButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
+
+		        start_voice.seekTo(0);
+		        start_voice.start();
 				// TODO Auto-generated method stub
 		        sensorManager.registerListener(GameView.this, 
 		                SensorManager.SENSOR_ACCELEROMETER | 
