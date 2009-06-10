@@ -13,7 +13,7 @@ public class SensorData implements Serializable {
 	private float  rz;
 	public  String message;
 
-	public  EventType  eventType;
+	public  int  eventType;
 	
 	public SensorData()
 	{
@@ -32,10 +32,10 @@ public class SensorData implements Serializable {
 //		setData(rx, ry, rz);
 //	}
 
-	public void setData(EventType event, float rx, float ry, float rz)
+	public void setData(int event_type, float rx, float ry, float rz)
 	{
 		synchronized (this) {
-			this.eventType = event;
+			this.eventType = event_type;
 			this.rx = rx;
 			this.ry = ry;
 			this.rz = rz;
