@@ -14,7 +14,8 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int counters=0x7f050001;
+        public static final int accero_counters=0x7f050002;
+        public static final int orient_counters=0x7f050001;
         public static final int sensors=0x7f050000;
     }
     public static final class layout {
