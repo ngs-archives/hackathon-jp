@@ -1,5 +1,10 @@
 package com.android.demo;
 
+import java.awt.AWTException;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -118,7 +123,21 @@ class UDPServer implements ActionListener
 					remoteGUI.Log(e.toString());
 				} 
 
+				// HIRA
+				// get point location
+				PointerInfo pointerInfo = MouseInfo.getPointerInfo();
+				Point point = pointerInfo.getLocation();
+				try {
+					// move mouse location
+					Robot robot = new Robot();
+					robot.mouseMove(point.x + 150, point.y + 50);
+				} catch (AWTException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				// HIRA
 
+				
 				String sentence = new String( receivePacket.getData());
 				remoteGUI.Log("RECEIVED: " + sentence);
 
