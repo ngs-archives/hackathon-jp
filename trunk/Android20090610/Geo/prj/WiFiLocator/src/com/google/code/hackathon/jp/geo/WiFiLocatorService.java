@@ -27,19 +27,10 @@ public class WiFiLocatorService extends Service {
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-/*		mProvider = new WiFiLogProvider(this);
-
-		mWiFiManager = (WifiManager) this
-				.getSystemService(Context.WIFI_SERVICE);
-		List<ScanResult> scanResult = mWiFiManager.getScanResults();
-		Log.d(TAG, "sr: " + scanResult.size());
-		if (scanResult.size() > 0) {
-			Log.d(TAG, "sr bssid: " + scanResult.get(0).BSSID);
-			Log.d(TAG, "sr ssid: " + scanResult.get(0).SSID);
-			Log.d(TAG, "sr capabilities: " + scanResult.get(0).capabilities);
-			Log.d(TAG, "sr freq: " + scanResult.get(0).frequency);
-			Log.d(TAG, "sr level: " + scanResult.get(0).level);
-		}*/
+		
+		mWiFiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
+		mWiFiManager.setWifiEnabled(true);
+		
 		locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 		locationListener = new LocationListener() {
@@ -51,7 +42,7 @@ public class WiFiLocatorService extends Service {
 						+ location.getLongitude());
 				
 
-				mProvider.storeWiFiLog(location, null);
+				mProvider.storeWiFiLog(location, getScanResult());
 			}
 
 			@Override
@@ -75,6 +66,11 @@ public class WiFiLocatorService extends Service {
 
 		};
 
+	}
+	
+	public List<ScanResult> getScanResult() {
+		mWiFiManager.startScan();
+		return mWiFiManager.getScanResults();
 	}
 
 	@Override

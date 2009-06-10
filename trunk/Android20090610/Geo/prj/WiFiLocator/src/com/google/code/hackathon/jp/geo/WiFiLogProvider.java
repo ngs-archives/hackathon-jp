@@ -21,6 +21,10 @@ import android.util.Log;
  * @author ogura
  * 
  */
+/**
+ * @author ogura
+ *
+ */
 public class WiFiLogProvider {
 
 	private static final String TAG = "DbHelper";
@@ -88,54 +92,66 @@ public class WiFiLogProvider {
 	 * save location, ScanResult to the database
 	 * 
 	 * @param location
-	 * @param scanResult
+	 * @param list
 	 */
-	public void storeWiFiLog(Location location, ScanResult scanResult) {
-		storeWiFiLog(System.currentTimeMillis(), location, scanResult);
+	public void storeWiFiLog(Location location, List<ScanResult> list) {
+		storeWiFiLog(System.currentTimeMillis(), location, list);
 	}
 
 	/**
 	 * @param time
 	 * @param location
-	 * @param scanResult
+	 * @param list
 	 */
-	public void storeWiFiLog(long time, Location location, ScanResult scanResult) {
-		ContentValues values = logToValues(time, location, scanResult);
+	public void storeWiFiLog(long time, Location location, List<ScanResult> list) {
+		List<ContentValues> valuesList = logToValues(time, location, list);
 		
-		storeWiFiLog(values);
+		storeWiFiLog(valuesList);
 
 	}
 	
-	public void storeWiFiLog(ContentValues values) {
+	public void storeWiFiLog(List<ContentValues> valuesList) {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-		long rowId = db.insert(WIFI_LOG_TABLE, NULL_VALUE, values);
-		Log.d(TAG, "rowId: " + rowId);
+		try {
+			for (ContentValues values : valuesList) {
+				long rowId = db.insert(WIFI_LOG_TABLE, NULL_VALUE, values);
+				Log.d(TAG, "rowId: " + rowId);
 
-		db.close();
-		// rowId should be greater than 0
-		if (rowId <= 0)
-			throw new SQLException("Failed to insert wifi log");
-	}
-
-	private ContentValues logToValues(long time, Location location,
-			ScanResult scanResult) {
-		ContentValues values = new ContentValues();
-
-		values.put(TIME, time);
-		values.put(LOC_LATITUDE, location.getLatitude());
-		values.put(LOC_LONGITUDE, location.getLongitude());
-		values.put(LOC_ACCURACY, location.getAccuracy());
-
-		if (scanResult != null) {
-			values.put(SR_BSSID, scanResult.BSSID);
-			values.put(SR_SSID, scanResult.SSID);
-			values.put(SR_CAPABILITIES, scanResult.capabilities);
-			values.put(SR_FREQUENCY, scanResult.frequency);
-			values.put(SR_LEVEL, scanResult.level);
+				// rowId should be greater than 0
+				if (rowId <= 0)
+					throw new SQLException("Failed to insert wifi log");
+			}
+		} finally {
+			db.close();
 		}
 
-		return values;
+	}
+
+	private List<ContentValues> logToValues(long time, Location location,
+			List<ScanResult> list) {
+		List<ContentValues> result = new ArrayList<ContentValues>();
+		
+		for (ScanResult scanResult : list) {
+			ContentValues values = new ContentValues();
+
+			values.put(TIME, time);
+			values.put(LOC_LATITUDE, location.getLatitude());
+			values.put(LOC_LONGITUDE, location.getLongitude());
+			values.put(LOC_ACCURACY, location.getAccuracy());
+
+			if (scanResult!= null) {
+				values.put(SR_BSSID, scanResult.BSSID);
+				values.put(SR_SSID, scanResult.SSID);
+				values.put(SR_CAPABILITIES, scanResult.capabilities);
+				values.put(SR_FREQUENCY, scanResult.frequency);
+				values.put(SR_LEVEL, scanResult.level);
+			}
+			
+			result.add(values);
+		}
+
+		return result;
 	}
 
 	/**
@@ -177,5 +193,18 @@ public class WiFiLogProvider {
 		db.close();
 
 		return result;
+	}
+	
+	/**
+	 * 指定された領域の AP 情報を返す。領域の指定は、latitude * 10^6 で行なう
+	 * 
+	 * @param latitudeNorthE6
+	 * @param latitudeSouthE6
+	 * @param longitudeEastE6
+	 * @param longitudeWestE6
+	 * @return
+	 */
+	public List<AccessPointLocation> getAreaAccessPointLocation(int latitudeNorthE6, int latitudeSouthE6, int longitudeEastE6, int longitudeWestE6) {
+		return null;
 	}
 }
