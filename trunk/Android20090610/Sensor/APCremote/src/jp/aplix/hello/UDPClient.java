@@ -28,6 +28,20 @@ class UDPClient
 			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, this.port);
 			clientSocket.send(sendPacket);
 		}
+		else
+		{
+			
+		}
+	}
+	
+	public void send(SensorData data) throws IOException
+	{
+		if (clientSocket != null)
+		{
+			byte[] sendData = data.getBytes();
+			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, this.port);
+			clientSocket.send(sendPacket);
+		}
 	}
 
 	public String receive() throws IOException
