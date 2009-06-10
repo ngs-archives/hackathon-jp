@@ -38,11 +38,11 @@
 	    android:text="ジェスチャー"
 	    /> 
     <RadioButton android:text="ランダム" 
-    	android:id="@+id/setting_RadioButton01" 
+    	android:id="@+id/setting_Gesture_Ram" 
     	android:layout_width="fill_parent" 
     	android:layout_height="wrap_content"/>
     <RadioButton android:text="ジェスチャー固定" 
-    	android:id="@+id/setting_RadioButton02" 
+    	android:id="@+id/setting_Gesture_Fix" 
     	android:layout_width="fill_parent" 
     	android:layout_height="wrap_content"
     	android:layout_marginBottom="50dip"
