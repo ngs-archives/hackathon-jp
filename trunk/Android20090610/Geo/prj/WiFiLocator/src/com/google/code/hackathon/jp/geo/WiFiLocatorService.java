@@ -1,11 +1,15 @@
 package com.google.code.hackathon.jp.geo;
 
+import java.util.List;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -17,6 +21,7 @@ public class WiFiLocatorService extends Service {
 	LocationListener locationListener;
 	LocationManager locationManager;
 	WiFiLogProvider mProvider;
+	WifiManager mWiFiManager;
 
 	@Override
 	public void onCreate() {
@@ -24,6 +29,17 @@ public class WiFiLocatorService extends Service {
 		super.onCreate();
 		mProvider = new WiFiLogProvider(this);
 
+		mWiFiManager = (WifiManager) this
+				.getSystemService(Context.WIFI_SERVICE);
+		List<ScanResult> scanResult = mWiFiManager.getScanResults();
+		Log.d(TAG, "sr: " + scanResult.size());
+		if (scanResult.size() > 0) {
+			Log.d(TAG, "sr bssid: " + scanResult.get(0).BSSID);
+			Log.d(TAG, "sr ssid: " + scanResult.get(0).SSID);
+			Log.d(TAG, "sr capabilities: " + scanResult.get(0).capabilities);
+			Log.d(TAG, "sr freq: " + scanResult.get(0).frequency);
+			Log.d(TAG, "sr level: " + scanResult.get(0).level);
+		}
 		locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 		locationListener = new LocationListener() {
@@ -33,6 +49,7 @@ public class WiFiLocatorService extends Service {
 
 				Log.d(TAG, location.getLatitude() + ","
 						+ location.getLongitude());
+				
 
 				mProvider.storeWiFiLog(location, null);
 			}
@@ -67,10 +84,9 @@ public class WiFiLocatorService extends Service {
 	}
 
 	private void enableLocationListener() {
-		//TODO distance should be a parameter
-		locationManager.requestLocationUpdates(
-				LocationManager.GPS_PROVIDER, 1000 * 60, 300,
-				locationListener);		
+		// TODO distance should be a parameter
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+				1000 * 60, 300, locationListener);
 	}
 
 	@Override
