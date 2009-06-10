@@ -1,20 +1,31 @@
 package com.fujimic.first_step.openGL;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.*;
+import java.util.List;
+
 import javax.microedition.khronos.opengles.*;
+
+import jp.lnc.MeshLoader.DxfLoader;
+import jp.lnc.MeshLoader.PanMesh;
+import jp.lnc.MeshLoader.PanPrigon;
 import android.content.*;
 import android.opengl.*;
+import android.util.Log;
 import edu.union.GLTutorialBase;
 
 
 public class GLCubeView extends GLTutorialBase {
+	
+
     float box[]=new float[] {
             //前面
             -0.5f, -0.5f,  0.5f,
              0.5f, -0.5f,  0.5f,
             -0.5f,  0.5f,  0.5f,
              0.5f,  0.5f,  0.5f,
-            //背面
+             //背面
             -0.5f, -0.5f, -0.5f,
             -0.5f,  0.5f, -0.5f,
              0.5f, -0.5f, -0.5f,
@@ -39,6 +50,7 @@ public class GLCubeView extends GLTutorialBase {
             -0.5f, -0.5f, -0.5f,
              0.5f, -0.5f,  0.5f,
              0.5f, -0.5f, -0.5f,
+ 
         };
 
     FloatBuffer cubeBuff;//頂点座標バッファ
@@ -49,6 +61,36 @@ public class GLCubeView extends GLTutorialBase {
     //コンストラクタ
     public GLCubeView(Context c) {
         super(c,20);
+        
+        InputStream input = this.getResources().openRawResource(R.raw.cube);
+        //File file = new File(this.getResources().openRawResource(R.raw.cube));
+        PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
+        mesh.printMesh();
+  
+       Log.v("Debug","size" + mesh.getMeshSize());
+        
+//        float box2[] = new float[mesh.getMeshSize()];
+//        box2 = mesh.getMesh();
+        
+        float[][][] box_temp = mesh.getMesh();
+        
+        int idx = 0;
+        
+        int[] men = new int[] {0,1,2,3,4,5};
+        int[] dim = new int[] {0,1,2,3};
+        
+        for(int i=0; i<6; i++){
+	        for(int k=0; k<4; k++){
+	            for(int l=0; l<3; l++){
+	            	box[idx] = box_temp[men[i]][dim[k]][l] / 10-0.5f;
+	            	Log.v("Debug","i=" + idx + " val="+ box[idx]);
+	            	idx ++;
+	            }
+	        }
+        }
+        
+//        this.box = mesh.getMesh();
+        
         
         //バッファの生成
         cubeBuff=makeFloatBuffer(box);
