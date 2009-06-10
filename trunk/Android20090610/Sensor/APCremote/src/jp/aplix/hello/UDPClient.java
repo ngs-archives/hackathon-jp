@@ -38,7 +38,8 @@ class UDPClient
 	{
 		if (clientSocket != null)
 		{
-			byte[] sendData = data.getBytes();
+			//FIXME with serialized object on data
+			byte[] sendData = null; 
 			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, this.port);
 			clientSocket.send(sendPacket);
 		}

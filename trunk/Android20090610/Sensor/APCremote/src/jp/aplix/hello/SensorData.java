@@ -17,6 +17,11 @@ public class SensorData implements Serializable {
 	public static final int TYPE_MESSAGE = 0;
 	public static final int TYPE_SENSORCOORDS = 1;
 	
+	public SensorData()
+	{
+		this.eventType = TYPE_MESSAGE;
+	}
+	
 	public SensorData(String message)
 	{
 		this.eventType = TYPE_MESSAGE;
