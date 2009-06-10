@@ -442,7 +442,7 @@ public class Main extends Activity
 				break;
 				
 			case Sensor.TYPE_ORIENTATION:
-				sensorData.setData(event.values[0], event.values[1], event.values[2]);
+				sensorData.setData(event.values[1], event.values[2], event.values[0]);
 				sendData();
 				Log.v("ORIENTATION",
 		                String.valueOf(event.values[0]) + ", " +

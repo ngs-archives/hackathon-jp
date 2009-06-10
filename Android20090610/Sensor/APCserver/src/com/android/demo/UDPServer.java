@@ -122,7 +122,7 @@ class UDPServer implements ActionListener
 			remoteGUI.Log("Start Listening on "+hostname+":"+port);
 
 			byte[] receiveData = new byte[1024];
-			byte[] sendData = new byte[1024];
+			//byte[] sendData = new byte[1024];
 			while ((listen) && (serverSocket != null))
 			{
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -143,12 +143,12 @@ class UDPServer implements ActionListener
 				robot.mouseMove(point.x + 150, point.y + 50);
 				
 				//remove this afterward
-				String sentence = new String( receivePacket.getData());
-				remoteGUI.Log("RECEIVED: " + sentence);
+				//String sentence = new String( receivePacket.getData());
+				//remoteGUI.Log("RECEIVED: " + sentence);
 
 				//set SensorData
-				//Fixme with deserialize;
-				//remoteGUI.Log("RECEIVED: " + sensorData.toString());
+				PackManager.deserialize(receivePacket.getData());
+				remoteGUI.Log("RECEIVED: " + sensorData.toString());
 				
 				/* sending response is not necessary
 				InetAddress IPAddress = receivePacket.getAddress();
