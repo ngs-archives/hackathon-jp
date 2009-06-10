@@ -2,6 +2,10 @@
 <resources>
     <string name="hello">Hello World, Janken!</string>
     <string name="app_name">Janken</string>
+    <!-- Menu画面 -->
+    <string name="main_title">Android Toss</string>
+    <!-- Shake画面 -->
     <string name="pleaseShake">PleaseShake!</string>
     <string name="cancel_label">Cancel</string>
+    
 </resources>
