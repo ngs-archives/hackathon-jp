@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.*;
 
+import jp.lnc.DirectxMeshLoder.DirectXMeshLoder;
 import jp.lnc.MeshLoader.DxfLoader;
 import jp.lnc.MeshLoader.PanMesh;
 import jp.lnc.MeshLoader.PanPrigon;
@@ -57,14 +58,16 @@ public class GLCubeView extends GLTutorialBase {
     
     float xrot=0.0f;//X軸回転量
     float yrot=0.0f;//Y軸回転量
-    
+    float scale = 1;
     //コンストラクタ
     public GLCubeView(Context c) {
         super(c,20);
+
+        //InputStream input = this.getResources().openRawResource(R.raw.cube);
+        //PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
         
-        InputStream input = this.getResources().openRawResource(R.raw.cube);
-        //File file = new File(this.getResources().openRawResource(R.raw.cube));
-        PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
+        InputStream input = this.getResources().openRawResource(R.raw.cubex);
+        PanMesh mesh = DirectXMeshLoder.XMeshLoader(new InputStreamReader(input));
         mesh.printMesh();
   
        Log.v("Debug","size" + mesh.getMeshSize());
@@ -82,12 +85,13 @@ public class GLCubeView extends GLTutorialBase {
         for(int i=0; i<6; i++){
 	        for(int k=0; k<4; k++){
 	            for(int l=0; l<3; l++){
-	            	box[idx] = box_temp[men[i]][dim[k]][l] / 10 - 0.5f;
+	            	box[idx] = box_temp[men[i]][dim[k]][l] ;
 	            	Log.v("Debug","i=" + idx + " val="+ box[idx]);
 	            	idx ++;
 	            }
 	        }
         }
+        setBoxSize(0.5f);
         
 //        this.box = mesh.getMesh();
         
@@ -95,7 +99,26 @@ public class GLCubeView extends GLTutorialBase {
         //バッファの生成
         cubeBuff=makeFloatBuffer(box);
     }
-        
+    
+    
+    public void setBoxSize(float setScale){
+    	scale = setScale;
+        int idx = 0;
+        for(int i=0; i<6; i++){
+	        for(int k=0; k<4; k++){
+	            for(int l=0; l<3; l++){
+	            	box[idx] = box[idx] * setScale;
+	            	idx ++;
+	            }
+	        }
+        }
+    	
+    	
+    	
+    }
+    
+    
+    
     //初期化
     protected void init(GL10 gl) {
         //背面塗り潰し色の指定
