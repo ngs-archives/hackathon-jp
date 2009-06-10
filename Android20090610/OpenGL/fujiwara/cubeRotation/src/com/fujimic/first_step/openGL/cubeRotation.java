@@ -56,7 +56,7 @@ public class cubeRotation extends Activity {
 	    		default:
 	    			break;
 	    	}
-    	
+	    	//xxx
     	   return true;
    
 	    }
