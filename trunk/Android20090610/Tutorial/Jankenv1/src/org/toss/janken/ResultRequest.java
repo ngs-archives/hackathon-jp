@@ -18,17 +18,12 @@ public class ResultRequest implements Runnable {
 	public void run() {
 		String result = null;
 		int retry = 10;
+		
 		while (retry>0) {
 			result = JankenApi.getResult(setting.get("userid"));
 			if (result!=null && !result.startsWith("N")) {
 				//"N"ˆÈŠO‚Ìê‡
 				break;
-			}
-			try {
-				wait(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			retry--;
 		}
