@@ -141,8 +141,6 @@ class UDPServer implements ActionListener
 				pointerInfo = MouseInfo.getPointerInfo();
 				point = pointerInfo.getLocation();
 
-				// move mouse location
-				robot.mouseMove(point.x + 150, point.y + 50);
 				
 				//remove this afterward
 				//String sentence = new String( receivePacket.getData());
@@ -152,6 +150,13 @@ class UDPServer implements ActionListener
 				PackManager.deserialize(sensorData, receivePacket.getData());
 				OpenGlDemo.setRotation(sensorData.getX(),sensorData.getY(), sensorData.getZ());
 				//remoteGUI.Log("RECEIVED: " + sensorData.toString());
+
+				// move mouse location
+//				int x = (int)sensorData.getX();
+//				int y = (int)sensorData.getY();
+//				robot.mouseMove(point.x + x, point.y + y);
+
+				
 				
 				/* sending response is not necessary
 				InetAddress IPAddress = receivePacket.getAddress();
