@@ -17,11 +17,11 @@ public class PackManager {
     }
 
 	
-	public static SensorData deserialize(byte[] data){
+	public static void deserialize(SensorData sd, byte[] data){
 		
 		int size = byteArrayToInt(data, 0);
 		
-		System.out.println("lenght= "+size);
+		//System.out.println("lenght= "+size);
 		
 		ObjectInputStream in;
 		SensorData cl = null;
@@ -29,7 +29,7 @@ public class PackManager {
 			ByteArrayInputStream bi = new ByteArrayInputStream(data, 4 , size);
 			System.out.println(data);
 			in = new ObjectInputStream(bi);
-			cl = (SensorData) in.readObject();
+			sd.setData(in.readFloat(), in.readFloat(), in.readFloat() );
 			in.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -37,10 +37,10 @@ public class PackManager {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}catch (ClassNotFoundException e) {
+		/*}catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();*/
 		}
-		return cl;
+		//return cl;
 	}
 }

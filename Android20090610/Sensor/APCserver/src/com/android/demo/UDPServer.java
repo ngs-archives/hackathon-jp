@@ -147,8 +147,9 @@ class UDPServer implements ActionListener
 				//remoteGUI.Log("RECEIVED: " + sentence);
 
 				//set SensorData
-				PackManager.deserialize(receivePacket.getData());
-				remoteGUI.Log("RECEIVED: " + sensorData.toString());
+				PackManager.deserialize(sensorData, receivePacket.getData());
+				//setRotation(sensorData.getX(),sensorData.getY(), sensorData.getZ());
+				//remoteGUI.Log("RECEIVED: " + sensorData.toString());
 				
 				/* sending response is not necessary
 				InetAddress IPAddress = receivePacket.getAddress();
