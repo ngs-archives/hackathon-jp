@@ -18,7 +18,7 @@
 		android:layout_gravity="center"
 		android:textSize="24.5sp"
 	    android:text="@string/pleaseShake"
-	    	android:layout_marginBottom="25dip"
+	    	android:layout_marginBottom="50dip"
 	    />
 		<Button
 			android:id="@+id/cancel_button"
