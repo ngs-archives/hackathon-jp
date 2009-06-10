@@ -67,24 +67,23 @@ public final class CaptureActivityHandler extends Handler {
         restartPreviewAndDecode();
         break;
       case R.id.decode_succeeded:
-          
         mState = State.SUCCESS;
         Bundle bundle = message.getData();
         Bitmap barcode = bundle.getParcelable(DecodeThread.BARCODE_BITMAP);
         int duration = message.arg1;
         mActivity.handleDecode((Result) message.obj, barcode, duration);
-        
+
         break;
       case R.id.decode_failed:
         // We're decoding as fast as possible, so when one decode fails, start another.
-        
+
         mState = State.PREVIEW;
         CameraManager.get().requestPreviewFrame(mDecodeThread.mHandler, R.id.decode);
         /*
           Bundle bundle = message.getData();
           Bitmap barcode = bundle.getParcelable(DecodeThread.BARCODE_BITMAP);
           int duration = message.arg1;
-          mActivity.handleDecode((Result) message.obj, barcode, duration);  
+          mActivity.handleDecode((Result) message.obj, barcode, duration);
         */
         break;
       case R.id.return_scan_result:

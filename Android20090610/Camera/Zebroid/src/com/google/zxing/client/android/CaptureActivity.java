@@ -50,10 +50,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.Log;
+
+import com.google.hackathon.reviewgetter.AmazonRequester;
+import com.google.hackathon.reviewgetter.WebActivity;
 import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.result.ResultButtonListener;
@@ -61,6 +65,11 @@ import com.google.zxing.client.android.result.ResultHandler;
 import com.google.zxing.client.android.result.ResultHandlerFactory;
 
 import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 /**
  * The barcode reader activity itself. This is loosely based on the CameraPreview
@@ -82,6 +91,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private static final String PACKAGE_NAME = "com.google.zxing.client.android";
 
+  private String service = "AWSECommerceService";
+  private String versino = "2008-10-29";
+  private String accessKeyId = "NTAES0993VXGKMGRM02";
+  private String operation = "ItemLookup";
+  private String resGroup = "Small,Reviews,OfferFull,SalesRank";
+  private String itemId = "4822283712";
+  private String contentType = "text/html";
+
   public CaptureActivityHandler mHandler;
 
   private ViewfinderView mViewfinderView;
@@ -93,7 +110,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private ImageView mStar3View;
   private ImageView mStar4View;
   private ImageView mStar5View;
-  
+
   private TextView mTextView;
   private MediaPlayer mMediaPlayer;
   private Result mLastResult;
@@ -105,9 +122,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private String mDecodeMode;
   private String versionName;
 
+  private AmazonRequester requester;
+
   private final OnCompletionListener mBeepListener = new BeepListener();
-  
+
   private boolean isFukidashiShowed;
+  Document amazonDoc;
 
   @Override
   public void onCreate(Bundle icicle) {
@@ -123,6 +143,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     mResultView = findViewById(R.id.result_view);
     //mTextView = (TextView)findViewById(R.id.type_text_view);
     mFukidashiView = (ImageView)findViewById(R.id.fukidashi_image_view);
+    mFukidashiView.setOnClickListener(new View.OnClickListener(){
+    	public void onClick(View v){
+    	    Intent i = new Intent(CaptureActivity.this, WebActivity.class);
+    	    startActivity(i);
+    	}
+    });
+
     mStar1View = (ImageView)findViewById(R.id.star_iamge_view1);
     mStar2View = (ImageView)findViewById(R.id.star_iamge_view2);
     mStar3View = (ImageView)findViewById(R.id.star_iamge_view3);
@@ -137,6 +164,18 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     mLastResult = null;
     mHasSurface = false;
     isFukidashiShowed = false;
+
+	try{
+	    requester = new AmazonRequester(versino, accessKeyId, operation, resGroup
+	            , itemId, contentType);
+	    amazonDoc = requester.searchByISBN("4822283712");
+    }catch(IOException ex){
+
+    }catch(SAXException ex){
+
+    }catch(ParserConfigurationException ex){
+
+    }
 
     showHelpOnFirstLaunch();
   }
@@ -321,6 +360,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public void handleDecode(Result rawResult, Bitmap barcode, int duration) {
     mLastResult = rawResult;
     playBeepSoundAndVibrate();
+
+    Intent i = new Intent(this, WebActivity.class);
+    startActivity(i);
+    /*
     drawResultPoints(barcode, rawResult);
 
     if (mScanIntent) {
@@ -370,7 +413,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         clipboard.setText(displayContents);
       }
-    }
+    }*/
   }
 
   /**
@@ -441,14 +484,16 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
    * it to a value stored as a preference.
    */
   private void showHelpOnFirstLaunch() {
-    try {
+    /*
+	  try {
+
       PackageInfo info = getPackageManager().getPackageInfo(PACKAGE_NAME, 0);
       int currentVersion = info.versionCode;
       // Since we're paying to talk to the PackageManager anyway, it makes sense to cache the app
       // version name here for display in the about box later.
       this.versionName = info.versionName;
       SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-      
+
       int lastVersion = prefs.getInt(PreferencesActivity.KEY_HELP_VERSION_SHOWN, 0);
       if (currentVersion > lastVersion) {
         prefs.edit().putInt(PreferencesActivity.KEY_HELP_VERSION_SHOWN, currentVersion).commit();
@@ -456,10 +501,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         intent.setClassName(this, HelpActivity.class.getName());
         startActivity(intent);
       }
-      
+
     } catch (PackageManager.NameNotFoundException e) {
 
-    }
+    }*/
   }
 
   /**

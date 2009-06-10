@@ -27,7 +27,7 @@ public class AmazonRequester {
     private static final String ECS_RESGROUP = "&ResponseGroup=";
     private static final String ECS_ITEMID = "&itemId=";
     private static final String ECS_CONTENTTYPE = "&ContentType=";
-        
+
     private String requestStr = null;
     private String version = null;
     private String accessKeyId = null;
@@ -35,10 +35,10 @@ public class AmazonRequester {
     private String resGroup = null;
     private String itemId = null;
     private String contentType = null;
-    
+
     private DocumentBuilderFactory factory;
     private DocumentBuilder builder;
-    
+
     public AmazonRequester(String _version, String _accessKeyId, String _operation, String _resGroup
             , String _itemId, String _contentType){
         version = _version;
@@ -48,11 +48,11 @@ public class AmazonRequester {
         itemId = _itemId;
         contentType = _contentType;
     }
-    
-  
-    public Document searchByISBN(String ISBN) throws ParserConfigurationException, 
+
+
+    public Document searchByISBN(String isbn) throws ParserConfigurationException,
         SAXException, IOException{
-        itemId = ISBN;
+        itemId = isbn;
         generateRequestStr();
         factory = DocumentBuilderFactory.newInstance();
         builder = factory.newDocumentBuilder();
@@ -67,7 +67,7 @@ public class AmazonRequester {
         requestStr += (resGroup == null)? "" : ECS_RESGROUP.concat(resGroup);
         requestStr += (itemId == null)? "" : ECS_ITEMID.concat(itemId);
         requestStr += (contentType == null)? "" : ECS_CONTENTTYPE.concat(contentType);
-        
+
     }
 
 
