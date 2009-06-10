@@ -86,9 +86,9 @@ class OpenGlRender implements GLEventListener {
 
     public void setRotation(float x , float y , float z)
     {
-    	 xrot = -y;
-         yrot = z;
-         zrot = -x;
+    	 xrot = x;
+         yrot = y;
+         zrot = z;
     }
     
 
