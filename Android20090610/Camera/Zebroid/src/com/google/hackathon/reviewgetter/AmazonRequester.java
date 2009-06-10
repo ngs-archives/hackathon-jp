@@ -27,6 +27,8 @@ public class AmazonRequester {
     private static final String ECS_RESGROUP = "&ResponseGroup=";
     private static final String ECS_ITEMID = "&ItemId=";
     private static final String ECS_CONTENTTYPE = "&ContentType=";
+    private static final String ECS_IDTYPE = "&IdType=";
+    private static final String ECS_SEARCHINDEX = "&SearchIndex=";
 
     private String requestStr = null;
     private String version = null;
@@ -35,18 +37,22 @@ public class AmazonRequester {
     private String resGroup = null;
     private String itemId = null;
     private String contentType = null;
+    private String searchIndex = null;
+    private String idType = null;
 
     private DocumentBuilderFactory factory;
     private DocumentBuilder builder;
 
     public AmazonRequester(String _version, String _accessKeyId, String _operation, String _resGroup
-            , String _itemId, String _contentType){
+            , String _itemId, String _contentType, String _searString, String _idString){
         version = _version;
         accessKeyId = _accessKeyId;
         operation = _operation;
         resGroup = _resGroup;
         itemId = _itemId;
         contentType = _contentType;
+        searchIndex = _searString;
+        idType = _idString;
     }
 
 
@@ -68,6 +74,8 @@ public class AmazonRequester {
         requestStr += (resGroup == null)? "" : ECS_RESGROUP.concat(resGroup);
         requestStr += (itemId == null)? "" : ECS_ITEMID.concat(itemId);
         requestStr += (contentType == null)? "" : ECS_CONTENTTYPE.concat(contentType);
+        requestStr += (searchIndex == null)? "" : ECS_SEARCHINDEX.concat(searchIndex);
+        requestStr += (idType == null)? "" : ECS_IDTYPE.concat(idType);
 
     }
 
