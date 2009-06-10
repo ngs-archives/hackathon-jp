@@ -17,9 +17,21 @@ class UDPServer implements ActionListener
 	private ReceiverThread rThread;
 	private ARemoteGUI remoteGUI;
 	private String hostname;
+	
+	SensorData sensorData;
+	Robot      robot;
+	PointerInfo pointerInfo;
+	Point point;
 
 	public UDPServer(ARemoteGUI remoteGUI) {
 		this.remoteGUI = remoteGUI;
+		
+		sensorData = new SensorData();
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
 		
 		//get the ip adress for log purpose
 		try {
@@ -80,7 +92,7 @@ class UDPServer implements ActionListener
 			}
 		}
 	}
-
+	
 	private class ReceiverThread extends Thread
 	{
 		private boolean listen;
@@ -123,24 +135,22 @@ class UDPServer implements ActionListener
 					remoteGUI.Log(e.toString());
 				} 
 
-				// HIRA
 				// get point location
-				PointerInfo pointerInfo = MouseInfo.getPointerInfo();
-				Point point = pointerInfo.getLocation();
-				try {
-					// move mouse location
-					Robot robot = new Robot();
-					robot.mouseMove(point.x + 150, point.y + 50);
-				} catch (AWTException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				// HIRA
+				pointerInfo = MouseInfo.getPointerInfo();
+				point = pointerInfo.getLocation();
 
+				// move mouse location
+				robot.mouseMove(point.x + 150, point.y + 50);
 				
+				//remove this afterward
 				String sentence = new String( receivePacket.getData());
 				remoteGUI.Log("RECEIVED: " + sentence);
 
+				//set SensorData
+				//Fixme with deserialize;
+				//remoteGUI.Log("RECEIVED: " + sensorData.toString());
+				
+				/* sending response is not necessary
 				InetAddress IPAddress = receivePacket.getAddress();
 				int port = receivePacket.getPort();
 				String capitalizedSentence = sentence.toUpperCase();
@@ -151,7 +161,7 @@ class UDPServer implements ActionListener
 					serverSocket.send(sendPacket);
 				} catch (IOException e) {
 					remoteGUI.Log(e.toString());
-				}
+				}*/
 			}
 			if (serverSocket != null)
 			{
