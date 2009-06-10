@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, Janken!</string>
     <string name="app_name">Janken</string>
+    <string name="pleaseShale">PleaseShake!</string>
 </resources>
