@@ -37,5 +37,9 @@ public class PanPrigon {
 		}
 		
 	}
-
+	
+	public float[][] getPrigon(){
+		return top;
+	}
 }
+		
