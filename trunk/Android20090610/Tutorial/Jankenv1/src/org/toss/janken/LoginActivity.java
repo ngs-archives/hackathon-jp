@@ -26,5 +26,14 @@ public class LoginActivity extends Activity {
 				}
 			}
 		});
+		nickname.setOnEditorActionListener(new OnEditorActionListener(){
+
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				setting.set("nickname",((EditText)v).getText().toString());
+				return false;
+			}
+			
+		});
 	}
 }
