@@ -42,7 +42,7 @@ class UDPClient
 			//FIXME with serialized object on data
 			byte[] sendData = PackManager.serialize(data);
 			
-			Log.i("CLIENT", "lenght="+sendData.length);
+			//Log.i("CLIENT", "lenght="+sendData.length);
 			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, this.port);
 			clientSocket.send(sendPacket);
 		}

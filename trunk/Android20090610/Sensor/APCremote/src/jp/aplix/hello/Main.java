@@ -444,10 +444,11 @@ public class Main extends Activity
 			case Sensor.TYPE_ORIENTATION:
 				sensorData.setData(event.values[0], event.values[1], event.values[2]);
 				sendData();
-				Log.v("ORIENTATION",
+				setTitle(" "+event.values[0]+" "+ event.values[1]+" "+ event.values[2]);
+				/*Log.v("ORIENTATION",
 		                String.valueOf(event.values[0]) + ", " +
 		                String.valueOf(event.values[1]) + ", " +
-		                String.valueOf(event.values[2]));
+		                String.valueOf(event.values[2]));*/
 				break;
 		}
 	}
