@@ -5,6 +5,7 @@
 	<RelativeLayout android:id="@+id/RelativeLayout01"
 		android:layout_width="wrap_content" android:layout_height="wrap_content">
 		<com.google.android.maps.MapView
+		    android:clickable="true"
 			android:id="@+id/geoMap" android:layout_width="fill_parent"
 			android:layout_height="fill_parent" android:apiKey="0LH1BWaz3e0GseWTfepBG250Px-BPFksFjQMzGw" />
 		<Button android:id="@+id/btZin" android:text="+"
