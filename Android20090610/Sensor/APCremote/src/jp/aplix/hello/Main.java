@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 public class Main extends Activity 
@@ -41,6 +42,7 @@ public class Main extends Activity
 	private final int MENU_DISCONNECT = MENU_SETTINGS +2;
 	
 	private SensorManager sensorManager;
+	private SensorData sensorData;
 	private boolean registeredSensor;
 	
     /** Called when the activity is first created. */
@@ -49,7 +51,7 @@ public class Main extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        
+        this.sensorData = new SensorData();
         this.sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         this.registeredSensor = false;
     }
@@ -353,6 +355,18 @@ public class Main extends Activity
 		}
 	}
 	
+	private void sendData()
+	{
+		synchronized (this) {
+			try {
+				connection.send(sensorData);
+			} catch (Exception e) {
+				Log("sending error:\n"+ e.toString());
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private void receive()
 	{
 		synchronized (this) {
@@ -415,16 +429,25 @@ public class Main extends Activity
 			return ;
 		}
 		
+		try {
+			Thread.sleep(16);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		switch(event.sensor.getType()){
 			case Sensor.TYPE_ACCELEROMETER:
 				
 				break;
 				
 			case Sensor.TYPE_ORIENTATION:
-//				Log.v("ORIENTATION",
-//		                String.valueOf(event.values[0]) + ", " +
-//		                String.valueOf(event.values[1]) + ", " +
-//		                String.valueOf(event.values[2]));
+				sensorData.setData(event.values[0], event.values[1], event.values[2]);
+				sendData();
+				Log.v("ORIENTATION",
+		                String.valueOf(event.values[0]) + ", " +
+		                String.valueOf(event.values[1]) + ", " +
+		                String.valueOf(event.values[2]));
 				break;
 		}
 	}
