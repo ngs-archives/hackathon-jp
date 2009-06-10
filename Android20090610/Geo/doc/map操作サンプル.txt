@@ -1,0 +1,25 @@
+
+final Button btZi =(Button) findViewById(R.id.btZin);
+final Button btZo =(Button) findViewById(R.id.btZout);
+final Button btZm =(Button) findViewById(R.id.btMap);
+final Button btZs =(Button) findViewById(R.id.btSat);
+btZi.setOnClickListener(new Button.OnClickListener(){
+	public void onClick(View v){
+		MapCon.zoomIn();
+	}
+});
+btZo.setOnClickListener(new Button.OnClickListener(){
+	public void onClick(View v){
+		MapCon.zoomOut();
+	}
+});
+btZm.setOnClickListener(new Button.OnClickListener(){
+	public void onClick(View v){
+		myMap.setSatellite(false);
+	}
+});
+btZs.setOnClickListener(new Button.OnClickListener(){
+	public void onClick(View v){
+		myMap.setSatellite(true);
+	}
+});
