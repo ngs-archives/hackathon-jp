@@ -29,7 +29,7 @@ public class PackManager {
 			ByteArrayInputStream bi = new ByteArrayInputStream(data, 4 , size);
 			//System.out.println(data);
 			in = new ObjectInputStream(bi);
-			sd.setData(in.readFloat(), in.readFloat(), in.readFloat() );
+			sd.setData(in.readInt(), in.readFloat(), in.readFloat(), in.readFloat() );
 			in.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
