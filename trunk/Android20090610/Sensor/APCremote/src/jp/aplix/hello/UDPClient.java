@@ -3,6 +3,7 @@ package jp.aplix.hello;
 import java.io.*;
 import java.net.*;
 
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 class UDPClient
@@ -39,7 +40,9 @@ class UDPClient
 		if (clientSocket != null)
 		{
 			//FIXME with serialized object on data
-			byte[] sendData = null; 
+			byte[] sendData = PackManager.serialize(data);
+			
+			Log.i("CLIENT", "lenght="+sendData.length);
 			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, this.port);
 			clientSocket.send(sendPacket);
 		}
