@@ -55,4 +55,34 @@ public class JankenApi {
 		//TODO:結果が入っていれば成功したとみなしているがちゃんとチェック処理を入れないとあかん
 		return result==null?false:true;
 	}
+
+	static public String getResult(String userid) {
+		HashMap<String,String> map = new HashMap<String,String>();
+		String result = null;
+		map.put("command","result");
+		map.put("userid",userid);
+		try {
+			result = httpClient.Get("http://janken-srv.appspot.com/", map);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	static public String cancel(String userid) {
+		HashMap<String,String> map = new HashMap<String,String>();
+		String result = null;
+		map.put("command","cancel");
+		map.put("userid",userid);
+		try {
+			result = httpClient.Get("http://janken-srv.appspot.com/", map);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
