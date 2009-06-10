@@ -79,13 +79,15 @@ public class GLCubeView extends GLTutorialBase {
         
         int idx = 0;
         
-        int[] men = new int[] {0,1,2,3,4,5};
+        //int[] men = new int[] {0,1,2,3,4,5};
         int[] dim = new int[] {0,1,3,2};
         
-        for(int i=0; i<6; i++){
+        box=new float[mesh.getMeshSize() * 4 * 3];
+                                              
+        for(int i=0; i<mesh.getMeshSize(); i++){
 	        for(int k=0; k<4; k++){
 	            for(int l=0; l<3; l++){
-	            	box[idx] = box_temp[men[i]][dim[k]][l] ;
+	            	box[idx] = box_temp[i][dim[k]][l] ;
 	            	Log.v("Debug","i=" + idx + " val="+ box[idx]);
 	            	idx ++;
 	            }
