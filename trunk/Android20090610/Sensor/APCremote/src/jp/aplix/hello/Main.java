@@ -422,6 +422,10 @@ public class Main extends Activity
 		
 	}
 
+	float x;
+	float y;
+	float z;
+	
 	public void onSensorChanged(SensorEvent event) {
 		
 		
@@ -449,9 +453,14 @@ public class Main extends Activity
 				break;
 				
 			case Sensor.TYPE_ORIENTATION:
-				sensorData.setData(EventType.ORIENTATION, event.values[0], event.values[1], event.values[2]);
+				
+				x= updateValue(x, -event.values[1]);
+				y= updateValue(y, -event.values[2]);
+				//z= updateValue(z, -event.values[0]);
+
+				sensorData.setData(EventType.ORIENTATION, x, y, z);
 				sendData();
-				setTitle(" "+event.values[0]+" "+ event.values[1]+" "+ event.values[2]);
+				setTitle(" "+x+" "+ y+" "+ z);
 				/*Log.v("ORIENTATION",
 		                String.valueOf(event.values[0]) + ", " +
 		                String.valueOf(event.values[1]) + ", " +
@@ -459,4 +468,14 @@ public class Main extends Activity
 				break;
 		}
 	}
+	
+	private float updateValue(float value, float newvalue)
+	{
+		if (Math.abs((value - newvalue)) > 5)
+		{
+			return newvalue;
+		}
+		return value;
+	}
+
 }
