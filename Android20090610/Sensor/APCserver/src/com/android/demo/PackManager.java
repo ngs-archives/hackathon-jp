@@ -27,7 +27,7 @@ public class PackManager {
 		SensorData cl = null;
 		try {
 			ByteArrayInputStream bi = new ByteArrayInputStream(data, 4 , size);
-			System.out.println(data);
+			//System.out.println(data);
 			in = new ObjectInputStream(bi);
 			sd.setData(in.readFloat(), in.readFloat(), in.readFloat() );
 			in.close();
