@@ -7,5 +7,5 @@
     <!-- Shake画面 -->
     <string name="pleaseShake">PleaseShake!</string>
     <string name="cancel_label">Cancel</string>
-    
+    <string name="thanks">Thanks</string>
 </resources>
