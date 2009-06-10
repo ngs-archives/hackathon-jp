@@ -8,4 +8,7 @@
     <string name="pleaseShake">PleaseShake!</string>
     <string name="cancel_label">Cancel</string>
     <string name="thanks">Thanks</string>
+    <!--  -->
+    <string name="login_name_title"></string>
+    <string name="login_name_title"></string>
 </resources>
