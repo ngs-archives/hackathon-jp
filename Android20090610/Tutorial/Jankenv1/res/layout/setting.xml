@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="30dip"
@@ -13,7 +13,47 @@
     	android:layout_gravity="center"
     	>
     	
-	</LinearLayout>
+    	
+    <TextView 
+    	android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+		android:layout_gravity="center"
+		android:textSize="24.5sp"
+	    android:text="Host IP"
+	    />
+    
+    <EditText
+    	android:id="@+id/hostip"
+    	android:text=""
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginBottom="50dip"
+    	 />
+    	
+    <TextView 
+    	android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+		android:layout_gravity="center"
+		android:textSize="24.5sp"
+	    android:text="ジェスチャー"
+	    /> 
+    <RadioButton android:text="ランダム" 
+    	android:id="@+id/setting_RadioButton01" 
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content"/>
+    <RadioButton android:text="ジェスチャー固定" 
+    	android:id="@+id/setting_RadioButton02" 
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content"
+    	android:layout_marginBottom="50dip"
+    	/>
+    <Button
+    	android:text="Save"
+    	android:id="@+id/saveSetting"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content" />
+</LinearLayout>
+
 </LinearLayout>
     	
  
