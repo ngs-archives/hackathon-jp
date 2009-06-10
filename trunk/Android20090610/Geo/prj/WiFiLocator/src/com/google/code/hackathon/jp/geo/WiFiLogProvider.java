@@ -1,7 +1,11 @@
 package com.google.code.hackathon.jp.geo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.google.android.maps.GeoPoint;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,7 +27,7 @@ import android.util.Log;
  */
 /**
  * @author ogura
- *
+ * 
  */
 public class WiFiLogProvider {
 
@@ -46,11 +50,12 @@ public class WiFiLogProvider {
 	private static final String NULL_VALUE = "NULL";
 
 	private static final String AREA_QUERY_CONDITION = "( " + LOC_LATITUDE
-			+ " BETWEEN ? AND ? ) AND ( " + LOC_LONGITUDE + " BETWEEN ? AND ? ) ";
-	
+			+ " BETWEEN ? AND ? ) AND ( " + LOC_LONGITUDE
+			+ " BETWEEN ? AND ? ) ";
+
 	private static final String[] QUERY_COLUMNS = new String[] { TIME,
-		LOC_LATITUDE, LOC_LONGITUDE, LOC_ACCURACY, SR_BSSID, SR_SSID,
-		SR_CAPABILITIES, SR_FREQUENCY, SR_LEVEL };
+			LOC_LATITUDE, LOC_LONGITUDE, LOC_ACCURACY, SR_BSSID, SR_SSID,
+			SR_CAPABILITIES, SR_FREQUENCY, SR_LEVEL };
 
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -105,11 +110,11 @@ public class WiFiLogProvider {
 	 */
 	public void storeWiFiLog(long time, Location location, List<ScanResult> list) {
 		List<ContentValues> valuesList = logToValues(time, location, list);
-		
+
 		storeWiFiLog(valuesList);
 
 	}
-	
+
 	public void storeWiFiLog(List<ContentValues> valuesList) {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -131,7 +136,7 @@ public class WiFiLogProvider {
 	private List<ContentValues> logToValues(long time, Location location,
 			List<ScanResult> list) {
 		List<ContentValues> result = new ArrayList<ContentValues>();
-		
+
 		for (ScanResult scanResult : list) {
 			ContentValues values = new ContentValues();
 
@@ -140,14 +145,14 @@ public class WiFiLogProvider {
 			values.put(LOC_LONGITUDE, location.getLongitude());
 			values.put(LOC_ACCURACY, location.getAccuracy());
 
-			if (scanResult!= null) {
+			if (scanResult != null) {
 				values.put(SR_BSSID, scanResult.BSSID);
 				values.put(SR_SSID, scanResult.SSID);
 				values.put(SR_CAPABILITIES, scanResult.capabilities);
 				values.put(SR_FREQUENCY, scanResult.frequency);
 				values.put(SR_LEVEL, scanResult.level);
 			}
-			
+
 			result.add(values);
 		}
 
@@ -168,7 +173,8 @@ public class WiFiLogProvider {
 		List<WiFiLog> result = new ArrayList<WiFiLog>();
 
 		SQLiteDatabase db = mDbHelper.getReadableDatabase();
-		Cursor cursor = db.query(true, WIFI_LOG_TABLE, QUERY_COLUMNS,//null, null, null, null, null, null);
+		Cursor cursor = db.query(true, WIFI_LOG_TABLE,
+				QUERY_COLUMNS,// null, null, null, null, null, null);
 				AREA_QUERY_CONDITION, new String[] {
 						Double.toString(latitudeSouth),
 						Double.toString(latitudeNorth),
@@ -182,11 +188,13 @@ public class WiFiLogProvider {
 		cursor.moveToFirst();
 		for (int i = 0; i < numRows; ++i) {
 			long time = cursor.getLong(cursor.getColumnIndex(TIME));
-			double latitude = cursor.getDouble(cursor.getColumnIndex(LOC_LATITUDE));
-			double longitude = cursor.getDouble(cursor.getColumnIndex(LOC_LONGITUDE));
-			
-			//TODO other values...
-			
+			double latitude = cursor.getDouble(cursor
+					.getColumnIndex(LOC_LATITUDE));
+			double longitude = cursor.getDouble(cursor
+					.getColumnIndex(LOC_LONGITUDE));
+
+			// TODO other values...
+
 			result.add(new WiFiLog(time, latitude, longitude));
 			cursor.moveToNext();
 		}
@@ -194,7 +202,7 @@ public class WiFiLogProvider {
 
 		return result;
 	}
-	
+
 	/**
 	 * 指定された領域の AP 情報を返す。領域の指定は、latitude * 10^6 で行なう
 	 * 
@@ -204,7 +212,67 @@ public class WiFiLogProvider {
 	 * @param longitudeWestE6
 	 * @return
 	 */
-	public List<AccessPointLocation> getAreaAccessPointLocation(int latitudeNorthE6, int latitudeSouthE6, int longitudeEastE6, int longitudeWestE6) {
-		return null;
+	public List<AccessPointLocation> getAreaAccessPointLocation(
+			int latitudeNorthE6, int latitudeSouthE6, int longitudeEastE6,
+			int longitudeWestE6) {
+		
+		SQLiteDatabase db = mDbHelper.getReadableDatabase();
+		Cursor cursor = db.query(true, WIFI_LOG_TABLE,
+				QUERY_COLUMNS,// null, null, null, null, null, null);
+				AREA_QUERY_CONDITION, new String[] {
+						Double.toString(latitudeSouthE6 / (double)(10^6)),
+						Double.toString(latitudeNorthE6 / (double)(10^6)),
+						Double.toString(longitudeWestE6 / (double)(10^6)),
+						Double.toString(longitudeEastE6 / (double)(10^6)) }, null, null, TIME,
+				null);
+
+		int numRows = cursor.getCount();
+		Log.d(TAG, "size: " + numRows);
+
+		cursor.moveToFirst();
+		
+		Map<String, Double> latitudeSum = new HashMap<String, Double>();
+		Map<String, Double> longitudeSum = new HashMap<String, Double>();
+		//TODO use level as ?
+		Map<String, Integer> levelSum = new HashMap<String, Integer>();
+		Map<String, Integer> levelMax = new HashMap<String, Integer>();
+		
+		for (int i = 0; i < numRows; ++i) {
+			String ssid = cursor.getString(cursor.getColumnIndex(SR_SSID));
+			double latitude = cursor.getDouble(cursor
+					.getColumnIndex(LOC_LATITUDE));
+			double longitude = cursor.getDouble(cursor
+					.getColumnIndex(LOC_LONGITUDE));
+			int level = cursor.getInt(cursor.getColumnIndex(SR_LEVEL));
+			
+			if (!latitudeSum.containsKey(ssid)) {
+				latitudeSum.put(ssid, Double.valueOf(0));
+				longitudeSum.put(ssid, Double.valueOf(0));
+				levelSum.put(ssid, Integer.valueOf(0));
+				levelMax.put(ssid, Integer.valueOf(Integer.MIN_VALUE));
+			}
+			//TODO 負の値で、対数軸との噂なので、sum ではなく、count するのみ
+			latitudeSum.put(ssid, latitudeSum.get(ssid) + (1 * latitude));
+			longitudeSum.put(ssid, longitudeSum.get(ssid) + (1 * longitude));
+			levelSum.put(ssid, levelSum.get(ssid) + 1);
+			if (levelMax.get(ssid) < level)
+				levelMax.put(ssid, level);
+
+			cursor.moveToNext();
+		}
+		db.close();
+		
+		List<AccessPointLocation> result = new ArrayList<AccessPointLocation>();
+		for (String ssid : latitudeSum.keySet()) {
+			AccessPointLocation apLocation = new AccessPointLocation();
+			int lat = (int) ( ( latitudeSum.get(ssid) / levelSum.get(ssid) ) * (10^6) );
+			int lng = (int) ( ( longitudeSum.get(ssid) / levelSum.get(ssid) ) * (10^6));
+			apLocation.setGeoPoint(new GeoPoint(lat,lng));
+			apLocation.setLevel(levelMax.get(ssid));
+			apLocation.setSsid(ssid);
+			result.add(apLocation);
+		}
+
+		return result;
 	}
 }

@@ -31,6 +31,8 @@ public class WiFiLocatorService extends Service {
 		mWiFiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
 		mWiFiManager.setWifiEnabled(true);
 		
+		getScanResult();
+		
 		locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 		locationListener = new LocationListener() {
@@ -70,7 +72,16 @@ public class WiFiLocatorService extends Service {
 	
 	public List<ScanResult> getScanResult() {
 		mWiFiManager.startScan();
-		return mWiFiManager.getScanResults();
+		List<ScanResult> results = mWiFiManager.getScanResults();
+		
+		if (results != null && results.size() > 0) {
+			for (ScanResult result : results) {
+				Log.d(TAG, "ssid: " + result.SSID);
+				Log.d(TAG, "level: " + result.level);
+			}
+		}
+		
+		return results;
 	}
 
 	@Override
