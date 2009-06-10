@@ -1,28 +1,33 @@
 package jp.aplix.hello;
 
 import java.io.Serializable;
-import java.nio.ByteBuffer;
 
-public class SensorData {
-	private float rx;
-	private float ry;
-	private float rz;
-	private byte[] asByte;
+public class SensorData implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private float  rx;
+	private float  ry;
+	private float  rz;
+	public  String message;
 
-	public SensorData()
+	public  int   eventType;
+	public static final int TYPE_MESSAGE = 0;
+	public static final int TYPE_SENSORCOORDS = 1;
+	
+	public SensorData(String message)
 	{
-		asByte = new byte[12];
+		this.eventType = TYPE_MESSAGE;
+		setMessage(message);
 	}
 
 	public SensorData(float rx, float ry, float rz)
 	{
+		this.eventType = TYPE_SENSORCOORDS;
 		setData(rx, ry, rz);
 	}
-	
-	public SensorData(byte[] b)
-	{  
-		setData(b);
-	}  
 
 	public void setData(float rx, float ry, float rz)
 	{
@@ -33,21 +38,13 @@ public class SensorData {
 		}
 	}
 	
-	public void setData(byte[] b)
+	public void setMessage(String message)
 	{
-		synchronized (this) {
-			
-			ByteBuffer buf = ByteBuffer.wrap(b, 0, 4);  
-			rx = buf.getFloat();
-			
-			buf = ByteBuffer.wrap(b, 4, 4);  
-			ry = buf.getFloat();
-			
-			buf = ByteBuffer.wrap(b, 8, 4);  
-			rz = buf.getFloat();
+		synchronized (message) {
+			this.message = message;
 		}
 	}
-
+	
 	public float getX()
 	{
 		synchronized (this) {
@@ -69,22 +66,15 @@ public class SensorData {
 		}
 	}
 	
-	
-	private void FloatToBytes(Float f, byte[] ba, int start)
+	public String getMessage()
 	{
-		//fixme
-		
-	}
-	
-	public byte[] getBytes()
-	{
-		synchronized (this) {
-			 FloatToBytes(rx, asByte, 0);
-			 FloatToBytes(ry, asByte, 4);
-			 FloatToBytes(rz, asByte, 8);
-			 return asByte;
-		}
+		return message;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "type="+eventType+" x="+rx+" y="+ry+" z="+rz+" msg="+message;
+	}
 
 }
