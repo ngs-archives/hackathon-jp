@@ -17,6 +17,20 @@ public class Janken extends Activity {
 	    }
 	};
 	
+	private OnClickListener mButton02Listener = new OnClickListener() {
+	    public void onClick(View v) {
+	    	Intent i = new Intent(Janken.this, SettingsActivity.class);
+	    	startActivity(i);
+	    }
+	};
+	
+	private OnClickListener mButton03Listener = new OnClickListener() {
+	    public void onClick(View v) {
+	    	Intent i = new Intent(Janken.this, LoginActivity.class);
+	    	startActivity(i);
+	    }
+	};
+	
 	private OnClickListener mButton04Listener = new OnClickListener() {
 	    public void onClick(View v) {
 	    	AlertDialog.Builder builder = new AlertDialog.Builder(Janken.this);
@@ -40,6 +54,10 @@ public class Janken extends Activity {
         setContentView(R.layout.main);
         Button button = (Button)findViewById(R.id.Button01);
         button.setOnClickListener(mButton01Listener);
+        button = (Button)findViewById(R.id.Button02);
+        button.setOnClickListener(mButton02Listener);
+        button = (Button)findViewById(R.id.Button03);
+        button.setOnClickListener(mButton03Listener);
         button = (Button)findViewById(R.id.Button04);
         button.setOnClickListener(mButton04Listener);
     }
