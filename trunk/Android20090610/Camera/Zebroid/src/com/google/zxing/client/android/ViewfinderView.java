@@ -65,6 +65,7 @@ public final class ViewfinderView extends View {
     int height = canvas.getHeight();
 
     // Draw the exterior (i.e. outside the framing rect) darkened
+    /*
     mPaint.setColor(mResultBitmap != null ? mResultColor : mMaskColor);
     mBox.set(0, 0, width, frame.top);
     canvas.drawRect(mBox, mPaint);
@@ -74,7 +75,7 @@ public final class ViewfinderView extends View {
     canvas.drawRect(mBox, mPaint);
     mBox.set(0, frame.bottom + 1, width, height);
     canvas.drawRect(mBox, mPaint);
-
+	*/
     if (mResultBitmap != null) {
       // Draw the opaque result bitmap over the scanning rectangle
       mPaint.setAlpha(255);
