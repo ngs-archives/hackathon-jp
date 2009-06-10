@@ -438,11 +438,18 @@ public class Main extends Activity
 		
 		switch(event.sensor.getType()){
 			case Sensor.TYPE_ACCELEROMETER:
+				sensorData.setData(EventType.ACCELEROMETER, event.values[0], event.values[1], event.values[2]);
+				sendData();
+				setTitle(" "+event.values[0]+" "+ event.values[1]+" "+ event.values[2]);
+				/*Log.v("ORIENTATION",
+		                String.valueOf(event.values[0]) + ", " +
+		                String.valueOf(event.values[1]) + ", " +
+		                String.valueOf(event.values[2]));*/
 				
 				break;
 				
 			case Sensor.TYPE_ORIENTATION:
-				sensorData.setData(event.values[0], event.values[1], event.values[2]);
+				sensorData.setData(EventType.ORIENTATION, event.values[0], event.values[1], event.values[2]);
 				sendData();
 				setTitle(" "+event.values[0]+" "+ event.values[1]+" "+ event.values[2]);
 				/*Log.v("ORIENTATION",
