@@ -9,11 +9,21 @@ import javax.swing.JButton;
 
 class UDPServer implements ActionListener
 {
-	ReceiverThread rThread;
-	ARemoteGUI remoteGUI;
+	private ReceiverThread rThread;
+	private ARemoteGUI remoteGUI;
+	private String hostname;
 
 	public UDPServer(ARemoteGUI remoteGUI) {
 		this.remoteGUI = remoteGUI;
+		
+		//get the ip adress for log purpose
+		try {
+	        InetAddress addr = InetAddress.getLocalHost();
+	        hostname = addr.getHostAddress();
+	    } catch (UnknownHostException e) {
+	    	remoteGUI.Log("Unknown host :" +e.getMessage());
+	    }
+
 	}
 
 
@@ -92,7 +102,7 @@ class UDPServer implements ActionListener
 				remoteGUI.Log(e.toString());
 			}
 
-			remoteGUI.Log("Start Listening on port "+port);
+			remoteGUI.Log("Start Listening on "+hostname+":"+port);
 
 			byte[] receiveData = new byte[1024];
 			byte[] sendData = new byte[1024];
