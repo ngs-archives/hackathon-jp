@@ -31,7 +31,7 @@ public class testSensors extends Activity implements SensorEventListener {
 		super.onResume();
 
 		List<Sensor> sensors = mSensorManager
-				.getSensorList(Sensor.TYPE_ACCELEROMETER);
+				.getSensorList(Sensor.TYPE_ALL);
 		if (sensors.size() > 0) {
 			Sensor sensor = sensors.get(0);
 			mRegisteredSensor = mSensorManager.registerListener(this, sensor,
