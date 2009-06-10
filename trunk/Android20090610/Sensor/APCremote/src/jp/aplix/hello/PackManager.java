@@ -18,7 +18,10 @@ public class PackManager {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		try {
 			out = new ObjectOutputStream(os);
-			out.writeObject(cl);
+			//out.writeObject(cl);
+			out.writeFloat(cl.getX());
+			out.writeFloat(cl.getY());
+			out.writeFloat(cl.getZ());
 			out.flush();
 			out.close();
 		} catch (FileNotFoundException e) {
