@@ -30,7 +30,26 @@ public class PanMesh {
 		}
 		
 	}
-	
-	
+	public float[][][] getMesh(){
+		float ret[][][] = new float[panPrigonList.size()][4][3];
+		int idx = 0;
+		
+        for(int i=0;i<panPrigonList.size();i++){
+        	float temp[][] = panPrigonList.get(i).getPrigon();
+
+        	for(int k=0;k<4;k++){
+                for(int l=0;l<3;l++){
+                    ret[i][k][l]=temp[k][l];
+                   	idx ++;
+                }
+            }
+
+        }		
+		return ret;
+	}
+	public int getMeshSize(){
+		int ret = panPrigonList.size() * 4 * 3;
+		return ret;
+	}
 	
 }
