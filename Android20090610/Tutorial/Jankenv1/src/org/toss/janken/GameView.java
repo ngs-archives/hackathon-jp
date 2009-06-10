@@ -1,10 +1,14 @@
 ﻿package org.toss.janken;
 
 import java.text.DecimalFormat;
+
 import android.app.Activity;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -13,7 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GameView extends Activity implements SensorListener{
-    View layout;
+	private Settings setting;
+	View layout;
     TextView orientationValue;
     ImageView toss;
     SensorManager sensorManager;
@@ -29,6 +34,7 @@ public class GameView extends Activity implements SensorListener{
         super.onCreate(savedInstanceState);
         // --- views
         setContentView(R.layout.start);
+        setting = new Settings(this); 
         layout = findViewById(R.id.layout);
         startButton = (Button) findViewById(R.id.Button01);
         cancelButton = (Button) findViewById(R.id.Button02);
@@ -54,7 +60,7 @@ public class GameView extends Activity implements SensorListener{
 				finish();
 			}        	
         });
-        
+        setting.set("userid",JankenApi.login(setting.get("nickname")));
         // --- sensors
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     }
@@ -83,17 +89,25 @@ public class GameView extends Activity implements SensorListener{
             currentAccelerationValues[1] = values[1] - currentOrientationValues[1];
             currentAccelerationValues[2] = values[2] - currentOrientationValues[2];
             
+            String hand = JankenApi.JANKEN_CHOKI;
+            
             if(Math.abs(currentAccelerationValues[0]) > 10.0f) {
+            	//チョキ
+            	hand = JankenApi.JANKEN_CHOKI;
                 toss.setImageResource(R.drawable.ch);
                 sensorManager.unregisterListener(this);
                 orientationValue.setText("ゲーム終了。しばらくお待ちください");
                 cancelButton.setVisibility(View.GONE);
             } else if(Math.abs(currentAccelerationValues[1]) > 10.0f) {
+            	//グー
+            	hand = JankenApi.JANKEN_GU;
                 toss.setImageResource(R.drawable.gu);
                 sensorManager.unregisterListener(this);
                 orientationValue.setText("ゲーム終了。しばらくお待ちください");
                 cancelButton.setVisibility(View.GONE);
             } else if(Math.abs(currentAccelerationValues[2]) > 10.0f) {
+            	//パー
+            	hand = JankenApi.JANKEN_PAR;
                 toss.setImageResource(R.drawable.pa);
                 sensorManager.unregisterListener(this);
                 orientationValue.setText("ゲーム終了。しばらくお待ちください");
@@ -102,7 +116,9 @@ public class GameView extends Activity implements SensorListener{
                 //orientation.setText("");
             	//toss.setImageResource(R.drawable.gu);
             }
-            //ここにサーバとのやりとりを記述？
+            //じゃんけん開始
+            JankenApi.attack(setting.get("userid"), hand);
+            new Thread(new ResultRequest(this, mJankenResultHandler)).start();
             break;
         case SensorManager.SENSOR_ORIENTATION:
             //orientationValue.setText(convertFloatsToString(values));
@@ -121,5 +137,19 @@ public class GameView extends Activity implements SensorListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+    Handler mJankenResultHandler = new Handler() {
+    	public void handleMessage(Message msg) {
+    		String result = (String)msg.obj;
+    		Log.e("janken", "result="+result);
+    		if (result.startsWith("W")) {
+    			//勝った
+    		} else if (result.startsWith("F")) {
+    			//負けた？
+    		} else if (result.startsWith("T")) {
+    			//あいこ？
+    		}
+    	}
+    };
 
 }
