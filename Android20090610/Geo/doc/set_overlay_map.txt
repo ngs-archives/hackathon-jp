@@ -10,7 +10,7 @@ public mapIcon myoverlay;
 
 //code
 myMap = (MapView) findViewById(R.id.geoMap);
-Bitmap bmpMe = BitmapFactory.decodeResource(getResources(), R.drawable.opin);
+Bitmap bmpMe = BitmapFactory.decodeResource(getResources(), R.drawable.opin);//ここではPNG使ってる
 overlay= new mapIcon(bmpMe, new GeoPoint(0, 0));
 List<Overlay> list = myMap.getOverlays();
 list.add(overlay);
