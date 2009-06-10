@@ -27,7 +27,7 @@ public class WiFiLocatorService extends Service {
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		mProvider = new WiFiLogProvider(this);
+/*		mProvider = new WiFiLogProvider(this);
 
 		mWiFiManager = (WifiManager) this
 				.getSystemService(Context.WIFI_SERVICE);
@@ -39,7 +39,7 @@ public class WiFiLocatorService extends Service {
 			Log.d(TAG, "sr capabilities: " + scanResult.get(0).capabilities);
 			Log.d(TAG, "sr freq: " + scanResult.get(0).frequency);
 			Log.d(TAG, "sr level: " + scanResult.get(0).level);
-		}
+		}*/
 		locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 		locationListener = new LocationListener() {

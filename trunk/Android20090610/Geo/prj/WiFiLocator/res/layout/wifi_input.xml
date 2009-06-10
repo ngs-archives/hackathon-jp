@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wifi_input_parent"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <com.google.android.maps.MapView
+        android:id="@+id/wifi_input_map"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:apiKey="0lyrYtd-Je85vzBifgb_u78F7SL3TJoDjgQb-Sg"/>
+    
+    <LinearLayout
+    android:id="@+id/wifi_input_zoom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@id/map_view"
+    android:layout_centerHorizontal="true"/>
+    
+    <Button
+        android:id="@+id/add_wifi_log"
+        android:text="中心を記録する"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/map_view"/>
+
+</RelativeLayout>

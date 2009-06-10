@@ -28,16 +28,16 @@ public class WiFiLogProvider {
 	private static final int DB_VERSION = 1;
 
 	// table name, columns
-	private static final String WIFI_LOG_TABLE = "wifi_log";
-	private static final String TIME = "time";
-	private static final String LOC_LATITUDE = "latitude";
-	private static final String LOC_LONGITUDE = "longitude";
-	private static final String LOC_ACCURACY = "accuracy";
-	private static final String SR_BSSID = "bssid";
-	private static final String SR_SSID = "ssid";
-	private static final String SR_CAPABILITIES = "capabilities";
-	private static final String SR_FREQUENCY = "frequency";
-	private static final String SR_LEVEL = "level";
+	public static final String WIFI_LOG_TABLE = "wifi_log";
+	public static final String TIME = "time";
+	public static final String LOC_LATITUDE = "latitude";
+	public static final String LOC_LONGITUDE = "longitude";
+	public static final String LOC_ACCURACY = "accuracy";
+	public static final String SR_BSSID = "bssid";
+	public static final String SR_SSID = "ssid";
+	public static final String SR_CAPABILITIES = "capabilities";
+	public static final String SR_FREQUENCY = "frequency";
+	public static final String SR_LEVEL = "level";
 
 	private static final String NULL_VALUE = "NULL";
 
@@ -100,8 +100,14 @@ public class WiFiLogProvider {
 	 * @param scanResult
 	 */
 	public void storeWiFiLog(long time, Location location, ScanResult scanResult) {
-		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		ContentValues values = logToValues(time, location, scanResult);
+		
+		storeWiFiLog(values);
+
+	}
+	
+	public void storeWiFiLog(ContentValues values) {
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
 		long rowId = db.insert(WIFI_LOG_TABLE, NULL_VALUE, values);
 		Log.d(TAG, "rowId: " + rowId);
