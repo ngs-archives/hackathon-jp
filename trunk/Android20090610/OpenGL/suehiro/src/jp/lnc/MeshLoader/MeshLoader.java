@@ -17,7 +17,7 @@ public class MeshLoader extends Activity {
         
         setContentView(R.layout.main);
         
-        InputStream input = this.getResources().openRawResource(R.raw.cube2);
+        InputStream input = this.getResources().openRawResource(R.raw.meka);
 
 //        PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
         PanMesh mesh = DirectXMeshLoder.XMeshLoader(new InputStreamReader(input));
