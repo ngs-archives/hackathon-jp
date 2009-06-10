@@ -19,6 +19,7 @@ public class PackManager {
 		try {
 			out = new ObjectOutputStream(os);
 			//out.writeObject(cl);
+			out.writeInt(cl.eventType);
 			out.writeFloat(cl.getX());
 			out.writeFloat(cl.getY());
 			out.writeFloat(cl.getZ());
