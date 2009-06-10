@@ -37,7 +37,6 @@ public class WiFiLocatorService extends Service {
 				.getSystemService(Context.LOCATION_SERVICE);
 		locationListener = new LocationListener() {
 
-			@Override
 			public void onLocationChanged(Location location) {
 
 				Log.d(TAG, location.getLatitude() + ","
@@ -47,19 +46,16 @@ public class WiFiLocatorService extends Service {
 				mProvider.storeWiFiLog(location, getScanResult());
 			}
 
-			@Override
 			public void onProviderDisabled(String provider) {
 				// TODO Auto-generated method stub
 
 			}
 
-			@Override
 			public void onProviderEnabled(String provider) {
 				// TODO Auto-generated method stub
 
 			}
 
-			@Override
 			public void onStatusChanged(String provider, int status,
 					Bundle extras) {
 				// TODO Auto-generated method stub

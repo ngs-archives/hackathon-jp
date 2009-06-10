@@ -12,16 +12,16 @@ import com.google.android.maps.Projection;
 
 	public class MapIcon extends Overlay {
 
-	       // •`‰æ‚·‚éƒAƒCƒRƒ“
+	       // ï¿½`ï¿½æ‚·ï¿½ï¿½Aï¿½Cï¿½Rï¿½ï¿½
 	       Bitmap mIcon;
 	       int mOffsetX;
 	       int mOffsetY;
 
-	       // ƒAƒCƒRƒ“‚ğ•\¦‚·‚éˆÊ’u
+	       // ï¿½Aï¿½Cï¿½Rï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
 	       GeoPoint mPoint;
 
-	       mapIcon(Bitmap icon, GeoPoint initial) {
-	           // ƒAƒCƒRƒ“‚ÆAƒAƒCƒRƒ“‚Ì’†S‚ÌƒIƒtƒZƒbƒg
+	       MapIcon(Bitmap icon, GeoPoint initial) {
+	           // ï¿½Aï¿½Cï¿½Rï¿½ï¿½ï¿½ÆAï¿½Aï¿½Cï¿½Rï¿½ï¿½ï¿½Ì’ï¿½ï¿½Sï¿½ÌƒIï¿½tï¿½Zï¿½bï¿½g
 	           mIcon = icon;
 	           mOffsetX = 0 - icon.getWidth() / 2;
 	           mOffsetY = 0 - icon.getHeight() / 2;
@@ -29,24 +29,24 @@ import com.google.android.maps.Projection;
 	       }
 
 	       public boolean movepin(GeoPoint point, MapView mapView) {
-	           // ƒ^ƒbƒv‚³‚ê‚½ˆÊ’u‚ğ‹L˜^‚·‚é
+	           // ï¿½^ï¿½bï¿½vï¿½ï¿½ï¿½ê‚½ï¿½Ê’uï¿½ï¿½ï¿½Lï¿½^ï¿½ï¿½ï¿½ï¿½
 	           mPoint = point;
 	           Log.i("icontest", "Point = " + point.getLatitudeE6() + " , " + point.getLongitudeE6());
 	           return super.onTap(point, mapView);
 	       }
 
-	       // ’n}‚Ì•`‰æ‚ÉAshadow=true, shadow=false‚Æ2‰ñŒÄ‚Ño‚³‚ê‚é
+	       // ï¿½nï¿½}ï¿½Ì•`ï¿½æï¿½ÉAshadow=true, shadow=falseï¿½ï¿½2ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½
 	       @Override
 	       public void draw(Canvas canvas, MapView mapView,
 	                        boolean shadow) {
 	           super.draw(canvas, mapView, shadow);
 	           if (!shadow) {
-	               // ’n}ã‚ÌêŠ‚ÆA•`‰æ—p‚ÌCanvas‚ÌÀ•W‚Ì•ÏŠ·
+	               // ï¿½nï¿½}ï¿½ï¿½ÌêŠï¿½ÆAï¿½`ï¿½ï¿½pï¿½ï¿½Canvasï¿½Ìï¿½ï¿½Wï¿½Ì•ÏŠï¿½
 	               Projection projection = mapView.getProjection();
 	               Point point = new Point();
 	               projection.toPixels(mPoint, point);
 	               point.offset(mOffsetX, mOffsetY);
-	               // ƒAƒCƒRƒ“‚ğ•`‰æ
+	               // ï¿½Aï¿½Cï¿½Rï¿½ï¿½ï¿½ï¿½`ï¿½ï¿½
 	               canvas.drawBitmap(mIcon, point.x, point.y, null);
 	           }
 	       }
