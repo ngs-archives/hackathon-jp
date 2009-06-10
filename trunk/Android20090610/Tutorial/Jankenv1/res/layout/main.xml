@@ -1,16 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:padding="30dip"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+	 
+    <LinearLayout 
+	    android:orientation="vertical"
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content" 
+    	android:layout_gravity="center"
+    	>
+    		<TextView  
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:text="@string/main_title"
+	    	android:layout_gravity="center"
+	    	android:layout_marginBottom="20dip"
+	    	android:textSize="24.5sp"
+		    />	
+		    
+		<TableLayout
+    		android:layout_height="wrap_content" 
+    		android:layout_width="wrap_content" 
+    		android:layout_gravity="center"
+    		android:stretchColumns="*">
+    	<TableRow>
+		<ImageView  
+    		android:layout_weight="1"
+    		android:layout_height="100dip" 
+		    android:text=" "
+	    	android:background="@drawable/gu"
+	    	android:layout_gravity="center"
+		    />
+		<ImageView  
+    		android:layout_weight="1"
+    		android:layout_height="100dip" 
+		    android:text=" "
+	    	android:background="@drawable/ch"
+	    	android:layout_gravity="center"
+		    />
+		<ImageView  
+    		android:layout_weight="1"
+    		android:layout_height="100dip" 
+		    android:text=" "
+	    	android:background="@drawable/pa"
+	    	android:layout_gravity="center"
+		    />
+	    </TableRow>
+	    </TableLayout>
 <Button android:text="New..." android:id="@+id/Button01" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 <Button android:text="Settings" android:id="@+id/Button02" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 <Button android:text="Login" android:id="@+id/Button03" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 <Button android:text="About" android:id="@+id/Button04" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+</LinearLayout>
 </LinearLayout>
