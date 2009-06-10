@@ -64,6 +64,21 @@ public class GameView extends Activity implements SensorListener{
         // --- sensors
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     }
+
+    Handler mJankenResultHandler = new Handler() {
+    	public void handleMessage(Message msg) {
+    		String result = (String)msg.obj;
+    		Log.e("janken", "result="+result);
+    		if (result.startsWith("W")) {
+    			//勝った
+    		} else if (result.startsWith("F")) {
+    			//負けた？
+    		} else if (result.startsWith("T")) {
+    			//あいこ？
+    		}
+    	}
+    };
+    
     @Override
     protected void onStop() {
         sensorManager.unregisterListener(this);
@@ -89,7 +104,7 @@ public class GameView extends Activity implements SensorListener{
             currentAccelerationValues[1] = values[1] - currentOrientationValues[1];
             currentAccelerationValues[2] = values[2] - currentOrientationValues[2];
             
-            String hand = JankenApi.JANKEN_CHOKI;
+            String hand = null;
             
             if(Math.abs(currentAccelerationValues[0]) > 10.0f) {
             	//チョキ
@@ -116,9 +131,11 @@ public class GameView extends Activity implements SensorListener{
                 //orientation.setText("");
             	//toss.setImageResource(R.drawable.gu);
             }
-            //じゃんけん開始
-            JankenApi.attack(setting.get("userid"), hand);
-            new Thread(new ResultRequest(this, mJankenResultHandler)).start();
+            if (hand!=null) {
+            	//じゃんけん開始
+	            JankenApi.attack(setting.get("userid"), hand);
+	            new Thread(new ResultRequest(this, mJankenResultHandler)).start();
+            }
             break;
         case SensorManager.SENSOR_ORIENTATION:
             //orientationValue.setText(convertFloatsToString(values));
@@ -137,19 +154,4 @@ public class GameView extends Activity implements SensorListener{
 		// TODO Auto-generated method stub
 		
 	}
-
-    Handler mJankenResultHandler = new Handler() {
-    	public void handleMessage(Message msg) {
-    		String result = (String)msg.obj;
-    		Log.e("janken", "result="+result);
-    		if (result.startsWith("W")) {
-    			//勝った
-    		} else if (result.startsWith("F")) {
-    			//負けた？
-    		} else if (result.startsWith("T")) {
-    			//あいこ？
-    		}
-    	}
-    };
-
 }
