@@ -202,15 +202,22 @@ public class ARemoteGUI extends javax.swing.JFrame {
 	{
 		if (s != null)
 		{
-			if (s.endsWith("\n"))
+			if (connectionLog == null)
 			{
-				connectionLog.append(s);
+				System.out.println(s);
 			}
 			else
 			{
-				connectionLog.append(s+"\n");
+				if (s.endsWith("\n"))
+				{
+					connectionLog.append(s);
+				}
+				else
+				{
+					connectionLog.append(s+"\n");
+				}
+				connectionLog.setCaretPosition(connectionLog.getText().length());
 			}
-			connectionLog.setCaretPosition(connectionLog.getText().length());
 		}
 	}
 }
