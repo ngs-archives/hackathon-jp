@@ -43,6 +43,7 @@ public class GameView extends Activity implements SensorListener{
 		                SensorManager.SENSOR_ORIENTATION,
 		                SensorManager.SENSOR_DELAY_FASTEST);
 		        orientationValue.setText("端末を振ってください");
+		        //orientationValue.setTextSize(15.0f);
 		        startButton.setVisibility(View.GONE);
 		        cancelButton.setVisibility(ViewGroup.VISIBLE);
 			}        	
@@ -88,14 +89,17 @@ public class GameView extends Activity implements SensorListener{
                 toss.setImageResource(R.drawable.ch);
                 sensorManager.unregisterListener(this);
                 orientationValue.setText("ゲーム終了。しばらくお待ちください");
+                cancelButton.setVisibility(View.GONE);
             } else if(Math.abs(currentAccelerationValues[1]) > 10.0f) {
                 toss.setImageResource(R.drawable.gu);
                 sensorManager.unregisterListener(this);
                 orientationValue.setText("ゲーム終了。しばらくお待ちください");
+                cancelButton.setVisibility(View.GONE);
             } else if(Math.abs(currentAccelerationValues[2]) > 10.0f) {
                 toss.setImageResource(R.drawable.pa);
                 sensorManager.unregisterListener(this);
                 orientationValue.setText("ゲーム終了。しばらくお待ちください");
+                cancelButton.setVisibility(View.GONE);
             } else {
                 //orientation.setText("");
             	//toss.setImageResource(R.drawable.gu);

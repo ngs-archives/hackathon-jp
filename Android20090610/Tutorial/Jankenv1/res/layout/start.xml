@@ -9,25 +9,24 @@
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-
-        <TableRow>
-            <TextView
-              android:text=" "
-              android:padding="3dip" />
+        <TableRow android:gravity="center">
         <TextView android:text="開始ボタンクリックでゲーム開始" 
         android:id="@+id/TextView01" 
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content">
         </TextView>
-</TableRow>
-    </TableLayout>
-    <ImageView android:id="@+id/ImageView01" 
-    android:layout_width="200px" 
-    android:layout_height="200px" 
-    android:scaleType="fitXY"
-    android:src="@drawable/android">
-    </ImageView>
-    <Button android:text="開始" 
+		</TableRow>
+		
+		<TableRow android:gravity="center">
+		<ImageView android:id="@+id/ImageView01" 
+    	android:layout_width="200px" 
+    	android:layout_height="200px" 
+    	android:scaleType="fitXY"
+    	android:src="@drawable/android">
+    	</ImageView>
+		</TableRow>
+    	<TableRow android:gravity="center">
+		    <Button android:text="開始" 
     android:id="@+id/Button01" 
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content">
@@ -49,6 +48,8 @@
       android:layout_centerHorizontal="true"
       android:layout_centerVertical="true"
       android:textSize="140.0sp"/>
-
+	</TableRow>
+    
+    </TableLayout>
 </LinearLayout>
 
