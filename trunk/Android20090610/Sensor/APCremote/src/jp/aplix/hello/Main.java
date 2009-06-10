@@ -1,13 +1,17 @@
 package jp.aplix.hello;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnClickListener;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,7 +22,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class Main extends Activity implements android.content.DialogInterface.OnClickListener, android.view.View.OnClickListener {
+public class Main extends Activity 
+	implements android.content.DialogInterface.OnClickListener, 
+				android.view.View.OnClickListener,
+				SensorEventListener{
 	UDPClient connection;
 	String hostname = null;
 	int port = -1;
@@ -33,14 +40,44 @@ public class Main extends Activity implements android.content.DialogInterface.On
 	private final int MENU_CONNECT = MENU_SETTINGS +1;
 	private final int MENU_DISCONNECT = MENU_SETTINGS +2;
 	
+	private SensorManager sensorManager;
+	private boolean registeredSensor;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        
+        this.sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        this.registeredSensor = false;
     }
 
     @Override
+	protected void onPause() {
+		if( this.registeredSensor){
+			this.sensorManager.unregisterListener(this);
+			this.registeredSensor = false;
+		}
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+        List<Sensor> sensors = this.sensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
+        
+        if (sensors.size() > 0) {
+            Sensor sensor = sensors.get(0);
+            this.registeredSensor = this.sensorManager.registerListener(this,
+                sensor,
+                SensorManager.SENSOR_DELAY_FASTEST);
+        }
+	}
+
+	@Override
 	protected void onStart() {
     	super.onStart();
     	
@@ -363,6 +400,32 @@ public class Main extends Activity implements android.content.DialogInterface.On
 			{
 				tv.append(text+"\n");
 			}
+		}
+	}
+
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onSensorChanged(SensorEvent event) {
+		
+		
+		if(!connected){
+			return ;
+		}
+		
+		switch(event.sensor.getType()){
+			case Sensor.TYPE_ACCELEROMETER:
+				
+				break;
+				
+			case Sensor.TYPE_ORIENTATION:
+//				Log.v("ORIENTATION",
+//		                String.valueOf(event.values[0]) + ", " +
+//		                String.valueOf(event.values[1]) + ", " +
+//		                String.valueOf(event.values[2]));
+				break;
 		}
 	}
 }
