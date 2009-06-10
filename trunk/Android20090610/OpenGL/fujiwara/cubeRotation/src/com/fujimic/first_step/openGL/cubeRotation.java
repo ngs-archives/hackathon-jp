@@ -2,7 +2,13 @@ package com.fujimic.first_step.openGL;
 
 
 
+import java.util.List;
+
 import android.app.Activity;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,11 +16,14 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 
 
-public class cubeRotation extends Activity {
+public class cubeRotation extends Activity implements SensorEventListener{
     /** Called when the activity is first created. */
 	
 	
 	GLCubeView mView;
+    private Sensor orientationSensor;
+	private Sensor accelerometerSensor;
+	private SensorManager sm;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,9 +33,25 @@ public class cubeRotation extends Activity {
         setContentView(mView);
         
         mView.setOnTouchListener(sheetTouchListener);
+
     
     }
-    float pre_x;
+    @Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+    	sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+    	List<Sensor> sensorList;
+    	sensorList = sm.getSensorList(Sensor.TYPE_ORIENTATION);
+    	orientationSensor = sensorList.get(0);
+    	sensorList = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);
+    	accelerometerSensor = sensorList.get(0);
+
+        sm.registerListener(this, orientationSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sm.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+		super.onResume();
+	}
+	float pre_x;
     float pre_y;
     
     OnTouchListener sheetTouchListener = new OnTouchListener() {
@@ -60,6 +85,30 @@ public class cubeRotation extends Activity {
     	   return true;
    
 	    }
-    };     
+    };
+
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		// TODO Auto-generated method stub
+		if (event.sensor == orientationSensor) {
+			if(-60<event.values[1] && event.values[1]<0){
+    		
+				mView.xrot -= 3;
+    			//mView.yrot += (pre_x - x) / 2;
+			}else if(-180<event.values[1]&&event.values[1]<-115){
+    			mView.xrot += 3;
+    			//mView.yrot += (pre_x - x) / 2;
+			}else{
+				//なにもなし
+			}
+		}
+		
+	}     
 }
 
