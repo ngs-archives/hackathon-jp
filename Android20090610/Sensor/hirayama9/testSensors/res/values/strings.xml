@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">testSensors</string>
+	<string name="sensor_orientation">orientation</string>
+	<string name="sensor_orientation_raw">orientation_raw</string>
+	<string name="sensor_accelerometer">accelerometer</string>
+	<string name="sensor_temperature">temperature</string>
+	<string name="sensor_magnetic_field">magnetic field</string>
+	<string name="sensor_light">light</string>
+	<string name="sensor_proximity">proximity</string>
+	<string name="sensor_tricorder">tricoder</string>
+</resources>
