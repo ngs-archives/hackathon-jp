@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -54,6 +55,9 @@ public class Main extends Activity
         this.sensorData = new SensorData();
         this.sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         this.registeredSensor = false;
+        getWindow().addFlags(
+        		WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        		);
     }
 
     @Override
