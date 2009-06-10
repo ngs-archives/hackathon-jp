@@ -4,21 +4,21 @@
       android:versionCode="1"
       android:versionName="1.0">
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
-        <activity android:name=".WiFiMapActivity"
+        <activity android:name=".WiFisetting"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".WiFiMapActivity"
+                  android:label="@string/app_name">
+        </activity>
         <activity android:name=".WiFiInputMapActivity"
                   android:label="@string/app_name">
         </activity>
-        <activity android:name=".WiFisetting"
-                  android:label="@string/app_name">
-        </activity>
     <service android:name="WiFiLocatorService" android:label="@string/service_name" android:enabled="true" android:permission="android.permission.ACCESS_FINE_LOCATION"></service>
-	<uses-library android:name="com.google.android.maps"></uses-library>
+<uses-library android:name="com.google.android.maps"></uses-library>
 </application>
     <uses-sdk android:minSdkVersion="3" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
@@ -26,4 +26,4 @@
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
 <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-</manifest> 
+</manifest>
