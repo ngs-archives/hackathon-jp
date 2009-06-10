@@ -48,8 +48,9 @@ public class PanMesh {
 		return ret;
 	}
 	public int getMeshSize(){
-		int ret = panPrigonList.size() * 4 * 3;
-		return ret;
+//		int ret = panPrigonList.size() * 4 * 3;
+		int ret = panPrigonList.size();
+					return ret;
 	}
 	
 }
