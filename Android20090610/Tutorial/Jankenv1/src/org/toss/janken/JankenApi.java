@@ -23,6 +23,7 @@ public class JankenApi {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Log.e("janken", "login result="+result);
 		return result;
 	}
 	static public String getMemberlist(String userid) {
@@ -36,6 +37,7 @@ public class JankenApi {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Log.e("janken", "getMemberlist result="+result);
 		return result;
 	}
 	
@@ -52,6 +54,7 @@ public class JankenApi {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Log.e("janken", "attack result="+result);
 		//TODO:結果が入っていれば成功したとみなしているがちゃんとチェック処理を入れないとあかん
 		return result==null?false:true;
 	}
@@ -68,6 +71,7 @@ public class JankenApi {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Log.e("janken", "getResult result="+result);
 		return result;
 	}
 
@@ -83,6 +87,7 @@ public class JankenApi {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Log.e("janken", "cancel result="+result);
 		return result;
 	}
 }
