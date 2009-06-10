@@ -51,10 +51,23 @@ GPSのデータと接続可能な無線LANのスポット名・電波強度を�
 <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 
 
-
-
+■ハッカソン仕様
+1.SQLiteにデータ保存
+2.locationchangedで取り直し。時間はなし
+3.サービスでバックグラウンド
+4.測定した場所と電波強度をマッピング
+5.
+6.同じAPの情報をまとめたい
 
 ■画面構成案
+
+設定　項目考える　メニューから
+マッピングする地図(起動画面)
+現在地に戻るボタン
+
+地図画面から、表示中のGeopointを渡してDBから周辺の値を戻してもらう
+ズームレベルで変わる。画面4すみのGPSとれればベスト
+
 
 
 ■参考URL
