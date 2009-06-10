@@ -1,4 +1,4 @@
-package org.toss.janken;
+ï»¿package org.toss.janken;
 
 import java.text.DecimalFormat;
 import android.app.Activity;
@@ -35,24 +35,22 @@ public class GameView extends Activity implements SensorListener{
         orientationValue=(TextView) findViewById(R.id.TextView01);
         toss = (ImageView)findViewById(R.id.ImageView01);
         startButton.setOnClickListener(new OnClickListener(){
-			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 		        sensorManager.registerListener(GameView.this, 
 		                SensorManager.SENSOR_ACCELEROMETER | 
 		                SensorManager.SENSOR_ORIENTATION,
 		                SensorManager.SENSOR_DELAY_FASTEST);
-		        orientationValue.setText("’[––‚ğU‚Á‚Ä‚­‚¾‚³‚¢");
+		        orientationValue.setText("ç«¯æœ«ã‚’æŒ¯ã£ã¦ãã ã•ã„");
 		        //orientationValue.setTextSize(15.0f);
 		        startButton.setVisibility(View.GONE);
 		        cancelButton.setVisibility(ViewGroup.VISIBLE);
 			}        	
         });
         cancelButton.setOnClickListener(new OnClickListener(){
-			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//ƒT[ƒo‘¤‚É
+				//ã‚µãƒ¼ãƒå´ã«
 				finish();
 			}        	
         });
@@ -88,23 +86,23 @@ public class GameView extends Activity implements SensorListener{
             if(Math.abs(currentAccelerationValues[0]) > 10.0f) {
                 toss.setImageResource(R.drawable.ch);
                 sensorManager.unregisterListener(this);
-                orientationValue.setText("ƒQ[ƒ€I—¹B‚µ‚Î‚ç‚­‚¨‘Ò‚¿‚­‚¾‚³‚¢");
+                orientationValue.setText("ã‚²ãƒ¼ãƒ çµ‚äº†ã€‚ã—ã°ã‚‰ããŠå¾…ã¡ãã ã•ã„");
                 cancelButton.setVisibility(View.GONE);
             } else if(Math.abs(currentAccelerationValues[1]) > 10.0f) {
                 toss.setImageResource(R.drawable.gu);
                 sensorManager.unregisterListener(this);
-                orientationValue.setText("ƒQ[ƒ€I—¹B‚µ‚Î‚ç‚­‚¨‘Ò‚¿‚­‚¾‚³‚¢");
+                orientationValue.setText("ã‚²ãƒ¼ãƒ çµ‚äº†ã€‚ã—ã°ã‚‰ããŠå¾…ã¡ãã ã•ã„");
                 cancelButton.setVisibility(View.GONE);
             } else if(Math.abs(currentAccelerationValues[2]) > 10.0f) {
                 toss.setImageResource(R.drawable.pa);
                 sensorManager.unregisterListener(this);
-                orientationValue.setText("ƒQ[ƒ€I—¹B‚µ‚Î‚ç‚­‚¨‘Ò‚¿‚­‚¾‚³‚¢");
+                orientationValue.setText("ã‚²ãƒ¼ãƒ çµ‚äº†ã€‚ã—ã°ã‚‰ããŠå¾…ã¡ãã ã•ã„");
                 cancelButton.setVisibility(View.GONE);
             } else {
                 //orientation.setText("");
             	//toss.setImageResource(R.drawable.gu);
             }
-            //‚±‚±‚ÉƒT[ƒo‚Æ‚Ì‚â‚è‚Æ‚è‚ğ‹LqH
+            //ã“ã“ã«ã‚µãƒ¼ãƒã¨ã®ã‚„ã‚Šã¨ã‚Šã‚’è¨˜è¿°ï¼Ÿ
             break;
         case SensorManager.SENSOR_ORIENTATION:
             //orientationValue.setText(convertFloatsToString(values));
@@ -119,7 +117,6 @@ public class GameView extends Activity implements SensorListener{
         String.valueOf(format.format(values[2]));
         
     }
-	@Override
 	public void onAccuracyChanged(int sensor, int accuracy) {
 		// TODO Auto-generated method stub
 		
