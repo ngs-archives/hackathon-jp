@@ -20,9 +20,11 @@
 #announcementRelease {
 	display: none;
 	font-weight: bold;
-	font-size: 5em;
+	font-size: 4em;
 	color: red;
 	height: 2em;
+	width: 400px;
+	margin-left: 400px;
 }
 
 .main{

@@ -5,7 +5,7 @@ function onOwnerIsNotViewer(param) {
 
 	$("#crstl").one("click", function() {
 		$("#crstl").hide();
-		$("#announcementRelease").html(data);
+		$("#announcementRelease").html(data).show();
 		$("#announcementArea").fadeIn(5000);
 		gadgets.window.adjustHeight();
 	});
