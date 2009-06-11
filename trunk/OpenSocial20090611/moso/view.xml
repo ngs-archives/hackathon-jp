@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="test" author_email="yamashita@kanshin.com">
+    <Require feature="opensocial-0.8" />
+	<Require feature="dynamic-height" />
+  </ModulePrefs>
+  <Content type="html" view="canvas"><![CDATA[
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("prototype", "1.6.0.2");
+	</script>
+	
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAxAzLoA3KlFmedJ39SzP03BQJ3UZMKiy67bDoh-uCNSom3bXGJBSflYqvQ-wRWN4s90oAcb1Vo5BY-g" type="text/javascript"></script>
+	
+	<div id="viewMap" style="width:500px; height:400px"></div>
+	
+	<script type="text/javascript">
+	var view = {
+		map : {},
+	
+		init : function() {
+			view.buildMap();
+			view.request(view.buildMarkers);
+		
+			gadgets.window.adjustHeight(700);
+		},
+		
+		buildMap : function() {
+			view.map = new GMap2($('viewMap'));
+			var point = new GLatLng(36.03, 139.15);
+			  
+			view.map.addControl(new GLargeMapControl());	
+			view.map.setCenter(point, 1);
+		},
+	
+		buildMarkers : function(result) {
+console.log(result);
+			result.each(function(res) {
+				var location = res.location;
+			
+				var point = new GLatLng(location.setX, location.setY);
+				var marker = new GMarker(point);
+				
+				var windowHtml = '<h2>' + location.comment + '</h2>';
+				windowHtml += '<p><img src="' + location.setPhoto + '" /></p>';
+console.log(windowHtml);
+
+				GEvent.addListener(marker, 'click', function() {
+					marker.openInfoWindowHtml(windowHtml);
+				});		
+
+				view.map.addOverlay(marker);
+			});
+		
+		},
+	
+		request : function(callback) {
+			var params = {};
+			var url = 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations';
+			
+			params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+			params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+			params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+			params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+			
+			gadgets.io.makeRequest(url, function(response) {
+				var transport_errors = response.errors;
+				if (transport_errors.length) {
+					alert('Transport Error' + Object.toJSON(transport_errors));
+					return;
+				}
+				
+				var result = response.data;
+				
+				if (result.errors) {
+					console.log('Application Error');
+					console.log(result.errors);
+				}
+				
+				callback(result);
+			}, params);
+		}
+	};
+	
+	
+	gadgets.util.registerOnLoadHandler(view.init);
+
+	</script>
+
+
+  ]]></Content>
+</Module>
