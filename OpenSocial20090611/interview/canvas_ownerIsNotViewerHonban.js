@@ -3,9 +3,11 @@ function onOwnerIsNotViewer(param) {
 	var viewer = param.viewer;
 	var data = param.data.data;
 
-	setTimeout(function() {
-		$("#announcementRelease").html(data).fadeIn(5000);
-	}, 3000);
-
+	$("#crstl").one("click", function() {
+		$("#crstl").hide();
+		$("#announcementRelease").html(data);
+		$("#announcementArea").fadeIn(5000);
+		gadgets.window.adjustHeight();
+	});
 	gadgets.window.adjustHeight();
 }

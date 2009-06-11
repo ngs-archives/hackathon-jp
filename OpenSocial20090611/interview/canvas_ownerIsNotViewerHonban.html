@@ -1,18 +1,20 @@
 <div class="app_title">
-	<image src="/interviews/image/title.jpg" border="0" />
+	<img src="/interviews/image/title.jpg" border="0" />
 </div>
 <div class="main" align="center">
+	<img id="crstl" src="/interviews/image/crstl.jpg" alt="クリステル">
+	<div id="announcementArea">
 	<div id="announcement">「<%= context.data.title %>」</div>
 
-	<%
-		setTimeout(function() {
-			onOwnerIsNotViewer(context);
-		}, 100);
-	%>
-
-	<image src="/interviews/image/main.jpg" border="0" />
+	<img src="/interviews/image/main.jpg" border="0" />
 	<br>
 	<div id="fukidashi">
 		<div id="announcementRelease"></div>
 	</div>
+	</div>
 </div>
+<%
+	setTimeout(function() {
+		onOwnerIsNotViewer(context);
+	}, 100);
+%>
