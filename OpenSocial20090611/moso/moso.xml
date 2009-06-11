@@ -49,7 +49,7 @@ var userID=();
     		}
   	});
 
-	//ajax通信をおこなう
+	//外部サーバーへajax通信をおこなう
 	$.ajax({
 		type:'post'
 		url: '',
