@@ -8,14 +8,14 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.util.Log;
 
 public class PanMesh {
-	List<PanPrigon> panPrigonList = new ArrayList<PanPrigon>();
+	protected List<PanPrigon> panPrigonList = new ArrayList<PanPrigon>();
 	List<PanPrigon> panMaterialList = new ArrayList<PanPrigon>();
 	List<float[]> panTopList = new ArrayList<float[]>();
 	List<Float> panMeshArrayTmp = new ArrayList<Float>();
-	private int[] vertexArray;
+	protected int[] vertexArray;
+	protected FloatBuffer MeshBuff;
 	
 	
 	public float[] newTop() {
@@ -67,19 +67,21 @@ public class PanMesh {
             
         	vertexArray[i] = panPrigonList.get(i).vertexNum;
         	panPrigonList.get(i).getVector(ret,i*12);
+        	/*
         	for(int k=0; k<4; k++){
             	int index =(i*12+k*3);
             	if(ret[index]==0&& ret[index+1]==0 &&ret[index+2]==0){
             		Log.v("test vec new Debug","i="+i+ "k="+k+"VatexNum"+vertexArray[i]+" x="+ ret[index]+ " y="+ ret[index+1]+ " z="+ ret[index+2]);
             	}
         	}
+        	*/
             
         }
 
 		return ret;
 	}
 	
-	FloatBuffer MeshBuff;
+
 	public void createMeshBuff(){
 		MeshBuff = makeFloatBuffer(createMesh());
 	}
@@ -123,5 +125,4 @@ public class PanMesh {
 		int ret = panPrigonList.size();
 		return ret;
 	}
-	
 }

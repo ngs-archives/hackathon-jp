@@ -75,8 +75,14 @@ public class DirectXMeshLoder {
 	 * @return PanMesh
 	 */
 	public static PanMesh XMeshLoader (Reader input){
-		XReader = new BufferedReader(input);
 		PanMesh panMesh = new PanMesh();
+		XMeshLoader (input, panMesh);
+		return panMesh;
+		
+	}
+
+	public static PanMesh XMeshLoader (Reader input,PanMesh panMesh){
+		XReader = new BufferedReader(input);
 		try {
 			topMesh.addTmplateList(templateList);
 			topMesh.xType.typeNo = 0;
@@ -95,8 +101,6 @@ public class DirectXMeshLoder {
 		return panMesh;
 		
 	}
-
-	
 	private static void paeseSection(PanMesh panMesh) throws IOException {
 		String tmp;
 		while(XReader.ready()){
