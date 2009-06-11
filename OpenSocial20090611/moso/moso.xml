@@ -21,7 +21,9 @@
 <![CDATA[
 <script type="text/javascript">
 
+
 //外部ホストへフォームデータを送信する
+var userID=();
 /*$(function(){
 	$("#sendBtn").click(function(){
 	//フォーム各要素のデータを変数に格納
@@ -31,11 +33,28 @@
 	var comment=$("#comment").val();
 	var kinds=$("#kinds").val();
 
+	//会員IDをリクエストする
+	$.ajax({
+    	url: '/people/@owner/@self',
+    	data: {},
+    	dataType: 'data',
+    	success: function(people) {
+      		var person = people[0];
+      		console.info(person.id);
+      		console.info(person.nickname);
+		userID =person.getID();
+    		},
+    		error: function(xhr, status, e) {
+      		console.info(xhr, status, e);
+    		}
+  	});
+
 	//ajax通信をおこなう
 	$.ajax({
 		type:'post'
 		url: '',
 		data: {
+			"id":userID,
 			"setX":setX,
 			"setY":setY,
 			"setPhoto":setPhoto,
