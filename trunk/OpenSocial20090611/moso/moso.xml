@@ -78,8 +78,8 @@ $(function(){
 
 	//外部サーバーへajax通信をおこなう
 	$.ajax({
-		type:'post'
-		url: '',
+		type:'post',
+		url: 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations',
 		data: {
 			"id":userID,
 			"setX":setX,
