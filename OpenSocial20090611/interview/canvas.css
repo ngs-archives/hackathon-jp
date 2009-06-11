@@ -24,3 +24,18 @@
 	color: red;
 	height: 2em;
 }
+
+.main{
+	text-align:center;
+}
+.app_title{
+	text-align:center;
+}
+.hina{
+	text-align:center;
+}
+.interview_title{
+	border: #999999 solid 4px;
+	height: 80px;
+	width: 600px;
+}
