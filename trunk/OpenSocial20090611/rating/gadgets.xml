@@ -6,26 +6,28 @@
   <Content type="html">
     <![CDATA[
 
-      <h1 id="title">Item Title</span></h1>
+    <h1 id="title">Item Title</h1>
+
+    <script type="text/javascript" src="http://rating.local/ratings.js"></script>
+    <script type="text/javascript" src="http://rating.local/canvas.js"></script>
+    <script type="text/javascript">
+      gadgets.util.registerOnLoadHandler(init);
+    </script>
+
       <p>Average rating: <span id="average_rating">?</span></p>
       <p>Total ratings: <span id="total_ratings">?</span></p>
-      <form>
+      <form id="rating_form">
       Your rating:
-      <select id='main'>
+      <select id='rating'>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3" selected>3</option>
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
-      <input type="submit" value="Rate it!"/>
+      <input type="button" onclick="rate();" value="Rate it!"/>
       </form>
 
-      <script type="text/javascript" src="http://rating.local/ratings.js"></script>
-      <script type="text/javascript" src="http://rating.local/canvas.js"></script>
-      <script type="text/javascript">
-        gadgets.util.registerOnLoadHandler(init);
-      </script>
 
     ]]>
   </Content>
