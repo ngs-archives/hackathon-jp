@@ -11,11 +11,18 @@
     android:layout_height="wrap_content" 
     />
 
-<TextView  
-	android:id="@+id/longi"
+<Button  
+	android:id="@+id/post"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
+    android:text="@string/str_btn"
     />
+
+<WebView
+	android:id="@+id/webview"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+/>
 
 <com.google.android.maps.MapView
 	android:id="@+id/mapview"

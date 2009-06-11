@@ -1,11 +1,17 @@
 package gps.sample;
 
+import java.util.List;
+
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
@@ -14,17 +20,20 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
 public class GPSSample extends MapActivity implements LocationListener {
+	private final String URI = "http://hidecheck.appspot.com/guestbook";
 	private final String strLat = "緯度 = ";
 	private final String strLongi = "経度= ";
+	
 	// 地図の初期値
 	static final int INITIAL_ZOOM_LEVE = 16;
 	
-	MapController mapController;
-	LocationManager locationMrg;
-    MapView mapView;
+	private WebView webview;
+	private MapController mapController;
+	private LocationManager locationMrg;
+	private MapView mapView;
 
-    TextView textLat;
-    TextView textLongi;
+	private TextView textLat;
+	private Button buttonPost;
     
     
 	/** Called when the activity is first created. */
@@ -32,11 +41,30 @@ public class GPSSample extends MapActivity implements LocationListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
         
         //テキスト
         this.textLat = (TextView)findViewById(R.id.lat);
-        this.textLongi = (TextView)findViewById(R.id.longi);
         
+        //ブラウザ
+        this.webview = (WebView)findViewById(R.id.webview);
+        this.buttonPost = (Button)findViewById(R.id.post);
+        this.buttonPost.setOnClickListener(new OnClickListener() {
+            
+			public void onClick(View v) {
+            	GeoPoint p = mapView.getMapCenter();
+            	showPoint();
+            	StringBuilder sb = new StringBuilder();
+            	sb.append(URI);
+            	sb.append("?x=");
+            	sb.append(((double)p.getLatitudeE6()) / 1E6);
+            	sb.append("&y=");
+            	sb.append(((double)p.getLongitudeE6()) / 1E6);
+            	webview.loadUrl(sb.toString());
+			}
+        });
+
+        //地図
         this.mapView = (MapView) findViewById(R.id.mapview);
         this.mapView.setBuiltInZoomControls(true);
         
@@ -57,8 +85,27 @@ public class GPSSample extends MapActivity implements LocationListener {
     	sb.append(strLongi);
     	sb.append(((double)p.getLongitudeE6()) / 1E6);
     	this.textLat.setText(sb.toString());
-    	
     }
+    
+    
+	private void mapCentering(){
+		Location loc = getPosition();
+		int lat = (int)(35.699286 * 1000000);
+		int longi = (int)(139.772959 * 1000000);
+		if(loc != null){
+			lat = (int)(loc.getLatitude() * 1000000);
+			longi = (int)(loc.getLatitude() * 1000000);
+			Log.d("not get position", "not get position");
+		}
+		GeoPoint point = new GeoPoint(lat, longi);
+		mapView.getController().setCenter(point);
+	}
+	
+	private Location getPosition(){
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Location loc =locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		return loc;
+	}
     
 	@Override
 	protected boolean isRouteDisplayed() {
