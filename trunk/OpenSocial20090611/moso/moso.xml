@@ -93,27 +93,27 @@ $(function(){
 	var kinds = $("#kinds").val();
 
 	//会員IDをリクエストする
-	$.ajax({
+/*	$.ajax({
     	url: '/people/@owner/@self',
     	data: {},
     	dataType: 'data',
     	success: function(people) {
       		var person = people[0];
 //      		console.info(person.id);
- //     		console.info(person.nickname);
+//     		console.info(person.nickname);
 			userID =person.getId();
     		},
     		error: function(xhr, status, e) {
   //    		console.info(xhr, status, e);
     		}
-  	});
+  	});*/
 
 	//外部サーバーへajax通信をおこなう
 	$.ajax({
 		type:'post',
 		url: 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations',
 		data: {
-			"id":userID,
+	//		"id":userID,
 			"setX":setX,
 			"setY":setY,
 			"setPhoto":setPhoto,
@@ -273,20 +273,21 @@ var moso = {
 		view.init();
 		
 		var tab1 = {
-			contentContainer: document.getElementById("regi"),
-			callback: function(){
-				albumView.requestAlbums();
-			}
-		}
-		tabs.addTab("表示",tab1);
-		
-		var tab2 = {
 			contentContainer: document.getElementById("viewer"),
 			callback: function(){
 				view.init();
 			}
 		}
+		tabs.addTab("表示",tab1);
+		
+		var tab2 = {
+			contentContainer: document.getElementById("regi"),
+			callback: function(){
+				albumView.requestAlbums();
+			}
+		}
 		tabs.addTab("登録",tab2);
+		
 		
 		gadgets.window.adjustHeight(750);
 	}
