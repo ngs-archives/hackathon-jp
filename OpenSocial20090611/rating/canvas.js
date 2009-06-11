@@ -9,7 +9,7 @@ function init() {
 
 function get_movie(id) {
   var url = WIDGET.CONFIG["ratings_url"] + "movie_" + id + ".json";
-  ratings_get_movie(url, id, on_movie);
+  ratings_get_item(url, id, on_movie);
 }
 
 function on_movie(data) {

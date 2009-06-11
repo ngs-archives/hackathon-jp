@@ -8,7 +8,10 @@ RATINGS.CONFIG = {
 
 };
 
-function ratings_get_movie(url, id, callback) {
+/*
+ gets json for one item 
+*/
+function ratings_get_item(url, id, callback) {
   var params = {};
   params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
   gadgets.io.makeRequest(url, callback, params);  
