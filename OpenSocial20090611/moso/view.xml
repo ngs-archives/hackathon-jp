@@ -5,12 +5,8 @@
 	<Require feature="dynamic-height" />
   </ModulePrefs>
   <Content type="html" view="canvas"><![CDATA[
-	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-	<script type="text/javascript">
-		google.load("prototype", "1.6.0.2");
-	</script>
-	
 	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAxAzLoA3KlFmedJ39SzP03BQJ3UZMKiy67bDoh-uCNSom3bXGJBSflYqvQ-wRWN4s90oAcb1Vo5BY-g" type="text/javascript"></script>
+	<script type="text/javascript" src="http://opensocial-jquery.googlecode.com/svn/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
 	
 	<div id="viewMap" style="width:500px; height:400px"></div>
 	
@@ -26,7 +22,7 @@
 		},
 		
 		buildMap : function() {
-			view.map = new GMap2($('viewMap'));
+			view.map = new GMap2(document.getElementById("viewMap"));
 			var point = new GLatLng(36.03, 139.15);
 			  
 			view.map.addControl(new GLargeMapControl());	
@@ -34,16 +30,14 @@
 		},
 	
 		buildMarkers : function(result) {
-console.log(result);
-			result.each(function(res) {
-				var location = res.location;
+			$.each(result, function(key, value) {
+				var location = value.location;
 			
 				var point = new GLatLng(location.setX, location.setY);
 				var marker = new GMarker(point);
 				
 				var windowHtml = '<h2>' + location.comment + '</h2>';
 				windowHtml += '<p><img src="' + location.setPhoto + '" /></p>';
-console.log(windowHtml);
 
 				GEvent.addListener(marker, 'click', function() {
 					marker.openInfoWindowHtml(windowHtml);
