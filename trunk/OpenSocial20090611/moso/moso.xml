@@ -22,9 +22,8 @@
 <script type="text/javascript">
 
 //外部ホストへフォームデータを送信する
-/*function search(datas){
-
-	//フォーム各要素のデータをオブジェクトに格納
+/*$("#sendBtn").submit(function(){
+	//フォーム各要素のデータを変数に格納
 	var setX=$("#setX").val();
 	var setY=$("#setY").val();
 	var setPhoto=$("#setPhoto").val();
@@ -55,7 +54,8 @@
 		console.info(xhr, status, e);
 		}
 	});
-}*/
+}
+})*/
 
 var map = {
 	
