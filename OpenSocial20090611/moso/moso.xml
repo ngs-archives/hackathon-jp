@@ -38,6 +38,7 @@ ul.photos li img:hover	{ border:1px solid #E30; }
 
 #sendArea				{ padding:5px; margin-top:10px; text-align:center; padding:5px; background:#EEE; }
 
+.mtb0					{ margin:0; padding:0; }
 .txt12					{ font-size:12px; }
 .clears:after			{ content:"."; display:block; height:0; clear:both; visibility:hidden; }
 .clears					{ display:inline-table; zoom:100%; }
@@ -88,6 +89,7 @@ $(function(){
 	//フォーム各要素のデータを変数に格納
 	var setX = $("#setX").val();
 	var setY = $("#setY").val();
+	alert(setX);
 	var setPhoto = $("#setPhoto").val();
 	var comment = $("#comment").val();
 	var kinds = $("#kinds").val();
@@ -110,26 +112,26 @@ $(function(){
 
 	//外部サーバーへajax通信をおこなう
 	$.ajax({
-		type:'post',
+		type: 'post',
 		url: 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations',
 		data: {
 	//		"id":userID,
-			"setX":setX,
-			"setY":setY,
-			"setPhoto":setPhoto,
-			"comment":comment,
-			"kinds":kinds
+			"setX" : setX,
+			"setY" : setY,
+			"setPhoto" : setPhoto,
+			"comment" : comment,
+			"kinds" : kinds
 		},
 		dataType: 'json',
-		cache: true,
+		cache: false,
 		
 		//データ取得に成功した場合の処理を定義
-		success: function(data, status) {
+		success: function(data, status){
 	//	console.log(data, status);
-			$("#viewer").html("登録完了しました！");
+			$("#regi").html("登録完了しました！");
 		},
-		error: function(xhr, status, e) {
-	//	console.info(xhr, status, e);
+		error: function(xhr, status, e){
+			console.info(xhr, status, e);
 		}
 	});
 })
@@ -153,8 +155,8 @@ var map = {
 			var lng = pnt.lng();
 			var lat = pnt.lat();
 			
-			document.getElementById("map").value = lat;
-			document.getElementById("map").value = lng;
+			document.getElementById("setX").value = lat;
+			document.getElementById("setY").value = lng;
 		});
 	
 	}
@@ -178,8 +180,8 @@ var view = {
 				var location = value.location;
 				var point = new GLatLng(location.setX, location.setY);
 				var marker = new GMarker(point);
-				var windowHtml = '<h2>' + location.comment + '</h2>';
-				windowHtml += '<p><img src="' + location.setPhoto + '" /></p>';
+				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
+				windowHtml += '<p class="txt12">' + location.comment + '</p>';
 
 				GEvent.addListener(marker, 'click', function() {
 					marker.openInfoWindowHtml(windowHtml);
