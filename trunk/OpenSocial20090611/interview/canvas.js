@@ -1,4 +1,3 @@
-
 gadgets.util.registerOnLoadHandler(function() {
     var req = opensocial.newDataRequest();
     
@@ -10,16 +9,19 @@ gadgets.util.registerOnLoadHandler(function() {
         // check viewer is owner or friend or ...
         var owner = data.get('owner').getData();
         var viewer = data.get('viewer').getData();
-        
+		var param = {
+			owner: owner,
+			viewer: viewer
+		};
         if (owner.getId() == viewer.getId()) {
             ajp.load("/interviews/canvas_ownerIsViewer.html");
             var processor = ajp.getProcessor();
-            $("#container").html(processor());
+            $("#container").html(processor(param));
         }
         else {
             ajp.load("/interviews/canvas_ownerIsNotViewer.html");
             var processor = ajp.getProcessor();
-            $("#container").html(processor());
+            $("#container").html(processor(param));
         }
         gadgets.window.adjustHeight();
     });
