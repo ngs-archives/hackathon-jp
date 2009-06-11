@@ -12,6 +12,7 @@
 
 <Content type="html" view="home,profile,canvas">
 <![CDATA[
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAxAzLoA3KlFmedJ39SzP03BQJ3UZMKiy67bDoh-uCNSom3bXGJBSflYqvQ-wRWN4s90oAcb1Vo5BY-g" type="text/javascript"></script>
 <script type="text/javascript" src="http://mizoochi.com/apps/common/opensocial-jquery.min.js"></script>
 ]]>
 </Content>
@@ -56,63 +57,117 @@ function search(datas){
 	});
 }
 
-	//
-/*$.ajax({
-		type:'post'
-		url: '/album/@me/@self',
-		data: {},
-		dataType: 'data'})
-	.next(function(albums){
-		alert(albums);
-		//return [data, people[0].addresses.unstructured_address];
-	});*/
-
-
-function requestAlbums() {
-	var idspec_params = {};
-	idspec_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-	var idspec = opensocial.newIdSpec(idspec_params);
-	var params = {};
-	req = new opensocial.newDataRequest();
-	req.add(req.newFetchAlbumsRequest(idspec, params), 'albums');
-	req.send(onLoadAlbums);
-}
-
-function onLoadAlbums(dataResponse){
-	var albums = dataResponse.get('albums').getData();
-	albums.each(function(album){
-		listMediaItems(album.getField(opensocial.Album.Field.ID));
-	});
-}
-
-function listMediaItems(albumId) {
-	var idspec_params = {};
-	idspec_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-	var idspec = opensocial.newIdSpec(idspec_params);
-	var req = new opensocial.newDataRequest();
-	var params = {};
-	req.add(req.newFetchMediaItemsRequest(idspec, albumId, params), 'mediaitems');
-	req.send(onLoadMediaItems);
-}
-
-function onLoadMediaItems(dataResponse) {
-	var data = 'List of MediaItems: <br><ul>';
-	var mediaitems = dataResponse.get('mediaitems').getData();
+var map = {
 	
-	mediaitems.each(function(mediaitem) {
-		data += '<li>';
-		data += '<img src="' + mediaitem.getField(opensocial.MediaItem.Field.THUMBNAIL_URL) + '" /><br />'+mediaitem.getField(opensocial.MediaItem.Field.TITLE)+'</li>';
-	});
-	
-	data += '</ul>';
-	$("#photos").html(data);
-};
+	init : function(){
+		var map = new GMap2($('#map'));
+		var point = new GLatLng(36.03, 139.15);
+		
+		map.addControl(new GLargeMapControl());	
+		map.setCenter(point, 1);
+		
+		var marker = new GMarker(point, {draggable: true});
+		map.addOverlay(marker);
+		
+		GEvent.addListener(marker, 'mouseout', function() {
+			var pnt = marker.getPoint();
+			var lng = pnt.lng();
+			var lat = pnt.lat();
+			
+			$('#setX').value = lat;
+			$('#setY').value = lng;
+		});
+	}
+}
 
-requestAlbums();
+var albumView = {
+
+	requestAlbums : function() {
+		var idspec_params = {};
+		idspec_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+		var idspec = opensocial.newIdSpec(idspec_params);
+		var params = {};
+		req = new opensocial.newDataRequest();
+		req.add(req.newFetchAlbumsRequest(idspec, params), 'albums');
+		req.send(albumView.onLoadAlbums);
+	},
+	onLoadAlbums : function(dataResponse){
+		var albums = dataResponse.get('albums').getData();
+		albums.each(function(album){
+			albumView.listMediaItems(album.getField(opensocial.Album.Field.ID));
+		});
+	},
+	listMediaItems : function(albumId) {
+		var idspec_params = {};
+		idspec_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+		var idspec = opensocial.newIdSpec(idspec_params);
+		var req = new opensocial.newDataRequest();
+		var params = {};
+		req.add(req.newFetchMediaItemsRequest(idspec, albumId, params), 'mediaitems');
+		req.send(albumView.onLoadMediaItems);
+	},
+	onLoadMediaItems : function(dataResponse) {
+		var data = '<ul id="photos" class="clears">';
+		var mediaitems = dataResponse.get('mediaitems').getData();
+		
+		mediaitems.each(function(mediaitem) {
+			data += '<li>';
+			data += '<img class="photo" src="' + mediaitem.getField(opensocial.MediaItem.Field.THUMBNAIL_URL) + '" /><br />'+mediaitem.getField(opensocial.MediaItem.Field.TITLE)+'</li>';
+		});
+		
+		data += '</ul>';
+		$("#photos").html(data);
+		$(".photo").click(function(){
+			$(".photo").css({ "border":"1px solid #EEE" });
+			$(this).css({ "border":"1px solid #F00" });
+			var path = $(this).attr("src").split("?");
+			
+			$("#setPhoto").val(path[0]);
+		});
+	}
+}
+
+var moso = {
+	init : function(){
+		map.init();
+		albumView.requestAlbums();
+		
+		gadgets.util.registerOnLoadHandler(function(){
+			gadgets.window.adjustHeight(400);
+		});
+	}
+}
+
+gadgets.util.registerOnLoadHandler(moso.init);
 
 </script>
+<style type="text/css">
+#photoTitle,#mapTitle	{ font-size:14px; padding:3px; border-bottom:1px solid #CCC; }
+#map					{ width:400px; height:200px; }
+
+ul#photos				{ list-style:none; }
+ul#photos li			{ float:left; margin:0 5px 3px 0; font-size:12px; }
+ul#photos li img		{ background:#FFF; border:1px solid #EEE; cursor:pointer; padding:2px; }
+ul#photos li img:hover	{ border:1px solid #E30; }
+
+
+.clears:after			{ content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.clears					{ display:inline-table; zoom:100%; }
+/* macIE \*/
+* html .clears { height: 1%; }
+.clears { display: block; }
+/* macIE */
+
+</style>
 <div id="viewer" style="padding:10px;">
+	<h2 id="mapTitle">どこの写真？</h2>
+	<div id="map"></div>
+	<input type="hidden" id="setX" name="setX" value="" />
+	<input type="hidden" id="setY" name="setY" value="" />
+	
+	<h2 id="photoTitle">あなたの写真</h2>
 	<div id="photos"></div>
+	<input type="hidden" id="setPhoto" value="" />
 </div>
 ]]>
 </Content>
