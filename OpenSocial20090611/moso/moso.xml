@@ -51,7 +51,7 @@
 //外部ホストへフォームデータを送信する
 
 $(function(){
-	var userID=();
+	var userID={};
 	$("#sendBtn").click(function(){
 	//フォーム各要素のデータを変数に格納
 	var setX=$("#setX").val();
@@ -101,7 +101,6 @@ $(function(){
 		console.info(xhr, status, e);
 		}
 	});
-}
 })
 })
 
