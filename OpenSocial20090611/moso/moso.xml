@@ -128,12 +128,13 @@ $(function(){
 		//データ取得に成功した場合の処理を定義
 		success: function(data, status){
 	//	console.log(data, status);
-			$("#regi").html("登録完了しました！");
+			
 		},
 		error: function(xhr, status, e){
 			console.info(xhr, status, e);
 		}
 	});
+	$("#regi").html("登録完了しました！");
 })
 })
 
