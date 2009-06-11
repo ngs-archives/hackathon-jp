@@ -11,7 +11,7 @@
  	google.load("prototype", "1.6.0.2");
 </script>
 
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAxAzLoA3KlFmedJ39SzP03BQJ3UZMKiy67bDoh-uCNSom3bXGJBSflYqvQ-wRWN4s90oAcb1Vo5BY-g" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAxAzLoA3KlFmedJ39SzP03BQJ3UZMKiy67bDoh-uCNSom3bXGJBSflYqvQ-wRWN4s90oAcb1Vo5BY-g" type="text/javascript"></script>
 
 <div id="map" style="width:300px; height:300px"></div>
 
