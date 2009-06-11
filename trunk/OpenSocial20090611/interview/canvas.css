@@ -5,3 +5,15 @@
 	top: 0;
 	font-weight: bold;
 }
+
+#remainedTime {
+	height: 2em;
+	font-weight: bold;
+}
+#remainedTimeArea {
+	font-weight: bold;
+}
+#announcement {
+	font-weight: bold;
+	font-size: 1.5em;
+}

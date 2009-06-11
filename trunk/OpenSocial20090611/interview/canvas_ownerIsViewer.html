@@ -9,10 +9,6 @@
 	}
 </style>
 <div>
-	<%
-		onOwnerIsViewer(context);
-	%>
-
 	<fieldset>
 		<legend>発表内容を指定してください！</legend>
 		<div class="field">
@@ -24,8 +20,9 @@
 		<input type="text" id="hint">
 		</div>
 		<div class="field">
-		<label for="limit">公開日時:</label>
-		<input type="text" id="limit" value="2009/06/11 12:00">
+		<label for="limitDate">公開日時:</label>
+		<input type="text" id="limitDate">(例:2009/06/10)
+		<input type="text" id="limitTime">(例:12:00)
 		</div>
 		<div class="field">
 		<label for="data">公開内容:</label>
@@ -34,3 +31,6 @@
 		<button onclick="registerMyAnnounce()">登録！</button>
 	</fieldset>
 </div>
+<%
+	onOwnerIsViewer(context);
+%>
