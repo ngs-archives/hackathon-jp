@@ -24,7 +24,7 @@ gadgets.util.registerOnLoadHandler(function() {
 
 		console.dir(stored_data);
 
-		var user_obj = stored_data[owner.getId()]//;[key_name];//.replace("&#34;","\"");
+		var user_obj = stored_data[owner.getId()];
 		var obj = gadgets.json.parse(user_obj[key_name]);
 
 		var param = {
@@ -39,8 +39,9 @@ gadgets.util.registerOnLoadHandler(function() {
             $("#container").html(processor(param));
         }
 		else {
-			var now = new Date();
+			var now = new Date().getTime();
 			var limit = obj["limit"];
+			console.log("now:" + now + " limit:" + limit);
 			if(now < limit){
 				ajp.load("/interviews/canvas_ownerIsNotViewerYokoku.html");
 				var processor = ajp.getProcessor();
@@ -55,16 +56,6 @@ gadgets.util.registerOnLoadHandler(function() {
 		gadgets.window.adjustHeight();
 	});
 });
-function showMessage(msg){
-    var centerX = window.innerWidth / 2;
-    var message = $("#message");
-    message.html(msg).css({
-        left: centerX - message.width() / 2
-    }).show();
-    setTimeout(function(){
-        message.fadeOut();
-    }, 5000)
-}
 
 //
 ///**

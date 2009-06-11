@@ -1,11 +1,8 @@
 <div>
+	重大発表！<span id="announcement">「<%= context.data.title %>」</span>
+	<div id="remaindTimeArea">
+	発表まで残り:<span id="remainedTime"></span>
+	</div>
 	<%
-	console.dir(context);
-		onOwnerIsNotViewer(context);
-	%>
-	<%= owner_name %>予告編！
+	onOwnerIsNotViewer_yokoku(context); %>
 </div>
-
-<%= title%>
-<%= hint%>
-<%= limit%>
