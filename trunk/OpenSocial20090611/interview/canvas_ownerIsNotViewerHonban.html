@@ -1,9 +1,18 @@
-<div>
-	<div id="announcementRelease"></div>
+<div class="app_title">
+	<image src="/interviews/image/title.jpg" border="0" />
 </div>
+<div class="main" align="center">
+	<div id="announcement">「<%= context.data.title %>」</div>
 
-<%
-	setTimeout(function() {
-		onOwnerIsNotViewer(context);
-	}, 100);
-%>
+	<%
+		setTimeout(function() {
+			onOwnerIsNotViewer(context);
+		}, 100);
+	%>
+
+	<image src="/interviews/image/main.jpg" border="0" />
+	<br>
+	<div id="fukidashi">
+		<div id="announcementRelease"></div>
+	</div>
+</div>

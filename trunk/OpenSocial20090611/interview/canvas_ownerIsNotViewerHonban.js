@@ -3,7 +3,9 @@ function onOwnerIsNotViewer(param) {
 	var viewer = param.viewer;
 	var data = param.data.data;
 
-	$("#announcementRelease").html(data).fadeIn(3000);
+	setTimeout(function() {
+		$("#announcementRelease").html(data).fadeIn(5000);
+	}, 3000);
 
 	gadgets.window.adjustHeight();
 }
