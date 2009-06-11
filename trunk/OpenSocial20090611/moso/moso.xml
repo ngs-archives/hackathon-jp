@@ -23,11 +23,24 @@
 //外部ホストへフォームデータを送信する
 function search(datas){
 
-//ajax通信をおこなう
-$.ajax({
+	//フォーム各要素のデータをオブジェクトに格納
+	var setX=$("#setX").val();
+	var setY=$("#setY").val();
+	var setPhoto=$("#setPhoto").val();
+	var comment=$("#comment").val();
+	var kinds=$("#kinds").val();
+
+	//ajax通信をおこなう
+	$.ajax({
 		type:'post'
 		url: '',
-		data: {},
+		data: {
+			"setX":setX,
+			"setY":setY,
+			"setPhoto":setPhoto,
+			"comment":comment,
+			"kinds":kinds
+		},
 		dataType: 'json',
 		cache: true,
 
