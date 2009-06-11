@@ -40,6 +40,7 @@ ul.photos li img:hover	{ border:1px solid #E30; }
 
 .mtb0					{ margin:0; padding:0; }
 .txt12					{ font-size:12px; }
+.memo					{ font-size:10px; color: #666; }
 .clears:after			{ content:"."; display:block; height:0; clear:both; visibility:hidden; }
 .clears					{ display:inline-table; zoom:100%; }
 /* macIE \*/
@@ -183,6 +184,10 @@ var view = {
 				var marker = new GMarker(point);
 				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
 				windowHtml += '<p class="txt12">' + location.comment + '</p>';
+				
+				if (location.kind == 1) {
+					windowHtml += '<p class="memo">...っていうのは妄想だけど</p>';
+				}
 
 				GEvent.addListener(marker, 'click', function() {
 					marker.openInfoWindowHtml(windowHtml);
