@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-	<ModulePrefs title="god says" author_email="yusuke.kamiya@drecom.co.jp" description="your friends is your gods.
-
-gods in his heaven, will know your best future.">
+	<ModulePrefs title="interview" author_email="youthk2dag@gmail.com" description="test">
 		<Require feature="opensocial-0.8" />
 		<Require feature="dynamic-height" />
 	</ModulePrefs>
@@ -12,6 +10,7 @@ gods in his heaven, will know your best future.">
 <script type='text/javascript' src='/interviews/dateformat.js'></script>
 <script type="text/javascript" src="/interviews/canvas_ownerIsViewer.js"></script>
 <script type="text/javascript" src="/interviews/canvas_ownerIsNotViewer.js"></script>
+<script type="text/javascript" src="/interviews/canvas_ownerIsNotViewerYokoku.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
 <div id="container">
