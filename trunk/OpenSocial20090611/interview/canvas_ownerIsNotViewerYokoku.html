@@ -1,11 +1,18 @@
-<div>
-	重大発表！<span id="announcement">「<%= context.data.title %>」</span>
+<div class="app_title">
+	<image src="/interviews/image/title.jpg" border="0" />
+</div>
+<div class="main" align="center">
+	<div id="announcement">「<%= context.data.title %>」</div>
+
 	<div id="remaindTimeArea">
-	発表まで残り:<span id="remainedTime"></span>
+		発表まで残り:<span id="remainedTime"></span>
 	</div>
 	<%
 	setTimeout(function() {
 		onOwnerIsNotViewer_yokoku(context);
 	}, 100);
 	%>
+
+	<image src="/interviews/image/main_yokoku.jpg" border="0" />
+
 </div>

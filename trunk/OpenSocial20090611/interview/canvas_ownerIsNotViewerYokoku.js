@@ -2,7 +2,7 @@ function onOwnerIsNotViewer_yokoku(param){
     var owner = param.owner;
     var viewer = param.viewer;
     owner_name = owner.getDisplayName();
-    
+
     var title = param.data["title"];
     var hint = param.data["hint"];
     var limit = param.data["limit"];
