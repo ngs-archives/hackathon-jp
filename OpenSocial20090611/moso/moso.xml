@@ -49,20 +49,39 @@
 <script type="text/javascript">
 
 //外部ホストへフォームデータを送信する
-/*function search(datas){
 
-	//フォーム各要素のデータをオブジェクトに格納
+$(function(){
+	var userID=();
+	$("#sendBtn").click(function(){
+	//フォーム各要素のデータを変数に格納
 	var setX=$("#setX").val();
 	var setY=$("#setY").val();
 	var setPhoto=$("#setPhoto").val();
 	var comment=$("#comment").val();
 	var kinds=$("#kinds").val();
 
-	//ajax通信をおこなう
+	//会員IDをリクエストする
+	$.ajax({
+    	url: '/people/@owner/@self',
+    	data: {},
+    	dataType: 'data',
+    	success: function(people) {
+      		var person = people[0];
+      		console.info(person.id);
+      		console.info(person.nickname);
+		userID =person.getId();
+    		},
+    		error: function(xhr, status, e) {
+      		console.info(xhr, status, e);
+    		}
+  	});
+
+	//外部サーバーへajax通信をおこなう
 	$.ajax({
 		type:'post'
 		url: '',
 		data: {
+			"id":userID,
 			"setX":setX,
 			"setY":setY,
 			"setPhoto":setPhoto,
@@ -82,7 +101,9 @@
 		console.info(xhr, status, e);
 		}
 	});
-}*/
+}
+})
+})
 
 var map = {
 	
