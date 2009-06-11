@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import jp.lnc.DirectxMeshLoder.DirectXMeshLoder;
+import jp.lnc.MeshLoader.DirectxMeshLoder.DirectXMeshLoder;
 
 import android.app.Activity;
 import android.hardware.Sensor;
