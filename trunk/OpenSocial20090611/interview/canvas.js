@@ -1,4 +1,4 @@
-gadgets.util.registerOnLoadHandler(function() {
+gadgets.util.registerOnLoadHandler(function(){
     var req = opensocial.newDataRequest();
     
     req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), 'owner');
@@ -9,10 +9,10 @@ gadgets.util.registerOnLoadHandler(function() {
         // check viewer is owner or friend or ...
         var owner = data.get('owner').getData();
         var viewer = data.get('viewer').getData();
-		var param = {
-			owner: owner,
-			viewer: viewer
-		};
+        var param = {
+            owner: owner,
+            viewer: viewer
+        };
         if (owner.getId() == viewer.getId()) {
             ajp.load("/interviews/canvas_ownerIsViewer.html");
             var processor = ajp.getProcessor();
@@ -26,6 +26,17 @@ gadgets.util.registerOnLoadHandler(function() {
         gadgets.window.adjustHeight();
     });
 });
+function showMessage(msg){
+    var centerX = window.innerWidth / 2;
+    var message = $("#message");
+    message.html(msg).css({
+        left: centerX - message.width() / 2
+    }).show();
+    setTimeout(function(){
+        message.fadeOut();
+    }, 5000)
+}
+
 //
 ///**
 // * kamiya_gaget

@@ -1,7 +1,36 @@
+<style type="text/css">
+	fieldset div.field {
+		margin-top: 0.2em;
+		margin-top: 0.2em;
+	}
+	fieldset div.field label{
+		display: block;
+		width: 200px;
+	}
+</style>
 <div>
 	<%
-	
 		onOwnerIsViewer(context);
 	%>
-	Owner == Viewer
+
+	<fieldset>
+		<legend>発表内容を指定してください！</legend>
+		<div class="field">
+			<label for="title">タイトル:</label>
+			<input type="text" id="title">
+		</div>
+		<div class="field">
+		<label for="hint">ヒント:</label>
+		<input type="text" id="hint">
+		</div>
+		<div class="field">
+		<label for="limit">公開日時:</label>
+		<input type="text" id="limit" value="2009/06/11 12:00">
+		</div>
+		<div class="field">
+		<label for="data">公開内容:</label>
+		<textarea id="data"></textarea>
+		</div>
+		<button onclick="registerMyAnnounce()">登録！</button>
+	</fieldset>
 </div>
