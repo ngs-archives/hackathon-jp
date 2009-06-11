@@ -1,5 +1,7 @@
 package jp.lnc.MeshLoader;
 
+import java.util.List;
+
 import android.util.Log;
 
 public class PanPrigon {
@@ -37,5 +39,41 @@ public class PanPrigon {
 		}
 		
 	}
+	
+	public float[][] getPrigon(){
+		return top;
+	}
+	
+	public void getVector(float[] ret, int i)
+	{
+		{
+			int v = 0,j=0;
+	    	ret[i+0+(v*3)] = (top[j][0]);
+	    	ret[i+1+(v*3)] = (top[j][1]);
+	    	ret[i+2+(v*3)] = (top[j][2]);
+		}
+		
+		{
+			int v = 1,j=1;
+	    	ret[i+0+(v*3)] = (top[j][0]);
+	    	ret[i+1+(v*3)] = (top[j][1]);
+	    	ret[i+2+(v*3)] = (top[j][2]);
+		}
+		{
+			int v = 3,j=2;
+	    	ret[i+0+(v*3)] = (top[j][0]);
+	    	ret[i+1+(v*3)] = (top[j][1]);
+	    	ret[i+2+(v*3)] = (top[j][2]);
+		}
+
+		{
+			int v = 2,j=3;
+	    	ret[i+0+(v*3)] = (top[j][0]);
+	    	ret[i+1+(v*3)] = (top[j][1]);
+	    	ret[i+2+(v*3)] = (top[j][2]);
+		}
+
+	}
 
 }
+		
