@@ -74,8 +74,8 @@ var map = {
 			var lng = pnt.lng();
 			var lat = pnt.lat();
 			
-			$('#setX').value = lat;
-			$('#setY').value = lng;
+			$('#setX').val(lat);
+			$('#setY').val(lng);
 		});
 	}
 }
@@ -132,9 +132,7 @@ var moso = {
 		map.init();
 		albumView.requestAlbums();
 		
-		gadgets.util.registerOnLoadHandler(function(){
-			gadgets.window.adjustHeight(400);
-		});
+		
 	}
 }
 
