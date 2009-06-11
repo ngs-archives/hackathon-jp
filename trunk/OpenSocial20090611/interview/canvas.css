@@ -47,3 +47,7 @@
 	height: 310px;
 	padding-top: 60px;
 }
+
+#announcementArea {
+	display: none;
+}
