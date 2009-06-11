@@ -19,8 +19,10 @@
 <Content type="html" view="canvas">
 <![CDATA[
 <script type="text/javascript">
-	//
+
+	//外部ホストへデータを送信
 /*$.ajax({
+		type:'post'
 		url: '/album/@me/@self',
 		data: {},
 		dataType: 'data'})
