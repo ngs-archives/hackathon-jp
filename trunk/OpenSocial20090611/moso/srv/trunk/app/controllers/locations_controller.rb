@@ -41,7 +41,11 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.xml
   def create
-    @location = Location.new(params[:location])
+    @location = Location.new(:setX => params[:setX],
+                             :setY => params[:setY], 
+                             :setPhoto => params[:setPhoto], 
+                             :comment => params[:comment], 
+                             :kinds => params[:kinds])
 
     respond_to do |format|
       if @location.save
