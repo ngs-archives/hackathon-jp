@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Module>
-  <ModulePrefs title="Hello World!">
+<Module>  
+  <ModulePrefs title="Rating Widget">
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
-      Hello, world!
+
+      <h1 id="title">Item Title</span></h1>
+      <p>Average rating: <span id="average_rating">?</span></p>
+      <p>Total ratings: <span id="total_rating">?</span></p>
+      <form>
+      Your rating:
+      <select id='main'>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <input type="submit" value="Rate it!"/>
+      </form>
+
+      <script type="text/javascript" src="http://rating.local/ratings.js"></script>
+      <script type="text/javascript" src="http://rating.local/canvas.js"></script>
+      <script type="text/javascript">
+        gadgets.util.registerOnLoadHandler(init);
+      </script>
+
     ]]>
   </Content>
 </Module>
