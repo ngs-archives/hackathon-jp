@@ -22,7 +22,7 @@
 <script type="text/javascript">
 
 //外部ホストへフォームデータを送信する
-function search(datas){
+/*function search(datas){
 
 	//フォーム各要素のデータをオブジェクトに格納
 	var setX=$("#setX").val();
@@ -55,7 +55,7 @@ function search(datas){
 		console.info(xhr, status, e);
 		}
 	});
-}
+}*/
 
 var map = {
 	
