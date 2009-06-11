@@ -13,7 +13,7 @@
 <Content type="html" view="home,profile,canvas">
 <![CDATA[
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAxAzLoA3KlFmedJ39SzP03BQJ3UZMKiy67bDoh-uCNSom3bXGJBSflYqvQ-wRWN4s90oAcb1Vo5BY-g" type="text/javascript"></script>
-<script type="text/javascript" src="http://mizoochi.com/apps/common/opensocial-jquery.min.js"></script>
+<script type="text/javascript" src="http://code.google.com/p/opensocial-jquery/source/browse/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
 ]]>
 </Content>
 
