@@ -15,6 +15,8 @@ public class PanMesh {
 	List<PanPrigon> panMaterialList = new ArrayList<PanPrigon>();
 	List<float[]> panTopList = new ArrayList<float[]>();
 	List<Float> panMeshArrayTmp = new ArrayList<Float>();
+	private int[] vertexArray;
+	
 	
 	public float[] newTop() {
 		float[] newIns = new float[3];
@@ -57,7 +59,7 @@ public class PanMesh {
 	
 	public float[] createMesh(){
 		float ret[] = new float[panPrigonList.size()*4*3];
-	
+		vertexArray = new int[panPrigonList.size()];
         for(int i=0;i<panPrigonList.size();i++){
         	/*
     		Log.v("test vec new Debug","i="+i+" ret.length = "+ret.length);
@@ -66,6 +68,7 @@ public class PanMesh {
                 Log.v("test vec new Debug","i="+i+ "k="+k+" x="+ ret[index]+ " y="+ ret[index+1]+ " z="+ ret[index+2]);
             }
             */
+        	vertexArray[i] = panPrigonList.get(i).vertexNum;
         	panPrigonList.get(i).getVector(ret,i*12);
         }
 
@@ -95,7 +98,7 @@ public class PanMesh {
         		}
         	}
 
-    		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,i*4,4);
+    		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,i*4,vertexArray[i]);
         }
 	}
     /**

@@ -9,6 +9,8 @@ public class PanPrigon {
 	float[][] top = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 	int colorCode ;
 	public String Name = "";
+	public int vertexNum =4;
+	
 	public void setParam(int i, int j, String readLine) {
 
 		//Log.d(TAG,"i=" +i +" j=" +j + " :\""+ readLine+"\"");

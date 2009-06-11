@@ -6,9 +6,7 @@ import java.nio.*;
 import javax.microedition.khronos.opengles.*;
 
 import jp.lnc.MeshLoader.PanMesh;
-import jp.lnc.MeshLoader.PanPrigon;
 import jp.lnc.MeshLoader.DirectxMeshLoder.DirectXMeshLoder;
-import jp.lnc.MeshLoader.DxfMeshLoader.DxfLoader;
 import android.content.*;
 import android.opengl.*;
 import android.util.Log;
@@ -22,9 +20,6 @@ public class GLCubeView extends GLTutorialBase {
     float yrot=0.0f;//Y軸回転量
     float scale = 1;
 
-	private float[] box;
-
-	private float[] old_box;
 	PanMesh mesh;
     //コンストラクタ
     public GLCubeView(Context c) {
@@ -84,38 +79,14 @@ public class GLCubeView extends GLTutorialBase {
         		0,0,0,
         		/*不明　X,Y,Z*/
         		0,1,0);
-        if(true){
+        {
             //回転の指定
             gl.glRotatef(xrot,1,0,0);
             gl.glRotatef(yrot,0,1,0);
             
         	mesh.onDrow(gl);
 
-    	}else if(false){
-            //頂点配列の指定
-            gl.glVertexPointer(3,GL10.GL_FLOAT,0,cubeBuff);
-            gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-            
-            //回転の指定
-            gl.glRotatef(xrot,1,0,0);
-            gl.glRotatef(yrot,0,1,0);
-        
-            //前面と背面のプリミティブの描画
-            gl.glColor4f(1.0f,0,0,1.0f);
-            gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,0,4);
-            gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,4,4);
-        
-            //左面と右面のプリミティブの描画
-            gl.glColor4f(0,1.0f,0,1.0f);
-            gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,8,4);
-            gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,12,4);
-            
-            //上面と下面のプリミティブの描画
-            gl.glColor4f(0,0,1.0f,1.0f);
-            gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,16,4);
-            gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,20,4);
-
-        }
+    	}
     
         //回転
 //        xrot+=1.0f;

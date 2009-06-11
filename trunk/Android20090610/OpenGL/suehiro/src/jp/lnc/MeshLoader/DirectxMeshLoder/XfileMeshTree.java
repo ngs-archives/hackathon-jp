@@ -113,6 +113,7 @@ public class XfileMeshTree {
 			String bean = (String) string.get(index+i);
 			if(i%3 == 1){
 				PanPrigon Prigon = panMesh.newPrigon();
+				Prigon.vertexNum = topMax;
 				String[] strings = bean.split("[,;]");
 				for(int j=0;j<topMax;j++){
 					int num = Integer.valueOf(strings[j]);
