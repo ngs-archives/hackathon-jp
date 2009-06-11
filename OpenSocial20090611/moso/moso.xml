@@ -19,42 +19,50 @@
 
 <Content type="html" view="canvas">
 <![CDATA[
+<div id="viewer" style="padding:10px;">
+	<h2 id="mapTitle">どこの写真？</h2>
+	<div id="map" style="width:300px; height:300px"></div>
+
+	<input type="hidden" id="setX" name="setX" value="" />
+	<input type="hidden" id="setY" name="setY" value="" />
+	
+	<h2 id="photoTitle">あなたの写真</h2>
+	<div id="photos"></div>
+	<input type="hidden" id="setPhoto" value="" />
+	
+	<h2 id="photoTitle">コメント</h2>
+	<textarea id="comment"></textarea>
+	<br />
+	
+	<select id="kinds">
+		<option value="1">妄想</option>
+		<option value="2">真実</option>
+	</select>
+	<br />
+	
+	<input type="button" id="sendBtn" value="登録する" />
+</div>
+
+
+
+
 <script type="text/javascript">
 
-
 //外部ホストへフォームデータを送信する
-var userID=();
-/*$(function(){
-	$("#sendBtn").click(function(){
-	//フォーム各要素のデータを変数に格納
+/*function search(datas){
+
+	//フォーム各要素のデータをオブジェクトに格納
 	var setX=$("#setX").val();
 	var setY=$("#setY").val();
 	var setPhoto=$("#setPhoto").val();
 	var comment=$("#comment").val();
 	var kinds=$("#kinds").val();
 
-	//会員IDをリクエストする
-	$.ajax({
-    	url: '/people/@owner/@self',
-    	data: {},
-    	dataType: 'data',
-    	success: function(people) {
-      		var person = people[0];
-      		console.info(person.id);
-      		console.info(person.nickname);
-		userID =person.getID();
-    		},
-    		error: function(xhr, status, e) {
-      		console.info(xhr, status, e);
-    		}
-  	});
-
-	//外部サーバーへajax通信をおこなう
+	//ajax通信をおこなう
 	$.ajax({
 		type:'post'
 		url: '',
 		data: {
-			"id":userID,
 			"setX":setX,
 			"setY":setY,
 			"setPhoto":setPhoto,
@@ -74,30 +82,30 @@ var userID=();
 		console.info(xhr, status, e);
 		}
 	});
-}
-})
-})*/
+}*/
 
 var map = {
 	
 	setView : function(){
-		var map = new GMap2($('#map'));
+		var map = new GMap2(document.getElementById("map"));
 		var point = new GLatLng(36.03, 139.15);
-		
+		  
 		map.addControl(new GLargeMapControl());	
 		map.setCenter(point, 1);
-		
+	
 		var marker = new GMarker(point, {draggable: true});
+	 
 		map.addOverlay(marker);
-		
+	
 		GEvent.addListener(marker, 'mouseout', function() {
 			var pnt = marker.getPoint();
 			var lng = pnt.lng();
 			var lat = pnt.lat();
 			
-			$('#setX').val(lat);
-			$('#setY').val(lng);
+			document.getElementById("map").value = lat;
+			document.getElementById("map").value = lng;
 		});
+	
 	}
 }
 
@@ -128,7 +136,7 @@ var albumView = {
 		req.send(albumView.onLoadMediaItems);
 	},
 	onLoadMediaItems : function(dataResponse) {
-		var data = '<ul id="photos" class="clears">';
+		var data = '<ul class="photos" class="clears">';
 		var mediaitems = dataResponse.get('mediaitems').getData();
 		
 		mediaitems.each(function(mediaitem) {
@@ -145,12 +153,13 @@ var albumView = {
 			
 			$("#setPhoto").val(path[0]);
 		});
+
+		map.setView();
 	}
 }
 
 var moso = {
 	init : function(){
-		//map.setView();
 		albumView.requestAlbums();
 		
 		gadgets.window.adjustHeight(700);
@@ -162,7 +171,6 @@ gadgets.util.registerOnLoadHandler(moso.init);
 </script>
 <style type="text/css">
 #photoTitle,#mapTitle	{ font-size:14px; padding:3px; border-bottom:1px solid #CCC; }
-#map					{ width:500px; height:200px; }
 #comment				{ width:500px; height:80px; }
 
 ul#photos				{ list-style:none; }
@@ -179,28 +187,6 @@ ul#photos li img:hover	{ border:1px solid #E30; }
 /* macIE */
 
 </style>
-<div id="viewer" style="padding:10px;">
-	<h2 id="mapTitle">どこの写真？</h2>
-	<div id="map"></div>
-	<input type="hidden" id="setX" name="setX" value="" />
-	<input type="hidden" id="setY" name="setY" value="" />
-	
-	<h2 id="photoTitle">あなたの写真</h2>
-	<div id="photos"></div>
-	<input type="hidden" id="setPhoto" value="" />
-	
-	<h2 id="photoTitle">コメント</h2>
-	<textarea id="comment"></textarea>
-	<br />
-	
-	<select id="kinds">
-		<option value="1">妄想</option>
-		<option value="2">真実</option>
-	</select>
-	<br />
-	
-	<input type="button" id="sendBtn" value="登録する" />
-</div>
 ]]>
 </Content>
 
