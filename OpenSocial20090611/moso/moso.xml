@@ -29,6 +29,7 @@
 #photoTitle,#mapTitle	{ font-size:14px; padding:3px; border-bottom:1px solid #CCC; }
 #comment				{ width:500px; height:80px; }
 #map					{ width:800px; height:300px; }
+#viewMap				{ width:800px; height:500px; }
 
 ul.photos				{ list-style:none; }
 ul.photos li			{ float:left; margin:0 5px 3px 0; font-size:12px; }
@@ -46,6 +47,8 @@ ul.photos li img:hover	{ border:1px solid #E30; }
 /* macIE */
 
 </style>
+<div id="tabs"></div>
+
 <div id="regi">
 	<h2 id="mapTitle">どこの写真？</h2>
 	<div id="map"></div>
@@ -96,12 +99,12 @@ $(function(){
     	dataType: 'data',
     	success: function(people) {
       		var person = people[0];
-      		console.info(person.id);
-      		console.info(person.nickname);
+//      		console.info(person.id);
+ //     		console.info(person.nickname);
 			userID =person.getId();
     		},
     		error: function(xhr, status, e) {
-      		console.info(xhr, status, e);
+  //    		console.info(xhr, status, e);
     		}
   	});
 
@@ -122,11 +125,11 @@ $(function(){
 		
 		//データ取得に成功した場合の処理を定義
 		success: function(data, status) {
-		console.log(data, status);
-		
+	//	console.log(data, status);
+			$("#viewer").html("登録完了しました！");
 		},
 		error: function(xhr, status, e) {
-		console.info(xhr, status, e);
+	//	console.info(xhr, status, e);
 		}
 	});
 })
@@ -266,17 +269,21 @@ var moso = {
 	init : function(){
 		tabs = new gadgets.TabSet(__MODULE_ID__,null,document.getElementById("tabs"));
 		tabs.alignTabs("left",2);
+		
+		view.init();
+		
 		var tab1 = {
 			contentContainer: document.getElementById("regi"),
 			callback: function(){
-				view.init();
+				albumView.requestAlbums();
 			}
 		}
 		tabs.addTab("表示",tab1);
+		
 		var tab2 = {
 			contentContainer: document.getElementById("viewer"),
 			callback: function(){
-				albumView.requestAlbums();
+				view.init();
 			}
 		}
 		tabs.addTab("登録",tab2);
