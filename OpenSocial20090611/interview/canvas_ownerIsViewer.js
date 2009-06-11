@@ -3,10 +3,12 @@ var DEFAULT_DATETIME_FORMAT = new DateFormat("yyyy/MM/dd HH:mm");
 function onOwnerIsViewer(param){
     var owner = param.owner;
     var viewer = param.viewer;
+	/*
     $("#limitDate").datepicker({
         formatDate: "yy/mm/dd",
 		showOn: "both"
     });
+    */
 }
 
 function registerMyAnnounce(){

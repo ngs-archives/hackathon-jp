@@ -18,11 +18,15 @@ function onOwnerIsNotViewer_yokoku(param){
 		var msg = "<span class='seconds'>" + (intervalSeconds % 60) + "秒</span>";
 		if (intervalSeconds > 60) {
 			var intervalMinutes = Math.floor(intervalSeconds / 60);
-			msg = "<span class='minutes'>" + (intervalMinutes % 60) + "分</span>" + msg;
+			if ((intervalMinutes % 60) != 0) {
+				msg = "<span class='minutes'>" + (intervalMinutes % 60) + "分</span>" + msg;
+			}
 		}
 		if (intervalMinutes > 60) {
 			var intervalHours = Math.floor(intervalMinutes / 60);
-			msg = "<span class='hours'>" + (intervalHours % 24) + "時間</span>" + msg;
+			if ((intervalHours % 24) != 0) {
+				msg = "<span class='hours'>" + (intervalHours % 24) + "時間</span>" + msg;
+			}
 		}
 		if (intervalHours > 24) {
 			var intervalDays = Math.floor(intervalHours / 24);

@@ -4,5 +4,8 @@
 	発表まで残り:<span id="remainedTime"></span>
 	</div>
 	<%
-	onOwnerIsNotViewer_yokoku(context); %>
+	setTimeout(function() {
+		onOwnerIsNotViewer_yokoku(context);
+	}, 100);
+	%>
 </div>
