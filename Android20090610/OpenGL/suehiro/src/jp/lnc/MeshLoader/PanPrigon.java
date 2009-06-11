@@ -61,15 +61,17 @@ public class PanPrigon {
 	    	ret[i+1+(v*3)] = (top[j][1]);
 	    	ret[i+2+(v*3)] = (top[j][2]);
 		}
-		{
+		if(vertexNum==4){
 			int v = 3,j=2;
 	    	ret[i+0+(v*3)] = (top[j][0]);
 	    	ret[i+1+(v*3)] = (top[j][1]);
 	    	ret[i+2+(v*3)] = (top[j][2]);
-		}
-
-		{
-			int v = 2,j=3;
+			v = 2;j=3;
+	    	ret[i+0+(v*3)] = (top[j][0]);
+	    	ret[i+1+(v*3)] = (top[j][1]);
+	    	ret[i+2+(v*3)] = (top[j][2]);
+		}else{
+			int v = 2,j=2;
 	    	ret[i+0+(v*3)] = (top[j][0]);
 	    	ret[i+1+(v*3)] = (top[j][1]);
 	    	ret[i+2+(v*3)] = (top[j][2]);

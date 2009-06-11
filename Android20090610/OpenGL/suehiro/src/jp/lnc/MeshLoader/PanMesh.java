@@ -63,13 +63,17 @@ public class PanMesh {
         for(int i=0;i<panPrigonList.size();i++){
         	/*
     		Log.v("test vec new Debug","i="+i+" ret.length = "+ret.length);
-            for(int k=0; k<4; k++){
-            	int index =(i*12+k*3);
-                Log.v("test vec new Debug","i="+i+ "k="+k+" x="+ ret[index]+ " y="+ ret[index+1]+ " z="+ ret[index+2]);
-            }
-            */
+    		*/
+            
         	vertexArray[i] = panPrigonList.get(i).vertexNum;
         	panPrigonList.get(i).getVector(ret,i*12);
+        	for(int k=0; k<4; k++){
+            	int index =(i*12+k*3);
+            	if(ret[index]==0&& ret[index+1]==0 &&ret[index+2]==0){
+            		Log.v("test vec new Debug","i="+i+ "k="+k+"VatexNum"+vertexArray[i]+" x="+ ret[index]+ " y="+ ret[index+1]+ " z="+ ret[index+2]);
+            	}
+        	}
+            
         }
 
 		return ret;
