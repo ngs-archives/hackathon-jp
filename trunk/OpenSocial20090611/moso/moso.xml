@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Module>
 	
 <ModulePrefs title="みんなのMoSoトラベル" description="写真を使って行った気になるガジェットです。">
@@ -20,7 +20,30 @@
 <![CDATA[
 <script type="text/javascript">
 
-	//外部ホストへデータを送信
+//外部ホストへフォームデータを送信する
+function search(datas){
+
+//ajax通信をおこなう
+$.ajax({
+		type:'post'
+		url: '',
+		data: {},
+		dataType: 'json',
+		cache: true,
+
+		//データ取得に成功した場合の処理を定義
+		success: function(data, status) {
+		console.log(data, status);
+		
+
+		},
+		error: function(xhr, status, e) {
+		console.info(xhr, status, e);
+		}
+	});
+}
+
+	//
 /*$.ajax({
 		type:'post'
 		url: '/album/@me/@self',
