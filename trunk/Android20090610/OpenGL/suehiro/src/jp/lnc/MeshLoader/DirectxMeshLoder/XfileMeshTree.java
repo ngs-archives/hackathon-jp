@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import android.util.Log;
+
 import jp.lnc.MeshLoader.PanMesh;
 import jp.lnc.MeshLoader.PanPrigon;
 
@@ -67,6 +69,9 @@ public class XfileMeshTree {
 				case 9:
 					bean.createMaterial(panMesh);
 					break;
+				case 10:
+					bean.createTextureCoord(panMesh);
+					break;
 				default:
 					System.out.println(bean.xType.getString());
 			}
@@ -74,6 +79,26 @@ public class XfileMeshTree {
 		}
 	}
 	
+	private void createTextureCoord(PanMesh panMesh) {
+		int meshNum = Integer.valueOf(((String) string.get(0)).replaceAll(";", ""));
+		int index = 0;
+		Log.d("XfileMeshTree",(String) string.get(index));
+		float[] newTop= panMesh.newTop();
+		for(index++ ; index<(meshNum*3+1) ; index++){
+			if(index%3 != 0){
+				newTop[index%3-1] = Float.valueOf(((String) string.get(index)).replace(";", ""));
+				//Log.d("XfileMeshTree",(String) string.get(index));
+				
+				//System.out.println(top);
+
+			}else{
+				//System.out.println("x="+newTop[0]+"y="+newTop[1]+"z="+newTop[2]);
+				newTop=  panMesh.newTextureCoord();
+			}
+		}
+		
+	}
+
 	private void createMaterial(PanMesh panMesh) {
 		// TODO Auto-generated method stub
 		
@@ -118,7 +143,7 @@ public class XfileMeshTree {
 				for(int j=0;j<topMax;j++){
 					int num = Integer.valueOf(strings[j]);
 					newTop=tops.get(num);
-					Prigon.setParam(j,newTop);
+					Prigon.setParam(j,newTop,num);
 				}
 			}else if(i%3 == 0){
 				topMax = Integer.valueOf(bean.replace(";", ""));

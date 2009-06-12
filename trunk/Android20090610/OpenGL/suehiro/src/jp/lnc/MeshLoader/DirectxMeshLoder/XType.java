@@ -6,7 +6,7 @@ public class XType {
 	private String Name = "";
 	public int typeNo = 999;
 	static protected final String[] sToken = {"Frame","template","FrameTransformMatrix","AnimationKey","aaaaaaaaaaaaaa",
-		"Header","Mesh","MeshMaterialList","Material"};
+		"Header","Mesh","MeshMaterialList","Material","MeshTextureCoords"};
 	
 	public void setType(String string, int j) {
 		Type = string;
