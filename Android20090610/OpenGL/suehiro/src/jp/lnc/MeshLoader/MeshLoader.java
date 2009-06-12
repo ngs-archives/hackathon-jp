@@ -34,7 +34,7 @@ public class MeshLoader extends Activity implements SensorEventListener{
     }
     @Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
     	sm = (SensorManager) getSystemService(SENSOR_SERVICE);
     	List<Sensor> sensorList;
     	sensorList = sm.getSensorList(Sensor.TYPE_ORIENTATION);
@@ -85,13 +85,13 @@ public class MeshLoader extends Activity implements SensorEventListener{
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
+		
 		if (event.sensor == orientationSensor) {
 			if(-60<event.values[1] && event.values[1]<0){
     		

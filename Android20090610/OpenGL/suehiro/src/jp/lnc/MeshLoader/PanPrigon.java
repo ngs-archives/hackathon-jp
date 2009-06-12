@@ -7,6 +7,7 @@ import android.util.Log;
 public class PanPrigon {
 	private static final String TAG = "PanMesh";
 	float[][] top = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
+	public int[] index = {0,0,0,0};
 	int colorCode ;
 	public String Name = "";
 	public int vertexNum =4;
@@ -22,6 +23,10 @@ public class PanPrigon {
 			top[j][i-1] = -1.0f;
 		}
 		
+	}
+	public void setParam(int i,float[] p1,int Num ){
+		index[i] = Num;
+		setParam(i, p1);
 	}
 	public void setParam(int i,float[] p1){
 		top[i] = p1;
