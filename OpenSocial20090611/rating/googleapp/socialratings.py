@@ -30,18 +30,20 @@ class RatingAdd(webapp.RequestHandler):
     self.response.out.write('<html><body><p>Adding rating... ')
     item = self.request.get('item')
     points = int(self.request.get('points'))
+    self.response.out.write('%d points for %s' % (points, item))
     # Get rating from database if already exists.
     query = "SELECT * FROM Rating WHERE item='%s'" % item
     ratings = db.GqlQuery(query)
     if ratings.count() != 0:
-      self.response.out.write('exists... ')
-      print points
-      print ratings[0].points
-      print ratings[0].points + points
-      ratings[0].points = ratings[0].points + points
-      print ratings[0].points
-      ratings[0].users += 1
-      ratings[0].put()
+      rating = ratings[0]
+      self.response.out.write(' exists... ')
+      self.response.out.write(rating.points)
+      rating.points = points + rating.points
+      self.response.out.write('->')
+      self.response.out.write(rating.points)
+      rating.users += 1
+      rating.put()
+      self.response.out.write(rating.users)
     else:
       self.response.out.write('creating... ')
       rating = Rating()
@@ -51,16 +53,23 @@ class RatingAdd(webapp.RequestHandler):
       rating.put()
     self.response.out.write(' done.</body></html>')
 
-# Get the JSON-formatted rating information for a given item:
+# Get the JSON-formatted rating information for a given item.
+# TODO Let a cron job compute the JSON strings when idle and add them the the Rating objects.
 class RatingGet(webapp.RequestHandler):
   def get(self):
-    self.response.out.write('{')
     item = self.request.get('item')
     query = "SELECT * FROM Rating WHERE item='%s'" % item
     ratings = db.GqlQuery(query)
-    points = ratings[0].points
-    users = ratings[0].users
-    average_rating = points/(1.0*users)
+    if ratings.count() != 0:
+      rating = ratings[0]
+      points = rating.points
+      users = rating.users
+      average_rating = points/(1.0*users)
+    else:
+      points = 0
+      users = 0
+      average_rating = 0
+    self.response.out.write('{')
     self.response.out.write('"id" : "%s",' % item)
     self.response.out.write('"average_rating" : %f,' % average_rating)
     self.response.out.write('"total_ratings" : %d' % users)
