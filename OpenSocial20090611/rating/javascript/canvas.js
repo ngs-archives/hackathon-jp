@@ -1,7 +1,7 @@
 var WIDGET = {};
 WIDGET.CONFIG = {
-    'data_url': "http://rating.local/",
-    'ratings_url': "http://rating.local/"
+    'data_url': "http://socrating.appspot.com/data/",
+    'ratings_url': "http://socrating.appspot.com/"
 };
 
 WIDGET.movie = null;

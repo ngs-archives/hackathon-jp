@@ -8,8 +8,8 @@
 
     <h1 id="title">Item Title</h1>
 
-    <script type="text/javascript" src="http://rating.local/ratings.js"></script>
-    <script type="text/javascript" src="http://rating.local/canvas.js"></script>
+    <script type="text/javascript" src="http://socrating.appspot.com/javascript/ratings.js"></script>
+    <script type="text/javascript" src="http://socrating.appspot.com/javascript/canvas.js"></script>
     <script type="text/javascript">
       gadgets.util.registerOnLoadHandler(init);
     </script>
