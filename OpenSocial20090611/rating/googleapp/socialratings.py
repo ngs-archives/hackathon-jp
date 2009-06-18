@@ -35,7 +35,11 @@ class RatingAdd(webapp.RequestHandler):
     ratings = db.GqlQuery(query)
     if ratings.count() != 0:
       self.response.out.write('exists... ')
-      ratings[0].points += points
+      print points
+      print ratings[0].points
+      print ratings[0].points + points
+      ratings[0].points = ratings[0].points + points
+      print ratings[0].points
       ratings[0].users += 1
       ratings[0].put()
     else:
