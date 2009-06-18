@@ -4,5 +4,15 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: .*
+- url: /get
+  script: socialratings.py
+- url: /add
+  script: socialratings.py
+- url: /
+  script: socialratings.py
+- url: /javascript
+  static_dir: javascript
+- url: /data
+  static_dir: data
+- url: /.*
   script: socialratings.py
