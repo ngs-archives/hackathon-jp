@@ -10,6 +10,8 @@ handlers:
   script: socialratings.py
 - url: /
   script: socialratings.py
+- url: /static
+  static_dir: static
 - url: /javascript
   static_dir: javascript
 - url: /data
