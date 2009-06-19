@@ -58,7 +58,13 @@ public class GLCubeView extends GLTutorialBase {
     
     float xrot=0.0f;//X軸回転量
     float yrot=0.0f;//Y軸回転量
-    float scale = 1;
+    float zrot=0.0f;//Z軸回転量
+    
+    float xScall=1.0f;
+    float yScall=1.0f;
+    float zScall=1.0f;
+
+    
     //コンストラクタ
     public GLCubeView(Context c) {
         super(c,20);
@@ -93,7 +99,7 @@ public class GLCubeView extends GLTutorialBase {
 	            }
 	        }
         }
-        setBoxSize(0.5f);
+//        setBoxSize(0.5f);
         
 //        this.box = mesh.getMesh();
         
@@ -102,7 +108,7 @@ public class GLCubeView extends GLTutorialBase {
         cubeBuff=makeFloatBuffer(box);
     }
     
-    
+ /*   
     public void setBoxSize(float setScale){
     	scale = setScale;
         int idx = 0;
@@ -118,7 +124,7 @@ public class GLCubeView extends GLTutorialBase {
     	
     	
     }
-    
+*/    
     
     
     //初期化
@@ -153,6 +159,10 @@ public class GLCubeView extends GLTutorialBase {
         //回転の指定
         gl.glRotatef(xrot,1,0,0);
         gl.glRotatef(yrot,0,1,0);
+        gl.glRotatef(zrot,0,0,1);
+        
+        //拡大縮小
+        gl.glScalef(xScall, yScall, zScall);        
     
         //前面と背面のプリミティブの描画
         gl.glColor4f(1.0f,0,0,1.0f);
