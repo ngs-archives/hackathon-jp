@@ -10,6 +10,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,10 +21,13 @@ public class cubeRotation extends Activity implements SensorEventListener{
     /** Called when the activity is first created. */
 	
 	
-	GLCubeView mView;
-    private Sensor orientationSensor;
-	private Sensor accelerometerSensor;
-	private SensorManager sm;
+	private GLCubeView mView;
+	private SensorManager mySensorManager ;
+	
+	private double[] nowGravityVector = {0,0,0};
+	private float maxScale = 1.8f;
+	private float minScale = 0.05f;
+	private float nowScale = 0.7f;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,25 +36,92 @@ public class cubeRotation extends Activity implements SensorEventListener{
         mView = new GLCubeView( getApplication() );
         setContentView(mView);
         
-        mView.setOnTouchListener(sheetTouchListener);
+//        mView.setOnTouchListener(sheetTouchListener);
+        mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
+		mView.xScall = nowScale;
+		mView.yScall = nowScale;
+		mView.zScall = nowScale;
     
     }
     @Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
-    	sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-    	List<Sensor> sensorList;
-    	sensorList = sm.getSensorList(Sensor.TYPE_ORIENTATION);
-    	orientationSensor = sensorList.get(0);
-    	sensorList = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);
-    	accelerometerSensor = sensorList.get(0);
+    	super.onResume();
+    	List<Sensor> sensors;
+    	Sensor sensor;
+    	Boolean rc;
 
-        sm.registerListener(this, orientationSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sm.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    	sensors = mySensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
+    	sensor = sensors.get(0);
+    	rc =  mySensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST);
 
-		super.onResume();
+
+    	sensors = mySensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
+    	sensor = sensors.get(0);
+    	rc =  mySensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL);
+
 	}
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		
+		if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+/*			
+            Log.v("sensorOrientation",
+                    "Azimuth:" + String.valueOf(event.values[0]) + ", " +
+                    "Pitch:" + String.valueOf(event.values[1]) + ", " +
+                    "Roll:" + String.valueOf(event.values[2]));
+			*/
+            mView.xrot = event.values[1];
+            mView.zrot = event.values[0]-180;
+
+            if(Math.abs(event.values[1]) > 150.0f){
+				Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+				vibrator.vibrate(10);
+            	
+            }
+            
+            nowGravityVector[2] = Math.cos(event.values[1]/180 * Math.PI);
+
+            
+            
+            
+		}else if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+			float z_acc = event.values[2]/SensorManager.GRAVITY_EARTH ;
+			
+			z_acc -= this.nowGravityVector[2];
+			
+			if(Math.abs(z_acc) > 0.2f){
+				nowScale = (float) (nowScale * Math.pow(Math.E, z_acc/2));
+				if(nowScale > maxScale){
+					nowScale = maxScale;
+				}else if (nowScale < minScale){
+					nowScale = minScale;
+				}
+				
+				mView.xScall = nowScale;
+				mView.yScall = nowScale;
+				mView.zScall = nowScale;
+				
+			}
+
+/*				
+	            Log.v("sensorAccelerometer",
+	                    "0:" + String.valueOf(event.values[0]) + ", " +
+	                    "1:" + String.valueOf(event.values[1]) + ", " +
+	                    "2:" + String.valueOf(event.values[2]));
+*/				
+			
+		}
+		
+	}     
+
+	/*    
 	float pre_x;
     float pre_y;
     
@@ -86,29 +157,9 @@ public class cubeRotation extends Activity implements SensorEventListener{
    
 	    }
     };
+*/
 
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
-		if (event.sensor == orientationSensor) {
-			if(-60<event.values[1] && event.values[1]<0){
-    		
-				mView.xrot -= 3;
-    			//mView.yrot += (pre_x - x) / 2;
-			}else if(-180<event.values[1]&&event.values[1]<-115){
-    			mView.xrot += 3;
-    			//mView.yrot += (pre_x - x) / 2;
-			}else{
-				//なにもなし
-			}
-		}
-		
-	}     
+
 }
 
