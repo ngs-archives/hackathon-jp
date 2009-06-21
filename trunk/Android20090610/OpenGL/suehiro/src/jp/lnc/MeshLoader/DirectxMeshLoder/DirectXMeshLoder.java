@@ -12,7 +12,8 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jp.lnc.MeshLoader.PanMesh;
+import jp.lnc.MeshLoader.GenerickMesh.PanMesh;
+
 
 public class DirectXMeshLoder {
 	static Matcher matcher;
@@ -54,7 +55,9 @@ public class DirectXMeshLoder {
 	}
 
 	private static void genMesh(PanMesh panMesh) {
-		topMesh.meshCompile(panMesh);
+		//topMesh.meshCompile(panMesh);
+		VertexAndTextur tmp = new VertexAndTextur(panMesh,topMesh);
+		tmp.printData();
 		
 	}
 	/**

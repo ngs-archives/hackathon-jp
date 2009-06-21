@@ -1,4 +1,4 @@
-package jp.lnc.MeshLoader;
+package jp.lnc.MeshLoader.GenerickMesh;
 
 import java.util.List;
 
@@ -11,7 +11,15 @@ public class PanPrigon {
 	int colorCode ;
 	public String Name = "";
 	public int vertexNum =4;
+	private float[][] panMeshTextureCoordsList={{0,0},{0,0},{0,0},{0,0}};
 	
+	public void setAllData(int i,  float[] vertex,float[] textureCoord) {
+
+		//Log.d(TAG,"i=" +i +" j=" +j + " :\""+ readLine+"\"");
+		top[i] = vertex;
+		panMeshTextureCoordsList[i] =textureCoord;
+
+	}
 	public void setParam(int i, int j, String readLine) {
 
 		//Log.d(TAG,"i=" +i +" j=" +j + " :\""+ readLine+"\"");
@@ -40,8 +48,10 @@ public class PanPrigon {
 		}
 	}
 	public void printPrigon(){
-		for(int i=0;i<4;i++){
-			//Log.d(TAG,"i=" +i + " :x=\""+ top[i][0]+"\"" + " :y=\""+ top[i][1]+"\""+" :z=\""+ top[i][2]+"\"");
+		for(int i=0;i<vertexNum;i++){
+			Log.d(TAG,"i=" +i + " :x=\""+ top[i][0]+"\"" + " :y=\""+ top[i][1]+"\""+" :z=\""+ top[i][2]+"\"");
+
+			Log.d(TAG,"i=" +i + " :x=\""+ panMeshTextureCoordsList[i][0]+"\"" + " :y=\""+ panMeshTextureCoordsList[i][1]+"\"");
 			//System.out.println("i=" +i + " :x=\""+ top[i][0]+"\"" + " :y=\""+ top[i][1]+"\""+" :z=\""+ top[i][2]+"\"");
 		}
 		
@@ -83,6 +93,33 @@ public class PanPrigon {
 		}
 
 	}
+	public void getTextureCoords(float[] ret, int i){
+	
+		int j =0;
+		ret[i+ j*2]= panMeshTextureCoordsList[j][0];
+		ret[i+ j*2+1]= panMeshTextureCoordsList[j][1];
+		
+		j =1;
+		ret[i+ j*2]= panMeshTextureCoordsList[j][0];
+		ret[i+ j*2+1]= panMeshTextureCoordsList[j][1];
+		
+    	
+    	if(vertexNum==4){
+    	
+    		j =3;
+    		int k =2;
+    		ret[i+ k*2]= panMeshTextureCoordsList[j][0];
+    		ret[i+ k*2+1]= panMeshTextureCoordsList[j][1];
+     		j =2;
+    		k =3;
+    		ret[i+ k*2]= panMeshTextureCoordsList[j][0];
+    		ret[i+ k*2+1]= panMeshTextureCoordsList[j][1];
+      	}else{
+    		 j =2;
+    		ret[i+ j*2]= panMeshTextureCoordsList[j][0];
+    		ret[i+ j*2+1]= panMeshTextureCoordsList[j][1];
+     	}
 
+	}
 }
 		
