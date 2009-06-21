@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 import android.util.Log;
 
 import jp.lnc.MeshLoader.GenerickMesh.PanMesh;
-import jp.lnc.MeshLoader.GenerickMesh.PanPrigon;
 
 
 
@@ -110,7 +109,7 @@ public class XfileMeshTree {
 	}
 	
 	public void compile() {
-		TmplateFuctry.getFactory(string,templateFactryList);
+		//TmplateFuctry.getFactory(string,templateFactryList);
 	}
 
 }

@@ -32,6 +32,7 @@ public class VertexAndTextur {
 	VertexAndTextur(PanMesh panMesh,XfileMeshTree test){
 		mMeshTree = test;
 		meshCompile(0,panMesh,mMeshTree);
+		printData();
 		createPanMesh(panMesh);
 		
 	}
@@ -80,6 +81,7 @@ public class VertexAndTextur {
 				default:
 					System.out.println(bean.xType.getString());
 			}
+			
 			meshCompile(tabNum+1,panMesh,bean);
 		}
 	}

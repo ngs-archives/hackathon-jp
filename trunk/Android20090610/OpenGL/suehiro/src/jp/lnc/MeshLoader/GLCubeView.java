@@ -37,12 +37,12 @@ public class GLCubeView extends GLTutorialBase {
 	private int tex;
     //コンストラクタ
     public GLCubeView(Context c) {
-        super(c,20);
+        super(c,10);
 
         //InputStream input = this.getResources().openRawResource(R.raw.cube);
         //PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
         InputStream input;
-        if(false){
+        if(true){
         	//メカ表示
         	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.mekatex);
         	input = this.getResources().openRawResource(R.raw.meka);
@@ -55,7 +55,7 @@ public class GLCubeView extends GLTutorialBase {
         mesh = DirectXMeshLoder.XMeshLoader(new InputStreamReader(input));
         //mesh.printMesh();
   
-       Log.v("Debug","size" + mesh.getMeshSize());
+       //Log.v("Debug","size" + mesh.getMeshSize());
         
 
         	//mesh.createMesh();
