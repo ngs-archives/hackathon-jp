@@ -10,7 +10,6 @@ import java.util.List;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 
@@ -22,7 +21,7 @@ public class PanMesh {
 	List<Float> panMeshArrayTmp = new ArrayList<Float>();
 	
 	float TextureCoords[];
-	private FloatBuffer TextureCoordsBuff;
+	protected FloatBuffer TextureCoordsBuff;
 	protected int[] vertexArray;
 	protected FloatBuffer MeshBuff;
 	
@@ -98,54 +97,43 @@ public class PanMesh {
             
         	vertexArray[i] = panPrigonList.get(i).vertexNum;
         	panPrigonList.get(i).getVector(ret,i*12);
-        	{
+        	if(panMeshTextureCoordsList.size() > i){
         		int j =0;
         		int v= panPrigonList.get(i).index[j];
         		TextureCoords[def*4+ j*2]= (panMeshTextureCoordsList.get(v))[0];
         		TextureCoords[def*4+ j*2+1]= (panMeshTextureCoordsList.get(v))[1];
-        		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
+//        		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
         		def++;
-        	}
-        	{
-        		int j =1;
-        		int v= panPrigonList.get(i).index[j];
+        		j =1;
+        		v= panPrigonList.get(i).index[j];
         		TextureCoords[def*4+ j*2]= (panMeshTextureCoordsList.get(v))[0];
         		TextureCoords[def*4+ j*2+1]= (panMeshTextureCoordsList.get(v))[1];
-        		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
+//        		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
         		def++;
-        	}
-        	if(panPrigonList.get(i).vertexNum==4){
-        	
-        		int j =3;
-        		int v= panPrigonList.get(i).index[2];
-        		TextureCoords[def*4+ j*2]= (panMeshTextureCoordsList.get(v))[0];
-        		TextureCoords[def*4+ j*2+1]= (panMeshTextureCoordsList.get(v))[1];
-        		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
-        		def++;
-        		j =2;
-        		v= panPrigonList.get(i).index[3];
-        		TextureCoords[def*4+ j*2]= (panMeshTextureCoordsList.get(v))[0];
-        		TextureCoords[def*4+ j*2+1]= (panMeshTextureCoordsList.get(v))[1];
-        		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
-        		def++;
-        	}else{
-        		int j =2;
-    		int  v= panPrigonList.get(i).index[3];
-    		TextureCoords[def*4+ j*2]= (panMeshTextureCoordsList.get(v))[0];
-    		TextureCoords[def*4+ j*2+1]= (panMeshTextureCoordsList.get(v))[1];
-    		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
-    		def++;
-    	}
-
-        	/*
-        	for(int k=0; k<4; k++){
-            	int index =(i*12+k*3);
-            	if(ret[index]==0&& ret[index+1]==0 &&ret[index+2]==0){
-            		Log.v("test vec new Debug","i="+i+ "k="+k+"VatexNum"+vertexArray[i]+" x="+ ret[index]+ " y="+ ret[index+1]+ " z="+ ret[index+2]);
+            	
+            	if(panPrigonList.get(i).vertexNum==4){
+            	
+            		j =3;
+            		v= panPrigonList.get(i).index[2];
+            		TextureCoords[def*4+ j*2]= (panMeshTextureCoordsList.get(v))[0];
+            		TextureCoords[def*4+ j*2+1]= (panMeshTextureCoordsList.get(v))[1];
+//            		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
+            		def++;
+            		j =2;
+            		v= panPrigonList.get(i).index[3];
+            		TextureCoords[def*4+ j*2]= (panMeshTextureCoordsList.get(v))[0];
+            		TextureCoords[def*4+ j*2+1]= (panMeshTextureCoordsList.get(v))[1];
+//            		Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
+            		def++;
+            	}else{
+            		 j =2;
+            		 v= panPrigonList.get(i).index[3];
+            		 TextureCoords[def*4+ j*2]= (panMeshTextureCoordsList.get(v))[0];
+            		 TextureCoords[def*4+ j*2+1]= (panMeshTextureCoordsList.get(v))[1];
+//            		 Log.d("XfileMeshTree",(panMeshTextureCoordsList.get(v))[0] +"  "+ (panMeshTextureCoordsList.get(v))[1]);
+            		 def++;
             	}
         	}
-        	*/
-            
         }
 
 		return ret;
@@ -158,8 +146,6 @@ public class PanMesh {
 	}
 	
 	public void initGL(GL10 gl, Bitmap bmp){
-
-
         //テクスチャの有効化
         gl.glEnable(GL10.GL_TEXTURE_2D);
         int tex = loadTexture(gl,bmp);
@@ -169,19 +155,17 @@ public class PanMesh {
 
         gl.glGenTextures(1, tmp_tex, 0);
         int tex = tmp_tex[0];
-        loadTexture(tex, GL10.GL_TEXTURE_2D, bmp, gl);
+        loadTexture(tex, GL10.GL_TEXTURE_2D, bmp.getWidth(), bmp.getHeight(), makeByteBuffer(bmp), gl);
+
         return tex;
     }
 
-    public void loadTexture(int texture, int type, Bitmap bmp, GL10 gl) {
-           loadTexture(texture, type, bmp.getWidth(), bmp.getHeight(), makeByteBuffer(bmp), gl);
-   }
     static public void loadTexture(int texture, int type, int width, int height, ByteBuffer bb, GL10 gl) {
         gl.glBindTexture(type, texture);
         gl.glTexImage2D(type, 0, GL10.GL_RGBA, width, height, 0, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, bb);
         gl.glTexParameterf(type, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
         gl.glTexParameterf(type, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
-}
+    }
     protected static ByteBuffer makeByteBuffer(Bitmap bmp) {
         ByteBuffer bb = ByteBuffer.allocateDirect(bmp.getHeight()*bmp.getWidth()*4);
         bb.order(ByteOrder.BIG_ENDIAN);
@@ -228,7 +212,7 @@ public class PanMesh {
         			break;
         		}
         	}
-
+			
     		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,i*4,vertexArray[i]);
         }
 	}
