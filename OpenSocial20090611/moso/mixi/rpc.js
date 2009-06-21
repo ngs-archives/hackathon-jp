@@ -42,6 +42,7 @@ gadgets.rpc = function() {
   var services = {};
   var iframePool = [];
   var relayUrl = {};
+  
   var useLegacyProtocol = {};
   var authToken = {};
   var callId = 0;
