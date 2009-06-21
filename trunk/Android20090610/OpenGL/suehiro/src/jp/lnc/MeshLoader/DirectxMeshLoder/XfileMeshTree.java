@@ -82,7 +82,7 @@ public class XfileMeshTree {
 	private void createTextureCoord(PanMesh panMesh) {
 		int meshNum = Integer.valueOf(((String) string.get(0)).replaceAll(";", ""));
 		int index = 0;
-		Log.d("XfileMeshTree",(String) string.get(index));
+//		Log.d("XfileMeshTree",(String) string.get(index));
 		float[] newTop= panMesh.newTop();
 		for(index++ ; index<(meshNum*3+1) ; index++){
 			if(index%3 != 0){
