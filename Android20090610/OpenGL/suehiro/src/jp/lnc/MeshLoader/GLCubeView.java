@@ -5,7 +5,9 @@ import java.io.InputStreamReader;
 import java.nio.*;
 import javax.microedition.khronos.opengles.*;
 
-import jp.lnc.MeshLoader.PanMesh;
+import jp.lnc.MeshLoader.GenerickMesh.PanMesh;
+import jp.lnc.MeshLoader.GenerickMesh.PanPrigon;
+
 import jp.lnc.MeshLoader.DirectxMeshLoder.DirectXMeshLoder;
 import android.content.*;
 import android.graphics.Bitmap;
@@ -39,15 +41,24 @@ public class GLCubeView extends GLTutorialBase {
 
         //InputStream input = this.getResources().openRawResource(R.raw.cube);
         //PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
-        bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.mekatex);
-        InputStream input = this.getResources().openRawResource(R.raw.meka);
+        InputStream input;
+        if(false){
+        	//メカ表示
+        	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.mekatex);
+        	input = this.getResources().openRawResource(R.raw.meka);
+        }else{
+        	//兵士表示
+        	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.agaltahohei_walk);
+        	input = this.getResources().openRawResource(R.raw.heisi1);
+        }
+        
         mesh = DirectXMeshLoder.XMeshLoader(new InputStreamReader(input));
         //mesh.printMesh();
   
        Log.v("Debug","size" + mesh.getMeshSize());
         
 
-        	mesh.createMesh();
+        	//mesh.createMesh();
             //バッファの生成
         	mesh.createMeshBuff();
 

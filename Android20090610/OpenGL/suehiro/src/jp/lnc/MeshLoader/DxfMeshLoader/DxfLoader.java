@@ -3,8 +3,9 @@ package jp.lnc.MeshLoader.DxfMeshLoader;
 import java.io.*;
 import java.util.regex.Pattern;
 
-import jp.lnc.MeshLoader.PanMesh;
-import jp.lnc.MeshLoader.PanPrigon;
+import jp.lnc.MeshLoader.GenerickMesh.PanMesh;
+import jp.lnc.MeshLoader.GenerickMesh.PanPrigon;
+
 
 import android.util.Log;
 
@@ -22,10 +23,8 @@ public class DxfLoader {
 			ret = DxfMeshLoader(fis);
 			fis.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
