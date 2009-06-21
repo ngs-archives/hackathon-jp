@@ -57,7 +57,7 @@ public class DirectXMeshLoder {
 	private static void genMesh(PanMesh panMesh) {
 		//topMesh.meshCompile(panMesh);
 		VertexAndTextur tmp = new VertexAndTextur(panMesh,topMesh);
-		tmp.printData();
+		//tmp.printData();
 		
 	}
 	/**
@@ -96,7 +96,7 @@ public class DirectXMeshLoder {
 			tmplateCompile();
 			
 			genMesh(panMesh);
-			panMesh.printMesh();
+			//panMesh.printMesh();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

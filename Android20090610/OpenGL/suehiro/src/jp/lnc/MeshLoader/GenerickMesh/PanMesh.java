@@ -4,7 +4,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.nio.ShortBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +11,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.graphics.Bitmap;
 import android.util.Log;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
-import java.nio.FloatBuffer;
 
 public class PanMesh {
 	protected List<PanPrigon> panPrigonList = new ArrayList<PanPrigon>();
@@ -140,30 +135,18 @@ public class PanMesh {
         bb.position(0);
         return bb;
 }
-    public void onDrow(GL10 gl, int tex){
-    	//レンダリング部
-    	gl.glEnable(gl.GL_TEXTURE_2D);
-    	gl.glColor4f(1f, 1f, 1f, 1f);
-    	gl.glBindTexture(gl.GL_TEXTURE_2D, tex);
 
-    	gl.glVertexPointer(3, gl.GL_FIXED, 0, VertexBuff);
-    	gl.glTexCoordPointer(2, gl.GL_FIXED, 0, TextureCoordsBuff);
-    	gl.glDisable(gl.GL_TEXTURE_2D);
- 
-    }
 	public void onDrow(GL10 gl){
-        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+        //gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glVertexPointer(3,GL10.GL_FLOAT,0,VertexBuff);
 
         
         //テクスチャ座標用バッファ
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, tex);
-        gl.glTexCoordPointer(2,GL10.GL_FLOAT,0,TextureCoordsBuff);
+        //gl.glBindTexture(GL10.GL_TEXTURE_2D, tex);
+        //gl.glTexCoordPointer(2,GL10.GL_FLOAT,0,TextureCoordsBuff);
 
         
-        ByteBuffer bb = ByteBuffer.allocateDirect(panPrigonList.size()*4*4);
-        ByteBuffer mIndexBuffer  = bb.order(ByteOrder.nativeOrder());
 //        Log.d("XfileMeshTree",panPrigonList.size() +"  ");
 		 
         for(byte i=0;i<panPrigonList.size();i++){
@@ -180,11 +163,12 @@ public class PanMesh {
         			break;
         		}
         	}
-        	tmpVartexIndex[0]= (byte) (i*4);
-        	tmpVartexIndex[1]= (byte) (i*4+1);
-        	tmpVartexIndex[2]= (byte) (i*4+2);
-        	tmpVartexIndex[3]= (byte) (i*4+3);
+        	if((vertexArrayNum[i]==4)|(vertexArrayNum[i]==3)){
     		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,i*4,vertexArrayNum[i]);
+        	}else{
+        		int aaaaa = 0;
+        		aaaaa+=10;
+        	}
     		//mIndexBuffer.put(tmpVartexIndex,0,4);
             //mIndexBuffer.position(0);
             //gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, vertexArray[i], GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
