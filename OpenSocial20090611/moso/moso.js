@@ -189,7 +189,7 @@ var albumView = {
 	}
 }
 
-var moso = {
+moso = {
 	init : function(){
 		tabs = new gadgets.TabSet(__MODULE_ID__,null,document.getElementById("tabs"));
 		tabs.alignTabs("left",2);
