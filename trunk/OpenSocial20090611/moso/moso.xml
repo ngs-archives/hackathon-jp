@@ -20,28 +20,31 @@
 ]]>
 </Content>
 
-<Content type="html" view="canvas">
-<![CDATA[
-<div id='bla' />
-<script type="text/javascript">
-	$('#bla').inc('http://files.getdropbox.com/u/536450/moso/canvas.html');
-	var tabs;
-</script>
-
-]]>
-</Content>
 <Content type="html" view="home">
 <![CDATA[
+<div id='base' />
 <script type="text/javascript">
-	$('#bla').inc('http://files.getdropbox.com/u/536450/moso/home.html');
+	gadgets.util.registerOnLoadHandler(moso.homeInit);
 </script>
 ]]>
 </Content>
+
 <Content type="html" view="profile">
 <![CDATA[
+<div id='base' />
 <script type="text/javascript">
-	$('#bla').inc('http://files.getdropbox.com/u/536450/moso/profile.html');
+	gadgets.util.registerOnLoadHandler(moso.profileInit);
 </script>
 ]]>
 </Content>
+
+<Content type="html" view="canvas">
+<![CDATA[
+<div id='base' />
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(moso.canvasInit);
+</script>
+]]>
+</Content>
+
 </Module>
