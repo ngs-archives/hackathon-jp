@@ -1,3 +1,9 @@
+RESOURCE_URL_ROOT = 'http://files.getdropbox.com/u/536450/moso';
+
+HOME_HTML_URL = RESOURCE_URL_ROOT + '/home.html';
+PROFILE_HTML_URL = RESOURCE_URL_ROOT + '/profile.html';
+CANVAS_HTML_URL = RESOURCE_URL_ROOT + '/canvas.html';
+
 //外部ホストへフォームデータを送信する
 
 $(function(){
@@ -191,7 +197,7 @@ var albumView = {
 
 moso = {
 	init : function(){
-		tabs = new gadgets.TabSet(__MODULE_ID__,null,document.getElementById("tabs"));
+		tabs = new gadgets.TabSet(null,null,document.getElementById("tabs"));
 		tabs.alignTabs("left",2);
 		
 		view.init();
@@ -217,3 +223,13 @@ moso = {
 	}
 }
 
+var htmlInit = function (url,initializer){
+	return function(){
+		$('#base').inc(url);
+		if (initializer)
+			initializer();
+	}
+}
+moso.homeInit = htmlInit(HOME_HTML_URL);
+moso.profileInit = htmlInit(PROFILE_HTML_URL);
+moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
