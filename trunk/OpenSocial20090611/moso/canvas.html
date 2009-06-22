@@ -1,0 +1,60 @@
+<style type="text/css">
+#viewer					{ padding:10px; }
+#photoTitle,#mapTitle	{ font-size:14px; padding:3px; border-bottom:1px solid #CCC; }
+#comment				{ width:500px; height:80px; }
+#map					{ width:800px; height:300px; }
+#viewMap				{ width:800px; height:500px; }
+
+ul.photos				{ list-style:none; }
+ul.photos li			{ float:left; margin:0 5px 3px 0; font-size:12px; }
+ul.photos li img		{ background:#FFF; border:1px solid #EEE; cursor:pointer; padding:2px; }
+ul.photos li img:hover	{ border:1px solid #E30; }
+
+#sendArea				{ padding:5px; margin-top:10px; text-align:center; padding:5px; background:#EEE; }
+
+.mtb0					{ margin:0; padding:0; }
+.txt12					{ font-size:12px; }
+.memo					{ font-size:10px; color: #666; }
+.clears:after			{ content:"."; display:block; height:0; clear:both; visibility:hidden; }
+.clears					{ display:inline-table; zoom:100%; }
+/* macIE \*/
+* html .clears { height: 1%; }
+.clears { display: block; }
+/* macIE */
+
+</style>
+
+<script type="text/javascript">
+	gadgets.util.registerOnLoadHandler(moso.init);
+</script>
+
+<div id="tabs"></div>
+
+<div id="regi">
+	<h2 id="mapTitle">どこの写真？</h2>
+	<div id="map"></div>
+	
+	<input type="hidden" id="setX" name="setX" value="" />
+	<input type="hidden" id="setY" name="setY" value="" />
+	
+	<h2 id="photoTitle">あなたの写真</h2>
+	<div id="photos"></div>
+	<input type="hidden" id="setPhoto" value="" />
+	
+	<h2 id="photoTitle">コメント</h2>
+	<textarea id="comment"></textarea>
+	<br />
+	
+	<span class="txt12">写真はあなたが行った所ですか？</span> <select id="kinds">
+		<option value="1">妄想</option>
+		<option value="2">真実</option>
+	</select>
+	<br />
+	
+	<div id="sendArea"><input type="button" id="sendBtn" value="登録する" /></div>
+</div>
+
+<div id="viewer">
+	<p class="txt12">世界中の写真</p>
+	<div id="viewMap"></div>
+</div>
