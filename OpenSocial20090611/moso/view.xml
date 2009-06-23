@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="test" author_email="yamashita@kanshin.com">
+  <ModulePrefs title="moso" author_email="yamashita@kanshin.com">
     <Require feature="opensocial-0.8" />
 	<Require feature="dynamic-height" />
   </ModulePrefs>
@@ -8,7 +8,8 @@
 	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAxAzLoA3KlFmedJ39SzP03BQJ3UZMKiy67bDoh-uCNSom3bXGJBSflYqvQ-wRWN4s90oAcb1Vo5BY-g" type="text/javascript"></script>
 	<script type="text/javascript" src="http://opensocial-jquery.googlecode.com/svn/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
 	
-	<div id="viewMap" style="width:500px; height:400px"></div>
+	<div id="viewMap" style="width:500px; height:300px"></div>
+	<div id="viewList" style="width:500px; height:300px"; display:none;"></div>
 	
 	<script type="text/javascript">
 	var view = {
@@ -27,6 +28,16 @@
 			  
 			view.map.addControl(new GLargeMapControl());	
 			view.map.setCenter(point, 1);
+
+			GEvent.addListener(view.map, 'click', function(overlay, point) {
+				if (point) {
+					x = point.x;
+					y = point.y;
+					console.log(x + ' ' + y);
+					windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+					view.map.openInfoWindowHtml(point, windowHtml);
+				}
+			});
 		},
 	
 		buildMarkers : function(result) {
@@ -36,14 +47,20 @@
 				var point = new GLatLng(location.setX, location.setY);
 				var marker = new GMarker(point);
 				
-				var windowHtml = '<h2>' + location.comment + '</h2>';
-				windowHtml += '<p><img src="' + location.setPhoto + '" /></p>';
-
+				//var windowHtml = '<h2>' + location.comment + '</h2>';
+				//windowHtml += '<p><img src="' + location.setPhoto + '" /></p>';
+				var windowHtml = '<h2>タイトル</h2>';
+				windowHtml += '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
 				GEvent.addListener(marker, 'click', function() {
 					marker.openInfoWindowHtml(windowHtml);
+					
+					var data = '<ul class="point">';
+					data += '<li><img src="' + location.setPhoto + '" /></li>';
+					data += '<li>' + location.comment + '</li>';
+					
+					$("#viewList").html(data);			
 				});		
-
-				view.map.addOverlay(marker);
+    			view.map.addOverlay(marker);
 			});
 		
 		},
