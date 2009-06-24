@@ -1,59 +1,66 @@
 //外部ホストへフォームデータを送信する
 
-$(function(){
-	var userID = {};
-	$("#sendBtn").click(function(){
-	//フォーム各要素のデータを変数に格納
-	var setX = $("#setX").val();
-	var setY = $("#setY").val();
-	alert(setX);
-	var setPhoto = $("#setPhoto").val();
-	var comment = $("#comment").val();
-	var kinds = $("#kinds").val();
-
-	//会員IDをリクエストする
-/*	$.ajax({
-    	url: '/people/@owner/@self',
-    	data: {},
-    	dataType: 'data',
-    	success: function(people) {
-      		var person = people[0];
-//      		console.info(person.id);
-//     		console.info(person.nickname);
-			userID =person.getId();
-    		},
-    		error: function(xhr, status, e) {
-  //    		console.info(xhr, status, e);
-    		}
-  	});*/
-
-	//外部サーバーへajax通信をおこなう
-	$.ajax({
-		type: 'post',
-		url: 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations',
-		data: {
-	//		"id":userID,
-			"setX" : setX,
-			"setY" : setY,
-			"setPhoto" : setPhoto,
-			"comment" : comment,
-			"kinds" : kinds
-		},
-		dataType: 'json',
-		cache: false,
+var host ={
+		init : function(){
 		
-		//データ取得に成功した場合の処理を定義
-		success: function(data, status){
-	//	console.log(data, status);
+		//オーナーの会員IDをリクエストする
+		userID = {};
+		var req=opensocial.newDataRequest();
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
+		req.send(function(data){
+			if(data.hadError()){
+			var msg = data.getErrorMessage();
+			console.error(msg);
+			}else{
+			var owner=data.get("owner").getData();
+			userID=owner.getId();
+		    console.info(userID);
+			}
+		})
+
+		
+		$("#sendBtn").click(function(){
+		//フォーム各要素のデータを変数に格納
+		var setX = $("#setX").val();
+		var setY = $("#setY").val();
+		var setPhoto = $("#setPhoto").val();
+		var comment = $("#comment").val();
+		var kinds = $("#kinds").val();
+		
+		//写真が選択されているか確認
+	
+		//コメントが入力されているか確認
+	
+		//行った、行きたいが選択されているか確認
+
+
+		//外部サーバーへajax通信をおこなう
+		$.ajax({
+			type: 'post',
+			url: 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations',
+			data: {
+					"id":userID,
+					"setX" : setX,
+					"setY" : setY,
+					"setPhoto" : setPhoto,
+					"comment" : comment,
+					"kinds" : kinds
+			},
+			dataType: 'json',
+			cache: false,
+		
+			//データ取得に成功した場合の処理を定義
+			success: function(data, status){
+			//	console.log(data, status);
 			
-		},
-		error: function(xhr, status, e){
-			console.info(xhr, status, e);
-		}
-	});
+			},
+			error: function(xhr, status, e){
+			// console.info(xhr, status, e);
+				}
+		});
 	$("#regi").html("登録完了しました！");
-})
-})
+	})
+}}
 
 var map = {
 	
@@ -195,6 +202,7 @@ var moso = {
 		tabs.alignTabs("left",2);
 		
 		view.init();
+		host.init();
 		
 		var tab1 = {
 			contentContainer: document.getElementById("viewer"),
