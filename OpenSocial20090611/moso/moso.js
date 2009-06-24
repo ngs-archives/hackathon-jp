@@ -14,7 +14,7 @@ var host ={
 			}else{
 			var owner=data.get("owner").getData();
 			userID=owner.getId();
-		    console.info(userID);
+		    // console.info(userID);
 			}
 		})
 
@@ -201,6 +201,7 @@ var moso = {
 		tabs = new gadgets.TabSet(null,null,document.getElementById("tabs"));
 		tabs.alignTabs("left",2);
 		
+		moso.whois();
 		view.init();
 		host.init();
 		
@@ -222,6 +223,24 @@ var moso = {
 		
 		
 		gadgets.window.adjustHeight(750);
+	},
+	whois : function(){
+		var req = opensocial.newDataRequest(); 
+			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer"); 
+			req.send(function(data){
+				var viewer = data.get("viewer").getData();
+				if(viewer.isOwner()){
+					moso.isOwner=1;
+					moso.isViewer=0;
+					// console.info(moso.isOwner);
+					// console.info(moso.isViewer);
+				}else{
+					moso.isOwner=0;
+					moso.isViewer=1;
+					// console.info(moso.isOwner);
+					// console.info(moso.isViewer);
+				}
+			})
 	}
 }
 
