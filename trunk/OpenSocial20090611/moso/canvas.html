@@ -3,7 +3,12 @@
 #photoTitle,#mapTitle	{ font-size:14px; padding:3px; border-bottom:1px solid #CCC; }
 #comment				{ width:500px; height:80px; }
 #map					{ width:800px; height:300px; }
-#viewMap				{ width:800px; height:500px; }
+#viewMap				{ width:600px; height:600px; float: left; }
+#viewRight				{ width:200px; height:600px; float: right;}
+
+#viewPhotoList ul.photos		{ list-style:none; padding: 0px;}
+#viewPhotoList ul.photos li		{ float:left; margin:0 5px 3px 0; font-size:12px; }
+#viewPhotoList ul.photos li img	{ background:#FFF; border:1px solid #EEE; cursor:pointer; padding:2px; width: 50px; }	
 
 ul.photos				{ list-style:none; }
 ul.photos li			{ float:left; margin:0 5px 3px 0; font-size:12px; }
@@ -25,6 +30,7 @@ ul.photos li img:hover	{ border:1px solid #E30; }
 </style>
 
 <div id="tabs">
+</div>
 
 <div id="regi">
 	<h2 id="mapTitle">どこの写真？</h2>
@@ -53,6 +59,13 @@ ul.photos li img:hover	{ border:1px solid #E30; }
 <div id="viewer">
 	<p class="txt12">世界中の写真</p>
 	<div id="viewMap"></div>
+	<div id="viewRight">
+		<div id="latestPhoto">
+			<p class="photo"></p>
+			<p class="comment"></p>
+		</div>
+		<div id="viewPhotoList"></div>
+		<p class="addButton" style="display:none"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>
+	</div>
 </div>
 
-</div>
