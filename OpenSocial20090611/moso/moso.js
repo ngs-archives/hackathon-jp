@@ -95,30 +95,53 @@ var view = {
 		},
 		buildMap : function() {
 			view.map = new GMap2(document.getElementById("viewMap"));
-			var point = new GLatLng(36.03, 139.15);
-			
-			view.map.addControl(new GLargeMapControl());
+			var point = new GLatLng(36.03, 139.15);  
+			view.map.addControl(new GLargeMapControl());	
 			view.map.setCenter(point, 1);
+
+			GEvent.addListener(view.map, 'click', function(overlay, point) {
+				if (point) {
+					x = point.x;
+					y = point.y;
+					console.log(x + ' ' + y);
+					windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+					view.map.openInfoWindowHtml(point, windowHtml);
+				}
+			});
 		},
 		buildMarkers : function(result) {
 			$.each(result, function(key, value) {
 				var location = value.location;
+			
 				var point = new GLatLng(location.setX, location.setY);
 				var marker = new GMarker(point);
+				
 				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
 				windowHtml += '<p class="txt12">' + location.comment + '</p>';
-				
-				if (location.kind == 1) {
-					windowHtml += '<p class="memo">...っていうのは妄想だけど</p>';
-				}
-
+				windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
 				GEvent.addListener(marker, 'click', function() {
 					marker.openInfoWindowHtml(windowHtml);
+					view.listRightPhoto(location, result);
 				});		
-
 				view.map.addOverlay(marker);
 			});
 		
+		},
+		listRightPhoto : function(location, result) {					
+			$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
+			$("#latestPhoto .comment").html(location.comment);
+
+			var data = '<ul class="photos clears"></ul>';
+			$("#viewPhotoList").html(data);
+
+			$.each(result, function(key, value) {
+				var location = value.location;
+				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + location.setPhoto + '" />').click(function(){
+					$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
+					$("#latestPhoto .comment").html(location.comment);
+				}));
+				$("#viewRight .addButton").css({"display":"block"});
+			});
 		},
 		request : function(callback) {
 			var params = {};

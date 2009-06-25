@@ -8,8 +8,47 @@
 	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true_or_false&amp;key=ABQIAAAAxAzLoA3KlFmedJ39SzP03BQJ3UZMKiy67bDoh-uCNSom3bXGJBSflYqvQ-wRWN4s90oAcb1Vo5BY-g" type="text/javascript"></script>
 	<script type="text/javascript" src="http://opensocial-jquery.googlecode.com/svn/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
 	
-	<div id="viewMap" style="width:500px; height:300px"></div>
-	<div id="viewList" style="width:500px; height:300px"; display:none;"></div>
+	<style type="text/css">
+	#viewer					{ padding:10px; }
+	#photoTitle,#mapTitle	{ font-size:14px; padding:3px; border-bottom:1px solid #CCC; }
+	#comment				{ width:500px; height:80px; }
+	#map					{ width:800px; height:300px; }
+	#viewMap				{ width:600px; height:600px; float: left; }
+	#viewRight				{ width:200px; height:600px; float: right;}
+	
+	#viewPhotoList ul.photos		{ list-style:none; padding: 0px;}
+	#viewPhotoList ul.photos li		{ float:left; margin:0 5px 3px 0; font-size:12px; }
+	#viewPhotoList ul.photos li img	{ background:#FFF; border:1px solid #EEE; cursor:pointer; padding:2px; width: 50px; }
+	
+	ul.photos				{ list-style:none; }
+	ul.photos li			{ float:left; margin:0 5px 3px 0; font-size:12px; }
+	ul.photos li img		{ background:#FFF; border:1px solid #EEE; cursor:pointer; padding:2px; }
+	ul.photos li img:hover	{ border:1px solid #E30; }
+	
+	#sendArea				{ padding:5px; margin-top:10px; text-align:center; padding:5px; background:#EEE; }
+	
+	.mtb0					{ margin:0; padding:0; }
+	.txt12					{ font-size:12px; }
+	.memo					{ font-size:10px; color: #666; }
+	.clears:after			{ content:"."; display:block; height:0; clear:both; visibility:hidden; }
+	.clears					{ display:inline-table; zoom:100%; }
+	/* macIE \*/
+	* html .clears { height: 1%; }
+	.clears { display: block; }
+	/* macIE */
+	
+	</style>
+
+
+	<div id="viewMap"></div>
+	<div id="viewRight">
+		<div id="latestPhoto">
+			<p class="photo"></p>
+			<p class="comment"></p>
+		</div>
+		<div id="viewPhotoList"></div>
+		<p class="addButton" style="display:none"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>
+	</div>
 	
 	<script type="text/javascript">
 	var view = {
@@ -47,22 +86,33 @@
 				var point = new GLatLng(location.setX, location.setY);
 				var marker = new GMarker(point);
 				
-				//var windowHtml = '<h2>' + location.comment + '</h2>';
-				//windowHtml += '<p><img src="' + location.setPhoto + '" /></p>';
-				var windowHtml = '<h2>タイトル</h2>';
-				windowHtml += '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
+				windowHtml += '<p class="txt12">' + location.comment + '</p>';
+				windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
 				GEvent.addListener(marker, 'click', function() {
 					marker.openInfoWindowHtml(windowHtml);
-					
-					var data = '<ul class="point">';
-					data += '<li><img src="' + location.setPhoto + '" /></li>';
-					data += '<li>' + location.comment + '</li>';
-					
-					$("#viewList").html(data);			
+					view.listRightPhoto(location, result);
 				});		
     			view.map.addOverlay(marker);
 			});
 		
+		},
+		
+		listRightPhoto : function(location, result) {					
+			$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
+			$("#latestPhoto .comment").html(location.comment);
+
+			var data = '<ul class="photos clears"></ul>';
+			$("#viewPhotoList").html(data);
+
+			$.each(result, function(key, value) {
+				var location = value.location;
+				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + location.setPhoto + '" />').click(function(){
+					$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
+					$("#latestPhoto .comment").html(location.comment);
+				}));
+				$("#viewRight .addButton").css({"display":"block"});
+			});
 		},
 	
 		request : function(callback) {
