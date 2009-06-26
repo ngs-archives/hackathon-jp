@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project>
+    <!-- for google maps -->
+    <property name="map_key" value="0lyrYtd-Je85vzBifgb_u78F7SL3TJoDjgQb-Sg"/>
+    
+    <!-- for sign app -->
+    <property name="sign.keystore.path" value="/home/ogura/.android/debug.keystore"/>
+</project>

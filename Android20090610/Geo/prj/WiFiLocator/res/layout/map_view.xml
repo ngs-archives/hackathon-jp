@@ -7,7 +7,7 @@
 		<com.google.android.maps.MapView
 		    android:clickable="true"
 			android:id="@+id/geoMap" android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:apiKey="0LH1BWaz3e0GseWTfepBG250Px-BPFksFjQMzGw" />
+			android:layout_height="fill_parent" android:apiKey="0lyrYtd-Je85vzBifgb_u78F7SL3TJoDjgQb-Sg" />
 		<Button android:id="@+id/btZin" android:text="+"
 			android:layout_alignTop="@+id/geoMap" android:layout_height="40px"
 			android:layout_width="40px">

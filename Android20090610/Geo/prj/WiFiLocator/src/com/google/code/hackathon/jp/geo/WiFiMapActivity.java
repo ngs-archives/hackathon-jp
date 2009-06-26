@@ -11,6 +11,8 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,6 +25,7 @@ import com.google.android.maps.Overlay;
 
 public class WiFiMapActivity extends MapActivity {
 	
+	private static final String TAG = "MapActivity";
 	LinearLayout linearLayout;
 	MapView mapView;
 	ZoomControls zoomControls;
@@ -38,7 +41,6 @@ public class WiFiMapActivity extends MapActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		this.setContentView(R.layout.map_view);
-		
 		
 		
 		//linearLayout = (LinearLayout) this.findViewById(R.id.btZin);
@@ -77,6 +79,53 @@ public class WiFiMapActivity extends MapActivity {
 		Intent intent = new Intent(this, WiFiLocatorService.class);
 		this.startService(intent);
 		Log.d("start centering", "start centering");
+		
+	}
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		super.onCreateOptionsMenu(menu);
+		
+		menu.add(0, 0, Menu.NONE, "settings").setIcon(android.R.drawable.ic_menu_set_as);
+		menu.add(0, 1, Menu.NONE, "dummy").setIcon(android.R.drawable.ic_menu_agenda);
+		
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case 0:
+			Log.w("AA","0");
+			Intent intent = new Intent(this, WiFisetting.class);
+			intent.setAction(Intent.ACTION_VIEW);
+			startActivity(intent);
+			return true;
+		case 1:
+
+			Log.w("AA","1");
+			Intent intent2 = new Intent(this, WiFiInputMapActivity.class);
+			intent2.setAction(Intent.ACTION_VIEW);
+			startActivity(intent2);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 		//centering
 		mapCentering();
 		Log.d("start showAreaAccessPointLocation", "start showAreaAccessPointLocation");
@@ -84,17 +133,17 @@ public class WiFiMapActivity extends MapActivity {
 		showAreaAccessPointLocation();
 		Log.d("end showAreaAccessPointLocation", "end showAreaAccessPointLocation");
 	}
-	
+
 	private void mapCentering(){
 		Location loc = getPosition();
-		int lat = (int)(35.699286 * 1000000);
-		int longi = (int)(139.772959 * 1000000);
+		GeoPoint point = null;
 		if(loc != null){
-			lat = (int)(loc.getLatitude() * 1000000);
-			longi = (int)(loc.getLatitude() * 1000000);
-			Log.d("not get position", "not get position");
+			point = LocationHelper.locationToGeoPoint(loc);
+			Log.d(TAG, "not get position");
+			Log.d(TAG, "lat: " + point.getLatitudeE6() + ", lng: " + point.getLongitudeE6());
+		} else {
+			point = LocationHelper.locationToGeoPoint(35.699286, 139.772959);
 		}
-		GeoPoint point = new GeoPoint(lat, longi);
 		mapView.getController().setCenter(point);
 	}
 	
@@ -110,7 +159,7 @@ public class WiFiMapActivity extends MapActivity {
 	
 	
 	private void showAreaAccessPointLocation(){ 
-		GeoPoint center = mapView.getMapCenter();
+/*		GeoPoint center = mapView.getMapCenter();
 		int latitudeNorthE6 = center.getLatitudeE6() + (mapView.getLatitudeSpan() /2);
 		int latitudeSouthE6 = center.getLatitudeE6() - (mapView.getLatitudeSpan() /2);
 		int longitudeEastE6 = center.getLatitudeE6() + (mapView.getLongitudeSpan() /2);
@@ -124,7 +173,10 @@ public class WiFiMapActivity extends MapActivity {
 			
 			overlaylist.add(new MapIcon(bmpMe, ac.getGeoPoint()));
 			
-		}
+		} */
+		HeatmapOverlay overlay = new HeatmapOverlay();
+		overlay.setWiFiLogProvider(wiFiLogProvider);
+		mapView.getOverlays().add(overlay);
 		
 	}
 }

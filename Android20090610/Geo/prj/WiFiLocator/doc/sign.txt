@@ -1,0 +1,4 @@
+jarsigner -keystore ~/.android/debug.keystore WiFiLocator.apk androiddebugkey
+ => android
+adb shell pm uninstall -k com.google.code.hackathon.jp.geo
+adb install WiFiLocator.apk
