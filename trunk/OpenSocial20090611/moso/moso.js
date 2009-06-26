@@ -90,8 +90,13 @@ var map = {
 var view = {
 		map : {},
 		init : function() {
-			view.buildMap();
-			view.request(view.buildMarkers);
+			var deferred = $.deferred();
+			deferred.next(function(){
+							view.buildMap()
+			}).next(function(){
+				view.request(view.buildMarkers)
+			});
+			deferred.call();
 		},
 		buildMap : function() {
 			view.map = new GMap2(document.getElementById("viewMap"));
