@@ -1,21 +1,17 @@
 package com.google.code.hackathon.jp.geo;
 
-import java.util.List;
-
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class WiFisetting extends Activity {
 
 
-	private Menu myMenu;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +30,6 @@ public class WiFisetting extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		myMenu = menu;
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, 0, Menu.NONE, "back to map").setIcon(android.R.drawable.ic_menu_revert );
 		menu.add(0, 1, Menu.NONE, "make dummy data").setIcon(android.R.drawable.ic_menu_agenda);

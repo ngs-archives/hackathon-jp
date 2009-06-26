@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project>
+	<import file="build.properties.${user.name}"/>
+	
+	<property name="res.layout.dir" value="res/layout"/>
+	
+	<target name="replace_key">
+        <replace file="res/layout/map_view.xml" token="GOOGLE_MAP_KEY_FOR_ANT" value="${map_key}">
+        </replace>
+	</target>
+	<target name="restore_key_token">
+	    <replace file="res/layout/map_view.xml" token="${map_key}" value="GOOGLE_MAP_KEY_FOR_ANT">
+	    </replace>
+	</target>
+	
+	<!-- valid if your apk file has not been signed -->
+	<target name="sign_debug_app">
+		<delete dir="build"/>
+		<copy todir="build" overwrite="true">
+			<fileset dir="bin"></fileset>
+		</copy>
+	    <signjar jar="build/WiFiLocator.apk" keystore="${sign.keystore.path}" alias="androiddebugkey" storepass="android"/>
+	</target>
+	
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+</project>

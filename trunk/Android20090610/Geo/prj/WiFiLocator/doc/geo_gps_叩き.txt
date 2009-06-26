@@ -1,0 +1,86 @@
+GPSチーム仕様叩き用
+
+思いついたことをどうぞ。
+
+■メンバー
+和田　
+小倉　
+日高　
+
+■アプリ名
+未定
+
+■概要
+接続可能な無線LANを記録してマッピングするアプリ
+
+■機能
+GPSのデータと接続可能な無線LANのスポット名・電波強度を保存
+地図上に表示
+
+■最小構成
+
+取得したデータはSQLiteに保存。ネットワーク保存なし。
+起動時だけ1分おきに収集(ログ取り画面)
+
+■追加構成
+
+サーバにデータ保存して、情報共有(＋プライバシー対策)
+バックグラウンドで取得機能
+重複するデータの上書き
+
+■考察中
+
+1.SQLiteに保存して自分ツールか、サーバ保存か
+2.起動時だけ収集(ログ取りモード、1分おきとか)か、バックグラウンドで収集か
+3.野良無線情報を共有した場合、プライバシーとか絡みそうだ
+4.一度取得済みのwifiを重複して取るか？毎日通る場所ではデータ増えすぎる。
+　位置別で電波強度は欲しいが位置が近すぎる場合はデータ上書きでもよさそう。
+5.電波が取得できなかった場所は記録しておくか
+など。
+
+6.取得した複数の電波状況から、AP(Access Point)の位置を推定する
+7.時間、電波強度を考慮してヒートマップを作成する方法
+8.Web + google maps flash で、同様の UI を提供してもいいかも
+9.測位方法として、NETWORK_PROVIDER があった。cell tower と wifi ベースで測位するらしい。
+
+
+10.とりあえず実機でWIFIテストOK
+パーミッションに以下必要でした。
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+
+
+■TODO
+- BroadcastReceiver を実装
+- 初期起動画面を変更
+- 各種プロパティを反映させる
+- ログのマージ方法のテストを作成する
+- 計測した際に、AP が無かったことも記録する => 立ち位置次第
+- サーバ側を作成する
+- サーバにログを上げる部分を作成する
+- AP のセキュリティレベルによるフィルタリングを行なえるように
+- 全体を見直す
+- ロゴ
+- 名前
+
+
+■画面構成案
+
+
+■参考URL
+http://developer.android.com/reference/android/net/wifi/ScanResult.html
+http://developer.android.com/reference/android/net/wifi/WifiManager.html
+http://groups.google.co.jp/group/android-sdk-japan/browse_thread/thread/7b1c1c2acf357c2b
+http://www.adakoda.com/adakoda/2009/03/android-wi-fiip-address.html
+
+エミュレータではwifiないらしい。実機手に入るかが重要になってきた。
+
+
+iphone,jailbreak必須で似たアプリ。定期収集なし。
+http://www.ipoday.com/ipodtouch_applications/StumblerPlus.html
+
+
+■db
+sqlite3 /data/data/com.google.code.hackathon.jp.geo/databases/wifi_log.db
+=> 実機だと permission denied

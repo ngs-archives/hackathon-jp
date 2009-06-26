@@ -25,14 +25,16 @@ public class WiFiLocatorService extends Service {
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
-		
-		mWiFiManager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
+
+		mWiFiManager = (WifiManager) this
+				.getSystemService(Context.WIFI_SERVICE);
 		mWiFiManager.setWifiEnabled(true);
 		
+		mProvider = new WiFiLogProvider(this);
+
 		getScanResult();
-		
+
 		locationManager = (LocationManager) this
 				.getSystemService(Context.LOCATION_SERVICE);
 		locationListener = new LocationListener() {
@@ -41,7 +43,6 @@ public class WiFiLocatorService extends Service {
 
 				Log.d(TAG, location.getLatitude() + ","
 						+ location.getLongitude());
-				
 
 				mProvider.storeWiFiLog(location, getScanResult());
 			}
@@ -65,31 +66,35 @@ public class WiFiLocatorService extends Service {
 		};
 
 	}
-	
+
 	public List<ScanResult> getScanResult() {
 		mWiFiManager.startScan();
 		List<ScanResult> results = mWiFiManager.getScanResults();
-		
+
 		if (results != null && results.size() > 0) {
 			for (ScanResult result : results) {
 				Log.d(TAG, "ssid: " + result.SSID);
 				Log.d(TAG, "level: " + result.level);
 			}
 		}
-		
+
 		return results;
 	}
 
 	@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
+		Log.d(TAG, "start service");
 		enableLocationListener();
+		Log.d(TAG, "set listener done");
 	}
 
 	private void enableLocationListener() {
-		// TODO distance should be a parameter
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
 				1000 * 60, 300, locationListener);
+		locationManager.requestLocationUpdates(
+				LocationManager.NETWORK_PROVIDER, 1000 * 60, 300,
+				locationListener);
 	}
 
 	@Override
