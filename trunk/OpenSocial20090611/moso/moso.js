@@ -104,11 +104,13 @@ var view = {
 			view.map.addControl(new GLargeMapControl());	
 			view.map.setCenter(point, 1);
 
+			if (!moso.isOwner) return true;
+
 			GEvent.addListener(view.map, 'click', function(overlay, point) {
 				if (point) {
 					x = point.x;
 					y = point.y;
-					console.log(x + ' ' + y);
+
 					windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
 					view.map.openInfoWindowHtml(point, windowHtml);
 				}
@@ -123,7 +125,7 @@ var view = {
 				
 				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
 				windowHtml += '<p class="txt12">' + location.comment + '</p>';
-				windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
 				GEvent.addListener(marker, 'click', function() {
 					marker.openInfoWindowHtml(windowHtml);
 					view.listRightPhoto(location, result);
@@ -145,7 +147,7 @@ var view = {
 					$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
 					$("#latestPhoto .comment").html(location.comment);
 				}));
-				$("#viewRight .addButton").css({"display":"block"});
+				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
 			});
 		},
 		request : function(callback) {
