@@ -201,9 +201,11 @@ var albumView = {
 		var data = '<ul class="photos clears">';
 		var mediaitems = dataResponse.get('mediaitems').getData();
 		
+		var i=1;
 		mediaitems.each(function(mediaitem) {
-			data += '<li>';
+			data += '<li class="photo'+i+'">';
 			data += '<img class="photo" src="' + mediaitem.getField(opensocial.MediaItem.Field.THUMBNAIL_URL) + '" /><br />'+mediaitem.getField(opensocial.MediaItem.Field.TITLE)+'</li>';
+			i++;
 		});
 		
 		data += '</ul>';
