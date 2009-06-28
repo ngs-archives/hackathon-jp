@@ -91,7 +91,7 @@ var listView = {
 						opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 						opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
 						opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
-						opt_params[gadgets.io.RequestParameters.POST_DATA] = {id:userID};
+						opt_params[gadgets.io.RequestParameters.GET_DATA] = {id:userID};
 						opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
 
 						gadgets.io.makeRequest(url, function(response) {
@@ -115,7 +115,7 @@ var listView = {
 				});
 				/*}else{
 							//DBへアクセス
-							opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+							opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 							opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
 							opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
 							opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
