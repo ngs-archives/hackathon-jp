@@ -1,66 +1,150 @@
 //外部ホストへフォームデータを送信する
 
 var host ={
+
 		init : function(){
-		
-		//オーナーの会員IDをリクエストする
-		userID = {};
-		var req=opensocial.newDataRequest();
-		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
-		req.send(function(data){
-			if(data.hadError()){
-			var msg = data.getErrorMessage();
-			console.error(msg);
-			}else{
-			var owner=data.get("owner").getData();
-			userID=owner.getId();
-		    // console.info(userID);
-			}
-		})
+			var hostuserID={};
+			//オーナーの会員IDをリクエストする
+			var req=opensocial.newDataRequest();
+			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
+			req.send(function(data){
+				if(data.hadError()){
+					var msg = data.getErrorMessage();
+					console.error(msg);
+				}else{
+					var owner=data.get("owner").getData();
+					hostUserID=owner.getId();
+					//console.info(hostUserID);
 
-		
-		$("#sendBtn").click(function(){
-		//フォーム各要素のデータを変数に格納
-		var setX = $("#setX").val();
-		var setY = $("#setY").val();
-		var setPhoto = $("#setPhoto").val();
-		var comment = $("#comment").val();
-		var kinds = $("#kinds").val();
-		
-		//写真が選択されているか確認
-	
-		//コメントが入力されているか確認
-	
-		//行った、行きたいが選択されているか確認
+					//送信をクリックしたらデータをサーバーへ送信する
+					$("#sendBtn").click(function(){
+					//フォーム各要素のデータを変数に格納
+					var setX = $("#setX").val();
+					var setY = $("#setY").val();
+					var setPhoto = $("#setPhoto").val();
+					var comment = $("#comment").val();
+					var kinds = $("#kinds").val();
 
-
-		//外部サーバーへajax通信をおこなう
-		$.ajax({
-			type: 'post',
-			url: 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations',
-			data: {
-					"id":userID,
-					"setX" : setX,
-					"setY" : setY,
-					"setPhoto" : setPhoto,
-					"comment" : comment,
-					"kinds" : kinds
-			},
-			dataType: 'json',
-			cache: false,
+						//外部サーバーへajax通信をおこなう
+						$.ajax({
+							type: 'post',
+							url: 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations',
+							data: {
+									"id":hostUserID,
+									"setX" : setX,
+									"setY" : setY,
+									"setPhoto" : setPhoto,
+									"comment" : comment,
+									"kinds" : kinds
+							},
+							dataType: 'json',
+							cache: false,
 		
-			//データ取得に成功した場合の処理を定義
-			success: function(data, status){
-			//	console.log(data, status);
+							//データ取得に成功した場合、最新の自己登録リストを取得
+							success: function(data, status){
+							//	console.log(data, status);
 			
-			},
-			error: function(xhr, status, e){
-			// console.info(xhr, status, e);
+							},
+							error: function(xhr, status, e){
+							// console.info(xhr, status, e);
+							}
+						});
+						$("#regi").html("登録完了しました！");
+					});
 				}
-		});
-	$("#regi").html("登録完了しました！");
-	})
-}}
+			});
+	}
+}
+	
+
+var listView = {
+
+	//canvasの自己登録リストに表示する。適当です。
+	listResult : function (result){
+		$.each(result,function(key,value){
+			var location = value.location;
+			var canvasViewHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
+				canvasViewHtml += '<p class="txt12">' + location.comment + '</p>';
+				console.info(canvasViewHtml);
+		})
+	},
+
+	//canvasで最初に表示された際の自己登録リスト取得関数
+	listRequest : function (callback) {
+			var userID={};
+		//viewerがオーナーの場合は、オーナーの会員IDでリクエストする。mosoオブジェクトにまとめる際に、if(moso.isOwner)で取得。
+			//if(moso.isOwner){
+			var req=opensocial.newDataRequest();
+			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
+			req.send(function(data){
+				if(data.hadError()){
+					var msg = data.getErrorMessage();
+					console.error(msg);
+				}else{
+					var owner=data.get("owner").getData();
+					userID=owner.getId();
+					var opt_params = {};
+					var url = 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations';
+
+	 				if(userID == null){
+			
+						//DBへアクセス
+						opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+						opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+						opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+						opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+
+						gadgets.io.makeRequest(url, function(response) {
+							var transport_errors = response.errors;
+							if (transport_errors.length) {
+								alert('Transport Error' + Object.toJSON(transport_errors));
+								return;
+							}
+				
+							var result = response.data;
+							console.info(result);
+				
+							if (result.errors) {
+								console.log('Application Error');
+								console.log(result.errors);
+							}
+				
+							callback(result);
+						},opt_params);
+			
+
+					} else {
+						console.info(userID);
+						//DBへアクセス
+						opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+						opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+						opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+						opt_params[gadgets.io.RequestParameters.POST_DATA] = {id:userID};
+						opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+
+						gadgets.io.makeRequest(url, function(response) {
+						var transport_errors = response.errors;
+						if (transport_errors.length) {
+							alert('Transport Error' + Object.toJSON(transport_errors));
+							return;
+						}
+				
+						var result = response.data;
+					   // console.info(result);
+				
+						if (result.errors) {
+							console.log('Application Error');
+							console.log(result.errors);
+						}
+				
+						callback(result);
+						},opt_params);
+					}
+				}
+			});
+			//}
+	}
+}	
 
 var map = {
 	
@@ -236,6 +320,7 @@ var moso = {
 		moso.whois();
 		view.init();
 		host.init();
+		listView.listRequest(listView.listResult);
 		
 		var tab1 = {
 			contentContainer: document.getElementById("viewer"),
