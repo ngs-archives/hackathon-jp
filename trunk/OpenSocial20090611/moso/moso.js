@@ -61,12 +61,18 @@ var listView = {
 
 		//canvasの自己登録リストに表示する。適当です。
 		listResult : function (result){
+			var canvasViewHtml = '<ul class="ownlistview">';
+			
 			$.each(result,function(key,value){
 				var location = value.location;
-				var canvasViewHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
-					canvasViewHtml += '<p class="txt12">' + location.comment + '</p>';
-					console.info(canvasViewHtml);
-			})
+					canvasViewHtml += '<li>';
+				    canvasViewHtml += '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
+					canvasViewHtml += '<p class="txt12">' + location.comment + '</p></li>';
+			});
+			
+			canvasViewHtml += '</ul>';
+			//自己登録リストタブを作成後、id=viewlistで指定
+			$("#viewlist").html(canvasViewHtml);
 		},
 
 		//canvasで最初に表示された際の自己登録リスト取得関数
