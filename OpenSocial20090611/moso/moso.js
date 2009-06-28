@@ -3,7 +3,7 @@
 var host ={
 
 		init : function(){
-			var hostuserID={};
+			var hostUserID={};
 			//オーナーの会員IDをリクエストする
 			var req=opensocial.newDataRequest();
 			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
@@ -102,7 +102,7 @@ var listView = {
 							}
 				
 							var result = response.data;
-							console.info(result);
+							//console.info(result);
 				
 							if (result.errors) {
 								console.log('Application Error');
@@ -130,7 +130,7 @@ var listView = {
 						}
 				
 						var result = response.data;
-					   // console.info(result);
+					    console.info(result);
 				
 						if (result.errors) {
 							console.log('Application Error');
