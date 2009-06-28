@@ -59,61 +59,33 @@ var host ={
 
 var listView = {
 
-	//canvasの自己登録リストに表示する。適当です。
-	listResult : function (result){
-		$.each(result,function(key,value){
-			var location = value.location;
-			var canvasViewHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
-				canvasViewHtml += '<p class="txt12">' + location.comment + '</p>';
-				console.info(canvasViewHtml);
-		})
-	},
+		//canvasの自己登録リストに表示する。適当です。
+		listResult : function (result){
+			$.each(result,function(key,value){
+				var location = value.location;
+				var canvasViewHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
+					canvasViewHtml += '<p class="txt12">' + location.comment + '</p>';
+					console.info(canvasViewHtml);
+			})
+		},
 
-	//canvasで最初に表示された際の自己登録リスト取得関数
-	listRequest : function (callback) {
-			var userID={};
-		//viewerがオーナーの場合は、オーナーの会員IDでリクエストする。mosoオブジェクトにまとめる際に、if(moso.isOwner)で取得。
-			//if(moso.isOwner){
-			var req=opensocial.newDataRequest();
-			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
-			req.send(function(data){
-				if(data.hadError()){
-					var msg = data.getErrorMessage();
-					console.error(msg);
-				}else{
-					var owner=data.get("owner").getData();
-					userID=owner.getId();
-					var opt_params = {};
-					var url = 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations';
-
-	 				if(userID == null){
-			
-						//DBへアクセス
-						opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
-						opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-						opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
-						opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
-
-						gadgets.io.makeRequest(url, function(response) {
-							var transport_errors = response.errors;
-							if (transport_errors.length) {
-								alert('Transport Error' + Object.toJSON(transport_errors));
-								return;
-							}
+		//canvasで最初に表示された際の自己登録リスト取得関数
+		listRequest : function (callback) {
+				var userID={};
+			//viewerがオーナーの場合は、オーナーの会員IDでリクエストする。mosoオブジェクトにまとめる際に、if(moso.isOwner)で取得。
+				//if(moso.isOwner){
+				var req=opensocial.newDataRequest();
+				req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
+				req.send(function(data){
+					if(data.hadError()){
+						var msg = data.getErrorMessage();
+						console.error(msg);
+					}else{
+						var owner=data.get("owner").getData();
+						userID=owner.getId();
+						var opt_params = {};
+						var url = 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations';
 				
-							var result = response.data;
-							//console.info(result);
-				
-							if (result.errors) {
-								console.log('Application Error');
-								console.log(result.errors);
-							}
-				
-							callback(result);
-						},opt_params);
-			
-
-					} else {
 						console.info(userID);
 						//DBへアクセス
 						opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
@@ -128,23 +100,46 @@ var listView = {
 							alert('Transport Error' + Object.toJSON(transport_errors));
 							return;
 						}
-				
+					
 						var result = response.data;
-					    console.info(result);
-				
+						console.info(result);
+					
 						if (result.errors) {
 							console.log('Application Error');
 							console.log(result.errors);
 						}
-				
+					
 						callback(result);
 						},opt_params);
 					}
-				}
-			});
-			//}
-	}
-}	
+				});
+				/*}else{
+							//DBへアクセス
+							opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+							opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+							opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+							opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+
+							gadgets.io.makeRequest(url, function(response) {
+								var transport_errors = response.errors;
+								if (transport_errors.length) {
+									alert('Transport Error' + Object.toJSON(transport_errors));
+									return;
+								}
+					
+								var result = response.data;
+								console.info(result);
+					
+								if (result.errors) {
+									console.log('Application Error');
+									console.log(result.errors);
+								}
+					
+								callback(result);
+							},opt_params);
+				}*/
+		}
+	}	
 
 var map = {
 	
