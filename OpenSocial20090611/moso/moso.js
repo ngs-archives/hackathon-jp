@@ -90,14 +90,13 @@ var listView = {
 						var owner=data.get("owner").getData();
 						userID=owner.getId();
 						var opt_params = {};
-						var url = 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations';
+						var url = 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations/'+userID;
 				
 						console.info(userID);
 						//DBへアクセス
 						opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 						opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
 						opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
-						opt_params[gadgets.io.RequestParameters.GET_DATA] = {id:userID};
 						opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
 
 						gadgets.io.makeRequest(url, function(response) {
