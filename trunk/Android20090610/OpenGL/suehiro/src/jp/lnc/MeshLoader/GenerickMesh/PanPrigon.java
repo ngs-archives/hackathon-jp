@@ -16,12 +16,9 @@ public class PanPrigon {
 	public void setAllData(int i,  float[] vertex,float[] textureCoord) {
 
 		//Log.d(TAG,"i=" +i +" j=" +j + " :\""+ readLine+"\"");
-		for(int j=0;j<vertex.length;j++){
-			top[i] = vertex;
-		}
-		for(int j=0;j<textureCoord.length;j++){
-			top[i] = vertex;
-		}
+		top[i] = vertex;
+		panMeshTextureCoordsList[i] = textureCoord;
+		
 	}
 	public void setParam(int i, int j, String readLine) {
 
