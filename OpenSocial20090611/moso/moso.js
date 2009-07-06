@@ -59,22 +59,45 @@ var host ={
 
 var listView = {
 
-		//canvasの自己登録リストに表示する。適当です。
+		map : {},
+		//canvasマップに自己登録リストを表示する。
 		listResult : function (result){
-			var canvasViewHtml = '<ul class="ownlistview">';
-			
-			$.each(result,function(key,value){
-				var location = value.location;
-					canvasViewHtml += '<li>';
-				    canvasViewHtml += '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
-					canvasViewHtml += '<p class="txt12">' + location.comment + '</p></li>';
-			});
-			
-			canvasViewHtml += '</ul>';
-			//自己登録リストタブを作成後、id=viewlistで指定
-			$("#viewlist").html(canvasViewHtml);
-		},
+		
+			listView.map = new GMap2(document.getElementById("viewMap"));
+			var point = new GLatLng(36.03, 139.15);  
+			listView.map.addControl(new GLargeMapControl());	
+			listView.map.setCenter(point, 1);
 
+			if (!moso.isOwner) return true;
+
+			GEvent.addListener(listView.map, 'click', function(overlay, point) {
+				if (point) {
+					x = point.x;
+					y = point.y;
+
+					windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+					listView.map.openInfoWindowHtml(point, windowHtml);
+					}
+			});
+		
+			$.each(result, function(key, value) {
+			
+				var location = value.location;
+			
+				var point1 = new GLatLng(location.setX, location.setY);
+				var marker = new GMarker(point1);
+				
+				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
+				windowHtml += '<p class="txt12">' + location.comment + '</p>';
+				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+				GEvent.addListener(marker, 'click', function() {
+					marker.openInfoWindowHtml(windowHtml);
+					listView.listRightPhoto(location, result);
+				});		
+				listView.map.addOverlay(marker);
+			});
+		
+		},
 		//canvasで最初に表示された際の自己登録リスト取得関数
 		listRequest : function (callback) {
 				var userID={};
@@ -196,6 +219,7 @@ var view = {
 					y = point.y;
 
 					windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+					windowHtml += '<p><a href="javascript:void(0);" onclick="listView.listRequest(listView.listResult);">自分の登録リストを表示する</a></p>';
 					view.map.openInfoWindowHtml(point, windowHtml);
 				}
 			});
@@ -320,7 +344,6 @@ var moso = {
 		moso.whois();
 		view.init();
 		host.init();
-		listView.listRequest(listView.listResult);
 		
 		var tab1 = {
 			contentContainer: document.getElementById("viewer"),
