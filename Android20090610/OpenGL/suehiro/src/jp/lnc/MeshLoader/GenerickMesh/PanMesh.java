@@ -137,14 +137,14 @@ public class PanMesh {
 }
 
 	public void onDrow(GL10 gl){
-        //gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glVertexPointer(3,GL10.GL_FLOAT,0,VertexBuff);
 
         
         //テクスチャ座標用バッファ
-        //gl.glBindTexture(GL10.GL_TEXTURE_2D, tex);
-        //gl.glTexCoordPointer(2,GL10.GL_FLOAT,0,TextureCoordsBuff);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, tex);
+        gl.glTexCoordPointer(2,GL10.GL_FLOAT,0,TextureCoordsBuff);
 
         
 //        Log.d("XfileMeshTree",panPrigonList.size() +"  ");
@@ -192,5 +192,22 @@ public class PanMesh {
 //		int ret = panPrigonList.size() * 4 * 3;
 		int ret = panPrigonList.size();
 		return ret;
+	}
+	
+	/*
+	 * 古いxLoder向け
+	 */
+	List<float[]> panTopList = new ArrayList<float[]>();
+
+	public float[] newTop() {
+		float[] newIns = new float[3];
+		panTopList.add(newIns);
+		return newIns;
+	}
+	List<float[]> panMeshTextureCoordsList = new ArrayList<float[]>();
+	public float[] newTextureCoord() {
+		float[] newIns = new float[2];
+		panMeshTextureCoordsList.add(newIns);
+		return newIns;
 	}
 }

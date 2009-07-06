@@ -36,6 +36,7 @@ public class VertexAndTextur {
 		createPanMesh(panMesh);
 		
 	}
+	
 	private void createPanMesh(PanMesh panMesh) {
 		int prigonNum = mVertexIndex.size();
 		for(int i=0 ; i<prigonNum ; i++){
@@ -45,6 +46,7 @@ public class VertexAndTextur {
 		}
 		
 	}
+	
 	private void setPanPrigon(int[] vertexs, PanPrigon prigon) {
 		int vertexCount = vertexs.length;
 		prigon.vertexNum = vertexCount;
@@ -52,6 +54,7 @@ public class VertexAndTextur {
 			prigon.setAllData(j,mVertexList.get(vertexs[j]),mTextureCoord.get(vertexs[j]));
 		}
 	}
+	
 	XfileMeshTree bean;
 	public void meshCompile(int tabNum, PanMesh panMesh, XfileMeshTree mMeshTree2){
 
@@ -67,7 +70,6 @@ public class VertexAndTextur {
 					break;
 				case 7:
 					createPrigon(bean);
-					
 					break;
 				case 8:
 					createMaterialList(bean);
@@ -95,9 +97,7 @@ public class VertexAndTextur {
 			if(index%3 != 0){
 				newTextureCoord[index%3-1] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
 				//Log.d("XfileMeshTree",(String) string.get(index));
-				
 				//System.out.println(top);
-
 			}else{
 				//System.out.println("x="+newTop[0]+"y="+newTop[1]+"z="+newTop[2]);
 				newTextureCoord=  newTextureCoord();
