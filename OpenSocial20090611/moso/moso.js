@@ -224,15 +224,15 @@ var view = {
 			//view.map.addControl(new GLargeMapControl());	
 			//view.map.setCenter(point, 1);
 
-			if (!moso.isOwner) return true;
+			//if (!moso.isOwner) return true;
 
 			google.maps.event.addListener(view.map, 'click', function(event) {
 				if (event) {
-					x = event.latlng.lng();
-					y = event.latlng.lat();
+					x = event.latLng.lng();
+					y = event.latLng.lat();
 					
 					var infoWindow = new google.maps.InfoWindow()
-					infoWindow.set_position(event.latlng);
+					infoWindow.set_position(event.latLng);
 					var windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
 					windowHtml += '<p><a href="javascript:void(0);" onclick="listView.listRequest(listView.listResult);">自分の登録リストを表示する</a></p>';
 					infoWindow.set_content(windowHtml);
