@@ -226,7 +226,7 @@ var view = {
 
 			//if (!moso.isOwner) return true;
 
-			google.maps.event.addListener(view.map, 'click', function(event) {
+			google.maps.event.addListener(view.map, 'rightclick', function(event) {
 				if (event) {
 					x = event.latLng.lng();
 					y = event.latLng.lat();
