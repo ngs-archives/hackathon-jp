@@ -4,7 +4,6 @@
 <ModulePrefs title="みんなのMoSoトラベル" description="写真を使って行った気になるガジェットです。">
 	<Require feature="opensocial-0.8"/>
 	<Require feature="dynamic-height" />
-	<Require feature="tabs" />
 </ModulePrefs>
 
 <Optional feature="content-rewrite">
@@ -13,7 +12,7 @@
 
 <Content type="html" view="home,profile,canvas">
 <![CDATA[
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAA2Vepkuo8WdQeGcpoCH7R4xRSk02GZpXEMAkEqFagruxbBFc2zRTdCzSQEqe7DmWaTeZNeOcP5ujaEA" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="http://opensocial-jquery.googlecode.com/svn/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
 <script type="text/javascript" src="http://files.getdropbox.com/u/536450/moso/jquery.inc-5.js"></script>
 <script type="text/javascript" src="http://files.getdropbox.com/u/536450/moso/config.js"></script>
@@ -41,7 +40,50 @@
 
 <Content type="html" view="canvas">
 <![CDATA[
-<div id='base' />
+	<style type="text/css">
+	#viewer					{ padding:10px; }
+	#photoTitle,#mapTitle	{ font-size:14px; padding:3px; border-bottom:1px solid #CCC; }
+	#comment				{ width:500px; height:80px; }
+	#map					{ width:800px; height:300px; }
+	#viewMap				{ width:600px; height:600px; float: left; }
+	#viewRight				{ width:200px; height:600px; float: right;}
+	
+	#viewPhotoList ul.photos		{ list-style:none; padding: 0px;}
+	#viewPhotoList ul.photos li		{ float:left; margin:0 5px 3px 0; font-size:12px; }
+	#viewPhotoList ul.photos li img	{ background:#FFF; border:1px solid #EEE; cursor:pointer; padding:2px; width: 50px; }
+	
+	ul.photos				{ list-style:none; }
+	ul.photos li			{ float:left; margin:0 5px 3px 0; font-size:12px; }
+	ul.photos li img		{ background:#FFF; border:1px solid #EEE; cursor:pointer; padding:2px; }
+	ul.photos li img:hover	{ border:1px solid #E30; }
+	
+	#sendArea				{ padding:5px; margin-top:10px; text-align:center; padding:5px; background:#EEE; }
+	
+	.mtb0					{ margin:0; padding:0; }
+	.txt12					{ font-size:12px; }
+	.memo					{ font-size:10px; color: #666; }
+	.clears:after			{ content:"."; display:block; height:0; clear:both; visibility:hidden; }
+	.clears					{ display:inline-table; zoom:100%; }
+	/* macIE \*/
+	* html .clears { height: 1%; }
+	.clears { display: block; }
+	/* macIE */
+	
+	</style>
+
+	<div id='viewer'>
+		<p class='txt12'>世界中の写真</p>
+		<div id="viewMap"></div>
+		<div id="viewRight">
+			<div id="latestPhoto">
+				<p class="photo"></p>
+				<p class="comment"></p>
+			</div>
+			<div id="viewPhotoList"></div>
+			<p class="addButton" style="display:none"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>
+		</div>
+	</div>
+
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(moso.canvasInit);
 </script>
