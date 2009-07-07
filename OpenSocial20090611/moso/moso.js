@@ -168,59 +168,75 @@ var listView = {
 				}*/
 		}
 	}	
-
-var map = {
-	
-	setView : function(){
-		var map = new GMap2(document.getElementById("map"));
-		var point = new GLatLng(36.03, 139.15);
-		
-		map.addControl(new GLargeMapControl());	
-		map.setCenter(point, 1);
-		
-		var marker = new GMarker(point, {draggable: true});
-		
-		map.addOverlay(marker);
-		
-		GEvent.addListener(marker, 'mouseout', function() {
-			var pnt = marker.getPoint();
-			var lng = pnt.lng();
-			var lat = pnt.lat();
-			
-			document.getElementById("setX").value = lat;
-			document.getElementById("setY").value = lng;
-		});
-	
-	}
-}
+//地図が一つになったので
+//一時的にコメントアウト
+//var map = {
+//	
+//	setView : function(){
+//		var map = new GMap2(document.getElementById("map"));
+//		var point = new GLatLng(36.03, 139.15);
+//		
+//		map.addControl(new GLargeMapControl());	
+//		map.setCenter(point, 1);
+//		
+//		var marker = new GMarker(point, {draggable: true});
+//		
+//		map.addOverlay(marker);
+//		
+//		GEvent.addListener(marker, 'mouseout', function() {
+//			var pnt = marker.getPoint();
+//			var lng = pnt.lng();
+//			var lat = pnt.lat();
+//			
+//			document.getElementById("setX").value = lat;
+//			document.getElementById("setY").value = lng;
+//		});
+//	
+//	}
+//}
 
 var view = {
 		map : {},
 		init : function() {
-			var deferred = $.deferred();
-			deferred.next(function(){
-							view.buildMap()
-			}).next(function(){
-				view.request(view.buildMarkers)
-			});
-			deferred.call();
+//			var deferred = $.deferred();
+//			deferred.next(function(){
+//							view.buildMap()
+//			}).next(function(){
+//				view.request(view.buildMarkers)
+//			});
+//			deferred.call();
+			
+			view.buildMap()
+			view.request(view.buildMarkers)
+			
+			gadgets.window.adjustHeight(700);
 		},
 		buildMap : function() {
-			view.map = new GMap2(document.getElementById("viewMap"));
-			var point = new GLatLng(36.03, 139.15);  
-			view.map.addControl(new GLargeMapControl());	
-			view.map.setCenter(point, 1);
+			//view.map = new GMap2(document.getElementById("viewMap"));
+			var point = new google.maps.LatLng(36.03, 139.15);
+			var myOptions = {
+      			zoom: 5,
+		      	center: point,
+		      	scaleControl: true,
+      			mapTypeId: google.maps.MapTypeId.ROADMAP
+    		};
+    		view.map = new google.maps.Map(document.getElementById("viewMap"), myOptions);
+			//view.map.addControl(new GLargeMapControl());	
+			//view.map.setCenter(point, 1);
 
 			if (!moso.isOwner) return true;
 
-			GEvent.addListener(view.map, 'click', function(overlay, point) {
-				if (point) {
-					x = point.x;
-					y = point.y;
-
-					windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+			google.maps.event.addListener(view.map, 'click', function(event) {
+				if (event) {
+					x = event.latlng.lng();
+					y = event.latlng.lat();
+					
+					var infoWindow = new google.maps.InfoWindow()
+					infoWindow.set_position(event.latlng);
+					var windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
 					windowHtml += '<p><a href="javascript:void(0);" onclick="listView.listRequest(listView.listResult);">自分の登録リストを表示する</a></p>';
-					view.map.openInfoWindowHtml(point, windowHtml);
+					infoWindow.set_content(windowHtml);
+					infoWindow.open(view.map);
 				}
 			});
 		},
@@ -228,17 +244,24 @@ var view = {
 			$.each(result, function(key, value) {
 				var location = value.location;
 			
-				var point = new GLatLng(location.setX, location.setY);
-				var marker = new GMarker(point);
+				var point = new google.maps.LatLng(location.setX, location.setY);
+				var marker = new google.maps.Marker();
+				marker.set_position(point);
 				
 				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
 				windowHtml += '<p class="txt12">' + location.comment + '</p>';
 				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
-				GEvent.addListener(marker, 'click', function() {
-					marker.openInfoWindowHtml(windowHtml);
+				google.maps.event.addListener(marker, 'click', function() {
+					var infoWindow = new google.maps.InfoWindow()
+					infoWindow.set_position(point);
+					infoWindow.set_content(windowHtml);
+					infoWindow.open(view.map);
+
 					view.listRightPhoto(location, result);
 				});		
-				view.map.addOverlay(marker);
+				marker.set_clickable(true);
+				marker.set_visible(true);
+				marker.set_map(view.map);
 			});
 		
 		},
@@ -332,37 +355,47 @@ var albumView = {
 			
 			$("#setPhoto").val(path[0]);
 		});
-		map.setView();
+		//map.setView();
 	}
 }
 
 var moso = {
 	init : function(){
-		tabs = new gadgets.TabSet(null,null,document.getElementById("tabs"));
-		tabs.alignTabs("left",2);
+//		tabs = new gadgets.TabSet(null,null,document.getElementById("tabs"));
+//		tabs.alignTabs("left",2);
+		moso.whois()
+		view.init()
+//			var deferred = $.deferred();
+//			
+//			deferred.next(function(){
+//							moso.whois()
+//			}).next(function(){
+//							view.init()
+//			}).next(function(){
+//							host.init()
+//			}).next(function(){
+//							albumView.requestAlbums();
+//			});
+//			deferred.call();
+
+//		var tab1 = {
+//			contentContainer: document.getElementById("viewer"),
+//			callback: function(){
+//				view.init();
+//			}
+//		}
+//		tabs.addTab("表示",tab1);
+//		
+//		var tab2 = {
+//			contentContainer: document.getElementById("regi"),
+//			callback: function(){
+//				albumView.requestAlbums();
+//			}
+//		}
+//		tabs.addTab("登録",tab2);
 		
-		moso.whois();
-		view.init();
-		host.init();
 		
-		var tab1 = {
-			contentContainer: document.getElementById("viewer"),
-			callback: function(){
-				view.init();
-			}
-		}
-		tabs.addTab("表示",tab1);
-		
-		var tab2 = {
-			contentContainer: document.getElementById("regi"),
-			callback: function(){
-				albumView.requestAlbums();
-			}
-		}
-		tabs.addTab("登録",tab2);
-		
-		
-		gadgets.window.adjustHeight(750);
+		//gadgets.window.adjustHeight(750);
 	},
 	whois : function(){
 		var req = opensocial.newDataRequest(); 
@@ -386,9 +419,15 @@ var moso = {
 
 var htmlInit = function (url,initializer){
 	return function(){
-		$('#base').inc(url);
-		if (initializer)
+//		var deferred = $.deferred();
+//			
+//		deferred.next(function(){
+//			$('#base').inc(url);
+//		}).next(function(){
+//			if (initializer)
 			initializer();
+//		});
+//		deferred.call();
 	}
 }
 moso.homeInit = htmlInit(HOME_HTML_URL);
