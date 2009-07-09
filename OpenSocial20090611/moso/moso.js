@@ -60,49 +60,77 @@ var host ={
 var listView = {
 
 		map : {},
-		//canvasマップに自己登録リストを表示する。
+		//マップに自己登録リストを表示
 		listResult : function (result){
 		
-			listView.map = new GMap2(document.getElementById("viewMap"));
-			var point = new GLatLng(36.03, 139.15);  
-			listView.map.addControl(new GLargeMapControl());	
-			listView.map.setCenter(point, 1);
-
-			if (!moso.isOwner) return true;
-
-			GEvent.addListener(listView.map, 'click', function(overlay, point) {
-				if (point) {
-					x = point.x;
-					y = point.y;
-
-					windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
-					listView.map.openInfoWindowHtml(point, windowHtml);
-					}
+			var point = new google.maps.LatLng(36.03, 139.15);
+			var myOptions = {
+      			zoom: 5,
+		      	center: point,
+		      	scaleControl: true,
+      			mapTypeId: google.maps.MapTypeId.ROADMAP
+    		};
+    		listView.map = new google.maps.Map(document.getElementById("viewMap"), myOptions);
+			google.maps.event.addListener(view.map, 'rightclick', function(event) {
+				if (event) {
+					x = event.latLng.lng();
+					y = event.latLng.lat();
+					
+					var infoWindow = new google.maps.InfoWindow()
+					infoWindow.set_position(event.latLng);
+					var windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+					infoWindow.set_content(windowHtml);
+					infoWindow.open(view.map);
+				}
 			});
 		
 			$.each(result, function(key, value) {
 			
 				var location = value.location;
 			
-				var point1 = new GLatLng(location.setX, location.setY);
-				var marker = new GMarker(point1);
+				var point = new google.maps.LatLng(location.setX, location.setY);
+				var marker = new google.maps.Marker();
+				marker.set_position(point);
 				
 				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
 				windowHtml += '<p class="txt12">' + location.comment + '</p>';
 				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
-				GEvent.addListener(marker, 'click', function() {
-					marker.openInfoWindowHtml(windowHtml);
-					listView.listRightPhoto(location, result);
+				listView.listRightPhoto(location, result);
+				google.maps.event.addListener(marker, 'click', function() {
+					var infoWindow = new google.maps.InfoWindow()
+					infoWindow.set_position(point);
+					infoWindow.set_content(windowHtml);
+					infoWindow.open(listView.map);
 				});		
-				listView.map.addOverlay(marker);
+				marker.set_clickable(true);
+				marker.set_visible(true);
+				marker.set_map(listView.map);
 			});
 		
 		},
+		
+		listRightPhoto : function(location, result) {
+			$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');
+			$("#latestPhoto .comment").html(location.comment);
+
+			var data = '<ul class="photos clears"></ul>';
+			$("#viewPhotoList").html(data);
+
+			$.each(result, function(key, value) {
+				var location = value.location;
+				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + location.setPhoto + '" />').click(function(){
+					$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
+					$("#latestPhoto .comment").html(location.comment);
+				}));
+				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
+			});
+		},
+		
 		//canvasで最初に表示された際の自己登録リスト取得関数
 		listRequest : function (callback) {
 				var userID={};
-			//viewerがオーナーの場合は、オーナーの会員IDでリクエストする。mosoオブジェクトにまとめる際に、if(moso.isOwner)で取得。
-				//if(moso.isOwner){
+			//viewerがオーナーの場合は、オーナーの会員IDでリクエストする。
+				if(moso.isOwner){
 				var req=opensocial.newDataRequest();
 				req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
 				req.send(function(data){
@@ -141,7 +169,7 @@ var listView = {
 						},opt_params);
 					}
 				});
-				/*}else{
+				}else{
 							//DBへアクセス
 							opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 							opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
@@ -165,7 +193,7 @@ var listView = {
 					
 								callback(result);
 							},opt_params);
-				}*/
+				}
 		}
 	}	
 //地図が一つになったので
