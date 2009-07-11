@@ -339,6 +339,8 @@ var view = {
 
 var albumView = {
 
+	AlbumsTitle : [],
+	conf		: 0,
 	requestAlbums : function() {
 		var idspec_params = {};
 		idspec_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
@@ -347,11 +349,14 @@ var albumView = {
 		req = new opensocial.newDataRequest();
 		req.add(req.newFetchAlbumsRequest(idspec, params), 'albums');
 		req.send(albumView.onLoadAlbums);
+		
 	},
 	onLoadAlbums : function(dataResponse){
 		var albums = dataResponse.get('albums').getData();
+		var i = 1;
 		albums.each(function(album){
 			albumView.listMediaItems(album.getField(opensocial.Album.Field.ID));
+			albumView.AlbumsTitle.push([album.getField(opensocial.Album.Field.ID),album.getField(opensocial.Album.Field.TITLE),(album.getField(opensocial.Album.Field.THUMBNAIL_URL)) ? album.getField(opensocial.Album.Field.THUMBNAIL_URL) : null]);
 		});
 	},
 	listMediaItems : function(albumId) {
@@ -364,28 +369,66 @@ var albumView = {
 		req.send(albumView.onLoadMediaItems);
 	},
 	onLoadMediaItems : function(dataResponse) {
-		var data = '<ul class="photos clears">';
 		var mediaitems = dataResponse.get('mediaitems').getData();
+		var topflg = 0;
+		var caption = "";
 		
-		var i=1;
-		mediaitems.each(function(mediaitem) {
-			data += '<li class="photo'+i+'">';
-			data += '<img class="photo" src="' + mediaitem.getField(opensocial.MediaItem.Field.THUMBNAIL_URL) + '" /><br />'+mediaitem.getField(opensocial.MediaItem.Field.TITLE)+'</li>';
-			i++;
+		var albumTop = albumView.getAlbumData(mediaitems);
+		var data = '<ul id="album_'+albumTop[0]+'" class="photos clears">\n';
+		data += '<li><span class="top"><img class="photo" src="'+((albumTop[2]) ? albumTop[2] : "http://img.mixi.jp/img/basic/common/noimage_photo240.gif")+'" /><br />'+albumTop[1]+'</span>\n';
+		data += '<ul class="pics">';
+		data += '<li class="back"><img src="http://mizoochi.com/apps/moso/images/return.png" alt="アルバム一覧へ戻る" title="アルバム一覧へ戻る" /></li>';
+		
+		mediaitems.each(function(mediaitem){
+			data += '<li class="pic">';
+			data += '<img class="photo" src="' + mediaitem.getField(opensocial.MediaItem.Field.THUMBNAIL_URL) + '" /><br />'+mediaitem.getField(opensocial.MediaItem.Field.DESCRIPTION)+'</li>\n';
 		});
 		
-		data += '</ul>';
-		$("#photos").html(data);
+		data += '</ul>\n</li></ul>\n';
+		$("#viewPhotoList").append(data);
 		$(".photo").click(function(){
+			if(!albumView.conf){
+				var setID = $(this).parents()[2].id;
+				$("#viewPhotoList ul li span.top").fadeOut(function(){
+					$("ul#"+setID+" li span.back").fadeIn();
+					$("ul#"+setID+" li ul.pics li:hidden").show("normal");
+				});
+				albumView.conf = 1;
+			}
 			$(".photo").css({ "border":"1px solid #EEE" });
 			$(this).css({ "border":"2px solid #F00" });
-			var path = $(this).attr("src").split("?");
-			
-			$("#setPhoto").val(path[0]);
 		});
-		//map.setView();
+		$(".photo").hover(function(){
+			if($(this).css("border")!="2px solid rgb(255, 0, 0)") $(this).css({ "border":"1px solid #E30" });
+		},
+		function(){
+			if($(this).css("border")!="2px solid rgb(255, 0, 0)") $(this).css({ "border":"1px solid #EEE" });
+		});
+		$(".back").click(function(){
+			if(albumView.conf){
+				var setID = $(this).parents()[1].id;
+				$("ul#"+setID+" li ul.pics li:visible").hide(function(){
+					$("#viewPhotoList ul li span.top").fadeIn();
+				});
+				albumView.conf = 0;
+			}
+		});
+	},
+	getAlbumData : function(mediaitems){
+		var albumID = "";
+		mediaitems.each(function(mediaitem){
+			var url = mediaitem.getField(opensocial.MediaItem.Field.URL);
+			var path = url.split("/")[7];
+			albumID = path.split("_")[0];
+		});
+		for(var i=0;i<albumView.AlbumsTitle.length;i++){
+			if(albumView.AlbumsTitle[i][0]==albumID){
+				var data = [albumID,albumView.AlbumsTitle[i][1],albumView.AlbumsTitle[i][2]];
+				break;
+			}
+		}
+		return (data) ? data : null;
 	}
-}
 
 var moso = {
 	init : function(){
