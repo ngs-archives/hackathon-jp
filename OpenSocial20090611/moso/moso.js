@@ -1,5 +1,47 @@
 //外部ホストへフォームデータを送信する
 
+function testCreate(){
+	var hostUserID={};
+	//オーナーの会員IDをリクエストする
+	var req=opensocial.newDataRequest();
+	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER),"owner");
+	req.send(function(data){
+		if(data.hadError()){
+			var msg = data.getErrorMessage();
+			console.error(msg);
+		}else{
+			var owner=data.get("owner").getData();
+			hostUserID=owner.getId();
+			//console.info(hostUserID);
+
+			//フォーム各要素のデータを変数に格納
+			var url = HOST_URL + '/locations';
+			var post_params = {
+					setX: 125,
+					setY: 125,
+					name: "テスト名前",
+					address: "テスト住所",
+					setPhoto: "http://tests",
+					comment: "テストコメント",
+					kinds: 0,
+					rating_number: 3,
+					rating_people: 1,
+					mixi_id: hostUserID
+			};
+
+			var opt_params = {};
+			//DBへアクセス
+			opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+			opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+			opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+			opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+			opt_params[gadgets.io.RequestParameters.POST_DATA]     = gadgets.io.encodeValues(post_params)
+
+			gadgets.io.makeRequest(url, function(response){
+			},opt_params);
+		}
+	});
+}
 var host ={
 
 		init : function(){
@@ -19,36 +61,38 @@ var host ={
 					//送信をクリックしたらデータをサーバーへ送信する
 					$("#sendBtn").click(function(){
 					//フォーム各要素のデータを変数に格納
-					var setX = $("#setX").val();
-					var setY = $("#setY").val();
-					var setPhoto = $("#setPhoto").val();
-					var comment = $("#comment").val();
-					var kinds = $("#kinds").val();
+					var url = HOST_URL + '/locations';
+//					var post_params = {
+//										lng: $("#setX").val(),
+//										lat: $("#setY").val(),
+//										name: $("#location_name").val(),
+//										address: $("#address").val(),
+//										setPhoto: $("#setPhoto").val(),
+//										comment: "テストコメント",
+//										kinds: $("#kinds").val(),
+//										rating_number: $("#rating").val()};
+					var post_params = {
+							setX: 125,
+							setY: 125,
+							name: "テスト名前",
+							address: "テスト住所",
+							setPhoto: "http://tests",
+							comment: "テストコメント",
+							kinds: 0,
+							rating_number: 3};
 
+					var opt_params = {};
+					//DBへアクセス
+					opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+					opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+					opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+					opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+					opt_params[gadgets.io.RequestParameters.POST_DATA]     = gadgets.io.encodeValues(post_params)
+
+					gadgets.io.makeRequest(url, function(response){
+						
+					},opt_params);
 						//外部サーバーへajax通信をおこなう
-						$.ajax({
-							type: 'post',
-							url: 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations',
-							data: {
-									"id":hostUserID,
-									"setX" : setX,
-									"setY" : setY,
-									"setPhoto" : setPhoto,
-									"comment" : comment,
-									"kinds" : kinds
-							},
-							dataType: 'json',
-							cache: false,
-		
-							//データ取得に成功した場合、最新の自己登録リストを取得
-							success: function(data, status){
-							//	console.log(data, status);
-			
-							},
-							error: function(xhr, status, e){
-							// console.info(xhr, status, e);
-							}
-						});
 						$("#regi").html("登録完了しました！");
 					});
 				}
@@ -111,7 +155,7 @@ var listView = {
 		
 		listRightPhoto : function(location, result) {
 			$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');
-			$("#latestPhoto .comment").html(location.comment);
+			$("#latestPhoto .comment").html('<div class="form_line">' + location.comment + '</div>');
 
 			var data = '<ul class="photos clears"></ul>';
 			$("#viewPhotoList").html(data);
@@ -120,7 +164,7 @@ var listView = {
 				var location = value.location;
 				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + location.setPhoto + '" />').click(function(){
 					$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
-					$("#latestPhoto .comment").html(location.comment);
+					$("#latestPhoto .comment").html('<div class="form_line">' + location.comment + '</div>');
 				}));
 				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
 			});
@@ -141,7 +185,7 @@ var listView = {
 						var owner=data.get("owner").getData();
 						userID=owner.getId();
 						var opt_params = {};
-						var url = 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations/'+userID;
+						var url = HOST_URL + '/locations/'+userID;
 				
 						console.info(userID);
 						//DBへアクセス
@@ -295,7 +339,7 @@ var view = {
 		},
 		listRightPhoto : function(location, result) {					
 			$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
-			$("#latestPhoto .comment").html(location.comment);
+			$("#latestPhoto .comment").html('<div class="form_line">' + location.comment + '</div>');
 
 			var data = '<ul class="photos clears"></ul>';
 			$("#viewPhotoList").html(data);
@@ -304,14 +348,14 @@ var view = {
 				var location = value.location;
 				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + location.setPhoto + '" />').click(function(){
 					$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
-					$("#latestPhoto .comment").html(location.comment);
+					$("#latestPhoto .comment").html('<div class="form_line">' + location.comment + '</div>');
 				}));
 				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
 			});
 		},
 		request : function(callback) {
 			var params = {};
-			var url = 'http://ec2-174-129-93-227.compute-1.amazonaws.com/locations';
+			var url = HOST_URL + '/locations';
 			
 			params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 			params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
@@ -429,44 +473,11 @@ var albumView = {
 		}
 		return (data) ? data : null;
 	}
-
+}
 var moso = {
 	init : function(){
-//		tabs = new gadgets.TabSet(null,null,document.getElementById("tabs"));
-//		tabs.alignTabs("left",2);
-		moso.whois()
-		view.init()
-//			var deferred = $.deferred();
-//			
-//			deferred.next(function(){
-//							moso.whois()
-//			}).next(function(){
-//							view.init()
-//			}).next(function(){
-//							host.init()
-//			}).next(function(){
-//							albumView.requestAlbums();
-//			});
-//			deferred.call();
-
-//		var tab1 = {
-//			contentContainer: document.getElementById("viewer"),
-//			callback: function(){
-//				view.init();
-//			}
-//		}
-//		tabs.addTab("表示",tab1);
-//		
-//		var tab2 = {
-//			contentContainer: document.getElementById("regi"),
-//			callback: function(){
-//				albumView.requestAlbums();
-//			}
-//		}
-//		tabs.addTab("登録",tab2);
-		
-		
-		//gadgets.window.adjustHeight(750);
+		moso.whois();
+		view.init();
 	},
 	whois : function(){
 		var req = opensocial.newDataRequest(); 
@@ -476,29 +487,17 @@ var moso = {
 				if(viewer.isOwner()){
 					moso.isOwner=1;
 					moso.isViewer=0;
-					// console.info(moso.isOwner);
-					// console.info(moso.isViewer);
 				}else{
 					moso.isOwner=0;
 					moso.isViewer=1;
-					// console.info(moso.isOwner);
-					// console.info(moso.isViewer);
 				}
-			})
+			});
 	}
 }
 
 var htmlInit = function (url,initializer){
 	return function(){
-//		var deferred = $.deferred();
-//			
-//		deferred.next(function(){
-//			$('#base').inc(url);
-//		}).next(function(){
-//			if (initializer)
 			initializer();
-//		});
-//		deferred.call();
 	}
 }
 moso.homeInit = htmlInit(HOME_HTML_URL);
