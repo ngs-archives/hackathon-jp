@@ -1,0 +1,26 @@
+{% extends "../base.html" %}
+
+{% block title %}GAEO Default Template{% endblock %}
+
+{% block content %}
+    <h1>一覧</h1>
+    <a href='http://ohmyswitch.appspot.com/switch/list?limit=30'>
+    http://ohmyswitch.appspot.com/switch/list?limit=30
+    </a>
+
+    <h1>検索</h1>
+    <a href='http://ohmyswitch.appspot.com/switch/search?name=合コン&limit=20'>
+        http://ohmyswitch.appspot.com/switch/search?name=合コン&limit=20
+    </a>
+
+    <h1>作成</h1>
+    <a href='http://ohmyswitch.appspot.com/switch/search?name=海に行きたい！'>
+        http://ohmyswitch.appspot.com/switch/create?name=海に行きたい！
+    </a>
+
+    <h1>check_exist</h1>
+    <a href='http://ohmyswitch.appspot.com/switch/check_exist?name=海に行きたい！'>
+        http://ohmyswitch.appspot.com/switch/check_exist?name=海に行きたい！
+    </a>
+
+{% endblock %}
