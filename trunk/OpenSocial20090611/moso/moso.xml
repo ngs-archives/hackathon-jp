@@ -4,11 +4,14 @@
 <ModulePrefs title="みんなのMoSoトラベル" description="写真を使って行った気になるガジェットです。">
 	<Require feature="opensocial-0.8"/>
 	<Require feature="dynamic-height" />
+	
+	<Optional feature="content-rewrite">
+		<Param name="exclude-urls"></Param>
+		<Param name="exclude-urls">.*</Param>
+		<Param name="include-tags"></Param>
+	</Optional>
+	
 </ModulePrefs>
-
-<Optional feature="content-rewrite">
-	<Param name="exclude-urls">*</Param>
-</Optional>
 
 <Content type="html" view="home,profile,canvas">
 <![CDATA[
