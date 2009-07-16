@@ -269,6 +269,7 @@ var listView = {
 
 var view = {
 		map : {},
+		infoWindow : null,
 		init : function() {
 //			var deferred = $.deferred();
 //			deferred.next(function(){
@@ -300,15 +301,17 @@ var view = {
 
 			google.maps.event.addListener(view.map, 'rightclick', function(event) {
 				if (event) {
+					if (this.infoWindow) this.infoWindow.close();
+				
 					x = event.latLng.lng();
 					y = event.latLng.lat();
 					
-					var infoWindow = new google.maps.InfoWindow()
-					infoWindow.set_position(event.latLng);
-					var windowHtml = '<p><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+					this.infoWindow = new google.maps.InfoWindow()
+					this.infoWindow.set_position(event.latLng);
+					var windowHtml = '<p><a href="javascript:void(0);" onclick="view.editPhoto(\''+ x +'\',\''+ y +'\');">このポイントに登録する</a></p>';
 					windowHtml += '<p><a href="javascript:void(0);" onclick="listView.listRequest(listView.listResult);">自分の登録リストを表示する</a></p>';
-					infoWindow.set_content(windowHtml);
-					infoWindow.open(view.map);
+					this.infoWindow.set_content(windowHtml);
+					this.infoWindow.open(view.map);
 				}
 			});
 		},
@@ -378,6 +381,16 @@ var view = {
 				
 				callback(result);
 			}, params);
+		},
+		
+		editPhoto : function(x, y) {
+			$("#editSection").css({ "display":"none" });			
+			$("#viewSection").css({ "display":"block" });
+			
+			document.getElementById("setX").value = x;
+			document.getElementById("setY").value = y;
+			
+			albumView.requestAlbums();
 		}
 	};
 
