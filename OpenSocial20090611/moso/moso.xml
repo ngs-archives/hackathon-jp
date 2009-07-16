@@ -81,7 +81,7 @@
 .pageing_area a { display: block; background-color: #ffcc99; height: 20px; text-decoration: none; vertical-align:middle; margin: 0px; font-size: 0.9em; text-align: center; width: 20px; }
 .pageing_area a:hover { background-color: #FF9966; }
 .lphoto_area { float: left; padding-bottom: 10px; }
-#coment_area li { list-style-type: none; float: left; padding-right: 15px; vertical-align: middle; padding-top: 10px; }
+.coment_area li { list-style-type: none; float: left; padding-right: 15px; vertical-align: middle; padding-top: 10px; }
 .form_line { border:2px solid #FF6600; width: 330px;}
 	
 	</style>
@@ -99,12 +99,60 @@
 
 		<div id="viewMap"></div>
 		<div id="viewRight">
-			<div id="latestPhoto">
-				<p class="photo"></p>
+			<div id="editSection">
+				<div id="latestPhoto">
+					<p class="photo"></p>
+					
+					<img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30">				
+					<p class="comment"></p>
+					<ul class="coment_area">
+						<li>
+							<input name="radio" type="radio" id="radio" value="radio">
+							行った！</li>
+						<li>
+							<input type="radio" name="radio" id="radio2" value="radio">
+							行きたい！</li>
+						<li>
+						<input type="submit" onClick="javascript:testCreate();" name="button" id="button" value="登録">
+						</li>
+					</ul><br><br>
+					<ul class="area_name">
+						<li class="place">両国国技館</li>
+						<li>東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28</li>
+					</ul>
+					
+				</div>
 				
-				<img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30">				
-				<p class="comment"></p>
-				<ul id="coment_area">
+				<div id="viewPhotoList"></div>
+				<ul class="pageing_area">
+					<li><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/go_first.gif" alt="最初の写真へ移動" width="36" height="20"></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">6</a></li>
+						<li><a href="#">7</a></li>
+						<li><a href="#">8</a></li>
+						<li><a href="#">9</a></li>
+					<li></li>
+					<li><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/go_end.gif" alt="最後の写真へ移動" width="36" height="20"></li>
+				</ul>
+				<p class="addButton" style="display:none"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>
+			</div>
+			<div id="viewSection" style="display:none">
+				<input type="hidden" id="setX" name="setX" value="" />
+				<input type="hidden" id="setY" name="setY" value="" />
+	
+				<h2 id="photoTitle">あなたの写真</h2>
+				<div id="photos"></div>
+				<input type="hidden" id="setPhoto" value="" />
+
+				<h2 id="photoTitle">コメント</h2>
+				<textarea id="comment"></textarea>
+				<br />
+				
+				<ul class="coment_area">
 					<li>
 						<input name="radio" type="radio" id="radio" value="radio">
 						行った！</li>
@@ -112,32 +160,9 @@
 						<input type="radio" name="radio" id="radio2" value="radio">
 						行きたい！</li>
 					<li>
-					<input type="submit" onClick="javascript:testCreate();" name="button" id="button" value="登録">
-					</li>
-				</ul><br><br>
-			<ul class="area_name">
-    			<li class="place">両国国技館</li>
-    			<li>東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28</li>
-  			</ul>
-				
+				</ul>
+				<input type="submit" onClick="javascript:testCreate();" name="button" id="button" value="登録">
 			</div>
-			
-			<div id="viewPhotoList"></div>
-  			<ul class="pageing_area">
-    			<li><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/go_first.gif" alt="最初の写真へ移動" width="36" height="20"></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-    				<li><a href="#">3</a></li>
-    				<li><a href="#">4</a></li>
-    				<li><a href="#">5</a></li>
-    				<li><a href="#">6</a></li>
-	    			<li><a href="#">7</a></li>
-					<li><a href="#">8</a></li>
-    				<li><a href="#">9</a></li>
-    			<li></li>
-    			<li><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/go_end.gif" alt="最後の写真へ移動" width="36" height="20"></li>
-  			</ul>
-			<p class="addButton" style="display:none"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>
 		</div>
 	</div>
 
