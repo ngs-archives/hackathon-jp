@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 1 - Friends">
+  <ModulePrefs title="Gifts part 2 - Send Gifts">
     <Require feature="opensocial-0.8"/>
-    <Require feature="dynamic-height" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
       <script type="text/javascript">
+        var givenGifts = {};
+        var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
+
+        function giveGift() {
+          var nut = document.getElementById('nut').value;
+          var friend = document.getElementById('person').value;
+
+          givenGifts[friend] = nut;
+          var json = gadgets.json.stringify(givenGifts);
+
+          var req = opensocial.newDataRequest();
+          req.add(req.newUpdatePersonAppDataRequest("VIEWER", 'gifts', json));
+          req.send();
+        }
+
+        function makeOptionsMenu() {
+          var html = new Array();
+          html.push('<select id="nut">');
+          for (var i = 0; i < globalGiftList.length; i++) {
+            html.push('<option value="', i, '">', globalGiftList[i], '</option>');
+          }
+          html.push('</select>');
+          document.getElementById('gifts').innerHTML = html.join('');
+        }
+
         function loadFriends() {
           var req = opensocial.newDataRequest();
-					req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), 'viewer');
+					req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
 					
 					var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
 					var opt_params = {};
@@ -24,26 +48,29 @@
           var viewerFriends = data.get('viewerFriends').getData();
 
           html = new Array();
-          html.push('<ul>');
+          html.push('<select id="person">');
           viewerFriends.each(function(person) {
             if (person.getId()) {
-              html.push('<li>', person.getDisplayName(), '</li>');
+              html.push('<option value="', person.getId(), '">', person.getDisplayName(), '</option>');
             }
           });
-          html.push('</ul>');
+          html.push('</select>');
           document.getElementById('friends').innerHTML = html.join('');
-          gadgets.window.adjustHeight();
         }
 
         function init() {
           loadFriends();
+          makeOptionsMenu();
         }
-        
+
         gadgets.util.registerOnLoadHandler(init);
       </script>
       <div id='main'>
-        Your friends:
-        <div id='friends'></div>
+        <div id='give'>
+          <form id='gift_form'>
+            Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
+          </form>
+        </div>
       </div>
     ]]>
   </Content>
