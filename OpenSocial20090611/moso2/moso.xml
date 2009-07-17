@@ -100,6 +100,14 @@ function postRating(photoId, point) {
 var host ={
 
 		init : function(){
+		    var locationId = $("#locationId").val();
+		    if (locationId) {
+		        this.addPhoto();
+		    } else {
+		        this.addRocation();
+		    }
+		},
+		addRocation : function() {
 			//送信をクリックしたらデータをサーバーへ送信する
 							//フォーム各要素のデータを変数に格納
 							var url = HOST_URL + '/locations';
@@ -141,10 +149,10 @@ var host ={
 						//外部サーバーへajax通信をおこなう
 						$("#regi").html("登録完了しました！");
 		},
-		photo : function(){
+		addPhoto : function(){
 			var url = HOST_URL + '/photos';
 			var post_params = {
-				location_id: location_id,
+				location_id: $("#locationId").val(),
 				url: $("#setPhoto").val(),
 				comment: $("#comment").val(),
 				mixi_id: moso.owner.getId(),
@@ -220,7 +228,7 @@ console.log(result);
 				marker.set_position(point);
 				
 				var windowHtml = '<h2 class="mtb0"><img src="' + location.photos[0].url + '" /></h2>';
-				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="view.editPhoto(\''+ location.setX +'\',\''+ location.setY +'\');">このポイントに登録する</a></p>';
+				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="view.editPhoto(\'\',\'\',\''+ location.id +'\');">このポイントに登録する</a></p>';
 				google.maps.event.addListener(marker, 'click', function() {
 				    view.viewPhoto();
 				    
@@ -230,10 +238,12 @@ console.log(result);
 				        postRating(photoId, value)
 				    }});
 				    
-					var infoWindow = new google.maps.InfoWindow()
-					infoWindow.set_position(point);
-					infoWindow.set_content(windowHtml);
-					infoWindow.open(view.map);
+				    if (view.markerInfoWindow) view.markerInfoWindow.close();
+				    
+					var view.markerInfoWindow = new google.maps.InfoWindow()
+					view.markerInfoWindow.set_position(point);
+					view.markerInfoWindow.set_content(windowHtml);
+					view.markerInfoWindow.open(view.map);
 
 					view.listRightPhoto(location);
 				});		
@@ -247,7 +257,7 @@ console.log(result);
 console.log(location);		
             var photos = location.photos;
 
-			$("#viewSection #latestPhoto .photo").html('<img src="' + location.photos[0].setPhoto + '" />');			
+			$("#viewSection #latestPhoto .photo").html('<img src="' + location.photos[0].url + '" />');			
 			$("#viewSection #latestPhoto .comment").html('<div class="form_line">' + location.photos[0].comment + '</div>');
 			document.getElementById("ratingPhotoId").value = location.photos[0].id;			
 			
@@ -263,7 +273,6 @@ console.log(location);
 					$("#viewSection #latestPhoto .photo").html('<img src="' + photo.url + '" />');			
 					if (photo.comment) $("#viewSection #latestPhoto .comment").html('<div class="form_line">' + photo.comment + '</div>');
 				}));
-				if (moso.isOwner) $("#viewSection .addButton").css({"display":"block"});
 			});
 			
 			$("#rightViewEditButton").click(function(){ view.editPhoto(location.setX,location.setY); });
@@ -294,12 +303,16 @@ console.log(location);
 				view.buildMarkers(result);
 			}, params);
 		},	
-		editPhoto : function(x, y) {
+		editPhoto : function(x, y, locationId) {
 			$("#editSection").css({ "display":"block" });
 			$("#viewSection,#firstSection").css({ "display":"none" });
 			
-			document.getElementById("setX").value = x;
-			document.getElementById("setY").value = y;
+			if (x && y) {
+			    document.getElementById("setX").value = x;
+			    document.getElementById("setY").value = y;
+			} else if (locationId) {
+			    document.getElementById("locationId").value = locationId;
+			}
 			
 			albumView.requestAlbums();
 			
@@ -572,6 +585,7 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 					<div>
 						<input type="hidden" id="setX" name="setX" value="" />
 						<input type="hidden" id="setY" name="setY" value="" />
+						<input type="hidden" id="locationId" name="location_id" value="" />
 					    <input type="hidden" name="ratingPhotoId" id="ratingPhotoId" value="3" />
 					    <input type="hidden" id="setPhoto" value="" />
 						<input type="submit" onClick="javascript:host.init();" name="button" id="button" value="登録" />
@@ -610,8 +624,7 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 				</div>
 				
 				<div id="viewList"></div>
-               <p class="addButton" style="display:none;clear:both;"><a href="javascript:void(0);" id="rightViewEditButton">このポイントに登録する</a></p>
-            </div>
+             </div>
 			
 		</div>
 		
