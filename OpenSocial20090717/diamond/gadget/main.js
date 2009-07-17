@@ -191,7 +191,7 @@ diamond.init = function() {
             
             diamond.getStat();
             
-            diamond.vars.updateInterval = setInterval(diamond.getStat, 3000);
+            //diamond.vars.updateInterval = setInterval(diamond.getStat, 3000);
         }
     }, 100);
 
@@ -221,7 +221,26 @@ diamond.update = function() {
     diamond.updateCards();
     
     if (!diamond.lastData || diamond.data.road.cardNo != diamond.lastData.road.cardNo) {
+        // 
         dui.startCountDown(diamond.exit);
+    }
+    
+    if (diamond.lastData && diamond.data.roadNo != diamond.lastData.roadNo) {
+        // 坑道が変わった
+        cods.debug('change road');
+        
+        var html = '';
+        if (typeof diamond.lastData.road.card == 'string') {
+            // アクシデントで終わった
+            html = diamond.lastData.road.card;
+        }
+        
+        $('#road' + diamond.lastData.roadNo + '.result').html(html)
+        $('#road' + diamond.data.roadNo + '.result').html('Now!');
+    }
+    
+    if (!diamond.lastData) {
+        $('#road1 .result').html('Now!');        
     }
 };
 
