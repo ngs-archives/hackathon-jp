@@ -27,7 +27,7 @@ cods.properties.debug = false;
 gadgets.util.registerOnLoadHandler(diamond.show_room_list);
 </script>
 
-aslkfdjlkajdflkajfdlkjalkdsjflkajd
+
 <div id="room_list">
 </div>
 
