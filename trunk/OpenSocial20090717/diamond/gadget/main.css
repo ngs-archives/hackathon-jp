@@ -73,6 +73,14 @@ div {
     font-weight: bold;
 }
 
+#buttons {
+    position: absolute;
+    top: 400px;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+}
+
 
 a {
     text-decoration: none;
