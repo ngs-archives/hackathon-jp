@@ -7,7 +7,7 @@
     <![CDATA[
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
 	<script type="text/javascript">
-			function login () {
+			function search () {
 				var words = $('words').value;
 				var url = 'http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&q='+ words +'&um=1&ie=utf-8&num=10&output=atom';
 
@@ -32,15 +32,14 @@
 			}
 
 			function init() {
-				$('login').onclick = login;
+				$('search').onclick = search;
 			}
 
 			gadgets.util.registerOnLoadHandler(init);
       </script>
 		<div id="form">
 			<h1>ブログ検索</h1>
-			<input type="textbox" id="words" class="text" value="OpenSocial" /><br />
-			<button type="button" id="login">検索</button>
+			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="button" id="search">検索</button>
 		</div>
 		<ul id="mail_list">
 		</ul>
