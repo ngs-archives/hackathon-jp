@@ -20,93 +20,6 @@
             <script type="text/javascript" src="http://demo2.cirius.co.jp:3050/javascripts/jquery.uploadify-v1.6.2.mit/jquery.uploadify.js"></script>
 
             <script type="text/javascript">
-//             /**
-//               * Friendクラス
-//               *
-//               */
-//         var Profile = {}
-//         Profile.Manager = function() {
-//             //this.initialize.apply(this, arguments);
-//             this.thumbnailUrl = '';
-//             this.req = opensocial.newDataRequest();
-//             this.pData = new Object();
-//             this.nickname = '';
-//         };
-
-//         Profile.Manager.prototype.getProfile = function(){
-//             // コンストラクタ定義
-//             this.req.add(this.req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
-//             this.req.send(function(data) {
-//                 if (!data.hadError()) {
-//                     var item = data.get("viewer");
-//                     if (item.hadError()) {
-//                         var msg = data.getErrorMessage();
-//                         console.debug(msg);
-//                         // エラー発生時の処理
-//                     } else {
-//                         // 取得結果に対する処理
-//                         var viewer = item.getData();
-//                         var id = viewer.getId();
-//                         var nickname = viewer.getDisplayName();
-//                         var thumbnailUrl = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
-//                         this.viewer = viewer;
-//                         this.id = id;
-//                         this.nickname = nickname;
-//                         this.thumbnailUrl = thumbnailUrl;
-//                     }
-//                 }
-//             });
-//         }
-
-//         /**
-//               * Friendクラス
-//               *
-//               */
-//         var Friend = {};
-//         // Friendの初期設定
-//         Friend.Manager = function() {
-//             this.request = opensocial.newDataRequest();
-//             this.response = {};
-//             this.msg = new gadgets.MiniMessage('__MODULE_ID__');
-//             this.message = '';
-//         };
-
-//         Friend.Manager.prototype.getFriends = function(type) {
-//             var self = this;
-//             this.friends = new Array();
-//             var param = {};
-//             // マイミク一覧を取得パラメータ
-//             if (type == 'friends') {
-//                 param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
-//                 param[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
-//             }
-//             // アプリをインストールしたユーザのマイミクシィ一覧を取得
-//             else {http://platform001.mixi.jp/home.plf
-//                 param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
-//                 param[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
-//             }
-
-//             friends = opensocial.newIdSpec(param);
-
-//             this.request.add(this.request.newFetchPeopleRequest(friends), "friends_data");
-//             this.request.send(function (response) {
-//                 var item = response.get("friends_data");
-//                 if (item.hadError()) {
-//                     // エラー処理。item.getError() で詳細情報を取得
-//                     return;
-//                 }
-
-//                 var friends = item.getData();
-
-//                 friends.each(function (person) {
-//                     var nickname = person.getDisplayName();
-//                     self.friends.push(person.getDisplayName());
-//                 });
-//             });
-//         };
-
-
-
         var Avatt = {};
         Avatt.Config = {
             debug: false,
@@ -220,32 +133,73 @@
             }
         }
 
-        Avatt.Map = function() {
+        Avatt.Map = function(lat, lng) {
             this.count = 0;
+            var self = this;
 
+            this.setUrl = "http://jackal.sakura.ne.jp/tmap/";
+
+            this.latlng = new google.maps.LatLng(lat, lng);
+            this.mapOptions = {
+                zoom: 8,
+                center: this.latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            this.map = new google.maps.Map(document.getElementById("map_canvas"), this.mapOptions);
+
+
+
+            var contentString = '<div id="content">'+
+                "<input type='button' id='setlatlng'  value='set lat lng'/>" + 
+                '</div>';
+
+
+            this.marker = new google.maps.Marker({
+                position: this.latlng,
+                map: this.map,
+                title:"Hello World!"
+            });
+
+            google.maps.event.addListener(this.map,'click',function(event) {
+                self.infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+//                if (self.marker) self.marker.set_position(event.latLng);
+                self.infowindow.open(self.map, self.marker);
+                self.addEvent(event.latLng);
+            });
+
+            google.maps.event.addListener(this.marker, 'click', function() {
+                console.debug(self.marker);
+            });
         };
 
         Avatt.Map.prototype = {
             initialize: function () {
             },
-            drawMap: function (lat, lng) {
-                var latlng = new google.maps.LatLng(lat, lng);
-                var myOptions = {
-                    zoom: 8,
-                    center: latlng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-            },
             handleError: function (a) {
                 var d = document.getElementById("d");
                 d.innerHTML = "<p> error: " + a.code + "</p>";
+            },
+            addEvent: function(latLng) {
+                console.debug("aaa");
+                var self = this;
+                $('#setlatlng').click(function(event){
+                    var param  = self.url + "/?c=set&uid=" + "21888891" + "&pos=" + latLng;
+                    console.debug(param);
+//                     $.ajax({
+//                         type: "GET",
+//                         url: param,
+//                         cache: false,
+//                         success: function(html){
+//                             console.debug(html);
+//                             //$("#results").append(html);
+//                         }
+//                     });
+
+                });
+
             }
-			addMarker: function() }
-			  google.maps.event.addListene(map, 'click', function(event) {
-			    if (marker) marker.set_position(event.latLng);
-			  }); 
-			}
         }
 
       </script>
@@ -269,7 +223,7 @@
                 var mng = new Avatt.Manager();
                 mng.addGetFriendsRequest();
                 mng.addGetOwnerRequest();
-/*
+
                 //自分のプロフィールを呼び出す設定
                 var myself_params = {};
                 myself_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
@@ -285,6 +239,7 @@
                 mng.addGetAppDataRequest(friends, 'friendsAppdata');
 
 
+                var ownerid;
                 mng.sendRequest((function() {
                     var _mng = mng;
                     return function(response) {
@@ -300,6 +255,8 @@
                             var appdata = _mng.getAppData('friendsAppdata');
                             var owner = _mng.getOwner();
 
+
+                            ownewid = owner.getField(opensocial.Person.Field.ID);
                             var thumbnailUrl = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);
 
                             friends.each(function (person) {
@@ -313,22 +270,18 @@
                     }
 
                 })());
-*/
-              var map = new Avatt.Map();
-              map.drawMap(-25.363882, 131.044922);
-/*
-               if (navigator.geolocation) {
-                    var map = new Avatt.Map();
 
+                if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position) {
-                        map.drawMap(position.coords.latitude, position.coords.longitude);
-						// 地図をクリックした
-						map.addMarker();
-                    },map.handleError);
+                        var map = new Avatt.Map(position.coords.latitude, position.coords.longitude);
+                        //map.drawMap(position.coords.latitude, position.coords.longitude);
+//                        map.addEvent();
+                    },this.map.handleError);
+
                 } else {  
                     alert("I'm sorry, but geolocation services are not supported by your browser.");  
                 }
-*/
+
             }
 
         //         var friend = new Friend.Manager();
