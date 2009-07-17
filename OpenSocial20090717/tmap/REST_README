@@ -2,5 +2,5 @@
 http://jackal.sakura.ne.jp/tmap/?c=set&uid=UID&pos=LATLNG
 
 <GET>
-http://jackal.sakura.ne.jp/tmap/?c=set&uid=UID
+http://jackal.sakura.ne.jp/tmap/?c=get&uid=UID
 
