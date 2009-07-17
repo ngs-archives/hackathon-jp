@@ -224,7 +224,7 @@ console.log(result);
 				google.maps.event.addListener(marker, 'click', function() {
 				    view.viewPhoto();
 				    
-				    $("#photoRating .star1").rating({callback: function(value,link){
+				    $("#viewSection #photoRating .star1").rating({callback: function(value,link){
 				        var photoId = $("#ratingPhotoId").val();
 				        if (!photoId) return;
 				        postRating(photoId, value)
@@ -247,23 +247,23 @@ console.log(result);
 console.log(location);		
             var photos = location.photos;
 
-			$("#latestPhoto .photo").html('<img src="' + location.photos[0].setPhoto + '" />');			
-			$("#latestPhoto .comment").html('<div class="form_line">' + location.photos[0].comment + '</div>');
+			$("#viewSection #latestPhoto .photo").html('<img src="' + location.photos[0].setPhoto + '" />');			
+			$("#viewSection #latestPhoto .comment").html('<div class="form_line">' + location.photos[0].comment + '</div>');
 			document.getElementById("ratingPhotoId").value = location.photos[0].id;			
 			
-			$("#latestPhoto .area_name .place").html(location.name);
-			$("#latestPhoto .area_name .address").html(location.address);
+			$("#viewSection #latestPhoto .area_name .place").html(location.name);
+			$("#viewSection #latestPhoto .area_name .address").html(location.address);
 
 			var data = '<ul class="photos clears"></ul>';
-			$("#viewPhotoList").html(data);
+			$("#viewSection #viewList").html(data);
 
 			$.each(photos, function(key, photo) {
-				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + photo.url + '" />').click(function(){
+				$("#viewSection #viewList .photos").append($("<li></li>").html('<img class="photo" src="' + photo.url + '" />').click(function(){
 					document.getElementById("ratingPhotoId").value = photo.id;
-					$("#latestPhoto .photo").html('<img src="' + photo.url + '" />');			
-					if (photo.comment) $("#latestPhoto .comment").html('<div class="form_line">' + photo.comment + '</div>');
+					$("#viewSection #latestPhoto .photo").html('<img src="' + photo.url + '" />');			
+					if (photo.comment) $("#viewSection #latestPhoto .comment").html('<div class="form_line">' + photo.comment + '</div>');
 				}));
-				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
+				if (moso.isOwner) $("#viewSection .addButton").css({"display":"block"});
 			});
 			
 			$("#rightViewEditButton").click(function(){ view.editPhoto(location.setX,location.setY); });
@@ -311,8 +311,8 @@ console.log(location);
 		},
 		viewPhoto : function() {
 			$("#firstSection").css({ "display":"none" });
-			$("#editSection").css({ "display":"block" });
-			$("#viewSection").css({ "display":"none" });
+			$("#editSection").css({ "display":"none" });
+			$("#viewSection").css({ "display":"block" });
 			
 			document.getElementById("setX").value = '';
 			document.getElementById("setY").value = '';
@@ -487,6 +487,11 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 	#viewPhotoList ul.photos					{ list-style:none; float:left; padding:0; margin:0; }
 	#viewPhotoList ul.photos li					{ display:inline; float:left; background:#FFF; font-size:12px; margin:0 0 5px 0; }
 	#viewPhotoList ul.photos li img				{ cursor:pointer; width:60px; border:1px solid #EEE; padding:2px; margin:0 5px 2px 0; }
+
+	#viewList								{ overflow:hidden; width:300px; height:70px; }
+	#viewList ul.photos					{ list-style:none; float:left; padding:0; margin:0; }
+	#viewList ul.photos li					{ display:inline; float:left; background:#FFF; font-size:12px; margin:0 0 5px 0; }
+	#viewList ul.photos li img				{ cursor:pointer; width:60px; border:1px solid #EEE; padding:2px; margin:0 5px 2px 0; }
 	
 	#viewPhotoList ul.photos li ul.pics						{ list-style:none; float:left; margin:0; padding:0; }
 	#viewPhotoList ul.photos li ul.pics li					{ display:inline; }
@@ -521,6 +526,8 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 .coment_area li { list-style-type: none; display:inline; vertical-align: middle; }
 .form_line { border:2px solid #FF6600; width: 330px;}
 #editSection	{ padding:0 0 0 10px; }
+#viewSection	{ padding:0 0 0 10px; }
+#viewSection .photo { width: 240px;border:1px solid #EEE; padding:2px;  }
 	</style>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(moso.canvasInit);
@@ -577,8 +584,34 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 					
 				</div>
 				
-				<p class="addButton" style="display:none;clear:both;"><a href="javascript:void(0);" id="rightViewEditButton">このポイントに登録する</a></p>
 			</div>
+            <div id="viewSection" style="display:none">
+ 				<div id="latestPhoto">
+				    <input type="hidden" name="ratingPhotoId" id="ratingPhotoId" value="" />
+					<p class="photo"></p>
+					
+					<p class="comment"></p>
+
+                    <div id="photoRating">
+                        <input name="star1" type="radio" class="star1" value="1" />
+                        <input name="star1" type="radio" class="star1" value="2" />
+                        <input name="star1" type="radio" class="star1" value="3" />
+                        <input name="star1" type="radio" class="star1" value="4" />
+                        <input name="star1" type="radio" class="star1" value="5" />
+     					<span class="finished" style="display:none">評価しました！</span>
+                    </div>
+					
+					<br><br>
+					<ul class="area_name">
+						<li class="place"></li>
+						<li class="address"></li>
+					</ul>
+					
+				</div>
+				
+				<div id="viewList"></div>
+               <p class="addButton" style="display:none;clear:both;"><a href="javascript:void(0);" id="rightViewEditButton">このポイントに登録する</a></p>
+            </div>
 			
 		</div>
 		
