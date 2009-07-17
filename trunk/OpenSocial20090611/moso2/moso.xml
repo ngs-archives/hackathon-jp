@@ -166,7 +166,7 @@ var host ={
 			
 			var opt_params = {};
 			//DBへアクセス
-			opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+			opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
 			opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
 			opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
 			opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
@@ -194,7 +194,7 @@ var view = {
 			view.buildMap()
 			view.request();
 			
-			gadgets.window.adjustHeight(800);
+			gadgets.window.adjustHeight(700);
 		},
 		buildMap : function() {
 			var point = new google.maps.LatLng(36.03, 139.15);
