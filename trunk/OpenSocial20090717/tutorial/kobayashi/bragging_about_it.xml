@@ -8,7 +8,7 @@
       <script type="text/javascript">
         var globalGivenGifts = {};
         var globalFriends = {};
-        var globalGiftList = ['a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
+        var globalGiftList = [a'a cashew nut', 'a peanut', 'a hazelnut', 'a red pistachio nut'];
 
         function postActivity(nut, friend) {
           var title = 'gave ' + globalFriends.getById(friend).getDisplayName() + ' ' + globalGiftList[nut];
