@@ -46,8 +46,7 @@
          html.push('</select>');
          //document.getElementById('kendiv').innerHTML = html.join('');
          document.write(html.join(''));
-       </script><br />
-       市区町村 <input type="text" name="city" id="city" /><br />
+       </script> &nbsp; 市区町村 <input type="text" name="city" id="city" /><br />
        ヒマな内容 &nbsp;
        <textarea></textarea>
        <input type="button" value="登録する" />
