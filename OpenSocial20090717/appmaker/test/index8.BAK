@@ -1,0 +1,329 @@
+<HTML>
+<HEAD>
+  <META NAME="GENERATOR" CONTENT="Adobe PageMill 3.0J Win">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>pre appmaker</TITLE>
+<script language="JavaScript" src="http://www.ninpow.com/mixiapp/appmaker/appmaker.js"></script>
+<script language="JavaScript">
+//
+// グローバル変数
+//
+var varDragMode;	// ドラッグ中はtrueになる
+var varDragDiv;	// ドラッグしているオブジェクト
+var varDontEnterDrag;	// この値がtrueならブラウザのドラッグモードを許さない
+var toolDiv = new Array(128);	// パーツに利用するdiv配列最大128個
+var gvarNumTool = 2;	// ツールパレットのツール数
+
+onload = function () {
+   document.onmousemove = funcOnMouseMove;
+   document.onmouseup = funcOnMouseUp;
+}
+
+
+//
+// ロード時の関数
+//
+function funcOnLoad() {
+	echo("funcOnLoad()");
+	// DEBUGコンソールの用意
+//	console=document.getElementById('console');	
+	
+	// パラメータの初期化
+	varDontEnterDrag = false;
+	varDragMode      = false;
+	prmGlobalID      = "";
+
+	window.document.ondragstart=funcDragStart;
+	
+	funcLoadToolPalette();
+}
+
+
+//
+// マウスアップの処理(ツール部品を放したときの処理)
+//
+function funcOnMouseUp() {
+echo(".M!["+dropedDivType+"]");
+  if(varDragMode==true) {
+    // ドラッグ終了
+    varDragMode = false;
+    
+    var px = 0 , py  = 0, pw = 0 , ph = 0;
+	var imgId = "img." + dropedDiv.id;
+	var iimg = document.getElementById( imgId );	// DIV内のIMGを取り出す
+    pw = iimg.width;
+    ph = iimg.height;
+    if (document.all) {
+		// IE, Safari
+        px = dropedDiv.style.pixelLeft;
+        py = dropedDiv.style.pixelTop;
+    }
+    else {
+		// FireFox
+        px = parseInt(dropedDiv.style.left);
+        py = parseInt(dropedDiv.style.top);
+    }
+
+    // facePartsがトラッシュに入った場合はトラッシュ処理
+    // パーツが描画域に入った場合はパーツ追加処理
+    var varDivBoard = document.getElementById("divBoard");
+	var cx = 0 , cy = 0, cw = 0 , ch = 0;
+//echo("#71:varDivBoard="+varDivBoard.style.width );
+	cw = parseInt( varDivBoard.style.width );
+//echo("#73:varDivBoard="+varDivBoard.style.width );
+	ch = parseInt( varDivBoard.style.height );
+	
+    if (document.all) {
+		// IE, Safari
+        cx = varDivBoard.style.pixelLeft;
+        cy = varDivBoard.style.pixelTop;
+    }
+    else {
+		// FireFox
+        cx = parseInt(varDivBoard.style.left);
+        cy = parseInt(varDivBoard.style.top);
+    }
+
+	// ドロップされたアイテムはツールパレットの部品か
+	if (dropedDivType == "paletteParts") {
+echo("#89:Droped paletteParts");
+		if (px > cx &&
+		px + pw < cx + cw &&
+		py > cy &&
+		py + ph < cy + ch) {
+
+
+				// ドロップ先はボードの中だった（divオブジェクト生成）
+echo("#170: DROPED");
+
+			// ドロップされた部品をデザインボードに配置する
+			funcAppendItem( iimg, px, py );
+			
+			// ドラッグされた部品がパレット内のドラッグ前の場所に移す
+			varDragDiv.style.top  = beforeDragTop;
+			varDragDiv.style.left = beforeDragLeft;
+		}
+		else {
+echo("152:back");
+			// ドラッグされた部品がキャンバス以外にドラッグされたら、位置をドラッグ前の場所に移す
+			varDragDiv.style.top  = beforeDragTop;
+			varDragDiv.style.left = beforeDragLeft;
+		}
+		
+	}
+	else {
+		// デザインボードの部品がドロップされた
+		
+		// ドロップ先によって処理を分けます
+		if( px+pw/2<cx) {
+			// ドロップ先がトラッシュボックスだった
+			document.body.removeChild( varDragDiv );
+			var varImgTrashBox = document.getElementById("imgTrashBox");
+			varImgTrashBox.src = "./wave.gif";
+		}
+		else {
+			// ドロップ先はゴミ箱以外だった
+			if (!(px > cx && px + pw < cx + cw && py > cy && py + ph < cy + ch)) {
+				// ドロップ先がボードの外でであれば元の位置に戻す
+				varDragDiv.style.top  = beforeDragTop;
+				varDragDiv.style.left = beforeDragLeft;
+			}
+		}
+	  }
+	}
+
+  return true;
+}
+
+//
+// デザインボードにアイテムを追加する
+//
+function funcAppendItem( prmTookImg, prmLeft, prmTop ) {
+	echo("142:funcAppendItem()");
+	var newDIv;
+	newDiv = document.createElement("div");
+	newDiv.classes = "posabs";
+	newDiv.style.position = "absolute";
+	newDiv.style.left = prmLeft;
+	newDiv.style.top  = prmTop;
+	newDiv.style.visibility = "visible";
+	newDiv.cursor = "move";
+	newDiv.style.zIndex = 300;
+	newDiv.id = "settedDiv." + prmTookImg.src;
+	
+	var newImg;
+	newImg = document.createElement("img");
+	newImg.src = prmTookImg.src;
+	newImg.width = parseInt( prmTookImg.width ) * 1;
+	newImg.height = parseInt( prmTookImg.height) * 1;
+	newImg.id = "img." + newDiv.id;
+	
+	
+	// ドラッグ時の処理を記述
+	newDiv.onmousedown = function(e){
+		//
+		// ドラッグモードに入ります
+		//
+		if (!varDragMode && !varDontEnterDrag) {
+			varDragDiv = this;
+			varDragMode = true;
+			if (document.all) {
+				startOffsetX = event.clientX - varDragDiv.style.pixelLeft;
+				startOffsetY = event.clientY - varDragDiv.style.pixelTop;
+			}
+				else {
+					startOffsetX = e.pageX - parseInt(varDragDiv.style.left);
+					startOffsetY = e.pageY - parseInt(varDragDiv.style.top);
+				}
+				beforeDragTop  = varDragDiv.style.top;
+				beforeDragLeft = varDragDiv.style.left;
+			}
+
+			dropedDiv = this;
+			dropedDivType = "settedParts";
+
+			return false;
+		};
+		newDiv.appendChild(newImg);
+		document.body.appendChild(newDiv);
+			
+//			changeCategory( dirPath ); // カテゴリ部品を再構築
+	
+}
+
+//
+// マウスムーブの処理
+//
+function funcOnMouseMove( e ) {
+  if(varDragMode) {
+//echo("m");
+		if (document.all) {
+//echo("I");
+			// IE, Safari
+			varDragDiv.style.pixelTop  = event.clientY - startOffsetY;
+			varDragDiv.style.pixelLeft = event.clientX - startOffsetX;
+		}
+		else {
+//echo("F");
+			// FireFox
+//echo("startOffsetX="+startOffsetX);
+//echo("e.pageX="+e.pageX);
+			varDragDiv.style.left = e.pageX - startOffsetX;
+			varDragDiv.style.top  = e.pageY - startOffsetY;
+//echo("f");
+		}
+  }
+  varDontEnterDrag = false;	// ドラッグ終了からマウスが少しでも動けばドラッグモード突入を許す
+}
+
+
+//
+// ブラウザのドラッグ機能を殺す
+//
+function funcDragStart() {
+	window.event.returnValue = false;
+}
+
+//
+
+function funcLoadToolPalette() {
+	echo("#81:funcLoadToolPalette()");
+				var ox = 0 ; oy = 0;	// 部品のパレット内座標
+				
+				//  追加するdivPallete情報を取得
+				var varDivPalette = document.getElementById('divPalette');
+				var orgx = parseInt(varDivPalette.style.left);
+				var orgy = parseInt(varDivPalette.style.top) + 32;
+				var orgw = parseInt(varDivPalette.style.width);
+				var orgh = parseInt(varDivPalette.style.height);
+
+				for( var i = 0 ; i < (gvarNumTool) ; i++ ) {
+echo("#92:i="+i);
+					var img = document.createElement("img");
+					img.src = "http://www.ninpow.com/mixiapp/appmaker/images/tool" + i +"thum.gif";
+echo("#95:src="+img.src);
+					img.id = "img." + img.src;
+					img.alt = i;
+					
+					toolDiv[i] = document.createElement("div");
+					toolDiv[i].classes = "posabs";
+					toolDiv[i].style.position = "absolute";
+					toolDiv[i].style.left = 4 + orgx + ox + i * 80;
+					toolDiv[i].style.top = orgy + oy;
+					toolDiv[i].style.visibility = "visible";
+					toolDiv[i].cursor = "move";
+					toolDiv[i].id = img.src;
+					
+//					ox += img.width;
+//					if( ox > (orgw - 96*2) ) {
+//						oy += img.height;
+//						ox = 0;
+//					}
+					
+					toolDiv[i].onmousedown= function(e) { 
+						echo("|S->");
+						//
+						// ドラッグモードに入ります
+						//
+						if(!varDragMode && !varDontEnterDrag) {
+							varDragDiv   = this;
+							varDragMode  = true;
+							if (document.all) {
+								startOffsetX = event.clientX - varDragDiv.style.pixelLeft;
+								startOffsetY = event.clientY - varDragDiv.style.pixelTop;
+							}
+							else {
+								startOffsetX = e.pageX - parseInt(varDragDiv.style.left);
+								startOffsetY = e.pageY - parseInt(varDragDiv.style.top);
+								echo( " startOffsetX="+startOffsetX );
+							}
+							beforeDragTop  = varDragDiv.style.top;
+							beforeDragLeft = varDragDiv.style.left;
+						}
+						
+						dropedDiv = this; 
+						dropedDivType = "paletteParts";
+
+						return false;
+					};
+					toolDiv[i].appendChild(img);
+
+					document.body.appendChild( toolDiv[i] );
+				}
+
+}
+
+
+</SCRIPT>
+</HEAD>
+<!--
+.posabs { position:absolute }
+-->
+<body >
+
+<!-- Design board ----------------------------------------------------------    -->
+<div id="divBoard" class="posabs" style="position:absolute; left:10; top:10; width: 430px; height: 240px; background-color: #eee; border: solid 1px #ccc; padding: 4px;" >
+	デザインボード
+</div>
+
+<!-- Tool palette ----------------------------------------------------------    -->
+<div id="divPalette" class="posabs" style="position:absolute; left:460; top:10; width: 320px; height: 140px; background-color: #eee; border: solid 1px #ccc; padding: 4px;" >
+	ツールパレット
+</div>
+
+<!-- Trash box ----------------------------------------------------------    -->
+<div id="divTrash" class="posabs" style="position:absolute; left:460; top:170; width: 320px; height: 80px; background-color: #eee; border: solid 1px #ccc; padding: 4px;" >
+	トラッシュボックス
+</div>
+
+<!-- Debug console ----------------------------------------------------------    -->
+<div id="debug_console"    class="posabs" style="color: #666; position:absolute; left:2; top:272px; width: 720px; visibility:visible; border: 1px solid #fcc; font-size: 9px; ">Debug:</div>
+
+
+
+<script language="JavaScript">
+	funcOnLoad();
+</script>
+
+</BODY>
+</HTML>
