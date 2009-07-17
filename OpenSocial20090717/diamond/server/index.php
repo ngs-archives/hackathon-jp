@@ -3,6 +3,8 @@
 * diamont サーバー
 */
 
+header("Content-Type: text/javascript; charset=utf-8"); 
+
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 ini_set('error_log',  'log/server_log');
@@ -19,6 +21,10 @@ require_once 'component/diamont/diamont_player.php';
 session_cache_expire(30);
 session_name('owner_id');
 session_start();
+
+
+error_log(print_r($_REQUEST, true));
+
 
 if (isset($_SESSION['game'])) {
     $game = $_SESSION['game'];
@@ -40,15 +46,19 @@ if ($action == 'init') {
 
 } else if ($action == 'join') {
     // ゲームに参加
-    $game->players[$userId] = new DiamontPlayer();
+    $game->players[$userId] = new DiamontPlayer($_REQUEST['name'], $_REQUEST['thumb_url']);
 
 } else if ($action == 'go') {
     // 行く
-    $game->players[$userId]->answer = 'go';
+    if (isset($game->players[$userId])) {
+        $game->players[$userId]->answer = 'go';
+    }
     
 } else if ($action == 'exit') {
     // 帰る
-    $game->players[$userId]->answer = 'exit';
+    if (isset($game->players[$userId])) {
+        $game->players[$userId]->answer = 'exit';
+    }
     
 }
 
@@ -59,9 +69,10 @@ $_SESSION['game'] = $game;
 
 
 $encode = Zend_Json::encode($game); 
-header("Content-Type: text/javascript; charset=utf-8"); 
-echo $encode; 
+echo $encode;
 
-echo "\n\n/*\n";
-print_r($game);
-echo "*/";
+if (isset($_REQUEST['debug'])) {
+    echo "\n\n/*\n";
+    print_r($game);
+    echo "*/";
+}

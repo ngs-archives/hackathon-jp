@@ -4,7 +4,6 @@
 */
 class DiamontPlayer
 {
-
     /** 安全に持ち帰ったダイアの数の合計 */
     var $totalScore;
     
@@ -17,13 +16,21 @@ class DiamontPlayer
     /** プレイヤーが先に進むかどうか */
     var $answer;
     
+    /** 表示名 */
+    var $displayName;
+    
+    /** サムネイルURL */
+    var $thumbUrl;
+    
     
     /**
     * コンストラクタ
     */
-    function __construct()
+    function __construct($displayName, $thumbUrl)
     {
         $this->totalScore = 0;
+        $this->displayName = $displayName;
+        $this->thumbUrl = $thumbUrl;
     }
     
     
