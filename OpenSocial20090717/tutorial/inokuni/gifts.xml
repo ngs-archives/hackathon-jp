@@ -41,7 +41,7 @@
           html.push(' &nbsp; 市区町村<input type="text" name="city" id="city" /><br />');
 
           html.push('ヒマな内容 &nbsp;');
-          html.push('<textarea name="detail"></textarea>');
+          html.push('<textarea name="detail" id="detail"></textarea>');
           html.push('<input type="button" value="登録する" onclick="HimaDateUpdate();" />');
 
           html.push('<input type="button" value="登録データを確認する" onclick="HimaDateGet();" />');
