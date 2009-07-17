@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="test" author_email="kazuho.sail@gmail.com">
+  <ModulePrefs title="マイスイッチ">
     <Require feature="opensocial-0.8" />
+    <Require feature="views" />
+	<Require feature="minimessage" />
+	<Require feature="dynamic-height" />
+    <Optional feature="content-rewrite">
+      <Param name="include-urls"></Param>
+      <Param name="exclude-urls">.*</Param>
+      <Param name="include-tags"></Param>
+    </Optional>
   </ModulePrefs>
+
   <Content type="html" view="canvas">    <![CDATA[
 <script type="text/javascript" src="http://sandboxofgooglecode.googlecode.com/svn/trunk/javascripts/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="http://sandboxofgooglecode.googlecode.com/svn/trunk/javascripts/canvas.js"></script>
