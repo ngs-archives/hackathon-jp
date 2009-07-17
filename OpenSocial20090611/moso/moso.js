@@ -42,6 +42,35 @@ function testCreate(){
 		}
 	});
 }
+
+function postRating(photoId, point) {
+    var url = HOST_URL + '/photos/rating_update';
+    var params = {};
+    params.photo_id = parseInt(photoId);
+    params.rating_number = parseInt(point);
+    
+    params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(params);    
+
+    gadgets.io.makeRequest(url, function(response) {
+        var transport_errors = response.errors;
+        if (transport_errors.length) {
+            alert('Transport Error' + Object.toJSON(transport_errors));
+            return;
+        }
+        
+        var result = response.data;
+        
+        if (result.errors) {
+            console.log('Application Error');
+            console.log(result.errors);
+        }
+        
+        $("#photoRating .finished").css({'display':'block'});
+    }, params);
+}
+
 var host ={
 
 		init : function(){
@@ -181,7 +210,9 @@ var view = {
 				    view.viewPhoto();
 				    
 				    $("#photoRating .star1").rating({callback: function(value,link){
-				        console.log(value);
+				        var photoId = $("#ratingPhotoId").val();
+				        if (!photoId) return;
+				        postRating(photoId, value)
 				    }});
 				    
 					var infoWindow = new google.maps.InfoWindow()
@@ -202,15 +233,17 @@ var view = {
 
 			$("#latestPhoto .photo").html('<img src="' + location.photos[0].setPhoto + '" />');			
 			$("#latestPhoto .comment").html('<div class="form_line">' + location.photos[0].comment + '</div>');
+			document.getElementById("ratingPhotoId").value = location.photos[0].id;			
 			
 			$("#latestPhoto .area_name .place").html(location.name);
 			$("#latestPhoto .area_name .address").html(location.address);
 
 			var data = '<ul class="photos clears"></ul>';
-			$("#viewPhotoList").html(data);
+			$("#viewList").html(data);
 
 			$.each(photos, function(key, photo) {
-				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + photo.url + '" />').click(function(){
+				$("#viewList .photos").append($("<li></li>").html('<img class="photo" src="' + photo.url + '" />').click(function(){
+					document.getElementById("ratingPhotoId").value = photo.id;
 					$("#latestPhoto .photo").html('<img src="' + photo.url + '" />');			
 					if (photo.comment) $("#latestPhoto .comment").html('<div class="form_line">' + photo.comment + '</div>');
 				}));
