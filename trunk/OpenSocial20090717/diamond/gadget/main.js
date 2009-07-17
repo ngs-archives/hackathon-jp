@@ -13,7 +13,7 @@ diamond.vars = {};
 
 
 diamond.properties = {
-    "ownerId": 3333,
+    //"ownerId": 3333,
     "appServerUrl": "http://codess.heteml.jp/diamond/server/"
 };
 
@@ -41,6 +41,13 @@ diamond.show_room_list = function() {
 }
 
 diamond.join = function(owner_id) {
+    
+
+
+
+    diamond.properties.ownerId = owner_id;
+    
+    
     
     diamond.owner_id = owner_id;
     cods.fetchViewerProfile(function(viewer) {
