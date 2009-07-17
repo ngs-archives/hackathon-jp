@@ -2,7 +2,7 @@ var cods = {};
 
 
 cods.properties = {
-    'debug': false
+    'debug': true
 };
 
 
@@ -266,12 +266,8 @@ cods.createActivity = function(message, callback, errorCallback) {
 
 cods.makeRequest = function(url, post_data, callback, errorCallback) {
 
-    alert('bbb');
     var params = {};
-    console.log(url);
-    console.log(post_data);
-    console.log(callback);
-    console.log(errorCallback);
+
     params[gadgets.io.RequestParameters.METHOD]        = gadgets.io.MethodType.GET;
     params[gadgets.io.RequestParameters.CONTENT_TYPE]  = gadgets.io.ContentType.JSON;
     params[gadgets.io.RequestParameters.POST_DATA]     = gadgets.io.encodeValues(post_data);
