@@ -22,7 +22,7 @@
 			function callback(response) {
 				var entry = response.data['Entry'];
 				for( var i in entry ){
-					$('mail_list').innerHTML = "<li><a href=\"" + entry[i]["Link"] + "\" target=\"_blank\" >" + entry[i]["Title"] + "</a></li>";
+					$('mail_list').innerHTML += "<li><a href=\"" + entry[i]["Link"] + "\" target=\"_blank\" >" + entry[i]["Title"] + "</a></li>";
 				}
 			}
 
