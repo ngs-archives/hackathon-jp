@@ -22,7 +22,9 @@
 			function callback(response) {
 				var entry = response.data['Entry'];
 				for( var i in entry ){
-					$('mail_list').innerHTML += "<li><a href=\"" + entry[i]["Link"] + "\" target=\"_blank\" >" + entry[i]["Title"] + "</a></li>";
+					if(entry[i]["Title"] != ""){
+						$('mail_list').innerHTML += "<li><a href=\"" + entry[i]["Link"] + "\" target=\"_blank\" >" + entry[i]["Title"] + "</a></li>";
+					}
 				}
 			}
 
@@ -34,7 +36,7 @@
       </script>
 		<div id="form">
 			<h1>ブログ検索</h1>
-			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="button" id="search">検索</button>
+			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="submit" id="search">検索</button>
 		</div>
 		<ul id="mail_list">
 		</ul>
