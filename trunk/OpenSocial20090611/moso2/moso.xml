@@ -219,7 +219,7 @@ console.log(result);
 				var marker = new google.maps.Marker();
 				marker.set_position(point);
 				
-				var windowHtml = '<h2 class="mtb0"><img src="' + location.photos[0].setPhoto + '" /></h2>';
+				var windowHtml = '<h2 class="mtb0"><img src="' + location.photos[0].url + '" /></h2>';
 				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="view.editPhoto(\''+ location.setX +'\',\''+ location.setY +'\');">このポイントに登録する</a></p>';
 				google.maps.event.addListener(marker, 'click', function() {
 				    view.viewPhoto();
