@@ -15,9 +15,11 @@ var switches = [{'name':'飲み会', 'id':'1001', 'status':0
 },{'name':'キャンプ', 'id':'1011', 'status':0 },{'name':'海', 'id':'1',
 'status':0 },{'name':'旅行', 'id':'200', 'status':0 }];
 
+var myswitchIndex;
+
 function init() {
-    var index = Math.floor(Math.random()*20);
-    myswitch = switches[index];
+    myswitchIndex = Math.floor(Math.random()*20);
+    myswitch = switches[myswitchIndex];
     getMySwitch(myswitch.id);
 }
 
@@ -137,7 +139,7 @@ function renderSwitch(item){
            html += '<img class="switchoff" id="switchoff'+item.id+'" src="http://sandboxofgooglecode.googlecode.com/svn/trunk/images/switch_off.png" alt="on" />';
        }
 
-       html += '<p class="title">'+item.name+'</p>';
+       html += '<p class="title">'+switches[myswitchIndex].name+'</p>';
        html += '</div>';
        return html;
 }
