@@ -11,8 +11,7 @@
 		div#form .title{float:left;width:100px;text-algin:left;margin:10px 0 0 100px;}
 		-->
 		</style>
-//		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
-		<script type="text/javascript">
+		<script type="javascript">
 			function login() {
 				var email = $('email').value;
 				var password = $('password').value;
