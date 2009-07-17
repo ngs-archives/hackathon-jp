@@ -22,7 +22,7 @@ diamond.show_room_list = function() {
     var rooms = diamond.Room.findAll();
     console.log(rooms);
 
-    room_html = '<ul>';
+    room_html = '<h2>参加者、募集中のルーム</h2><ul>';
     $.each(rooms, function(index, room) {
 	room_html += 
 	    '<li>' + 
@@ -85,7 +85,7 @@ diamond.show_waiting_room = function(game_status) {
         return diamond.init();
     }
 
-    waiting_room_html = '<ul>';
+    waiting_room_html = '<h2>参加者を待っています</h2><ul>';
     $.each(game_status.players, function(index, player) {
 	waiting_room_html += 
 	    '<li>' + 
