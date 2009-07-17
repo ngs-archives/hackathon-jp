@@ -41,7 +41,7 @@
          var html = new Array();
          html.push('<select id="ken">');
          for (var i = 0; i < kens.length; i++) {
-           html.push('<option value="', kens.ken[i], '">', kens.ken[i], '</option>');
+           html.push('<option value="', kens[i], '">', kens[i], '</option>');
          }
          html.push('</select>');
          //document.getElementById('kendiv').innerHTML = html.join('');
