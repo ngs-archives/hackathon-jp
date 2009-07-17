@@ -13,7 +13,7 @@
 
       <script type="text/javascript">
         function HimaDateSet(){
-                
+                $("#HimaDate").datepicker();
         }
 
         function init() {
