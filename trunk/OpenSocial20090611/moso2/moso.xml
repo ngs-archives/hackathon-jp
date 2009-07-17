@@ -209,11 +209,13 @@ var view = {
 			});
 		},
 		buildMarkers : function(result) {
+console.log(result);		
+            var photos = location.photos;
 		    if (view.infoWindow) view.infoWindow.close();
 			$.each(result, function(key, value) {
 				var location = value.location;
 			
-				var point = new google.maps.LatLng(location.setX, location.setY);
+				var point = new google.maps.LatLng(location.lat, location.lng);
 				var marker = new google.maps.Marker();
 				marker.set_position(point);
 				
