@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Module>
-
 <ModulePrefs title="diamond">
     <Require feature="opensocial-0.8" />
     <Require feature="views" />
@@ -13,35 +12,68 @@
     </Optional>
 </ModulePrefs>
 
-<Content type="html" view="home,profile">
-<![CDATA[
-]]></Content>
+<Content type="html" view="canvas"><![CDATA[
 
-<Content type="html" view="canvas">
-<![CDATA[
-
-<link rel="stylesheet" href="http://mobako.codsworks.com/gadget/gadget.css" type="text/css" />
+<link rel="stylesheet" href="http://codess.heteml.jp/diamond/gadget/gadget.css" type="text/css" />
+<link rel="stylesheet" href="http://codess.heteml.jp/diamond/gadget/main.css?3" type="text/css" />
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/gadget.js"></script>
-<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/shida.js"></script>
+<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/main.js"></script>
+<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/ui.js?6"></script>
 <script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/room.js"></script>
 <script type="text/javascript">
-gadgets.util.registerOnLoadHandler(
-function() {
-    diamond.show_room_list();
-}
+cods.properties.debug = true;
 
-);
+gadgets.util.registerOnLoadHandler(diamond.show_room_list);
 </script>
-<div id='room_list'>
+
+aslkfdjlkajdflkajfdlkjalkdsjflkajd
+<div id="room_list">
 </div>
-<div id='waiting_room'>
+<div id="waiting_room">
 </div>
-<div id='flow'>
+<div id="game_room" style="display: none;">
+<div id="roads">
+    <div id="road1" class="road">
+        <div>1</div>
+        <div class="result"></div>
+    </div>
+    <div id="road2" class="road">
+        <div>2</div>
+        <div class="result"></div>
+    </div>
+    <div id="road3" class="road">
+        <div>3</div>
+        <div class="result"></div>
+    </div>
+    <div id="road4" class="road">
+        <div>4</div>
+        <div class="result"></div>
+    </div>
+    <div id="road5" class="road">
+        <div>5</div>
+        <div class="result"></div>
+    </div>
+    <div style="clear: both;"></div>
 </div>
-<div id='debug'>
+
+
+<div id="players"></div>
+
+
+<div id="cards"></div>
+
+
+<div id="buttons">
+    <div><a href="javascript:diamond.go()">進む</a></div>
+    <div><a href="javascript:diamond.exit()">帰る</a></div>
 </div>
+
+
+<div id="count"></div>
+</div>
+
 ]]></Content>
 
 </Module>
