@@ -1,41 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Gifts part 5 - Crossing the Streams">
-    <Require feature="opensocial-0.8"/>
-  </ModulePrefs>
-  <Content type="html">
-    <![CDATA[
+<ModulePrefs title="freeml beta">
+	<Require feature="opensocial-0.8"/>
+</ModulePrefs>
+<Content type="html">
+	<![CDATA[
+		<style type="text/css">
+		<!--
+		div#form .text{width:250px}
+		div#form .title{float:left;width:100px;text-algin:left;margin:10px 0 0 100px;}
+		-->
+		</style>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
+		<script type="text/javascript">
+			function login() {
+				var email = $('email').value;
+				var password = $('password').value;
+				var url = 'http://' + email + ':' + password + '@mail.google.com/mail/feed/atom';
+				var params = ();
+				params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.POST;
+				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
-/*
-    <script type="text/javascript">
-    	function login() {
-    		var email = $('email').value;
-    		var password = $('password').value;
-    		var url = "http://" + email + ":" + password + "@mail.google.com/mail/feed/atom";
-    		var params = ();
-			params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.GET;
-			params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+				gadgets.io.makeRequest(url, function(response) {
+													$('mail_list').innerHTML = response.data;
+												}
+										,params);
 
-			gadgets.io.makeRequest(url, callback , params);
-    	}
+			}
 
-    	function callback (obj){
-    		var test = obj;
-    	}
-*/
-    	function init() {
-    		$('login').onclick = login;
-    	}
-    	gadgets.util.registerOnLoadHandler(init);
-    </script>
+			function init() {
+				$('login').onclick = login;
+			}
 
-    <input type="text" id="email"></input>
-    <input type="password" id="passowrd"></input>
-    <button type="button" id="login">ログイン</button>
+			gadgets.util.registerOnLoadHandler(init);
 
-    <ul id="message"></ul>
-
-    ]]>
-  </Content>
+		</script>
+		<div id="form">
+			<div class="title">email:</div><input type="textbox" id="email" class="text" /><br />
+			<div class="title">password:</div><input type="password" id="password" class="text" /><br />
+			<button type="button" id="login">ログイン</button>
+		</div>
+		<ul id="mail_list">
+		</ul>
+	]]>
+</Content>
 </Module>
