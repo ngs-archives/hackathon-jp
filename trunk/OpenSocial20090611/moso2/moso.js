@@ -91,45 +91,73 @@ var host ={
 
 					//送信をクリックしたらデータをサーバーへ送信する
 					$("#sendBtn").click(function(){
-					//フォーム各要素のデータを変数に格納
-					var url = HOST_URL + '/locations';
-//					var post_params = {
-//										lng: $("#setX").val(),
-//										lat: $("#setY").val(),
-//										name: $("#location_name").val(),
-//										address: $("#address").val(),
-//										setPhoto: $("#setPhoto").val(),
+						if(location_id){
+							//フォーム各要素のデータを変数に格納
+							var url = HOST_URL + '/locations';
+							var post_params = {
+										lng: $("#setX").val(),
+										lat: $("#setY").val(),
+										name: $(".place").val(),
+										address: $(".address").val(),
+										URL: $("#setPhoto").val(),
+										comment: $("#comment").val(),
+										kinds: $("#kinds").val(),
+										mixi_id: hostUserID,
+										rating_number: $("#rating").val(),
+										rating_people : 1};
+
+//							var post_params = {
+//										setX: 125,
+//										setY: 125,
+//										name: "テスト名前",
+//										address: "テスト住所",
+//										setPhoto: "http://tests",
 //										comment: "テストコメント",
-//										kinds: $("#kinds").val(),
-//										rating_number: $("#rating").val()};
-					var post_params = {
-							setX: 125,
-							setY: 125,
-							name: "テスト名前",
-							address: "テスト住所",
-							setPhoto: "http://tests",
-							comment: "テストコメント",
-							kinds: 0,
-							rating_number: 3};
+//										kinds: 0,
+//										rating_number: 3};
 
-					var opt_params = {};
-					//DBへアクセス
-					opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-					opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-					opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
-					opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
-					opt_params[gadgets.io.RequestParameters.POST_DATA]     = gadgets.io.encodeValues(post_params)
+							var opt_params = {};
+							//DBへアクセス
+							opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+							opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+							opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+							opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+							opt_params[gadgets.io.RequestParameters.POST_DATA]     = gadgets.io.encodeValues(post_params)
 
-					gadgets.io.makeRequest(url, function(response){
+							gadgets.io.makeRequest(url, function(response){
+					
+							},opt_params);
+						} else {
 						
-					},opt_params);
+							var url = HOST_URL + '/photos';
+							var post_params = {
+										location_id: location_id,
+										url: $("#setPhoto").val(),
+										comment: $("#comment").val(),
+										mixi_id: hostUserID,
+										rating_number: $("rating").val(),
+										rating_people : 2}
+						
+							var opt_params = {};
+							//DBへアクセス
+							opt_params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+							opt_params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+							opt_params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
+							opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+							opt_params[gadgets.io.RequestParameters.POST_DATA]     = gadgets.io.encodeValues(post_params)
+
+							gadgets.io.makeRequest(url, function(response){
+					
+							},opt_params);
+						
+						}
 						//外部サーバーへajax通信をおこなう
 						$("#regi").html("登録完了しました！");
 					});
 				}
 			});
 	}
-}	
+}
 
 var view = {
 		map : {},
