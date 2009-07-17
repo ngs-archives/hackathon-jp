@@ -48,15 +48,15 @@ div {
 
 #card {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    padding: 5px 20px;
-    font-size: 32px;
-    line-height: 40px;
+    top: 20px;
+    right: 20px;
+    padding: 5px 40px;
+    font-size: 60px;
+    line-height: 80px;
     text-align: center;
     font-weight: bold;
-    border: 2px solid #666666;
-    background-color: #eeeeee;
+    border: 2px solid #999999;
+    background-color: #7cc559;
 }
 
 
@@ -73,3 +73,32 @@ div {
     font-weight: bold;
 }
 
+
+a {
+    text-decoration: none;
+}
+
+
+a .button {
+    margin: 0 8px;
+    padding: 8px;
+    width: 200px;
+    font-family: sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    background-color: #f0f0f0;
+    border: 2px solid #303030;
+    color: #303030;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover .button {
+    background-color: #fde0a6;
+    border: 2px solid #ff8800;
+    color: #ff8800;
+}
