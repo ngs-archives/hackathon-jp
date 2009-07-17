@@ -243,12 +243,12 @@ diamond.update = function() {
             html = diamond.lastData.road.card;
         }
         
-        $('#road' + diamond.lastData.roadNo + '.result').html(html)
-        $('#road' + diamond.data.roadNo + '.result').html('Now!');
+        $('#road' + diamond.lastData.roadNo + ' .result').html(html)
+        $('#road' + diamond.data.roadNo + ' .result').html('Now!');
     }
     
     if (!diamond.lastData) {
-        $('#road1 .result').html('Now!');        
+        $('#road1 .result').html('Now!');
     }
 };
 
@@ -283,6 +283,11 @@ diamond.updateCards = function () {
         if (typeof diamond.data.road.drawCards[i] == 'string') {
             $('#cards').append('<br style="clear: both;" />');
         }
+    }
+    
+    
+    if (diamond.data.road.card) {
+        $('#card').html(diamond.data.road.card);
     }
     
 }

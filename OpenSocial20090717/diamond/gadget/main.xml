@@ -18,10 +18,10 @@
 <link rel="stylesheet" href="http://codess.heteml.jp/diamond/gadget/main.css?3" type="text/css" />
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/gadget.js"></script>
-<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/main.js"></script>
-<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/ui.js?6"></script>
-<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/room.js"></script>
+<script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/gadget.js"></script>
+<script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/main.js"></script>
+<script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/ui.js?6"></script>
+<script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/room.js"></script>
 <script type="text/javascript">
 cods.properties.debug = true;
 
@@ -63,6 +63,9 @@ aslkfdjlkajdflkajfdlkjalkdsjflkajd
 
 
 <div id="cards"></div>
+
+
+<div id="card"></div>
 
 
 <div id="buttons">
