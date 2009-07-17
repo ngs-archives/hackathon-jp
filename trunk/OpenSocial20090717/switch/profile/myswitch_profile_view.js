@@ -84,9 +84,9 @@ function sendActivity(message) {
 
 function onResponse(response) {
    if (response.hadError()) {
-     alert(response.getErrorCode() + ":" + response.getErrorMessage());
+     //alert(response.getErrorCode() + ":" + response.getErrorMessage());
    } else {
-     alert("Success!");
+     //alert("Success!");
    }
 }
 
