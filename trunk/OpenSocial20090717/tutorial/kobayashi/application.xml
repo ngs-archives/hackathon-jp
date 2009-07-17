@@ -15,14 +15,14 @@
 				//オプション設定
 				var params = {};
 				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
-				params[gadgets.io.RequestParameters.NUM_ENTRIES] = 10;
+				params[gadgets.io.RequestParameters.NUM_ENTRIES] = 20;
 
 				gadgets.io.makeRequest(url, callback ,params);
 			}
 			function callback(response) {
 				var entry = response.data['Entry'];
 				for( var i in entry ){
-					if(entry[i]["Title"] != ""){
+					if(entry[i]["Title"] != null){
 						$('mail_list').innerHTML += "<li><a href=\"" + entry[i]["Link"] + "\" target=\"_blank\" >" + entry[i]["Title"] + "</a></li>";
 					}
 				}
