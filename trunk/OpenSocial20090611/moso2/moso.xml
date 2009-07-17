@@ -491,7 +491,7 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 	#viewPhotoList ul.photos li ul.pics						{ list-style:none; float:left; margin:0; padding:0; }
 	#viewPhotoList ul.photos li ul.pics li					{ display:inline; }
 	#viewPhotoList ul.photos li	ul.pics li.back				{ display:none; }
-	#viewPhotoList ul.photos li	ul.pics li.back img			{ border:none; }
+	#viewPhotoList ul.photos li	ul.pics li.back img			{ border:none; width:60px; }
 	#viewPhotoList ul.photos li ul.pics li.pic				{ display:none; float:left; width:65px; background:#FFF; margin:0 5px 5px 0; font-size:12px; text-align:center; }
 	#viewPhotoList ul.photos li ul.pics li.pic img			{ cursor:pointer; width:60px; border:1px solid #EEE; padding:2px; }
 	
@@ -530,8 +530,9 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 		<h1><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/moso_map.jpg" alt="地図"></h1>
 
 		<div id="viewMap"></div>
-		<div id="firstSection" class="txt12">ポインタをクリックしてください。</div>
+		
 		<div id="viewRight">
+			<div id="firstSection" class="txt12" style="padding-left:10px;">ポインタをクリックしてください。</div>
 			<div id="editSection" style="display:none">
 				<div id="latestPhoto">
 					
@@ -580,6 +581,8 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 			</div>
 			
 		</div>
+		
+		<div><img src="http://mizoochi.com/apps/moso/images/footer.gif" alt="" /></div>
 	</div>
 
 ]]>
