@@ -5,8 +5,9 @@
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
     <script type="javascript">
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
     	function login(){
     		var email = $('email').value;
     		var password = $('password').value;
