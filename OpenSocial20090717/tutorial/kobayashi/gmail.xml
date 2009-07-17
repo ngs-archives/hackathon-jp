@@ -19,8 +19,8 @@
 			}
 			function callback(response) {
 				$('mail_list').innerHTML = "<li><a href=\"" + response.data['Entry'][0]["Link"] + "\">" + response.data['Entry'][0]["Title"] + "</a></li>";
-				$('mail_list').innerHTML = "<li><a href=\"" + response.data['Entry'][1]["Link"] + "\">" + response.data['Entry'][1]["Title"] + "</a></li>";
-				$('mail_list').innerHTML = "<li><a href=\"" + response.data['Entry'][2]["Link"] + "\">" + response.data['Entry'][2]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][1]["Link"] + "\">" + response.data['Entry'][1]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][2]["Link"] + "\">" + response.data['Entry'][2]["Title"] + "</a></li>";
 			}
 
 			function init() {
