@@ -141,6 +141,22 @@
       読み出し時には decodeURI(); 関数を用いてデコードした値を用いる。
       </div>
 
+      <div id='main5'>
+      <h2 style="margin-bottom: 0;">HTML を JavaScript 内に記述する方法の一例</h2>
+      <pre>
+          var html = new Array();
+
+          html.push('&lt;h2&gt;タイトル&lt;/h2&gt;');
+          html.push('&lt;div&gt;');
+          html.push('内容１');
+          html.push('内容２');
+          html.push('&lt;/div&gt;');
+
+          document.getElementById('main').innerHTML = html.join('');
+      </pre>
+      配列に push で追加しつつ、最後に join で連結して HTML 内に表示する方法がスマートだと思いました。
+      </div>
+
     ]]>
   </Content>
 </Module>
