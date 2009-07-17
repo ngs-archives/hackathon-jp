@@ -111,7 +111,6 @@ var view = {
 			gadgets.window.adjustHeight(700);
 		},
 		buildMap : function() {
-			//view.map = new GMap2(document.getElementById("viewMap"));
 			var point = new google.maps.LatLng(36.03, 139.15);
 			var myOptions = {
       			zoom: 5,
@@ -141,7 +140,6 @@ var view = {
 		},
 		buildMarkers : function(result) {
 		    if (view.infoWindow) view.infoWindow.close();
-console.log(result);
 			$.each(result, function(key, value) {
 				var location = value.location;
 			
@@ -150,10 +148,13 @@ console.log(result);
 				marker.set_position(point);
 				
 				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
-				windowHtml += '<p class="txt12">' + location.comment + '</p>';
 				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="view.editPhoto(\''+ location.setX +'\',\''+ location.setY +'\');">このポイントに登録する</a></p>';
 				google.maps.event.addListener(marker, 'click', function() {
 				    view.viewPhoto();
+				    
+				    $("#photoRating .star1").rating({callback: function(value,link){
+				        console.log(value);
+				    }});
 				    
 					var infoWindow = new google.maps.InfoWindow()
 					infoWindow.set_position(point);
@@ -169,11 +170,13 @@ console.log(result);
 		
 		},
 		listRightPhoto : function(location) {
-console.log(location);
             var photos = location.photos;
 
-			$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
-			$("#latestPhoto .comment").html('<div class="form_line">' + location.comment + '</div>');
+			$("#latestPhoto .photo").html('<img src="' + location.photos[0].setPhoto + '" />');			
+			$("#latestPhoto .comment").html('<div class="form_line">' + location.photos[0].comment + '</div>');
+			
+			$("#latestPhoto .area_name .place").html(location.name);
+			$("#latestPhoto .area_name .address").html(location.address);
 
 			var data = '<ul class="photos clears"></ul>';
 			$("#viewPhotoList").html(data);
@@ -181,7 +184,7 @@ console.log(location);
 			$.each(photos, function(key, photo) {
 				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + photo.url + '" />').click(function(){
 					$("#latestPhoto .photo").html('<img src="' + photo.url + '" />');			
-					$("#latestPhoto .comment").html('<div class="form_line">' + photo.comment + '</div>');
+					if (photo.comment) $("#latestPhoto .comment").html('<div class="form_line">' + photo.comment + '</div>');
 				}));
 				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
 			});
@@ -224,6 +227,7 @@ console.log(location);
 			albumView.requestAlbums();
 		},
 		viewPhoto : function() {
+			$("#firstSection").css({ "display":"none" });			
 			$("#editSection").css({ "display":"block" });			
 			$("#viewSection").css({ "display":"none" });
 			
