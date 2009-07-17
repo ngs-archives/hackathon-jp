@@ -69,7 +69,25 @@ function renderPage(){
         var id = $(this).attr("id").replace("switchoff","");
         $("#switchon" + id).removeClass("hidden").show();
         setMySwitch(id, 1);
+        sendActivity("スイッチ入りました！");
     });
+}
+
+function sendActivity(message) {
+  var params = {};
+  params[opensocial.Activity.Field.TITLE] = message;
+  var activity = opensocial.newActivity(params);
+  opensocial.requestCreateActivity(
+ 	activity, opensocial.CreateActivityPriority.HIGH, onResponse
+  );
+}
+
+function onResponse(response) {
+   if (response.hadError()) {
+     // alert(response.getErrorCode() + ":" + response.getErrorMessage());
+   } else {
+     // alert("Success!");
+   }
 }
 
 function setMySwitch(id, status){
