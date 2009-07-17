@@ -18,14 +18,14 @@
       <div id='main'>
       </div>
       <div id='main2'>
-<h2>この指とまってください。</h2>
+<h2>この指とまって下さい。</h2>
 <ul>
- <li>暇な人と暇な人のマッチング</li>
+ <li>ヒマな人とヒマな人のマッチング</li>
  <li>シャイな人を手助けするツール</li>
 </ul>
 <ol>
  <li>空いている日時・場所を登録</li>
- <li>誘う範囲を選択</li>
+ <li>さそう範囲を選択</li>
  <li>内容を入力</li>
 </ol>
 <img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090717/tutorial/inokuni/ideason.jpg" width="640" height="480" alt="アイデアソン 模造紙" />
