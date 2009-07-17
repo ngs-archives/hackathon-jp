@@ -92,6 +92,7 @@
 		  for (var id in response) {
 		    var msg = response[id]["HimaDate"];
 		    // do something...
+		    alert(msg);
 		  }
 		});
 	}
