@@ -6,6 +6,11 @@
     <Require feature="opensocial-0.8" />
     <Require feature="views" />
     <Require feature="dynamic-height" />
+    <Optional feature="content-rewrite">
+        <Param name="expires">0</Param>
+        <Param name="include-urls"></Param>
+        <Param name="exclude-urls">.*</Param>
+    </Optional>
 </ModulePrefs>
 
 <Content type="html" view="home,profile">
@@ -18,14 +23,25 @@
 <link rel="stylesheet" href="http://mobako.codsworks.com/gadget/gadget.css" type="text/css" />
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://mobako.codsworks.com/gadget/gadget.js"></script>
+<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/gadget.js"></script>
+<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/shida.js"></script>
+<script type="text/javascript" src="http://atmarkit.ark-web.jp/hackthon20090717/diamond/gadget/room.js"></script>
 <script type="text/javascript">
 gadgets.util.registerOnLoadHandler(
-
-function() {alert('diamond');}
+function() {
+    diamond.show_room_list();
+}
 
 );
 </script>
+<div id='room_list'>
+</div>
+<div id='waiting_room'>
+</div>
+<div id='flow'>
+</div>
+<div id='debug'>
+</div>
 ]]></Content>
 
 </Module>
