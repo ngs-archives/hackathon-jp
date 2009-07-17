@@ -160,7 +160,7 @@ console.log(result);
 					infoWindow.set_content(windowHtml);
 					infoWindow.open(view.map);
 
-					view.listRightPhoto(location, result);
+					view.listRightPhoto(location);
 				});		
 				marker.set_clickable(true);
 				marker.set_visible(true);
@@ -168,18 +168,20 @@ console.log(result);
 			});
 		
 		},
-		listRightPhoto : function(location, result) {					
+		listRightPhoto : function(location) {
+console.log(location);
+            var photos = location.photos;
+
 			$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
 			$("#latestPhoto .comment").html('<div class="form_line">' + location.comment + '</div>');
 
 			var data = '<ul class="photos clears"></ul>';
 			$("#viewPhotoList").html(data);
 
-			$.each(result, function(key, value) {
-				var location = value.location;
-				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + location.setPhoto + '" />').click(function(){
-					$("#latestPhoto .photo").html('<img src="' + location.setPhoto + '" />');			
-					$("#latestPhoto .comment").html('<div class="form_line">' + location.comment + '</div>');
+			$.each(photos, function(key, photo) {
+				$("#viewPhotoList .photos").append($("<li></li>").html('<img class="photo" src="' + photo.url + '" />').click(function(){
+					$("#latestPhoto .photo").html('<img src="' + photo.url + '" />');			
+					$("#latestPhoto .comment").html('<div class="form_line">' + photo.comment + '</div>');
 				}));
 				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
 			});
