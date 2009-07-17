@@ -10,6 +10,8 @@
 			function login () {
 				var email = $('email').value;
 				var password = $('password').value;
+				var url = 'http://' + email + ':' + password + '@mail.google.com/mail/feed/atom';
+				var params = ();
 			}
 
 			function init() {
