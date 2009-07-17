@@ -13,7 +13,7 @@ var switches = [{'name':'飲み会', 'id':'1001', 'status':0
 },{'name':'サッカー', 'id':'1008', 'status':0 },{'name':'焼き肉',
 'id':'1009', 'status':0 },{'name':'ビアガーデン', 'id':'1010', 'status':0
 },{'name':'キャンプ', 'id':'1011', 'status':0 },{'name':'海', 'id':'1',
-'status':0 },{'name':'婚活', 'id':'1006', 'status':0 }];
+'status':0 },{'name':'旅行', 'id':'200', 'status':0 }];
 
 function init() {
     var index = Math.floor(Math.random()*20);
@@ -109,7 +109,8 @@ function getMySwitch(id){
         //alert(myswitchData[id]);
         if( myswitchData && myswitchData[id] )
         {
-            myswitch = gadgets.json.parse(myswitchData[id]);
+            var myswitch2 = gadgets.json.parse(myswitchData[id]);
+            myswitch.status = myswitch2.status;
             //alert(myswitch["name"] + " " + myswitch["status"]);
             //switch["status"] = myswitch["status"];
             //switch["name"] = myswitch["name"];
