@@ -241,6 +241,11 @@
                 var d = document.getElementById("d");
                 d.innerHTML = "<p> error: " + a.code + "</p>";
             }
+			addMarker: function() }
+			  google.maps.event.addListene(map, 'click', function(event) {
+			    if (marker) marker.set_position(event.latLng);
+			  }); 
+			}
         }
 
       </script>
@@ -264,7 +269,7 @@
                 var mng = new Avatt.Manager();
                 mng.addGetFriendsRequest();
                 mng.addGetOwnerRequest();
-
+/*
                 //自分のプロフィールを呼び出す設定
                 var myself_params = {};
                 myself_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
@@ -308,18 +313,22 @@
                     }
 
                 })());
-
-                if (navigator.geolocation) {
+*/
+              var map = new Avatt.Map();
+              map.drawMap(-25.363882, 131.044922);
+/*
+               if (navigator.geolocation) {
                     var map = new Avatt.Map();
 
                     navigator.geolocation.getCurrentPosition(function(position) {
                         map.drawMap(position.coords.latitude, position.coords.longitude);
+						// 地図をクリックした
+						map.addMarker();
                     },map.handleError);
-
                 } else {  
                     alert("I'm sorry, but geolocation services are not supported by your browser.");  
                 }
-
+*/
             }
 
         //         var friend = new Friend.Manager();
