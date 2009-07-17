@@ -63,14 +63,14 @@
           makeOptionsMenu();
         }
 
-        gadgets.util.registerOnLoadHandler(init);
+        //gadgets.util.registerOnLoadHandler(init);
       </script>
       <div id='main'>
-        <div id='give'>Gifts part 2
+        <!-- div id='give'>Gifts part 2
           <form id='gift_form'>
             Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
           </form>
-        </div>
+        </div -->
       </div>
       <div id='main2'>
 <h2>この指とまってください。</h2>
