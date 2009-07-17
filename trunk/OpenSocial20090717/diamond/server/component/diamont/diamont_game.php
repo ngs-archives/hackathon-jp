@@ -5,7 +5,7 @@
 class DiamontGame
 {
     /** ゲーム進行状況 */
-    var $status;
+    var $gameStatus;
     
     /** プレイ中の坑道 */
     var $road;
@@ -25,7 +25,7 @@ class DiamontGame
     */
     function __construct()
     {
-        $this->status = 'waiting_player';
+        $this->gameStatus = 'waiting_player';
         $this->players = array();
         $this->excludeCards = array();
         $this->roadNo = 0;
@@ -37,15 +37,15 @@ class DiamontGame
     */
     function process()
     {
-        if ($this->status == 'waiting_player') {
+        if ($this->gameStatus == 'waiting_player') {
             // プレイヤー参加待ち
             
-            if (count($this->players) >= 3) {
+            if (count($this->players) >= 2) {
                 // 3人で開始
-                $this->newRoad();                
+                $this->newRoad();
             }
             
-        } else if ($this->status == 'waiting_answer') {
+        } else if ($this->gameStatus == 'waiting_answer') {
             // プレイヤー回答待ち
             
             $players = array();
@@ -119,7 +119,7 @@ class DiamontGame
     function newRoad()
     {
         if ($this->roadNo < 5) {
-            $this->status = 'waiting_answer';
+            $this->gameStatus = 'waiting_answer';
             $this->roadNo++;
     
             $this->road = new DiamontRoad($this->excludeCards);
@@ -130,7 +130,7 @@ class DiamontGame
     
             $this->goRoad();
         } else {
-            $this->status = 'game_over';
+            $this->gameStatus = 'game_over';
         }
     }
     
