@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Module>
+
+<ModulePrefs title="diamond">
+    <Require feature="opensocial-0.8" />
+    <Require feature="views" />
+    <Require feature="dynamic-height" />
+</ModulePrefs>
+
+<Content type="html" view="home,profile">
+<![CDATA[
+]]></Content>
+
+<Content type="html" view="canvas">
+<![CDATA[
+
+<link rel="stylesheet" href="http://mobako.codsworks.com/gadget/gadget.css" type="text/css" />
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://mobako.codsworks.com/gadget/gadget.js"></script>
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(
+
+function() {alert('diamond');}
+
+);
+</script>
+]]></Content>
+
+</Module>
