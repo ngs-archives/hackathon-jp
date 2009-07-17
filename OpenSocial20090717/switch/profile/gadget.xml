@@ -18,17 +18,19 @@
 <script type="text/javascript">
     gadgets.util.registerOnLoadHandler(init);
 </script>
-<div style="text-align:center;" id="container">
-    <img class="switchon" id="switchon1" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090717/switch/profile/switch_on.png" alt="on" />
-    <img class="switchoff hidden" id="switchoff1" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090717/switch/profile/switch_off.png" alt="on" />
-    
+<div style="text-align:center;" id="container">    
 </div>
 
   ]]></Content>
   <Content type="html" view="home"><![CDATA[
 
-<!-- The code for Home view is here. -->
-<div>Home view for test.</div>
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090717/switch/profile/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090717/switch/profile/myswitch_profile_view.js"></script>
+<script type="text/javascript">
+    gadgets.util.registerOnLoadHandler(init);
+</script>
+<div style="text-align:center;" id="container">    
+</div>
 
   ]]></Content>
 </Module>
