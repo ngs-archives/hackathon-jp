@@ -22,6 +22,13 @@
 				$('mail_list').innerHTML = "<li><a href=\"" + response.data['Entry'][0]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][0]["Title"] + "</a></li>";
 				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][1]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][1]["Title"] + "</a></li>";
 				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][2]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][2]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][3]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][3]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][4]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][4]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][5]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][5]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][6]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][6]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][7]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][7]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][8]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][8]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][9]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][9]["Title"] + "</a></li>";
 			}
 
 			function init() {
