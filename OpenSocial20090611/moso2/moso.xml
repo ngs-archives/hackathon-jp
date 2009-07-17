@@ -108,7 +108,7 @@ var host ={
 								lat: $("#setY").val(),
 								name: $("#title").val(),
 								//address: $(".address").val(),
-								URL: $("#setPhoto").val(),
+								url: $("#setPhoto").val(),
 								comment: $("#comment").val(),
 								kinds: $("#kinds").val(),
 								mixi_id: moso.owner.getId(),
@@ -219,7 +219,7 @@ console.log(result);
 				var marker = new google.maps.Marker();
 				marker.set_position(point);
 				
-				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
+				var windowHtml = '<h2 class="mtb0"><img src="' + location.photos[0].setPhoto + '" /></h2>';
 				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="view.editPhoto(\''+ location.setX +'\',\''+ location.setY +'\');">このポイントに登録する</a></p>';
 				google.maps.event.addListener(marker, 'click', function() {
 				    view.viewPhoto();
@@ -542,7 +542,7 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 					<div id="viewPhotoList" class="clears"></div>
 					
 					<h2><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30"></h2>
-					<textarea class="comment" style="width:300px; height:100px; padding:2px;"></textarea>
+					<textarea class="comment" id="comment" style="width:300px; height:100px; padding:2px;"></textarea>
 					
 					<div id="photoRating" class="clears">
                         <input name="star1" type="radio" class="star1" value="1" />
