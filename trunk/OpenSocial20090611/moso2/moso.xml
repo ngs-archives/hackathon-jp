@@ -143,6 +143,10 @@ var host ={
 							opt_params[gadgets.io.RequestParameters.POST_DATA]     = gadgets.io.encodeValues(post_params)
 
 							gadgets.io.makeRequest(url, function(response){
+                                $("#firstSection").html("登録しました！");
+                                $("#firstSection").css({ "display":"block" });
+                                $("#editSection").css({ "display":"none" });
+                                $("#viewSection").css({ "display":"none" });
 								
 							},opt_params);
 						
@@ -169,6 +173,10 @@ var host ={
 			opt_params[gadgets.io.RequestParameters.POST_DATA]     = gadgets.io.encodeValues(post_params)
 
 			gadgets.io.makeRequest(url, function(response){
+                $("#firstSection").html("登録しました！");
+                $("#firstSection").css({ "display":"block" });
+                $("#editSection").css({ "display":"none" });
+                $("#viewSection").css({ "display":"none" });
 			
 			},opt_params);
 		}
@@ -238,10 +246,12 @@ console.log(result);
 				        postRating(photoId, value)
 				    }});
 				    
-					var infoWindow = new google.maps.InfoWindow()
-					infoWindow.set_position(point);
-					infoWindow.set_content(windowHtml);
-					infoWindow.open(view.map);
+				    if (view.markerInfoWindow) view.markerInfoWindow.close();
+				    
+					view.markerInfoWindow = new google.maps.InfoWindow()
+					view.markerInfoWindow.set_position(point);
+					view.markerInfoWindow.set_content(windowHtml);
+					view.markerInfoWindow.open(view.map);
 
 					view.listRightPhoto(location);
 				});		
