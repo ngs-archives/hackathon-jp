@@ -46,7 +46,9 @@
          html.push('</select>');
          //document.getElementById('kendiv').innerHTML = html.join('');
          document.write(html.join(''));
-       </script>
+       </script><br />
+       ヒマな内容 &nbsp;
+       <textarea></textarea>
       </div>
       <div id='main2'>
 <h2>この指とまって下さい</h2>
