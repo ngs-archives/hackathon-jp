@@ -15,7 +15,7 @@
 
       <script type="text/javascript">
         setInterval(function(){
-            $('div#nowdate').html($.exDate().toChar('只今の日付時刻は yyyy 年 mm 月 dd 日 hh24 時 mi 分 ss 秒です！'));
+            $('div#nowdate').html($.exDate().toChar('現在の日時: yyyy 年 mm 月 dd 日 hh24 時 mi 分 ss 秒'));
         },1000);
 
         function HimaDateSet(){
