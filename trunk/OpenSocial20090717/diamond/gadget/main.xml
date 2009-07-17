@@ -23,16 +23,17 @@
 <script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/ui.js?6"></script>
 <script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/room.js"></script>
 <script type="text/javascript">
-cods.properties.debug = true;
-
+//cods.properties.debug = true;
 gadgets.util.registerOnLoadHandler(diamond.show_room_list);
 </script>
 
 aslkfdjlkajdflkajfdlkjalkdsjflkajd
 <div id="room_list">
 </div>
+
 <div id="waiting_room">
 </div>
+
 <div id="game_room" style="display: none;">
 <div id="roads">
     <div id="road1" class="road">
@@ -67,16 +68,21 @@ aslkfdjlkajdflkajfdlkjalkdsjflkajd
 
 <div id="card"></div>
 
+<div style="clear: both;"></div>
 
 <div id="buttons">
-    <div><a href="javascript:diamond.go()">進む</a></div>
-    <div><a href="javascript:diamond.exit()">帰る</a></div>
-    <div><a href="javascript:diamond.getStat()">更新</a></div>
+    <a href="javascript:diamond.go()"><div class="button">進む</div></a>
+    <a href="javascript:diamond.exit()"><div class="button">帰る</div></a>
+    <a href="javascript:diamond.getStat()"><div class="button">更新</div></a>
 </div>
 
 
 <div id="count"></div>
 </div>
+
+
+<div id="game_over"></div>
+
 
 ]]></Content>
 
