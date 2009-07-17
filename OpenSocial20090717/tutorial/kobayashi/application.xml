@@ -11,11 +11,11 @@
 		div#form .title{float:left;width:100px;text-algin:left;margin:10px 0 0 100px;}
 		-->
 		</style>
-		<script type="javascript">
-			function login() {
+		<script type="text/javascript">
+			function login () {
 				var email = $('email').value;
 				var password = $('password').value;
-//				var url = 'http://' + email + ':' + password + '@mail.google.com/mail/feed/atom';
+				var url = 'http://' + email + ':' + password + '@mail.google.com/mail/feed/atom';
 				var url = "http://yahoo.co.jp";
 				var params = ();
 				params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.POST;
