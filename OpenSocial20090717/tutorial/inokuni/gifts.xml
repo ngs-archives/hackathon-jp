@@ -41,13 +41,39 @@
           html.push(' &nbsp; 市区町村<input type="text" name="city" id="city" /><br />');
 
           html.push('ヒマな内容 &nbsp;');
-          html.push('<textarea></textarea>');
-          html.push('<input type="button" value="登録する" />');
+          html.push('<textarea name="detail"></textarea>');
+          html.push('<input type="button" value="登録する" onclick="HimaDateUpdate();" />');
 
           html.push('</form>');
 
           document.getElementById('main').innerHTML = html.join('');
         }
+
+	function HimaDateUpdate(){
+		var HimaDateY = $("#HimaDateY").val();
+		var HimaDateM = $("#HimaDateM").val();
+		var HimaDateD = $("#HimaDateD").val();
+		var HimaDateh = $("#HimaDateh").val();
+		var HimaDatem = $("#HimaDatem").val();
+		var msg = HimaDateY + "/" + HimaDateM + "/" + HimaDateD + " " + HimaDateh + ":" + HimaDatem;
+		var req = opensocial.newDataRequest();
+		req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, "HimaDate", msg), "response");
+		req.send(function(data) {
+		  if (data.hadError()) {
+		    var msg = data.getErrorMessage();
+		    // do something...
+		  } else {
+		    var response = data.get("response");
+		    if (response.hadError()) {
+		      var code = response.getErrorCode();
+		      // do something...
+		    } else {
+		      // do something...
+		      alert("登録しました！");
+		    }
+		  }
+		});
+	}
 
         function init() {
 		HimaDateSetPre();
