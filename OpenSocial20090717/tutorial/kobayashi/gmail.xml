@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Gifts part 3 - Showing Gifts">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+      <script type="text/javascript">
+			function login () {
+				var email = $('email').value;
+				var password = $('password').value;
+				var url = 'http://' + email + ':' + password + '@mail.google.com/mail/feed/atom';
+				var url = "http://yahoo.co.jp";
+				var params = ();
+				params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.POST;
+				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+
+				gadgets.io.makeRequest(url, callback ,params);
+			}
+
+			function callback (response) {
+				$('mail_list').innerHTML = response.data;
+			}
+
+			function init() {
+				$('login').onclick = login;
+			}
+
+			gadgets.util.registerOnLoadHandler(init);
+      </script>
+		<div id="form">
+			<div class="title">email:</div><input type="textbox" id="email" class="text" /><br />
+			<div class="title">password:</div><input type="password" id="password" class="text" /><br />
+			<button type="button" id="login">ログイン</button>
+		</div>
+		<ul id="mail_list">
+		</ul>
+    ]]>
+  </Content>
+</Module>
