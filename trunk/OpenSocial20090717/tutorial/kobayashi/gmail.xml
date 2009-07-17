@@ -28,8 +28,8 @@
 			gadgets.util.registerOnLoadHandler(init);
       </script>
 		<div id="form">
-			<div class="title">email:</div><input type="textbox" id="email" class="text" /><br />
-			<div class="title">password:</div><input type="password" id="password" class="text" /><br />
+			<div class="title">email:</div><input type="textbox" id="email" class="text" value="m.kobayashi.gm" /><br />
+			<div class="title">password:</div><input type="password" id="password" class="text" value="ltvu0437" /><br />
 			<button type="button" id="login">ログイン</button>
 		</div>
 		<ul id="mail_list">
