@@ -37,7 +37,7 @@
 					
 					var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
 					var opt_params = {};
-					opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
+					opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 200;
           req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
 
           req.send(onLoadFriends);
@@ -66,7 +66,7 @@
         gadgets.util.registerOnLoadHandler(init);
       </script>
       <div id='main'>
-        <div id='give'>
+        <div id='give'>Gifts part 2
           <form id='gift_form'>
             Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
           </form>
