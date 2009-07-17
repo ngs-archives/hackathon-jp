@@ -344,9 +344,9 @@ diamond.show_finish = function(gameStatus) {
                  + '<div class="thumb"><img class="thumbImg" src="' + diamond.data.players[i].thumbUrl + '" /></div>'
                  + '<div class="name">' + diamond.data.players[i].displayName + '</div>'
                  + '<div class="totalScore">' + diamond.data.players[i].totalScore + '</div>'
-        $('#finishedPlayers').append(html)
     }
     
+    $('#finishedPlayers').append(html)
     $('#finishedPlayers').append('<br style="clear: both;" />');
 
 };
