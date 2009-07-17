@@ -260,11 +260,23 @@ diamond.updatePlayers = function() {
     
     for (i in diamond.data.players) {
         cods.debug('player ' + i);
+        
+        var id = 'user_' + i;
+        
+        var roadScore = diamond.data.players[i].roadScore;
+        if (roadScore == null) {
+            roadScore = 0;
+        }
+
         var html = '<div class="player" id="user_"' + i + '>'
                  + '<div class="thumb"><img class="thumbImg" src="' + diamond.data.players[i].thumbUrl + '" /></div>'
                  + '<div class="name">' + diamond.data.players[i].displayName + '</div>'
-                 + '<div class="roadScore">' + diamond.data.players[i].roadScore + '</div>'
+                 + '<div class="roadScore">' + roadScore + '</div>'
         $('#players').append(html)
+        
+        if (diamond.data.players[i].exit) {
+            $('#' + id).css('opacity', 0.6);
+        }
     }
     
     $('#players').append('<br style="clear: both;" />');
@@ -291,3 +303,22 @@ diamond.updateCards = function () {
     }
     
 }
+
+
+
+diamond.initServer = function() {
+    var url = diamond.properties.appServerUrl + '?owner_id=' + diamond.properties.ownerId + '&action=init';
+
+    cods.debug('initServer ' + url);
+    
+    var params = {};
+    params[gadgets.io.RequestParameters.METHOD]        = gadgets.io.MethodType.GET;
+    params[gadgets.io.RequestParameters.CONTENT_TYPE]  = gadgets.io.ContentType.JSON;
+    params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+    
+    gadgets.io.makeRequest(url, function(response) {
+        diamond.lastData = diamond.data;
+        diamond.data = response.data;
+        diamond.update();
+    }, params);
+};
