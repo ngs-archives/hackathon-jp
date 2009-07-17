@@ -34,7 +34,19 @@
        <input type="text" name="HimaDateM" id="HimaDateM" size="2" /> 月
        <input type="text" name="HimaDateD" id="HimaDateD" size="2" /> 日
        <input type="text" name="HimaDateh" id="HimaDateh" size="2" /> 時
-       <input type="text" name="HimaDatem" id="HimaDatem" size="2" /> 分
+       <input type="text" name="HimaDatem" id="HimaDatem" size="2" /> 分<br />
+       ヒマな場所 &nbsp;
+       <script type="text/javascript">
+         var kens = ["北海道", "青森県", "秋田県"];
+         var html = new Array();
+         html.push('<select id="ken">');
+         for (var i = 0; i < kens.length; i++) {
+           html.push('<option value="', i, '">', kens[i], '</option>');
+         }
+         html.push('</select>');
+         //document.getElementById('kendiv').innerHTML = html.join('');
+         document.write(html.join(''));
+       </script>
       </div>
       <div id='main2'>
 <h2>この指とまって下さい</h2>
