@@ -1,12 +1,376 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Module>
-  <ModulePrefs title="tmap" author_email="hoge@hoge.com" description="hackathon app">
-    <Require feature="opensocial-0.8" />
+
+dule>
+  <ModulePrefs
+     title="Avatt"
+     description="map"
+     author="Yusuke Hashimoto"
+     screenshot=""
+     thumbnail="">
+    <Require feature="opensocial-0.8"/>
+    <Require feature="dynamic-height"/>
+    <Require feature="tabs"/>
+    <Require feature="settitle"/>
+    <Require feature="minimessage"/>
+    <Optional feature="content-rewrite"> </Optional>
   </ModulePrefs>
-  <Content type="html" view="canvas"><![CDATA[
 
-<!-- The code for Canvas view is here. -->
-<div>Canvas view for tmap.</div>
+  <Content type="html" view="profile,home,canvas">
+    <![CDATA[
+            <script type="text/javascript" src="http://demo2.cirius.co.jp:3050/javascripts/jquery.uploadify-v1.6.2.mit/jquery-1.3.2.min.js"></script>
+            <script type="text/javascript" src="http://demo2.cirius.co.jp:3050/javascripts/jquery.uploadify-v1.6.2.mit/jquery.uploadify.js"></script>
 
-  ]]></Content>
+            <script type="text/javascript">
+//             /**
+//               * Friendクラス
+//               *
+//               */
+//         var Profile = {}
+//         Profile.Manager = function() {
+//             //this.inquire feature="minimessage"/>
+    <Optional feature="content-rewrite"> </Optional>
+  </ModulePrefs>
+
+  <Content type="html" view="profile,home,canvas">
+    <![CDATA[
+            <script type="text/javascript" src="http://demo2.cirius.co.jp:3050/javascripts/jquery.uploadify-v1.6.2.mit/jquery-1.3.2.min.js"></script>
+        ¾©
+//             this.req.add(this.req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
+//             this.req.send(function(data) {
+//                 if (!data.hadError()) {
+//                     var item = data.get("viewer");
+//                     if (item.hadError()) {
+//                         var msg = data.getErrorMessage();
+//                         console.debug(msg);
+//                         // エラー発生時の処理
+//                     } else {
+//                         // 取得結果に対する処理
+//                         var viewer = item.getData();
+//                         var id = viewer.getId();
+//                         var nickname = viewer.getDisplayName();
+//                         var thumbnailUrl = viewer.getField(opensocial.Person.Field.THUMBNAIL_URL);
+//                         this.viewer = viewer;
+//                         this.id = id;
+//                         this.nickname = nickname;
+//                         this.thumbnailUrl = thumbnailUrl;
+//                     }
+//                 }
+//             });
+//         }
+
+//         /**
+//               * Friendクラス
+//               *
+//               */
+//         var Friend = {};
+//         // Friendの初期設定
+//         Friend.Manager = function() {
+//             this.request = opensocial.newDataRequest();
+//             this.response = {};
+//             this.msg = new gadgets.MiniMessage('__MODULE_ID__');
+//             this.message = '';
+//         };
+
+//         Friend.Manager.prototype.getFriends = function(type) {
+//             var self = this;
+//             this.friends = new Array();
+//             var param = {};
+//             // マイミク一覧を取得パラメータ
+//             if (type == 'friends') {
+//                 param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+//                 param[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+//             }
+//             // アプリをインストールしたユーザのマイミクシィ一覧を取得
+//             else {http://platform001.mixi.jp/home.plf
+//                 param[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+//                 param[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+//             }
+
+//             friends = opensocial.newIdSpec(param);
+
+//             this.request.add(this.request.newFetchPeopleRequest(friends), "friends_data");
+//             this.request.send(function (response) {
+//                 var item = response.get("friends_data");
+//                 if (item.hadError()) {
+//                     // エラー処理。item.getError() で詳細情報を取得
+//                     return;
+//                 }
+
+//                 var friends = item.getData();
+
+//                 friends.each(function (person) {
+//                     var nickname = person.getDisplayName();
+//                     self.friends.push(person.getDisplayName());
+//                 });
+//             });
+//         };
+
+
+
+        var Avatt = {};
+        Avatt.Config = {
+            debug: false,
+            refresh: 3600,
+            domain: 'http://demo2.cirius.co.jp:3050/logs/',
+            disp: '__UP_disp__'
+        };
+
+        Avatt.Manager = function() {
+            this.request = opensocial.newDataRequest();
+            this.response = {};
+            this.msg = new gadgets.MiniMessage('__MODULE_ID__');
+            this.message = '';
+        };
+
+        Avatt.Manager.prototype = {
+            //友達一覧を取得
+            addGetFriendsRequest: function(){
+                // 友達一覧を表すIdSpecを生成
+                var _friends = {};
+                _friends[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+                _friends[opensocial.IdSpec.Field.GROUP_ID] = opensocial.IdSpec.GroupId.FRIENDS;
+                var idspec = opensocial.newIdSpec(_friends);
+                // 同じガジェットをインストールしている人を示すフィルタ
+                var params = {};
+                params[opensocial.DataRequest.PeopleRequestFields.MAX] = 1000;
+                params[opensocial.DataRequest.PeopleRequestFields.FILTER] = opensocial.DataRequest.FilterType.HAS_APP;
+                // オーナーの友達一覧を取得するリクエストを追加
+                this.request.add(this.request.newFetchPeopleRequest(idspec, params), 'friends');
+            },
+            //オーナー情報を取得
+            getOwner: function() {
+                var results = {};
+                var owner = this.response.get('owner');
+                if (owner.hadError()) {
+                    // 消せるミニメッセージでエラー表示
+                    this.msg.createDismissibleMessage(owner.getErrorMessage());
+                } else {
+                    // オーナーのプロフィール情報を返す
+                    return owner.getData();
+                }
+            },
+            //友達の情報を取得
+            getFriends: function() {
+                var results = {};
+                var friends = this.response.get('friends');
+                if (friends.hadError()) {
+                    // 消せるミニメッセージでエラー表示
+                    this.msg.createDismissibleMessage(friends.getErrorMessage());
+                } else {
+                    results = friends.getData();
+                }
+                return results;
+            },
+
+            addGetOwnerRequest: function() {
+                // オーナーのプロフィール情報を取得するリクエストを追加
+                var params = {};
+                params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [opensocial.Person.Field.URLS];
+                this.request.add(this.request.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER, params), 'owner');
+            },
+            addGetAppDataRequest: function(idspec, key) {
+                this.request.add(this.request.newFetchPersonAppDataRequest(idspec, 'hatena_id'), key);
+            },
+
+            sendRequest :function(callback) {
+                this.request.send(callback);
+                this.message = this.msg.createDismissibleMessage('読み込み中...');
+            },
+
+            getAppData: function(key) {
+                var results = {};
+                var appdata = this.response.get(key);
+                if (appdata && appdata.hadError()) {
+                    // 消せるミニメッセージでエラー表示
+                    this.msg.createDismissibleMessage(appdata.getErrorMessage());
+                } else {
+
+                    results = appdata.getData();
+                }
+                return results;
+            }
+
+        }
+
+        /**
+         * oauthリクエスト
+         *
+         */
+        Avatt.Access = function() {
+            this.url = "http://demo2.cirius.co.jp:3050/gadgets/signed";
+            this.request = opensocial.newDataRequest();
+            this.response = {};
+            this.msg = new gadgets.MiniMessage('__MODULE_ID__');
+            this.message = '';
+        };
+        Avatt.Access.prototype = {
+            sendData: function(key) {
+                var opt_params = {}
+                opt_params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.SIGNED;
+                opt_params[gadgets.io.RequestParameters.CONTENT_TYPE]  = gadgets.io.ContentType.JSON;
+                opt_params[gadgets.io.RequestParameters.METHOD]        = gadgets.io.MethodType.GET;
+                this.url = this.url + "?" + gadgets.io.encodeValues({m:"げっと"});
+                opt_params["REFRESH_INTERVAL"] = 60;
+
+                gadgets.io.makeRequest(this.url, function(resp){
+                    console.debug(resp.data)
+                    console.debug(resp.errors)
+                    console.debug(resp.text)
+                }, opt_params)
+            }
+        }
+
+        Avatt.Map = function() {
+            this.count = 0;
+
+        };
+
+        Avatt.Map.prototype = {
+            initialize: function () {
+            },
+            drawMap: function (lat, lng) {
+                var latlng = new google.maps.LatLng(lat, lng);
+                var myOptions = {
+                    zoom: 8,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            },
+            handleError: function (a) {
+                var d = document.getElementById("d");
+                d.innerHTML = "<p> error: " + a.code + "</p>";
+            }
+        }
+
+      </script>
+
+
+
+            ]]>
+  </Content>
+
+  <Content view="home">
+    <![CDATA[
+        ホームビュー
+    ]]>
+  </Content>
+
+  <Content type="html" view="canvas">
+    <![CDATA[
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+      <script type="text/javascript">
+            Avatt.init = function() {
+                var mng = new Avatt.Manager();
+                mng.addGetFriendsRequest();
+                mng.addGetOwnerRequest();
+
+                //自分のプロフィールを呼び出す設定
+                var myself_params = {};
+                myself_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+                myself_params[opensocial.IdSpec.Field.GROUP_ID] = opensocial.IdSpec.GroupId.SELF;
+                var myself = opensocial.newIdSpec(myself_params);
+                mng.addGetAppDataRequest(myself, 'selfAppdata');
+
+
+                var friends_params = {};
+                friends_params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.OWNER;
+                friends_params[opensocial.IdSpec.Field.GROUP_ID] = opensocial.IdSpec.GroupId.FRIENDS;
+                var friends = opensocial.newIdSpec(friends_params);
+                mng.addGetAppDataRequest(friends, 'friendsAppdata');
+
+
+                mng.sendRequest((function() {
+                    var _mng = mng;
+                    return function(response) {
+                        _mng.msg.dismissMessage(_mng.message);
+                        if (response.hadError()) {
+                            // 消せるミニメッセージでエラー表示
+                            _mng.msg.createDismissibleMessage(response.getErrorMessage());
+                        } else {
+                            _mng.response = response;
+                            // friends_data, selfAppdata, friendsAppdata
+                            var myself =  _mng.getAppData('selfAppdata');
+                            var friends = _mng.getFriends();
+                            var appdata = _mng.getAppData('friendsAppdata');
+                            var owner = _mng.getOwner();
+
+                            var thumbnailUrl = owner.getField(opensocial.Person.Field.THUMBNAIL_URL);
+
+                            friends.each(function (person) {
+                                var nickname = person.getDisplayName();
+                                //console.debug(nickname);
+                            });
+
+                            var ac = new Avatt.Access();
+                            //ac.sendData();
+                        }
+                    }
+
+                })());
+
+                if (navigator.geolocation) {
+                    var map = new Avatt.Map();
+
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        map.drawMap(position.coords.latitude, position.coords.longitude);
+                    },map.handleError);
+
+                } else {  
+                    alert("I'm sorry, but geolocation services are not supported by your browser.");  
+                }
+
+            }
+
+        //         var friend = new Friend.Manager();
+//         friend.getFriends('friends');
+//         console.debug(friends);
+//         //        Object request=Object response=Object msg=Object
+
+//         //         var my = new Profile.Manager();
+//         //         my.getProfile();
+//         //         console.debug(my);
+
+
+        
+      </script>
+        <div id="container">
+            <div id="left">
+            <ul>
+            <li>my map</li>
+            <li>all map</li>
+            </ul>
+            </div>
+
+            <div id="right">
+            <div id="map_canvas" style="width:300px; height:200px"></div>
+            <div id="d"></div>
+            <button id="button">get</button>
+            </div>
+            
+        </div> <!-- container END -->
+
+
+      ]]>
+  </Content>
+
+  <Content type="html" view="profile">
+    <![CDATA[
+            <script type="text/javascript">
+
+            </script>
+            ]]>
+    <div>profile</div>
+  </Content>
+
+  <Content type="html" view="home,canvas,profile">
+    <![CDATA[
+            <script type="text/javascript">
+              //console.log(Location.Manager);
+              // onload ハンドラを登録します。このハンドラは、ガジェットの読み込み時に実行される関数です。 
+            gadgets.util.registerOnLoadHandler(Avatt.init);
+            </script>
+            ]]>
+
+  </Content>
 </Module>
+
