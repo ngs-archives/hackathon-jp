@@ -26,12 +26,12 @@
     	}
     	gadgets.util.registerOnLoadHandler(init);
     </script>
-
-    ]]>
     <input type="text" id="email" />
     <input type="password" id="passowrd" />
     <button type="button" id="login">ログイン</button>
 
     <ul id="message"></ul>
+
+    ]]>
   </Content>
 </Module>
