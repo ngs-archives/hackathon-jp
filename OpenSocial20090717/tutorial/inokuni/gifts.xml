@@ -38,7 +38,7 @@
           }
           html.push('</select>');
 
-          html.push(' &nbsp; 市区町村 <input type="text" name="city" id="city" />');
+          html.push(' &nbsp; 市区町村<input type="text" name="city" id="city" /><br />');
 
           html.push('ヒマな内容 &nbsp;');
           html.push('<textarea></textarea>');
