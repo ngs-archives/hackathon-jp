@@ -82,7 +82,7 @@
 	function HimaDateGet(){
 		var params = {};
 		params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
-		params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+		//params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
 		var idSpec = opensocial.newIdSpec(params);
 		var req = opensocial.newDataRequest();
 		req.add(req.newFetchPersonAppDataRequest(idSpec, ["HimaDate"]), "response");
