@@ -11,7 +11,15 @@
       <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/ui.core.js"></script>
       <script type="text/javascript" src="http://jquery-ui.googlecode.com/svn/trunk/ui/ui.datepicker.js"></script>
 
+      <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090717/tutorial/inokuni/exdate.js"></script>
+
       <script type="text/javascript">
+        setInterval(function(){
+            $('body').html($.exDate().toChar(
+                '只今の日付時刻は　yyyy　年　mm　月　dd　日　hh24 時 mi 分 ss 秒です'
+            ))
+        },1000);
+
         function HimaDateSet(){
                 $("#HimaDate").datepicker();
         }
@@ -22,6 +30,7 @@
         gadgets.util.registerOnLoadHandler(init);
       </script>
       <div id='main'>
+       日付を入力
        <input type="text" name="HimaDate" id="HimaDate" />
       </div>
       <div id='main2'>
