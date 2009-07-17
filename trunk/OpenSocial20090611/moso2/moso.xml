@@ -482,7 +482,8 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 	#map					{ width:800px; height:300px; }
 	#viewMap				{ width:500px; height:600px; float: left; }
 	#viewRight				{ width:400px; height:600px; float: right;}
-		
+	
+	#viewPhotoList								{ overflow:hidden; width:300px; height:70px; }
 	#viewPhotoList ul.photos					{ list-style:none; float:left; padding:0; margin:0; }
 	#viewPhotoList ul.photos li					{ display:inline; float:left; background:#FFF; font-size:12px; margin:0 0 5px 0; }
 	#viewPhotoList ul.photos li img				{ cursor:pointer; width:60px; border:1px solid #EEE; padding:2px; margin:0 5px 2px 0; }
@@ -490,7 +491,7 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 	#viewPhotoList ul.photos li ul.pics						{ list-style:none; float:left; margin:0; padding:0; }
 	#viewPhotoList ul.photos li ul.pics li					{ display:inline; }
 	#viewPhotoList ul.photos li	ul.pics li.back				{ display:none; }
-	#viewPhotoList ul.photos li	ul.pics li.back img			{ width:48px; border:none; }
+	#viewPhotoList ul.photos li	ul.pics li.back img			{ border:none; }
 	#viewPhotoList ul.photos li ul.pics li.pic				{ display:none; float:left; width:65px; background:#FFF; margin:0 5px 5px 0; font-size:12px; text-align:center; }
 	#viewPhotoList ul.photos li ul.pics li.pic img			{ cursor:pointer; width:60px; border:1px solid #EEE; padding:2px; }
 	
