@@ -324,6 +324,8 @@ console.log(result);
 				}));
 				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
 			});
+			
+			$("#rightViewEditButton").click(function(){ view.editPhoto(location.setX,location.setY); });
 		},
 		request : function(url) {
 			var url = HOST_URL + '/locations';
