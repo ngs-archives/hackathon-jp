@@ -240,47 +240,14 @@ var listView = {
 				}
 		}
 	}	
-//地図が一つになったので
-//一時的にコメントアウト
-//var map = {
-//	
-//	setView : function(){
-//		var map = new GMap2(document.getElementById("map"));
-//		var point = new GLatLng(36.03, 139.15);
-//		
-//		map.addControl(new GLargeMapControl());	
-//		map.setCenter(point, 1);
-//		
-//		var marker = new GMarker(point, {draggable: true});
-//		
-//		map.addOverlay(marker);
-//		
-//		GEvent.addListener(marker, 'mouseout', function() {
-//			var pnt = marker.getPoint();
-//			var lng = pnt.lng();
-//			var lat = pnt.lat();
-//			
-//			document.getElementById("setX").value = lat;
-//			document.getElementById("setY").value = lng;
-//		});
-//	
-//	}
-//}
 
 var view = {
 		map : {},
+		userId : null,
 		infoWindow : null,
 		init : function() {
-//			var deferred = $.deferred();
-//			deferred.next(function(){
-//							view.buildMap()
-//			}).next(function(){
-//				view.request(view.buildMarkers)
-//			});
-//			deferred.call();
-			
 			view.buildMap()
-			view.request(view.buildMarkers)
+			view.request();
 			
 			gadgets.window.adjustHeight(700);
 		},
@@ -294,28 +261,28 @@ var view = {
       			mapTypeId: google.maps.MapTypeId.ROADMAP
     		};
     		view.map = new google.maps.Map(document.getElementById("viewMap"), myOptions);
-			//view.map.addControl(new GLargeMapControl());	
-			//view.map.setCenter(point, 1);
 
-			//if (!moso.isOwner) return true;
-
-			google.maps.event.addListener(view.map, 'rightclick', function(event) {
+            //if (!moso.isOwner) return;
+            
+			//google.maps.event.addListener(view.map, 'rightclick', function(event) {
+			google.maps.event.addListener(view.map, 'click', function(event) {
 				if (event) {
-					if (this.infoWindow) this.infoWindow.close();
+					if (view.infoWindow) view.infoWindow.close();
 				
 					x = event.latLng.lng();
 					y = event.latLng.lat();
 					
-					this.infoWindow = new google.maps.InfoWindow()
-					this.infoWindow.set_position(event.latLng);
+					view.infoWindow = new google.maps.InfoWindow()
+					view.infoWindow.set_position(event.latLng);
 					var windowHtml = '<p><a href="javascript:void(0);" onclick="view.editPhoto(\''+ x +'\',\''+ y +'\');">このポイントに登録する</a></p>';
-					windowHtml += '<p><a href="javascript:void(0);" onclick="listView.listRequest(listView.listResult);">自分の登録リストを表示する</a></p>';
-					this.infoWindow.set_content(windowHtml);
-					this.infoWindow.open(view.map);
+					view.infoWindow.set_content(windowHtml);
+					view.infoWindow.open(view.map);
 				}
 			});
 		},
 		buildMarkers : function(result) {
+		    if (view.infoWindow) view.infoWindow.close();
+console.log(result);
 			$.each(result, function(key, value) {
 				var location = value.location;
 			
@@ -325,8 +292,10 @@ var view = {
 				
 				var windowHtml = '<h2 class="mtb0"><img src="' + location.setPhoto + '" /></h2>';
 				windowHtml += '<p class="txt12">' + location.comment + '</p>';
-				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="">このポイントに登録する</a></p>';
+				if (moso.isOwner) windowHtml += '<p class="txt12"><a href="javascript:void(0);" onclick="view.editPhoto(\''+ location.setX +'\',\''+ location.setY +'\');">このポイントに登録する</a></p>';
 				google.maps.event.addListener(marker, 'click', function() {
+				    view.viewPhoto();
+				    
 					var infoWindow = new google.maps.InfoWindow()
 					infoWindow.set_position(point);
 					infoWindow.set_content(windowHtml);
@@ -356,9 +325,9 @@ var view = {
 				if (moso.isOwner) $("#viewRight .addButton").css({"display":"block"});
 			});
 		},
-		request : function(callback) {
-			var params = {};
+		request : function(url) {
 			var url = HOST_URL + '/locations';
+			var params = {};
 			
 			params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
 			params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
@@ -379,10 +348,9 @@ var view = {
 					console.log(result.errors);
 				}
 				
-				callback(result);
+				view.buildMarkers(result);
 			}, params);
-		},
-		
+		},	
 		editPhoto : function(x, y) {
 			$("#editSection").css({ "display":"none" });			
 			$("#viewSection").css({ "display":"block" });
@@ -391,6 +359,13 @@ var view = {
 			document.getElementById("setY").value = y;
 			
 			albumView.requestAlbums();
+		},
+		viewPhoto : function() {
+			$("#editSection").css({ "display":"block" });			
+			$("#viewSection").css({ "display":"none" });
+			
+			document.getElementById("setX").value = '';
+			document.getElementById("setY").value = '';
 		}
 	};
 
@@ -495,9 +470,12 @@ var moso = {
 	whois : function(){
 		var req = opensocial.newDataRequest(); 
 			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer"); 
+			req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.OWNER), "owner"); 
 			req.send(function(data){
-				var viewer = data.get("viewer").getData();
-				if(viewer.isOwner()){
+				moso.viewer = data.get("viewer").getData();
+				moso.owner = data.get("owner").getData();
+				//if(moso.viewer.isOwner()){
+				if(moso.viewer.getId() == moso.owner.getId()){
 					moso.isOwner=1;
 					moso.isViewer=0;
 				}else{
