@@ -60,6 +60,7 @@
 		var HimaDatem = $("#HimaDatem").val();
 		var msg = HimaDateY + "/" + HimaDateM + "/" + HimaDateD + " " + HimaDateh + ":" + HimaDatem;
 		var req = opensocial.newDataRequest();
+		alert(msg);
 		req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, "HimaDate", msg), "response");
 		req.send(function(data) {
 		  if (data.hadError()) {
