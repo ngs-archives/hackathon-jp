@@ -33,11 +33,11 @@
 
         function loadFriends() {
           var req = opensocial.newDataRequest();
-					req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
-					
-					var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
-					var opt_params = {};
-					opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 200;
+          req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
+          
+          var viewerFriends = opensocial.newIdSpec({ "userId" : "VIEWER", "groupId" : "FRIENDS" });
+          var opt_params = {};
+          opt_params[opensocial.DataRequest.PeopleRequestFields.MAX] = 200;
           req.add(req.newFetchPeopleRequest(viewerFriends, opt_params), 'viewerFriends');
 
           req.send(onLoadFriends);
@@ -71,6 +71,12 @@
             Give <span id='gifts'></span> to <span id='friends'></span>. <a href='javascript:void(0);' onclick='giveGift();'>Give!</a>
           </form>
         </div>
+      </div>
+      <div id='main2'>
+<h2>この指とまってください。</h2>
+
+
+
       </div>
     ]]>
   </Content>
