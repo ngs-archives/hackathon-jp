@@ -9,7 +9,7 @@
 	<script type="text/javascript">
 			function login () {
 				var words = $('words').value;
-				var url = 'http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&q='+ email +'&um=1&ie=utf-8&num=10&output=atom';
+				var url = 'http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&q='+ words +'&um=1&ie=utf-8&num=10&output=atom';
 
 				//オプション設定
 				var params = {};
