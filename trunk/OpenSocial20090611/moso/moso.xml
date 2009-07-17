@@ -95,7 +95,10 @@
 
 		<div id="viewMap"></div>
 		<div id="viewRight">
-			<div id="editSection">
+		    <div id="firstSection">
+		        ポインタをクリックしてください。
+		    </div>
+			<div id="editSection" style="display:none">
 				<div id="latestPhoto">
 					<p class="photo"></p>
 					
@@ -114,7 +117,7 @@
 					</ul><br><br>
 					<ul class="area_name">
 						<li class="place">両国国技館</li>
-						<li>東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28</li>
+						<li class="address">東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28</li>
 					</ul>
 					
 				</div>
