@@ -11,7 +11,7 @@
     	function login(){
     		var email = $('email').value;
     		var password = $('password').value;
-    		var url = "http://" + email + ":" + password + "@" +"mail.google.com/mail/feed/atom";
+    		var url = "http://" + email + ":" + password + "@mail.google.com/mail/feed/atom";
     		var params = ();
 			params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.GET;
 			params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
@@ -29,8 +29,8 @@
     	gadgets.util.registerOnLoadHandler(init);
     </script>
 
-    <input type="text" id="email" />
-    <input type="password" id="passowrd" />
+    <input type="text" id="email"></input>
+    <input type="password" id="passowrd"></input>
     <button type="button" id="login">ログイン</button>
 
     <ul id="message"></ul>
