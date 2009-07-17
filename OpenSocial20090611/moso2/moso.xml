@@ -97,10 +97,9 @@
 		    </div>
 			<div id="editSection" style="display:none">
 				<div id="latestPhoto">
-				    <input type="hidden" name="ratingPhotoId" id="ratingPhotoId" value="" />
 					<p class="photo"></p>
 					
-					<img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30">				
+					<img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30">
 					<p class="comment"></p>
 
                     <div id="photoRating">
@@ -133,29 +132,18 @@
 				</div>
 				
 				<div id="viewPhotoList"></div>
-				<ul class="pageing_area">
-					<li><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/go_first.gif" alt="最初の写真へ移動" width="36" height="20"></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">6</a></li>
-						<li><a href="#">7</a></li>
-						<li><a href="#">8</a></li>
-						<li><a href="#">9</a></li>
-					<li></li>
-					<li><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/go_end.gif" alt="最後の写真へ移動" width="36" height="20"></li>
-				</ul>
+				<input type="hidden" id="setX" name="setX" value="" />
+				<input type="hidden" id="setY" name="setY" value="" />
+			    <input type="hidden" name="ratingPhotoId" id="ratingPhotoId" value="" />
+			    <input type="hidden" id="setPhoto" value="" />
 				<p class="addButton" style="display:none;clear:both;"><a href="javascript:void(0);" id="rightViewEditButton">このポイントに登録する</a></p>
 			</div>
 			<div id="viewSection" style="display:none">
-				<input type="hidden" id="setX" name="setX" value="" />
-				<input type="hidden" id="setY" name="setY" value="" />
+				
 	
 				<h2 id="photoTitle">あなたの写真</h2>
 				<div id="photos"></div>
-				<input type="hidden" id="setPhoto" value="" />
+				
 
 				<h2 id="photoTitle">コメント</h2>
 				<textarea id="comment"></textarea>

@@ -386,6 +386,12 @@ var moso = {
 					moso.isViewer=1;
 				}
 			});
+	},
+	profileInit : function(){
+		
+	},
+	homeInit : function(){
+		
 	}
 }
 
