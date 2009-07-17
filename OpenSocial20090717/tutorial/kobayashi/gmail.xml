@@ -14,13 +14,14 @@
 				//オプション設定
 				var params = {};
 				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+				params[gadgets.io.RequestParameters.NUM_ENTRIES] = 10;
 
 				gadgets.io.makeRequest(url, callback ,params);
 			}
 			function callback(response) {
-				$('mail_list').innerHTML = "<li><a href=\"" + response.data['Entry'][0]["Link"] + "\">" + response.data['Entry'][0]["Title"] + "</a></li>";
-				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][1]["Link"] + "\">" + response.data['Entry'][1]["Title"] + "</a></li>";
-				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][2]["Link"] + "\">" + response.data['Entry'][2]["Title"] + "</a></li>";
+				$('mail_list').innerHTML = "<li><a href=\"" + response.data['Entry'][0]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][0]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][1]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][1]["Title"] + "</a></li>";
+				$('mail_list').innerHTML += "<li><a href=\"" + response.data['Entry'][2]["Link"] + "\" target=\"_blank\" >" + response.data['Entry'][2]["Title"] + "</a></li>";
 			}
 
 			function init() {
