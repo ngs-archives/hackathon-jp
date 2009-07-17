@@ -61,8 +61,8 @@
 		var ken  = $("#ken").val();
 		var city = $("#city").val();
 		var detail = $("#detail").val();
-		var msg = HimaDateY + "/" + HimaDateM + "/" + HimaDateD + " " + HimaDateh + ":" + HimaDatem + "\r\n";
-		    msg = msg + ken + city + "\r\n";
+		var msg = HimaDateY + "/" + HimaDateM + "/" + HimaDateD + " " + HimaDateh + ":" + HimaDatem;
+		    msg = msg + ken + city;
 		    msg = msg + detail;
 		var req = opensocial.newDataRequest();
 		alert(msg);
