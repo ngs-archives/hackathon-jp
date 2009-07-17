@@ -49,6 +49,7 @@
        </script><br />
        ヒマな内容 &nbsp;
        <textarea></textarea>
+       <input type="button" value="登録する" />
       </div>
       <div id='main2'>
 <h2>この指とまって下さい</h2>
