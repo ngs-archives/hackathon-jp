@@ -74,7 +74,11 @@ aslkfdjlkajdflkajfdlkjalkdsjflkajd
     <a href="javascript:diamond.go()"><div class="button">進む</div></a>
     <a href="javascript:diamond.exit()"><div class="button">帰る</div></a>
     <a href="javascript:diamond.getStat()"><div class="button">更新</div></a>
+    <div style="clear: both;"></div>
 </div>
+
+
+<a href="javascript:diamond.initServer()">初期化</a>
 
 
 <div id="count"></div>
