@@ -228,6 +228,9 @@ diamond.getStat = function() {
 
 
 diamond.update = function() {
+    if (diamond.data.gameStatus == 'game_over') {    
+	return diamond.show_finish(diamond.data);
+    }
     diamond.updatePlayers();
     diamond.updateCards();
     
@@ -325,3 +328,26 @@ diamond.initServer = function() {
         diamond.update();
     }, params);
 };
+
+diamond.show_finish = function(gameStatus) {
+
+    diamond.data = gameStatus;
+    $('#game_room').hide();
+    $('#game_over').show();
+    console.log('abc');
+    console.log(gameStatus);
+
+    for (i in diamond.data.players) {
+        cods.debug('player ' + i);
+        var html = '<h2>ゲームが終了しました。</h2><ul>' + 
+                   '<div class="player" id="user_"' + i + '>'
+                 + '<div class="thumb"><img class="thumbImg" src="' + diamond.data.players[i].thumbUrl + '" /></div>'
+                 + '<div class="name">' + diamond.data.players[i].displayName + '</div>'
+                 + '<div class="totalScore">' + diamond.data.players[i].totalScore + '</div>'
+        $('#finishedPlayers').append(html)
+    }
+    
+    $('#finishedPlayers').append('<br style="clear: both;" />');
+
+};
+

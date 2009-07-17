@@ -82,7 +82,9 @@ aslkfdjlkajdflkajfdlkjalkdsjflkajd
 </div>
 
 
-<div id="game_over"></div>
+<div id="game_over">
+<div id="finishedPlayers"></div>
+</div>
 
 
 ]]></Content>
