@@ -194,7 +194,7 @@ var view = {
 			view.buildMap()
 			view.request();
 			
-			gadgets.window.adjustHeight(700);
+			gadgets.window.adjustHeight(800);
 		},
 		buildMap : function() {
 			var point = new google.maps.LatLng(36.03, 139.15);
@@ -549,12 +549,13 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 #editSection	{ padding:0 0 0 10px; }
 #viewSection	{ padding:0 0 0 10px; }
 #viewSection .photo { width: 240px;border:1px solid #EEE; padding:2px;  }
+#footer		{ padding-top:20px; }
 	</style>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(moso.canvasInit);
 </script>
 
-	<div id='viewer'>
+	<div id='viewer' class="clears">
 		<h1><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/moso_map.jpg" alt="地図"></h1>
 
 		<div id="viewMap"></div>
@@ -570,7 +571,7 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 					
 					<div id="viewPhotoList" class="clears"></div>
 					
-					<h2><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30"></h2>
+					<h2 style="margin-bottom:0; padding-bottom:0;"><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30"></h2>
 					<textarea class="comment" id="comment" style="width:300px; height:100px; padding:2px;"></textarea>
 					
 					<div id="photoRating" class="clears">
@@ -636,7 +637,7 @@ moso.canvasInit = htmlInit(CANVAS_HTML_URL, moso.init);
 			
 		</div>
 		
-		<div><img src="http://mizoochi.com/apps/moso/images/footer.gif" alt="" /></div>
+		<div id="footer"><img src="http://mizoochi.com/apps/moso/images/footer.gif" alt="" style="margin-top:30px;" /></div>
 	</div>
 
 ]]>
