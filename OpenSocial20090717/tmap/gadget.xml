@@ -1,5 +1,5 @@
-
-dule>
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
   <ModulePrefs
      title="Avatt"
      description="map"
@@ -26,14 +26,15 @@ dule>
 //               */
 //         var Profile = {}
 //         Profile.Manager = function() {
-//             //this.inquire feature="minimessage"/>
-    <Optional feature="content-rewrite"> </Optional>
-  </ModulePrefs>
+//             //this.initialize.apply(this, arguments);
+//             this.thumbnailUrl = '';
+//             this.req = opensocial.newDataRequest();
+//             this.pData = new Object();
+//             this.nickname = '';
+//         };
 
-  <Content type="html" view="profile,home,canvas">
-    <![CDATA[
-            <script type="text/javascript" src="http://demo2.cirius.co.jp:3050/javascripts/jquery.uploadify-v1.6.2.mit/jquery-1.3.2.min.js"></script>
-        ¾©
+//         Profile.Manager.prototype.getProfile = function(){
+//             // コンストラクタ定義
 //             this.req.add(this.req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER), "viewer");
 //             this.req.send(function(data) {
 //                 if (!data.hadError()) {
@@ -333,20 +334,55 @@ dule>
 
         
       </script>
+      <style type="text/css">
+            #left {
+                float:left;
+                width:300px;
+                border:solid 1px #CCC;
+            }
+        #right {
+                float:right;
+                width:640px;
+            }
+        #right #map_canvas {
+            }
+        #pics img {
+            width:80px;
+            height:60px;
+            padding:5px;
+            border:solid 1px #CCC;
+            margin:2px;
+        }
+      </style>
+            
         <div id="container">
-            <div id="left">
+          <div id="left">
             <ul>
-            <li>my map</li>
-            <li>all map</li>
+              <li><a href="">my map</a></li>
+              <li><a href="">all map</a></li>
             </ul>
+            <div id="pics">
+              <h3>pictures</h3>
+              <img src="img"  alt="img"/>
+              <img src="img"  alt="img"/>
+              <img src="img"  alt="img"/>
+              <img src="img"  alt="img"/>
+              <img src="img"  alt="img"/>
+              <p class="read-more"><a href="">display more pictures</a></p>
             </div>
 
-            <div id="right">
-            <div id="map_canvas" style="width:300px; height:200px"></div>
+            <div id="routes">
+              <h3>set routes</h3>
+            </div>
+          </div>
+
+          <div id="right">
+            <div id="map_canvas" style="width:630px; height:290px"></div>
             <div id="d"></div>
             <button id="button">get</button>
-            </div>
-            
+          </div>
+
+
         </div> <!-- container END -->
 
 
@@ -373,4 +409,3 @@ dule>
 
   </Content>
 </Module>
-
