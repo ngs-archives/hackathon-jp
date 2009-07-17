@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Paint">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html" view="canvas">
+  <![CDATA[
+    <script language="JavaScript" type="text/javascript" src="canvas.js"></script>
+    <style type="text/css">
+      #main
+      {
+        background-color: #EEEEEE;
+        padding: 10px;
+        width: 402px;
+        border: 1px solid #CCCCCC;
+        margin: 0px auto;
+      }
+      #canvas
+      {
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        display: block;
+      }
+      #title
+      {
+        border: 1px solid #CCCCCC;
+        width: 402px;
+        padding: 5px;
+        margin-bottom: 5px;
+        font-size: 25px;
+      }
+      #tool_bar
+      {
+        margin-top: 5px;
+      }
+    </style>
+    <div>
+      <div id="main">
+        <input id="title" type="text"></input>
+        <canvas id="canvas" width="400px" height="400px"></canvas>
+        <div id="tool_bar">
+          <select id="radius_selectbox">
+            <option value="1">細</option>
+            <option value="3" selected="selected">中</option>
+            <option value="5">太</option>
+          </select>
+          <select id="color_selectbox">
+            <option value="black">ブラック</option>
+            <option value="gray">グレー</option>
+            <option value="blue">ブルー</option>
+            <option value="red">レッド</option>
+            <option value="yellow">イエロー</option>
+            <option value="green">グリーン</option>
+            <option value="orange">オレンジ</option>
+          </select>
+          <input id="clear_button" type="button" value="クリア"></input>
+          <input id="save_image" type="button" value="保存"></input>
+          <input id="load_image" type="button" value="前回のデータをロード"></input>
+        </div>
+      </div>
+    </div>
+  ]]>
+  </Content>
+</Module>
