@@ -58,7 +58,12 @@
 		var HimaDateD = $("#HimaDateD").val();
 		var HimaDateh = $("#HimaDateh").val();
 		var HimaDatem = $("#HimaDatem").val();
-		var msg = HimaDateY + "/" + HimaDateM + "/" + HimaDateD + " " + HimaDateh + ":" + HimaDatem;
+		var ken  = $("#ken").val();
+		var city = $("#city").val();
+		var detail = $("#detail").val();
+		var msg = HimaDateY + "/" + HimaDateM + "/" + HimaDateD + " " + HimaDateh + ":" + HimaDatem + "\n";
+		    msg = msg + ken + city + "\n";
+		    msg = msg + detail;
 		var req = opensocial.newDataRequest();
 		alert(msg);
 		req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, "HimaDate", msg), "response");
