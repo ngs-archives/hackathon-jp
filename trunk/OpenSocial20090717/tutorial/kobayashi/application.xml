@@ -1,48 +1,43 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Module>
-<ModulePrefs title="freeml beta">
-	<Require feature="opensocial-0.8"/>
-</ModulePrefs>
-<Content type="html">
-	<![CDATA[
-		<style type="text/css">
-		<!--
-		div#form .text{width:250px}
-		div#form .title{float:left;width:100px;text-algin:left;margin:10px 0 0 100px;}
-		-->
-		</style>
-//		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
-		<script type="text/javascript">
-			function login() {
-				var email = $('email').value;
-				var password = $('password').value;
-//				var url = 'http://' + email + ':' + password + '@mail.google.com/mail/feed/atom';
-				var url = "http://yahoo.co.jp";
-				var params = ();
-				params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.POST;
+  <ModulePrefs title="Gifts part 3 - Showing Gifts">
+    <Require feature="opensocial-0.8"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
+	<script type="text/javascript">
+			function search () {
+				$('mail_list').innerHTML = "";
+				var words = $('words').value;
+				var url = 'http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&q='+ words +'&um=1&ie=utf-8&num=10&output=atom';
+
+				//オプション設定
+				var params = {};
 				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
+				params[gadgets.io.RequestParameters.NUM_ENTRIES] = 10;
 
-				gadgets.io.makeRequest(url, function(response) {
-													$('mail_list').innerHTML = response.data;
-												}
-										,params);
-
+				gadgets.io.makeRequest(url, callback ,params);
+			}
+			function callback(response) {
+				var entry = response.data['Entry'];
+				for( var i in entry ){
+					$('mail_list').innerHTML = "<li><a href=\"" + entry[i]["Link"] + "\" target=\"_blank\" >" + entry[i]["Title"] + "</a></li>";
+				}
 			}
 
 			function init() {
-				$('login').onclick = login;
+				$('search').onclick = search;
 			}
 
 			gadgets.util.registerOnLoadHandler(init);
-
-		</script>
+      </script>
 		<div id="form">
-			<div class="title">email:</div><input type="textbox" id="email" class="text" /><br />
-			<div class="title">password:</div><input type="password" id="password" class="text" /><br />
-			<button type="button" id="login">ログイン</button>
+			<h1>ブログ検索</h1>
+			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="button" id="search">検索</button>
 		</div>
 		<ul id="mail_list">
 		</ul>
-	]]>
-</Content>
+    ]]>
+  </Content>
 </Module>
