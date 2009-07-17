@@ -76,6 +76,8 @@ aslkfdjlkajdflkajfdlkjalkdsjflkajd
     <a href="javascript:diamond.getStat()"><div class="button">更新</div></a>
 </div>
 
+<br />
+<input type='button' value='強制終了' onclick='javascript:diamond.show_finish(diamond.data);'/>
 
 <div id="count"></div>
 </div>
