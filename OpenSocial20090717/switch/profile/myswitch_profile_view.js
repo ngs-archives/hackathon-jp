@@ -69,7 +69,7 @@ function renderPage(){
         var id = $(this).attr("id").replace("switchoff","");
         $("#switchon" + id).removeClass("hidden").show();
         setMySwitch(id, 1);
-        sendActivity("スイッチ入りました！");
+        //sendActivity("スイッチ入りました！");
     });
 }
 
