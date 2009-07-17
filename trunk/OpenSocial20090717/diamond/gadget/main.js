@@ -46,6 +46,7 @@ diamond.join = function(owner_id) {
 
 
     diamond.properties.ownerId = owner_id;
+    cods.debug('game owner_id: ' + owner_id);
     
     
     
@@ -261,7 +262,7 @@ diamond.updatePlayers = function() {
         cods.debug('player ' + i);
         var html = '<div class="player" id="user_"' + i + '>'
                  + '<div class="thumb"><img class="thumbImg" src="' + diamond.data.players[i].thumbUrl + '" /></div>'
-                 + '<div class="name">' + diamond.data.players[i].name + '</div>'
+                 + '<div class="name">' + diamond.data.players[i].displayName + '</div>'
                  + '<div class="roadScore">' + diamond.data.players[i].roadScore + '</div>'
         $('#players').append(html)
     }
