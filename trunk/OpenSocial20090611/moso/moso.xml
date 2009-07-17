@@ -8,11 +8,13 @@
 
 <Content type="html" view="home,profile,canvas">
 <![CDATA[
+<link href="http://chii8n.googlecode.com/svn/trunk/moso/jquery.rating.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="http://opensocial-jquery.googlecode.com/svn/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
 <script type="text/javascript" src="http://files.getdropbox.com/u/647714/moso/mosoTest/jquery.inc-5.js"></script>
-<script type="text/javascript" src="http://files.getdropbox.com/u/647714/moso/mosoTest/config.js"></script>
-<script type="text/javascript" src="http://files.getdropbox.com/u/647714/moso/mosoTest/moso.js"></script>
+<script type="text/javascript" src="http://chii8n.googlecode.com/svn/trunk/moso/jquery.rating.js"></script>
+<script type="text/javascript" src="http://chii8n.googlecode.com/svn/trunk/moso/config.js"></script>
+<script type="text/javascript" src="http://chii8n.googlecode.com/svn/trunk/moso/moso.js"></script>
 ]]>
 </Content>
 
@@ -54,7 +56,11 @@
 	#viewPhotoList ul.photos li	ul.pics li.back img			{ width:48px; border:none; }
 	#viewPhotoList ul.photos li ul.pics li.pic				{ display:none; float:left; width:65px; background:#FFF; margin:0 5px 5px 0; font-size:12px; text-align:center; }
 	#viewPhotoList ul.photos li ul.pics li.pic img			{ cursor:pointer; width:60px; border:1px solid #EEE; padding:2px; }
-	
+
+	#viewList ul.photos					{ list-style:none; float:left; padding:0; margin:0; }
+	#viewList ul.photos li					{ display:inline; float:left; background:#FFF; font-size:12px; margin:0 0 5px 0; }
+	#viewList ul.photos li img				{ cursor:pointer; width:60px; border:1px solid #EEE; padding:2px; margin:0 5px 2px 0; }
+
 	#sendArea				{ padding:5px; margin-top:10px; text-align:center; padding:5px; background:#EEE; }
 	
 	.mtb0					{ margin:0; padding:0; }
@@ -81,11 +87,6 @@
 .form_line { border:2px solid #FF6600; width: 330px;}
 	
 	</style>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="http://opensocial-jquery.googlecode.com/svn/trunk/features/opensocial-jquery/opensocial-jquery.min.js"></script>
-<script type="text/javascript" src="http://files.getdropbox.com/u/647714/moso/mosoTest/jquery.inc-5.js"></script>
-<script type="text/javascript" src="http://files.getdropbox.com/u/647714/moso/mosoTest/config.js"></script>
-<script type="text/javascript" src="http://files.getdropbox.com/u/647714/moso/mosoTest/moso.js"></script>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(moso.canvasInit);
 </script>
@@ -100,21 +101,21 @@
 		    </div>
 			<div id="editSection" style="display:none">
 				<div id="latestPhoto">
+				    <input type="hidden" name="ratingPhotoId" id="ratingPhotoId" value="" />
 					<p class="photo"></p>
 					
-					<img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30">				
 					<p class="comment"></p>
-					<ul class="coment_area">
-						<li>
-							<input name="radio" type="radio" id="radio" value="radio">
-							行った！</li>
-						<li>
-							<input type="radio" name="radio" id="radio2" value="radio">
-							行きたい！</li>
-						<li>
-						<input type="submit" onClick="javascript:testCreate();" name="button" id="button" value="登録">
-						</li>
-					</ul><br><br>
+
+                    <div id="photoRating">
+                        <input name="star1" type="radio" class="star1" value="1" />
+                        <input name="star1" type="radio" class="star1" value="2" />
+                        <input name="star1" type="radio" class="star1" value="3" />
+                        <input name="star1" type="radio" class="star1" value="4" />
+                        <input name="star1" type="radio" class="star1" value="5" />
+     					<span class="finished" style="display:none">評価しました！</span>
+                    </div>
+					
+					<br><br>
 					<ul class="area_name">
 						<li class="place">両国国技館</li>
 						<li class="address">東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28東京都墨田区横綱1−3−28</li>
@@ -122,7 +123,7 @@
 					
 				</div>
 				
-				<div id="viewPhotoList"></div>
+				<div id="viewList"></div>
 				<ul class="pageing_area">
 					<li><img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/go_first.gif" alt="最初の写真へ移動" width="36" height="20"></li>
 						<li><a href="#">1</a></li>
@@ -144,10 +145,10 @@
 				<input type="hidden" id="setY" name="setY" value="" />
 	
 				<h2 id="photoTitle">あなたの写真</h2>
-				<div id="photos"></div>
+				<div id="viewPhotoList"></div>
 				<input type="hidden" id="setPhoto" value="" />
 
-				<h2 id="photoTitle">コメント</h2>
+				<img src="http://files.getdropbox.com/u/647714/moso/mosoTest/images/comment.gif" alt="この場所にコメント" width="140" height="30">				
 				<textarea id="comment"></textarea>
 				<br />
 				
