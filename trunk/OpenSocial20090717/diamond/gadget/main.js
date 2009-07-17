@@ -220,6 +220,9 @@ diamond.getStat = function() {
         diamond.lastData = diamond.data;
         diamond.data = response.data;
         diamond.update();
+        
+        setTimeout(diamond.getStat, 1000);
+        
     }, params);
 };
 
