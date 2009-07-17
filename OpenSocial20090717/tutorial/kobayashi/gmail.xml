@@ -18,7 +18,7 @@
 				gadgets.io.makeRequest(url, callback ,params);
 			}
 			function callback(response) {
-				$('mail_list').innerHTML = response.data;
+				$('mail_list').innerHTML = response.data['Entry'][0]["Title"];
 			}
 
 			function init() {
