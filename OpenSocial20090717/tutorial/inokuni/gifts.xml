@@ -44,6 +44,9 @@
           html.push('<textarea name="detail"></textarea>');
           html.push('<input type="button" value="登録する" onclick="HimaDateUpdate();" />');
 
+          html.push('<input type="button" value="登録データを確認する" onclick="HimaDateGet();" />');
+
+
           html.push('</form>');
 
           document.getElementById('main').innerHTML = html.join('');
@@ -74,6 +77,24 @@
 		  }
 		});
 	}
+
+	function HimaDateGet(){
+		var params = {};
+		params[opensocial.IdSpec.Field.USER_ID] = opensocial.IdSpec.PersonId.VIEWER;
+		params[opensocial.IdSpec.Field.GROUP_ID] = "FRIENDS";
+		var idSpec = opensocial.newIdSpec(params);
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPersonAppDataRequest(idSpec, ["HimaDate"]), "response");
+		req.send(function(data) {
+		  var response = data.get("response").getData();
+		  for (var id in response) {
+		    var msg = response[id]["HimaDate"];
+		    // do something...
+		    alert(msg):
+		  }
+		});
+	}
+
 
         function init() {
 		HimaDateSetPre();
