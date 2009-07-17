@@ -12,7 +12,7 @@
 				var password = $('password').value;
 				var url = 'http://' + email + ':' + password + '@mail.google.com/mail/feed/atom';
 				var params = {};
-				params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.POST;
+				params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.GET;
 				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
 
 				gadgets.io.makeRequest(url, callback ,params);
