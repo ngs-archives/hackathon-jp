@@ -40,7 +40,7 @@ class DiamontGame
         if ($this->gameStatus == 'waiting_player') {
             // プレイヤー参加待ち
             
-            if (count($this->players) >= 2) {
+            if (count($this->players) >= 4) {
                 // 3人で開始
                 $this->newRoad();
             }
