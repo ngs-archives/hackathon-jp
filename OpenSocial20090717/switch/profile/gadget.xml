@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="test" author_email="kazuho.sail@gmail.com">
+    <Require feature="opensocial-0.8" />
+  </ModulePrefs>
+  <Content type="html" view="canvas"><![CDATA[
+
+<!-- The code for Canvas view is here. -->
+<div>Canvas view for switch.</div>
+
+  ]]></Content>
+  <Content type="html" view="profile"><![CDATA[
+
+<!-- The code for Profile view is here. -->
+<div>Profile view for test.</div>
+<script type="text/javascript" src="http://localhost:8080/osde-test/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="http://localhost:8080/osde-test/myswitch_profile_view.js"></script>
+<script type="text/javascript">
+    gadgets.util.registerOnLoadHandler(init);
+</script>
+<div style="text-align:center;" id="container">
+    <img class="switchon" id="switchon1" src="http://localhost:8080/osde-test/switch_on.png" alt="on" />
+    <img class="switchoff hidden" id="switchoff1" src="http://localhost:8080/osde-test/switch_off.png" alt="on" />
+    
+</div>
+
+  ]]></Content>
+  <Content type="html" view="home"><![CDATA[
+
+<!-- The code for Home view is here. -->
+<div>Home view for test.</div>
+
+  ]]></Content>
+</Module>
