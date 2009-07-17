@@ -38,10 +38,13 @@
 <img src="http://hackathon-jp.googlecode.com/svn/trunk/OpenSocial20090717/tutorial/inokuni/ideason.jpg" width="640" height="480" alt="アイデアソン 模造紙" />
       </div>
 
+
       <div id='main3'>
       jQery を読み込む方法
-      &gt;script type="text/javascript" src="http://www.google.com/jsapi"&lt;&gt;/script&lt;
-      &gt;script type="text/javascript"&lt;google.load("jquery", "1.3");&gt;/script&lt;
+      <pre>
+      &lt;script type="text/javascript" src="http://www.google.com/jsapi"&gt;&lt;/script&gt;
+      &lt;script type="text/javascript"&gt;google.load("jquery", "1.3");&lt;/script&gt;
+      </pre>
       </div>
 
     ]]>
