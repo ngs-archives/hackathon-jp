@@ -15,9 +15,7 @@
 
       <script type="text/javascript">
         setInterval(function(){
-            $('#nowdate').html($.exDate().toChar(
-                '只今の日付時刻は yyyy 年 mm 月 dd 日 hh24 時 mi 分 ss 秒です！'
-            ))
+            $('div#nowdate').html($.exDate().toChar('只今の日付時刻は yyyy 年 mm 月 dd 日 hh24 時 mi 分 ss 秒です！'));
         },1000);
 
         function HimaDateSet(){
@@ -30,7 +28,7 @@
         gadgets.util.registerOnLoadHandler(init);
       </script>
       <div id='main'>
-       <div id="nowdate"></div>
+       <div id="nowdate">aa</div>
        日付を入力
        <input type="text" name="HimaDate" id="HimaDate" />
       </div>
