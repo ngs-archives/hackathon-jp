@@ -21,15 +21,35 @@ diamond.show_room_list = function() {
     $('#room_list').html(room_html);
     $('.join_button').click(function() {
 	var owner_id = this.id.match(/owner_([0-9]+)/)[1];
+	diamond.join(owner_id);
     });
-};
+}
 
-diamond.join = function() {
-    cods.makeRequest('http://codess.heteml.jp/diamond/server/?owner_id=1111&user_id=2222&action=',
-		     null,
-		     function(data) {
-			 console.log(data);
-		     },
-		     function() {
-		     });
+diamond.join = function(owner_id) {
+    
+    cods.fetchViewerProfile(function(viewer) {
+	console.log(viewer);
+	var viewer_id     = viewer.getId();
+	var nickname      = viewer.getDisplayName();
+	var thumbnail_url = viewer.getField(
+	    opensocial.Person.Field.THUMBNAIL_URL);
+	var url = 'http://codess.heteml.jp/diamond/server/?' + 
+            'owner_id='  + owner_id                 + '&' + 
+	    'user_id='   + viewer_id                + '&' + 
+            'name='      + encodeURI(nickname)      + '&' + 
+            'thumb_url=' + encodeURI(thumbnail_url) + '&' + 
+            'action=join';
+	cods.makeRequest(url,
+			 null,
+			 function(game_status) {
+			     diamond.show_room(game_status);
+			 },
+			 function() {
+			 });
+    });
+}
+
+diamond.show_room = function(game_status) {
+    
+
 }
