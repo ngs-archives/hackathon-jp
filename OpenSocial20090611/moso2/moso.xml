@@ -238,12 +238,10 @@ console.log(result);
 				        postRating(photoId, value)
 				    }});
 				    
-				    if (view.markerInfoWindow) view.markerInfoWindow.close();
-				    
-					var view.markerInfoWindow = new google.maps.InfoWindow()
-					view.markerInfoWindow.set_position(point);
-					view.markerInfoWindow.set_content(windowHtml);
-					view.markerInfoWindow.open(view.map);
+					var infoWindow = new google.maps.InfoWindow()
+					infoWindow.set_position(point);
+					infoWindow.set_content(windowHtml);
+					infoWindow.open(view.map);
 
 					view.listRightPhoto(location);
 				});		
