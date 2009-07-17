@@ -23,7 +23,7 @@
 <script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/ui.js?6"></script>
 <script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/room.js"></script>
 <script type="text/javascript">
-//cods.properties.debug = true;
+cods.properties.debug = false;
 gadgets.util.registerOnLoadHandler(diamond.show_room_list);
 </script>
 
