@@ -9,7 +9,6 @@
 			function login () {
 				var email = $('email').value;
 				var password = $('password').value;
-				var url = 'http://' + email + ':' + password + '@mail.google.com/mail/feed/atom';
 				var url = "http://yahoo.co.jp";
 				var params = ();
 				params[gadgets.io.RequestParamaters.METHOD] = gadgets.io.MethodType.POST;
