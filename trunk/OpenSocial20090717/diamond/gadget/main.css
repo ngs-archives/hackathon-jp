@@ -1,0 +1,47 @@
+body {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+#roads,
+#players,
+#cards {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #eeeeee;
+}
+
+
+.thumbImg {
+    width: 40px;
+    height: 40px;
+}
+
+#roads div.road {
+    float: left;
+}
+
+#players div.player {
+    float: left;
+}
+
+#cards div.card {
+    float: left;
+}
+
+
+#count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 600px;
+    width: 600px;
+    margin-top: -300px;
+    margin-left: -300px;
+    text-align: center;
+    vertical-align: bottom;
+    line-height: 600px;
+    font-weight: bold;
+}
+
