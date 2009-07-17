@@ -221,7 +221,7 @@ diamond.getStat = function() {
         diamond.data = response.data;
         diamond.update();
         
-        setTimeout(diamond.getStat, 1000);
+        //setTimeout(diamond.getStat, 1000);
         
     }, params);
 };
