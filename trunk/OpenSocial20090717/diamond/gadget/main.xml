@@ -68,6 +68,7 @@ aslkfdjlkajdflkajfdlkjalkdsjflkajd
 <div id="buttons">
     <div><a href="javascript:diamond.go()">進む</a></div>
     <div><a href="javascript:diamond.exit()">帰る</a></div>
+    <div><a href="javascript:diamond.getStat()">更新</a></div>
 </div>
 
 
