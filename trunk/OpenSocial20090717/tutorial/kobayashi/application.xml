@@ -10,12 +10,12 @@
 			function search () {
 				$('mail_list').innerHTML = "";
 				var words = $('words').value;
-				var url = 'http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&q='+ words +'&um=1&ie=utf-8&num=10&output=atom';
+				var url = 'http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&q='+ words +'&um=1&ie=utf-8&num=30&output=atom';
 
 				//オプション設定
 				var params = {};
 				params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.FEED;
-				params[gadgets.io.RequestParameters.NUM_ENTRIES] = 20;
+				params[gadgets.io.RequestParameters.NUM_ENTRIES] = 30;
 
 				gadgets.io.makeRequest(url, callback ,params);
 			}
