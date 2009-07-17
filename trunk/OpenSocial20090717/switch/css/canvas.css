@@ -1,0 +1,349 @@
+body {
+font-family: sans-serif;
+}
+
+img {
+border: 0;
+}
+
+p{
+margin: 6px 0;
+}
+
+table {
+border-collapse: collapse;
+}
+
+th,td {
+padding: 0;
+border: none;
+}
+
+ul.check {
+list-style-image: url('../images/checkmark.png');
+}
+
+ul li {
+margin: 5px 0;
+font-size:15px;
+}
+
+form {
+margin:0;
+}
+
+a, a:hover, a:visited {
+color: blue;
+}
+
+/*
+table.button {
+float: right;
+}
+
+table.button td.left{
+background-image: url(../images/button/left.png);
+background-repeat: no-repeat;
+height:38px;
+}
+
+table.button td.center{
+background-image: url(../images/button/center.png);
+background-repeat: repeat-x;
+height:38px;
+font-size: 14px;
+color: #999;
+}
+
+table.button td.right{
+background-image: url(../images/button/right.png);
+background-repeat: no-repeat;
+height:38px;
+}
+
+a.button {
+font-size: 14px;
+color: #333;
+text-decoration:none;
+}
+*/
+
+.submitButton {
+height: 35px;
+border-top : 1px solid #ccc;
+border-left : 1px solid #ccc;
+border-right : 1px solid rgb(180,180,180);
+border-bottom : 1px solid rgb(180,180,180);
+background-color: #eee;
+color: #333;
+font-size:14px;
+padding:2px 10px;
+float: right;
+min-width: 100px;
+}
+
+.submitButton:enabled {  
+     color:#333;  
+} 
+
+.submitButton:disabled {  
+     color:#999;  
+} 
+
+
+#container {
+width: 945px;
+}
+
+#left {
+width: 200px;
+height:400px;
+position: absolute;
+top: 0;
+left: 0;
+background-image: url(../images/back/booq_back_01.png);
+background-repeat: no-repeat;
+}
+
+#myProfile {
+width: 200px;
+margin-top: 104px;
+}
+
+#myProfile .header{
+width: 200px;
+height: 6px;
+background-image: url(../images/back/booq_back_08.png);
+background-repeat: no-repeat;
+}
+
+#myProfile .body{
+width: 200px;
+min-height: 75px;
+background-color: #fceeb2;
+background-image: url(../images/back/booq_back_09.png);
+background-repeat: no-repeat;
+}
+
+#profile_image img {
+	margin:1px 7px;
+}
+
+#profile_name {
+padding-left: 8px;
+}
+
+#profile_name p {
+font-size: 14px;
+font-weight: bold;
+}
+
+#profile_name span.count {
+font-size: 20px;
+font-family: Arial, Helvetica, sans-serif;
+margin-right:5px;
+}
+
+
+#myProfile .footer{
+width: 200px;
+height: 6px;
+background-image: url(../images/back/booq_back_12.png);
+background-repeat: no-repeat;
+}
+
+#myBook {
+margin-top: 28px;
+min-height: 103px;
+}
+
+#myBook .header{
+width: 200px;
+height: 22px;
+background-image: url(../images/back/booq_back_14.png);
+background-repeat: no-repeat;
+}
+
+#myBook .body{
+width: 200px;
+min-height: 81px;
+background-image: url(../images/back/booq_back_16.png);
+background-repeat: no-repeat;
+}
+
+#center {
+width:650px;
+position: absolute;
+top: 0;
+left: 200px;
+}
+
+#box {
+width: 650px;
+margin-top: 53px;
+}
+
+#boxHeader {
+width: 650px;
+height: 25px;
+background-image: url(../images/back/booq_back_04.png);
+background-repeat: no-repeat;
+}
+
+#backLink {
+position: relative;
+top: 6px;
+left: 6px;
+font-weight:bold;
+font-size:12px;
+text-decoration:underline;
+}
+
+#boxBody {
+min-height: 200px;
+background-image: url(../images/back/booq_back_06.png);
+background-repeat: repeat-y;
+padding: 10px 18px;
+font-size: 16px;
+line-height: 1.7em;
+}
+
+#boxBody h2 {
+font-weight: bold;
+font-size: 19px;
+margin: 0 0 15px;
+}
+
+#boxBody a {
+color: black;
+}
+
+#boxBody .buttonBox {
+width: 100%;
+height: 38px;
+margin-top: 12px;
+}
+
+#boxBody .note {
+width: 588px;
+margin:0 auto;
+border-bottom: 1px solid #eee;
+min-height: 160px;
+}
+
+#boxBody .note .body {
+margin-top: 25px;
+}
+
+#boxBody .note .body .bookCover{
+margin-left: 15px;
+width: 80px;
+float:left;
+position: relative;
+}
+
+#boxBody .note .body .bookCover .selectBook {
+position: absolute;
+top: 85px;
+left:13px;
+}
+
+#boxBody .note .body .noteBody{
+margin-left: 130px;
+margin-bottom:20px;
+width: 435px;
+}
+
+#boxBody .note .body .noteBody{
+margin-left: 130px;
+width: 435px;
+}
+
+#newQuoteText {
+width: 435px;
+height: 50px;
+font-size:18px;
+padding: 5px;
+}
+
+#newNoteText {
+width: 435px;
+height: 70px;
+font-size:18px;
+padding: 5px;
+}
+
+#newQuote {
+display: none;
+position: relative;
+margin-bottom: 10px;
+}
+
+#newQuote div.quoteLeft {
+width:17px;
+height:17px;
+position:absolute;
+top: 0;
+left: -23px;
+background-image: url(../images/icon/quote_form_left.png);
+background-repeat: no-repeat;
+}
+
+#newQuote div.quoteRight {
+width:17px;
+height:17px;
+position:absolute;
+top: 0;
+right: -23px;
+background-image: url(../images/icon/quote_form_right.png);
+background-repeat: no-repeat;
+}
+
+/*
+#newNote img.statusAt {
+margin-left: 10px;
+vertical-align: top;
+}
+*/
+
+#statusArray{
+margin-top: 5px;
+width: 80px;
+}
+
+#box .footer {
+width: 650px;
+height: 5px;
+background-image: url(../images/back/booq_back_18.png);
+background-repeat: no-repeat;
+}
+
+#right {
+width:95px;
+position: absolute;
+top: 0;
+left: 850px;
+}
+
+#rightMenu {
+margin-top: 53px;
+}
+
+form#fetchBook input#fetchBookQuery {
+font-size:18px;
+margin-right:15px;
+width: 450px;
+color:#999;
+}
+
+a#linkShowQuoteForm:hover img{
+border: 0;
+}
+
+a#linkShowQuoteForm:hover img{
+border-top:1px solid #ccc;
+border-left:1px solid #ccc;
+border-bottom:1px solid #999;
+border-right:1px solid #999;
+
+}
