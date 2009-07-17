@@ -337,10 +337,11 @@ diamond.show_finish = function(gameStatus) {
     console.log('abc');
     console.log(gameStatus);
 
+    var html = '<h2>ゲームが終了しました。</h2>';
     for (i in diamond.data.players) {
         cods.debug('player ' + i);
-        var html = '<h2>ゲームが終了しました。</h2><ul>' + 
-                   '<div class="player" id="user_"' + i + '>'
+        html += '<ul>' + 
+                '<div class="player" id="user_"' + i + '>'
                  + '<div class="thumb"><img class="thumbImg" src="' + diamond.data.players[i].thumbUrl + '" /></div>'
                  + '<div class="name">' + diamond.data.players[i].displayName + '</div>'
                  + '<div class="totalScore">' + diamond.data.players[i].totalScore + '</div>'
