@@ -118,7 +118,7 @@ class DiamontGame
     */
     function newRoad()
     {
-        if ($this->roadNo < 5) {
+        if ($this->roadNo < 3) {
             $this->gameStatus = 'waiting_answer';
             $this->roadNo++;
     
