@@ -68,7 +68,7 @@
 		    msg = msg + detail;
 		var req = opensocial.newDataRequest();
 		alert(msg);
-		req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, "HimaDate", msg), "response");
+		req.add(req.newUpdatePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, "HimaDate", encodeURI(msg)), "response");
 		req.send(function(data) {
 		  if (data.hadError()) {
 		    var msg = data.getErrorMessage();
@@ -97,7 +97,7 @@
 		req.send(function(data) {
 		  var response = data.get("response").getData();
 		  for (var id in response) {
-		    var msg = response[id]["HimaDate"];
+		    var msg = decodeURI(response[id]["HimaDate"]);
 		    // do something...
 		    alert(msg);
 		  }
