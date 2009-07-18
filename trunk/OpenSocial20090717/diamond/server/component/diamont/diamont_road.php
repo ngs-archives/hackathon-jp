@@ -19,17 +19,17 @@ class DiamontRoad
     );
     
     
-    /** ゲームで使われるカード一式 */
-    var $cards;
+    /** 最後にめくったカードNo. */
+    var $cardNo;
     
     /** 最後にめくったカード */
     var $card;
     
-    /** 最後にめくったカードNo. */
-    var $cardNo;
-    
     /** 引いたカード */
     var $drawCards;
+    
+    /** ゲームで使われるカード一式 */
+    var $cards;
     
     /** 坑道がおわったかどうか */
     var $over;
