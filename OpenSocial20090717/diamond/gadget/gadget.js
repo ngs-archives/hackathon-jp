@@ -2,7 +2,7 @@ var cods = {};
 
 
 cods.properties = {
-    'debug': true
+    'debug': false
 };
 
 

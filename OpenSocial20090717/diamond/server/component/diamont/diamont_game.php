@@ -4,14 +4,20 @@
 */
 class DiamontGame
 {
+    /** ゲームを開始するプレイヤー数 */
+    const MIN_PLAYERS = 1;
+    
+    /** 1ゲームの坑道数 */
+    const ROADS = 2;
+    
     /** ゲーム進行状況 */
     var $gameStatus;
     
-    /** プレイ中の坑道 */
-    var $road;
-    
     /** プレイ中の坑道No */
     var $roadNo;
+    
+    /** プレイ中の坑道 */
+    var $road;
     
     /** 参加プレイヤー */
     var $players;
@@ -40,8 +46,8 @@ class DiamontGame
         if ($this->gameStatus == 'waiting_player') {
             // プレイヤー参加待ち
             
-            if (count($this->players) >= 4) {
-                // 3人で開始
+            if (count($this->players) >= self::MIN_PLAYERS) {
+                // プレイヤーがそろえば開始
                 $this->newRoad();
             }
             
@@ -118,7 +124,7 @@ class DiamontGame
     */
     function newRoad()
     {
-        if ($this->roadNo < 3) {
+        if ($this->roadNo < self::ROADS) {
             $this->gameStatus = 'waiting_answer';
             $this->roadNo++;
     
