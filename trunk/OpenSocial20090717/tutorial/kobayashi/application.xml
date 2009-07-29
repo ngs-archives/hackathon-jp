@@ -4,7 +4,7 @@
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
-    <![CDATA[
+	<![CDATA[
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
 	<script type="text/javascript">
 			function search () {
@@ -34,15 +34,13 @@
 			}
 
 			gadgets.util.registerOnLoadHandler(init);
-      </script>
+	</script>
 		<div id="form">
 			<h1>ブログ検索</h1>
 			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="submit" id="search">検索</button>
 		</div>
-		<div style="hight:800px>
 		<ul id="mail_list">
 		</ul>
-		</div>
-    ]]>
-  </Content>
+	]]>
+ </Content>
 </Module>
