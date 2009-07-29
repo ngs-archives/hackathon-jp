@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Gifts part 3 - Showing Gifts">
+  <ModulePrefs title="Google ブログ検索 アプリ！！">
     <Require feature="opensocial-0.8"/>
   </ModulePrefs>
   <Content type="html">
@@ -26,6 +26,7 @@
 						$('mail_list').innerHTML += "<li><a href=\"" + entry[i]["Link"] + "\" target=\"_blank\" >" + entry[i]["Title"] + "</a></li>";
 					}
 				}
+				gadgets.window.adjustHeight();
 			}
 
 			function init() {
