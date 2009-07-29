@@ -18,7 +18,7 @@
 				params[gadgets.io.RequestParameters.NUM_ENTRIES] = 30;
 
 				gadgets.io.makeRequest(url, callback ,params);
-				gadgets.window.adjustHeight(500);
+				gadgets.window.adjustHeight(1000);
 			}
 			function callback(response) {
 				var entry = response.data['Entry'];
@@ -39,8 +39,10 @@
 			<h1>ブログ検索</h1>
 			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="submit" id="search">検索</button>
 		</div>
+		<div style="hight:800px>
 		<ul id="mail_list">
 		</ul>
+		</div>
     ]]>
   </Content>
 </Module>
