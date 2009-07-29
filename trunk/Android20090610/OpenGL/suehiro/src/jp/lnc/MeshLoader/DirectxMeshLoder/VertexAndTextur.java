@@ -95,7 +95,15 @@ public class VertexAndTextur {
 		float[] newTextureCoord= newTextureCoord();
 		for(index++ ; index<(meshNum*3+1) ; index++){
 			if(index%3 != 0){
-				newTextureCoord[index%3-1] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
+				//TODO 座標のずれバグ
+				if(index ==1){
+					newTextureCoord[1] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
+				}else if(index ==2){
+					newTextureCoord[0] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
+				}else{
+					Log.d("XfileMeshTree",(String) bean.string.get(index));
+				}
+				//newTextureCoord[(index%3-1)] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
 				//Log.d("XfileMeshTree",(String) string.get(index));
 				//System.out.println(top);
 			}else{
