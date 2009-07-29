@@ -42,14 +42,22 @@ public class GLCubeView extends GLTutorialBase {
         //InputStream input = this.getResources().openRawResource(R.raw.cube);
         //PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
         InputStream input;
-        if(true){
+        if(false){
         	//メカ表示
         	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.mekatex);
         	input = this.getResources().openRawResource(R.raw.meka);
-        }else{
+        }else if(false ){
         	//兵士表示
         	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.agaltahohei_walk);
         	input = this.getResources().openRawResource(R.raw.heisi1);
+        }else if(false){
+        	//ウィッチ顔だけ表示
+        	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.kao);
+        	input = this.getResources().openRawResource(R.raw.witch_nofire_nobody);
+        }else{
+        	//ウィッチ髪だけ表示
+        	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.kao);
+        	input = this.getResources().openRawResource(R.raw.kami);
         }
         
         mesh = DirectXMeshLoder.XMeshLoader(new InputStreamReader(input));
