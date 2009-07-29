@@ -18,6 +18,7 @@
 				params[gadgets.io.RequestParameters.NUM_ENTRIES] = 30;
 
 				gadgets.io.makeRequest(url, callback ,params);
+				gadgets.window.adjustHeight();
 			}
 			function callback(response) {
 				var entry = response.data['Entry'];
@@ -26,7 +27,6 @@
 						$('mail_list').innerHTML += "<li><a href=\"" + entry[i]["Link"] + "\" target=\"_blank\" >" + entry[i]["Title"] + "</a></li>";
 					}
 				}
-				gadgets.window.adjustHeight();
 			}
 
 			function init() {
