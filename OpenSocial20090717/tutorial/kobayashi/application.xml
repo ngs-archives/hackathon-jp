@@ -8,7 +8,7 @@
     <Content type="html"><![CDATA[<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
 	<script type="text/javascript">
 			function search () {
-				$('message').style.display = "visible";
+				$('message').style.visibility = "visible";
 				$('mail_list').innerHTML = "";
 				var words = $('words').value;
 				var url = 'http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&q='+ words +'&lr=lang_ja&um=1&ie=utf-8&num=30&output=atom';
@@ -23,7 +23,7 @@
 			}
 			function callback(response) {
 				var entry = response.data['Entry'];
-				$('message').style.display = "hide";
+				$('message').style.visible = "hidden";
 				$('mail_list').innnerHTML = "<ul>";
 				for( var i in entry ){
 					if(entry[i]["Title"] != null){
@@ -44,7 +44,7 @@
 			<h1>ブログ検索</h1>
 			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="submit" id="search">検索</button>
 		</div>
-		<div id="message" style="display:hide">検索中・・・</div>
+		<div id="message" style="visibility:hidden;">検索中・・・</div>
 		<div style="margin:10px" id="mail_list">
 		</div>]]></Content>
 </Module>
