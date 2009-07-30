@@ -95,7 +95,8 @@ public class VertexAndTextur {
 		float[] newTextureCoord= newTextureCoord();
 		for(index++ ; index<(meshNum*3+1) ; index++){
 			if(index%3 != 0){
-				//TODO 座標のずれバグ
+				//TODO 座標のずれバグ(ここじゃない)
+				/*
 				if(index ==1){
 					newTextureCoord[1] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
 				}else if(index ==2){
@@ -103,7 +104,8 @@ public class VertexAndTextur {
 				}else{
 					Log.d("XfileMeshTree",(String) bean.string.get(index));
 				}
-				//newTextureCoord[(index%3-1)] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
+				*/
+				newTextureCoord[(index%3-1)] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
 				//Log.d("XfileMeshTree",(String) string.get(index));
 				//System.out.println(top);
 			}else{
