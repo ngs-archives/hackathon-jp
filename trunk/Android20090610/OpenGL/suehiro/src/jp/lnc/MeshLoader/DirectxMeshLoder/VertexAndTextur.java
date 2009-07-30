@@ -105,7 +105,7 @@ public class VertexAndTextur {
 					Log.d("XfileMeshTree",(String) bean.string.get(index));
 				}
 				*/
-				newTextureCoord[(index%3-1)] = Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
+				newTextureCoord[(index%3-1)] = 1 - Float.valueOf(((String) bean.string.get(index)).replace(";", ""));
 				//Log.d("XfileMeshTree",(String) string.get(index));
 				//System.out.println(top);
 			}else{
