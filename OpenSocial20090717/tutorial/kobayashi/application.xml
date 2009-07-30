@@ -8,7 +8,7 @@
     <Content type="html"><![CDATA[<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js"></script>
 	<script type="text/javascript">
 			function search () {
-				$('mail_list').innerHTML = "";
+				$('mail_list').innerHTML = "<h2>検索中・・・</h2>";
 				var words = $('words').value;
 				var url = 'http://blogsearch.google.co.jp/blogsearch_feeds?hl=ja&q='+ words +'&lr=lang_ja&um=1&ie=utf-8&num=30&output=atom';
 
