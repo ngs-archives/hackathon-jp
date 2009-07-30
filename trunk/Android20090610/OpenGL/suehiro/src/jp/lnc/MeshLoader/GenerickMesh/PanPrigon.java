@@ -1,7 +1,5 @@
 package jp.lnc.MeshLoader.GenerickMesh;
 
-import java.util.List;
-
 import android.util.Log;
 
 public class PanPrigon {
