@@ -63,6 +63,7 @@ public class PanMesh {
 		float ret[] = new float[panPrigonList.size()*4*3];
 		TextureCoords = new float[panPrigonList.size()*4*2];
 		vertexArrayNum = new int[panPrigonList.size()];
+		@SuppressWarnings("unused")
 		int def=0;
         for(int i=0;i<panPrigonList.size();i++){
         	/*
