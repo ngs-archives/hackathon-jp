@@ -22,6 +22,7 @@
 			}
 			function callback(response) {
 				var entry = response.data['Entry'];
+				$('mail_list').innnerHTML = "";
 				$('mail_list').innnerHTML = "<ul>";
 				for( var i in entry ){
 					if(entry[i]["Title"] != null){
