@@ -23,7 +23,7 @@
 			}
 			function callback(response) {
 				var entry = response.data['Entry'];
-				$('message').style.visible = "hidden";
+				$('message').style.visibility = "hidden";
 				$('mail_list').innnerHTML = "<ul>";
 				for( var i in entry ){
 					if(entry[i]["Title"] != null){
@@ -44,7 +44,7 @@
 			<h1>ブログ検索</h1>
 			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="submit" id="search">検索</button>
 		</div>
-		<div id="message" style="visibility:hidden;">検索中・・・</div>
+		<div id="message" style="text-align:center;visibility:hidden;"><h2>検索中・・・</h2></div>
 		<div style="margin:10px" id="mail_list">
 		</div>]]></Content>
 </Module>
