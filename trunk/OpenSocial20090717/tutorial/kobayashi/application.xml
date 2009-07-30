@@ -44,7 +44,7 @@
 			<h1>ブログ検索</h1>
 			<input type="textbox" id="words" class="text" value="OpenSocial" /><button type="submit" id="search">検索</button>
 		</div>
-		<div id="message">検索中・・・</div>
+		<div id="message" style="display:hide">検索中・・・</div>
 		<div style="margin:10px" id="mail_list">
 		</div>]]></Content>
 </Module>
