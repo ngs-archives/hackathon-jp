@@ -42,7 +42,7 @@ public class GLCubeView extends GLTutorialBase {
         //InputStream input = this.getResources().openRawResource(R.raw.cube);
         //PanMesh mesh = DxfLoader.DxfMeshLoader(new InputStreamReader(input));
         InputStream input;
-        if(false){
+        if(true){
         	//メカ表示
         	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.mekatex);
         	input = this.getResources().openRawResource(R.raw.meka);
@@ -54,6 +54,10 @@ public class GLCubeView extends GLTutorialBase {
         	//ウィッチ顔だけ表示
         	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.kao);
         	input = this.getResources().openRawResource(R.raw.witch_nofire_nobody);
+        }else if(false){
+        	//ウィッチ顔だけ表示
+        	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.miku);
+        	input = this.getResources().openRawResource(R.raw.miku_x);
         }else{
         	//ウィッチ髪だけ表示
         	bmp=BitmapFactory.decodeResource(c.getResources(),R.drawable.kao);

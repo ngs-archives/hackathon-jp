@@ -1,5 +1,6 @@
 package jp.lnc.MeshLoader.GenerickMesh;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -13,6 +14,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 public class PanMesh {
+	private static final String TAG = "PanMesh";
 	protected List<PanPrigon> panPrigonList = new ArrayList<PanPrigon>();
 	List<PanPrigon> panMaterialList = new ArrayList<PanPrigon>();
 
@@ -150,7 +152,7 @@ public class PanMesh {
         
 //        Log.d("XfileMeshTree",panPrigonList.size() +"  ");
 		 
-        for(byte i=0;i<panPrigonList.size();i++){
+        for(int i=0;i<panPrigonList.size();i++){
         	if(i%4 == 0){
         		switch((i/4)%3){
         		case 0:
@@ -164,11 +166,16 @@ public class PanMesh {
         			break;
         		}
         	}
-        	if((vertexArrayNum[i]==4)|(vertexArrayNum[i]==3)){
-    		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,i*4,vertexArrayNum[i]);
-        	}else{
-        		int aaaaa = 0;
-        		aaaaa+=10;
+        	try{
+               	if((vertexArrayNum[i]==4)|(vertexArrayNum[i]==3)){
+            		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP,i*4,vertexArrayNum[i]);
+            	}else{
+            		int aaaaa = 0;
+            		aaaaa+=10;
+            	}
+        	} catch (ArrayIndexOutOfBoundsException ex) {
+        		Log.d(TAG, "ArrayIndexOutOfBoundsException i ="+i);
+        		ex.printStackTrace();
         	}
     		//mIndexBuffer.put(tmpVartexIndex,0,4);
             //mIndexBuffer.position(0);
