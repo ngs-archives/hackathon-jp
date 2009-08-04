@@ -5,6 +5,16 @@ body {
     color: #231815;
 }
 
+#devnavi {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#devnavi span {
+    margin-left: 5px;
+}
+
 #count {
     position: absolute;
     top: 260;
