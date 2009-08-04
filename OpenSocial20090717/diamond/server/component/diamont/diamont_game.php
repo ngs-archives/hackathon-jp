@@ -4,17 +4,17 @@
 */
 class DiamontGame
 {
-    /** ゲームを開始するプレイヤー数 */
-    const MIN_PLAYERS = 1;
+    /** 強制的にゲームを開始するプレイヤー数 */
+    const MAX_PLAYERS = 8;
     
     /** 1ゲームの坑道数 */
-    const ROADS = 2;
+    const ROADS = 5;
     
-    /** ゲーム進行状況 */
-    var $gameStatus;
+    /** ゲーム状況 */
+    var $status;
     
-    /** プレイ中の坑道No */
-    var $roadNo;
+    /** プレイ中の坑道ID */
+    var $roadId;
     
     /** プレイ中の坑道 */
     var $road;
@@ -31,10 +31,10 @@ class DiamontGame
     */
     function __construct()
     {
-        $this->gameStatus = 'waiting_player';
+        $this->status = 'waiting_player';
+        $this->roadId = 0;
         $this->players = array();
         $this->excludeCards = array();
-        $this->roadNo = 0;
     }
     
     
@@ -43,16 +43,17 @@ class DiamontGame
     */
     function process()
     {
-        if ($this->gameStatus == 'waiting_player') {
+        if ($this->status == 'waiting_player') {
             // プレイヤー参加待ち
             
-            if (count($this->players) >= self::MIN_PLAYERS) {
-                // プレイヤーがそろえば開始
+            if (count($this->players) >= self::MAX_PLAYERS) {
+                // 最大プレイヤー数に達したので強制的にゲームを開始
+                $this->status = 'playing_game';
                 $this->newRoad();
             }
             
-        } else if ($this->gameStatus == 'waiting_answer') {
-            // プレイヤー回答待ち
+        } else if ($this->status == 'playing_game') {
+            // ゲーム中（プレイヤー回答待ち）
             
             $players = array();
             foreach ($this->players as $userId => $player) {
@@ -87,17 +88,16 @@ class DiamontGame
                 // 帰り道のダイアを山分け
                 if ($exitPlayers) {
                     $playerCount = count($exitPlayers);
-                    foreach ($this->road->drawCards as $index => $card) {
-                        if (is_numeric($card)) {
-                            $dias = $card;
-                            $playerDias = floor($dias / $playerCount);
-                            $remainDias = $dias % $playerCount;
+                    foreach ($this->road->drawCards as $cardId => $drawCard) {
+                        if ($drawCard['remainDias']) {
+                            $playerDias = floor($drawCard['remainDias'] / $playerCount);
+                            $remainDias = $drawCard['remainDias'] % $playerCount;
                             
                             foreach ($exitPlayers as $userId => $player) {
                                 $this->players[$userId]->roadScore += $playerDias;
                             }
                             
-                            $this->road->setRemainDias($remainDias, $index);
+                            $this->road->setRemainDias($remainDias, $cardId);
                         }
                     }
                 }
@@ -106,6 +106,9 @@ class DiamontGame
                     if ($player->answer == 'exit') {
                         $this->players[$userId]->exitRoad();
                     }
+                    
+                    // 直前の回答を保存してクリアする
+                    $this->players[$userId]->lastAnswer = $this->players[$userId]->answer;
                     $this->players[$userId]->answer = null;
                 }
 
@@ -124,9 +127,10 @@ class DiamontGame
     */
     function newRoad()
     {
-        if ($this->roadNo < self::ROADS) {
-            $this->gameStatus = 'waiting_answer';
-            $this->roadNo++;
+        $this->roadId++;
+
+        if ($this->roadId <= self::ROADS) {
+            // 坑道が残っている
     
             $this->road = new DiamontRoad($this->excludeCards);
             
@@ -135,8 +139,10 @@ class DiamontGame
             }
     
             $this->goRoad();
+            
         } else {
-            $this->gameStatus = 'game_over';
+            // 坑道が残っていない（全ての坑道を終了）
+            $this->status = 'game_over';
         }
     }
     
@@ -147,6 +153,8 @@ class DiamontGame
     function goRoad()
     {
         if ($this->road->go()) {
+            // 進んだ先がダイヤモンド
+            
             $dias = $this->road->card;
             
             // 山分け
@@ -167,11 +175,13 @@ class DiamontGame
                 $this->players[$userId]->roadScore += $playerDias;
             }
             
-            $this->road->setRemainDias($remainDias, count($this->road->drawCards)-1);
+            $this->road->setRemainDias($remainDias, $this->road->cardId);
             
         } else {
+            // 進んだ先がアクシデント
             if ($this->road->over) {
-                $this->excludeCards[] = $this->road->card;
+                // ２回目のアクシデント
+                $this->excludeCards[$this->roadId] = $this->road->card;
                 $this->newRoad();
             }
         }
