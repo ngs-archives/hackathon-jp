@@ -1,105 +1,374 @@
 body {
     font-size: 12px;
     line-height: 1.5;
+    font-family: Tahoma;
+    color: #231815;
 }
-
-div {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-}
-
-#roads,
-#players,
-#cards {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #eeeeee;
-}
-
-
-.thumbImg {
-    width: 40px;
-    height: 40px;
-}
-
-#roads div.road {
-    float: left;
-    margin: 4px;
-    padding: 4px;
-    border: 1px solid #666666;
-    background-color: #dddddd;
-}
-
-#players div.player {
-    float: left;
-    margin: 4px;
-    border: 1px solid #666666;
-    background-color: #dddddd;
-    text-align: center;
-}
-
-#cards div.card {
-    float: left;
-    margin: 4px;
-    padding: 4px;
-    border: 1px solid #666666;
-    background-color: #eeeeee;
-}
-
-
-#card {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 5px 40px;
-    font-size: 60px;
-    line-height: 80px;
-    text-align: center;
-    font-weight: bold;
-    border: 2px solid #999999;
-    background-color: #7cc559;
-}
-
 
 #count {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 600px;
-    width: 600px;
-    margin-top: -300px;
-    margin-left: -300px;
+    top: 260;
+    left: 770px;
+    height: 100px;
+    width: 100px;
     text-align: center;
-    line-height: 600px;
+    line-height: 100px;
+    font-family: Tahoma;
     font-weight: bold;
 }
 
-
-a {
-    text-decoration: none;
-}
-
-
-a .button {
-    margin: 0 8px;
-    padding: 8px;
-    width: 160px;
-    font-family: sans-serif;
-    font-size: 18px;
-    font-weight: bold;
+#loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
     line-height: 1;
-    background-color: #f0f0f0;
-    border: 2px solid #303030;
-    color: #303030;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 5px 10px;
+    background-color: #231815;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
 }
 
-a:hover .button {
-    background-color: #fde0a6;
-    border: 2px solid #ff8800;
-    color: #ff8800;
+#message {
+    position: absolute;
+    top: 210px;
+    left: 360px;
+    width: 200px;
+    padding: 10px;
+    background-color: #231815;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+#waiting_player {
+    text-align: center;
+}
+
+#waiting_player_title {
+    margin-top: 70px;
+    font-family: Tahoma;
+    font-size: 40px;
+    line-height: 1;
+    font-weight: bold;
+}
+
+#waiting_player_read {
+    margin-top: 40px;
+    font-family: Tahoma;
+    font-size: 16px;
+    line-height: 1;
+}
+
+#waiting_player_buttons {
+    margin-top: 60px;
+}
+
+#playing_game {
+}
+
+#game_over_title {
+    margin-top: 70px;
+    font-family: Tahoma;
+    font-size: 40px;
+    line-height: 1;
+    font-weight: bold;
+}
+
+#game_over_buttons {
+    margin-top: 270px;
+}
+
+
+#roads {
+    position: absolute;
+    top: 0;
+    left: 40px;
+}
+
+.road {
+    position: absolute;
+    top: 0;
+}
+
+.road_name {
+    width: 120px;
+    font-family: Tahoma;
+    font-size: 20px;
+    line-height: 50px;
+    height: 50px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #f0f0f0;
+    color: #c0c0c0;
+    -webkit-border-top-left-radius: 30px;
+    -webkit-border-top-right-radius: 30px;
+    -moz-border-radius-topleft: 30px;
+    -moz-border-radius-topright: 30px;
+}
+
+.current_road .road_name {
+    color: #433835;
+}
+
+.exclude_card {
+    height: 80px;
+    width: 80px;
+    margin: 4px 18px;
+    font-family: Tahoma;
+    font-size: 14px;
+    line-height: 80px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #eeeeee;
+    color: #231815;
+    border: 2px solid #e6e6e6;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,0.6);
+}
+
+#road_card,
+#draw_card {
+    position: absolute;
+    top: 10px;
+    left: 730px;
+    height: 172px;
+    width: 172px;
+    font-family: Tahoma;
+    font-size: 28px;
+    line-height: 172px;
+    text-align: center;
+    font-weight: bold;
+    border: 4px solid #c3ffa0;
+    background-color: #63be30;
+    color: #ffffff;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+
+#last_card {
+    position: absolute;
+    top: 145px;
+    left: 370px;
+    height: 172px;
+    width: 172px;
+    font-family: Tahoma;
+    font-size: 28px;
+    line-height: 172px;
+    text-align: center;
+    font-weight: bold;
+    border: 4px solid #63be30;
+    background-color: #ffffff;
+    color: #231815;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+
+#cards {
+    position: absolute;
+    top: 140px;
+    left: 0;
+    height: 183px;
+    width: 717px;
+    background-color: #f0f0f0;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.card {
+    float: left;
+    margin: 5px 0 0 5px;
+    height: 80px;
+    width: 80px;
+    text-align: center;
+    border: 2px solid #63be30;
+    background-color: #ffffff;
+    color: #231815;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,0.6);
+}
+.card_name,
+remain_dias {
+    font-family: Tahoma;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 80px;
+}
+
+#last_card.card_Sneak,
+.card_Sneak {
+    background-color: #ddbb33;
+    color: #ffffff;
+    border-color: #aa9900;
+}
+#last_card.card_Explosion,
+.card_Explosion {
+    background-color: #cc3300;
+    color: #ffffff;
+    border-color: #990000;
+}
+#last_card.card_Rock,
+.card_Rock {
+    background-color: #997744;
+    color: #ffffff;
+    border-color: #775522;
+}
+#last_card.card_Scorpion,
+.card_Scorpion {
+    background-color: #335599;
+    color: #ffffff;
+    border-color: #113366;
+}
+#last_card.card_Gas,
+.card_Gas {
+    background-color: #559944;
+    color: #ffffff;
+    border-color: #226611;
+}
+
+#action_buttons {
+    position: absolute;
+    top: 360px;
+    left: 750px;
+    text-align: center;
+}
+
+#action_buttons span {
+    display: block;
+    margin-bottom: 40px;
+}
+
+.buttons a {
+    text-decoration: none;
+    font-family: Tahoma;
+    font-size: 24px;
+    line-height: 1;
+    padding: 10px 40px;
+    background-color: #433835;
+    color: #837875;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+.buttons a:hover {
+    background-color: #63be30;
+    color: #ffffff;
+}
+.buttons span {
+    margin: 0 10px;
+}
+a.go_button {
+    background-color: #435835;
+}
+a.go_button:hover {
+    background-color: #63be30;
+    color: #ffffff;
+}
+a.exit_button {
+    background-color: #633835;
+}
+a.exit_button:hover {
+    background-color: #ff6330;
+    color: #ffffff;
+}
+
+#players_title {
+    position: absolute;
+    top: 300px;
+    left: 0;
+    width: 930px;
+    padding: 0 0 10px 0;
+    border-bottom: 2px solid #231815;
+    font-size: 16px;
+    line-height: 1;
+    text-align: left;
+}
+
+#join_players {
+    position: absolute;
+    top: 340px;
+    left: 100px;
+}
+#result_players {
+    position: absolute;
+    top: 150px;
+    left: 100px;
+}
+#players {
+    position: absolute;
+    top: 330px;
+    left: 10px;
+}
+.player {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    font-family: Tahoma;
+    background-color: #231815;
+    color: #ffffff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+.player_head {
+    width: 76px;
+    height: 10px;
+}
+.player_name {
+    width: 76px;
+    font-family: Tahoma;
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 0 2px 3px 2px;
+}
+.player_rank {
+    height: 30px;
+    width: 76px;
+    font-family: Tahoma;
+    font-size: 16px;
+    line-height: 30px;
+    color: #ffffff;
+}
+.player_score {
+    width: 76px;
+    font-family: Tahoma;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: bold;
+    padding: 0 2px 3px 2px;
+}
+.player_thumbnail_img {
+    width: 76px;
+    height: 76px;
+    margin: 2px;
+}
+.player_answer {
+    position: absolute;
+    top: 12px;
+    left: 2px;
+    width: 76px;
+    font-family: Tahoma;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 76px;
+    text-align: center;
+    background-color: #231815;
+    color: #ffffff;
 }

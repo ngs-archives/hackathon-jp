@@ -5,9 +5,7 @@
 class DiamontRoad
 {
     /** 坑道カード一式（ダイアモンド） */
-    static $diaCards = array(
-        2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
-    );
+    static $diaCards = array(3,4,5,6,7,8,9,10,11,12,13,14,15,16,17);
     
     /** 坑道カード一式（アクシデント） */
     static $dangerCards = array(
@@ -15,14 +13,14 @@ class DiamontRoad
         'Explosion', 'Explosion', 'Explosion',
         'Gas', 'Gas', 'Gas',
         'Scorpion', 'Scorpion', 'Scorpion',
-        'Rock', 'Rock', 'Rock',
+        'Rock', 'Rock', 'Rock'
     );
     
     
-    /** 最後にめくったカードNo. */
-    var $cardNo;
+    /** 最後に引いたカードID. */
+    var $cardId;
     
-    /** 最後にめくったカード */
+    /** 最後に引いたカード */
     var $card;
     
     /** 引いたカード */
@@ -31,7 +29,7 @@ class DiamontRoad
     /** ゲームで使われるカード一式 */
     var $cards;
     
-    /** 坑道がおわったかどうか */
+    /** 坑道がアクシデントにより終わったかどうか */
     var $over;
     
     
@@ -41,7 +39,7 @@ class DiamontRoad
     */
     function __construct($excludeCards = array())
     {
-        $this->cardNo = 0;
+        $this->cardId = 0;
         $this->drawCards = array();
         $this->over = false;
         
@@ -68,8 +66,8 @@ class DiamontRoad
     */
     function go()
     {
-        $this->card = $this->cards[$this->cardNo];
-        $this->cardNo++;
+        $this->cardId++;
+        $this->card = $this->cards[$this->cardId];
         
         $isDiamond = true;
 
@@ -78,15 +76,15 @@ class DiamontRoad
             $isDiamond = false;
             
             // アクシデントが２回目かどうかチェック
-            foreach ($this->drawCards as $index => $card) {
-                if ($this->card === $card) {
+            foreach ($this->drawCards as $index => $drawCard) {
+                if ($this->card === $drawCard['card']) {
                     // ２回目
                     $this->over = true;
                 }
             }
         }
         
-        $this->drawCards[] = $this->card;
+        $this->drawCards[$this->cardId] = array('card' => $this->card);
 
         return $isDiamond;
     }
@@ -95,11 +93,11 @@ class DiamontRoad
     /**
     * 山分けで残ったダイヤをセット
     * @param $remainDias 残ったダイア数
-    * @param $index カードのインデックス番号
+    * @param $cardId カードID
     */
-    function setRemainDias($remainDias, $index)
+    function setRemainDias($remainDias, $cardId)
     {
-        $this->drawCards[$index] = $remainDias;
+        $this->drawCards[$cardId]['remainDias'] = $remainDias;
     }
     
 }

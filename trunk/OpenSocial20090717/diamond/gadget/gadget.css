@@ -4,4 +4,5 @@
     width: 100%;
     font-size: 12px;
     font-family: sans-serif;
+    overflow: auto;
 }

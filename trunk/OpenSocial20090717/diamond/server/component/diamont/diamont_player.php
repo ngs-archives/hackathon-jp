@@ -13,24 +13,28 @@ class DiamontPlayer
     /** プレイヤーが帰ったかどうか */
     var $exit;
     
-    /** プレイヤーが先に進むかどうか */
+    /** プレイヤーが先に進むかどうかの回答 */
     var $answer;
+    
+    /** 直前の回答 */
+    var $lastAnswer;
     
     /** 表示名 */
     var $displayName;
     
     /** サムネイルURL */
-    var $thumbUrl;
+    var $thumbnailUrl;
     
     
     /**
     * コンストラクタ
     */
-    function __construct($displayName, $thumbUrl)
+    function __construct($displayName, $thumbnailUrl)
     {
         $this->totalScore = 0;
+        $this->roadScore = 0;
         $this->displayName = $displayName;
-        $this->thumbUrl = $thumbUrl;
+        $this->thumbnailUrl = $thumbnailUrl;
     }
     
     
