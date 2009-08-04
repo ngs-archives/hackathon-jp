@@ -13,7 +13,37 @@
 </ModulePrefs>
 
 <Content type="html" view="home,profile"><![CDATA[
-ダイヤモンド
+<link rel="stylesheet" href="http://codess.heteml.jp/diamond/gadget/gadget.css" type="text/css" />
+<link rel="stylesheet" href="http://codess.heteml.jp/diamond/gadget/diamond-home.css" type="text/css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/gadget.js"></script>
+<script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/diamond.js"></script>
+<script type="text/javascript" src="http://codess.heteml.jp/diamond/gadget/diamond-home.js"></script>
+<script type="text/javascript">
+gadgets.util.registerOnLoadHandler(diamond.init);
+</script>
+
+<center>
+
+<div id="title">Diamond</div>
+
+<div id="waiting_player" style="display: none;">
+    Now waiting player ...
+</div>
+
+<div id="playing_game" style="display: none;">
+    Playing game ...<br />
+    Status:
+    Road...<span id="roadId"></span>,
+    Card...<span id="cardId"></span>
+</div>
+
+<div id="game_over" style="display: none;">
+    Game Over.
+</div>
+
+</center>
+
 ]]></Content>
 
 
@@ -125,6 +155,13 @@ gadgets.util.registerOnLoadHandler(diamond.init);
 
 
 <div id="message" style="display: none;">メッセージ</div>
+
+
+<div id="devnavi">
+    <span>開発メニュー</span>
+    <span>...</span>
+    <span><a href="javascript:diamond.initGame()">ゲーム初期化</a></span>
+</div>
 
 ]]></Content>
 

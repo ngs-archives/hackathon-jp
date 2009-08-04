@@ -953,7 +953,8 @@ diamond.isViewerPlayer = function() {
 * Viewerが坑道を進んでいるかどうかを返す
 */
 diamond.isViewerGoing = function() {
-    if (!diamond.data.players[diamond.viewer.id].exit) {
+    if (diamond.isViewerPlayer() &&
+        !diamond.data.players[diamond.viewer.id].exit) {
         return true;
     }
     return false;
@@ -964,7 +965,8 @@ diamond.isViewerGoing = function() {
 * Viewerが回答済みかどうかを返す
 */
 diamond.isViewerAnswered = function() {
-    if (diamond.data.players[diamond.viewer.id].answer != null) {
+    if (diamond.isViewerPlayer() &&
+        diamond.data.players[diamond.viewer.id].answer != null) {
         return true;
     }
     return false;

@@ -1,0 +1,15 @@
+body {
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: Tahoma;
+    color: #231815;
+}
+
+#title {
+    font-size: 24px;
+    line-height: 1;
+    font-family: Tahoma;
+    font-weight: bold;
+    color: #231815;
+    margin: 15px 0;
+}
