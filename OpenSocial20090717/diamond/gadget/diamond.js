@@ -16,7 +16,7 @@ diamond.vars = {};
 */
 diamond.properties = {
     "appServerUrl": "http://codess.heteml.jp/diamond/server/",
-    "roomIdPrefex": "mixi",
+    "roomIdPrefix": "mixi",
     "answerCountStart": 30
 };
 
@@ -98,6 +98,9 @@ diamond.init = function() {
 };
 
 
+/**
+* アプリケーションサーバへリクエストを送信する
+*/
 diamond.requestJson = function(url, callback) {
     cods.debug('requestJson <a href="' + url + '" target="_blank">' + url + '</a>');
     
@@ -119,7 +122,7 @@ diamond.requestJson = function(url, callback) {
 */
 diamond.requestAction = function(action, callback) {
     var url = diamond.properties.appServerUrl
-            + '?room_id=' + diamond.properties.roomIdPrefex + diamond.owner.id
+            + '?room_id=' + diamond.properties.roomIdPrefix + diamond.owner.id
             + '&user_id=' + diamond.viewer.id
             + '&action=' + action;
     
@@ -142,7 +145,7 @@ diamond.join = function() {
     $('#waiting_player_entry_popup').hide();
     
     var url = diamond.properties.appServerUrl
-            + '?room_id=' + diamond.properties.roomIdPrefex + diamond.owner.id
+            + '?room_id=' + diamond.properties.roomIdPrefix + diamond.owner.id
             + '&user_id=' + diamond.viewer.id
             + '&display_name=' + encodeURI(diamond.viewer.displayName)
             + '&thumbnail_url=' + encodeURI(diamond.viewer.thumbnailUrl)
@@ -667,14 +670,6 @@ diamond.countdownPlayerScore = function(id) {
         score = score - 0 - 1;
         $('#player_' + id + ' .player_score').html(score).css('color', '#ff6633');
         
-/*
-        var colorId = score % 2;
-        if (colorId == 0) {
-            $('#player_' + id).css('backgroundColor', '#231815');
-        } else {
-            $('#player_' + id).css('backgroundColor', '#ff6330');
-        }
-*/        
         var marginId = score % 4;
         if (marginId == 0) {
             $('#player_' + id).css('marginLeft', 0);
