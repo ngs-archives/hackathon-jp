@@ -52,7 +52,7 @@
 	<script type="text/javascript">/*<!--[*/
 			(function(){
 				var src    = "http://platform001.mixi.jp/ad_application_program_invoker.pl";
-				var query  = "appli_id=4715&amp;ad_id=0000001";
+				var query  = "appli_id=4715&amp;ad_id=DUMMY_AD_ID";
 				document.writeln(['<scri','pt src="',src,'?',query,'&ts=',(new Date).getTime(),'">','</scri','pt>'].join(''));
 			})();
 	--></script>
