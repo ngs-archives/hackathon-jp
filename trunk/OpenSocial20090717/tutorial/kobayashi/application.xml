@@ -46,5 +46,18 @@
 		</div>
 		<div id="message" style="text-align:center;visibility:hidden;"><h2>検索中・・・</h2></div>
 		<div style="margin:10px" id="mail_list">
-		</div>]]></Content>
+		</div>
+
+	<!-- mixiアド -->
+	<script type="text/javascript">/*<!--[*/
+			(function(){
+				var src    = "http://platform001.mixi.jp/ad_application_program_invoker.pl";
+				var query  = "appli_id=4715&amp;ad_id=0000001";
+				document.writeln(['<scri','pt src="',src,'?',query,'&ts=',(new Date).getTime(),'">','</scri','pt>'].join(''));
+			})();
+	--></script>
+
+
+
+		]]></Content>
 </Module>
