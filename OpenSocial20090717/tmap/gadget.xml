@@ -16,12 +16,13 @@
 
   <Content type="html" view="profile,home,canvas">
     <![CDATA[
-            <script type="text/javascript" src="http://demo2.cirius.co.jp:3050/javascripts/jquery.uploadify-v1.6.2.mit/jquery-1.3.2.min.js"></script>
-            <!-- script type="text/javascript" src="http://demo2.cirius.co.jp:3050/javascripts/opensocial-jquery-1.0.3/features/opensocial-jquery/opensocial-jquery.min.js"></script -->
+  <script src="http://www.google.com/jsapi"></script>
+  <script>
+    google.load("jquery", "1.3.2");
+    google.load("jqueryui", "1.7.1");
+  </script>
 
-            <script type="text/javascript" src="http://demo2.cirius.co.jp:3050/javascripts/jquery.uploadify-v1.6.2.mit/jquery.uploadify.js"></script>
-
-            <script type="text/javascript">
+  <script type="text/javascript">
         var Avatt = {};
         Avatt.Config = {
             debug: false,
@@ -108,8 +109,6 @@
         }
 
 
-        var __map;
-
         Avatt.Map = function(lat, lng) {
             this.count = 0;
             var self = this;
@@ -123,13 +122,10 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             this.map = new google.maps.Map(document.getElementById("map_canvas"), this.mapOptions);
-            __map = this.map;
-
 
             var contentString = '<div id="content">'+
                 "<input type='button' id='setlatlng'  value='set lat lng'/>" + 
                 '</div>';
-
 
             this.marker = new google.maps.Marker({
                 position: this.latlng,
@@ -159,11 +155,14 @@
                 d.innerHTML = "<p> error: " + a.code + "</p>";
             },
             addEvent: function(latLng) {
+	        console.debug("addEvent");
+	        console.debug(latLng);
                 var self = this;
-                var param  = self.setUrl + "?c=set&uid=" + "21888891" + "&pos=" + latLng.ee + "," + latLng.ge;
+                var url  = self.setUrl + "?c=set&uid=" + "21888891" + "&pos=" + latLng.Oe + "," + latLng.Qe;
+/*
                 $.ajax({
                     type: "GET",
-                    url: param,
+                    url: url,
                     cache: false,
                     success: function(html){
                         alert("success");
@@ -173,60 +172,53 @@
                         console.debug("error");
                     }
                 });
+*/
+	        console.debug(url);
+                var params = {};
+                params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+	        params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+        	params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+                gadgets.io.makeRequest(url, function(response) {
+	          console.debug(response);
+                }, params);
 
 //                 $('#setlatlng').click(function(event){
-
 //                     console.debug(param);
-
 //                 });
 
             }
         }
 
 
-
-
         Avatt.Data = function() {
-            console.debug("data");
             this.getUrl = "http://jackal.sakura.ne.jp/tmap/";
         };
         Avatt.Data.prototype = {
-            getData: function() {
+            getData: function(map) {
                 var self = this;
+                this.map = map;
                 var url = this.getUrl + "?c=get&uid=21888891";
+	        var url = "http://itog.sakura.ne.jp/opensocial/tmap/sampledata.json";
                 console.debug(url);
                 var params = {};
                 params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-                params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = 0;
-                gadgets.io.makeRequest(url, self.callback, params);
-
+	        params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+        	params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.NONE;
+                gadgets.io.makeRequest(url, function(res) {
+self.callback(res, self);}, params);
             },
-            callback: function(data) {
-                //console.debug(data);
-                var r = eval(data);
-                //console.debug(r.data);
-                //r = eval(r.data);
-//ok                console.debug(r.data);
-                console.debug(r.data);
-                r2 = eval(r.text);
-                console.debug(r2.datas);
-                //console.debug(r);
-                $.each(r.data, function(i, item) {
-                    console.debug(item);
-                    ll = item.latlng.split(',');
-                    //                                        console.debug(ll[1]);
-                    var latlng = new google.maps.LatLng(ll[0], ll[1]);
-//ok                    console.debug(latlng.lat());
 
+            callback: function(response, self) {
+                var d = eval("("+response.data+")");
+                $.each(d.datas, function(i, item) {
+                    ll = item.latlng.split(',');
+                    var latlng = new google.maps.LatLng(ll[0], ll[1]);
                     new google.maps.Marker({
                         position: latlng,
-//                        map: this.map,
-                        map: __map,
+                        map: self.map,
                         title:"Hello World!"
                     });
                 });
-
-                //console.debug(data);
             }
         }
 
@@ -267,7 +259,7 @@
                 var friends = opensocial.newIdSpec(friends_params);
                 mng.addGetAppDataRequest(friends, 'friendsAppdata');
 
-
+/*
                 var ownerid;
                 mng.sendRequest((function() {
                     var _mng = mng;
@@ -299,14 +291,15 @@
                     }
 
                 })());
-
+*/
+	    //[todo]FF以外のブラウザではGeolocationがサポートされていない
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position) {
                         var map = new Avatt.Map(position.coords.latitude, position.coords.longitude);
                         //map.drawMap(position.coords.latitude, position.coords.longitude);
 //                        map.addEvent();
                         var data = new Avatt.Data();
-                        data.getData();
+                        data.getData(map.map);
                         $("#test").load("http://jackal.sakura.ne.jp/tmap/?c=get&uid=21888891");
                     },this.map.handleError);
 
