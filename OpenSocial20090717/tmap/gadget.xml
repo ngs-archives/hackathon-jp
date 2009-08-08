@@ -159,20 +159,7 @@
 	        console.debug(latLng);
                 var self = this;
                 var url  = self.setUrl + "?c=set&uid=" + "21888891" + "&pos=" + latLng.Oe + "," + latLng.Qe;
-/*
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    cache: false,
-                    success: function(html){
-                        alert("success");
-                        //$("#results").append(html);
-                    },
-                    error: function(){
-                        console.debug("error");
-                    }
-                });
-*/
+
 	        console.debug(url);
                 var params = {};
                 params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
@@ -198,7 +185,6 @@
                 var self = this;
                 this.map = map;
                 var url = this.getUrl + "?c=get&uid=21888891";
-	        var url = "http://itog.sakura.ne.jp/opensocial/tmap/sampledata.json";
                 console.debug(url);
                 var params = {};
                 params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
