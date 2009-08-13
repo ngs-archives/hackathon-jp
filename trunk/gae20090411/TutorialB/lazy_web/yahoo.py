@@ -7,7 +7,7 @@ from google.appengine.api import urlfetch
 class YahooJLP:    
     
     def parse(self,str):
-        key = 'FGoDDduxg64oBMu1pSndqhogq1KN5ASODXX20.pcreQDnGJAhTU7QFw8p.8-'
+        key = 'KEY'
         self.restrant = []
         encoding = 'utf-8'
         url = 'http://jlp.yahooapis.jp/MAService/V1/parse?appid='
