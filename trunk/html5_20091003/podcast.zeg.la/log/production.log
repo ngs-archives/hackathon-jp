@@ -1,0 +1,24 @@
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:19:25) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:23:04) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/]
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:23:16) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/]
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:23:42) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 160ms (View: 150, DB: 0) | 200 OK [http://podcast.colinux/player/]

@@ -1,0 +1,293 @@
+<%- content_for :head do -%>
+        <style type="text/css">
+            #channelList {
+                border: 1px solid gray;
+                border-collapse: collapse;
+                width: 800px;
+                margin: 4px auto 0;
+            } #channelList td, #channelList th {
+                border: 1px solid gray;
+            } #channelListBody tr.selected {
+                background-color: #FFE4C4;
+            } #channelListBody td.check {
+                text-align: center;
+                width: 40px;
+            } #channelList th {
+                background-color: #D3D3D3;
+            }
+            #rss {
+             width:512px;
+             height:24px;
+             border:#aaa 1px solid;
+             border:#aaa 1px solid;
+            }
+            a.channel {
+                cursor:pointer;
+             }
+        </style>
+<%- end -%>
+        <h1>Podcast Player (Safari4のみで動きます)</h1>
+        <div id="audio"></div>
+        <label for="rss">
+            アドレスを入れてください:
+        </label>
+        <input type="text" id="rss" maxlength="126">
+        <input id="saveButton" type="button" value="保存"><input id="removeButton" type="button" value="削除"><input id="dropTableButton" type="button" value="初期化"><hr>
+<ul>
+ <li><a href="http://www.tbsradio.jp/banana/index.xml">参考フィード1</a></li>
+ <li><a href="http://www.tbsradio.jp/temeoko/index.xml">参考フィード2</a></li>
+ <li><a href="http://www.tbsradio.jp/bakusho/rss.xml">参考フィード3</a></li>
+</ul>
+        <table id="channelList">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll">
+                    </th>
+                    <th>
+                        タイトル
+                    </th>
+                    <th>
+                        概要
+                    </th>
+                    <th>
+                        リンク
+                    </th>
+                    <th>
+                        ステータス
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="channelListBody">
+            </tbody>
+        </table>
+        <div id="accordion"></div>
+<%- content_for :head do -%>
+   <%= javascript_include_tag "alex.core-0.5","alex.record-0.1","jquery","jquery-ui","jquery.jfeed.pack","jrails" -%>
+   <script type="text/javascript">
+       alex.record.config = {
+           databases: {
+               "default": {
+                   version: 1,
+                   displayName: "Default DB",
+                   estimatedSize: 1024 * 1024
+               }
+           }
+       };
+       var Channel = alex.record.Class({
+           tableName: "Channel",
+           columns: [{
+               name: "id",
+               type: "integer",
+               primaryKey: true,
+               autoIncrement: true
+           }, {
+               name: "rss",
+               type: "string",
+               notNull: true,
+               unique: true
+           }, {
+               name: "title",
+               type: "string"
+           }, {
+               name: "description",
+               type: "string"
+           }, {
+               name: "link",
+               type: "string"
+           }, {
+               name: "updated_at",
+               type: "string"
+           }]
+       });
+
+       var Item = alex.record.Class({
+           tableName: "Item",
+           columns: [{
+               name: "id",
+               type: "integer",
+               primaryKey: true,
+               autoIncrement: true
+           }, {
+               name: "channel_id",
+               type: "integer",
+           }, {
+               name: "item_id",
+               type: "string",
+               notNull: true,
+               unique: true
+           }, {
+               name: "title",
+               type: "string"
+           }, {
+               name: "description",
+               type: "string"
+           }, {
+               name: "link",
+               type: "string"
+           }, {
+               name: "listened",
+               type: "integer",
+               defaultValue:0
+           }, {
+               name: "updated_at",
+               type: "string"
+           }]
+       });
+       var selectedRowId;
+       
+       $(function(){
+           function loadChannels(){
+               selectedRowId = null;
+               Channel.filter().fetchRecords(function(channels, error){
+                   if (error) {
+                       alert("Error occured when fetch channels:" + error.message);
+                       return;
+                   }
+                   var listBody = $("#channelListBody").empty();
+                   for (var i = 0; i < channels.length; i++) {
+                       var channel = channels[i];
+                       var row = ["<tr><td class='check'><input type='checkbox' value='", channel.getRowId(), "'></td><td><a class='channel' id='channel_",channel.getId(),"'>", channel.getTitle(),"</a>", "</td><td>",channel.getDescription(),"</td><td><a href='",channel.getLink(),"' target='_blank'>[リンク]</a></td><td><img id='loading_",channel.getRowId(),"' src='/images/ok.gif' /></td></tr>"];
+                       listBody.append(row.join(""));
+                   }
+                   listBody.find("tr").click(rowSelected);
+               });
+           }
+           function saveChannel(){
+               var rss = $("#rss").val();
+               if (!rss ){
+                   alert("rss is required.");
+                   return;
+               }
+               jQuery.getFeed({
+                   url: "/player/proxy?format=rss&url="+rss,
+                   success: function(feed) {
+                       console.debug(feed);
+                       var channel = new Channel({
+                           rss: rss,
+                           title:feed.title,
+                           description:feed.description,
+                           link:feed.link,
+                           updated_at:feed.updated
+                       });
+                       channel.save(function(rs, error){
+                           if (error) {
+                               alert("Error occured when create channel:" + error.message);
+                               return;
+                           }
+                           $("#rss").val("");
+                           seletedRowId = null;
+                           $("#channelListBody tr.selected").removeClass("selected");
+
+                           loadChannels();
+
+                           var lastItemId = 0;
+                           Item.filter().orderBy("id").limit(1).fetchRecords(function(items, error){
+                             lastItemId = 0 == items.length ? 0 : items.getRowId();
+                           });
+                           for(var i = 0; i < feed.items.length; i++){
+                             var feed_item = feed.items[i];
+                             var item = new Item({
+                                 channel_id:rs.insertId,
+                                 title:feed_item.title,
+                                 description:feed_item.description,
+                                 link:feed_item.link,
+                                 item_id:feed_item.id,
+                                 listened:0,
+                                 updated_at:feed_item.updated
+                             });
+                             item.save(function(irs, error){
+                               if((lastItemId+feed.items.length) <= irs.insertId ){
+                                  $("#loading_"+rs.insertId).attr("src","/images/ok.gif");
+                               }else{
+                                  $("#loading_"+rs.insertId).attr("src","/images/loading.gif");
+                               }
+                             });
+                           } 
+                       });
+                   }
+               });
+           }
+           function removeChannel(){
+               var checked = $("#channelListBody input[type=checkbox]:checked");
+               var removed = 0;
+               checked.each(function(){
+                   Channel.find(this.value, function(channel, error){
+                       if (error) {
+                           alert("Error occured when find channel:" + error.message);
+                           return;
+                       }
+                       Item.filter("channel_id = ?",channel.getId()).fetchRecords(function(items, error){
+                         for(var i = 0 ; i < items.length ; i++){
+                             items[i].remove(function(result, error){
+                                 if (error) {
+                                     alert("Error occured when find channel:" + error.message);
+                                     return;
+                                 }
+                             });
+                         }
+                       });
+                       channel.remove(function(result, error){
+                           if (error) {
+                               alert("Error occured when find channel:" + error.message);
+                               return;
+                           }
+                           removed++;
+                           if (removed == checked.size()) {
+                               loadChannels();
+                               alert("Success!");
+                               
+                           }
+                       });
+                   });
+               });
+           }
+           function rowSelected(event){
+               var tr = $(event.currentTarget);
+               if (tr.hasClass("selected")) {
+                   tr.removeClass("selected");
+                   selectedRowId = null;
+               }
+               else {
+                   selectedRowId = tr.find("input[type=checkbox]").val();
+                   $("#channelListBody tr.selected").removeClass("selected");
+                   tr.addClass("selected");
+                   channel_id = tr.find("td:eq(1)>a")[0].id.replace(/channel_/g,'');
+                   $("#accordion").empty();
+                   Item.filter("channel_id = ?",channel_id).fetchRecords(function(items, error){
+                     for(var i = 0 ; i < items.length ; i++){
+                       $("#accordion").append(["<h3>",items[i].getTitle(),"</h3><p>",items[i].getDescription(),"</p>"].join(""));
+                       $("#accordion").append($("[<a id='"+items[i].getLink()+"' href='#'>再生</a>]").click(function(){
+                          $("#audio").empty();
+                          $("#audio").append($("<audio controls autoplay src='"+this.id+"'/>"));
+                       }));
+                     }
+                   });
+               }
+           }
+           Channel.createTable(function(result, error){
+               if (error) {
+                   alert("Error happend:" + error.message);
+                   return;
+               }
+               Item.createTable(function(result, error){
+                   if (error) {
+                       alert("Error happend:" + error.message);
+                       return;
+                   }
+                   loadChannels();
+                   $("#saveButton").click(saveChannel);
+                   $("#removeButton").click(removeChannel);
+               });
+           });
+           $("#selectAll").click(function(){
+               $("#channelListBody input[type=checkbox]").attr("checked", this.checked);
+           });
+           $("#dropTableButton").click(function(){
+               Channel.dropTable();
+               Item.dropTable();
+           });
+       });
+   </script>
+<%- end -%>
+

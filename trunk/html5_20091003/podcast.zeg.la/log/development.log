@@ -1,0 +1,3110 @@
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:24:54) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 580ms (View: 570, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:31:39) [GET]
+Rendering template within layouts/application
+Rendering player/index
+ERROR: compiling _run_erb_app47views47player47index46html46erb RAISED compile error
+/var/www/podcast.colinux/app/views/player/index.html.erb:192: syntax error, unexpected ',', expecting tCOLON2 or '[' or '.'
+..._include_tag ,"alex.core-0.5","alex.record-0.1","jrails","jq...
+                              ^
+/var/www/podcast.colinux/app/views/player/index.html.erb:192: syntax error, unexpected ',', expecting ')'
+...x.core-0.5","alex.record-0.1","jrails","jquery" ).to_s)
+                              ^
+/var/www/podcast.colinux/app/views/player/index.html.erb:192: syntax error, unexpected ',', expecting ')'
+...5","alex.record-0.1","jrails","jquery" ).to_s)
+                              ^
+Function body:           def _run_erb_app47views47player47index46html46erb(local_assigns)
+            old_output_buffer = output_buffer;;@output_buffer = '';  __in_erb_template=true ;  content_for :head do 
+@output_buffer.concat "        <style type=\"text/css\">\n            #bookList {\n                border: 1px solid gray;\n                border-collapse: collapse;\n                width: 640px;\n                margin: 4px auto 0;\n            } #bookList td, #bookList th {\n                border: 1px solid gray;\n            } #bookListBody tr.selected {\n                background-color: #FFE4C4;\n            } #bookListBody td.check {\n                text-align: center;\n                width: 40px;\n            } #bookList th {\n                background-color: #D3D3D3;\n            }\n        </style>\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;  end 
+@output_buffer.concat "<audio controls src=\"http://kairi.weblike.jp/wp-content/uploads/me5-1.mp3\">\n</audio>\n        <h1>Book Manager(demo of alex.record)</h1>\n        <label for=\"title\">\n            Title:\n        </label>\n        <input type=\"text\" id=\"title\" maxlength=\"20\">\n        <label for=\"price\">\n            Price:\n        </label>\n        <input type=\"text\" id=\"price\" maxlength=\"20\">\n        <label for=\"isbn\">\n            ISBN:\n        </label>\n        <input type=\"text\" id=\"isbn\" maxlength=\"20\"><input id=\"saveButton\" type=\"button\" value=\"Save book\"><input id=\"removeButton\" type=\"button\" value=\"Remove book\"><input id=\"dropTableButton\" type=\"button\" value=\"Drop all tables\"><hr>\n        <table id=\"bookList\">\n            <thead>\n                <tr>\n                    <th>\n                        <input type=\"checkbox\" id=\"selectAll\">\n                    </th>\n                    <th>\n                        Title\n                    </th>\n                    <th>\n                        Price\n                    </th>\n                    <th>\n                        ISBN\n                    </th>\n                </tr>\n            </thead>\n            <tbody id=\"bookListBody\">\n            </tbody>\n        </table>\n        <script type=\"text/javascript\">\n            alex.record.config = {\n                databases: {\n                    \"default\": {\n                        version: 1,\n                        displayName: \"Default DB\",\n                        estimatedSize: 1024 * 1024\n                    }\n                }\n            };\n            var Book = alex.record.Class({\n                tableName: \"Book\",\n                columns: [{\n                    name: \"id\",\n                    type: \"integer\",\n                    primaryKey: true,\n                    autoIncrement: true\n                }, {\n                    name: \"title\",\n                    type: \"string\",\n                    notNull: true\n                }, {\n                    name: \"price\",\n                    type: \"integer\",\n                    notNull: true\n                }, {\n                    name: \"ISBN\",\n                    type: \"string\"\n                }]\n            });\n            var selectedRowId;\n            \n            $(function(){\n                function loadBooks(){\n                    selectedRowId = null;\n                    Book.filter().fetchRecords(function(books, error){\n                        if (error) {\n                            alert(\"Error occured when fetch books:\" + error.message);\n                            return;\n                        }\n                        var listBody = $(\"#bookListBody\").empty();\n                        for (var i = 0; i < books.length; i++) {\n                            var book = books[i];\n                            var row = [\"<tr><td class='check'><input type='checkbox' value='\", book.getRowId(), \"'></td><td>\", book.getTitle(), \"</td><td>\", book.getPrice(), \"</td><td>\", book.getISBN() || \"\", \"</td></tr>\"];\n                            listBody.append(row.join(\"\"));\n                        }\n                        listBody.find(\"tr\").click(rowSelected);\n                    });\n                }\n                function saveBook(){\n                    var title = $(\"#title\").val();\n                    var price = $(\"#price\").val();\n                    var isbn = $(\"#isbn\").val();\n                    if (!title || !price) {\n                        alert(\"title and price is required.\");\n                        return;\n                    }\n                    price = parseInt(price, 10);\n                    if (!price) {\n                        alert(\"price must be valid integer.\");\n                        return;\n                    }\n                    var book = new Book({\n                        id: selectedRowId,\n                        title: title,\n                        price: price,\n                        ISBN: isbn\n                    });\n                    book.save(function(book, error){\n                        $(\"#title, #price, #isbn\").val(\"\");\n                        seletedRowId = null;\n                        $(\"#bookListBody tr.selected\").removeClass(\"selected\");\n                        if (error) {\n                            alert(\"Error occured when create book:\" + error.message);\n                            return;\n                        }\n                        loadBooks();\n                        alert(\"Success!\");\n                    });\n                }\n                function removeBook(){\n                    var checked = $(\"#bookListBody input[type=checkbox]:checked\");\n                    var removed = 0;\n                    checked.each(function(){\n                        Book.find(this.value, function(book, error){\n                            if (error) {\n                                alert(\"Error occured when find book:\" + error.message);\n                                return;\n                            }\n                            book.remove(function(result, error){\n                                if (error) {\n                                    alert(\"Error occured when find book:\" + error.message);\n                                    return;\n                                }\n                                removed++;\n                                if (removed == checked.size()) {\n                                    loadBooks();\n                                    alert(\"Success!\");\n                                    \n                                }\n                            });\n                        });\n                    });\n                }\n                function rowSelected(event){\n                    var tr = $(event.currentTarget);\n                    if (tr.hasClass(\"selected\")) {\n                        tr.removeClass(\"selected\");\n                        selectedRowId = null;\n                    }\n                    else {\n                        selectedRowId = tr.find(\"input[type=checkbox]\").val();\n                        $(\"#title\").val(tr.find(\"td:eq(1)\").text());\n                        $(\"#price\").val(tr.find(\"td:eq(2)\").text());\n                        $(\"#isbn\").val(tr.find(\"td:eq(3)\").text());\n                        \n                        $(\"#bookListBody tr.selected\").removeClass(\"selected\");\n                        tr.addClass(\"selected\");\n                    }\n                }\n                Book.createTable(function(result, error){\n                    if (error) {\n                        alert(\"Error happend:\" + error.message);\n                        return;\n                    }\n                    loadBooks();\n                    $(\"#saveButton\").click(saveBook);\n                    $(\"#removeButton\").click(removeBook);\n                });\n                $(\"#selectAll\").click(function(){\n                    $(\"#bookListBody input[type=checkbox]\").attr(\"checked\", this.checked);\n                });\n                $(\"#dropTableButton\").click(function(){\n                    Book.dropTable();\n                });\n            });\n        </script>\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+; @output_buffer.concat(( javascript_include_tag ,"alex.core-0.5","alex.record-0.1","jrails","jquery" ).to_s)
+@output_buffer
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /var/www/podcast.colinux/app/views/player/index.html.erb:196:in `compile!'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:61:in `compile'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_view/renderable.rb:28:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_view/template.rb:199:in `render_template'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:260:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:343:in `_render_with_layout'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_view/base.rb:257:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1250:in `render_for_file'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:945:in `render_without_benchmark'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:51:in `render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1326:in `default_render'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:1332:in `perform_action_without_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:617:in `call_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.3.4/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/rescue.rb:160:in `perform_action_without_flash'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/flash.rb:146:in `perform_action'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `send'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:532:in `process_without_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/filters.rb:606:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:391:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/base.rb:386:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/routing/route_set.rb:437:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:121:in `_call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:29:in `call'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:9:in `cache'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/query_cache.rb:28:in `call'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/vendor/rack-1.0.0-git/lib/rack/head.rb:9:in `call'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/vendor/rack-1.0.0-git/lib/rack/methodoverride.rb:24:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/params_parser.rb:15:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/session/cookie_store.rb:93:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/failsafe.rb:26:in `call'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/vendor/rack-1.0.0-git/lib/rack/lock.rb:11:in `call'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/vendor/rack-1.0.0-git/lib/rack/lock.rb:11:in `synchronize'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/vendor/rack-1.0.0-git/lib/rack/lock.rb:11:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:114:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/reloader.rb:34:in `run'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.3.4/lib/action_controller/dispatcher.rb:108:in `call'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/utils.rb:183:in `safe_fork'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server.rb:163:in `start'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+/usr/lib/ruby/gems/1.8/gems/passenger-2.2.5/bin/passenger-spawn-server:61
+
+ActionView::TemplateError (compile error
+/var/www/podcast.colinux/app/views/player/index.html.erb:192: syntax error, unexpected ',', expecting tCOLON2 or '[' or '.'
+..._include_tag ,"alex.core-0.5","alex.record-0.1","jrails","jq...
+                              ^
+/var/www/podcast.colinux/app/views/player/index.html.erb:192: syntax error, unexpected ',', expecting ')'
+...x.core-0.5","alex.record-0.1","jrails","jquery" ).to_s)
+                              ^
+/var/www/podcast.colinux/app/views/player/index.html.erb:192: syntax error, unexpected ',', expecting ')'
+...5","alex.record-0.1","jrails","jquery" ).to_s)
+                              ^) on line #192 of app/views/player/index.html.erb:
+189:                 });
+190:             });
+191:         </script>
+192: <%= javascript_include_tag ,"alex.core-0.5","alex.record-0.1","jrails","jquery" -%>
+
+    app/views/player/index.html.erb:196:in `compile!'
+    passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+    passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+    passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+    passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+    passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+    passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+    passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+    passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+    passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+    passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+    passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+    passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+    passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendered rescues/_trace (300.0ms)
+Rendered rescues/_request_and_response (10.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:31:54) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:32:34) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 160ms (View: 150, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:35:48) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 150ms (View: 140, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:35:53) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:36:07) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:36:42) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:37:41) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:37:59) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 70, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:38:25) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 80ms (View: 70, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:39:38) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:40:46) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:41:41) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 192.168.3.1 at 2009-10-03 11:49:24) [GET]
+
+ActionController::RoutingError (No route matches "/" with {:method=>:get}):
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:49:29) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:50:24) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:51:49) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:52:12) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:52:53) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:53:39) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:55:25) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:55:43) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 100ms (View: 80, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:56:08) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:56:23) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:56:47) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:57:20) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:57:59) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 11:58:38) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:02:55) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:09:40) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:11:23) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:13:09) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:15:58) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:22:50) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:30:33) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.1 at 2009-10-03 12:30:44) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+http://www.tbsradio.jp/bakusho/rss.xml
+Completed in 10ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.1 at 2009-10-03 12:31:51) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+http://www.tbsradio.jp/bakusho/rss.xml
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.1 at 2009-10-03 12:33:01) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 210ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.1 at 2009-10-03 12:33:01) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 200ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:33:57) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 100ms (View: 100, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:34:17) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.1 at 2009-10-03 12:34:20) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 510ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:34:57) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:35:15) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.1 at 2009-10-03 12:35:18) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 180ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:40:23) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:40:28) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 470ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:41:06) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:41:12) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 470ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:41:42) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:41:46) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 450ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (10.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:45:06) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 300ms (View: 0, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:45:09) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 260ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:48:30) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:48:50) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:49:10) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 80ms (View: 70, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:49:24) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 10) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:49:48) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:49:57) [GET]
+  Parameters: {"url"=>"feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml"}
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.2 at 2009-10-03 12:49:57) [GET]
+
+URI::InvalidURIError (bad URI(is not URI?): ):
+  /usr/lib/ruby/1.8/uri/common.rb:436:in `split'
+  /usr/lib/ruby/1.8/uri/common.rb:485:in `parse'
+  app/controllers/player_controller.rb:6:in `proxy'
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendered rescues/_trace (280.0ms)
+Rendered rescues/_request_and_response (10.0ms)
+Rendering rescues/layout (internal_server_error)
+Completed in 1620ms (View: 140, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:50:37) [GET]
+  Parameters: {"url"=>"feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml"}
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.2 at 2009-10-03 12:50:37) [GET]
+
+URI::InvalidURIError (bad URI(is not URI?): ):
+  /usr/lib/ruby/1.8/uri/common.rb:436:in `split'
+  /usr/lib/ruby/1.8/uri/common.rb:485:in `parse'
+  app/controllers/player_controller.rb:6:in `proxy'
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendered rescues/_trace (200.0ms)
+Rendered rescues/_request_and_response (10.0ms)
+Rendering rescues/layout (internal_server_error)
+Completed in 350ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:50:48) [GET]
+  Parameters: {"url"=>"feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml"}
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.2 at 2009-10-03 12:50:48) [GET]
+
+URI::InvalidURIError (bad URI(is not URI?): ):
+  /usr/lib/ruby/1.8/uri/common.rb:436:in `split'
+  /usr/lib/ruby/1.8/uri/common.rb:485:in `parse'
+  app/controllers/player_controller.rb:6:in `proxy'
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendered rescues/_trace (200.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+Completed in 300ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:51:29) [GET]
+  Parameters: {"url"=>"feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml"}
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.2 at 2009-10-03 12:51:29) [GET]
+
+URI::InvalidURIError (bad URI(is not URI?): ):
+  /usr/lib/ruby/1.8/uri/common.rb:436:in `split'
+  /usr/lib/ruby/1.8/uri/common.rb:485:in `parse'
+  app/controllers/player_controller.rb:6:in `proxy'
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendered rescues/_trace (370.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+Completed in 510ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:51:34) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:51:44) [GET]
+  Parameters: {"url"=>"feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml"}
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.2 at 2009-10-03 12:51:44) [GET]
+
+URI::InvalidURIError (bad URI(is not URI?): ):
+  /usr/lib/ruby/1.8/uri/common.rb:436:in `split'
+  /usr/lib/ruby/1.8/uri/common.rb:485:in `parse'
+  app/controllers/player_controller.rb:6:in `proxy'
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendered rescues/_trace (340.0ms)
+Rendered rescues/_request_and_response (10.0ms)
+Rendering rescues/layout (internal_server_error)
+Completed in 500ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:52:31) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 110ms (View: 100, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (10.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:52:35) [GET]
+  Parameters: {"url"=>"feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml"}
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.2 at 2009-10-03 12:52:35) [GET]
+
+URI::InvalidURIError (bad URI(is not URI?): ):
+  /usr/lib/ruby/1.8/uri/common.rb:436:in `split'
+  /usr/lib/ruby/1.8/uri/common.rb:485:in `parse'
+  app/controllers/player_controller.rb:6:in `proxy'
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendered rescues/_trace (520.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+Completed in 710ms (View: 10, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:53:20) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:53:25) [GET]
+  Parameters: {"url"=>"feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml"}
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy (for 192.168.3.2 at 2009-10-03 12:53:25) [GET]
+
+URI::InvalidURIError (bad URI(is not URI?): ):
+  /usr/lib/ruby/1.8/uri/common.rb:436:in `split'
+  /usr/lib/ruby/1.8/uri/common.rb:485:in `parse'
+  app/controllers/player_controller.rb:6:in `proxy'
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendered rescues/_trace (320.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+Completed in 410ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://podcast.colinux/player/proxy?url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:54:29) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:54:39) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 310ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:56:11) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:56:17) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 450ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:56:22) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:56:26) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 390ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 12:57:15) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 12:57:20) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 360ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:00:19) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:00:24) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 530ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:01:07) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:01:11) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 400ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:02:24) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:02:30) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 530ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:03:20) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:03:43) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:04:15) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 460ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:10:45) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:10:49) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 430ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:12:10) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:12:15) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 450ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:12:44) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:13:07) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:14:03) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:14:08) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 520ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:14:54) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:14:59) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 480ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:21:25) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 540ms (View: 520, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:21:35) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:22:11) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:23:17) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:26:04) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:26:09) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 470ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:27:35) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (10.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:27:39) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 480ms (View: 0, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:28:56) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:29:00) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 500ms (View: 0, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:31:30) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:31:42) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 13:31:49) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 380ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:35:44) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:36:07) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:37:14) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:37:33) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 70, DB: 10) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:37:46) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:38:00) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 250ms (View: 240, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:38:56) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:39:10) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:40:23) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:40:46) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:41:16) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:41:54) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:42:45) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:43:19) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 80ms (View: 70, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:43:44) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 220ms (View: 210, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:44:21) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:45:23) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:46:31) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:46:43) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:47:04) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:47:23) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:47:31) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:47:47) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 130ms (View: 120, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:49:45) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:50:09) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 10) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:52:26) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 10) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:54:49) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (10.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:56:12) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 10) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:57:09) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:57:47) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:58:20) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 240ms (View: 230, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:58:29) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 70, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:58:44) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (10.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 13:59:02) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 10) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:03:32) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:04:24) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:05:01) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:05:46) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:06:07) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 210ms (View: 200, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:07:25) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:09:28) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:10:56) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:11:16) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:11:26) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:16:38) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:17:15) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:21:15) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 140ms (View: 140, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:23:11) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:23:45) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:24:50) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:26:05) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:27:25) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:28:23) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:28:56) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:29:08) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 150ms (View: 140, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:29:47) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 192.168.3.1 at 2009-10-03 14:29:59) [GET]
+
+ActionController::RoutingError (No route matches "/" with {:method=>:get}):
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:30:02) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:30:26) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:31:20) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:32:39) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:33:25) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:34:48) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/player/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 192.168.3.1 at 2009-10-03 14:40:09) [GET]
+
+ActionController::RoutingError (No route matches "/" with {:method=>:get}):
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:46:06) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 350ms (View: 340, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:49:46) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 140ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:49:57) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 190ms (View: 90, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:50:35) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:50:53) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 40ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:51:26) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 190ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:51:57) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 250ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:51:58) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:52:06) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 180ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:52:32) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:52:45) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 570ms (View: 10, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:53:47) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:55:03) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (10.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:55:09) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 200ms (View: 0, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:55:34) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:55:59) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:56:03) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 190ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 14:57:52) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 14:57:57) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 200ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:00:30) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:00:43) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 200ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:02:42) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:03:27) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 350ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:07:14) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:07:19) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 220ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:09:41) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:10:58) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 40ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:11:42) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:11:48) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 30ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:12:46) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 170ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:15:03) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:33:05) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 540ms (View: 170, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:33:24) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:33:38) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:33:46) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:33:54) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:34:43) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:35:08) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:35:19) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 300ms (View: 0, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:36:13) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 40ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:39:54) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:41:06) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 210ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:41:22) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:41:29) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:41:32) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 310ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:46:29) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:46:39) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:46:52) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:46:55) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:47:33) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:47:47) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 220ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:49:13) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 170ms (View: 160, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:52:45) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:52:56) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:53:00) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 220ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:53:46) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:53:52) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 230ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:54:37) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:54:44) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 220ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 15:57:52) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 15:57:58) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 70ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 192.168.3.1 at 2009-10-03 15:59:01) [GET]
+
+ActionController::RoutingError (No route matches "/images/loading.gif" with {:method=>:get}):
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 192.168.3.1 at 2009-10-03 15:59:01) [GET]
+
+ActionController::RoutingError (No route matches "/images/loading.gif" with {:method=>:get}):
+  passenger (2.2.5) lib/phusion_passenger/rack/request_handler.rb:95:in `process_request'
+  passenger (2.2.5) lib/phusion_passenger/abstract_request_handler.rb:207:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:378:in `start_request_handler'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:336:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/utils.rb:183:in `safe_fork'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:334:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:163:in `start'
+  passenger (2.2.5) lib/phusion_passenger/railz/application_spawner.rb:213:in `start'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:262:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:126:in `lookup_or_add'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:256:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:80:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server_collection.rb:79:in `synchronize'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:255:in `spawn_rails_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:154:in `spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/spawn_manager.rb:287:in `handle_spawn_application'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `__send__'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:352:in `main_loop'
+  passenger (2.2.5) lib/phusion_passenger/abstract_server.rb:196:in `start_synchronously'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:00:14) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:00:19) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:00:23) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 50ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:01:07) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:02:43) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:02:48) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 30ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:03:46) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:03:51) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 40ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:05:10) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:05:16) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 40ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:08:44) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:08:57) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 110ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:09:55) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 190ms (View: 180, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:10:01) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 220ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:10:52) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 90ms (View: 80, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:10:59) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:11:02) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 230ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:11:55) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 80ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:12:55) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 200ms (View: 190, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:13:05) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 80ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:13:24) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 70, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:13:29) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 70ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:14:13) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:14:19) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 70ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:14:30) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 220ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:15:57) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:16:03) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 340ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:18:05) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:18:10) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 220ms (View: 0, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:26:18) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 190ms (View: 180, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:26:23) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 40ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:26:48) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:26:54) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (10.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:26:57) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 30ms (View: 0, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:27:59) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:28:05) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 40ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:28:50) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 70ms (View: 60, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:29:00) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:29:07) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 40ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:29:19) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 180ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:31:20) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:31:36) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:31:39) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 190ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:32:35) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 130ms (View: 40, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:32:40) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 190ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:34:24) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:34:29) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 200ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:37:06) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:37:11) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 1620ms (View: 10, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:38:50) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:38:56) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 210ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:39:26) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:39:31) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:39:34) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 300ms (View: 10, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:40:35) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:40:41) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 200ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:41:57) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:42:03) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 290ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:44:31) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 50ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:44:36) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 220ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:44:41) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:44:49) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:44:53) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 200ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:45:41) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:45:49) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 210ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:46:32) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 60ms (View: 50, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (10.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:46:38) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/bakusho/rss.xml"}
+Completed in 210ms (View: 0, DB: 10) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/bakusho/rss.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:47:29) [GET]
+  Parameters: {"url"=>"feed://www.tbsradio.jp/temeoko/index.xml"}
+Completed in 70ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://www.tbsradio.jp/temeoko/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:53:59) [GET]
+  Parameters: {"url"=>"feed://podfeedsp.podcastjuice.jp/app/rss_convert.cgi?url=http://yp-yol.cocolog-nifty.com/podcast_yomiuri_onlin"}
+Completed in 360ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://podfeedsp.podcastjuice.jp/app/rss_convert.cgi?url=http%3A%2F%2Fyp%2Dyol%2Ecocolog%2Dnifty%2Ecom%2Fpodcast_yomiuri_onlin]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:54:26) [GET]
+  Parameters: {"url"=>"feed://nikkei.hi-ho.ne.jp/podcast/biztrend.xml"}
+Completed in 280ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=feed://nikkei.hi-ho.ne.jp/podcast/biztrend.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:54:43) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 190ms (View: 180, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 16:58:51) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 30ms (View: 20, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 16:58:56) [GET]
+  Parameters: {"url"=>"http://nikkei.hi-ho.ne.jp/podcast/biztrend.xm"}
+Completed in 50ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://nikkei.hi-ho.ne.jp/podcast/biztrend.xm]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 17:02:45) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 20ms (View: 10, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 17:30:19) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 180ms (View: 170, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#proxy to rss (for 192.168.3.1 at 2009-10-03 17:30:26) [GET]
+  Parameters: {"url"=>"http://www.tbsradio.jp/banana/index.xml"}
+Completed in 180ms (View: 0, DB: 0) | 200 OK [http://podcast.colinux/player/proxy?format=rss&url=http://www.tbsradio.jp/banana/index.xml]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 17:36:38) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 40ms (View: 30, DB: 0) | 200 OK [http://podcast.colinux/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing PlayerController#index (for 192.168.3.1 at 2009-10-03 17:41:03) [GET]
+Rendering template within layouts/application
+Rendering player/index
+Completed in 650ms (View: 640, DB: 0) | 200 OK [http://podcast.colinux/]
