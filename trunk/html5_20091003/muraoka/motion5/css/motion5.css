@@ -1,0 +1,39 @@
+body {
+    background-color: #000000;
+    color: #FFFFFF;
+    //color: #000000;
+}
+
+#sideA{
+    position: absolute;
+    left: 490px;
+}
+
+#sideB{
+    position: absolute;
+    left: 490px;
+}
+
+#sideApane, #sideBpane, #fader{
+    height: 180px;
+}
+
+#slider{
+//    margin-top:10px;
+}
+
+#sideAprev, #sideBprev{
+    width: 150px;
+}
+
+#tap{
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+}
+
+video.material-video{
+    width: 100px;
+    margin: 5px;
+    -webkit-user-drag: element;
+}
