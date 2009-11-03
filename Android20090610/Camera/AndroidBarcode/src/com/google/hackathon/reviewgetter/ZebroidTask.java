@@ -27,14 +27,18 @@ public class ZebroidTask extends AsyncTask<String, Integer, HashMap<String, Stri
     protected HashMap<String, String> doInBackground(String... params) {
         String isbn = params[0];
         String amazonDoc = null;
+        HashMap<String, String> map = new HashMap<String, String>();
         try{
     	    amazonDoc = service.searchByISBN(isbn);
         }catch(IOException ex){
-
+        	map.put("error", "ネットワークに接続できません。");
+        	return map;
         }catch(SAXException ex){
-
+        	map.put("error", "パースに失敗しました。");
+        	return map;
         }catch(ParserConfigurationException ex){
-
+        	map.put("error", "パースに失敗しました。");
+        	return map;
         }
 
         int salesRank;
@@ -61,7 +65,7 @@ public class ZebroidTask extends AsyncTask<String, Integer, HashMap<String, Stri
     	    		amazonDoc.indexOf("</DetailPageURL>"));
 
         }
-        HashMap<String, String> map = new HashMap<String, String>();
+
         map.put("rank", String.valueOf(salesRank));
         map.put("reviews", String.valueOf(totalReview));
         map.put("url", bookDetailURL);
@@ -74,10 +78,14 @@ public class ZebroidTask extends AsyncTask<String, Integer, HashMap<String, Stri
     @Override
     protected void onPostExecute(HashMap<String, String> map) {
     	mActivity.stopActivityIndicator();
-        mActivity.setSalesRank(Integer.valueOf(map.get("rank")));
-        mActivity.setTotalReview(Integer.valueOf(map.get("reviews")));
-        mActivity.setBookDetailURL(String.valueOf(map.get("url")));
-        mActivity.setReviewHasDot(Boolean.valueOf(map.get("isDot")));
-        mActivity.showAmazonInfo();
+    	if(map.containsKey("error")){
+    		mActivity.showErrorMsg(map.get("error"));
+    	}else{
+    		mActivity.setSalesRank(Integer.valueOf(map.get("rank")));
+    		mActivity.setTotalReview(Integer.valueOf(map.get("reviews")));
+    		mActivity.setBookDetailURL(String.valueOf(map.get("url")));
+    		mActivity.setReviewHasDot(Boolean.valueOf(map.get("isDot")));
+    		mActivity.showAmazonInfo();
+    	}
     }
 }

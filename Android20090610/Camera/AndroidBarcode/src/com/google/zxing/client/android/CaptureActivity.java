@@ -561,14 +561,9 @@ private String bookDetailURL = null;
 	  progressDialog.cancel();
   }
 
-  public void showDialog(String msg){
-	  progressDialog = new ProgressDialog(this);
-
-	  progressDialog.setTitle(msg);
-	  progressDialog.setIndeterminate(false);
-	  progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-	  progressDialog.setCancelable(false);
-	  progressDialog.show();
+  public void showErrorMsg(String msg){
+	  new AlertDialog.Builder(this).setTitle("エラー")
+	  .setMessage(msg).setPositiveButton("OK", null).show();
   }
 
 }
