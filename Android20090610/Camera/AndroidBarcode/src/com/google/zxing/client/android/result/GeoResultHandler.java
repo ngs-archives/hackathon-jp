@@ -17,47 +17,46 @@
 package com.google.zxing.client.android.result;
 
 import android.app.Activity;
+
 import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.GeoParsedResult;
 import com.google.zxing.client.result.ParsedResult;
 
 public final class GeoResultHandler extends ResultHandler {
 
-  private static final int[] mButtons = {
-      R.string.button_show_map,
-      R.string.button_get_directions
-  };
+	private static final int[] mButtons = { R.string.button_show_map,
+			R.string.button_get_directions };
 
-  public GeoResultHandler(Activity activity, ParsedResult result) {
-    super(activity, result);
-  }
+	public GeoResultHandler(Activity activity, ParsedResult result) {
+		super(activity, result);
+	}
 
-  @Override
-  public int getButtonCount() {
-    return mButtons.length;
-  }
+	@Override
+	public int getButtonCount() {
+		return mButtons.length;
+	}
 
-  @Override
-  public int getButtonText(int index) {
-    return mButtons[index];
-  }
+	@Override
+	public int getButtonText(int index) {
+		return mButtons[index];
+	}
 
-  @Override
-  public void handleButtonPress(int index) {
-    GeoParsedResult geoResult = (GeoParsedResult) mResult;
-    switch (index) {
-      case 0:
-        openMap(geoResult.getGeoURI());
-        break;
-      case 1:
-        getDirections(geoResult.getLatitude(), geoResult.getLongitude());
-        break;
-    }
-  }
+	@Override
+	public void handleButtonPress(int index) {
+		GeoParsedResult geoResult = (GeoParsedResult) mResult;
+		switch (index) {
+		case 0:
+			openMap(geoResult.getGeoURI());
+			break;
+		case 1:
+			getDirections(geoResult.getLatitude(), geoResult.getLongitude());
+			break;
+		}
+	}
 
-  @Override
-  public int getDisplayTitle() {
-    return R.string.result_geo;
-  }
+	@Override
+	public int getDisplayTitle() {
+		return R.string.result_geo;
+	}
 
 }

@@ -18,36 +18,37 @@ package com.google.zxing.client.android;
 
 public final class SearchBookContentsResult {
 
-  private static String sQuery;
+	private static String sQuery;
 
-  private final String mPageNumber;
-  private final String mSnippet;
-  private final boolean mValidSnippet;
+	private final String mPageNumber;
+	private final String mSnippet;
+	private final boolean mValidSnippet;
 
-  public SearchBookContentsResult(String pageNumber, String snippet, boolean validSnippet) {
-    mPageNumber = pageNumber;
-    mSnippet = snippet;
-    mValidSnippet = validSnippet;
-  }
+	public SearchBookContentsResult(String pageNumber, String snippet,
+			boolean validSnippet) {
+		mPageNumber = pageNumber;
+		mSnippet = snippet;
+		mValidSnippet = validSnippet;
+	}
 
-  public static void setQuery(String query) {
-    sQuery = query;
-  }
+	public static void setQuery(String query) {
+		sQuery = query;
+	}
 
-  public String getPageNumber() {
-    return mPageNumber;
-  }
+	public String getPageNumber() {
+		return mPageNumber;
+	}
 
-  public String getSnippet() {
-    return mSnippet;
-  }
+	public String getSnippet() {
+		return mSnippet;
+	}
 
-  public boolean getValidSnippet() {
-    return mValidSnippet;
-  }
+	public boolean getValidSnippet() {
+		return mValidSnippet;
+	}
 
-  public static String getQuery() {
-    return sQuery;
-  }
+	public static String getQuery() {
+		return sQuery;
+	}
 
 }
