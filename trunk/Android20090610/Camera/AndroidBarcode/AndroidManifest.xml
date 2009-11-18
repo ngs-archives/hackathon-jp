@@ -24,7 +24,6 @@ versionName is 2.31, 2.4, or 3.0. -->
           android:versionCode="13">
   <application
                android:label="@string/app_name"
-               android:icon="@drawable/icon"
                android:debuggable="true">
     <activity android:name=".CaptureActivity"
               android:screenOrientation="landscape"

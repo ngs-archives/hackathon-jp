@@ -18,59 +18,60 @@ package com.google.zxing.client.android.result;
 
 import android.app.Activity;
 import android.telephony.PhoneNumberUtils;
+
 import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.SMSParsedResult;
 
 public final class SMSResultHandler extends ResultHandler {
 
-  private static final int[] mButtons = {
-      R.string.button_sms,
-      R.string.button_mms
-  };
+	private static final int[] mButtons = { R.string.button_sms,
+			R.string.button_mms };
 
-  public SMSResultHandler(Activity activity, ParsedResult result) {
-    super(activity, result);
-  }
+	public SMSResultHandler(Activity activity, ParsedResult result) {
+		super(activity, result);
+	}
 
-  @Override
-  public int getButtonCount() {
-    return mButtons.length;
-  }
+	@Override
+	public int getButtonCount() {
+		return mButtons.length;
+	}
 
-  @Override
-  public int getButtonText(int index) {
-    return mButtons[index];
-  }
+	@Override
+	public int getButtonText(int index) {
+		return mButtons[index];
+	}
 
-  @Override
-  public void handleButtonPress(int index) {
-    SMSParsedResult smsResult = (SMSParsedResult) mResult;
-    switch (index) {
-      case 0:
-        sendSMS(smsResult.getNumber(), smsResult.getBody());
-        break;
-      case 1:
-        sendMMS(smsResult.getNumber(), smsResult.getSubject(), smsResult.getBody());
-        break;
-    }
-  }
+	@Override
+	public void handleButtonPress(int index) {
+		SMSParsedResult smsResult = (SMSParsedResult) mResult;
+		switch (index) {
+		case 0:
+			sendSMS(smsResult.getNumber(), smsResult.getBody());
+			break;
+		case 1:
+			sendMMS(smsResult.getNumber(), smsResult.getSubject(), smsResult
+					.getBody());
+			break;
+		}
+	}
 
-  @Override
-  public CharSequence getDisplayContents() {
-    SMSParsedResult smsResult = (SMSParsedResult) mResult;
-    StringBuffer contents = new StringBuffer();
-    ParsedResult.maybeAppend(PhoneNumberUtils.formatNumber(smsResult.getNumber()), contents);
-    ParsedResult.maybeAppend(smsResult.getVia(), contents);
-    ParsedResult.maybeAppend(smsResult.getSubject(), contents);
-    ParsedResult.maybeAppend(smsResult.getBody(), contents);
-    ParsedResult.maybeAppend(smsResult.getTitle(), contents);
-    return contents.toString();
-  }
+	@Override
+	public CharSequence getDisplayContents() {
+		SMSParsedResult smsResult = (SMSParsedResult) mResult;
+		StringBuffer contents = new StringBuffer();
+		ParsedResult.maybeAppend(PhoneNumberUtils.formatNumber(smsResult
+				.getNumber()), contents);
+		ParsedResult.maybeAppend(smsResult.getVia(), contents);
+		ParsedResult.maybeAppend(smsResult.getSubject(), contents);
+		ParsedResult.maybeAppend(smsResult.getBody(), contents);
+		ParsedResult.maybeAppend(smsResult.getTitle(), contents);
+		return contents.toString();
+	}
 
-  @Override
-  public int getDisplayTitle() {
-    return R.string.result_sms;
-  }
+	@Override
+	public int getDisplayTitle() {
+		return R.string.result_sms;
+	}
 
 }
