@@ -72,13 +72,20 @@ function capture() {
 	});
 }
 
+function log(msg) {
+	document.body.innerHTML += "<div>" + msg + "</div>"
+}
+
 function download() {
+	log("download");
 	chrome.tabs.getSelected(null, function(tab) {
+		log("selected" + tab.id + ":" + tab.url + ":" + tab.title);
 		chrome.tabs.executeScript(
 			tab.id,
 			{
-				code: "document.body.innerHTML += 'aaaa';"/*function() {
-					console.log("aaaa");
+				code: "document.body.innerHTML += 'aaaa';"
+				/*
+				function() {
 					var scriptElem = document.createElement("script");
 					var script = capture.toString() + "; capture();";
 					scriptElem.textContent = script;
@@ -87,6 +94,7 @@ function download() {
 				}.toString()*/
 			},
 			function() {
+				log("executed");
 			}
 		);
 	});
