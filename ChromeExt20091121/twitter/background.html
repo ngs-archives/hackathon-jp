@@ -11,7 +11,9 @@
 
 
 			// NEED valid id, password
-			var basicAuth = makeBasicAuthKey(id, password);
+			var userid = localStorage.userid;
+			var password = localStorage.password;
+			var basicAuth = makeBasicAuthKey(userid, password);
 
 
 			/** CODE FROM OFFICIAL SAMPLE CODE: GMAIL CHECKER **/
@@ -183,6 +185,7 @@
 					}
 			
 					xhr.open("GET", URL_TWITTER_API_HOME+URL_TWITTER_API_HOME_OPTIONS, true);
+					xhr.setRequestHeader("Authorization", basicAuth);
 					xhr.send(null);
 				} catch(e) {
 					console.log("ex: " + e);
