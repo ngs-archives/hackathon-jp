@@ -22,11 +22,11 @@
 			if ( !localStorage.cacheInfo ) {
 				localStorage.cacheInfo = "{}";
 			}
-			self.cache_ = JSON.parse(localStorage.cacheInfo);
+			this.cache_ = JSON.parse(localStorage.cacheInfo);
 		},
 		add: function (key, value) {
-			self.cache_[key] = value;
-			localStorage.cacheInfo = JSON.stringify(self.cache_);
+			this.cache_[key] = value;
+			localStorage.cacheInfo = JSON.stringify(this.cache_);
 		},
 		onDownloadComplete: function (args) {
 			var u = args.url;
