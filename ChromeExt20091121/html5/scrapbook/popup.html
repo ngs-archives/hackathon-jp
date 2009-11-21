@@ -101,13 +101,21 @@ function download() {
         var i = 0;
         resourceStore.capture(urlList, function(url, success, captureId) {
           i++;
+          /*
+          document.getElementById("progress").style.display = "block";
+          var captured = document.getElementById("captured");
+          var total = document.getElementById("total");
+          
+          captured.innerHTML = i;
+          total.innerHTML = urlList.length;
+          */
           if (urlList.length == i) {
               callback();
           }
         });
 	      }
 	      capturePage(function() {
-	        //alert("完了！");
+	        alert("ページの取り込みが完了しました。");
 	        initEvent();
 	      });
 	    }
@@ -125,10 +133,7 @@ function download() {
         code: code
       },
       function() {
-        chrome.tabs.create({
-        	url: chrome.extension.getURL("index.html"),
-        	selected: true
-        });
+        log("Completed!");
       }
     );
   });
@@ -151,5 +156,8 @@ function showScrapbook () {
     <ul id="controls">
       <li id="download" onclick="download();">Download</li>
     </ul>
+    <div id="progress" style="display: none;">
+    	<span id="captured"></span> / <span id="total"></span> 取り込み完了...
+    </div>
   </div>
 </body>
