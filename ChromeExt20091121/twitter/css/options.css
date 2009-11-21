@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+#title {
+  font-size:18px;
+}
+
+#login {
+  width : 240px;
+}
+
+#password {
+  width : 240px;
+}
+#interval {
+  width : 30px;
+}
+
+#account {
+}
+
+#option {
+}
