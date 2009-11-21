@@ -9,11 +9,16 @@ function log(msg) {
 }
 
 function download() {
-    chrome.tabs.captureVisibleTab(1, function(dataurl) {
-        var src = JSON.parse(localStorage.cacheInfo);
+    chrome.tabs.captureVisibleTab(null, function(dataurl) {
+        var src = {};
         if (dataurl != null) {
             src["capPict"] = dataurl;
-            localStorage.cacheInfo = JSON.stringify(src);
+						var scrapbook = chrome.self.getBackgroundPage().scrapbook;
+						scrapbook.init();
+
+						chrome.tabs.getSelected( null, function (tab) {
+							scrapbook.add(tab.url, src);
+						} );
 
             log("Cap Success");
         }
