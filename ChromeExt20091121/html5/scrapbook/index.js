@@ -12,7 +12,7 @@ window.onload = function(){
 	//alert('hello world');
 	
 	var mainList = $(mainListId);
-	var cachedInfo = window.localStorage.cachedInfo;
+	var cachedInfo = JSON.parse(window.localStorage.cachedInfo);
 
 	for(var pageUrl in cachedInfo){
 		var cachedInfoElement = cachedInfo[pageUrl];
