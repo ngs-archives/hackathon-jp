@@ -3,33 +3,59 @@
 	<head>
 		<meta http-equiv='Content-Type' content='application/xhtml+xml; charset=UTF-8' />
 		<meta http-equiv='Content-Script-Type' content='text/javascript' />
-		<title>Twitter client</title>
-		<link rel="stylesheet" type="text/css" href="options.css" />
+		<title>Twitter client Option</title>
+		<link rel="stylesheet" type="text/css" href="css/options.css" />
 		<script type='text/javascript'>
 			var userid = '';
 			var password = '';
-			var init = function(){
+			var interval = '10';
+			var restore_options = function(){
 				userid = localStorage.userid;
 				password = localStorage.password;
+				interval = localStorage.interval;
 			
 				document.getElementById('userid').value = userid;
 				document.getElementById('password').value = password;
-			
+				document.getElementById('interval').value = interval;
 				alert("true");
 			}
 
-			function save() {
-				return true;
+			var save_options = function() {
+				userid = document.getElementById("userid").value;
+				password = document.getElementById("password").value;
+				interval = document.getElementById("interval").value;
+	
+				var message = "Options Saved."
+				if (userid != '' || password != '' || interval != '') {
+					localStorage.userid = userid;
+					localStorage.password = password;
+			    localStorage.interval = interval;
+					message = "Options Saved."
+				}
+	  
+				var status = document.getElementById("status");
+				status.innerHTML = "Options Saved.";
+				setTimeout(function() {
+					status.innerHTML = "";
+				}, 750);
 			}
-		</script>
-	</head>
-	<body onload="init()">
-		<dl>
-			<dt>ユーザー名</dt>
-				<dd><input type='text' id="userid" onchange='localStorage.userid = document.getElementById("userid").value;' /></dd>
-			<dt>パスワード</dt>
-				<dd><input type="password" id='password' onchange='localStorage.password = document.getElementById("password").value' /></dd>
-		</dl>
-		<button type='submit' onclick='save();'>保存</button>
-	</body>
+	</script>
+</head>
+<body onload="restore_options()">
+	<section>
+		<h1 id="title">Twitter Client</h1>
+		<div id="account">
+			<dl>
+				<dt>ユーザー名かメールアドレス</dt>
+					<dd><input type="test" id="userid"></dd>
+				<dt>パスワード</dt>
+					<dd><input type="password" id="password"></dd>
+  			<dt>再読込み間隔</dt>
+          <dd><input type="number" id="interval">sec</dd>
+			</dl>
+		</div>
+  	<button onclick="save_options()">保存</button>
+		<span id="status"></span>
+	</section>
+</body>
 </html>

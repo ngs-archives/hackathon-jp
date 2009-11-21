@@ -17,6 +17,7 @@
 			// NEED valid id, password
 			var userid = localStorage.userid;
 			var password = localStorage.password;
+			pollInterval = (localStorage.interval > 0) ? localStorage.interval : 10;
 			var basicAuth = makeBasicAuthKey(userid, password);
 
 
