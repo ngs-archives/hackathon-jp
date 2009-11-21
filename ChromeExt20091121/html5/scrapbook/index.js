@@ -16,6 +16,7 @@ window.onload = function(){
 
 	for(var pageUrl in cachedInfo){
 		var cachedInfoElement = cachedInfo[pageUrl];
+		console.log(cachedInfo);
 		$('<li />')
 		.append(
 			$('<img/>')
