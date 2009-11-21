@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+<!--
+function jikoku() {
+    dd = new Date();
+    document.F1.T1.value = dd.toLocaleString();
+    window.setTimeout("jikoku()", 1000);
+}
+
+// -->
+</script>
+<meta charset="utf-8">
+</head>
+<body onload="jikoku()">
+<div class="toolstrip-button">
+   <form name="F1" action="#">
+   <input type="text" name="T1" size=50>
+</form>
+</div>
+</body>
+</html>

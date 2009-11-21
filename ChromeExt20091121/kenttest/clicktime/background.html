@@ -1,0 +1,12 @@
+<script>
+var clicktime
+
+function init() {
+   clicktime = new Date;
+}
+
+
+chrome.tabs.onUpdated.addListener( function(tabid , changeinfo, tab){
+   clicktime.getDate();
+});
+</script>
