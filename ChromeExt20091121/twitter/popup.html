@@ -17,6 +17,8 @@
 				color: red;
 			}
 			#header {
+				width: 100%;
+				padding: 4px;
 				border-bottom: 1px solid grey;
 			}
 			#header img {
@@ -25,6 +27,7 @@
 			#header h1 {
 				font-size: large;
 				float:right;
+				border-bottom: 1px solid lightgrey;
 			}
 			#header p {
 				font-size: small;
@@ -33,14 +36,29 @@
 			#header ul li {
 				font-size: x-small;
 			}
+			#header ul {
+				margin: 0;
+				padding: 0;
+			}
+			#header li {
+				list-style: none;
+			}
 
-
+			#main {
+				width: 100%;
+				height: 320px;
+				overflow: scroll;
+			}
+			#main div {
+				padding: 4px;
+			}
 			#main img {
 				float: left;
 			}
 			#main h2 {
 				font-size: small;
 				float:right;
+				border-bottom: 1px solid lightgrey;
 			}
 			#main p {
 				font-size: small;
@@ -55,6 +73,12 @@
 			}
 			#main li {
 				list-style: none;
+			}
+
+			#footer {
+				width: 100%;
+				padding: 4px;
+				border-top: 1px solid grey;
 			}
 
 			.bg_lightblue {
@@ -77,7 +101,7 @@
 
 				document.getElementById('user_profile_image').src = user_profile_image_url;
 				document.getElementById('user_profile_image').title = userid;
-				document.getElementById('user_name').innerHTML = user_name;
+				document.getElementById('user_name').innerHTML = user_name + " (" + user_screen_name +")";
 				document.getElementById('user_name').title = user_screen_name;
 				document.getElementById('user_text').innerHTML = user_text;
 				document.getElementById('user_created_at').innerHTML = user_created_at;
@@ -99,7 +123,7 @@
 								bgcolor = 'bg_white';
 							}
 
-							document.getElementById('main').innerHTML += "<div class='"+ bgcolor +"'><img src='" + profile_image_url + "' width='24' height='24' alt='img' title='" + screen_name + "' /><h2>" + name + "</h2><p>" + text + "<p><ul><li>" + created_at + "</li><li>" + source + "</li></ul></div>";
+							document.getElementById('main').innerHTML += "<div class='"+ bgcolor +"'><img src='" + profile_image_url + "' width='32' height='32' alt='img' title='" + screen_name + "' /><h2>" + name + "</h2><p>" + text + "<p><ul><li>" + created_at + "</li><li>" + source + "</li></ul></div>";
 						}
 					}
 				}
@@ -111,7 +135,7 @@
 	<body onload='init();'>
 		<div id='content'>
 			<div id='header'>
-				<img id='user_profile_image' src='images/logo_128x128.png' width='32' height='32' alt='logo' title='' />
+				<img id='user_profile_image' src='images/logo_128x128.png' width='56' height='56' alt='logo' title='' />
 				<h1 id='user_name' title=''></h1>
 				<p id='user_text'></p>
 				<ul>
@@ -121,9 +145,14 @@
 			<div id='main'>
 			</div>
 			<div id='footer'>
-				<ul>
+				<dl>
+					<dt>What are you doing?</dt>
+						<dd><input type='text' size='48' maxlength='140' name='tweet' /></dd>
+						<dd><button type='submit'>Tweet</button></dd>
+				</dl>
+				<!-- ul>
 					<li><a href='options.html'>options</a></li>
-				</ul>
+				</ul -->
 			</div>
 		</div>
 	</body>
