@@ -1,0 +1,16 @@
+{
+    "name": "Metrist - Twitter Client",
+    "version": "0.13.6",
+    "description": "Twitter client for the Google Chrome broswer",
+    "background_page": "background.html",
+    "browser_action": {
+        "default_icon": "assets/images/icon.png",
+        "default_title": "Metrist - Twitter Client",
+        "popup": "popup.html"
+    },
+    "permissions": [
+        "tabs", "bookmarks", "http://*/*", "https://*/*"
+    ],
+    "options_page": "options.html",
+    "update_url": "http://chrome-metrist.googlecode.com/svn/update.xml"
+}

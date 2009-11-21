@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="assets/css/reset-min.css" rel="stylesheet" type="text/css" /> 
+        <link href="assets/css/options.css" rel="stylesheet" type="text/css" /> 
+    </head>
+    <body>
+        <div id="page">
+            <div id="header">
+                <h1>Metrist Options</h1>
+            </div>
+            <div id="content">
+                <form action="#" method="post" id="formMain">
+                    <h3>Account</h3>
+                    <ul>
+                        <li><label>Username:</label>
+                        <input type="text" value="" id="conf_twitter_username" />
+                            <p>Your twitter's username</p>
+                        </li>
+                        <li><label>Password:</label>
+                            <input type="password" value="" id="conf_twitter_password" />
+                            <p>Your twitter's password</p>
+                        </li>
+                    </ul>
+
+                    <h3>Request</h3>
+                    <ul>
+                        <li><label>Frequency:</label>
+                        Request tweets from twitter each <select id="conf_per_request_time">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                            </select> minutes.
+                            <p>Twitter limits usage of their API per account.
+                            Currently, 150 requests per minutes are allowed.  </p>
+                        </li>
+                        <li><label>Timeout:</label>
+                            <input class="small" type="text" value="5000" maxlength="4"
+                                id="conf_request_timeout" /> milliseconds
+                            <p>Please adjust timeout according to your network.
+                            status. </p>
+                            <p><em>5000 milliseconds</em> is a good choice by default.</p>
+                        </li>
+                    </ul>
+
+                    <h3>Advance</h3>
+                    <ul>
+                        <li><label>Request API:</label>
+                            <input type="text" value="" id="conf_twitter_request_api" />
+                            <p>By default, Metrist will use twitter's offical API
+                            address <em>'http(s)://twitter.com'.</em></p>
+                            <p>If you have third party API which can
+                            correct request tweets from twitter, this option is very useful for you.</p>
+                            <p>PS, pls let this option value <em>DO NOT</em> add the trailing slash.</p>
+                        </li>
+                    </ul>
+
+                    <h3>LocalStorage</h3>
+                    <ul>
+                        <li><button id="act:clear_tweets">Clear Local Tweets Cache</a></li>
+                    </ul>
+
+                    <h3>Developer</h3>
+                    <ul>
+                        <li><label>Console:</label>
+                            <input type="checkbox" id="conf_use_console"
+                            checked="checked" />Show Metrist's console
+                            <p><button id="act:clear_console">Clear Console Data</button></p>
+                        </li>
+                    </ul>
+
+                    <h3>Other</h3>
+                    <ul>
+                        <li><button type="button" id="act:visit_homepage">Visit Homepage</button></li>
+                    </ul>
+
+                    <div class="submit">
+                        <button type="submit">Finish!</button>
+                    </div>
+                </form>
+            </div>
+            <div id="footer">
+                $Id: options.html 314 2009-11-18 02:32:46Z i.feelinglucky $
+            </div>
+            <script type="text/javascript" src="assets/yui-special/yahoo.js"></script>
+            <script type="text/javascript" src="assets/yui-special/dom.js"></script>
+            <script type="text/javascript" src="assets/yui-special/event.js"></script>
+            <script type="text/javascript" src="assets/yui-special/animation.js"></script>
+            <script type="text/javascript" src="assets/scripts/common.js"></script>
+            <script type="text/javascript" src="assets/scripts/twitter.js"></script>
+            <script type="text/javascript">
+                ~function() {
+                    var Y = YAHOO, Lang = Y.lang, Util = Y.util, Dom = Util.Dom, Event = Util.Event;
+
+                    var defaultFields = {
+                        'conf_twitter_username': '',
+                        'conf_twitter_password': '',
+                        'conf_per_request_time': 10,
+                        'conf_twitter_request_api': 'https://twitter.com',
+                        'conf_use_console' : 'no',
+                        'conf_request_timeout' : '10000'
+                    };
+
+                    for(items in defaultFields) {
+                        var input = Dom.get(items);
+                        if (input) {
+                            switch(input.nodeName.toLowerCase()) {
+                                case 'input':
+                                    if (/text|password/.test(input.type)) {
+                                        input.value = localStorage[items] || defaultFields[items];
+                                    } else if (input.type == 'checkbox')  {
+                                        input.checked = (localStorage[items] || defaultFields[items]) == 'yes' ? true : false;
+                                    }
+                                    break;
+                                case 'select':
+                                    for(i in input.options) {
+                                        var value = localStorage[items] || defaultFields[items];
+                                        if (input.options[i].value == value) {
+                                            input.options[i].selected = 'selected';
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    input.value = localStorage[items] || defaultFields[items];
+                                    break;
+                            }
+                        }
+                    };
+
+                    Event.on('act:clear_console', 'click', function(e){
+                        Event.stopEvent(e);
+                        var target = Event.getTarget(e);
+                        logger.clear();
+                        Dom.setAttribute(target, 'disabled', 'disabled');
+                    });
+
+                    Event.on('act:clear_tweets', 'click', function(e) {
+                        Event.stopEvent(e);
+                        var target = Event.getTarget(e);
+                        try {
+                            ['friends', 'replies', 'directs'].forEach(function(c) {
+                                Tweets.clearList(c);
+                            });
+                        } catch(e) {
+                            console.error('isTwitterLogin: Tweets.clearList error');
+                        }
+                        Dom.setAttribute(target, 'disabled', 'disabled');
+                    });
+
+                    Event.on('act:visit_homepage', 'click', function(e) {
+                        Event.stopEvent(e);
+                        chrome.tabs.create({url: 'http://lab.gracecode.com/metrist/'});
+                    });
+
+                    Event.on('formMain', 'submit', function(e) {
+                        Event.stopEvent(e);
+                        for(items in defaultFields) {
+                            var input = Dom.get(items);
+                            if (input) {
+                                switch(input.nodeName.toLowerCase()) {
+                                    case 'input':
+                                        if (/text|password/.test(input.type)) {
+                                            localStorage[items]  = input.value;
+                                        } else if (input.type == 'checkbox')  {
+                                            localStorage[items] = input.checked ? 'yes' : 'no';
+                                        }
+                                        break;
+                                    case 'select': default:
+                                        localStorage[items] = input.value;
+                                        break;
+                                }
+                            }
+                        };
+
+                        // ReStart Server;
+                        try {
+                            var backgroundPage = chrome.extension.getBackgroundPage();
+                            var Server = backgroundPage.Server;
+                            Server.restart();
+                        } catch(e) {
+                            logger.error('Options: Restart Server Error');
+                        }
+                        window.close();
+                    });
+                }();
+            </script>
+        </div>
+    </body>
+</html>

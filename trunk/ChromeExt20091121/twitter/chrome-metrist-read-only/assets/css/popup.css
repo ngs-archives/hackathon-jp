@@ -1,0 +1,360 @@
+/* vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix fenc=utf8 nobomb: */
+/**
+ * Metrist Style
+ *
+ * @author mingcheng<i.feelinglucky#gmail.com>
+ * @date   2009-11-14
+ * @link   http://www.gracecode.com/
+ */
+
+body {
+    font-size: 12px;
+    font-color: #333;
+    font-family:Helvetica,Arial,sans-serif;
+    background: #d5e4f7;
+    padding: 2px;
+    width: 350px;
+    height: 515px;
+    overflow: hidden;
+}
+
+textarea, button {
+    border: 1px solid #b7c5e3;
+    margin: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#page {
+    position: relative;
+    width: 350px;
+}
+
+#page #content {
+    height: 400px;
+    overflow: auto;
+    border: 1px solid #b7c5e3;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    overflow: hidden;
+    background: #fff;
+}
+
+#page #content > div {
+    width: 2000px;
+    overflow: hidden;
+}
+
+#page #content .console,
+#page #content .tweets {
+    height: 400px;
+    width: 348px;
+    overflow: auto;
+    float: left;
+}
+
+#page #content li {
+    word-break: break-all;
+    opacity: .9;
+}
+
+#page #content .tweets li {
+    position: relative;
+    min-height: 30px;
+    padding: 2px 2px 2px 60px;
+    border-bottom: 1px solid #b7c5e3;
+    margin: 1px 1px;
+    color: #333;
+}
+
+#page #content .tweets li.me {
+    background: #f0f5fb;
+}
+
+#page #content .tweets li.reply {
+    background: #bdde84;
+}
+
+#page #content .tweets li.direct {
+    background: #ffd88d;
+}
+
+#page #content .tweets li a:visited,
+#page #content .tweets li a:link {
+    text-decoration: none;
+}
+
+#page #content .tweets li .nick {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#page #content .tweets li .nick a {
+    color: #000;
+}
+
+#page #content .tweets li .avatar {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    -webkit-user-select: none;
+}
+
+#page #content .tweets li .avatar img {
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   -moz-box-shadow: 0 1px 1px #666;
+   -webkit-box-shadow: 0 1px 1px #666;
+}
+
+#page #content .tweets li .time {
+    position: absolute;
+    right: 5px;
+    top: 2px;
+}
+
+#page #content .tweets li .act {
+    text-align: right;
+    padding: 0 5px;
+    visibility: hidden;
+}
+
+#page #content .tweets li a:link,
+#page #content .tweets li a:visited {
+    color: #39c;
+}
+
+#page #content .tweets li .nick a:link,
+#page #content .tweets li .nick a:visited {
+    color: #000;
+}
+
+#page #content .tweets li a:hover,
+#page #content .tweets li .nick a:hover {
+    color: #36c;
+}
+
+#page #content .tweets li:hover {
+    opacity: 1;
+}
+
+#page #content .tweets li:hover .act {
+    visibility: visible;
+}
+
+#page #content .tweets li .act a {
+    margin-left: 5px;
+    color: #000;
+}
+
+#channel {
+    overflow: hidden;
+    margin: -3px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    list-style: none;
+}
+
+#refresh,
+#channel li {
+    float: left;
+    color: #555;
+    font-size: 14px;
+    border: 1px solid #d5e4f7;
+    margin: 0 5px 0 0;
+    padding: 2px 2px;
+    cursor: default;
+    -webkit-border-radius: 5px;
+    -webkit-user-select: none;
+    -moz-border-radius: 5px;
+    -moz-user-select: none;
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    text-indent: -999em;
+    background-position: 2px 2px;
+    background-repeat: no-repeat;
+}
+
+
+
+#channel li.friends {
+    background-image: url('../images/home.png');
+}
+
+#channel li.replies {
+    background-image: url('../images/replies.png');
+}
+
+#channel li.directs {
+    background-image: url('../images/directs.png');
+}
+
+#channel li.console {
+    background-image: url('../images/console.png');
+}
+
+#refresh {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    display: inline-block;
+    background-image: url(../images/reload.png);
+    margin: 0;
+}
+
+
+#refresh:hover, #channel li:hover, #channel li.selected {
+    background-color: #f0f5fb;
+    color: #495dbc;
+    border: 1px solid #b7c5e3;
+}
+
+#form {
+    position: relative;
+    margin: 2px 0 0 0;
+}
+
+#form #tweet {
+
+}
+
+#form #tweet textarea {
+    height: 64px;
+    width: 320px;
+    resize: none;
+    background: #f0f5fb;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    padding: 2px;
+    font-size: 12px;
+    position: relative;
+    z-index: 10;
+}
+
+#form #tweet textarea:focus {
+    background: #fff;
+}
+
+#form #tweet span {
+    color: #123272;
+}
+
+#form #tweet textarea.full {
+    border-color: #f60;
+}
+
+#form #tweet .action {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 22px;
+}
+
+#form #tweet .action button {
+    display: block;
+    width: 22px;
+    height: 22px;
+    overflow: hidden;
+    margin: 0px 0 5px 0;
+    text-indent: -9999em;
+    outline: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    padding: 2px;
+}
+
+#form #tweet .action #submit {
+    background: #f0f5fb url(../images/update.png) no-repeat top left;
+}
+
+#form #tweet .action #config {
+    background: #f0f5fb url(../images/config.png) no-repeat top left;
+}
+
+
+#loading {
+    position: absolute;
+    left: 0px;
+    z-index: 99;
+    background: #fff url(../images/loading.gif) no-repeat center center;
+    opacity: .85;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+}
+
+#loading.loading-mini {
+    top: 405px;
+    height: 115px;
+}
+
+.console {
+    font-size: 11px;
+}
+
+.console li {
+    border: 1px solid #000;
+    background: #ccc;
+    margin: 0 0 1px 0;
+    white-space: pre;
+    padding: 0 5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    overflow: hidden;
+}
+
+.console li.log {
+
+}
+
+.console li.warn {
+    border: 1px solid #f60;
+    color: #fff;
+    background: #f90;
+}
+
+.console li.error {
+    border: 1px solid red;
+    background: yellow;
+    color: red;
+}
+
+#notice {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    z-index: 999;
+}
+
+#notice span {
+    background: #f60;
+    display: inline-block;
+    padding: 2px 5px;
+    color: #fff;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+#status {
+    display: none;
+    background: #f0f5fb;
+    border: 1px solid #b7c5e3;
+    font-size: 9px;
+    padding: 1px 5px;
+    margin: 3px 0px 0px 0px;
+    -webkit-user-select: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
