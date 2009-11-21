@@ -12,11 +12,14 @@ window.onload = function(){
 	//alert('hello world');
 	
 	var mainList = $(mainListId);
-	var cachedInfo = JSON.parse(window.localStorage.cachedInfo);
+	var cachedInfo = JSON.parse(window.localStorage.cacheInfo);
 
 	for(var pageUrl in cachedInfo){
 		var cachedInfoElement = cachedInfo[pageUrl];
 		$('<li />')
+		.append(
+			$('<img/>')
+			.attr('src', cachedInfoElement.capPict))
 		.append(
 			$('<a/>')
 			.attr('href', cachedInfoElement.url)
