@@ -107,7 +107,7 @@ function download() {
         });
 	      }
 	      capturePage(function() {
-	        alert("äÆóπÅI");
+	        //alert("äÆóπÅI");
 	        initEvent();
 	      });
 	    }
@@ -125,7 +125,10 @@ function download() {
         code: code
       },
       function() {
-        log("executed");
+        chrome.tabs.create({
+        	url: chrome.extension.getURL("index.html"),
+        	selected: true
+        });
       }
     );
   });
