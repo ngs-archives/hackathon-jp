@@ -10,6 +10,10 @@
 			var requestTimeout = 1000 * 5;	// 5 seconds
 
 
+			// NEED valid id, password
+			var basicAuth = makeBasicAuthKey(id, password);
+
+
 			/** CODE FROM OFFICIAL SAMPLE CODE: GMAIL CHECKER **/
 			
 			var animationFrames = 36;
@@ -255,6 +259,19 @@
 				goToTimeline();
 			});
 */
+
+
+
+
+function makeBasicAuthKey(id, password) {
+	if (id != '' && password != '') {
+		basic = base64encode(id + ':' + password);
+		return "Basic " + basic;
+	}
+	return '';
+}
+
+
 		</script>
 	</head>
 	<body onload="init()">
