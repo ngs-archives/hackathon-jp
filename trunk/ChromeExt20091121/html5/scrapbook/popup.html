@@ -1,7 +1,96 @@
 <link rel="stylesheet" href="popup.css" type="text/css" charset="utf-8">
 
 <script>
+function capture() {
+	(function gear_init() {
+	  if (window.google && google.gears) {
+	    return;
+	  }
+	  var factory = null;
+	  if ((typeof navigator.mimeTypes != 'undefined')
+	       && navigator.mimeTypes["application/x-googlegears"]) {
+	    factory = document.createElement("object");
+	    factory.style.display = "none";
+	    factory.width = 0;
+	    factory.height = 0;
+	    factory.type = "application/x-googlegears";
+	    document.documentElement.appendChild(factory);
+	  }
+	  if (!factory) {
+	    return;
+	  }
+	  if (!window.google) {
+	    google = {};
+	  }
+	  if (!google.gears) {
+	    google.gears = {factory: factory};
+	  }
+	})();
 
+	function initEvent() {
+		var ev = document.createEvent('Event');
+		ev.initEvent('ScrapBook.downloadComplete', true, true);
+		document.dispatchEvent(ev);
+	}
+
+	function capturePage(callback) {
+	    // CSS
+	    // 画像
+	    // もとのHTML
+	    // 上のURLを全部かき集めて配列に入れておく
+	    var localServer = google.gears.factory.create('beta.localserver');
+	    var resourceStore = localServer.createStore("scrapbook");
+	    
+	    var urlList = [];
+	    // 画像
+	    for (var i = 0; i < document.images.length; i++) {
+		var image = document.images[i];
+		if (image.src) {
+		    urlList.push(image.src);
+		}
+	    }
+	    // 外部スタイルシート
+	    for (var i = 0; i < document.styleSheets.length; i++) {
+		var styleSheet = document.styleSheets[i];
+		if (styleSheet.href) {
+		    urlList.push(styleSheet.href);
+		}
+	    }
+	    // もとのHTML
+	    urlList.push(document.URL);
+	    // 全部取り込んで、全部終わったらcallbackを呼び出す
+	    var i = 0;
+	    resourceStore.capture(urlList, function(url, success, captureId) {
+		i++;
+		if (urlList.length == i) {
+		    callback();
+		}
+	    });
+	}
+	capturePage(function() {
+		initEvent();
+	});
+}
+
+function download() {
+	chrome.tabs.getSelected(null, function(tab) {
+		chrome.tabs.executeScript(
+			tab.id,
+			{
+				code: "document.body.innerHTML += 'aaaa';"/*function() {
+					console.log("aaaa");
+					var scriptElem = document.createElement("script");
+					var script = capture.toString() + "; capture();";
+					scriptElem.textContent = script;
+					document.body.appendChild(scriptElem);
+					
+				}.toString()*/
+			},
+			function() {
+			}
+		);
+	});
+}
 </script>
 
 <body>
@@ -15,7 +104,7 @@
     </div>
     
     <ul id="controls">
-      <li id="downlod">Download</li>
+      <li id="download"><button onclick="download();">Download</button></li>
     </ul>
   </div>
 </body>
