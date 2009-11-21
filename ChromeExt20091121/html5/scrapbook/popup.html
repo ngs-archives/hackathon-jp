@@ -130,12 +130,15 @@ function download() {
     );
   });
 }
+function showScrapbook () {
+	window.open("./index.html", "_blank", "");
+}
 </script>
 
 <body>
   <div id="container">
     <ul id="navigation">
-      <li id="show">Show ScrapBook</li>
+			<li id="show" onclick="showScrapbook()">Show ScrapBook</li>
     </ul>
     
     <div id="settings">
