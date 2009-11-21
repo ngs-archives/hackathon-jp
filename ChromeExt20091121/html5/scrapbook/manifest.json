@@ -1,4 +1,5 @@
 {
+  "background_page": "background.html",
   "name": "ScrapBook",
   "version": "1.0",
   "description": "ScrapBook for Chrome",
@@ -12,9 +13,7 @@
       "js": ["jquery.js", "scrapbook.js"]
     }
   ],
-  "background_page": "background.html",
   "permissions": [
     "tabs"
   ]
 }
-
