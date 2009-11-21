@@ -9,6 +9,21 @@ function log(msg) {
 }
 
 function download() {
+    chrome.tabs.captureVisibleTab(1, function(dataurl) {
+        var src = JSON.parse(localStorage.cacheInfo);
+        if (dataurl != null) {
+            src["capPict"] = dataurl;
+            localStorage.cacheInfo = JSON.stringify(src);
+
+            log("Cap Success");
+        }
+        else {
+            log("Cap faild");
+        }
+    }
+        );
+  
+
   log("download");
   var code = function capt() {
     function capture() {
