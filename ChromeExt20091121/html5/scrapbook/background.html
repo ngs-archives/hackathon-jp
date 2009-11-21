@@ -29,7 +29,12 @@
 			}
 		},
 		add: function (key, value) {
-			this.cache_[key] = value;
+			if ( this.cache_[key] ) {
+				for ( var k in value ) {
+					this.cache_[key][k]  = value[k]
+				}
+			} else
+				this.cache_[key] = value;
 			localStorage.cacheInfo = JSON.stringify(this.cache_);
 		},
 		onDownloadComplete: function (args) {
