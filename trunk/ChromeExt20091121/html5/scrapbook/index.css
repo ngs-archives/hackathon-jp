@@ -8,6 +8,8 @@ html, body {
 a {
   color: blue;
   font-size: 100%;
+  font-weight: bold;
+  text-decoration: none;  
 }
 
 header {
@@ -44,4 +46,6 @@ li {
 }
 li img {
   width: 212px;
+  border: 1px solid #aaa;
+  -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, .25);
 }
