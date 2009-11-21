@@ -20,9 +20,13 @@
 		cache_: null,
 		init: function  () {
 			if ( !localStorage.cacheInfo ) {
-				localStorage.cacheInfo = {};
+				localStorage.cacheInfo = "{}";
 			}
-			self.cache_ = localStorage.cacheInfo;
+			self.cache_ = JSON.parse(localStorage.cacheInfo);
+		},
+		add: function (key, value) {
+			self.cache_[key] = value;
+			localStorage.cacheInfo = JSON.stringify(self.cache_);
 		},
 		onDownloadComplete: function (args) {
 			var u = args.url;
@@ -31,8 +35,7 @@
 				savedDateTime: (new Date()).toString(),
 				url : u
 			};
-			self.cache_[u] = d;
-			console.log(d);
+			this.add(u, d);
 		}
 	}
 
