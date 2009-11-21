@@ -57,22 +57,19 @@
 			}
 			#main h2 {
 				font-size: small;
-				float:right;
 				border-bottom: 1px solid lightgrey;
 			}
 			#main p {
-				font-size: small;
-				clear: both;
-			}
-			#main ul li {
-				font-size: x-small;
+				font-size: smaller;
 			}
 			#main ul {
 				margin: 0;
 				padding: 0;
+				clear: both;
 			}
 			#main li {
 				list-style: none;
+				font-size: x-small;
 			}
 
 			#footer {
@@ -82,10 +79,13 @@
 			}
 
 			.bg_lightblue {
-				background: lightblue;
+/*
+				background-color: #9ae4e8;
+*/
+				background-color: lightblue;
 			}
 			.bg_white {
-				background: white;
+				background-color: white;
 			}
 
 		]]>
@@ -123,7 +123,7 @@
 								bgcolor = 'bg_white';
 							}
 
-							document.getElementById('main').innerHTML += "<div class='"+ bgcolor +"'><img src='" + profile_image_url + "' width='32' height='32' alt='img' title='" + screen_name + "' /><h2>" + name + "</h2><p>" + text + "<p><ul><li>" + created_at + "</li><li>" + source + "</li></ul></div>";
+							document.getElementById('main').innerHTML += "<div class='"+ bgcolor +"'><img src='" + profile_image_url + "' width='48' height='48' alt='img' title='" + screen_name + "' /><h2>" + name + "</h2><p>" + text + "<p><ul><li>" + created_at + "</li><li>" + source + "</li></ul></div>";
 						}
 					}
 				}
@@ -134,6 +134,9 @@
 	</head>
 	<body onload='init();'>
 		<div id='content'>
+			<div id='banner' style='background-color: #9ae4e8; padding: 3px;'>
+				<img src='http://m.twitter.com/images/mobile.gif' />
+			</div>
 			<div id='header'>
 				<img id='user_profile_image' src='images/logo_128x128.png' width='56' height='56' alt='logo' title='' />
 				<h1 id='user_name' title=''></h1>
