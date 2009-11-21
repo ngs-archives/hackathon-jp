@@ -81,6 +81,7 @@
 
 			/** MODIFIED CODE FROM GMAIL CHECKER **/
 
+/*
 			chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 				if (changeInfo.url && changeInfo.url.indexOf(URL_TWITTER_HOME) == 0) {
 					console.log("saw twitter! updating...");
@@ -89,6 +90,7 @@
 					});
 				}
 			});
+*/
 
 
 			function init() {
@@ -101,11 +103,11 @@
 
 				startRequest();
 			}
-			
+
 			function scheduleRequest() {
 				window.setTimeout(startRequest, pollInterval);
 			}
-			
+
 			// ajax stuff
 			function startRequest() {
 				getTimelineCount(
@@ -121,26 +123,26 @@
 					}
 				);
 			}
-			
+
 			function getTimelineCount(onSuccess, onError) {
 				var xhr = new XMLHttpRequest();
 				var abortTimerId = window.setTimeout(function() {
 					xhr.abort();
 					onError();
 				}, requestTimeout);
-			
+
 				function handleSuccess(count) {
 					window.clearTimeout(abortTimerId);
 					if (onSuccess)
 						onSuccess(count);
 				}
-			
+
 				function handleError() {
 					window.clearTimeout(abortTimerId);
 					if (onError)
 						onError();
 				}
-			
+
 				try {
 					console.log("request..");
 					xhr.onreadystatechange = function(){
@@ -181,13 +183,13 @@
 							}
 						}
 					}
-			
+
 					xhr.onerror = function(error) {
 						console.log("error");
 						console.log(error);
 						handleError();
 					}
-			
+
 					xhr.open("GET", URL_TWITTER_API_HOME+URL_TWITTER_API_HOME_OPTIONS, true);
 					xhr.setRequestHeader("Authorization", basicAuth);
 					xhr.send(null);
@@ -197,7 +199,7 @@
 					handleError();
 				}
 			}
-			
+
 			function gmailNSResolver(prefix) {
 				if(prefix == 'gmail') {
 					return 'http://purl.org/atom/ns#';

@@ -1,28 +1,35 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Twitter client</title>
-<link rel="stylesheet" type="text/css" href="options.css">
-<script>
-var userid = '';
-var password = '';
-var init = function(){
-	userid = localStorage.userid;
-	password = localStorage.password;
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' lang='ja' xml:lang='ja'>
+	<head>
+		<meta http-equiv='Content-Type' content='application/xhtml+xml; charset=UTF-8' />
+		<meta http-equiv='Content-Script-Type' content='text/javascript' />
+		<title>Twitter client</title>
+		<link rel="stylesheet" type="text/css" href="options.css" />
+		<script type='text/javascript'>
+			var userid = '';
+			var password = '';
+			var init = function(){
+				userid = localStorage.userid;
+				password = localStorage.password;
+			
+				document.getElementById('userid').value = userid;
+				document.getElementById('password').value = password;
+			
+				alert("true");
+			}
 
-	document.getElementById('userid').value = userid;
-	document.getElementById('password').value = password;
-
-	alert("true");
-}
-</script>
-</head>
-
-<body onload="init()">
-ユーザー名かメールアドレス
-<input type='text' id="userid" onchange='localStorage.userid = document.getElementById("userid").value;' /><br>
-パスワード
-<input type="password" id='password' onchange='localStorage.password = document.getElementById("password").value' />
-</body>
+			function save() {
+				return true;
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<dl>
+			<dt>ユーザー名</dt>
+				<dd><input type='text' id="userid" onchange='localStorage.userid = document.getElementById("userid").value;' /></dd>
+			<dt>パスワード</dt>
+				<dd><input type="password" id='password' onchange='localStorage.password = document.getElementById("password").value' /></dd>
+		</dl>
+		<button type='submit' onclick='save();'>保存</button>
+	</body>
 </html>
