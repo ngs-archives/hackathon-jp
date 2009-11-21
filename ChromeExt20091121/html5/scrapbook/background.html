@@ -1,7 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
 <style>
-
 </style>
-
+</head>
+<body>
 <script>
+	chrome.self.onConnect.addListener(function(port) {
+		try {
+			port.onMessage.addListener(function(args, con) {
+				scrapbook[args.command].apply(scrapbook, [args]);
+			} );
+		} catch(e) {
+			console.log(e, e.stack)
+		}
+	});
 
+	var scrapbook = {
+		cache_: null,
+		init: function  () {
+			if ( !localStorage.cacheInfo ) {
+				localStorage.cacheInfo = {};
+			}
+			self.cache_ = localStorage.cacheInfo;
+		},
+		onDownloadComplete: function (args) {
+			var u = args.url;
+			var d = {
+				title: args.title,
+				savedDateTime: (new Date()).toString(),
+				url : u
+			};
+			self.cache_[u] = d;
+			console.log(d);
+		}
+	}
+
+	scrapbook.init();
+	
 </script>
+<body>
+</html>
