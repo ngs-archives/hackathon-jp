@@ -5,7 +5,15 @@
 <title>Twitter client</title>
 <link rel="stylesheet" type="text/css" href="options.css">
 <script>
+var id = '';
+var password = '';
 var init = function(){
+	id = localStorage.userid;
+	password = localStorage.userid;
+
+	document.getElementById('loginid').value = localStorage.userid;
+	document.getElementById('password').value = localStorage.password;
+
 	alert("true");
 }
 </script>
@@ -13,8 +21,8 @@ var init = function(){
 
 <body onload="init()">
 ユーザー名かメールアドレス
-<input type="loginid" ><br>
+<input type='text' id="userid" onchange='localStorage.userid = document.getElementById("userid").value;' /><br>
 パスワード
-<input type="password" >
+<input type="password" id='password' onchange=''localStorage.userid = document.getElementById("password").value' />
 </body>
 </html>
