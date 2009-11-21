@@ -25,16 +25,15 @@
 				float: left;
 			}
 			#header h1 {
-				font-size: large;
-				float:right;
-				border-bottom: 1px solid lightgrey;
+				font-size: smaller;
+				border-bottom: 1px solid grey;
 			}
 			#header p {
-				font-size: small;
-				clear: both;
+				font-size: x-small;
 			}
 			#header ul li {
 				font-size: x-small;
+				clear: both;
 			}
 			#header ul {
 				margin: 0;
@@ -60,7 +59,7 @@
 				border-bottom: 1px solid lightgrey;
 			}
 			#main p {
-				font-size: smaller;
+				font-size: x-small;
 			}
 			#main ul {
 				margin: 0;
@@ -118,12 +117,20 @@
 							var created_at = data[i].created_at;
 							var source = data[i].source;
 
+							var in_reply_to_status_id = data[i].in_reply_to_status_id;
+							var in_reply_to_screen_name = data[i].in_reply_to_screen_name;
+
 							var bgcolor = 'bg_lightblue';
 							if (i % 2) {
 								bgcolor = 'bg_white';
 							}
 
-							document.getElementById('main').innerHTML += "<div class='"+ bgcolor +"'><img src='" + profile_image_url + "' width='48' height='48' alt='img' title='" + screen_name + "' /><h2>" + name + "</h2><p>" + text + "<p><ul><li>" + created_at + "</li><li>" + source + "</li></ul></div>";
+							var additional = '';
+							if (in_reply_to_status_id) {
+								additional = "<li>In reply to <a href='http://twitter.com/" + in_reply_to_screen_name + "/status/" + in_reply_to_status_id + "'>" + in_reply_to_screen_name + "</a>.</li>";
+							}
+
+							document.getElementById('main').innerHTML += "<div class='"+ bgcolor +"'><img src='" + profile_image_url + "' width='48' height='48' alt='img' title='" + screen_name + "' /><h2>" + name + "</h2><p>" + text + "<p><ul><li>" + created_at + "</li><li>" + source + "</li>" + additional + "</ul></div>";
 						}
 					}
 				}
