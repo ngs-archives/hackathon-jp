@@ -13,14 +13,6 @@
 			var pollInterval = 1000 * 60;	// 10 seconds
 			var requestTimeout = 1000 * 5;	// 5 seconds
 
-
-			// NEED valid id, password
-			var userid = localStorage.userid;
-			var password = localStorage.password;
-			pollInterval = (localStorage.interval > 0) ? localStorage.interval : 10;
-			var basicAuth = makeBasicAuthKey(userid, password);
-
-
 			/** CODE FROM OFFICIAL SAMPLE CODE: GMAIL CHECKER **/
 			
 			var animationFrames = 36;
@@ -31,8 +23,8 @@
 			var rotation = 0;
 			var unreadCount = -1;
 			var loadingAnimation = new LoadingAnimation();
-			
-			
+
+
 			// A "loading" animation displayed while we wait for the first response from
 			// Gmail. This animates the badge text with a dot that cycles from left to
 			// right.
@@ -181,6 +173,7 @@
 */
 							} else {
 								console.log("No responseXML!");
+								console.log("responseText:" + xhr.responseText);
 							}
 						}
 					}
@@ -190,6 +183,12 @@
 						console.log(error);
 						handleError();
 					}
+
+					pollInterval = ((localStorage.interval > 0) ? localStorage.interval : 60) * 1000;
+					// NEED valid id, password
+					var userid = localStorage.userid;
+					var password = localStorage.password;
+					var basicAuth = makeBasicAuthKey(userid, password);
 
 					xhr.open("GET", URL_TWITTER_API_HOME+URL_TWITTER_API_HOME_OPTIONS, true);
 					xhr.setRequestHeader("Authorization", basicAuth);
