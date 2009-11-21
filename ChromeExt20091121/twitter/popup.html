@@ -30,14 +30,40 @@
 				font-size: small;
 				clear: both;
 			}
+			#header ul li {
+				font-size: x-small;
+			}
 
-			#content ul {
+
+			#main img {
+				float: left;
+			}
+			#main h2 {
+				font-size: small;
+				float:right;
+			}
+			#main p {
+				font-size: small;
+				clear: both;
+			}
+			#main ul li {
+				font-size: x-small;
+			}
+			#main ul {
 				margin: 0;
 				padding: 0;
 			}
-			#content li {
+			#main li {
 				list-style: none;
 			}
+
+			.bg_lightblue {
+				background: lightblue;
+			}
+			.bg_white {
+				background: white;
+			}
+
 		]]>
 		</style>
 		<script type='text/javascript'>
@@ -47,12 +73,36 @@
 				var user_screen_name = localStorage.user_screen_name;
 				var user_text = localStorage.user_text;
 				var user_profile_image_url = localStorage.user_profile_image_url;
+				var user_created_at = localStorage.user_created_at;
 
 				document.getElementById('user_profile_image').src = user_profile_image_url;
 				document.getElementById('user_profile_image').title = userid;
 				document.getElementById('user_name').innerHTML = user_name;
 				document.getElementById('user_name').title = user_screen_name;
 				document.getElementById('user_text').innerHTML = user_text;
+				document.getElementById('user_created_at').innerHTML = user_created_at;
+
+				var home_timeline = localStorage.cached_json;
+				if (home_timeline) {
+					data = eval("(" + home_timeline + ")");
+					if (data.length > 0) {
+						for(var i=data.length-1; i>=0; i--) {
+							var name = data[i].user.name;
+							var screen_name = data[i].user.screen_name;
+							var profile_image_url = data[i].user.profile_image_url;
+							var text = data[i].text;
+							var created_at = data[i].created_at;
+							var source = data[i].source;
+
+							var bgcolor = 'bg_lightblue';
+							if (i % 2) {
+								bgcolor = 'bg_white';
+							}
+
+							document.getElementById('main').innerHTML += "<div class='"+ bgcolor +"'><img src='" + profile_image_url + "' width='24' height='24' alt='img' title='" + screen_name + "' /><h2>" + name + "</h2><p>" + text + "<p><ul><li>" + created_at + "</li><li>" + source + "</li></ul></div>";
+						}
+					}
+				}
 
 				return true;
 			}
@@ -64,6 +114,9 @@
 				<img id='user_profile_image' src='images/logo_128x128.png' width='32' height='32' alt='logo' title='' />
 				<h1 id='user_name' title=''></h1>
 				<p id='user_text'></p>
+				<ul>
+					<li id='user_created_at'><li>
+				</ul>
 			</div>
 			<div id='main'>
 			</div>
