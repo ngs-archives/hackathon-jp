@@ -8,12 +8,14 @@ function initEventListener () {
 	}, false);
 }
 
+var ScrapBook = function () {}
+
 function init () {
-	var connection = chrome.extension.connect();
+	ScrapBook.connection = chrome.extension.connect();
 	initEventListener();
 }
 function notifyDownloadCompleted(url, title) {
-	connection.postMessage( {
+	ScrapBook.connection.postMessage( {
 		command: "onDownloadComplete",
 		url: url, title: title
 	} );
