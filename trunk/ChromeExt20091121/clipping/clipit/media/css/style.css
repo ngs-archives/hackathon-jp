@@ -1,0 +1,54 @@
+@import "base.css";
+
+#content {
+  margin: 10px;
+}
+
+#logo {
+  margin: 10px 0 10px 0;
+  float: left;
+}
+
+.navigation {
+  font-size: 15pt;
+  float: right;
+}
+
+#container {
+  padding-top: 10px;
+  width: 800px;
+  margin: auto;
+  text-align: left;
+}
+
+#inner {
+  width: 750px;
+  margin: auto;
+  text-align: left;
+}
+
+.flash {
+  margin: 20px 0 20px 0;
+  font-size: 15pt;
+  font-weight: bold;
+  color: #800;
+}
+
+#message {
+  margin: 20px 0 20px 0;
+  font-size: 15pt;
+  font-weight: bold;
+  color: #800;
+}
+
+.main {
+  font-size: 15pt;
+}
+
+  .main h1 {
+    font-size: 20pt;
+  }
+
+  .main input, select, textarea {
+    font-size: 100%;
+  }
