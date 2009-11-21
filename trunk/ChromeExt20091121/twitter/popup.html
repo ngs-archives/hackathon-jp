@@ -16,6 +16,21 @@
 			a:link, a:active, a:hover, a:visited {
 				color: red;
 			}
+			#header {
+				border-bottom: 1px solid grey;
+			}
+			#header img {
+				float: left;
+			}
+			#header h1 {
+				font-size: large;
+				float:right;
+			}
+			#header p {
+				font-size: small;
+				clear: both;
+			}
+
 			#content ul {
 				margin: 0;
 				padding: 0;
@@ -25,11 +40,30 @@
 			}
 		]]>
 		</style>
+		<script type='text/javascript'>
+			function init() {
+				var userid = localStorage.userid;
+				var user_name = localStorage.user_name;
+				var user_screen_name = localStorage.user_screen_name;
+				var user_text = localStorage.user_text;
+				var user_profile_image_url = localStorage.user_profile_image_url;
+
+				document.getElementById('user_profile_image').src = user_profile_image_url;
+				document.getElementById('user_profile_image').title = userid;
+				document.getElementById('user_name').innerHTML = user_name;
+				document.getElementById('user_name').title = user_screen_name;
+				document.getElementById('user_text').innerHTML = user_text;
+
+				return true;
+			}
+		</script>
 	</head>
-	<body>
+	<body onload='init();'>
 		<div id='content'>
 			<div id='header'>
-				<p>test</p>
+				<img id='user_profile_image' src='images/logo_128x128.png' width='32' height='32' alt='logo' title='' />
+				<h1 id='user_name' title=''></h1>
+				<p id='user_text'></p>
 			</div>
 			<div id='main'>
 			</div>
