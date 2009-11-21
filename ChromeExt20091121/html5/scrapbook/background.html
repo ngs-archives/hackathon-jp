@@ -22,20 +22,28 @@
 			if ( !localStorage.cacheInfo ) {
 				localStorage.cacheInfo = "{}";
 			}
+			try{
 			this.cache_ = JSON.parse(localStorage.cacheInfo);
+			}catch(e) {
+				this.cache_ = {};
+			}
 		},
 		add: function (key, value) {
 			this.cache_[key] = value;
 			localStorage.cacheInfo = JSON.stringify(this.cache_);
 		},
 		onDownloadComplete: function (args) {
-			var u = args.url;
-			var d = {
-				title: args.title,
-				savedDateTime: (new Date()).toString(),
-				url : u
-			};
-			this.add(u, d);
+			try {
+				var u = args.url;
+				var d = {
+					title: args.title,
+					savedDateTime: (new Date()).toString(),
+					url : u
+				};
+				this.add(u, d);
+			}catch(e){
+				console.log(e, e.stack);
+			}
 		}
 	}
 
