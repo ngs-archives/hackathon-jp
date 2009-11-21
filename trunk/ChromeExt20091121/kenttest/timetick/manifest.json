@@ -1,0 +1,8 @@
+{
+   "name": "Time Tick",
+   "version": "1.0",
+   "permissions": [
+      "tabs"
+   ],
+   "toolstrips": ["tickstrip.html"]
+}

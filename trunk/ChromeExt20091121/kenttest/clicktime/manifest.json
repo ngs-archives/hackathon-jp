@@ -1,0 +1,16 @@
+{
+   "name": "Click Time",
+   "version": "1.0",
+   "content_scripts":[
+      {
+         "matches":["http://*/*"],
+         "js":["content.js"]
+      }
+   ],
+   "permissions": [
+      "tabs",
+      "http://*/*"
+   ],
+
+   "toolstrips": ["tickstrip.html"]
+}
