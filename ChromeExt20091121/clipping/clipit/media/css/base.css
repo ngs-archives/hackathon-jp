@@ -1,0 +1,50 @@
+
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #333;
+  font-weight: normal;
+  font-family: serif;
+  font-size: 80%;
+}
+
+img {
+  border: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.errors {
+  color: red;
+}
+
+p {
+  margin: 10px 0;
+}
+  p.notice {
+    color: #F00;
+  }
+
+a {
+  color: #33a;
+  text-decoration: none;
+}
+
+a:active {
+  color: #33a;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #33a;
+}
+
+a:hover {
+  color: #33a;
+  text-decoration: underline;
+}

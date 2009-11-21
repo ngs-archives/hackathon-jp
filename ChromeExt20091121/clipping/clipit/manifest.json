@@ -1,0 +1,20 @@
+{
+  "name": "Clipit Extension",
+  "version": "1.0",
+  "description": "Clip web page and share with others",
+  "background_page": "background.html",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "css": ["media/css/ui-lightness/jquery-ui-1.7.2.custom.css"],
+      "js": [
+        "jquery.min.js",
+        "jquery-ui.min.js",
+        "jquery.hotkeys-0.7.9.min.js",
+        "clipit.js"
+      ],
+      "run_at": "document_start",
+      "matches": [ "http://*/*" ]
+    }
+  ]
+}
