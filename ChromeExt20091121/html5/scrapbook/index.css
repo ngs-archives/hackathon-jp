@@ -35,3 +35,13 @@ ul, li {
   list-style: none;
 }
 
+li {
+  margin: 0;
+  padding: 20px;
+  float: left;
+  width: 212px;
+  text-align: center;
+}
+li img {
+  width: 212px;
+}
