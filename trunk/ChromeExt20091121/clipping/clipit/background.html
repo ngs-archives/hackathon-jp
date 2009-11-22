@@ -4,12 +4,7 @@
 <meta charset="utf-8">
 </head>
 <body>
-<script type="text/javascript"><!--
-chrome.self.onConnect.addListener(function(port,name) {
-  port.onMessage.addListener(function(info,con){
-    con.postMessage("hoge");
-  });
-});
---></script>
+<script type="text/javascript" src="background.js">
+</script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8"> 
+<title>Clipit Settings</title>
+<link href="option_page.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="jquery.min.js" />
+</head>
+<body> 
+<div id="container"> 
+<div id="inner_container"> 
+<section id="basics" class="content">
+  <h3>Display Name</h3>
+  <input id="display_name" />
+  <h3>Board Name</h3>
+  <input id="board" />
+  <br />
+  <input type="button" id="save_button" value="Save" />
+  <input type="button" id="clear_histories" value="Clear histories" />
+</section>
+<p class="bottom_button"> 
+  <button onclick="chrome.tabs.getSelected(null,function(tab){chrome.tabs.remove(tab.id);});">Close</button> 
+</p>
+<script type="text/javascript"><!--
+$(document).ready(
+  function(){
+    var BackGround = chrome.extension.getBackgroundPage();
+    var ClipitUtils = BackGround.ClipitUtils;
+
+    $("#display_name").attr('value', ClipitUtils.get_display_name());
+    $("#board").attr('value', ClipitUtils.get_board());
+    $("#save_button").bind("click", function() {
+      ClipitUtils.set_display_name($("#display_name").attr('value'));
+      ClipitUtils.set_board($("#board").attr('value'));
+    });
+    $("#clear_histories").bind("click", function() {
+      ClipitUtils.set_last_datetime("");
+      window.alert("Cleared histories.");
+    });
+  }
+);
+
+--></script>
+</body>
+</html>
