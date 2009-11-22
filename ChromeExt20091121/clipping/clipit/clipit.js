@@ -14,49 +14,58 @@ var UIHandler = function(con) {
     return html;
   }
   return {
+    closeDialog: function () {
+      $("#clipit_dialog").dialog("close");
+    },
     showDialog: function () {
+      var scraped = scrape();
       var dialog_html =
 	"<input type='button' value='Post' id='postButton'/>" +
 	"<br />" +
-	scrape() +
-	"To: <select><option>emmy</option></select>" +
-	"<br />" +
+	scraped +
         "<a href='"+ location.href + "'>" + location.href + "</a>" +
 	"<br />";
-      $("#dialog").html(dialog_html);
-      $("#dialog").css({"text-align": "left"});
+      $("#clipit_dialog").html(dialog_html);
+      $("#clipit_dialog").css({"text-align": "left"});
       $("#postButton").bind(
 	"click",
 	function()
 	{
-	  $("#dialog").dialog("close");
+	  con.postMessage({clip: scraped, url: location.href});
+	  $("#clipit_dialog").dialog("close");
 	});
-      $("#dialog").dialog("open");
+      $("#clipit_dialog").dialog("open");
     }
   };
 };
 
 $(document).ready(
   function(){
+    $("body").append("<div id='clipit_dialog' style='display: none; text-align: left;'></div>");
+    $("#clipit_dialog").dialog(
+      {width: 600,
+       bgiframe: true,
+       autoOpen: false,
+       resizable: false,
+       modal: true,
+       draggable: false,
+       overlay: {
+         opacity: 0.7,
+         background: '#7ec244'
+       }
+      }
+    );
     var connection = chrome.extension.connect();
     connection.onMessage.addListener(
       function(info, con){
-	console.log(info, con);
+	if (info.result === true) {
+	  window.alert("succeeded");
+	  $("#clipit_dialog").dialog("close");
+        }
       }
     );
     var uiHandler = UIHandler(connection);
-    $(document).bind('keydown', 'Shift+p', uiHandler.showDialog);
-    $("body").append("<div id='dialog' style='display: none; text-align: left;'></div>");
-    $("#dialog").dialog({width: 600,
-			 bgiframe: true,
-                         autoOpen: false,
-                         resizable: false,
-                         modal: true,
-                         draggable: false,
-                         overlay: {
-                           opacity: 0.7,
-                           background: '#7ec244'
-                         }
-			});
+    $(document).bind('keydown', {combi:'Shift+p', disableInInput: true},
+		     uiHandler.showDialog);
   }
 );

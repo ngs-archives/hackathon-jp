@@ -1,0 +1,159 @@
+body{
+width:800px;
+color:#222222;
+font-family: Arial, Helvetica, sans-serif;
+}
+body, ul, li{
+margin:0;
+padding:0;
+}
+body {
+-webkit-box-orient:vertical;
+-webkit-box-direction:normal;
+}
+section.content > ul{
+list-style-type:none;
+overflow:auto;
+}
+section.content > ul > li{
+margin-bottom:20px;
+}
+dt,dd{
+margin:0px;
+}
+section.content > div > dl > dd{
+margin-bottom:20px;
+}
+section.content{
+display:block;
+padding:10px;
+}
+#filter_list input[type='text']{
+width:300px;
+}
+#normal_action_list,
+#limited_action_list{
+overflow:auto;
+width:380px;
+}
+#menu_tabs{
+display:block;
+z-index:100;
+padding:0 0 0 1px;
+}
+#menu_tabs li{
+display:inline-block;
+margin:0px;
+padding:0px;
+}
+#menu_tabs li a{
+color:black;
+text-decoration:none;
+display: inline-block;
+background: -webkit-gradient(linear, left top, left bottom, from(#F2F2F2), to(#CFCFCF), color-stop(0.5, #EBEBEB), color-stop(0.5, #DDDDDD));
+padding: 6px 12px;
+border:1px solid #898C95;
+font-size:13px;
+position:relative;
+margin:0 0 1px -1px;
+}
+#menu_tabs li a.active{
+background:white;
+border-bottom:1px solid white;
+z-index:100;
+}
+kbd.key{
+display:inline-block;
+width:300px;
+background:#e9f3f3;
+padding:2px;
+border:2px solid #c9e3e3;
+-webkit-border-radius:4px;
+}
+dt.disabled kbd.key,
+li.disabled kbd.key{
+background:#cccccc;
+border:2px solid #bbbbbb;
+}
+#container{
+position:relative;
+width:800px;
+overflow:hidden;
+z-index:10;
+border:1px solid #999999;
+top:-2px;
+}
+#container #inner_container{
+position:absolute;
+top:0px;
+left:0px;
+}
+#inner_container section{
+display:inline-block;
+position:absolute;
+top:0px;
+margin:0;
+clear:none;
+white-space:normal;
+width:782px;
+overflow:auto;
+}
+#actions > div > fieldset{
+display:inline-block;
+border:1px solid #99ccff;
+-webkit-border-radius:4px;
+padding:1px 4px;
+margin:3px;
+}
+optgroup{
+background:#333333;
+color:#ffffff;
+}
+optgroup > option{
+color:#000000;
+}
+#actions .box{
+width:390px;
+float:left;
+}
+#actions .box > h3{
+margin:0px;
+padding:0 10px;
+}
+#about dl{
+margin:30px;
+}
+#about dl dd{
+margin:10px 0 20px 50px;
+}
+#keyconfig_text{
+width:98%;
+height:300px;
+}
+#advanced .margin{
+margin:60px 0 0 0;
+}
+input:not([type="text"]),button,label{
+cursor:pointer;
+}
+button{
+-webkit-appearance: button;
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#DDD));
+border: 1px solid #999;
+border-bottom-left-radius: 2px 2px;
+border-bottom-right-radius: 2px 2px;
+border-top-left-radius: 2px 2px;
+border-top-right-radius: 2px 2px;
+margin: 0.2em;
+padding: 0px 8px;
+}
+button:hover{
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#99ccff));
+}
+section.content > p.Mousewheel{
+margin-left:2em;
+}
+#AccelerationValue{
+min-width:4em;
+width:4em;
+}

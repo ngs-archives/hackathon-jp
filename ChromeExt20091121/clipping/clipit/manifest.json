@@ -3,7 +3,13 @@
   "version": "1.0",
   "description": "Clip web page and share with others",
   "background_page": "background.html",
-  "permissions": [],
+  "options_page": "options.html",
+  "permissions": ["tabs", "http://clip-it.appspot.com/"],
+  "browser_action": {
+    "default_title": "Clipit",
+    "default_icon": "icon.png",
+    "popup": "popup.html"
+  },
   "content_scripts": [
     {
       "css": ["media/css/ui-lightness/jquery-ui-1.7.2.custom.css"],
