@@ -19,6 +19,16 @@
     <script type="text/javascript"
        src="http://wave-api.appspot.com/public/wave.js"></script>
 
+    <div id="option">
+      地域:
+      <select name="loc" size="12">
+      <option value="63">東京</option>
+      <option value="64">大島</option>
+      <option value="65">八丈島</option>
+      <option value="66">父島</option>
+      </select>
+    </div>
+
     <div id="content"></div>
     <script type="text/javascript">
       function makeDOMRequest() {    
@@ -29,8 +39,6 @@
         var day = prefs.getString("day");
         console.log("cityid=" + city); // for debug
         console.log("day=" + day);     // for debug
-//        var city = '63';         // 63=東京
-//        var day = 'today';       // today || tomorrow || dayaftertomorrow
         var param_city = '?city=' + city;
         var param_day = '&day=' + day;
 
