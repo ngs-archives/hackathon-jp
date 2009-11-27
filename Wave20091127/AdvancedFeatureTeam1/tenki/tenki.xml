@@ -7,7 +7,7 @@
   <UserPref name="cityid"
     display_name="City ID"
     datatype="string"
-    default_value="63"
+    default_value="123"
     required="true" />
 
   <Content type="html">
