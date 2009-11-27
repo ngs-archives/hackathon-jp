@@ -2,7 +2,13 @@
 <Module>
   <ModulePrefs title="Weather Hacks XML">
     <Require feature="rpc" />
+    <Locale lang="ja" country="jp" />
   </ModulePrefs>
+  <UserPref name="cityid"
+    display_name="City ID"
+    datatype="string"
+    default_value="63"
+    required="true" />
 
   <Content type="html">
   <![CDATA[
@@ -14,7 +20,10 @@
       function makeDOMRequest() {    
         console.log("makeDOMRequest"); // for debug
 
-        var city = '63';         // 63=東京
+        var prefs = new gadgets.Prefs();
+        var city = prefs.getString("cityid");
+        console.log("cityid=" + city); // for debug
+//        var city = '63';         // 63=東京
         var day = 'today';       // today || tomorrow || dayaftertomorrow
         var param_city = '?city=' + city;
         var param_day = '&day=' + day;
