@@ -34,7 +34,7 @@
         var imgheight = domdata.getElementsByTagName("height").item(0).childNodes[0].nodeValue;
 
         var html = '';
-        html += '<h3><a href="' + link+ '">' + title + '</h3>'; 
+        html += '<h3><a href="' + link+ '" target="_blank">' + title + '</h3>'; 
         html += '<img border="0" src="' + imgurl;
         html += '" width="' + imgwidth;
         html += '" height="' + imgheight;
