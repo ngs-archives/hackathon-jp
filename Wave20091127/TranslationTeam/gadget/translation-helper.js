@@ -1,7 +1,8 @@
 function fireHoge() {
   var state = wave.getState();
   delta = {};
-  delta['hoge'] = $("#hoge").val();
+  var elm = document.getElementById("hoge");
+  delta['hoge'] = elm.value;
   console.log("submitting", delta);
   state.submitDelta(delta);
 }
@@ -12,11 +13,11 @@ function renderState() {
   }
   // update the field:
   var state = wave.getState();
-  $("#hoge").val(state.get("hoge", ""));
+  var elm = document.getElementById("hoge");
+  elm.value = state.get("hoge", "");
 }
 function main() {
   console.log("main called");
-  $("#hogeButton").bind("click", fireHoge);
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(renderState);
   }
