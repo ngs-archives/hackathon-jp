@@ -13,6 +13,7 @@ function renderState() {
   $("#hoge").attr("value", state.get("hoge", ""));
 }
 function main() {
+  $("#hogeButton").bind("click", fireHoge);
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(renderState);
   }
