@@ -7,8 +7,12 @@
   <UserPref name="cityid"
     display_name="City ID"
     datatype="string"
-    default_value="123"
-    required="true" />
+    default_value="123" />
+  <UserPref 
+    name="day"
+    display_name="Day"
+    datatype="string"
+    default_value="today" />
 
   <Content type="html">
   <![CDATA[
@@ -22,9 +26,11 @@
 
         var prefs = new gadgets.Prefs();
         var city = prefs.getString("cityid");
+        var day = prefs.getString("day");
         console.log("cityid=" + city); // for debug
+        console.log("day=" + day);     // for debug
 //        var city = '63';         // 63=東京
-        var day = 'today';       // today || tomorrow || dayaftertomorrow
+//        var day = 'today';       // today || tomorrow || dayaftertomorrow
         var param_city = '?city=' + city;
         var param_day = '&day=' + day;
 
