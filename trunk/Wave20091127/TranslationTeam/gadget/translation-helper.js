@@ -2,7 +2,7 @@ function fireHoge() {
   window.alert("hoge");
   var state = wave.getState();
   delta = {};
-  delta['hoge'] = $("#hoge").attr("value");
+  delta['hoge'] = $("#hoge").val();
   state.submitDelta(delta);
 }
 function renderState() {
@@ -11,7 +11,7 @@ function renderState() {
   }
   // update the field:
   var state = wave.getState();
-  $("#hoge").attr("value", state.get("hoge", ""));
+  $("#hoge").val(state.get("hoge", ""));
 }
 function main() {
   $("#hogeButton").bind("click", fireHoge);

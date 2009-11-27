@@ -8,7 +8,7 @@
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="translation-helper.js"></script>
   Hello, Translations<br/>
-  <input id="hoge">
+  <input id="hoge" value="">
   <input id="hogeButton" type="button" value="hoge">
 ]]></Content>
 </Module>
