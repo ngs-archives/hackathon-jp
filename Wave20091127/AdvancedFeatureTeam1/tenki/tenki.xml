@@ -39,7 +39,8 @@
         var prefs = new gadgets.Prefs();
         var city = document.getElementById('loc').value;
         console.log("cityid=" + city); // for debug
-        prefs.setString("cityid", city);
+        //prefs.setString("cityid", city);
+        prefs.set("cityid", city);
         makeDOMRequest();
       }
 
