@@ -26,12 +26,12 @@
 
         // obj.data contains a Document DOM element corresponding to the page that was requested
         var domdata = obj.data;
-        var title = domdata.getElementsByTagName("title").item(0).nodeValue;
-        var description = domdata.getElementsByTagName("description").item(0).nodeValue;
-        var link = domdata.getElementsByTagName("link").item(0).nodeValue;
-        var imgurl = domdata.getElementsByTagName("url").item(0).nodeValue;
-        var imgwidth = domdata.getElementsByTagName("width").item(0).nodeValue;
-        var imgheight = domdata.getElementsByTagName("height").item(0).nodeValue;
+        var title = domdata.getElementsByTagName("title").item(0).text.nodeValue;
+        var description = domdata.getElementsByTagName("description").item(0).text.nodeValue;
+        var link = domdata.getElementsByTagName("link").item(0).text.nodeValue;
+        var imgurl = domdata.getElementsByTagName("url").item(0).text.nodeValue;
+        var imgwidth = domdata.getElementsByTagName("width").item(0).text.nodeValue;
+        var imgheight = domdata.getElementsByTagName("height").item(0).text.nodeValue;
 
         var html = '';
         html += '<h3><a href="' + link+ '">' + title + '</h3>'; 
