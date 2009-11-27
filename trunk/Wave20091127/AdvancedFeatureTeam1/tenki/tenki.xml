@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs title="Weather Hacks XML">
-    <Require feature="rpc" />
+    <Require feature="wave" />
   </ModulePrefs>
 
   <Content type="html">
