@@ -6,6 +6,7 @@ function fireHoge() {
   state.submitDelta(delta);
 }
 function renderState() {
+  console.log("renderState called");
   if (!wave.getState() || !wave.getViewer()) {
     return;
   }
@@ -14,6 +15,7 @@ function renderState() {
   $("#hoge").val(state.get("hoge", ""));
 }
 function main() {
+  console.log("main called");
   $("#hogeButton").bind("click", fireHoge);
   if (wave && wave.isInWaveContainer()) {
     wave.setStateCallback(renderState);
