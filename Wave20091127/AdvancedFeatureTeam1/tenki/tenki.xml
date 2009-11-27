@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Weather Hacks XML">
+    <Require feature="rpc" />
+  </ModulePrefs>
+
+  <Content type="html">
+  <![CDATA[
+    <div id="content"></div>
+
+    <script type="text/javascript">
+      function makeDOMRequest() {    
+        var params = {};  
+        params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;  
+        var url = "http://weather.livedoor.com/forecast/webservice/rest/v1?city=113&day=tomorrow";
+        gadgets.io.makeRequest(url, response, params);
+      };
+
+      function response(obj) { 
+        // obj.data contains a Document DOM element corresponding to the page that was requested
+        var domdata = obj.data;
+        var title = domdata.getElementsByTagName("title").item(0).nodeValue;
+        var description = domdata.getElementsByTagName("description").item(0).nodeValue;
+        var link = domdata.getElementsByTagName("link").item(0).nodeValue;
+        var imgurl = domdata.getElementsByTagName("url").item(0).nodeValue;
+        var imgwidth = domdata.getElementsByTagName("width").item(0).nodeValue;
+        var imgheight = domdata.getElementsByTagName("height").item(0).nodeValue;
+
+        var html = '';
+        html += '<h3><a href="' + link+ '">' + title + '</h3>'; 
+        html += '<p>' + description + '</p>'; 
+        html += '<img border="0" src="' + imgurl;
+        html += '" width="' + imgwidth;
+        html += '" height="' + imgheight;
+        html += '" alt="天気アイコン">';
+
+        document.getElementById('content').innerHTML = html;
+      };
+      gadgets.util.registerOnLoadHandler(makeDOMRequest);
+    </script>
+  ]]>
+  </Content>
+</Module>
