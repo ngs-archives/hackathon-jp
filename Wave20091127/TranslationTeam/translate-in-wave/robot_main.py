@@ -21,7 +21,7 @@ def on_self_added(properties, context):
   if blip:
     blip.GetDocument().SetText('Translation Helper!')
     blip.GetDocument().AppendElement(
-        document.Gadget(''))
+        document.Gadget('http://hackathon-jp.googlecode.com/svn/trunk/Wave20091127/TranslationTeam/gadget/translation-helper.xml'))
 
 
 if __name__ == '__main__':
