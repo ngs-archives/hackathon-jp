@@ -6,8 +6,8 @@
 
   <Content type="html">
   <![CDATA[
-    <div id="content"></div>
-
+    <script type="text/javascript"
+       src="http://wave-api.appspot.com/public/wave.js"></script>
     <script type="text/javascript">
       function makeDOMRequest() {    
         var params = {};  
@@ -38,6 +38,8 @@
       };
       gadgets.util.registerOnLoadHandler(makeDOMRequest);
     </script>
+
+    <div id="content"></div>
   ]]>
   </Content>
 </Module>
