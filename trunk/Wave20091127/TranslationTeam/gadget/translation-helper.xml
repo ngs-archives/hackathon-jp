@@ -5,7 +5,7 @@
   <Require feature="wave-preview" /> 
 </ModulePrefs>
 <Content type="html"><![CDATA[
-<script type="text/javascript" src="http://wave-api.appspot.com/public/wave.js">
+<script type="text/javascript" src="http://wave-api.appspot.com/public/wave.js"></script>
 <script type="text/javascript" src="http://hackathon-jp.googlecode.com/svn/trunk/Wave20091127/TranslationTeam/gadget/translation-helper.js"></script>
 </script> 
   Hello, Translations<br/>
