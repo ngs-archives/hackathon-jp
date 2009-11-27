@@ -13,9 +13,19 @@
     <script type="text/javascript">
       function makeDOMRequest() {    
         console.log("makeDOMRequest"); // for debug
+
+        var city = '63';         // 63=東京
+        var day = 'today';       // today || tomorrow || dayaftertomorrow
+        var param_city = '?city=' + city;
+        var param_day = '&day=' + day;
+
         var params = {};  
         params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;  
-        var url = "http://weather.livedoor.com/forecast/webservice/rest/v1?city=113&day=tomorrow";
+
+        var url = "http://weather.livedoor.com/forecast/webservice/rest/v1";
+        url += param_city;
+        url += param_day;
+
         gadgets.io.makeRequest(url, response, params);
       };
 
