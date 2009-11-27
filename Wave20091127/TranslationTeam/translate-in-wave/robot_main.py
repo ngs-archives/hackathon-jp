@@ -12,6 +12,8 @@ from waveapi import document
 import kay
 kay.setup()
 
+import simplejson
+
 from kay.misc import get_appid
 from kay.conf import settings
 
@@ -48,20 +50,23 @@ def handle_request_po(gadget):
   path = gadget.get(KEY_PATH)
   language = gadget.get(KEY_LANGUAGE)
   from babel.messages import pofile
-  f = open("sample.po")
+  f = open("sample.po.txt")
   po_file = pofile.read_po(f)
   messages = []
   for message in po_file:
     if message.id:
-      messages.append({flags: message.flags,
-                       locations: message.locations,
-                       msgid: message.id,
-                       msgstr: message.string})
+      messages.append({"flags": message.flags,
+                       "locations": message.locations,
+                       "msgid": message.id,
+                       "msgstr": message.string})
   ret = {
     KEY_RESPONSE_TYPE: RESPONSE_PO,
     KEY_STATUS: STATUS_PO_EXIST,
-    KEY_DATA: messages,
+    KEY_DATA: simplejson.dumps(messages),
   }
+  logging.debug(messages)
+  return ret
+
 
 handler_map = {
   REQUEST_PO: handle_request_po,

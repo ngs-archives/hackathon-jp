@@ -16,7 +16,8 @@ function renderState() {
   // update the field:
   var state = wave.getState();
   var elm = document.getElementById("hoge");
-  console.log("data"+ state.get("data"));
+  var data = JSON.parse(state.get("data"));
+  console.log("data"+ data);
   console.log("status"+ state.get("status"));
   console.log("responseType"+ state.get("responseType"));
   elm.value = state.get("hoge", "");
