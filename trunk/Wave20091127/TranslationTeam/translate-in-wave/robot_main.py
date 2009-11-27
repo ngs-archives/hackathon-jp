@@ -1,4 +1,5 @@
-"""Groupy robot"""
+# coding: utf-8
+"""Translate Helper robot"""
 
 import logging
 import re
@@ -16,13 +17,25 @@ from kay.conf import settings
 
 hostname = "%s.appspot.com" % get_appid()
 
+gadget_url = ('http://hackathon-jp.googlecode.com/svn/trunk/'
+              'Wave20091127/TranslationTeam/gadget/'
+              'translation-helper.xml')
+
 def on_self_added(properties, context):
   """Called when this robot is first added to the wave."""
   blip = context.GetBlipById(context.GetRootWavelet().GetRootBlipId())
   if blip:
     blip.GetDocument().SetText('Translation Helper!')
     blip.GetDocument().AppendElement(
-      document.Gadget('http://hackathon-jp.googlecode.com/svn/trunk/Wave20091127/TranslationTeam/gadget/translation-helper.xml'))
+      document.Gadget(gadget_url))
+
+
+def OnBlipSubmitted(properties, context):
+  logging.info('OnBlipSubmitted')
+  blip_id = properties['blipId']
+  blip = context.GetBlipById(blip_id)
+  doc = blip.GetDocument()
+  gadget = blip.GetGadgetByUrl(gadget_url)
 
 
 if __name__ == '__main__':
@@ -32,4 +45,5 @@ if __name__ == '__main__':
                   profile_url='http://%s/_wave/robot/profile' % hostname)
   r.RegisterHandler(events.WAVELET_SELF_ADDED,
                     on_self_added)
+  r.RegisterHandler(events.BLIP_SUBMITTED, OnBlipSubmitted)
   r.Run(debug=True)
