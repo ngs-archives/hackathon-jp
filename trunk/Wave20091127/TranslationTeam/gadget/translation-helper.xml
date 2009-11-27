@@ -5,16 +5,9 @@
   <Require feature="wave-preview" /> 
 </ModulePrefs>
 <Content type="html"><![CDATA[
-<script type="text/javascript">
-function hoge() {
-  var state = wave.getState();
-  delta = {};
-  delta['hoge'] = 'fuga';
-  state.submitDelta(delta);
-}
-</script>
-
+<script type="text/javascript" src="translation-helper.js"></script>
   Hello, Translations<br/>
+  <input id="hoge">
   <input type="button" onclick="hoge();" value="hoge">
 ]]></Content>
 </Module>

@@ -36,6 +36,8 @@ def OnBlipSubmitted(properties, context):
   blip = context.GetBlipById(blip_id)
   doc = blip.GetDocument()
   gadget = blip.GetGadgetByUrl(gadget_url)
+  hoge = gadget.get("hoge")
+  logging.debug("hoge: %s" % hoge)
 
 
 if __name__ == '__main__':
