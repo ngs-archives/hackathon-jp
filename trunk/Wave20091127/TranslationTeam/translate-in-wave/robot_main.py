@@ -55,14 +55,16 @@ def handle_request_po(gadget):
   messages = []
   for message in po_file:
     if message.id:
-      messages.append({"flags": message.flags,
-                       "locations": message.locations,
+      flags = message.flags if message.flags else None
+      
+      messages.append({"flags": list(message.flags),
+                       "locations": list(message.locations),
                        "msgid": message.id,
                        "msgstr": message.string})
   ret = {
     KEY_RESPONSE_TYPE: RESPONSE_PO,
     KEY_STATUS: STATUS_PO_EXIST,
-    KEY_DATA: simplejson.dumps(messages),
+    KEY_DATA: messages,
   }
   logging.debug(messages)
   return ret
