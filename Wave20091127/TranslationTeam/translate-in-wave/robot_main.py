@@ -34,7 +34,7 @@ RESPONSE_PO = "RESPONSE_PO"
 STATUS_PO_EXIST = "200"
 STATUS_PO_NOT_EXIST = "null.po"
 
-from catalog.models import PoFile
+#from catalog.models import PO
 
 def on_self_added(properties, context):
   """Called when this robot is first added to the wave."""
