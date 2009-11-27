@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="Row of four game" height="400" width="400">
+  <Require feature="dynamic-height"/>
+  <Require feature="wave-preview" /> 
+</ModulePrefs>
+<Content type="html"><![CDATA[
+  Hello, Translations
+]]></Content>
+</Module>

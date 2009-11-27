@@ -1,0 +1,1 @@
+/Users/tmatsuo/work/kay/manage.py
