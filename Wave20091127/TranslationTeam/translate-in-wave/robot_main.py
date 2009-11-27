@@ -6,6 +6,7 @@ import re
 from waveapi import events
 from waveapi import model
 from waveapi import robot
+from waveapi import document
 
 import kay
 kay.setup()
