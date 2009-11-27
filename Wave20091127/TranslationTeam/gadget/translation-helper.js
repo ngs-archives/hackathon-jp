@@ -1,8 +1,8 @@
 function fireHoge() {
-  window.alert("hoge");
   var state = wave.getState();
   delta = {};
   delta['hoge'] = $("#hoge").val();
+  console.log("submitting", delta);
   state.submitDelta(delta);
 }
 function renderState() {
