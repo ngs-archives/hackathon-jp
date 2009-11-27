@@ -8,6 +8,8 @@
   <![CDATA[
     <script type="text/javascript"
        src="http://wave-api.appspot.com/public/wave.js"></script>
+
+    <div id="content"></div>
     <script type="text/javascript">
       function makeDOMRequest() {    
         var params = {};  
@@ -26,14 +28,12 @@
 
         // obj.data contains a Document DOM element corresponding to the page that was requested
         var domdata = obj.data;
-        var title = domdata.getElementsByTagName("title").item(0).childNodes.item(0).nodeValue;
-        var description = domdata.getElementsByTagName("description").item(0).text.nodeValue;
-        var link = domdata.getElementsByTagName("link").item(0).text.nodeValue;
-        var imgurl = domdata.getElementsByTagName("url").item(0).text.nodeValue;
-        var imgwidth = domdata.getElementsByTagName("width").item(0).text.nodeValue;
-        var imgheight = domdata.getElementsByTagName("height").item(0).text.nodeValue;
-
-
+        var title = domdata.getElementsByTagName("title").item(0).childNodes[0].nodeValue;
+        var description = domdata.getElementsByTagName("description").item(0).childNodes[0].nodeValue;
+        var link = domdata.getElementsByTagName("link").item(0).childNodes[0].nodeValue;
+        var imgurl = domdata.getElementsByTagName("url").item(0).childNodes[0].nodeValue;
+        var imgwidth = domdata.getElementsByTagName("width").item(0).childNodes[0].nodeValue;
+        var imgheight = domdata.getElementsByTagName("height").item(0).childNodes[0].nodeValue;
 
         var html = '';
         html += '<h3><a href="' + link+ '">' + title + '</h3>'; 
@@ -43,12 +43,12 @@
         html += '" height="' + imgheight;
         html += '" alt="天気アイコン">';
 
+
+
         document.getElementById('content').innerHTML = html;
       };
       gadgets.util.registerOnLoadHandler(makeDOMRequest);
     </script>
-
-    <div id="content"></div>
   ]]>
   </Content>
 </Module>
