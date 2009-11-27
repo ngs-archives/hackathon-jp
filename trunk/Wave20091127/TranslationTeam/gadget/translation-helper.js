@@ -1,4 +1,4 @@
-function hoge() {
+function fireHoge() {
   var state = wave.getState();
   delta = {};
   delta['hoge'] = $("#hoge").attr("value");
