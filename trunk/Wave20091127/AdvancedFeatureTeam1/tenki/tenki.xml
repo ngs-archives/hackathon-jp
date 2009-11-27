@@ -37,7 +37,7 @@
       function change_location() {
         console.log("change_location"); // for debug
         var prefs = new gadgets.Prefs();
-        var city = document.getElementById('id').getAttribute('value');
+        var city = document.getElementById('loc').getAttribute('value');
         console.log("cityid=" + city); // for debug
         prefs.setString("cityid", city);
       }
