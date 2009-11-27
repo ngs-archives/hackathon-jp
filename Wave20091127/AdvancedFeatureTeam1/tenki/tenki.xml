@@ -7,12 +7,12 @@
   <UserPref name="cityid"
     display_name="City ID"
     datatype="string"
-    default_value="123" />
+    default_value="63" />
   <UserPref 
     name="day"
     display_name="Day"
     datatype="string"
-    default_value="today" />
+    default_value="tomorrow" />
 
   <Content type="html">
   <![CDATA[
