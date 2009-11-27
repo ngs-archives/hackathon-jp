@@ -38,7 +38,8 @@ def OnBlipSubmitted(properties, context):
   gadget = blip.GetGadgetByUrl(gadget_url)
   hoge = gadget.get("hoge")
   logging.debug("hoge: %s" % hoge)
-
+  delta = {"hoge": "fuga"}
+  doc.GadgetSubmitDelta(gadget, delta)
 
 if __name__ == '__main__':
   logging.getLogger().setLevel(logging.DEBUG)
