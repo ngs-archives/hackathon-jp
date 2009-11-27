@@ -2,7 +2,9 @@ function fireHoge() {
   var state = wave.getState();
   delta = {};
   var elm = document.getElementById("hoge");
-  delta['hoge'] = elm.value;
+  delta['path'] = elm.value;
+  delta['requestType'] = 'REQUEST_PO';
+  delta['language'] = 'ja';
   console.log("submitting", delta);
   state.submitDelta(delta);
 }

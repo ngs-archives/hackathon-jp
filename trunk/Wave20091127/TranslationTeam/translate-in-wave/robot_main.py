@@ -34,9 +34,6 @@ RESPONSE_PO = "RESPONSE_PO"
 STATUS_PO_EXIST = "200"
 STATUS_PO_NOT_EXIST = "null.po"
 
-MOCK_PO_DATA = """
-"""
-
 from catalog.models import PoFile
 
 def on_self_added(properties, context):
@@ -50,12 +47,20 @@ def on_self_added(properties, context):
 def handle_request_po(gadget):
   path = gadget.get(KEY_PATH)
   language = gadget.get(KEY_LANGUAGE)
-  # po_file = PoFile.all().filter("path =", path)\
-  #    .filter("language =", language)
+  from babel.messages import pofile
+  f = open("sample.po")
+  po_file = pofile.read_po(f)
+  messages = []
+  for message in po_file:
+    if message.id:
+      messages.append({flags: message.flags,
+                       locations: message.locations,
+                       msgid: message.id,
+                       msgstr: message.string})
   ret = {
     KEY_RESPONSE_TYPE: RESPONSE_PO,
     KEY_STATUS: STATUS_PO_EXIST,
-    KEY_DATA: MOCK_PO_DATA,
+    KEY_DATA: messages,
   }
 
 handler_map = {
@@ -71,7 +76,8 @@ def OnBlipSubmitted(properties, context):
   request_type = gadget.get(KEY_REQUEST_TYPE, REQUEST_PO)
   method = handler_map.get(request_type)
   assert(callable(method))
-  method(gadget)
+  ret = method(gadget)
+  doc.GadgetSubmitDelta(gadget, ret)
 #   hoge = gadget.get("hoge")
 #   logging.debug("hoge: %s" % hoge)
 #   delta = {"hoge": hoge+"fuga"}
