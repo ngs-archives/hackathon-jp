@@ -21,11 +21,12 @@
 
     <div id="option">
       地域:
-      <select name="loc" size="12">
+      <select name="loc">
       <option value="63">東京</option>
       <option value="64">大島</option>
       <option value="65">八丈島</option>
       <option value="66">父島</option>
+      <option value="123">父島</option>
       </select>
     </div>
 
