@@ -2,6 +2,7 @@
 <Module>
   <ModulePrefs title="Weather Hacks XML">
     <Require feature="rpc" />
+    <Require feature="setprefs" />
     <Locale lang="ja" country="jp" />
   </ModulePrefs>
   <UserPref name="cityid"
@@ -21,7 +22,7 @@
 
     <div id="option">
       地域:
-      <select name="loc">
+      <select id="loc" onchange="change_location()">
       <option value="63">東京</option>
       <option value="64">大島</option>
       <option value="65">八丈島</option>
@@ -32,6 +33,15 @@
 
     <div id="content"></div>
     <script type="text/javascript">
+
+      function change_location() {
+        console.log("change_location"); // for debug
+        var prefs = new gadgets.Prefs();
+        var city = document.getElementById('id').getAttribute('value');
+        console.log("cityid=" + city); // for debug
+        prefs.setString("cityid", city);
+      }
+
       function makeDOMRequest() {    
         console.log("makeDOMRequest"); // for debug
 
