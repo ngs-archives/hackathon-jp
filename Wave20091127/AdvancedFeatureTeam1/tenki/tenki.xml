@@ -12,7 +12,6 @@
     <div id="content"></div>
     <script type="text/javascript">
       function makeDOMRequest() {    
-//        wave.log("makeDOMRequest");  // for debug
         console.log("makeDOMRequest"); // for debug
         var params = {};  
         params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;  
@@ -21,7 +20,6 @@
       };
 
       function response(obj) { 
-//        wave.log("response");        // for debug
         console.log("response");       // for debug
 
         // obj.data contains a Document DOM element corresponding to the page that was requested
@@ -34,7 +32,7 @@
         var imgheight = domdata.getElementsByTagName("height").item(0).childNodes[0].nodeValue;
 
         var html = '';
-        html += '<h3><a href="' + link+ '" target="_blank">' + title + '</h3>'; 
+        html += '<h3><a href="' + link+ '" target="_blank">' + title + '</a></h3>'; 
         html += '<img border="0" src="' + imgurl;
         html += '" width="' + imgwidth;
         html += '" height="' + imgheight;
