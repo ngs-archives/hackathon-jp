@@ -12,18 +12,17 @@
     <div id="content"></div>
     <script type="text/javascript">
       function makeDOMRequest() {    
+//        wave.log("makeDOMRequest");  // for debug
+        console.log("makeDOMRequest"); // for debug
         var params = {};  
         params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;  
         var url = "http://weather.livedoor.com/forecast/webservice/rest/v1?city=113&day=tomorrow";
         gadgets.io.makeRequest(url, response, params);
-        wave.log("makeDOMRequest");
-        console.log("makeDOMRequest");
       };
 
       function response(obj) { 
-
-        console.log("response");
-        wave.log("response");
+//        wave.log("response");        // for debug
+        console.log("response");       // for debug
 
         // obj.data contains a Document DOM element corresponding to the page that was requested
         var domdata = obj.data;
