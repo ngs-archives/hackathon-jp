@@ -28,7 +28,7 @@ KEY_RESPONSE_TYPE = "responseType"
 KEY_PATH = "path"
 KEY_LANGUAGE = "language"
 KEY_STATUS = "status"
-KEY_DATA = "data"
+KEY_DATA = "messages"
 
 REQUEST_PO = "REQUEST_PO"
 RESPONSE_PO = "RESPONSE_PO"
