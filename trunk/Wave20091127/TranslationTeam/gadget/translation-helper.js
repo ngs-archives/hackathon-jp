@@ -1,8 +1,7 @@
 function hoge() {
   var state = wave.getState();
   delta = {};
-  var elm = document.getElementById("hoge");
-  delta['hoge'] = elm.value;
+  delta['hoge'] = $("#hoge").attr("value");
   state.submitDelta(delta);
 }
 function renderState() {
@@ -11,8 +10,7 @@ function renderState() {
   }
   // update the field:
   var state = wave.getState();
-  var elm = document.getElementById("hoge");
-  elm.value = state.get("hoge", "");
+  $("#hoge").attr("value", state.get("hoge", ""));
 }
 function main() {
   if (wave && wave.isInWaveContainer()) {
