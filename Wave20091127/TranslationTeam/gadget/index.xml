@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+<ModulePrefs title="Translation" height="600">
+  <Require feature="rpc"/>
+</ModulePrefs>
+<Content type="html">
+<![CDATA[
+<script type="text/javascript" src="http://wave-api.appspot.com/public/wave.js">
+</script>
+<script type="text/javascript" src="http://www.madin.jp/tmp/translation.js">
+</script>
+
+<style type="text/css">
+			#rootContainer {
+				width:100%;
+			}
+			#documentMenu {
+				
+			}
+			#documentEditor {
+				
+			}
+			#footerMenu {
+				text-align:right;
+			}
+			.sentenceTop {
+				font-size:70%;
+				background-color: #ddd;
+			}
+			.foldIcon {
+				float:right;
+				width:20px;
+				text-align:right;
+			}
+			.languageColumn {
+				float:left;
+				width:50%;
+			}
+			.languageTitle {
+				background-color:#adf;
+				height:24px;
+			}
+			.languageColumn textarea {
+				width:100%;
+			}
+            .sentence {
+                border:solid 2px white;
+            }
+            .selected {
+                border:solid 2px orange;
+            }
+			.frame {
+				width:100%;
+				height:300px;
+				overflow:auto;
+			}
+			.textContainer {
+				margin-right:6px;
+			}
+			#clearer {
+				clear:both;
+				width:100%;
+			}
+		</style>
+		
+		<div id="rootContainer">
+			<div id="documentMenu">
+				<input type="text" id="languageInput" size="60"/>
+				<select id="languageSelect">
+					<option value="">select language</option>
+					<option value="en">en</option>
+					<option value="ja">ja</option>
+					<option value="fr">fr</option>
+					<option value="de">de</option>
+					<option value="po">po</option>
+				</select>
+				<input type="button" value="Start translation" onclick="startTranslation()"/>
+			</div>
+			<div id="documentEditor" style="display:none;">
+				<div id="originalLanguageColumn" class="languageColumn">
+					<div style="margin-right:4px;">
+					<div class="languageTitle">
+						<div class="foldIcon" id="originalFoldIcon" onclick="toggleFoldOriginal()">[-]</div>
+						<span id="originalLanguageTitle">&nbsp;</span>
+					</div>
+					<div class="frame">
+						<div id="originalTextContainer" class="textContainer">
+						</div>
+					</div>
+					</div>
+				</div>
+				<div id="targetLanguageColumn" class="languageColumn">
+					<div style="margin-right:4px;">
+					<div class="languageTitle">
+						<div class="foldIcon" id="targetFoldIcon" onclick="toggleFoldTarget()">[-]</div>
+						<span id="targetLanguageTitle">&nbsp;</span>
+					</div>
+					<div class="frame">
+						<div id="targetTextContainer" class="textContainer">
+						</div>
+					</div>
+					</div>
+				</div>
+				<div id="clearer"></div>
+			<div id="footerMenu">
+				<input type="button" value="Commit" onclick="commitTranslation()"/>
+			</div>
+			</div>
+		</div>
+]]>
+</Content>
+</Module>
