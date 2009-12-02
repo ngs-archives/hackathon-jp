@@ -1,7 +1,6 @@
 package com.android.lifestyle;
 
 import android.webkit.WebView;
-import com.google.api.translate.Language;
 import com.google.api.translate.Translate;
 
 /**
