@@ -37,12 +37,12 @@ public class Util {
 	}
 
 	public static HashMap<String, Object> generateAtackData(int action,
-			String name, int pawah) {
+			String name, int power) {
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.put("action", action);
 		data.put("name", name);
 		HashMap<String, Object> value = new HashMap<String, Object>();
-		value.put("pawah", pawah);
+		value.put("power", power);
 		data.put("value", value);
 		return data;
 	}
@@ -62,4 +62,20 @@ public class Util {
 
 		return sb.toString();
 	}
+
+    @SuppressWarnings("unchecked")
+    public static String showAttackData(HashMap<String, Object> data) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("name:" + data.get("name"));
+        sb.append(" ");
+        sb.append("action:" + data.get("action"));
+        sb.append(" ");
+        HashMap<String, Object> value = (HashMap<String, Object>) data
+                .get("value");
+        sb.append("value[" + " power:" + value.get("power") + "]");
+
+        return sb.toString();
+    }
+
 }
