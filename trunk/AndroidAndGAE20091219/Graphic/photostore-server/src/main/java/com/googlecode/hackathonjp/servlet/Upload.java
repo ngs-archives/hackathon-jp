@@ -3,6 +3,7 @@ package com.googlecode.hackathonjp.servlet;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,11 +62,7 @@ public class Upload extends HttpServlet {
 				}
 				byte[] bytes = new byte[size];
 				image.write(bytes);
-				Photo photo = new Photo();
-				photo.setKey(Datastore.allocateId(Photo.class));
-				photo.setImage(bytes);
-				photo.setFilename(next.getName());
-				Datastore.put(photo);
+				Photo photo = putPhoto(next, bytes);
 				resp.setContentType("text/plain");
 				resp.setCharacterEncoding("utf-8");
 				resp.getWriter().println("key=" + KeyFactory.keyToString(photo.getKey()));
@@ -75,5 +72,15 @@ public class Upload extends HttpServlet {
 		} catch (FileUploadException e) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	private Photo putPhoto(FileItemStream next, byte[] bytes) {
+		Photo photo = new Photo();
+		photo.setKey(Datastore.allocateId(Photo.class));
+		photo.setImage(bytes);
+		photo.setFilename(next.getName());
+		photo.setCreatedAt(new Date(System.currentTimeMillis()));
+		Datastore.put(photo);
+		return photo;
 	}
 }

@@ -1,6 +1,7 @@
 package com.googlecode.hackathonjp.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
@@ -26,6 +27,8 @@ public class Photo implements Serializable {
 
 	@Attribute(lob = true)
 	private byte[] image;
+
+	private Date createdAt;
 
 	private long schemaVersion = 1L;
 
@@ -108,5 +111,21 @@ public class Photo implements Serializable {
 	 */
 	public void setSchemaVersion(long schemaVersion) {
 		this.schemaVersion = schemaVersion;
+	}
+
+	/**
+	 * @param createdAt the createdAt to set
+	 * @category accessor
+	 */
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	/**
+	 * @return the createdAt
+	 * @category accessor
+	 */
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 }
