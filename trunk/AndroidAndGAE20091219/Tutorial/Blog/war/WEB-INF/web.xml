@@ -44,5 +44,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 <url-pattern>/admin/edit</url-pattern>
 </servlet-mapping>
 
+	<servlet>
+		<servlet-name>Detail</servlet-name>
+		<servlet-class>org.gtugs.codelab.appengine.blog.ShowDetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Detail</servlet-name>
+		<url-pattern>/detail</url-pattern>
+	</servlet-mapping>
 	
+
 </web-app>
