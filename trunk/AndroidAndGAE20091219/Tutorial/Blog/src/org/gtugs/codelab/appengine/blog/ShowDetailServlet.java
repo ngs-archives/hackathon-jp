@@ -15,7 +15,7 @@ public class ShowDetailServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html");
+		resp.setContentType("text/html");	
 		resp.getWriter().println("post");
 
 	}
