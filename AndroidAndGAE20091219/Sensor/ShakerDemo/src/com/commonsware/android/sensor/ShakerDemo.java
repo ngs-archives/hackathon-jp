@@ -60,8 +60,6 @@ public class ShakerDemo extends Activity
 		scroll.fullScroll(View.FOCUS_DOWN);
 		Uri uri = Uri.parse("http://google.com");
 		Intent i = new Intent( Intent.ACTION_VIEW, uri);
-//		Uri uri = Uri.parse("tel:08050927599");
-//		Intent i = new Intent( Intent.ACTION_CALL, uri);
 		startActivity(i);
 	}
 }
