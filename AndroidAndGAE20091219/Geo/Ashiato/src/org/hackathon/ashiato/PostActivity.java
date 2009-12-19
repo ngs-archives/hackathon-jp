@@ -35,11 +35,17 @@ import android.widget.Button;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpParams;
+
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -56,15 +62,27 @@ public class PostActivity extends Activity implements LocationListener, OnClickL
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+//		MapView map = new MapView(this, "00M8N7ryly8ZbjsU5MQEJYrUYlUm2eWrSWpLPCQ");
+//		map.setEnabled(true);
+//		map.setClickable(true);
+//		setContentView(map);
+//
+//		// 画像を地図上に配置するオーバーレイ
+//		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+//		MyOverlay overlay = new MyOverlay(bmp, new GeoPoint(35656000, 139700000));
+//		List<Overlay> list = map.getOverlays();
+//		list.add(overlay);
+
 		setContentView(R.layout.post);
-		
+
+
 		button = (Button)findViewById(R.id.get_location);
 		button.setOnClickListener(this);
-		
+
 		locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
 	}
-
+	
 	public class DownloadTask extends AsyncTask<String, Integer, Bitmap> {
 		private HttpClient mClient;
 		private HttpGet mGetMethod;
