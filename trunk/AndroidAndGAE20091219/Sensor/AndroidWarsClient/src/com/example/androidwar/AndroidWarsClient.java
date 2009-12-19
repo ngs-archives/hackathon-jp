@@ -2,8 +2,6 @@ package com.example.androidwar;
 
 import java.util.HashMap;
 
-import com.example.androidwar.util.Util;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-public class AndroidWarsClient extends Activity implements OnSendListener{
+import com.example.androidwar.common.Constant;
+import com.example.androidwar.util.Util;
+
+public class AndroidWarsClient extends Activity implements Shaker.Callback , OnSendListener {
 
 	private EditText editName;
 	private Button btSet;
 	private String name;
+	private Shaker shaker = null;
+	private DataPostTask task = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -56,14 +59,40 @@ public class AndroidWarsClient extends Activity implements OnSendListener{
 		outLinearLayout.addView(uiLayout);
 		outLinearLayout.addView(touchPanel);
 		setContentView(outLinearLayout);
+		
+	    shaker = new Shaker(this, 1.25d, 500, this);
 	}
 
-	/**
-	 * TouchPanelからコールバックされる
-	 */
+
 	@Override
-	public void onSend(HashMap<String, Object> data) {
-		// TODO Auto-generated method stub
-		Log.v("",Util.showMoveData(data));
+	public void onDestroy() {
+	   super.onDestroy();
+	   shaker.close();
 	}
+  
+    /**
+     * TouchPanelからコールバックされる
+     */
+    @Override
+    public void onSend(HashMap<String, Object> data) {
+        // TODO Auto-generated method stub
+        send(data);
+    }
+    
+	@Override
+    public void shakingStarted(int power) {
+        HashMap<String,Object> data = Util.generateAtackData(Constant.ActionType.ACTION_ATACK, name, power);
+        Log.d("Shaker",Util.showAttackData(data));
+        send(data);
+    }
+
+    @Override
+    public void shakingStopped() {
+        //no use
+    }
+    
+    public void send(HashMap<String ,Object> data){
+      task = new DataPostTask();
+      task.execute(data);
+    }
 }
