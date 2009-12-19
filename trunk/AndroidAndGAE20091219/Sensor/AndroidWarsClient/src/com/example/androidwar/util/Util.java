@@ -6,6 +6,7 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -80,5 +81,23 @@ public class Util {
 		ad.show();
 	}
 	
-	
+	public static void generateMoveData(int action, String name, int x, int y){
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("action", action);
+		data.put("name", name);
+		HashMap<String, Object> value = new HashMap<String, Object>(); 
+		value.put("x", x);
+		value.put("y", y);
+		data.put("value", value);
+	}
+
+	public static void generateAtackData(int action, int name, int pawah){
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("action", action);
+		data.put("name", name);
+		HashMap<String, Object> value = new HashMap<String, Object>(); 
+		value.put("pawah", pawah);
+		data.put("value", value);
+	}
+
 }
