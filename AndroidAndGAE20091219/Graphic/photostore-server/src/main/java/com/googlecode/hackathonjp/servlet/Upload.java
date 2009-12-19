@@ -1,6 +1,5 @@
 package com.googlecode.hackathonjp.servlet;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -13,6 +12,7 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import org.apache.velocity.VelocityContext;
 import org.slim3.datastore.Datastore;
 
@@ -47,21 +47,12 @@ public class Upload extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		ServletFileUpload fileUpload = new ServletFileUpload();
 
-		ByteArrayOutputStream image = new ByteArrayOutputStream();
 		try {
 			FileItemIterator itemIterator = fileUpload.getItemIterator(req);
 			while (itemIterator.hasNext()) {
 				FileItemStream next = itemIterator.next();
 				InputStream inputStream = next.openStream();
-				int len;
-				int size = 0;
-				byte[] buffer = new byte[1024];
-				while ((len = inputStream.read(buffer)) != -1) {
-					image.write(buffer, 0, len);
-					size += len;
-				}
-				byte[] bytes = new byte[size];
-				image.write(bytes);
+				byte[] bytes = IOUtils.toByteArray(inputStream);
 				Photo photo = putPhoto(next, bytes);
 				resp.setContentType("text/plain");
 				resp.setCharacterEncoding("utf-8");

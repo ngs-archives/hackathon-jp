@@ -13,7 +13,7 @@ import com.googlecode.hackathonjp.model.Photo;
 
 /**
  * アップロードされた画像の一覧を返す。
- * <p></p>
+ * <p>キーとファイル名をタブ文字で区切った画像情報を、画像の数だけ改行区切りのtext/plainで返す。</p>
  * @author shin1ogawa
  */
 @SuppressWarnings("serial")
