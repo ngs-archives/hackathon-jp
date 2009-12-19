@@ -2,8 +2,11 @@ package com.example.androidwar;
 
 import java.util.HashMap;
 
+import com.example.androidwar.util.Util;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -61,6 +64,6 @@ public class AndroidWarsClient extends Activity implements OnSendListener{
 	@Override
 	public void onSend(HashMap<String, Object> data) {
 		// TODO Auto-generated method stub
-		
+		Log.v("",Util.showMoveData(data));
 	}
 }
