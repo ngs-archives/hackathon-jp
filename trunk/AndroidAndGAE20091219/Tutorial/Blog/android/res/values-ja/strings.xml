@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="config_blog_post_url">http://flect006.appspot.com/admin/post</string>
+	<string name="app_name">Blog</string>
+	<string name="post">投稿</string>
+	<string name="edit">編集</string>
+	<string name="title">タイトル</string>
+	<string name="content">本文</string>
+	<string name="saving">セーブ中です</string>
+</resources>

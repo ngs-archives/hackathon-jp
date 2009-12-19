@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:orientation="horizontal"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content">
+  <Button
+   android:id="@+id/View_Button_Edit"
+   android:text="@string/caption_button_edit"
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:textSize="14sp"
+  />
+  <Button
+   android:id="@+id/ViewButton_windowclose"
+   android:text="@string/caption_button_windowclose"
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:textSize="14sp"
+  />
+ </LinearLayout>
+ <!-- 投稿日 -->
+ <TextView
+  android:text="@string/fieldtitle_date"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:textSize="20sp"
+ />
+ <TextView
+  android:id="@+id/View_FieldContent_Date"
+  android:textSize="20sp"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+ />
+ <!-- タイトル -->
+ <TextView
+  android:text="@string/fieldtitle_title"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:textSize="20sp"
+ />
+ <TextView
+  android:id="@+id/View_FieldContent_Title"
+  android:textSize="20sp"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+ />
+ <!-- 投稿内容 -->
+ <TextView
+  android:text="@string/fieldtitle_content"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:textSize="20sp"
+ />
+ <TextView
+  android:id="@+id/View_FieldContent_Content"
+  android:textSize="20sp"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+ />
+</LinearLayout>
