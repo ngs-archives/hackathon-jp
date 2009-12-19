@@ -91,7 +91,7 @@ public class Util {
      * @param y
      * @return
      */
-    public static String push(String name, int action,int x, int y){
+    public static String push(String name, int action,int x, int y, int power){
 		String result = "";
 		try{
 			String line;
@@ -112,6 +112,8 @@ public class Util {
 							+",\"value\":" +
 									"{\"y\":" +
 									Integer.toString(y) +
+									",\"power\":" +
+									Integer.toString(power)+
 									",\"x\":" +
 									Integer.toString(x)+
 									"},\"action\":" +
