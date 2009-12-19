@@ -1,12 +1,16 @@
 package com.googlecode.hackathonjp;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -17,6 +21,8 @@ import com.google.appengine.api.datastore.dev.LocalDatastoreService;
 import com.google.appengine.tools.development.ApiProxyLocal;
 import com.google.appengine.tools.development.ApiProxyLocalImpl;
 import com.google.apphosting.api.ApiProxy;
+import com.googlecode.hackathonjp.meta.PhotoMeta;
+import com.googlecode.hackathonjp.model.Photo;
 
 import static org.hamcrest.Matchers.*;
 
@@ -41,6 +47,28 @@ public class DatastoreTest {
 		Key key = service.put(entity);
 		assertThat(key, is(not(nullValue())));
 		assertThat(service.get(key), is(not(nullValue())));
+	}
+
+	/**
+	 * 画像保存のためのモデルを保存してみるテスト。
+	 * @throws IOException
+	 */
+	@Test
+	public void putAphoto() throws IOException {
+		Photo photo = new Photo();
+		photo.setFilename("hoge.jpg");
+		photo.setDescription("説明デース");
+		byte[] bytes = FileUtils.readFileToByteArray(new File("./testimage/51133.jpg"));
+		assertThat(bytes.length, is(equalTo(51133)));
+		photo.setImage(bytes);
+		Datastore.put(photo);
+
+		PhotoMeta meta = PhotoMeta.get();
+		assertThat(Datastore.query(meta).filter(meta.filename.equal("hoge.jpg")).count(),
+				is(equalTo(1)));
+		List<Photo> list = Datastore.query(meta).asList();
+		assertThat(list.size(), is(equalTo(1)));
+		assertThat(list.get(0).getImage().length, is(equalTo(51133)));
 	}
 
 	/**
