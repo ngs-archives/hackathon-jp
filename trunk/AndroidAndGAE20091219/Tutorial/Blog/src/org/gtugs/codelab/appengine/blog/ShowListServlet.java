@@ -1,4 +1,3 @@
-
 package org.gtugs.codelab.appengine.blog;
 
 import java.io.IOException;
@@ -16,38 +15,31 @@ import org.gtugs.codelab.appengine.blog.datastore.Post;
 
 public class ShowListServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest req, HttpServletResponse resp)
-   throws IOException {
-req.setCharacterEncoding("UTF-8");
-resp.setContentType("text/html");
-resp.setCharacterEncoding("UTF-8");
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/xml");
+		resp.setCharacterEncoding("UTF-8");
 
-Writer out = resp.getWriter();
+		Writer out = resp.getWriter();
 
-out.write("<a href=\"/admin/view.jsp\">New Entry</a><br />");
-out.write("<hr />");
-out.write("<h1><a href=\"/\">Hello App Engine!</a></h1>");
-out.write("<hr />");
+		out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
-PersistenceManager pm = PMF.get().getPersistenceManager();
-Query query = pm.newQuery(Post.class);
-List<Post> list = (List<Post>) query.execute();
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Query query = pm.newQuery(Post.class);
+		List<Post> list = (List<Post>) query.execute();
 
-SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy");
-for (Post post : list) {
-   String date = sdf.format(post.getDate());
-   out.write(date + "<font size=5>" + post.getTitle() + "</font>");
-
-   String linkEdit = "[<a href=\"/admin/edit?id=" + post.getId()
-   + "\">ï“èW</a>]";
-   out.write(linkEdit);
-
-   out.write("<br />");
-   out.write(post.getContent());
-   out.write("<hr />");
-}
-
-    }
+		out.write("<list>");
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy");
+		for (Post post : list) {
+			out.write("<entry>");
+			String date = sdf.format(post.getDate());
+			out.write("<date>" + date + "</date>");
+			out.write("<title>" + post.getTitle() + "</title>");
+			out.write("<content>" + post.getContent() + "</content>");
+			out.write("</entry>");
+		}
+		out.write("</list>");
+	}
 
 }
-
