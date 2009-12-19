@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="config_blog_post_url">http://deris0126.appspot.com/admin/post</string>
+	<string name="app_name">Blog</string>
+	<string name="post">post</string>
+	<string name="edit">edit</string>
+	<string name="title">title</string>
+	<string name="content">content</string>
+	<string name="saving">Saving...</string>
+	
+ <string name="caption_button_newpost">新規投稿</string>
+ <string name="caption_button_windowclose">閉じる</string>
+ <string name="caption_button_edit">編集</string>
+ <string name="fieldtitle_date">投稿日</string>
+ <string name="fieldtitle_title">タイトル</string>
+ <string name="fieldtitle_content">本文</string>
+ <string name="debugmsg_now_constructing">現在開発中です。</string>
+</resources>
