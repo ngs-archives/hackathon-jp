@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="post_btn_post">POST</string>
+    <string name="post_prrogress_dialog_title">少々お待ちを</string>
+    <string name="post_prrogress_dialog_mes">画像をアップロードしています。</string>
+    <string name="post_alert_dialog_title">確認</string>
+    <string name="post_alert_dialog_mes">画像のアップロードが完了しました。</string>
+    <string name="post_alert_dialog_btn">了解</string>
+</resources>
