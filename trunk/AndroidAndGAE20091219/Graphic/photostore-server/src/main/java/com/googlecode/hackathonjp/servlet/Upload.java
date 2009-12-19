@@ -13,6 +13,7 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.slim3.datastore.Datastore;
 
@@ -45,6 +46,16 @@ public class Upload extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String raw = req.getHeader("X-RAW");
+		if (StringUtils.isNotEmpty(raw)) {
+			Photo photo = raw(req, resp);
+			resp.setContentType("text/plain");
+			resp.setCharacterEncoding("utf-8");
+			resp.getWriter().println("key=" + KeyFactory.keyToString(photo.getKey()));
+			resp.flushBuffer();
+			return;
+		}
+
 		ServletFileUpload fileUpload = new ServletFileUpload();
 
 		try {
@@ -63,6 +74,24 @@ public class Upload extends HttpServlet {
 		} catch (FileUploadException e) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	/**
+	 * バイナリだけを送ってくる場合の処理。
+	 * @param req
+	 * @param resp
+	 * @return 保存した{@link Photo}
+	 * @throws IOException
+	 */
+	private Photo raw(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		byte[] bytes = IOUtils.toByteArray(req.getInputStream());
+		Photo photo = new Photo();
+		photo.setKey(Datastore.allocateId(Photo.class));
+		photo.setImage(bytes);
+		photo.setFilename(String.valueOf(System.currentTimeMillis()));
+		photo.setCreatedAt(new Date(System.currentTimeMillis()));
+		Datastore.put(photo);
+		return photo;
 	}
 
 	private Photo putPhoto(FileItemStream next, byte[] bytes) {
