@@ -32,8 +32,9 @@ public class AndroidWarsClient extends Activity {
         this.editName = new EditText(this);
         this.editName.setWidth(200);
         this.btSet = new Button(this);
-        btSet.setText("設定");
-        btSet.setOnClickListener(new OnClickListener(){
+        this.btSet.setWidth(100);
+        this.btSet.setText("設定");
+        this.btSet.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
