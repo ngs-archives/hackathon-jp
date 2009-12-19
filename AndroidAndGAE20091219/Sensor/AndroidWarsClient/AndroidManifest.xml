@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.example.androidwar"
       android:versionCode="1"
-      android:versionName="1.0">
+      android:versionName="1.1">
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".AndroidWardsClient"
+        <activity android:name=".AndroidWarsClient"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

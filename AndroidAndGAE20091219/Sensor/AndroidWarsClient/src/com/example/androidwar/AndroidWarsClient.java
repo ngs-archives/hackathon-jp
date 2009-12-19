@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-public class AndroidWardsClient extends Activity {
+public class AndroidWarsClient extends Activity {
     
 	private EditText editName;
 	private Button btSet;
