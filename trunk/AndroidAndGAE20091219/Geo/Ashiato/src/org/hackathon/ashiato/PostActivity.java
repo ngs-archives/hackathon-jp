@@ -12,6 +12,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -28,28 +29,38 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
 import java.io.InputStream;
 import java.net.URI;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
-public class PostActivity extends Activity implements LocationListener {
+public class PostActivity extends Activity implements LocationListener, OnClickListener {
 	static final String TAG = "Ashiato";
-	static final String API_URI = "http://hackathon-ashiato.appspot.com/ashiato";
-
+	static final String API_URI_GET = "http://hackathon-ashiato.appspot.com/ashi/get?";
+	static final String API_URI_POST = "http://hackathon-ashiato.appspot.com/ashi/put?";
 	LocationManager locationManager;
+	Button button;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.post);
-
+		
+		button = (Button)findViewById(R.id.get_location);
+		button.setOnClickListener(this);
+		
 		locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
 	}
@@ -57,18 +68,21 @@ public class PostActivity extends Activity implements LocationListener {
 	public class DownloadTask extends AsyncTask<String, Integer, Bitmap> {
 		private HttpClient mClient;
 		private HttpGet mGetMethod;
+//		private HttpGet mPostMethod;
 		private PostActivity mActivity;
 
 		public DownloadTask(PostActivity activity) {
 			mActivity = activity;
 			mClient = new DefaultHttpClient();
 			mGetMethod = new HttpGet();
+//			mPostMethod = new HttpPost();
 		}
 
 		Bitmap downloadImage(String uri) {
 			try {
 				mGetMethod.setURI(new URI(uri));
 				HttpResponse resp = mClient.execute(mGetMethod);
+
 				if (resp.getStatusLine().getStatusCode() < 400) {
 					InputStream is = resp.getEntity().getContent();
 					
@@ -127,12 +141,12 @@ public class PostActivity extends Activity implements LocationListener {
 	public void onLocationChanged(Location location) {
 		if ( location != null ) {
 			if (System.currentTimeMillis() - last > 5000) {
-				Log.v(TAG, "send to server" + getGPSLocationString(location));
-
-				//{"email": "hoge@example.com", "lat": "39.123", "lng": "139.123" }
-
-				//				DownloadTask task = new DownloadTask(this);
-//				task.execute(API_URI);
+				String request = API_URI_POST + "email=kazunori279@gmail.com&lat="
+								+ String.valueOf(location.getLatitude())
+								+ "&lng=" + String.valueOf(location.getLongitude());
+				Log.v(TAG, "Send " + request);
+				DownloadTask task = new DownloadTask(this);
+				task.execute(request);
 				last = System.currentTimeMillis();
 			}
 		}
@@ -170,5 +184,13 @@ public class PostActivity extends Activity implements LocationListener {
 					location.getLatitude(), location.getLongitude(), location.getTime(), location.getProvider());
 		}
 		return s;
-	}	
+	}
+
+	@Override
+	public void onClick(View v) {
+		String request = API_URI_GET + "email=kazunori279@gmail.com";
+		Log.v(TAG, "Send " + request);
+		DownloadTask task = new DownloadTask(this);
+		task.execute(request);
+	}
 }
