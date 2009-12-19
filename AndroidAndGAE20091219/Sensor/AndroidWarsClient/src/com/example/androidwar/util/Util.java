@@ -44,5 +44,18 @@ public class Util {
       data.put("value", value);
       return data;
   }
-
+	
+	@SuppressWarnings("unchecked")
+	public static String showData(HashMap<String, Object> data){
+		StringBuilder sb = new StringBuilder(); 
+		
+		sb.append("name:" + data.get("name"));
+		sb.append(" ");
+		sb.append("action:" + data.get("action"));
+		sb.append(" ");
+		HashMap<String, Object> value = (HashMap<String, Object>) data.get("value");
+		sb.append("value[" + " x:" + value.get("x") + " y:" + value.get("y") + "]");
+		
+		return sb.toString();
+	}
 }
