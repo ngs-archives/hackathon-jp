@@ -12,6 +12,8 @@ import org.slim3.datastore.Datastore;
 import org.slim3.datastore.EntityNotFoundRuntimeException;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.images.Image;
+import com.google.appengine.api.images.ImagesServiceFactory;
 import com.googlecode.hackathonjp.meta.PhotoMeta;
 import com.googlecode.hackathonjp.model.Photo;
 
@@ -35,6 +37,8 @@ public class Download extends HttpServlet {
 			ServletOutputStream outputStream = resp.getOutputStream();
 			byte[] bytes = photo.getImage();
 			resp.setContentLength(bytes.length);
+			Image makeImage = ImagesServiceFactory.makeImage(bytes);
+			resp.setContentType("image/" + makeImage.getFormat().toString().toLowerCase());
 			outputStream.write(bytes);
 			resp.flushBuffer();
 		} catch (EntityNotFoundRuntimeException e) {
