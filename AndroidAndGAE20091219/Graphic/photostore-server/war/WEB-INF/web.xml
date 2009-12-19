@@ -9,6 +9,14 @@
     <servlet-name>upload</servlet-name>
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>list</servlet-name>
+    <servlet-class>com.googlecode.hackathonjp.servlet.List</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>list</servlet-name>
+    <url-pattern>/list</url-pattern>
+  </servlet-mapping>
 
   <!-- makesynccall -->
   <servlet>
