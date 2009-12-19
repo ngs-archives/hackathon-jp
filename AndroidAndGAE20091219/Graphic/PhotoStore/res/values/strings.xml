@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PhotoStore</string>
-    <string name="btn_post_name">登録</string>
-    <string name="btn_get_name">読込</string>
+    <string name="btn_post_name">POST</string>
+    <string name="btn_get_name">GET</string>
 </resources>
