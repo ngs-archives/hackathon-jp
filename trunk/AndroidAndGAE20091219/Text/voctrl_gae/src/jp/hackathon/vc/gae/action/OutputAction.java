@@ -1,6 +1,8 @@
 package jp.hackathon.vc.gae.action;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -24,10 +26,10 @@ public class OutputAction implements IAction {
 			List<VoctrlModel> models = (List<VoctrlModel>) pm.newQuery(query).execute();
 
 			//resp.setContentType("text/plain");
-			resp.setCharacterEncoding("UTF-8");
+			
+			PrintWriter writer = resp.getWriter();
 
 			for (VoctrlModel voctrlModel : models) {
-				PrintWriter writer = resp.getWriter();
 				writer.println(voctrlModel.getData());
 			}
 //			pm.deletePersistentAll(models);

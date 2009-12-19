@@ -19,6 +19,9 @@ public class VoctrlServlet extends HttpServlet {
 	
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		
 		String path = req.getPathInfo().substring(1);
 		if(path.startsWith("input/")){
 			log.info("Starting input action");

@@ -12,8 +12,6 @@ public class InputAction implements IAction {
 
 	@Override
 	public void run(HttpServletRequest req, HttpServletResponse resp, Object data) throws IOException {
-		req.setCharacterEncoding("UTF-8");
-		
 		VoctrlModel model = new VoctrlModel();
 		model.setData((String) data);
 
