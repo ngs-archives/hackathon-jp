@@ -91,12 +91,12 @@ public class Util {
 		data.put("value", value);
 	}
 
-	public static void generateAtackData(int action, int name, int pawah){
+	public static void generateAtackData(int action, int name, int power){
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.put("action", action);
 		data.put("name", name);
 		HashMap<String, Object> value = new HashMap<String, Object>(); 
-		value.put("pawah", pawah);
+		value.put("power", power);
 		data.put("value", value);
 	}
 
