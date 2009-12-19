@@ -1,0 +1,67 @@
+<html>
+<head>
+<script type="text/javascript" src="androidwars/jquery-1.3.2.js"></script>
+<script type="text/javascript">
+
+function send() {
+	var method = $("#method").val();
+	var url = $("#url").val();
+	var paramName = $("#paramName").val();
+	var paramValue = $("#paramValue").val();
+	$("#result").val("");
+	//alert(method + ":" + url + ":" + entry);
+	$.ajax({
+		url: url,
+		type: method,
+		data:paramName + "=" + paramValue,
+		success: function(data) {
+			$("#result").val(data);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown){
+			for(key in XMLHttpRequest) {
+				$("#result").append(key + ":" + XMLHttpRequest[key] + "\n");
+			}
+		}
+	});
+}
+
+
+</script>
+</head>
+<body>
+
+<table>
+<tr><td>メソッド</td><td>
+<select id="method">
+<option value="GET">GET</option>
+<option value="POST">POST</option>
+<option value="PUT">PUT</option>
+<option value="DELETE">DELETE</option>
+</select>
+<tr><td>URL</td><td>
+<select id="url">
+<option value="/recieveEvent">/recieveEvent</option>
+<option value="/responseEvents">/responseEvents</option>
+</select>
+</td></tr>
+<tr><td>paramName</td><td>
+<select id="paramName">
+<option value="event">event</option>
+<option value="version">version</option>
+</select>
+</td></tr>
+<tr><td>paramValue</td><td><input type="text" id="paramValue" size="100"/></td></tr>
+<tr><td>&nbsp;</td><td>/recieveEvent move例：{"action":0, "name":"ayuta", "value":{"x":500, "y":320}}</td></tr>
+<tr><td>&nbsp;</td><td>/recieveEvent attack例：{"action":1, "name":"ayuta", "value":{"power":100}}</td></tr>
+<tr><td>&nbsp;</td><td>/responseEvents 例：3</td></tr>
+</table>
+
+<button id="send" onclick="send();">送信</button>
+<br/>
+<br/>
+結果
+<br/>
+<textarea id="result" rows="10" cols="100"></textarea>
+
+</body>
+</html>
