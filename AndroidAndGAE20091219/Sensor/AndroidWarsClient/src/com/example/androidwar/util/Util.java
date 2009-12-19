@@ -37,6 +37,7 @@ public class Util {
 		HashMap<String, Object> value = new HashMap<String, Object>();
 		value.put("x", x);
 		value.put("y", y);
+		value.put("power", 0);
 		data.put("value", value);
 		return data;
 	}
@@ -47,6 +48,8 @@ public class Util {
 		data.put("action", action);
 		data.put("name", name);
 		HashMap<String, Object> value = new HashMap<String, Object>();
+        value.put("x", 0);
+        value.put("y", 0);
 		value.put("power", power);
 		data.put("value", value);
 		return data;
@@ -112,8 +115,8 @@ public class Util {
 							+",\"value\":" +
 									"{\"y\":" +
 									Integer.toString(y) +
-									",\"power\":" +
-									Integer.toString(power)+
+                                    ",\"power\":" +
+                                    Integer.toString(power)+
 									",\"x\":" +
 									Integer.toString(x)+
 									"},\"action\":" +
