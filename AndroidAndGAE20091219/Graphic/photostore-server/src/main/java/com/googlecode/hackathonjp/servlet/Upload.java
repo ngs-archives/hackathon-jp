@@ -19,7 +19,6 @@ import org.slim3.datastore.Datastore;
 
 import appengine.util.MemcacheUtil;
 
-import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.hackathonjp.VelocityUtil;
 import com.googlecode.hackathonjp.model.Photo;
@@ -28,7 +27,7 @@ import com.googlecode.hackathonjp.model.Photo;
  * アップロードされたファイルを保存するサーブレット。
  * <dl>
  * <dt>POST</dt>
- * <dd>{@link BlobstoreService}を使って{@link Photo}の保存を行う。</dd>
+ * <dd>{@link Photo}の保存を行う。</dd>
  * <dt>GET</dt>
  * <dd>アップロード用のHtmlを返す</dd>
  * </dl>
