@@ -17,6 +17,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.slim3.datastore.Datastore;
 
+import appengine.util.MemcacheUtil;
+
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.hackathonjp.VelocityUtil;
@@ -53,6 +55,8 @@ public class Upload extends HttpServlet {
 			resp.setCharacterEncoding("utf-8");
 			resp.getWriter().println("key=" + KeyFactory.keyToString(photo.getKey()));
 			resp.flushBuffer();
+			// Memcacheに搭載された画像の一覧を削除する
+			MemcacheUtil.delete(List.MEMCACHE_KEY);
 			return;
 		}
 
@@ -69,6 +73,8 @@ public class Upload extends HttpServlet {
 				resp.setCharacterEncoding("utf-8");
 				resp.getWriter().println("key=" + KeyFactory.keyToString(photo.getKey()));
 				resp.flushBuffer();
+				// Memcacheに搭載された画像の一覧を削除する
+				MemcacheUtil.delete(List.MEMCACHE_KEY);
 				break;
 			}
 		} catch (FileUploadException e) {
