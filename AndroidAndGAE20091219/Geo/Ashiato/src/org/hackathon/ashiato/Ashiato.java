@@ -13,7 +13,6 @@ public class Ashiato extends Activity implements OnClickListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
@@ -30,16 +29,16 @@ public class Ashiato extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.get_button:
+			Intent intent1 =new Intent(this, GetActivity.class);
+			startActivity(intent1);
 			break;
 
 		case R.id.post_button:
-			Intent intent = new Intent(this, PostActivity.class);
-			startActivity(intent);
+			Intent intent2 = new Intent(this, PostActivity.class);
+			startActivity(intent2);
 			break;
 		default:
 			break;
 		}		
-	}
-	
-	
+	}	
 }

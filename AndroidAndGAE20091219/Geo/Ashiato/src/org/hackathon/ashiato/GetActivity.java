@@ -1,21 +1,19 @@
 package org.hackathon.ashiato;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.net.Proxy;
 import java.net.URL;
-import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import android.app.Activity;
+import android.net.Proxy;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -27,14 +25,14 @@ public class GetActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//プロクシの設定
-		ConProxy = Proxy.NO_PROXY;
+		ConProxy = null;
 		
 		HttpURLConnection con;
 		try {
 			//HTTPコネクションインスタンスの生成
 			con = (HttpsURLConnection) (new URL(
 					"http://hackathon-ashiato.appspot.com/ashi/get"))
-					.openConnection(ConProxy);
+					.openConnection();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			finish();
