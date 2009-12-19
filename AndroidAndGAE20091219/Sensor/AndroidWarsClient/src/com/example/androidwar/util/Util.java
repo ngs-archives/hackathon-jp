@@ -46,7 +46,7 @@ public class Util {
   }
 	
 	@SuppressWarnings("unchecked")
-	public static String showData(HashMap<String, Object> data){
+	public static String showMoveData(HashMap<String, Object> data){
 		StringBuilder sb = new StringBuilder(); 
 		
 		sb.append("name:" + data.get("name"));
