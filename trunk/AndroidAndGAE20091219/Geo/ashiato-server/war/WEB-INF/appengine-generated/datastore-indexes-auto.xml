@@ -1,4 +1,11 @@
-<!-- Indices written at Sat, 30 May 2009 05:54:22 UTC -->
+<!-- Indices written at Sat, 19 Dec 2009 06:30:16 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 8 times in query history -->
+    <datastore-index kind="Loc" ancestor="false" source="auto">
+        <property name="email" direction="asc"/>
+        <property name="createdAt" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>

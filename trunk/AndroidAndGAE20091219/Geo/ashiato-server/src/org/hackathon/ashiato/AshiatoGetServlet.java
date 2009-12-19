@@ -1,7 +1,6 @@
 package org.hackathon.ashiato;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,20 +12,36 @@ import net.arnx.jsonic.JSON;
 
 import org.slim3.datastore.Datastore;
 
-import com.google.appengine.api.datastore.GeoPt;
-import com.google.appengine.api.datastore.Transaction;
-
+/**
+ * A servlet that gets a location data for specified email.
+ * 
+ * @author kazunori_279
+ */
 public class AshiatoGetServlet extends HttpServlet {
 
+    /**
+     * Gets a location data for specified email.
+     */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
-        final String email = req.getParameter("email").toLowerCase();
-        
-        final LocMeta lm = new LocMeta();
-        final List<Loc> locs = Datastore.query(lm).sort(lm.createdAt.desc).limit(1).asList();
+        // get a param
+        final String email = req.getParameter("email").toLowerCase().trim();
+        int limit = 1;
+        try {
+            limit = Integer.parseInt(req.getParameter("limit"));            
+        } catch (Exception e) {
+            // do nothing
+        }
 
+        // find a location data for the email
+        final LocMeta lm = new LocMeta();
+        final List<Loc> locs =
+            Datastore.query(lm).filter(lm.email.equal(email)).sort(
+                lm.createdAt.desc).limit(limit).asList();
+
+        // encode the location data into JSON and send it
         res.setContentType("text/plain; charset=UTF-8");
         res.getWriter().print(JSON.encode(locs));
     }
