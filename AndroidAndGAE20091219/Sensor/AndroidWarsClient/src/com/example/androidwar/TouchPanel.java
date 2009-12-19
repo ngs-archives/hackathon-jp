@@ -18,7 +18,12 @@ public class TouchPanel extends View {
 	private Point downPoint;
 	private Point upPoint;
 	private String name;
+	private OnSendListener listner;
 	
+	public void setListner(OnSendListener listner) {
+		this.listner = listner;
+	}
+
 	public TouchPanel(Context context) {
 		super(context);
 		setBackgroundColor(Color.GRAY);
@@ -58,6 +63,7 @@ public class TouchPanel extends View {
 		int difX = this.upPoint.x - this.downPoint.x;
 		int difY = this.upPoint.y - this.downPoint.y;
 		HashMap<String, Object> data = Util.generateMoveData(ACTION, name, difX, difY);
+		this.listner.onSend(data);
 		send(data);
 	}
 	

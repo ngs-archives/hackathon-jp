@@ -1,5 +1,7 @@
 package com.example.androidwar;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-public class AndroidWarsClient extends Activity {
+public class AndroidWarsClient extends Activity implements OnSendListener{
 
 	private EditText editName;
 	private Button btSet;
@@ -51,5 +53,14 @@ public class AndroidWarsClient extends Activity {
 		outLinearLayout.addView(uiLayout);
 		outLinearLayout.addView(touchPanel);
 		setContentView(outLinearLayout);
+	}
+
+	/**
+	 * TouchPanelからコールバックされる
+	 */
+	@Override
+	public void onSend(HashMap<String, Object> data) {
+		// TODO Auto-generated method stub
+		
 	}
 }
