@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.gtugs.codelab.appengine.blog.datastore.Post;
+import org.gtugs.codelab.appengine.blog.xml.Element;
 
 public class ShowListServlet extends HttpServlet {
 
@@ -23,23 +24,22 @@ public class ShowListServlet extends HttpServlet {
 
 		Writer out = resp.getWriter();
 
-		out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(Post.class);
 		List<Post> list = (List<Post>) query.execute();
 
-		out.write("<list>");
+		Element root = new Element("list");
 		SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy");
 		for (Post post : list) {
-			out.write("<entry>");
+			Element entry = new Element("entry");
+			entry.add(new Element("id", post.getId().toString()));
 			String date = sdf.format(post.getDate());
-			out.write("<date>" + date + "</date>");
-			out.write("<title>" + post.getTitle() + "</title>");
-			out.write("<content>" + post.getContent() + "</content>");
-			out.write("</entry>");
+			entry.add(new Element("date", date));
+			entry.add(new Element("title", post.getTitle()));
+			entry.add(new Element("content", post.getContent()));
+			root.add(entry);
 		}
-		out.write("</list>");
+		out.write(root.toXML());
 	}
 
 }
