@@ -1,5 +1,7 @@
 package hoge.photostore.get;
 
-public class GetActivity {
+import com.google.android.maps.MapActivity;
+
+public class GetActivity extends MapActivity{
 
 }
