@@ -1,169 +1,45 @@
 package org.hackathon.ashiato;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Xml;
-import java.io.InputStream;
-import java.net.URI;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class Ashiato extends Activity implements LocationListener {
-	static final String TAG = "Ashiato";
-	static final String API_URI = "http://hackathon-ashiato.appspot.com/ashiato";
-
-	LocationManager locationManager;
-
-	/** Called when the activity is first created. */
+public class Ashiato extends Activity implements OnClickListener {
+	Button getButton;
+	Button postButton;
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.main);
-
-		DownloadTask task = new DownloadTask(this);
-		task.execute(API_URI);
-
-		locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, this);
+		
+		getButton = (Button)findViewById(R.id.get_button);
+		getButton.setOnClickListener(this);
+		
+		getButton = (Button)findViewById(R.id.post_button);
+		getButton.setOnClickListener(this);		
 	}
 
-	public class DownloadTask extends AsyncTask<String, Integer, Bitmap> {
-		private HttpClient mClient;
-		private HttpGet mGetMethod;
-		private Ashiato mActivity;
-
-		public DownloadTask(Ashiato activity) {
-			mActivity = activity;
-			mClient = new DefaultHttpClient();
-			mGetMethod = new HttpGet();
-		}
-
-		Bitmap downloadImage(String uri) {
-			try {
-				mGetMethod.setURI(new URI(uri));
-				HttpResponse resp = mClient.execute(mGetMethod);
-				if (resp.getStatusLine().getStatusCode() < 400) {
-					InputStream is = resp.getEntity().getContent();
-					
-					String tmp = convertStreamToString(is);
-					Log.d(TAG, tmp);
-//					Bitmap bit = createBitmap(is);
-					is.close();
-					return null;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		public String convertStreamToString(InputStream is) throws IOException {
-			if (is != null) {
-				StringBuilder sb = new StringBuilder();
-				String line;
-
-				try {
-					BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-					while ((line = reader.readLine()) != null) {
-						sb.append(line).append("\n");
-					}
-				} finally {
-					is.close();
-				}
-				return sb.toString();
-			} else {       
-				return "";
-			}
-		}
-
-		private Bitmap createBitmap(InputStream is) {
-			return BitmapFactory.decodeStream(is);
-		}
-
-		// バックグラウンドで画像をダウンロードする
-		@Override
-		protected Bitmap doInBackground(String... params) {
-			String uri = params[0];
-			return downloadImage(uri);
-		}
-
-		// 画像を描画して、タイマーを停止する
-		@Override
-		protected void onPostExecute(Bitmap result) {
-			// mActivity.setResultImage(result);
-			// mActivity.stopTimer();
-		}
-	}
-	//@Override
-	public void onLocationChanged(Location location) {
+	@Override
+	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Log.v("gps", "onLocationChanged");
-		if ( location != null ) {
-			Log.v(TAG, getGPSLocationString(location));
-		}
-	}
+		switch (v.getId()) {
+		case R.id.get_button:
+			break;
 
-	//@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		Log.v("gps", "onProviderDisabled");
-	}
-
-	//@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		Log.v("gps", "onProviderEnabled");
-	}
-
-	//@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		Log.v("gps", "onStatusChanged");
+		case R.id.post_button:
+			Intent intent = new Intent(this, PostActivity.class);
+			startActivity(intent);
+			break;
+		default:
+			break;
+		}		
 	}
 	
-	/**
-	 * 
-	 */
-	private String getGPSLocationString(Location location) {
-		String s;
-		if (location == null) {
-			s = "Location[unknown]\n";
-		}
-		else {
-			//log(location.toString());
-			s = String.format("%f,%f,%d,%s\n",
-					location.getLatitude(), location.getLongitude(), location.getTime(), location.getProvider());
-		}
-		return s;
-	}	
+	
 }
