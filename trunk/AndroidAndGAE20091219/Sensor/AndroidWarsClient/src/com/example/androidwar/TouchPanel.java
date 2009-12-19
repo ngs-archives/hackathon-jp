@@ -20,7 +20,7 @@ public class TouchPanel extends View {
 	private String name;
 	private OnSendListener listner;
 	
-	public void setListner(OnSendListener listner) {
+	public void setOnSendsListner(OnSendListener listner) {
 		this.listner = listner;
 	}
 
@@ -68,6 +68,6 @@ public class TouchPanel extends View {
 	}
 	
 	private void send(HashMap<String, Object> data ){
-		Log.v("",Util.showMoveData(data));
+//		Log.v("",Util.showMoveData(data));
 	}
 }

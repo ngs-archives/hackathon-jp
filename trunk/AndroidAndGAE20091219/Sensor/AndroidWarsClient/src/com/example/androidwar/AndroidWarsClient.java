@@ -21,7 +21,7 @@ public class AndroidWarsClient extends Activity implements Shaker.Callback , OnS
 	private String name;
 	private Shaker shaker = null;
 	private DataPostTask task = null;
-
+	private TouchPanel touchPanel;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,9 @@ public class AndroidWarsClient extends Activity implements Shaker.Callback , OnS
 		LinearLayout uiLayout = new LinearLayout(this);
 
 		// 描画クラス
-		final TouchPanel touchPanel = new TouchPanel(this);
-
+		this.touchPanel = new TouchPanel(this);
+		this.touchPanel.setOnSendsListner(this);
+		
 		this.editName = new EditText(this);
 		this.editName.setWidth(200);
 		this.btSet = new Button(this);
@@ -75,7 +76,7 @@ public class AndroidWarsClient extends Activity implements Shaker.Callback , OnS
      */
     @Override
     public void onSend(HashMap<String, Object> data) {
-        // TODO Auto-generated method stub
+      Log.v("AndroidWarsClient",Util.showMoveData(data));
         send(data);
     }
     
