@@ -42,14 +42,12 @@ public class AndroidWarsClient extends Activity {
 			}
         	
         });
-
         
         uiLayout.addView(this.editName);
         uiLayout.addView(this.btSet);
 
         outLinearLayout.addView(uiLayout);
         outLinearLayout.addView(touchPanel);
-
         setContentView(outLinearLayout);       
     }
 }
