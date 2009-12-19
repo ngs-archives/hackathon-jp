@@ -44,6 +44,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpParams;
 
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 
@@ -51,7 +52,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
-public class PostActivity extends Activity implements LocationListener, OnClickListener {
+public class PostActivity extends MapActivity implements LocationListener, OnClickListener {
 	static final String TAG = "Ashiato";
 	static final String API_URI_GET = "http://hackathon-ashiato.appspot.com/ashi/get?";
 	static final String API_URI_POST = "http://hackathon-ashiato.appspot.com/ashi/put?";
@@ -62,22 +63,22 @@ public class PostActivity extends Activity implements LocationListener, OnClickL
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		MapView map = new MapView(this, "00M8N7ryly8ZbjsU5MQEJYrUYlUm2eWrSWpLPCQ");
-//		map.setEnabled(true);
-//		map.setClickable(true);
-//		setContentView(map);
-//
-//		// 画像を地図上に配置するオーバーレイ
-//		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
-//		MyOverlay overlay = new MyOverlay(bmp, new GeoPoint(35656000, 139700000));
-//		List<Overlay> list = map.getOverlays();
-//		list.add(overlay);
+		MapView map = new MapView(this, "0f9G_PGB3oPAHZmsHXHUVDgCt2LeBHY_R3d1fKw");
+		map.setEnabled(true);
+		map.setClickable(true);
+		setContentView(map);
 
-		setContentView(R.layout.post);
+		// 画像を地図上に配置するオーバーレイ
+		Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+		MyOverlay overlay = new MyOverlay(bmp, new GeoPoint(35656000, 139700000));
+		List<Overlay> list = map.getOverlays();
+		list.add(overlay);
+
+//		setContentView(R.layout.post);
 
 
-		button = (Button)findViewById(R.id.get_location);
-		button.setOnClickListener(this);
+//		button = (Button)findViewById(R.id.get_location);
+//		button.setOnClickListener(this);
 
 		locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, this);
@@ -210,5 +211,11 @@ public class PostActivity extends Activity implements LocationListener, OnClickL
 		Log.v(TAG, "Send " + request);
 		DownloadTask task = new DownloadTask(this);
 		task.execute(request);
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
