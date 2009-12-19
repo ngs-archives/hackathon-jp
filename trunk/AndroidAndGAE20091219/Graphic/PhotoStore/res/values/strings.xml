@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, PhotoStoreActivity!</string>
     <string name="app_name">PhotoStore</string>
+    <string name="btn_post_name">登録</string>
+    <string name="btn_get_name">読込</string>
 </resources>
