@@ -1,9 +1,5 @@
 package com.example.androidwar.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 
 import android.app.Activity;
