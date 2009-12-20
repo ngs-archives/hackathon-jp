@@ -34,9 +34,9 @@ public class Element {
 		}
 		strbuilder.append("<"+name+">");
 		if (content != null) {
-			content.replaceAll("<", "&lt;");
-			content.replaceAll(">", "&gt;");
-			content.replaceAll("&", "&amp;");
+			content = content.replaceAll("<", "&lt;");
+			content = content.replaceAll(">", "&gt;");
+			content = content.replaceAll("&", "&amp;");
 			strbuilder.append(content);
 		} else {
 			for (Element e : children) {
