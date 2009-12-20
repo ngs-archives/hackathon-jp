@@ -36,6 +36,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>ShowHTMLList</servlet-name>
+		<servlet-class>org.gtugs.codelab.appengine.blog.ShowListHTMLServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowHTMLList</servlet-name>
+		<url-pattern>/listhtml</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>Edit</servlet-name>
 		<servlet-class>org.gtugs.codelab.appengine.blog.EditServlet</servlet-class>
 	</servlet>
