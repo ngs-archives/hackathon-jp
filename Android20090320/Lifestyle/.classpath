@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="C:/Documents and Settings/iizuka/workspace/VoiceOfAndroid/lib/google-api-translate-java-0.53.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Documents and Settings/iizuka/workspace/eyes-free-read-only/commonlibs/TTS_library_stub.jar"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/iizuka/workspace/VoiceOfAndroid/lib/google-api-translate-java-0.53.jar"/>
+	<classpathentry kind="lib" path="C:/pleades/android-sdk-windows-1.6_r1/platforms/android-1.6/android.jar"/>
+	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
