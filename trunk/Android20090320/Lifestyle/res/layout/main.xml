@@ -23,6 +23,11 @@ android:layout_height="fill_parent"
  android:layout_width="fill_parent"
  android:layout_height="wrap_content"
 >
+ <Button android:text="Voice Input"
+ 	android:id="@+id/voiceInputBtn"
+ 	android:layout_width="wrap_content"
+ 	android:layout_height="wrap_content"></Button>
+
  <Button android:id="@+id/transBtn"
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
@@ -33,10 +38,15 @@ android:layout_height="fill_parent"
    android:layout_height="wrap_content"
    android:text="Speak"
   />
+
 </LinearLayout>
 <EditText android:id="@+id/res"
  android:layout_width="fill_parent"
  android:layout_height="wrap_content"
 />
 
+<CheckBox android:text="auto"
+	android:id="@+id/autoChk"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"></CheckBox>
 </LinearLayout>
