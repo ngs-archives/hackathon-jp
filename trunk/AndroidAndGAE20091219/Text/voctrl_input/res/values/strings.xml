@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, voctrl_input!</string>
     <string name="app_name">voctrl_input</string>
+<string name="SpeachBtn">スピーチなう</string>
 </resources>
