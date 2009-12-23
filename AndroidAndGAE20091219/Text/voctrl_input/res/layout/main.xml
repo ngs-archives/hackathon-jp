@@ -4,9 +4,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+
+<TextView android:text="＼(＾▽＾)／" android:id="@+id/PrintText1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="50sp" android:layout_gravity="center" android:clickable="true"/>
+<TextView android:text="(ﾉд-｡)" android:id="@+id/PrintText2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="50sp" android:layout_gravity="left" android:clickable="true"/>
+<TextView android:text="(｀ε´)" android:id="@+id/PrintText3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="50sp"  android:layout_gravity="right" android:clickable="true"/>
+
+<Button android:id="@+id/SpeachBtn" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/SpeachBtn" android:layout_gravity="center" />
+<TextView android:text="" android:id="@+id/SpeakText" android:layout_width="fill_parent" android:layout_height="fill_parent" android:textSize="50sp"  />
+
 </LinearLayout>
