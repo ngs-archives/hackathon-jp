@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MemoriesAlbum</string>
+    <string name="btn_post_name">POST</string>
+    <string name="btn_get_name">GET</string>
+</resources>
