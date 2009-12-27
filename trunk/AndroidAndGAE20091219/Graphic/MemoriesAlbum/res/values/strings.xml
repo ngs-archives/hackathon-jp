@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MemoriesAlbum</string>
-    <string name="btn_post_name">POST</string>
-    <string name="btn_get_name">GET</string>
+	<string name="app_name">MemoriesAlbum</string>
+	<string name="btn_post_name">POST</string>
+	<string name="btn_get_name">GET</string>
+	<string name="ttl_settings">settings</string>
+	<string name="shc_settings">s</string>
+	<string name="ttl_username">username</string>
+	<string name="sum_username">Enter your user name.</string>
+	<string name="ttl_password">password</string>
+	<string name="sum_password">Enter your password.</string>
 </resources>

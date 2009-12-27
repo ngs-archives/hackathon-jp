@@ -28,6 +28,8 @@
             android:name=".get.GetActivity" />
         <activity
             android:name=".get.ImageActivity" />
+        <activity
+            android:name=".Settings" />
     </application>
     <uses-sdk android:minSdkVersion="4" />
     <uses-permission android:name="android.permission.INTERNET" />

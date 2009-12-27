@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+<EditTextPreference
+		android:key="edt_useruame"
+		android:title="@string/ttl_username"
+		android:summary="@string/sum_username"
+		android:dialogTitle="@string/ttl_username" />
+<EditTextPreference
+		android:key="edt_password"
+		android:title="@string/ttl_password"
+		android:summary="@string/sum_password"
+		android:dialogTitle="@string/ttl_password"
+		android:password="true" />
+</PreferenceScreen>
