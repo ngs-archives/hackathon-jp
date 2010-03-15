@@ -9,6 +9,11 @@ android:layout_height="fill_parent"
  android:layout_height="wrap_content"
  android:drawSelectorOnTop="true"
 />
+ <Button android:text="Swap"
+ 	android:id="@+id/swapBtn"
+ 	android:layout_width="wrap_content"
+ 	android:layout_height="wrap_content"></Button>
+
 <Spinner android:id="@+id/toSpinner"
  android:layout_width="fill_parent"
  android:layout_height="wrap_content"
