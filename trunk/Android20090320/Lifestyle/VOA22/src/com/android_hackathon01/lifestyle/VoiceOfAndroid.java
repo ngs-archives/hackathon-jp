@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -50,6 +52,7 @@ public class VoiceOfAndroid extends Activity {
      */
 	private TTS myTts;
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
+	private static final int MENU_ID_MENU1 = 0;
     private View voiceInputView;
 
 	/** Called when the activity is first created. */
@@ -114,6 +117,25 @@ public class VoiceOfAndroid extends Activity {
 		    	myTts = new TTS(v.getContext(), ttsInitListener, true);
 			}
         });
+        //Swap Button Event
+        final Button swapBtn = (Button)findViewById(R.id.swapBtn);
+        swapBtn.setOnClickListener(new Button.OnClickListener(){
+			public void onClick(View v) {
+				Spinner fromSpinner = (Spinner) findViewById(R.id.fromSpinner);
+				Spinner toSpinner = (Spinner) findViewById(R.id.toSpinner);
+		        int fromPos = fromSpinner.getSelectedItemPosition();
+		        int toPos = toSpinner.getSelectedItemPosition();
+		        //Swap pos
+		        fromSpinner.setSelection(toPos);
+		        toSpinner.setSelection(fromPos);
+		        EditText text = (EditText)findViewById(R.id.text);
+		        EditText res = (EditText)findViewById(R.id.res);
+		        String textStr = text.getText().toString();
+		        String resStr = res.getText().toString();
+		        text.setText(resStr);
+		        res.setText(textStr);
+			}
+        });
     }
     //To Translation
     public void translationAction() {
@@ -143,7 +165,38 @@ public class VoiceOfAndroid extends Activity {
 			Log.d("VoiceOfAndroid", e.getStackTrace().toString());
 		}
     }
-    //Voice Input Intent
+    //Create Menu
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+    	//add menu item
+    	MenuItem item0 = menu.add(Menu.NONE, MENU_ID_MENU1, Menu.NONE, "Share");
+    	item0.setIcon(android.R.drawable.ic_menu_share);
+		return super.onCreateOptionsMenu(menu);
+	}
+    //Menu Selected Action
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		boolean ret = true;
+		switch (item.getItemId()) {
+        default:
+            ret = super.onOptionsItemSelected(item);
+            break;
+        case MENU_ID_MENU1:
+            ret = true;
+            EditText text = (EditText)findViewById(R.id.text);
+            EditText res = (EditText)findViewById(R.id.res);
+            String sendData = text.getText().toString() + ":" + res.getText().toString();
+            //intent action
+            Intent intent = new Intent();
+            intent.setAction(intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, sendData);
+            startActivity(intent);
+            break;
+        }
+		return ret;
+	}
+	//Voice Input Intent
     public void voiceInputAction() {
 		try {
 	        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -225,11 +278,13 @@ public class VoiceOfAndroid extends Activity {
 	        Button transBtn = (Button)findViewById(R.id.transBtn);
 	        Button speakBtn = (Button)findViewById(R.id.speakBtn);
 	        CheckBox autoChk = (CheckBox)findViewById(R.id.autoChk);
+	        Button swapBtn = (Button)findViewById(R.id.swapBtn);
 	        StringBuffer transSb = new StringBuffer();
 	        transSb.append(transBtn.getText().toString() + "/");
 	        transSb.append(speakBtn.getText().toString() + "/");
 	        transSb.append(voiceInputBtn.getText().toString() + "/");
 	        transSb.append(autoChk.getText().toString() + "/");
+	        transSb.append(swapBtn.getText().toString() + "/");
 	        for (int i = 0; i < spinnerStrings.length; i++) {
 	        	if (spinnerStrings[i] == null || spinnerStrings[i].equals("")) {
 	        		transSb.append("" + "/");
@@ -245,7 +300,8 @@ public class VoiceOfAndroid extends Activity {
 	        speakBtn.setText(transStrings[1]);
 	        voiceInputBtn.setText(transStrings[2]);
 	        autoChk.setText(transStrings[3]);
-	        for (int i = 4; i < transStrings.length; i++) {
+	        swapBtn.setText(transStrings[4]);
+	        for (int i = 5; i < transStrings.length; i++) {
 	        	if (transStrings[i] == null || transStrings[i].equals("")) {
 	        		spinnerList.add("");
 	        	} else {
