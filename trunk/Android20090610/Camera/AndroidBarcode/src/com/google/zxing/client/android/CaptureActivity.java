@@ -258,28 +258,28 @@ public final class CaptureActivity extends Activity implements
 		CameraManager.get().closeDriver();
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (mScanIntent) {
-				setResult(RESULT_CANCELED);
-				finish();
-				return true;
-			} else if (mLastResult != null) {
-				resetStatusView();
-				mHandler.sendEmptyMessage(R.id.restart_preview);
-				return true;
-			}
-		} else if (keyCode == KeyEvent.KEYCODE_FOCUS
-				|| keyCode == KeyEvent.KEYCODE_CAMERA) {
-			// Handle these events so they don't launch the Camera app
-			return true;
-		} else if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
-			mFukidashiLayoutView.setVisibility(View.GONE);
-			mHandler.sendEmptyMessage(R.id.restart_preview);
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      if (mScanIntent) {
+        setResult(RESULT_CANCELED);
+        finish();
+        return true;
+      } else if (mLastResult != null) {
+        resetStatusView();
+        mHandler.sendEmptyMessage(R.id.restart_preview);
+        return true;
+      }
+    } else if (keyCode == KeyEvent.KEYCODE_FOCUS || keyCode == KeyEvent.KEYCODE_CAMERA) {
+      // Handle these events so they don't launch the Camera app
+      return true;
+    } else if( keyCode == KeyEvent.KEYCODE_DPAD_CENTER){
+    	mFukidashiLayoutView.setVisibility(View.GONE);
+        mHandler.sendEmptyMessage(R.id.restart_preview);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -388,10 +388,11 @@ public final class CaptureActivity extends Activity implements
 		mLastResult = rawResult;
 		playBeepSoundAndVibrate();
 
-		showActivityIndicator();
-		ZebroidTask task = new ZebroidTask(this, service);
-		task.execute(rawResult.getText().toString());
-	}
+    showActivityIndicator();
+    ZebroidTask task = new ZebroidTask(this, service);
+    task.execute(rawResult.getText().toString());
+
+  }
 
 	/**
 	 * Superimpose a line for 1D or dots for 2D to highlight the key features of
@@ -587,10 +588,11 @@ public final class CaptureActivity extends Activity implements
 		progressDialog.show();
 	}
 
-	public void stopActivityIndicator() {
-		progressDialog.cancel();
-		mHandler.sendEmptyMessage(R.id.restart_preview);
-	}
+  public void stopActivityIndicator(){
+	  progressDialog.cancel();
+
+	  onKeyDown(KeyEvent.KEYCODE_4, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_4));
+  }
 
 	public void showErrorMsg(String msg) {
 		new AlertDialog.Builder(this).setTitle("エラー").setMessage(msg)
