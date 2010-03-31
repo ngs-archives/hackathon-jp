@@ -21,29 +21,26 @@ public class ZebroidTask extends
 		this.service = service;
 	}
 
-	// バックグラウンドで画像をダウンロードする
-	@Override
-	protected HashMap<String, String> doInBackground(String... params) {
-		String isbn = params[0];
-		String amazonDoc = null;
-		HashMap<String, String> map = new HashMap<String, String>();
-		try {
-			amazonDoc = service.searchByISBN(isbn);
-		} catch (IOException ex) {
-			map.put("error", "ネットワークに接続できません。");
-			return map;
-		} catch (SAXException ex) {
-			map.put("error", "パースに失敗しました。");
-			return map;
-		} catch (ParserConfigurationException ex) {
-			map.put("error", "パースに失敗しました。");
-			return map;
-		}
-
-		int salesRank;
-		int totalReview;
-		String bookDetailURL = null;
-		boolean isReviewHasDot = false;
+    /**
+     * バックグラウンドで行われる処理
+     */
+    @Override
+    protected HashMap<String, String> doInBackground(String... params) {
+        String isbn = params[0];
+        String amazonDoc = null;
+        HashMap<String, String> map = new HashMap<String, String>();
+        try{
+    	    amazonDoc = service.searchByISBN(isbn);
+        }catch(IOException ex){
+        	map.put("error", "ネットワークに接続できません。");
+        	return map;
+        }catch(SAXException ex){
+        	map.put("error", "パースに失敗しました。");
+        	return map;
+        }catch(ParserConfigurationException ex){
+        	map.put("error", "パースに失敗しました。");
+        	return map;
+        }
 
 		if ((salesRank = amazonDoc.indexOf("<SalesRank>")) != -1) {
 			String salesRankStr = amazonDoc
@@ -81,18 +78,20 @@ public class ZebroidTask extends
 		return map;
 	}
 
-	// 画像を描画して、タイマーを停止する
-	@Override
-	protected void onPostExecute(HashMap<String, String> map) {
-		mActivity.stopActivityIndicator();
-		if (map.containsKey("error")) {
-			mActivity.showErrorMsg(map.get("error"));
-		} else {
-			mActivity.setSalesRank(Integer.valueOf(map.get("rank")));
-			mActivity.setTotalReview(Integer.valueOf(map.get("reviews")));
-			mActivity.setBookDetailURL(String.valueOf(map.get("url")));
-			mActivity.setReviewHasDot(Boolean.valueOf(map.get("isDot")));
-			mActivity.showAmazonInfo();
-		}
-	}
+        return map;
+    }
+
+    /**
+     * AmazonECSからの情報取得終了時に呼び出されるメソッド
+     */
+    @Override
+    protected void onPostExecute(HashMap<String, String> map) {
+    	mActivity.stopActivityIndicator();
+    	//画像を描画して、タイマーを停止する
+        mActivity.setSalesRank(Integer.valueOf(map.get("rank")));
+        mActivity.setTotalReview(Integer.valueOf(map.get("reviews")));
+        mActivity.setBookDetailURL(String.valueOf(map.get("url")));
+        mActivity.setReviewHasDot(Boolean.valueOf(map.get("isDot")));
+        mActivity.showAmazonInfo();
+    }
 }
